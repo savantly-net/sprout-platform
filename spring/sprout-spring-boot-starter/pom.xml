@@ -2,13 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.savantly.sprout</groupId>
-	<artifactId>wiki-module</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>sprout-wiki-module</name>
-	<description>A wiki module for the Sprout platform</description>
+	<artifactId>sprout-spring-boot-starter</artifactId>
+	<name>sprout-spring-boot-starter</name>
+	<description>Creates a default Spring MVC framework based on the Sprout module format</description>
 	<scm>
-		<url>https://github.com/savantly-net/sprout-platform/modules/sprout-wiki-module</url>
-		<connection>https://github.com/savantly-net/sprout-platform.git</connection>
+		<url>https://github.com/savantly-net/sprout-platform/spring/sprout-spring-boot-starter</url>
+		<connection>scm:git:https://github.com/savantly-net/sprout-platform.git</connection>
 		<tag>HEAD</tag>
 	</scm>
 	<issueManagement>
@@ -17,8 +16,8 @@
 	</issueManagement>
 	<parent>
 		<groupId>net.savantly.sprout</groupId>
-		<relativePath>../../pom.xml</relativePath>
 		<artifactId>platform</artifactId>
+		<relativePath>../../pom.xml</relativePath>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<developers>
@@ -40,8 +39,7 @@
 	<inceptionYear>2017</inceptionYear>
 
 	<properties>
-		<log4j.version>2.9.0</log4j.version>
-		<junit.version>4.12</junit.version>
+		<spring.boot.version>1.5.6.RELEASE</spring.boot.version>
 	</properties>
 
 	<build>
@@ -55,42 +53,38 @@
 			</plugin>
 		</plugins>
 	</build>
+
 	<dependencies>
-
-		<!-- Savantly -->
-		<dependency>
-			<groupId>net.savantly.sprout</groupId>
-			<artifactId>sprout-spring-boot-starter</artifactId>
-		</dependency>
-
-
 		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+
+		<!-- Spring Dependencies -->
 		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
-
-
+		<!-- TEST -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
 			<scope>test</scope>
 		</dependency>
 

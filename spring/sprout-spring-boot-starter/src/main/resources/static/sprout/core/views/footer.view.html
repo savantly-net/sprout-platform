@@ -1,0 +1,8 @@
+<md-content>   
+	<div layout="row" layout-align="center center">
+		<md-progress-circular ng-show="$http.pendingRequests.length > 0" md-mode="indeterminate"></md-progress-circular>
+	</div>
+	<div layout="row" layout-align="center center">
+		<small ng-bind-html="clientConfig.footerText"></small>
+	</div>
+</md-content>

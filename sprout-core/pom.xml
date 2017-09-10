@@ -3,7 +3,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.savantly.sprout</groupId>
 	<artifactId>core</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>sprout-core</name>
 	<scm>
 		<url>https://github.com/savantly-net/sprout-core</url>
@@ -15,9 +14,10 @@
 		<system>GitHub</system>
 	</issueManagement>
 	<parent>
-		<groupId>net.savantly</groupId>
-		<artifactId>parent-pom</artifactId>
-		<version>1.0.0-RELEASE</version>
+		<groupId>net.savantly.sprout</groupId>
+		<artifactId>platform</artifactId>
+		<relativePath>../pom.xml</relativePath>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<developers>
 		<developer>

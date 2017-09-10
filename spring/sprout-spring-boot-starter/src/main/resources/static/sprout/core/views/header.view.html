@@ -1,0 +1,36 @@
+<md-toolbar>
+	<md-menu-bar layout="row" class="md-toolbar-tools" layout-align="space-between center">
+		<div>
+			<md-button ng-click="$location.url('/')">
+				<span>{{clientConfig.appName}}</span>
+			</md-button>
+		</div>
+		<div ng-repeat="menu in menus">
+			<md-menu  ng-if="menu.shouldRender(authentication.user) && menu.items.length > 0;">
+				<md-button ng-click="$mdMenu.open($event)">{{menu.title}}</md-button>
+				<md-menu-content>
+					<md-menu-item ng-repeat="item in menu.items | orderBy: 'position'" ng-if="item.shouldRender(authentication.user);">
+						<md-menu-item ng-if="item.menuItemType == 'dropdown'">
+							<md-menu>
+								<md-button ng-click="$mdMenu.open($event)" ng-mouseenter="noop($event)">{{item.title}}</md-button>
+								<md-menu-content ng-mouseleave="closeSubMenu($event)">
+									<md-menu-item ng-repeat="subitem in item.items | orderBy: 'position'" ng-if="subitem.shouldRender(authentication.user);">
+										<md-button ng-if="subitem.menuItemType == 'callback'" ng-click="doMenuItemCallback(subitem, $event)">{{subitem.title}}</md-button>
+										<md-button ng-if="subitem.menuItemType == 'location'" ng-click="$location.url(subitem.location)">{{subitem.title}}</md-button>
+									</md-menu-item>
+								</md-menu-content>
+							</md-menu>
+						</md-menu-item>
+						<md-button ng-if="item.menuItemType == 'callback'" ng-click="doMenuItemCallback(item, $event)">{{item.title}}</md-button>
+						<md-button ng-if="item.menuItemType == 'location'" ng-click="$location.url(item.location)">{{item.title}}</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
+		</div>
+		<div flex layout="row"layout-align="center center"><span class="md-subtitle" ng-bind-html="title"></span></div>
+		<div>
+			<md-button ng-hide="authentication.security.authenticated || hideSignin()" ng-click="goToLogin()">Sign in</md-button>
+			<md-button ng-show="authentication.security.authenticated" ng-click="logout()">Sign out</md-button>
+		</div>
+	</md-menu-bar>
+</md-toolbar>

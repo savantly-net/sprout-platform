@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.savantly.sprout</groupId>
 	<artifactId>platform</artifactId>
-	<version>0.0.1-RELEASE</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<description>Dependencies pom for Sprout projects</description>
 	<name>sprout-platform</name>
@@ -63,10 +63,17 @@
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
+			<dependency>
+				<groupId>net.savantly.sprout</groupId>
+				<artifactId>sprout-spring-boot-starter</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<modules>
 		<module>sprout-core</module>
+		<module>spring/sprout-spring-boot-starter</module>
 		<module>modules/sprout-wiki-module</module>
+		<module>web/sprout-garden</module>
 	</modules>
 </project>
