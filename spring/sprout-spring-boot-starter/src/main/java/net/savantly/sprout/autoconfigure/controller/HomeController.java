@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -29,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.savantly.sprout.core.plugin.SproutPluginRegistry;
 import net.savantly.sprout.core.resource.SproutResourcePatternResolver;
 
 @Controller(HomeController.BEAN_NAME)
@@ -41,14 +41,59 @@ public class HomeController {
 	ObjectMapper objectMapper;
 	@Autowired
 	private SproutControllerConfiguration controllerConfig;
-	@Autowired
-	SproutPluginRegistry pluginRegistry;
 	@Value("${info.app.buildNumber:0}")
 	private String buildNumber;
 	@Value("${spring.application.name:Sprout}")
 	private String appName;
 
-	private final SproutResourcePatternResolver<HomeController> patternResolver = SproutResourcePatternResolver.of(HomeController.class);
+	private final SproutResourcePatternResolver<HomeController> patternResolver = SproutResourcePatternResolver
+			.of(HomeController.class);
+	private ArrayList<String> jsCoreLibResourceArray;
+	private ArrayList<String> jsLibResourceArray;
+	private ArrayList<String> jsCoreResourceArray;
+	private ArrayList<String> jsResourceArray;
+	private ArrayList<String> cssCoreLibResourceArray;
+	private ArrayList<String> cssLibResourceArray;
+	private ArrayList<String> cssResourceArray;
+
+	@PostConstruct
+	public void post() {
+		// Load Core JS Libraries
+		jsCoreLibResourceArray = new ArrayList<String>();
+		for (String jsLib : controllerConfig.getJsCoreLibs()) {
+			getResourcePaths(jsLib, jsCoreLibResourceArray);
+		}
+		// Load JS Libraries
+		jsLibResourceArray = new ArrayList<String>();
+		for (String jsLib : controllerConfig.getJsLibs()) {
+			getResourcePaths(jsLib, jsLibResourceArray);
+		}
+		// Load Core Sprout JS
+		jsCoreResourceArray = new ArrayList<String>();
+		for (String jsCoreSearchPattern : controllerConfig.getJsCoreSearchPatterns()) {
+			getResourcePaths(jsCoreSearchPattern, jsCoreResourceArray);
+		}
+		// Load JS Modules
+		jsResourceArray = new ArrayList<String>();
+		for (String jsModuleSearchPattern : controllerConfig.getJsModuleSearchPatterns()) {
+			getResourcePaths(jsModuleSearchPattern, jsResourceArray);
+		}
+		// Load Core CSS Libraries
+		cssCoreLibResourceArray = new ArrayList<String>();
+		for (String cssLib : controllerConfig.getCssCoreLibs()) {
+			getResourcePaths(cssLib, cssCoreLibResourceArray);
+		}
+		// Load CSS Libraries
+		cssLibResourceArray = new ArrayList<String>();
+		for (String cssLib : controllerConfig.getCssLibs()) {
+			getResourcePaths(cssLib, cssLibResourceArray);
+		}
+		// Load CSS Modules
+		cssResourceArray = new ArrayList<String>();
+		for (String cssModuleSearchPattern : controllerConfig.getCssModuleSearchPatterns()) {
+			getResourcePaths(cssModuleSearchPattern, cssResourceArray);
+		}
+	}
 
 	@RequestMapping({ "/" })
 	public String index(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -59,7 +104,7 @@ public class HomeController {
 		clientConfig.put("footerText", controllerConfig.getFooterText());
 		clientConfig.put("logoutUrl", controllerConfig.getLogoutUrl());
 		clientConfig.put("loginUrl", controllerConfig.getLoginUrl());
-		
+
 		model.addAttribute("clientConfig", clientConfig);
 
 		ServletRequest req = (ServletRequest) request;
@@ -93,54 +138,12 @@ public class HomeController {
 
 		}
 
-		// Load Core JS Libraries
-		List<String> jsCoreLibResourceArray = new ArrayList<String>();
-		for (String jsLib : controllerConfig.getJsCoreLibs()) {
-			getResourcePaths(jsLib, jsCoreLibResourceArray);
-		}
 		model.addAttribute("jsCoreLibResources", jsCoreLibResourceArray);
-
-		// Load JS Libraries
-		List<String> jsLibResourceArray = new ArrayList<String>();
-		for (String jsLib : controllerConfig.getJsLibs()) {
-			getResourcePaths(jsLib, jsLibResourceArray);
-		}
 		model.addAttribute("jsLibResources", jsLibResourceArray);
-
-		// Load Core Sprout JS
-		List<String> jsCoreResourceArray = new ArrayList<String>();
-		for (String jsCoreSearchPattern : controllerConfig.getJsCoreSearchPatterns()) {
-			getResourcePaths(jsCoreSearchPattern, jsCoreResourceArray);
-		}
 		model.addAttribute("coreJsResources", jsCoreResourceArray);
-
-		// Load JS Modules
-		List<String> jsResourceArray = new ArrayList<String>();
-		for (String jsModuleSearchPattern : controllerConfig.getJsModuleSearchPatterns()) {
-			getResourcePaths(jsModuleSearchPattern, jsResourceArray);
-		}
-		jsResourceArray.addAll(pluginRegistry.getAllPluginClientResourcePaths());
 		model.addAttribute("moduleJsResources", jsResourceArray);
-
-		// Load Core CSS Libraries
-		List<String> cssCoreLibResourceArray = new ArrayList<String>();
-		for (String cssLib : controllerConfig.getCssCoreLibs()) {
-			getResourcePaths(cssLib, cssCoreLibResourceArray);
-		}
 		model.addAttribute("cssCoreLibResources", cssCoreLibResourceArray);
-
-		// Load CSS Libraries
-		List<String> cssLibResourceArray = new ArrayList<String>();
-		for (String cssLib : controllerConfig.getCssLibs()) {
-			getResourcePaths(cssLib, cssLibResourceArray);
-		}
 		model.addAttribute("cssLibResources", cssLibResourceArray);
-
-		// Load CSS Modules
-		List<String> cssResourceArray = new ArrayList<String>();
-		for (String cssModuleSearchPattern : controllerConfig.getCssModuleSearchPatterns()) {
-			getResourcePaths(cssModuleSearchPattern, cssResourceArray);
-		}
 		model.addAttribute("moduleCssResources", cssResourceArray);
 
 		// Header
@@ -152,7 +155,9 @@ public class HomeController {
 	}
 
 	private void getResourcePaths(String path, List<String> resourceArray) {
-		patternResolver.getResourcePaths(path, resourceArray, true, controllerConfig.getResourcePath(), true, "?v=" + buildNumber);;
+		patternResolver.getResourcePaths(path, resourceArray, true, controllerConfig.getResourcePath(), true,
+				"?v=" + buildNumber);
+		;
 	}
 
 }

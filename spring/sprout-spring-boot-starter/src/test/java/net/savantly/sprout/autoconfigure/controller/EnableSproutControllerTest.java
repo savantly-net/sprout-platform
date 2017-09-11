@@ -1,10 +1,8 @@
 package net.savantly.sprout.autoconfigure.controller;
 
-import static org.hamcrest.Matchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import java.util.Set;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,6 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -24,20 +23,16 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.view.ThymeleafViewResolver;
-import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import net.savantly.sprout.autoconfigure.controller.DefaultSproutControllerConfiguration;
-import net.savantly.sprout.autoconfigure.controller.EnableSproutController;
-import net.savantly.sprout.autoconfigure.controller.HomeController;
 
 
 
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
+@TestPropertySource(locations="classpath:test.properties", properties= {
+		"savantly.sprout.controller.jsLibs[0]="+EnableSproutControllerTest.testJsUrl,
+		"savantly.sprout.controller.jsLibs[1]="+EnableSproutControllerTest.internalJsUrl})
 public class EnableSproutControllerTest {
 	
 	Logger log = LoggerFactory.getLogger(EnableSproutControllerTest.class);
@@ -46,18 +41,16 @@ public class EnableSproutControllerTest {
 	WebApplicationContext ctx;
 	private MockMvc mvc;
 
+	protected static final String testJsUrl = "http://example.com/test.js";
+	
+	protected static final String internalJsPath = "test.js";
+	protected static final String internalJsUrl = "classpath:/static/" + internalJsPath;
+
 	@Before
 	public void setup() {
 		mvc = MockMvcBuilders
 				.webAppContextSetup(ctx)
 				.build();
-	}
-	
-	@Before
-	public void beforeEach(){
-		SproutControllerConfiguration controllerConfig = ctx.getBean(DefaultSproutControllerConfiguration.class);
-		controllerConfig.getJsLibs().clear();
-		controllerConfig.getCssLibs().clear();
 	}
 
 	@Test
@@ -73,26 +66,17 @@ public class EnableSproutControllerTest {
 	
 	@Test
 	public void indexPageModelContainsExternalJsResource() throws Exception {
-		SproutControllerConfiguration controllerConfig = ctx.getBean(DefaultSproutControllerConfiguration.class);
-		String testJsUrl = "http://test.js";
-		controllerConfig.getJsLibs().add(testJsUrl );
+		
 		mvc.perform(get("/")).andExpect(MockMvcResultMatchers.model().attribute("jsLibResources", hasItem(testJsUrl)));
 	}
 	
 	@Test
 	public void indexPageModelContainsClasspathJsResource() throws Exception {
-		SproutControllerConfiguration controllerConfig = ctx.getBean(DefaultSproutControllerConfiguration.class);
-		String clientJsPath = "test.js";
-		String testJsUrl = "classpath:/static/" + clientJsPath;
-		controllerConfig.getJsLibs().add(testJsUrl );
-		mvc.perform(get("/")).andExpect(MockMvcResultMatchers.model().attribute("jsLibResources", hasItem(clientJsPath+"?v=0")));
+		mvc.perform(get("/")).andExpect(MockMvcResultMatchers.model().attribute("jsLibResources", hasItem(internalJsPath+"?v=0")));
 	}
 	
 	@Test
 	public void indexPageMarkupContainsExternalJsResource() throws Exception {
-		SproutControllerConfiguration controllerConfig = ctx.getBean(DefaultSproutControllerConfiguration.class);
-		String testJsUrl = "http://example.com/test.js";
-		controllerConfig.getJsLibs().add(testJsUrl );
 		MvcResult result = mvc.perform(get("/")).andExpect(status().isOk()).andReturn();
 		MockHttpServletResponse response = result.getResponse();
 		log.debug(response.getContentAsString());
@@ -109,19 +93,6 @@ public class EnableSproutControllerTest {
 		ObjectMapper objectMapper(){
 			return new ObjectMapper();
 		}
-
-
-		
-
-/*	    @Bean
-	    public ViewResolver viewResolver() {
-	        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-	        resolver.setPrefix("classpath:/templates/");
-	        resolver.setSuffix(".html");
-	        resolver.setExposeContextBeansAsAttributes(true);
-	        return resolver;
-	    }*/
-		
 	}
 
 }

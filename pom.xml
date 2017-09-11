@@ -78,11 +78,18 @@
 				<artifactId>core</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>net.savantly.sprout</groupId>
+				<artifactId>module-test</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<modules>
 		<module>sprout-core</module>
 		<module>spring/sprout-spring-boot-starter</module>
+		<module>test/module-test</module>
+		<module>modules/sprout-module-parent</module>
 		<module>modules/sprout-wiki-module</module>
 		<module>web/sprout-garden</module>
 	</modules>

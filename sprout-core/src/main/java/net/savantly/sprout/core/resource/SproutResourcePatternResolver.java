@@ -46,6 +46,7 @@ public class SproutResourcePatternResolver<T> {
 					resourceArray.add(resourceURL.toString());
 				} else {
 					String padded = String.format("%s%s", truncateBeginningOfPath(resourceURL.getPath(), prefix), postfix);
+					log.info("Adding trimmed and padded resource: {}", padded);
 					resourceArray.add(padded);
 				}
 			}

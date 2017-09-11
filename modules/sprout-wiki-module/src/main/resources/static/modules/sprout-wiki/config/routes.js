@@ -1,6 +1,3 @@
-'use strict';
-
-// Setting up route
 angular.module('sproutWiki').config(['$stateProvider', '$urlRouterProvider',
 	function($stateProvider, $urlRouterProvider) {
 		$stateProvider.
