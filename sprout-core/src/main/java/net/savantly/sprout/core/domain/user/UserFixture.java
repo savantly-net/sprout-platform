@@ -1,4 +1,4 @@
-package net.savantly.sprout.core.security;
+package net.savantly.sprout.core.domain.user;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +11,9 @@ import net.savantly.spring.fixture.AbstractBaseFixture;
 import net.savantly.spring.fixture.Fixture;
 import net.savantly.spring.fixture.util.RandomGenerator;
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
-import net.savantly.sprout.core.domain.emailAddress.EmailAddressRepository;
+import net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepository;
 import net.savantly.sprout.core.domain.organization.OrganizationRepository;
-import net.savantly.sprout.core.security.repository.UserRepository;
+import net.savantly.sprout.core.domain.user.repository.UserRepository;
 import net.savantly.sprout.core.security.roles.Role;
 import net.savantly.sprout.core.security.roles.RoleRepository;
 

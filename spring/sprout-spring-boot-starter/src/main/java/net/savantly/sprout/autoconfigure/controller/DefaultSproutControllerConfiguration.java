@@ -17,7 +17,7 @@ public class DefaultSproutControllerConfiguration implements SproutControllerCon
 	protected static final String BEAN_NAME = "sproutControllerConfiguration";
 
 	private Map<String, Object> config = new HashMap<>();
-	private String resourcePrefix = "classpath:";
+	private String resourcePrefix = "classpath*:";
 	private String resourcePath = "/static/";
 	private String modulesFolder = "modules";
 	private String coreFolder = "sprout";

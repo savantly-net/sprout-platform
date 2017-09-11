@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import net.savantly.spring.fixture.util.RandomGenerator;
+import net.savantly.sprout.core.domain.user.SproutUser;
 
 @Service
 public class FakeContext {

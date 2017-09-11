@@ -6,9 +6,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
-import net.savantly.sprout.core.domain.emailAddress.EmailAddressRepository;
-import net.savantly.sprout.core.security.SproutUser;
-import net.savantly.sprout.core.security.repository.UserRepository;
+import net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepository;
+import net.savantly.sprout.core.domain.user.SproutUser;
+import net.savantly.sprout.core.domain.user.repository.UserRepository;
 
 @Component("userDetailsService")
 public class SproutUserDetailsServiceImpl implements SproutUserDetailsService {

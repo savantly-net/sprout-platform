@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -101,6 +102,7 @@ public class EnableSproutControllerTest {
 	
 	@Configuration
 	@EnableSproutController
+	@ComponentScan(basePackages="net.savantly.sprout")
 	public static class Config{
 		
 		@Bean

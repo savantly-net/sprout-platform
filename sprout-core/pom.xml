@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>net.savantly.sprout</groupId>
 	<artifactId>core</artifactId>
 	<name>sprout-core</name>
+	<description>Sprout core library</description>
 	<scm>
 		<url>https://github.com/savantly-net/sprout-core</url>
 		<connection>https://github.com/savantly-net/sprout-core.git</connection>
@@ -17,7 +17,7 @@
 		<groupId>net.savantly.sprout</groupId>
 		<artifactId>platform</artifactId>
 		<relativePath>../pom.xml</relativePath>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.1.0-SNAPSHOT</version>
 	</parent>
 	<developers>
 		<developer>
@@ -72,6 +72,12 @@
 			<version>0.0.1-RELEASE</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
 
 		<!-- Spring -->
 		<dependency>
@@ -122,5 +128,4 @@
 		</dependency>
 
 	</dependencies>
-	<description>Sprout core library</description>
 </project>

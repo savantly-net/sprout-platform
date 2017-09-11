@@ -1,4 +1,4 @@
-package net.savantly.sprout.core.security.repository;
+package net.savantly.sprout.core.domain.user.repository;
 
 import java.util.List;
 

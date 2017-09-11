@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.savantly.sprout.autoconfigure.SproutAutoConfigure
+net.savantly.sprout.SproutAutoConfigure

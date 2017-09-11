@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package net.savantly.sprout.core.security;
+package net.savantly.sprout.core.domain.user;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -48,7 +48,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import net.savantly.sprout.core.domain.PersistedModule;
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
+import net.savantly.sprout.core.domain.oauth.OAuthAccount;
 import net.savantly.sprout.core.domain.organization.Organization;
+import net.savantly.sprout.core.security.MD5Util;
 import net.savantly.sprout.core.security.roles.Role;
 
 /**
@@ -97,6 +99,7 @@ public class SproutUser extends PersistedModule implements UserDetails, Credenti
     private boolean enabled = true;
     private Organization organization;
     private String phoneNumber;
+    private Set<OAuthAccount> oAuthAccounts = new HashSet<>();;
 
     private String clearTextPassword;
 
@@ -441,6 +444,19 @@ public class SproutUser extends PersistedModule implements UserDetails, Credenti
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
+	public Set<OAuthAccount> getoAuthAccounts() {
+		return oAuthAccounts;
+	}
+
+	public void setoAuthAccounts(Set<OAuthAccount> oAuthAccounts) {
+		this.oAuthAccounts = oAuthAccounts;
+	}
+
+	public void addOAuthAccount(OAuthAccount oauthAccount) {
+		this.oAuthAccounts.add(oauthAccount);
 	}
 
 }

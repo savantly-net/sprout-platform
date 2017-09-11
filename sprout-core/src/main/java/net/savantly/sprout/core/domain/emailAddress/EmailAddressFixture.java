@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import net.savantly.spring.fixture.AbstractBaseFixture;
 import net.savantly.spring.fixture.Fixture;
+import net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepository;
 
 @Service
 public class EmailAddressFixture extends AbstractBaseFixture<EmailAddress, EmailAddressRepository> {

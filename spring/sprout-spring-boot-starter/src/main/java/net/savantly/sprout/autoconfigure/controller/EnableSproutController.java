@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 
 import org.springframework.context.annotation.ComponentScan;
 
-import net.savantly.sprout.autoconfigure.SproutAutoConfigure;
+import net.savantly.sprout.SproutAutoConfigure;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

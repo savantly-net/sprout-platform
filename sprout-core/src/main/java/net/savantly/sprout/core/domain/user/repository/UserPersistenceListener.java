@@ -1,4 +1,4 @@
-package net.savantly.sprout.core.security.repository;
+package net.savantly.sprout.core.domain.user.repository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,7 +6,7 @@ import org.springframework.data.rest.core.event.AbstractRepositoryEventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import net.savantly.sprout.core.security.SproutUser;
+import net.savantly.sprout.core.domain.user.SproutUser;
 
 @Service
 public class UserPersistenceListener  extends AbstractRepositoryEventListener<SproutUser> {

@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 
 import org.springframework.util.Assert;
 
-import net.savantly.sprout.core.security.SproutUser;
+import net.savantly.sprout.core.domain.user.SproutUser;
 
 @Entity
 public class EmailAddress implements Serializable{
@@ -27,7 +27,7 @@ public class EmailAddress implements Serializable{
     }
 
     public EmailAddress(String emailAddress, boolean verified) {
-        Assert.hasText(emailAddress);
+        Assert.hasText(emailAddress, "email address is required");
         this.emailAddress = emailAddress.toLowerCase();
         this.verified = verified;
     }
@@ -38,7 +38,7 @@ public class EmailAddress implements Serializable{
     }
 
     public void setEmailAddress(String emailAddress) {
-        Assert.hasText(emailAddress);
+        Assert.hasText(emailAddress, "email address is required");
         this.emailAddress = emailAddress.toLowerCase();
     }
 

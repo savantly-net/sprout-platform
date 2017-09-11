@@ -1,4 +1,4 @@
-package net.savantly.sprout.autoconfigure;
+package net.savantly.sprout;
 
 import java.util.Set;
 
@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -21,6 +22,7 @@ import net.savantly.sprout.autoconfigure.controller.SproutTemplateResolver;
 @AutoConfigureAfter(WebMvcAutoConfiguration.class)
 public class SproutAutoConfigure {
 
+	@EnableOAuth2Sso
 	@ConditionalOnClass(SpringTemplateEngine.class)
 	public static class ThymeleafAutoConfigure {
 

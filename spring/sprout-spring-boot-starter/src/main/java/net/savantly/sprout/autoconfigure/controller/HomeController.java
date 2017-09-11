@@ -1,7 +1,6 @@
 package net.savantly.sprout.autoconfigure.controller;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,8 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,6 +29,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import net.savantly.sprout.core.plugin.SproutPluginRegistry;
+import net.savantly.sprout.core.resource.SproutResourcePatternResolver;
+
 @Controller(HomeController.BEAN_NAME)
 public class HomeController {
 	protected static final String BEAN_NAME = "sproutBootHomeController";
@@ -41,10 +41,14 @@ public class HomeController {
 	ObjectMapper objectMapper;
 	@Autowired
 	private SproutControllerConfiguration controllerConfig;
+	@Autowired
+	SproutPluginRegistry pluginRegistry;
 	@Value("${info.app.buildNumber:0}")
 	private String buildNumber;
 	@Value("${spring.application.name:Sprout}")
 	private String appName;
+
+	private final SproutResourcePatternResolver<HomeController> patternResolver = SproutResourcePatternResolver.of(HomeController.class);
 
 	@RequestMapping({ "/" })
 	public String index(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -115,6 +119,7 @@ public class HomeController {
 		for (String jsModuleSearchPattern : controllerConfig.getJsModuleSearchPatterns()) {
 			getResourcePaths(jsModuleSearchPattern, jsResourceArray);
 		}
+		jsResourceArray.addAll(pluginRegistry.getAllPluginClientResourcePaths());
 		model.addAttribute("moduleJsResources", jsResourceArray);
 
 		// Load Core CSS Libraries
@@ -146,45 +151,8 @@ public class HomeController {
 		return "index";
 	}
 
-	private List<String> getResourcePaths(String pattern, List<String> resourceArray) {
-		log.info(String.format("Finding embedded resource paths for: %s", pattern));
-		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-		try {
-			Resource[] moduleResources = resolver.getResources(pattern);
-			for (Resource resource : moduleResources) {
-				log.debug(String.format("Processing resource: %s", resource));
-
-				URL resourceURL = resource.getURL();
-				log.debug(String.format("Found resource URL: %s", resourceURL));
-				String protocol = resourceURL.getProtocol();
-				if ("http".equals(protocol) || "https".equals(protocol)) {
-					resourceArray.add(resourceURL.toString());
-				} else {
-					resourceArray.add(truncateBeginningOfPath(resourceURL.getPath() + "?v=" + buildNumber,
-							controllerConfig.getResourcePath()));
-				}
-
-			}
-		} catch (IOException e) {
-			log.warn(String.format("Error processing resources for pattern: %s", pattern), e);
-		}
-		return resourceArray;
-	}
-
-	private String truncateBeginningOfPath(String fullPath, String stringToMatch) {
-		if (fullPath == null || fullPath.length() == 0) {
-			throw new RuntimeException("fullPath is null or empty.");
-		}
-		if (stringToMatch == null || stringToMatch.length() == 0) {
-			throw new RuntimeException("stringToMatch is null or empty.");
-		}
-		int matchIndex = fullPath.indexOf(stringToMatch);
-		int splitIndex = matchIndex + stringToMatch.length();
-		if (matchIndex == -1) {
-			return fullPath;
-		} else {
-			return fullPath.substring(splitIndex);
-		}
+	private void getResourcePaths(String path, List<String> resourceArray) {
+		patternResolver.getResourcePaths(path, resourceArray, true, controllerConfig.getResourcePath(), true, "?v=" + buildNumber);;
 	}
 
 }
