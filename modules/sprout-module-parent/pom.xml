@@ -40,6 +40,7 @@
 
 	<properties>
 		<sprout.module.name>${project.artifactId}</sprout.module.name>
+		<sprout.module.core>target/generated-resources/sprout-module</sprout.module.core>
 	</properties>
 	<build>
 		<pluginManagement>
@@ -113,7 +114,7 @@
 								<goal>npm</goal>
 							</goals>
 							<configuration>
-								<arguments>install target/generated-resources/sprout-module</arguments>
+								<arguments>install ${sprout.module.core}</arguments>
 							</configuration>
 						</execution>
 						<execution>
@@ -122,7 +123,7 @@
 								<goal>webpack</goal>
 							</goals>
 							<configuration>
-								<arguments>-p</arguments>
+								<arguments>-d --config ${sprout.module.core}/webpack.config.js</arguments>
 								<srcdir>src/main/resources</srcdir>
 								<outputdir>${project.build.directory}/classes/static/modules/${sprout.module.name}</outputdir>
 							</configuration>

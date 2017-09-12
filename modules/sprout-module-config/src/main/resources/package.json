@@ -16,11 +16,9 @@
       "url": "https://github.com/savantly-net/sprout-platform/issues"
    },
    "homepage": "https://github.com/savantly-net/sprout-platform#readme",
-   "devDependencies": {
+   "dependencies": {
+      "angular-spring-data-rest": "^0.4.6",
       "copy-webpack-plugin": "^4.0.1",
       "webpack": "^2.6.1"
-   },
-   "dependencies": {
-      "angular-spring-data-rest": "^0.4.6"
    }
 }
