@@ -1,4 +1,4 @@
-package net.savantly.sprout.autoconfigure.controller;
+package net.savantly.sprout.core.configuration;
 
 import java.util.List;
 import java.util.Map;

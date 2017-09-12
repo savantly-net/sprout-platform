@@ -1,4 +1,4 @@
-package net.savantly.garden.web;
+package net.savantly.sprout.core.configuration;
 
 
 import java.io.IOException;

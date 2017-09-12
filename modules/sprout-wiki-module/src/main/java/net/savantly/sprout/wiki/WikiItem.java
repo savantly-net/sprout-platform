@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.validation.constraints.Size;
 
-import net.savantly.sprout.core.CoreConfiguration;
+import net.savantly.sprout.core.configuration.CoreConfiguration;
 import net.savantly.sprout.core.domain.PersistedModule;
 
 @Entity

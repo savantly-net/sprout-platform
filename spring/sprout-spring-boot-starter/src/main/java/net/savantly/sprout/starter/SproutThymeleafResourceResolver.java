@@ -1,4 +1,4 @@
-package net.savantly.sprout.autoconfigure.controller;
+package net.savantly.sprout.starter;
 
 import java.io.InputStream;
 
@@ -7,11 +7,11 @@ import org.thymeleaf.TemplateProcessingParameters;
 import org.thymeleaf.resourceresolver.IResourceResolver;
 import org.thymeleaf.util.Validate;
 
-public class SproutControllerResourceResolver implements IResourceResolver {
+public class SproutThymeleafResourceResolver implements IResourceResolver {
 	public static final String NAME = "CLASSLOADER";
-    private final ClassLoader cl = SproutControllerResourceResolver.class.getClassLoader();
+    private final ClassLoader cl = SproutThymeleafResourceResolver.class.getClassLoader();
 
-	public SproutControllerResourceResolver() {
+	public SproutThymeleafResourceResolver() {
 		super();
 	}
 

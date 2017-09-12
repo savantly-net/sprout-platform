@@ -1,4 +1,4 @@
-package net.savantly.sprout.core.security.security;
+package net.savantly.sprout.core.security;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 

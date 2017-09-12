@@ -1,4 +1,4 @@
-package net.savantly.sprout.core.plugin;
+package net.savantly.sprout.core.module;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
@@ -12,8 +12,9 @@ import org.springframework.context.annotation.Configuration;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Configuration
-public @interface SproutPlugin {
+public @interface SproutModule {
 
 	String value();
+	String bundleJs();
 
 }

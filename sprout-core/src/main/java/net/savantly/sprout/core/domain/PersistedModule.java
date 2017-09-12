@@ -10,7 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.domain.Persistable;
 import org.springframework.util.ClassUtils;
 
-import net.savantly.sprout.core.CoreConfiguration;
+import net.savantly.sprout.core.configuration.CoreConfiguration;
 
 @MappedSuperclass
 public abstract class PersistedModule extends AbstractAuditableDomainObject<String> implements Persistable<String>  {

@@ -39,7 +39,7 @@ public class WikiItemRepositoryTest extends SproutModuleTest {
 	@WithMockUser
 	public void testClientResourcesExist() throws Exception {
 		String clientJsPath = "modules/sprout-wiki/module.js?v=0";
-		mvc.perform(get("/")).andExpect(MockMvcResultMatchers.model().attribute("moduleJsResources", hasItem(clientJsPath)));
+		mvc.perform(get("/")).andExpect(MockMvcResultMatchers.model().attribute("jsResources", hasItem(clientJsPath)));
 	}
 	
 	@Test
