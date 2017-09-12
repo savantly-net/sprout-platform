@@ -3,9 +3,9 @@ package net.savantly.sprout.modules.test;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import net.savantly.sprout.SproutAutoConfigure;
+import net.savantly.sprout.SproutAutoConfiguration;
 
-@SpringBootApplication(scanBasePackageClasses = { SproutAutoConfigure.class })
+@SpringBootApplication(scanBasePackageClasses = { SproutAutoConfiguration.class })
 public class ModuleTestApplication {
 
 	public static void main(String[] args) {

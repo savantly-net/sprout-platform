@@ -10,6 +10,5 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories
 @EntityScan
 public class CoreConfiguration {
-
 	public static final long serialVersionUID = 1L;
 }
