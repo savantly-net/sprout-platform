@@ -34,14 +34,8 @@
 	<!-- Fav Icon -->
 	<link rel="icon" href="/favicon.ico?v=1.0"></link>
 	
-	<!-- Core Library CSS Files -->
-	<link rel="stylesheet" data-th-each="resource : ${cssCoreLibResources}" th:href="${resource}"></link>
-
-	<!-- Library CSS Files -->
-	<link rel="stylesheet" data-th-each="resource : ${cssLibResources}" th:href="${resource}"></link>
-	
-	<!-- Modules CSS Files -->
-	<link rel="stylesheet" data-th-each="resource : ${moduleCssResources}" th:href="${resource}"></link>
+	<!-- CSS Files -->
+	<link rel="stylesheet" data-th-each="resource : ${cssResources}" th:href="${resource}"></link>
 	
 	<!-- HTML5 Shim -->
 	<!--[if lt IE 9]>
@@ -71,17 +65,8 @@
 /*]]>*/
 </script>
 
-	<!-- Core JS Libraries -->
-	<script data-th-each="resource : ${jsCoreLibResources}" th:src="${resource}"></script>
-	
-	<!-- JS Libraries -->
-	<script data-th-each="resource : ${jsLibResources}" th:src="${resource}"></script>
-	
-	<!-- Core JavaScript -->
-	<script data-th-each="resource : ${coreJsResources}" th:src="${resource}"></script>
-	
 	<!-- Modules JavaScript -->
-	<script data-th-each="resource : ${moduleJsResources}" th:src="${resource}"></script>
+	<script data-th-each="resource : ${jsResources}" th:src="${resource}"></script>
 	
 </body>
 

@@ -1,6 +1,5 @@
 package net.savantly.sprout.core.module;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface ModuleResourceProvider {

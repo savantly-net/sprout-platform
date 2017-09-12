@@ -1,4 +1,4 @@
-package net.savantly.sprout.autoconfigure.controller;
+package net.savantly.sprout.starter;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.core.Authentication;
@@ -30,20 +29,27 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.savantly.sprout.core.SproutControllerConfiguration;
 import net.savantly.sprout.core.module.ModuleResourceProvider;
 
-@Controller(HomeController.BEAN_NAME)
-public class HomeController {
-	protected static final String BEAN_NAME = "sproutBootHomeController";
-	static final Logger log = LoggerFactory.getLogger(HomeController.class);
-
-	@Autowired
-	ObjectMapper objectMapper;
-	@Autowired
-	private SproutControllerConfiguration controllerConfig;
-	@Autowired
-	private ModuleResourceProvider resourceProvider;
+@Controller
+public class DefaultSproutBaseController implements SproutBaseController {
+	static final Logger log = LoggerFactory.getLogger(DefaultSproutBaseController.class);
+	
 	@Value("${spring.application.name:Sprout}")
 	private String appName;
 
+	private ObjectMapper objectMapper;
+	private SproutControllerConfiguration controllerConfig;
+	private ModuleResourceProvider resourceProvider;
+	
+	
+
+	public DefaultSproutBaseController(ObjectMapper objectMapper, SproutControllerConfiguration controllerConfig,
+			ModuleResourceProvider resourceProvider) {
+		this.objectMapper = objectMapper;
+		this.controllerConfig = controllerConfig;
+		this.resourceProvider = resourceProvider;
+	}
+
+	@Override
 	@RequestMapping({ "/" })
 	public String index(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// Client Settings

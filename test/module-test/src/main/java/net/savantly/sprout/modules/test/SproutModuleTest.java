@@ -7,7 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import net.savantly.sprout.SproutAutoConfiguration;
+import net.savantly.sprout.autoconfigure.SproutResourceAutoConfiguration;
 
 
 @ContextConfiguration
@@ -16,7 +16,7 @@ import net.savantly.sprout.SproutAutoConfiguration;
 @RunWith(SpringRunner.class)
 public class SproutModuleTest {
 	
-	@SpringBootApplication(scanBasePackageClasses= {SproutAutoConfiguration.class})
+	@SpringBootApplication(scanBasePackageClasses= {SproutResourceAutoConfiguration.class})
 	public static class ModuleTestConfiguration{
 
 	}

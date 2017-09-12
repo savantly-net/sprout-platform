@@ -39,7 +39,6 @@ public class DefaultModuleResourceProvider implements ModuleResourceProvider {
 		List<String> resources = new ArrayList<>();
 		resources.addAll(cssCoreLibResourceArray);
 		resources.addAll(cssLibResourceArray);
-		resources.addAll(jsCoreResourceArray);
 		resources.addAll(cssResourceArray);
 		return resources;
 	}

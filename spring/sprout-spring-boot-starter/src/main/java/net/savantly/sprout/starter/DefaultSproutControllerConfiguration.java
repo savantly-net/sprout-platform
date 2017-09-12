@@ -1,4 +1,4 @@
-package net.savantly.sprout.autoconfigure.controller;
+package net.savantly.sprout.starter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ import net.savantly.sprout.core.SproutControllerConfiguration;
 @ConfigurationProperties("savantly.sprout.controller")
 public class DefaultSproutControllerConfiguration implements SproutControllerConfiguration {
 	
-	protected static final String BEAN_NAME = "sproutControllerConfiguration";
+	public static final String BEAN_NAME = "sproutControllerConfiguration";
 
 	private Map<String, Object> config = new HashMap<>();
 	private String resourcePrefix = "classpath*:";

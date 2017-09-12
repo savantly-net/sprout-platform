@@ -1,4 +1,4 @@
-package net.savantly.sprout.autoconfigure.controller;
+package net.savantly.sprout.starter;
 
 import org.thymeleaf.templateresolver.TemplateResolver;
 

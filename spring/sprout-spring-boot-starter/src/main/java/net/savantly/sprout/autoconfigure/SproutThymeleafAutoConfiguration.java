@@ -13,7 +13,7 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
-import net.savantly.sprout.autoconfigure.controller.SproutThymeleafTemplateResolver;
+import net.savantly.sprout.starter.SproutThymeleafTemplateResolver;
 
 @EnableOAuth2Sso
 @Configuration
