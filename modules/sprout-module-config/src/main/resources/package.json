@@ -1,0 +1,26 @@
+{
+   "name": "sprout-module",
+   "version": "1.0.0",
+   "description": "Configuration for Sprout Modules",
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "build": "webpack"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/savantly-net/sprout-platform.git"
+   },
+   "author": "Jeremy@savantly.net",
+   "license": "ISC",
+   "bugs": {
+      "url": "https://github.com/savantly-net/sprout-platform/issues"
+   },
+   "homepage": "https://github.com/savantly-net/sprout-platform#readme",
+   "devDependencies": {
+      "copy-webpack-plugin": "^4.0.1",
+      "webpack": "^2.6.1"
+   },
+   "dependencies": {
+      "angular-spring-data-rest": "^0.4.6"
+   }
+}

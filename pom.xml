@@ -44,6 +44,19 @@
 	</properties>
 
 	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.7.0</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>3.1.0</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -82,6 +95,13 @@
 				<groupId>net.savantly.sprout</groupId>
 				<artifactId>module-test</artifactId>
 				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.savantly.sprout</groupId>
+				<artifactId>module-config</artifactId>
+				<version>${project.version}</version>
+				<classifier>resources</classifier>
+				<type>zip</type>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

@@ -38,12 +38,40 @@
 	</licenses>
 	<inceptionYear>2017</inceptionYear>
 
+	<properties>
+		<sprout.module.name>${project.artifactId}</sprout.module.name>
+	</properties>
 	<build>
 		<pluginManagement>
 			<plugins>
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>unpack-shared-resources</id>
+							<goals>
+								<goal>unpack-dependencies</goal>
+							</goals>
+							<phase>generate-resources</phase>
+							<configuration>
+								<outputDirectory>${project.build.directory}/generated-resources/sprout-module</outputDirectory>
+								<includeArtifacIds>module-config</includeArtifacIds>
+								<includeGroupIds>${project.groupId}</includeGroupIds>
+								<includeClassifiers>resources</includeClassifiers>
+								<includeTypes>zip</includeTypes>
+								<excludeTransitive>true</excludeTransitive>
+								<!--use as much as needed to be specific...also scope,type,classifier 
+									etc -->
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
 					<groupId>com.cj.jshintmojo</groupId>
 					<artifactId>jshint-maven-plugin</artifactId>
+					<version>1.6.0</version>
 					<executions>
 						<execution>
 							<goals>
@@ -74,22 +102,41 @@
 					</configuration>
 					<executions>
 						<execution>
-							<id>install node and yarn</id>
+							<id>install node and npm</id>
 							<goals>
-								<goal>install-node-and-yarn</goal>
+								<goal>install-node-and-npm</goal>
 							</goals>
 						</execution>
 						<execution>
-							<id>yarn install</id>
+							<id>npm install parent dependencies</id>
 							<goals>
-								<goal>yarn</goal>
+								<goal>npm</goal>
 							</goals>
+							<configuration>
+								<arguments>install target/generated-resources/sprout-module</arguments>
+							</configuration>
+						</execution>
+						<execution>
+							<id>webpack build</id>
+							<goals>
+								<goal>webpack</goal>
+							</goals>
+							<configuration>
+								<arguments>-p</arguments>
+								<srcdir>src/main/resources</srcdir>
+								<outputdir>${project.build.directory}/classes/static/modules/${sprout.module.name}</outputdir>
+							</configuration>
 						</execution>
 					</executions>
 				</plugin>
+
 			</plugins>
 		</pluginManagement>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<groupId>com.cj.jshintmojo</groupId>
 				<artifactId>jshint-maven-plugin</artifactId>
@@ -104,6 +151,12 @@
 		<dependency>
 			<groupId>net.savantly.sprout</groupId>
 			<artifactId>sprout-spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.savantly.sprout</groupId>
+			<artifactId>module-config</artifactId>
+			<classifier>resources</classifier>
+			<type>zip</type>
 		</dependency>
 		<dependency>
 			<groupId>net.savantly.sprout</groupId>
