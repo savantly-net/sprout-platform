@@ -25,7 +25,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import net.savantly.sprout.core.SproutControllerConfiguration;
+import net.savantly.sprout.core.configuration.SproutControllerConfiguration;
 import net.savantly.sprout.starter.SproutBaseController;
 
 @RunWith(SpringRunner.class)

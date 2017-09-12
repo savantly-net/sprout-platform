@@ -2,7 +2,7 @@ package net.savantly.sprout.core.domain.organization;
 
 import javax.persistence.Entity;
 
-import net.savantly.sprout.core.CoreConfiguration;
+import net.savantly.sprout.core.configuration.CoreConfiguration;
 import net.savantly.sprout.core.domain.PersistedModule;
 
 @Entity

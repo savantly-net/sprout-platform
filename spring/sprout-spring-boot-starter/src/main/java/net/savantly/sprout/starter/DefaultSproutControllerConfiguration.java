@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
-import net.savantly.sprout.core.SproutControllerConfiguration;
+import net.savantly.sprout.core.configuration.SproutControllerConfiguration;
 
 @Configuration(DefaultSproutControllerConfiguration.BEAN_NAME)
 @ConfigurationProperties("savantly.sprout.controller")

@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.savantly.sprout.core.SproutControllerConfiguration;
+import net.savantly.sprout.core.configuration.SproutControllerConfiguration;
 import net.savantly.sprout.core.module.ModuleResourceProvider;
 
 @Controller

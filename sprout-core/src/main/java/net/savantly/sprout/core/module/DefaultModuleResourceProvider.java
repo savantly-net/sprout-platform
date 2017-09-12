@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.core.io.Resource;
 
-import net.savantly.sprout.core.SproutControllerConfiguration;
+import net.savantly.sprout.core.configuration.SproutControllerConfiguration;
 import net.savantly.sprout.core.resource.SproutResourcePatternResolver;
 
 public class DefaultModuleResourceProvider implements ModuleResourceProvider {

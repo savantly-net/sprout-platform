@@ -16,7 +16,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.web.filter.CompositeFilter;
 
 import net.savantly.sprout.core.domain.user.repository.UserRepository;
-import net.savantly.sprout.core.security.security.SproutUserDetailsService;
+import net.savantly.sprout.core.security.SproutUserDetailsService;
 
 @Configuration
 @EnableOAuth2Client

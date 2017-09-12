@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.savantly.sprout.core.SproutControllerConfiguration;
+import net.savantly.sprout.core.configuration.SproutControllerConfiguration;
 import net.savantly.sprout.core.module.DefaultModuleResourceProvider;
 import net.savantly.sprout.core.module.DefaultResourceUrlFormatter;
 import net.savantly.sprout.core.module.ModuleResourceProvider;

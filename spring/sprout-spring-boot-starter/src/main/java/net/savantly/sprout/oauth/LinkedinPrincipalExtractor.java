@@ -14,7 +14,7 @@ import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
 import net.savantly.sprout.core.domain.oauth.OAuthAccount;
 import net.savantly.sprout.core.domain.user.SproutUser;
 import net.savantly.sprout.core.domain.user.repository.UserRepository;
-import net.savantly.sprout.core.security.security.SproutUserDetailsService;
+import net.savantly.sprout.core.security.SproutUserDetailsService;
 
 public class LinkedinPrincipalExtractor implements PrincipalExtractor {
 	
