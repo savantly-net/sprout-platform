@@ -1,0 +1,8 @@
+{
+  "plugins": {
+    "guess-types": {
+      
+    }
+  },
+  "ecmaVersion": 6
+}
