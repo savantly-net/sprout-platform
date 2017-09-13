@@ -1,13 +1,12 @@
 package net.savantly.sprout.modules.test;
 
 import org.junit.runner.RunWith;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-
-import net.savantly.sprout.autoconfigure.SproutResourceAutoConfiguration;
 
 
 @ContextConfiguration
@@ -16,8 +15,9 @@ import net.savantly.sprout.autoconfigure.SproutResourceAutoConfiguration;
 @RunWith(SpringRunner.class)
 public class SproutModuleTest {
 	
-	@SpringBootApplication(scanBasePackageClasses= {SproutResourceAutoConfiguration.class})
-	public static class ModuleTestConfiguration{
+	@Configuration
+	@EnableAutoConfiguration
+	static class TestContext {
 
 	}
 

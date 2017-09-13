@@ -14,3 +14,4 @@ buildNumber.properties
 /.classpath
 /.project
 /node/
+/npm-debug.log

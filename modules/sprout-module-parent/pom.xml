@@ -42,7 +42,14 @@
 		<sprout.module.name>${project.artifactId}</sprout.module.name>
 		<sprout.module.core>target/generated-resources/sprout-module</sprout.module.core>
 	</properties>
+
 	<build>
+		<resources>
+			<resource>
+				<directory>${project.build.directory}/generated-resources/sprout-module</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -134,18 +141,18 @@
 			</plugins>
 		</pluginManagement>
 		<plugins>
-			<plugin>
+			<!-- <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
-			</plugin>
+			</plugin> -->
 			<plugin>
 				<groupId>com.cj.jshintmojo</groupId>
 				<artifactId>jshint-maven-plugin</artifactId>
-			</plugin>
+			</plugin><!-- 
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
-			</plugin>
+			</plugin> -->
 		</plugins>
 	</build>
 	<dependencies>
@@ -153,12 +160,12 @@
 			<groupId>net.savantly.sprout</groupId>
 			<artifactId>sprout-spring-boot-starter</artifactId>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>net.savantly.sprout</groupId>
 			<artifactId>module-config</artifactId>
 			<classifier>resources</classifier>
 			<type>zip</type>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>net.savantly.sprout</groupId>
 			<artifactId>module-test</artifactId>

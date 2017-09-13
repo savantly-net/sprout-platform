@@ -12,8 +12,7 @@ public class DefaultModuleResourceProvider implements ModuleResourceProvider {
 
 	private final SproutControllerConfiguration controllerConfig;
 	
-	private final SproutResourcePatternResolver<DefaultModuleResourceProvider> patternResolver = SproutResourcePatternResolver
-			.of(DefaultModuleResourceProvider.class);
+	private final SproutResourcePatternResolver<?> patternResolver;
 	private final ResourceUrlFormatter resourceUrlFormatter;
 	
 	private List<String> jsCoreLibResourceArray;
@@ -43,9 +42,10 @@ public class DefaultModuleResourceProvider implements ModuleResourceProvider {
 		return resources;
 	}
 	
-	public DefaultModuleResourceProvider(SproutControllerConfiguration controllerConfiguration, ResourceUrlFormatter resourceUrlFormatter) {
+	public DefaultModuleResourceProvider(Class clazz, SproutControllerConfiguration controllerConfiguration, ResourceUrlFormatter resourceUrlFormatter) {
 		this.controllerConfig = controllerConfiguration;
 		this.resourceUrlFormatter = resourceUrlFormatter;
+		this.patternResolver = SproutResourcePatternResolver.of(clazz);
 		init();
 	}
 	

@@ -107,8 +107,10 @@
 	</dependencyManagement>
 	<modules>
 		<module>sprout-core</module>
+		<module>web/sprout-web-ui</module>
 		<module>spring/sprout-spring-boot-starter</module>
 		<module>test/module-test</module>
+		<module>modules/sprout-module-config</module>
 		<module>modules/sprout-module-parent</module>
 		<module>modules/sprout-wiki-module</module>
 		<module>web/sprout-garden</module>
