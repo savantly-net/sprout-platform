@@ -5,15 +5,17 @@
 	<formats>
 		<format>zip</format>
 	</formats>
-	<includeBaseDirectory>true</includeBaseDirectory>
+	<includeBaseDirectory>false</includeBaseDirectory>
 	<fileSets>
 		<fileSet>
 			<directory>./</directory>
 			<outputDirectory></outputDirectory>
 			<excludes>
-				<exclude>target</exclude>
-				<exclude>node_modules</exclude>
+				<exclude>assembly</exclude>
 				<exclude>dist</exclude>
+				<exclude>node</exclude>
+				<exclude>node_modules</exclude>
+				<exclude>target</exclude>
 			</excludes>
 		</fileSet>
 	</fileSets>

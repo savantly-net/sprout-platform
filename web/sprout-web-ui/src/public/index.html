@@ -1,13 +1,53 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Angular 2 App | ng2-webpack</title>
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 
-    <base href="/">
-  </head>
-  <body>
-    <my-app>Loading...</my-app>
-  </body>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"></meta>
+	<title ng-bind="title"></title>
+
+	<!-- General META -->
+	<meta charset="utf-8"></meta>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"></meta>
+	<meta http-equiv="Content-type" content="text/html;charset=UTF-8"></meta>
+	<meta name="apple-mobile-web-app-capable" content="yes"></meta>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"></meta>
+
+	<!-- Semantic META -->
+	<meta name="keywords" content="{{keywords}}"></meta>
+	<meta name="description" content="{{description}}"></meta>
+
+	<!-- Facebook META -->
+	<meta property="fb:app_id" content="{{facebookAppId}}"></meta>
+	<meta property="og:site_name" content="{{title}}"></meta>
+	<meta property="og:title" content="{{title}}"></meta>
+	<meta property="og:description" content="{{description}}"></meta>
+	<meta property="og:url" content="{{url}}"></meta>
+	<meta property="og:image" content="modules/core/img/brand/logo.png"></meta>
+	<meta property="og:type" content="website"></meta>
+
+	<!-- Twitter META -->
+	<meta name="twitter:title" content="{{title}}"></meta>
+	<meta name="twitter:description" content="{{description}}"></meta>
+	<meta name="twitter:url" content="{{url}}"></meta>
+	<meta name="twitter:image" content="modules/core/img/brand/logo.png"></meta>
+
+	<!-- Fav Icon -->
+	<link rel="icon" href="/favicon.ico?v=1.0"></link>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
+	<!-- HTML5 Shim -->
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<base href="/">
+</head>
+
+<body layout="column">
+	<my-app>Loading...</my-app>
+
+	<!--Embedding The User Object-->
+	<script type="javascript"></script>
+	
+</body>
+
 </html>

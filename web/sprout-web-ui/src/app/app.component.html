@@ -1,17 +1,16 @@
 <header>
-  <nav>
-    <a [routerLink]="['']">Home</a>
-    <a [routerLink]="['about']">About</a>
-  </nav>
+	<nav>
+		<my-menu></my-menu>
+		<a [routerLink]="['']">Home</a> <a [routerLink]="['about']">About</a>
+	</nav>
 </header>
-<main>
-  <h1>Hello from {{title}}!</h1>
-
-  <!-- Images (and assets) are parsed and loaded from within the public directory -->
-  <img src="/img/angular.png">
-
-  <router-outlet></router-outlet>
+<main fxLayout="column">
+	<h1>Sprout Application</h1>
+	
+	<!-- Images (and assets) are parsed and loaded from within the public directory -->
+	<img src="/img/sprout.png"> 
+	<router-outlet></router-outlet> 
 </main>
 <footer>
-  <a [href]="url">Webpack Angular 2 Starter</a>
+	<a [href]="url">http://savantly.net</a>
 </footer>

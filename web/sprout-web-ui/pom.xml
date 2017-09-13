@@ -57,6 +57,55 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<execution>
+						<id>npm configuration list (validatet</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>validate</phase>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>config</argument>
+								<argument>list</argument>
+								<argument>-l</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>npm install (takes a while)</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>pre-clean</phase>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>install</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>npm run build</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>compile</phase>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>run</argument>
+								<argument>ci</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies></dependencies>

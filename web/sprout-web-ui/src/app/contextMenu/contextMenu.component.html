@@ -1,0 +1,9 @@
+<div>
+  <ul>
+    <li *ngFor="let option of options; let i = index"
+    [ngClass]="{'active-item': !option.disabled}" (click)="itemClicked(i)">
+      <span [class]="'glyphicon ' + option.icon"></span>
+      <a href="#" [ngClass]="{'disabled-text': option.disabled}">{{option.text}}</a>
+    </li>
+  </ul>
+</div>
