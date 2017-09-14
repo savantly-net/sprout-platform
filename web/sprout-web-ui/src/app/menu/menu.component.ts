@@ -21,10 +21,18 @@ export class MenuComponent implements OnInit {
     this.trigger.closeMenu();
   }
 
+  doMenuItemCallback(subitem, $event) {
+    if (subitem.callback) {
+      subitem.callback($event);
+    } else {
+      console.warn('no callback defined');
+    }
+  };
+
   constructor(menuService: MenuService,
     authenticationService: AuthenticationService) {
     this.menus = menuService.menus;
-    this.authentication = authenticationService.authentication;
+    this.authentication = authenticationService;
   }
 
   ngOnInit() {
