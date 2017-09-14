@@ -12,4 +12,9 @@ describe('MenuService', () => {
   it('should be created', inject([MenuService], (service: MenuService) => {
     expect(service).toBeTruthy();
   }));
+
+  it('should be have a default menu created', inject([MenuService], (service: MenuService) => {
+    expect(service.menus.length).toBe(1);
+  }));
+
 });

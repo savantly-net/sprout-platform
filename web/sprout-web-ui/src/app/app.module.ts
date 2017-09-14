@@ -1,14 +1,17 @@
 import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
 // Material
 import { MdButtonModule, MdCheckboxModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Flex
 import { FlexLayoutModule } from '@angular/flex-layout';
+
+// Authentication
+import { AuthenticationService } from './authentication/authentication.service';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -17,8 +20,7 @@ import { ApiService } from './shared';
 import { routing } from './app.routing';
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
-import { ContextMenuComponent } from './contextMenu/contextMenu.component';
-import { ContextMenuService } from './contextMenu/contextMenu.service';
+import { MenuService } from './menu/menu.service';
 import { MenuComponent } from './menu/menu.component';
 import { UserComponent } from './user/user.component';
 
@@ -37,15 +39,15 @@ import { UserComponent } from './user/user.component';
     AppComponent,
     HomeComponent,
     AboutComponent,
-    ContextMenuComponent,
     MenuComponent,
     UserComponent
   ],
   providers: [
     ApiService,
-    ContextMenuService
+    MenuService,
+    AuthenticationService
   ],
-  entryComponents: [ContextMenuComponent],
+  entryComponents: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

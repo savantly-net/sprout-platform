@@ -1,3 +1,40 @@
-<p>
-  menu works!
-</p>
+<div md-toolbar>
+	<div md-menu-bar fxLayout="row" class="md-toolbar-tools" layout-align="space-between center">
+		<div>
+			<div md-button [routerLink]="['']">
+				<span>Sprout</span>
+			</div>
+		</div>
+		<div *ngFor="let menu of menus">
+			<div md-menu  *ngIf="menu.shouldRender(authentication.user) && menu.items.length > 0;">
+				<div md-button (click)="$mdMenu.open($event)">{{menu.title}}</div>
+				<div md-menu-content>
+					<div md-menu-item *ngFor="let item of menu.items">
+						<div *ngIf="item.shouldRender(authentication.user);">
+							<div md-menu-item *ngIf="item.menuItemType == 'dropdown'">
+								<div md-menu>
+									<div md-button (click)="$mdMenu.open($event)" (mouseenter)="noop($event)">{{item.title}}</div>
+									<div md-menu-content (mouseleave)="closeSubMenu($event)">
+										<div md-menu-item *ngFor="let subitem of item.items">
+											<div  *ngIf="subitem.shouldRender(authentication.user);">
+												<div md-button *ngIf="subitem.menuItemType == 'callback'" (click)="doMenuItemCallback(subitem, $event)">{{subitem.title}}</div>
+												<div md-button *ngIf="subitem.menuItemType == 'location'" (click)="$location.url(subitem.location)">{{subitem.title}}</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div md-button *ngIf="item.menuItemType == 'callback'" (click)="doMenuItemCallback(item, $event)">{{item.title}}</div>
+							<div md-button *ngIf="item.menuItemType == 'location'" (click)="$location.url(item.location)">{{item.title}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div ngFlex layout="row"layout-align="center center"><span class="md-subtitle" ng-bind-html="title"></span></div>
+		<div>
+			<div md-button ngHide="authentication.security.authenticated || hideSignin()" (click)="goToLogin()">Sign in</div>
+			<div md-button ngShow="authentication.security.authenticated" (click)="logout()">Sign out</div>
+		</div>
+	</div>
+</div>

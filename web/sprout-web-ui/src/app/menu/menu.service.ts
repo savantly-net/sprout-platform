@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ForStatement } from 'typescript';
 
 export const defaultMenuId = 'mainMenu';
 export class MenuBase {
@@ -7,7 +6,8 @@ export class MenuBase {
   title: string;
   isPublic: boolean;
   roles: string[];
-  items?: MenuItem[];
+  items: MenuItem[];
+  position: number;
   shouldRender(user) {
     if (user) {
       if (this.roles.indexOf('*') > -1) {
@@ -25,13 +25,47 @@ export class MenuBase {
       return this.isPublic;
     }
     return false;
-  };
+  }
+
+  // Add menu item object
+  addMenuItem(options) {
+    const menuId = options.menuId || this.id || defaultMenuId;
+
+    if (this.items.findIndex(x => x.id === options.id) > -1) {
+      throw new Error('Item with this id: "' + options.id + '" already exists in menu: ' + menuId);
+    } else {
+      this.items.push(new MenuItem(options));
+    }
+
+    this.items.push(new MenuItem(options));
+      const index = this.items.findIndex(x => x.id === options.id);
+      return this.items[index];
+  }
+
+  // Remove menu item object
+  removeMenuItem(id): void {
+    const index = this.items.findIndex(x => x.id === id);
+    if (index === -1) {
+      throw new Error('Item with this id doesn\'t exist' + id);
+    } else {
+      this.items.slice(index, 1);
+    }
+  }
+
+  getMenuItem(id): MenuItem {
+    const index = this.items.findIndex(x => x.id === id);
+    if (index === -1) {
+      throw new Error('Menu item was not found: ' + id);
+    } else {
+      return this.items[index];
+    }
+  }
 
   constructor (options: any) {
     this.id = options.id || defaultMenuId;
     this.isPublic = options.isPublic || true;
     this.items = options.items || [];
-    this.roles = options.roles || [];
+    this.roles = options.roles || ['*'];
     this.title = options.title || 'unamed menu item';
   }
 }
@@ -42,29 +76,21 @@ export enum MenuItemType {
 }
 
 export class MenuItem extends MenuBase {
-  menuId: string;
   menuItemType: MenuItemType;
   callback: () => void;
   location: string;
 
   constructor (options: any) {
-    this.menuId = options.menuId;
-    this.menuItemId: options.menuItemId,
-        title: options.title || 'menu',
-        location: options.location,
-        menuItemType: options.menuItemType || 'location',
-        callback: options.callback,
-        isPublic: ((options.isPublic === null || typeof options.isPublic === 'undefined') ? this.isPublic : options.isPublic),
-        roles: ((options.roles === null || typeof options.roles === 'undefined') ? this.roles : options.roles),
-        position: options.position || 0,
-        items: options.items || [],
-        shouldRender: shouldRender.bind(this)
+    super(options);
+    this.location = options.location;
+    this.menuItemType = options.menuItemType || MenuItemType.location;
+    this.callback = options.callback;
   }
 }
 
 export class Menu extends MenuBase {
-  constructor (menu: MenuBase) {
-    super(menu);
+  constructor (options: any) {
+    super(options);
   }
 }
 
@@ -127,86 +153,9 @@ export class MenuService {
     }
   }
 
-
-  function() {
-
-  
-    // Add menu item object
-    var addMenuItem = function(options) {
-      var menuId = options.menuId || this.menuId || defaultMenuId;
-      
-      var newMenuItem = new MenuItem({
-        
-      });
-      
-      if(this instanceof MenuItem){
-        this.items.push(newMenuItem);
-        return newMenuItem;
-      } else {
-        validateMenuExistence(menuId);
-        // Push new menu item
-        this.menus[menuId].items.push(newMenuItem);
-        // Return the menu item
-        return newMenuItem;
-      }
-      
-    };
-    this.addMenuItem = addMenuItem.bind(this);
-  
-    // Remove existing menu object by menu id
-    this.removeMenuItem = function(menuId, menuItemId) {
-      // Validate that the menu exists
-      validateMenuExistence(menuId);
-  
-      // Search for menu item to remove
-      for (var itemIndex in this.menus[menuId].items) {
-        if (this.menus[menuId].items[itemIndex].menuItemId === menuItemId) {
-          this.menus[menuId].items.splice(itemIndex, 1);
-        }
-      }
-  
-      // Return the menu object
-      return this.menus[menuId];
-    };
-    
-    // Return existing MenuItem object by id
-    this.getMenuItem = function(menuId, menuItemId) {
-      // Validate that the menu exists
-      validateMenuExistence(menuId);
-  
-      // Search for menu item to remove
-      for (var itemIndex in this.menus[menuId].items) {
-        if (this.menus[menuId].items[itemIndex].menuItemId === menuItemId) {
-          return this.menus[menuId].items[itemIndex];
-        }
-      }
-  
-      // Return the menu object
-      throw new Error('menuId + menuItemId was not found');
-    };
-  
-    this.getMenus = function(){
-      var menuArray = [];
-      for (var property in this.menus) {
-          if (this.menus.hasOwnProperty(property)) {
-              menuArray.push(this.menus[property]);
-          }
-      }
-      return menuArray;
-    };
-  
-    // Extend prototypes with functions
-    Menu.prototype.shouldRender = shouldRender;
-    Menu.prototype.addMenuItem = addMenuItem;
-    MenuItem.prototype.shouldRender = shouldRender;
-    MenuItem.prototype.addMenuItem = addMenuItem;
-  
-    
-    //Adding a main menu
-    this.menus.mainMenu = this.addMenu({title:'Navigation'});
-    
+  constructor() {
+    this.menus = [];
+    this.menus.push(new Menu({title: 'Navigation'}));
   }
-  
-  constructor() { }
 
 }
