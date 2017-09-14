@@ -1,14 +1,44 @@
+import { User } from '../security/user/user.component';
 import { Injectable } from '@angular/core';
 
 export const defaultMenuId = 'mainMenu';
-export class MenuBase {
+
+export enum MenuItemType {
+  location,
+  dropdown
+}
+
+export interface IMenu {
   id: string;
   title: string;
   isPublic: boolean;
   roles: string[];
-  items: MenuItem[];
+  items: IMenu[];
   position: number;
-  shouldRender(user) {
+  menuItemType: MenuItemType;
+  location: string;
+  callback: () => void;
+  shouldRender: (user: User) => boolean;
+  addMenuItem: (item: any) => IMenu;
+  /*
+   * Returns true is delete is successful
+   */
+  removeMenuItem: (id: string) => boolean;
+  getMenuItem: (id: string) => IMenu;
+}
+
+export class Menu implements IMenu {
+  id: string;
+  title: string;
+  isPublic: boolean;
+  roles: string[];
+  items: IMenu[];
+  position: number;
+  menuItemType: MenuItemType;
+  callback: () => void;
+  location: string;
+
+  shouldRender(user: User): boolean {
     if (user) {
       if (this.roles.indexOf('*') > -1) {
         return true;
@@ -28,31 +58,28 @@ export class MenuBase {
   }
 
   // Add menu item object
-  addMenuItem(options) {
-    const menuId = options.menuId || this.id || defaultMenuId;
-
-    if (this.items.findIndex(x => x.id === options.id) > -1) {
-      throw new Error('Item with this id: "' + options.id + '" already exists in menu: ' + menuId);
+  addMenuItem(item: IMenu) {
+    if (this.items.findIndex(x => x.id === item.id) > -1) {
+      throw new Error('Item with this id: "' + item.id + '" already exists in menu: ' + this.id);
     } else {
-      this.items.push(new MenuItem(options));
+      this.items.push(item);
     }
-
-    this.items.push(new MenuItem(options));
-      const index = this.items.findIndex(x => x.id === options.id);
-      return this.items[index];
+    const index = this.items.findIndex(x => x.id === item.id);
+    return this.items[index];
   }
 
   // Remove menu item object
-  removeMenuItem(id): void {
+  removeMenuItem(id): boolean {
     const index = this.items.findIndex(x => x.id === id);
     if (index === -1) {
       throw new Error('Item with this id doesn\'t exist' + id);
     } else {
       this.items.slice(index, 1);
     }
+    return true;
   }
 
-  getMenuItem(id): MenuItem {
+  getMenuItem(id): IMenu {
     const index = this.items.findIndex(x => x.id === id);
     if (index === -1) {
       throw new Error('Menu item was not found: ' + id);
@@ -67,30 +94,9 @@ export class MenuBase {
     this.items = options.items || [];
     this.roles = options.roles || ['*'];
     this.title = options.title || 'unamed menu item';
-  }
-}
-
-export enum MenuItemType {
-  location,
-  dropdown
-}
-
-export class MenuItem extends MenuBase {
-  menuItemType: MenuItemType;
-  callback: () => void;
-  location: string;
-
-  constructor (options: any) {
-    super(options);
     this.location = options.location;
     this.menuItemType = options.menuItemType || MenuItemType.location;
     this.callback = options.callback;
-  }
-}
-
-export class Menu extends MenuBase {
-  constructor (options: any) {
-    super(options);
   }
 }
 

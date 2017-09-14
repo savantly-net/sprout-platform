@@ -1,6 +1,6 @@
+import { AuthenticationService } from '../security/authentication/authentication.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuService, Menu } from './menu.service';
-import { AuthenticationService } from '../authentication/authentication.service';
 import { MdMenuTrigger } from '@angular/material';
 
 @Component({
@@ -17,6 +17,10 @@ export class MenuComponent implements OnInit {
     this.trigger.openMenu();
   }
 
+  noop() {
+
+  }
+
   closeMenu() {
     this.trigger.closeMenu();
   }
@@ -29,8 +33,9 @@ export class MenuComponent implements OnInit {
     }
   };
 
-  constructor(menuService: MenuService,
-    authenticationService: AuthenticationService) {
+  constructor(
+    authenticationService: AuthenticationService,
+    menuService: MenuService) {
     this.menus = menuService.menus;
     this.authentication = authenticationService;
   }

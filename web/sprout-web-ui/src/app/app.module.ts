@@ -3,49 +3,44 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
-// Material
-import { MdButtonModule, MdCheckboxModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// Flex
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MaterialModule } from '@angular/material';
 
-// Authentication
-import { AuthenticationService } from './authentication/authentication.service';
+import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ApiService } from './shared';
 import { routing } from './app.routing';
-
-import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
+import { SecurityModule } from './security/security.module';
+import { AuthenticationService } from './security/authentication/authentication.service';
+import { MenuModule } from './menu/menu.module';
 import { MenuService } from './menu/menu.service';
-import { MenuComponent } from './menu/menu.component';
-import { UserComponent } from './user/user.component';
-
 
 @NgModule({
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
     HttpModule,
     FormsModule,
-    MdButtonModule, MdCheckboxModule,
+    routing,
     FlexLayoutModule,
-    routing
+    BrowserAnimationsModule,
+    MaterialModule,
+    SecurityModule,
+    MenuModule
   ],
   declarations: [
     AppComponent,
     HomeComponent,
     AboutComponent,
-    MenuComponent,
-    UserComponent
   ],
   providers: [
     ApiService,
-    MenuService,
-    AuthenticationService
+    AuthenticationService,
+    MenuService
   ],
   entryComponents: [],
   bootstrap: [AppComponent]
