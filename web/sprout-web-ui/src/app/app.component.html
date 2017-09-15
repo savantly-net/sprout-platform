@@ -1,13 +1,13 @@
-<header>
-	<nav>
-		<a [routerLink]="['']">Home</a> <a [routerLink]="['about']">About</a>
-	</nav>
-</header>
-<main fxLayout="column">
-	<div>
+<div fxFlexFill fxLayout="column">
+	<header>
+		<nav>
+			<my-menu></my-menu>
+		</nav>
+	</header>
+	<main fxFlexFill fxLayout="column" fxFlex>
 		<router-outlet></router-outlet> 
-	</div>
-</main>
-<footer>
-	<a [href]="url">http://savantly.net</a>
-</footer>
+	</main>
+	<footer fxLayoutAlign="center center">
+		<a href="http://savantly.net"><small><i>Sprout</i> by savantly.net</small></a>
+	</footer>
+</div>

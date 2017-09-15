@@ -1,40 +1,38 @@
-<div md-toolbar>
-	<div md-menu-bar fxLayout="row" class="md-toolbar-tools" layout-align="space-between center">
-		<div>
-			<a md-button routerLink="['']">
-				<span>Sprout</span>
-			</a>
-		</div>
-		<div *ngFor="let menu of menus">
-			<div md-menu  *ngIf="menu.shouldRender(authentication.user) && menu.items.length > 0;">
-				<button md-button (click)="openMenu($event)">{{menu.title}}</button>
-				<div md-menu-content>
-					<div md-menu-item *ngFor="let item of menu.items">
-						<div *ngIf="item.shouldRender(authentication.user);">
-							<div md-menu-item *ngIf="item.menuItemType == 'dropdown'">
-								<div md-menu>
-									<button md-button (click)="openMenu($event)" (mouseenter)="noop($event)">{{item.title}}</button>
-									<div md-menu-content (mouseleave)="closeMenu($event)">
-										<div md-menu-item *ngFor="let subitem of item.items">
-											<div  *ngIf="subitem.shouldRender(authentication.user);">
-												<button md-button *ngIf="subitem.menuItemType == 'callback'" (click)="doMenuItemCallback(subitem, $event)">{{subitem.title}}</button>
-												<a md-button *ngIf="subitem.menuItemType == 'location'" routerLink="[subitem.location]">{{subitem.title}}</a>
-											</div>
+<md-toolbar>
+	<span>
+		<a md-button routerLink="['']">
+			<span>Sprout</span>
+		</a>
+	</span>
+	<div *ngFor="let menu of menus">
+		<md-menu *ngIf="menu.shouldRender(security.user)">
+			<div md-menu-item>
+				<button md-menu-item (click)="openMenu($event)">{{menu.title}}</button>
+				<div md-menu-item *ngFor="let item of menu.items">
+					<div *ngIf="item.shouldRender(security.user);">
+						<div md-menu-item *ngIf="item.menuItemType == 'dropdown'">
+							<div md-menu>
+								<button md-button (click)="openMenu($event)" (mouseenter)="noop($event)">{{item.title}}</button>
+								<div md-menu-content (mouseleave)="closeMenu($event)">
+									<div md-menu-item *ngFor="let subitem of item.items">
+										<div  *ngIf="subitem.shouldRender(security.user);">
+											<button md-button *ngIf="subitem.menuItemType == 'callback'" (click)="doMenuItemCallback(subitem, $event)">{{subitem.title}}</button>
+											<a md-button *ngIf="subitem.menuItemType == 'location'" routerLink="[subitem.location]">{{subitem.title}}</a>
 										</div>
 									</div>
 								</div>
 							</div>
-							<button md-button *ngIf="item.menuItemType == 'callback'" (click)="doMenuItemCallback(item, $event)">{{item.title}}</button>
-							<a md-button *ngIf="item.menuItemType == 'location'" routerLink="[item.location]">{{item.title}}</a>
 						</div>
+						<button md-button *ngIf="item.menuItemType == 'callback'" (click)="doMenuItemCallback(item, $event)">{{item.title}}</button>
+						<a md-button *ngIf="item.menuItemType == 'location'" routerLink="[item.location]">{{item.title}}</a>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div fxFlex layout="row"layout-align="center center"><span class="md-subtitle" ng-bind-html="title"></span></div>
-		<div>
-			<button md-button ngHide="authentication.security.authenticated || hideSignin()" (click)="authentication.goToLogin()">Sign in</button>
-			<button md-button ngShow="authentication.security.authenticated" (click)="authentication.logout()">Sign out</button>
-		</div>
+		</md-menu>
 	</div>
-</div>
+	<div fxFlex="1 1 auto"></div>
+	<div>
+		<button md-button *ngIf="!security.user.authenticated" (click)="security.goToLogin()">Sign in</button>
+		<button md-button *ngIf="security.user.authenticated" (click)="security.logout()">Sign out</button>
+	</div>
+</md-toolbar>

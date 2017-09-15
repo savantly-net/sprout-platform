@@ -1,4 +1,4 @@
-import { AuthenticationService } from '../security/authentication/authentication.service';
+import { SecurityService } from '../security/security.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuService, Menu } from './menu.service';
 import { MdMenuTrigger } from '@angular/material';
@@ -11,7 +11,7 @@ import { MdMenuTrigger } from '@angular/material';
 export class MenuComponent implements OnInit {
   @ViewChild(MdMenuTrigger) trigger: MdMenuTrigger;
   menus: Menu[];
-  authentication: any;
+  security: SecurityService;
 
   openMenu() {
     this.trigger.openMenu();
@@ -34,10 +34,10 @@ export class MenuComponent implements OnInit {
   };
 
   constructor(
-    authenticationService: AuthenticationService,
+    securityService: SecurityService,
     menuService: MenuService) {
-    this.menus = menuService.menus;
-    this.authentication = authenticationService;
+    this.menus = menuService.getMenus();
+    this.security = securityService;
   }
 
   ngOnInit() {

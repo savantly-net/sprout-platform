@@ -1,4 +1,4 @@
-import { User } from '../security/user/user.component';
+import { IUser } from '../security/user/user.component';
 import { Injectable } from '@angular/core';
 
 export const defaultMenuId = 'mainMenu';
@@ -18,7 +18,7 @@ export interface IMenu {
   menuItemType: MenuItemType;
   location: string;
   callback: () => void;
-  shouldRender: (user: User) => boolean;
+  shouldRender: (user: IUser) => boolean;
   addMenuItem: (item: any) => IMenu;
   /*
    * Returns true is delete is successful
@@ -38,7 +38,7 @@ export class Menu implements IMenu {
   callback: () => void;
   location: string;
 
-  shouldRender(user: User): boolean {
+  shouldRender(user: IUser): boolean {
     if (user) {
       if (this.roles.indexOf('*') > -1) {
         return true;
@@ -103,7 +103,10 @@ export class Menu implements IMenu {
 @Injectable()
 export class MenuService {
   // internal menus object
-  menus: Menu[];
+  private menus: Menu[];
+  getMenus() {
+    return this.menus;
+  }
 
   menuExists(menuId: string): boolean {
     this.menus.map(menu => {

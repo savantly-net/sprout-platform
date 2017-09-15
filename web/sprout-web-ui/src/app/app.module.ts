@@ -4,10 +4,6 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialModule } from '@angular/material';
-
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 
 import { AppComponent } from './app.component';
@@ -15,10 +11,9 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ApiService } from './shared';
 import { routing } from './app.routing';
+import { MaterialModule } from './material/material.module';
 import { SecurityModule } from './security/security.module';
-import { AuthenticationService } from './security/authentication/authentication.service';
 import { MenuModule } from './menu/menu.module';
-import { MenuService } from './menu/menu.service';
 
 @NgModule({
   imports: [
@@ -26,7 +21,6 @@ import { MenuService } from './menu/menu.service';
     HttpModule,
     FormsModule,
     routing,
-    FlexLayoutModule,
     BrowserAnimationsModule,
     MaterialModule,
     SecurityModule,
@@ -38,9 +32,7 @@ import { MenuService } from './menu/menu.service';
     AboutComponent,
   ],
   providers: [
-    ApiService,
-    AuthenticationService,
-    MenuService
+    ApiService
   ],
   entryComponents: [],
   bootstrap: [AppComponent]
