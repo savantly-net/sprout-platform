@@ -28,7 +28,7 @@ public class SproutResourceAutoConfiguration {
 	@Bean
 	public ModuleResourceProvider moduleResourceProvider(SproutControllerConfiguration controllerConfiguration,
 			ResourceUrlFormatter resourceUrlFormatter) {
-		return new DefaultModuleResourceProvider(controllerConfiguration, resourceUrlFormatter);
+		return new DefaultModuleResourceProvider(SproutResourceAutoConfiguration.class, controllerConfiguration, resourceUrlFormatter);
 	}
 
 	@Bean

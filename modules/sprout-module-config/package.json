@@ -1,0 +1,24 @@
+{
+  "name": "sprout-module-parent",
+  "version": "1.0.0",
+  "description": "Parent POM for Sprout modules",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/savantly-net/sprout-platform.git"
+  },
+  "keywords": [
+    "spring",
+    "java",
+    "sprout",
+    "SPA"
+  ],
+  "author": "Jeremy Branham",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/savantly-net/sprout-platform/issues"
+  },
+  "homepage": "https://github.com/savantly-net/sprout-platform#readme"
+}

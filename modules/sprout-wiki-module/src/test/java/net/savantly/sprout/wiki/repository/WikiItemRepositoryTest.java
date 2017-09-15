@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
@@ -18,8 +19,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import net.savantly.sprout.modules.test.SproutModuleTest;
+import net.savantly.sprout.wiki.WikiModule;
 
 @TestPropertySource(locations="classpath:test.properties")
+@ComponentScan(basePackageClasses=WikiModule.class)
 public class WikiItemRepositoryTest extends SproutModuleTest {
 	
 	Logger log = LoggerFactory.getLogger(WikiItemRepositoryTest.class);

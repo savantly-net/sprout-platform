@@ -1,0 +1,112 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>web-ui</artifactId>
+	<packaging>pom</packaging>
+	<name>sprout-web-ui</name>
+	<scm>
+		<url>https://github.com/savantly-net/sprout-platform</url>
+		<connection>https://github.com/savantly-net/sprout-platform.git</connection>
+		<tag>HEAD</tag>
+	</scm>
+	<issueManagement>
+		<url>https://github.com/savantly-net/sprout-platform/issues</url>
+		<system>GitHub</system>
+	</issueManagement>
+	<parent>
+		<groupId>net.savantly.sprout</groupId>
+		<version>0.1.0-SNAPSHOT</version>
+		<artifactId>platform</artifactId>
+		<relativePath>../../pom.xml</relativePath>
+	</parent>
+	<developers>
+		<developer>
+			<name>Jeremy Branham</name>
+			<email>jeremy@savantly.net</email>
+			<url>https://www.linkedin.com/in/jeremybranham</url>
+			<organization>Savantly.net</organization>
+			<organizationUrl>http://Savantly.net</organizationUrl>
+			<timezone>-6</timezone>
+		</developer>
+	</developers>
+	<licenses>
+		<license>
+			<name>Apache License Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+		</license>
+	</licenses>
+	<inceptionYear>2017</inceptionYear>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>make shared resources</id>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<phase>package</phase>
+						<configuration>
+							<descriptors>
+								<descriptor>assembly/src.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<execution>
+						<id>npm configuration list (validate)</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>validate</phase>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>config</argument>
+								<argument>list</argument>
+								<argument>-l</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>npm install (takes a while)</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>pre-clean</phase>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>install</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>npm test</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>compile</phase>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>test</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies></dependencies>
+	<description>Default ui for Sprout</description>
+</project>
