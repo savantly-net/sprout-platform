@@ -112,7 +112,7 @@
 		<module>test/module-test</module>
 		<module>modules/sprout-module-config</module>
 		<module>modules/sprout-module-parent</module>
-		<module>modules/sprout-wiki-module</module>
+		
 		<module>web/sprout-garden</module>
 	</modules>
 </project>
