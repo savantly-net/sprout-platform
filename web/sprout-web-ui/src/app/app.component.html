@@ -1,6 +1,18 @@
 <header>
 	<nav>
-		<my-menu></my-menu>
+		<md-toolbar>
+			<span>
+				<a md-button [routerLink]="['']">
+					<span>Sprout</span>
+				</a>
+			</span>
+			<my-menu></my-menu>
+			<div fxFlex="1 1 auto"></div>
+			<div>
+				<button md-button *ngIf="!security.user.authenticated" (click)="security.goToLogin()">Sign in</button>
+				<button md-button *ngIf="security.user.authenticated" (click)="security.logout()">Sign out</button>
+			</div>
+		</md-toolbar>
 	</nav>
 </header>
 <main fxFlexFill fxLayout="column" fxFlex> 

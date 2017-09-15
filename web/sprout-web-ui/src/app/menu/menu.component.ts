@@ -1,7 +1,8 @@
 import { SecurityService } from '../security/security.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChildren, QueryList } from '@angular/core';
 import { MenuService, Menu } from './menu.service';
 import { MdMenuTrigger } from '@angular/material';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'my-menu',
@@ -9,20 +10,22 @@ import { MdMenuTrigger } from '@angular/material';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  @ViewChild(MdMenuTrigger) trigger: MdMenuTrigger;
-  menus: Menu[];
+  @Input() items: any[];
+  menuService: MenuService;
   security: SecurityService;
+  menus: Observable<Menu[]>;
 
-  openMenu() {
-    this.trigger.openMenu();
-  }
+  @ViewChildren(MdMenuTrigger) triggers: QueryList<MdMenuTrigger>;
 
-  noop() {
-
+  openMenu(trigger: MdMenuTrigger, level: number) {
+    this.triggers
+      .filter((x: any) => x._element.nativeElement.dataset.level >= level && x !== trigger)
+      .forEach(x => x.closeMenu());
+    trigger.openMenu();
   }
 
   closeMenu() {
-    this.trigger.closeMenu();
+    this.triggers.forEach(x => x.closeMenu());
   }
 
   doMenuItemCallback(subitem, $event) {
@@ -36,7 +39,7 @@ export class MenuComponent implements OnInit {
   constructor(
     securityService: SecurityService,
     menuService: MenuService) {
-    this.menus = menuService.getMenus();
+    this.menuService = menuService;
     this.security = securityService;
   }
 

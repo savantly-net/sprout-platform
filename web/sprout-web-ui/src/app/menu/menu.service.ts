@@ -1,61 +1,36 @@
+import { SecurityService } from '../security/security.service';
 import { IUser } from '../security/user/user.component';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 export const defaultMenuId = 'mainMenu';
 
-export enum MenuItemType {
-  location,
-  dropdown
-}
-
 export interface IMenu {
   id: string;
-  title: string;
+  text: string;
   isPublic: boolean;
   roles: string[];
   items: IMenu[];
   position: number;
-  menuItemType: MenuItemType;
-  location: string;
+  disabled: boolean;
+  icon: string;
   callback: () => void;
-  shouldRender: (user: IUser) => boolean;
   addMenuItem: (item: any) => IMenu;
-  /*
-   * Returns true is delete is successful
-   */
   removeMenuItem: (id: string) => boolean;
   getMenuItem: (id: string) => IMenu;
 }
 
 export class Menu implements IMenu {
   id: string;
-  title: string;
+  text: string;
   isPublic: boolean;
   roles: string[];
   items: IMenu[];
   position: number;
-  menuItemType: MenuItemType;
   callback: () => void;
-  location: string;
-
-  shouldRender(user: IUser): boolean {
-    if (user) {
-      if (this.roles.indexOf('*') > -1) {
-        return true;
-      } else {
-        for (let userRoleIndex of user.roles) {
-          for (let roleIndex of this.roles) {
-            if (this.roles[roleIndex] === user.roles[userRoleIndex]) {
-              return true;
-            }
-          }
-        }
-      }
-    } else {
-      return this.isPublic;
-    }
-    return false;
-  }
+  disabled: boolean;
+  icon: string;
 
   // Add menu item object
   addMenuItem(item: IMenu) {
@@ -93,19 +68,18 @@ export class Menu implements IMenu {
     this.isPublic = options.isPublic || true;
     this.items = options.items || [];
     this.roles = options.roles || ['*'];
-    this.title = options.title || 'unamed menu item';
-    this.location = options.location;
-    this.menuItemType = options.menuItemType || MenuItemType.location;
+    this.text = options.text || 'unamed menu item';
     this.callback = options.callback;
   }
 }
 
 @Injectable()
 export class MenuService {
-  // internal menus object
   private menus: Menu[];
-  getMenus() {
-    return this.menus;
+  user: IUser;
+
+  getMenus(): Observable<Menu[]> {
+    return Observable.of(this.menus);
   }
 
   menuExists(menuId: string): boolean {
@@ -141,7 +115,7 @@ export class MenuService {
   };
 
   // Add new menu object by menu id
-  addMenu(menu: Menu) {
+  addMenu(menu: IMenu) {
     if (this.menuExists(menu.id)) {
       throw new Error ('Menu already exists with this id: ' + menu.id);
     } else {
@@ -162,9 +136,38 @@ export class MenuService {
     }
   }
 
-  constructor() {
+  shouldRender(menu: IMenu): boolean {
+    if (this.user !== null) {
+      if (menu.roles.indexOf('*') > -1) {
+        return true;
+      } else {
+        for (let userRoleIndex of this.user.roles) {
+          for (let roleIndex of menu.roles) {
+            if (menu.roles[roleIndex] === this.user.roles[userRoleIndex]) {
+              return true;
+            }
+          }
+        }
+      }
+    } else {
+      return menu.isPublic;
+    }
+    return false;
+  }
+
+  constructor(security: SecurityService, router: Router) {
+    this.user = security.user;
     this.menus = [];
-    this.menus.push(new Menu({title: 'Navigation'}));
+    let mainMenu = new Menu({
+      id: 'mainMenu',
+      text: 'Navigation'});
+    mainMenu.addMenuItem(new Menu({
+      text: 'About',
+      callback: function(){
+        router.navigate(['/about']);
+      }
+    }));
+    this.menus.push(mainMenu);
   }
 
 }

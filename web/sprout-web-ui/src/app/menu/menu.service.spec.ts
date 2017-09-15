@@ -14,7 +14,9 @@ describe('MenuService', () => {
   }));
 
   it('should be have a default menu created', inject([MenuService], (service: MenuService) => {
-    expect(service.getMenus().length).toBe(1);
+    service.getMenus().subscribe(menus => {
+      expect(menus.length).toBe(1);
+    })
   }));
 
 });
