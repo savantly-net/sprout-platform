@@ -17,7 +17,7 @@ describe('Home Component', () => {
   it('should ...', () => {
     const fixture = TestBed.createComponent(TestComponent);
     fixture.detectChanges();
-    expect(fixture.nativeElement.children[0].children[0].tagName).toBe('IMG');
+    expect(fixture.nativeElement.children[0].children[0].tagName).toBe('DIV');
   });
 
 });
