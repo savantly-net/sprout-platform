@@ -1,3 +1,4 @@
+dist: trusty
 sudo: required
 language: java
 jdk:
@@ -5,6 +6,7 @@ jdk:
 cache:
   directories:
     - $HOME/.m2
+    - node_modules
 install: true
 before_install:
   - sudo apt-get update
