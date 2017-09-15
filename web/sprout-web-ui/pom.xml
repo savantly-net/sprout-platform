@@ -63,7 +63,7 @@
 				<version>1.6.0</version>
 				<executions>
 					<execution>
-						<id>npm configuration list (validatet</id>
+						<id>npm configuration list (validate)</id>
 						<goals>
 							<goal>exec</goal>
 						</goals>
@@ -91,7 +91,7 @@
 						</configuration>
 					</execution>
 					<execution>
-						<id>npm run build</id>
+						<id>npm test</id>
 						<goals>
 							<goal>exec</goal>
 						</goals>
@@ -99,8 +99,7 @@
 						<configuration>
 							<executable>npm</executable>
 							<arguments>
-								<argument>run</argument>
-								<argument>ci</argument>
+								<argument>test</argument>
 							</arguments>
 						</configuration>
 					</execution>
