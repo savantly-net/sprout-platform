@@ -9,8 +9,8 @@ export class AuthenticationService implements IAuthenticationService {
 
   isAuthenticated: () => boolean;
 
-  constructor() { 
-    
+  constructor() {
+
   }
-  
+
 }
