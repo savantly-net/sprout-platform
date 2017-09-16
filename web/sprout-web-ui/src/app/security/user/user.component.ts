@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 export interface IUser {
-  principal: string,
+  principal: string;
   displayName: string;
-  authenticated: boolean,
+  authenticated: boolean;
   roles: string[];
 }
 
