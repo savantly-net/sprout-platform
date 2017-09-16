@@ -9,7 +9,7 @@
 			<my-menu></my-menu>
 			<div fxFlex="1 1 auto"></div>
 			<div>
-				<button md-button *ngIf="!security.user.authenticated" (click)="security.goToLogin()">Sign in</button>
+				<button md-button *ngIf="!security.user.authenticated" [routerLink]="['login']">Sign in</button>
 				<button md-button *ngIf="security.user.authenticated" (click)="security.logout()">Sign out</button>
 			</div>
 		</md-toolbar>
