@@ -15,7 +15,7 @@
 	</issueManagement>
 	<parent>
 		<groupId>net.savantly.sprout</groupId>
-		<version>0.1.0-SNAPSHOT</version>
+		<version>1.0.1-SNAPSHOT</version>
 		<artifactId>platform</artifactId>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
@@ -36,7 +36,6 @@
 		</license>
 	</licenses>
 	<inceptionYear>2017</inceptionYear>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -58,9 +57,18 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+			</plugin>
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.6.0</version>
+				<configuration>
+					<environmentVariables>
+						<CHROME_BIN>${CHROME_BIN}</CHROME_BIN>
+						<npm_config_package_version>${npm_package_version}</npm_config_package_version>
+					</environmentVariables>
+				</configuration>
 				<executions>
 					<execution>
 						<id>npm configuration list (validate)</id>
@@ -95,11 +103,41 @@
 						<goals>
 							<goal>exec</goal>
 						</goals>
-						<phase>compile</phase>
+						<phase>test</phase>
 						<configuration>
 							<executable>npm</executable>
 							<arguments>
+								<argument>run</argument>
 								<argument>test</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>npm build</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>package</phase>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>run</argument>
+								<argument>build-noprogress</argument>
+							</arguments>
+							<skip>true</skip>
+						</configuration>
+					</execution>
+					<execution>
+						<id>npm publish</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>deploy</phase>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>run</argument>
+								<argument>publish</argument>
 							</arguments>
 						</configuration>
 					</execution>

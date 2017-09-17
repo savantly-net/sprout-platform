@@ -13,6 +13,4 @@ buildNumber.properties
 /.settings/
 /.classpath
 /.project
-/node/
-/npm-debug.log
 /node_modules/

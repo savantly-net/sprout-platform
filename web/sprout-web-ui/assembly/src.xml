@@ -10,13 +10,13 @@
 		<fileSet>
 			<directory>./</directory>
 			<outputDirectory></outputDirectory>
-			<excludes>
-				<exclude>assembly</exclude>
-				<exclude>dist</exclude>
-				<exclude>node</exclude>
-				<exclude>node_modules</exclude>
-				<exclude>target</exclude>
-			</excludes>
+			<includes>
+				<include>src/**</include>
+				<include>*.js</include>
+				<include>*.json</include>
+				<include>dist</include>
+			</includes>
+			<filtered>true</filtered>
 		</fileSet>
 	</fileSets>
 </assembly>

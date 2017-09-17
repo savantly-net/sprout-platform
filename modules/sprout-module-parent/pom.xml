@@ -16,7 +16,7 @@
 	</issueManagement>
 	<parent>
 		<groupId>net.savantly.sprout</groupId>
-		<version>0.1.0-SNAPSHOT</version>
+		<version>1.0.1-SNAPSHOT</version>
 		<artifactId>platform</artifactId>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
@@ -37,19 +37,7 @@
 		</license>
 	</licenses>
 	<inceptionYear>2017</inceptionYear>
-
-	<properties>
-		<sprout.module.name>${project.artifactId}</sprout.module.name>
-		<sprout.module.core>target/generated-resources/sprout-module</sprout.module.core>
-	</properties>
-
 	<build>
-		<resources>
-			<resource>
-				<directory>${project.build.directory}/generated-resources/sprout-module</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -63,8 +51,8 @@
 							</goals>
 							<phase>generate-resources</phase>
 							<configuration>
-								<outputDirectory>${project.build.directory}/generated-resources/sprout-module</outputDirectory>
-								<includeArtifacIds>module-config</includeArtifacIds>
+								<outputDirectory>node_modules/sprout-web-ui</outputDirectory>
+								<includeArtifacIds>web-ui</includeArtifacIds>
 								<includeGroupIds>${project.groupId}</includeGroupIds>
 								<includeClassifiers>resources</includeClassifiers>
 								<includeTypes>zip</includeTypes>
@@ -75,84 +63,71 @@
 						</execution>
 					</executions>
 				</plugin>
-
 				<plugin>
-					<groupId>com.cj.jshintmojo</groupId>
-					<artifactId>jshint-maven-plugin</artifactId>
-					<version>1.6.0</version>
-					<executions>
-						<execution>
-							<goals>
-								<goal>lint</goal>
-							</goals>
-						</execution>
-					</executions>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
 					<configuration>
-						<version>2.4.3</version>
-						<options></options>
-						<globals>angular,ApplicationConfiguration,require,$</globals>
-						<directories>
-							<directory>src/main/resources</directory>
-						</directories>
-						<reporter>jslint</reporter>
-						<reportFile>target/jshint.xml</reportFile>
-						<failOnError>true</failOnError>
-					</configuration>
-				</plugin>
-				<!-- https://mvnrepository.com/artifact/com.github.eirslett/frontend-maven-plugin -->
-				<plugin>
-					<groupId>com.github.eirslett</groupId>
-					<artifactId>frontend-maven-plugin</artifactId>
-					<version>1.5</version>
-					<configuration>
-						<nodeVersion>v6.11.3</nodeVersion>
-						<yarnVersion>v0.16.1</yarnVersion>
+						<environmentVariables>
+							<CHROME_BIN>${CHROME_BIN}</CHROME_BIN>
+							<npm_package_version>${npm_package_version}</npm_package_version>
+						</environmentVariables>
 					</configuration>
 					<executions>
 						<execution>
-							<id>install node and npm</id>
+							<id>npm configuration list (validate)</id>
 							<goals>
-								<goal>install-node-and-npm</goal>
+								<goal>exec</goal>
 							</goals>
-						</execution>
-						<execution>
-							<id>npm install parent dependencies</id>
-							<goals>
-								<goal>npm</goal>
-							</goals>
+							<phase>validate</phase>
 							<configuration>
-								<arguments>install ${sprout.module.core}</arguments>
+								<executable>npm</executable>
+								<arguments>
+									<argument>config</argument>
+									<argument>list</argument>
+									<argument>-l</argument>
+								</arguments>
 							</configuration>
 						</execution>
 						<execution>
-							<id>webpack build</id>
+							<id>npm install sprout-web-ui - dependencies (takes a while)</id>
 							<goals>
-								<goal>webpack</goal>
+								<goal>exec</goal>
 							</goals>
+							<phase>generate-resources</phase>
 							<configuration>
-								<arguments>-d --config ${sprout.module.core}/webpack.config.js</arguments>
-								<srcdir>src/main/resources</srcdir>
-								<outputdir>${project.build.directory}/classes/static/modules/${sprout.module.name}</outputdir>
+								<executable>npm</executable>
+								<arguments>
+									<argument>install</argument>
+									<argument>./node_modules/sprout-web-ui</argument>
+								</arguments>
+							</configuration>
+						</execution>
+						<execution>
+							<id>npm test</id>
+							<goals>
+								<goal>exec</goal>
+							</goals>
+							<phase>compile</phase>
+							<configuration>
+								<executable>npm</executable>
+								<arguments>
+									<argument>test</argument>
+								</arguments>
 							</configuration>
 						</execution>
 					</executions>
 				</plugin>
-
 			</plugins>
 		</pluginManagement>
 		<plugins>
-			<!-- <plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
-			</plugin> -->
+			</plugin>
 			<plugin>
-				<groupId>com.cj.jshintmojo</groupId>
-				<artifactId>jshint-maven-plugin</artifactId>
-			</plugin><!-- 
-			<plugin>
-				<groupId>com.github.eirslett</groupId>
-				<artifactId>frontend-maven-plugin</artifactId>
-			</plugin> -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
@@ -160,12 +135,12 @@
 			<groupId>net.savantly.sprout</groupId>
 			<artifactId>sprout-spring-boot-starter</artifactId>
 		</dependency>
-		<!-- <dependency>
+		<dependency>
 			<groupId>net.savantly.sprout</groupId>
-			<artifactId>module-config</artifactId>
+			<artifactId>web-ui</artifactId>
 			<classifier>resources</classifier>
 			<type>zip</type>
-		</dependency> -->
+		</dependency>
 		<dependency>
 			<groupId>net.savantly.sprout</groupId>
 			<artifactId>module-test</artifactId>

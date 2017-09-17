@@ -1,5 +1,8 @@
 package net.savantly.sprout.autoconfigure;
 
+import java.io.IOException;
+import java.nio.file.Paths;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -14,6 +17,8 @@ import net.savantly.sprout.core.module.DefaultModuleResourceProvider;
 import net.savantly.sprout.core.module.DefaultResourceUrlFormatter;
 import net.savantly.sprout.core.module.ModuleResourceProvider;
 import net.savantly.sprout.core.module.ResourceUrlFormatter;
+import net.savantly.sprout.core.resource.SproutResourcePatternResolver;
+import net.savantly.sprout.core.ui.UiLoader;
 import net.savantly.sprout.starter.DefaultSproutBaseController;
 import net.savantly.sprout.starter.DefaultSproutControllerConfiguration;
 import net.savantly.sprout.starter.SproutBaseController;
@@ -55,6 +60,15 @@ public class SproutResourceAutoConfiguration {
 	SproutBaseController defaultSproutBaseController(ObjectMapper objectMapper,
 			SproutControllerConfiguration controllerConfig, ModuleResourceProvider resourceProvider) {
 		return new DefaultSproutBaseController(objectMapper, controllerConfig, resourceProvider);
+	}
+
+	@Bean
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	UiLoader defaultUiLoader() throws IOException, InterruptedException {
+		String targetFolder = Paths.get(System.getProperty("user.home"), "sprout-ui").toString();
+		UiLoader loader = new UiLoader(SproutResourcePatternResolver.of(SproutResourceAutoConfiguration.class), targetFolder);
+		loader.init();
+		return loader;
 	}
 
 }
