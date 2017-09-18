@@ -7,28 +7,26 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
 
 import net.savantly.spring.fixture.util.RandomGenerator;
-import net.savantly.sprout.core.domain.user.SproutUser;
+import net.savantly.sprout.core.domain.user.SproutUserEntity;
 
-@Service
 public class FakeContext {
     
     private static final Logger log = LoggerFactory.getLogger(FakeContext.class);
     
 
     public void create() {
-        SproutUser user = new SproutUser("system", RandomGenerator.getRandomAlphaNumericString(20), "system", "user");
+        SproutUserEntity user = new SproutUserEntity("system", RandomGenerator.getRandomAlphaNumericString(20), "system", "user");
         FakeAuthentication auth = new FakeAuthentication(user);
         SecurityContextHolder.getContext().setAuthentication(auth);
     }
     
     protected class FakeAuthentication implements Authentication{
         
-        private SproutUser user;
+        private SproutUserEntity user;
 
-        public FakeAuthentication(SproutUser user){
+        public FakeAuthentication(SproutUserEntity user){
             this.user = user;
             
         }

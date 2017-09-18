@@ -1,7 +1,7 @@
 package net.savantly.garden.web;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import net.savantly.sprout.starter.SproutBaseController;
+import net.savantly.sprout.autoconfigure.SproutAutoConfiguration;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes={GardenWebApplication.class})
@@ -38,7 +38,7 @@ public class GardenWebApplicationTests {
 
 	@Test
 	public void contextLoads() {
-		SproutBaseController bean = ctx.getBean(SproutBaseController.class);
+		SproutAutoConfiguration bean = ctx.getBean(SproutAutoConfiguration.class);
 		log.debug("{}", bean);
 	}
 	

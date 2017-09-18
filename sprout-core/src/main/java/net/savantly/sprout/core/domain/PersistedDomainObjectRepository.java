@@ -5,6 +5,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 
 @NoRepositoryBean
-public interface PersistedModuleRepository<T> extends PagingAndSortingRepository<T, String> {
+public interface PersistedDomainObjectRepository<T> extends PagingAndSortingRepository<T, String> {
 
 }

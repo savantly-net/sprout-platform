@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import org.springframework.util.Assert;
 
 import net.savantly.sprout.core.domain.user.SproutUser;
+import net.savantly.sprout.core.domain.user.SproutUserEntity;
 
 @Entity
 public class EmailAddress implements Serializable{
@@ -50,7 +51,7 @@ public class EmailAddress implements Serializable{
         this.verified = confirmed;
     }
 
-    @ManyToOne
+    @ManyToOne(targetEntity=SproutUserEntity.class)
     public SproutUser getUser() {
         return user;
     }

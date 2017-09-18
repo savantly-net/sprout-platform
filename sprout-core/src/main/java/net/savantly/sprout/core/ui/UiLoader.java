@@ -6,13 +6,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.concurrent.Executors;
-import java.util.function.Consumer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
@@ -31,51 +29,74 @@ public class UiLoader<T> {
 	private boolean isWindows = System.getProperty("os.name")
 			  .toLowerCase().startsWith("windows");
 
-	public UiLoader(SproutResourcePatternResolver<T> resolver, String destinationFolder) {
+	private String searchPattern;
+
+	private String nodeBin = "/opt/node-v6.10.2-linux-x64/bin/node";
+
+	private String npmBin = "/opt/node-v6.10.2-linux-x64/bin/npm";
+
+	public UiLoader(SproutResourcePatternResolver<T> resolver, String destinationFolder, String searchPattern) {
 		this.resolver = resolver;
 		this.destinationFolder = destinationFolder;
+		this.searchPattern = searchPattern;
 	}
 	
 	public void init() throws IOException, InterruptedException {
 		extractZippedClientFiles();
-		buildClientApp();
+		if(isWindows) {
+			
+		} else {
+			executeCommands(getLinuxInstallArgs());
+			executeCommands(getLinuxBuildArgs());
+		}
 	}
 
 	private void extractZippedClientFiles() throws IOException {
-		Resource[] resourcePaths = resolver.getResourcePaths("classpath*:/**/*-resources.zip");
+		Resource[] resourcePaths = resolver.getResourcePaths(searchPattern);
 		if(resourcePaths.length == 0) {
-			throw new RuntimeException("No client resource zip files found in classpath.");
+			throw new RuntimeException("No files found that match search pattern: " + searchPattern);
 		}
 		for (Resource resource : resourcePaths) {
 			extractFolder(resource.getFile(), destinationFolder, false);
 		}
 	}
 	
-	private void buildClientApp() throws IOException, InterruptedException {
-		ProcessBuilder builder = new ProcessBuilder();
-		if (isWindows) {
-		    builder.command(getWindowsBuildArgs());
-		} else {
-		    builder.command(getLinuxBuildArgs());
-		}
-		builder.directory(new File(this.destinationFolder));
-		Process process = builder.start();
-		StreamGobbler streamGobbler = 
-		  new StreamGobbler(process.getInputStream(), System.out::printf);
-		Executors.newSingleThreadExecutor().submit(streamGobbler);
-		int exitCode = process.waitFor();
-		assert exitCode == 0;
+	
+	private List<String> getLinuxInstallArgs() {
+		return Arrays.asList(nodeBin, npmBin, "install");
+	}
+
+	private List<String> getWindowsInstallArgs() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
-    
     private List<String> getLinuxBuildArgs() {
-		return Arrays.asList("/opt/node-v6.10.2-linux-x64/bin/npm", "build");
+		return Arrays.asList(nodeBin, npmBin, "run", "build");
 	}
 
 	private List<String> getWindowsBuildArgs() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	private void executeCommands(List<String> args) throws IOException, InterruptedException {
+		log.info("Executing command: {}", args);
+		ProcessBuilder builder = new ProcessBuilder();
+		builder.command(args);
+		builder.directory(new File(this.destinationFolder));
+		
+		builder.redirectErrorStream(true);
+		 
+		Process process = builder.start();
+		Executors.newSingleThreadExecutor().submit(() -> {
+			new BufferedReader(new InputStreamReader(process.getInputStream())).lines()
+            .forEach(log::info);
+		});
+		int exitCode = process.waitFor();
+		assert exitCode == 0;
+	}
+
 
 	private void extractFolder(File zipFile, String targetFolder, boolean createSubDirectory) throws ZipException, IOException 
     {
@@ -105,6 +126,7 @@ public class UiLoader<T> {
 
             if (!entry.isDirectory())
             {
+            	log.info("Extracting file: {} -> {}", currentEntry, destFile.getAbsolutePath());
                 BufferedInputStream is = new BufferedInputStream(zip
                 .getInputStream(entry));
                 int currentByte;
@@ -127,25 +149,10 @@ public class UiLoader<T> {
 
             if (currentEntry.endsWith(".zip"))
             {
+            	log.info("Extracting zip file: {}", currentEntry);
                 // found a zip file, try to open
                 extractFolder(destFile, null, true);
             }
-        }
-    }
-	
-    private static class StreamGobbler implements Runnable {
-        private InputStream inputStream;
-        private Consumer<String> consumer;
-     
-        public StreamGobbler(InputStream inputStream, Consumer<String> consumer) {
-            this.inputStream = inputStream;
-            this.consumer = consumer;
-        }
-     
-        @Override
-        public void run() {
-            new BufferedReader(new InputStreamReader(inputStream)).lines()
-              .forEach(consumer);
         }
     }
 

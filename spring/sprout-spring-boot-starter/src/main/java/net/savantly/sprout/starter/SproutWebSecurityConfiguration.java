@@ -1,5 +1,4 @@
-package net.savantly.sprout.core.configuration;
-
+package net.savantly.sprout.starter;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
@@ -9,14 +8,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,30 +25,27 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-@Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
-	@Autowired
+public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter{
+
 	UserDetailsService userDetailsService;
-	
-	@Autowired
-	@Qualifier("ssoFilter")
 	Filter ssoFilter;
-	
-	@Autowired
-	@Qualifier("oauth2ClientContextFilter")
 	Filter oauth2ClientContextFilter;
-	
-	@Autowired
 	PasswordEncoder passwordEncoder;
 	
+	public SproutWebSecurityConfiguration(UserDetailsService userDetailsService, Filter ssoFilter,
+			Filter oauth2ClientContextFilter, PasswordEncoder passwordEncoder) {
+		super();
+		this.userDetailsService = userDetailsService;
+		this.ssoFilter = ssoFilter;
+		this.oauth2ClientContextFilter = oauth2ClientContextFilter;
+		this.passwordEncoder = passwordEncoder;
+	}
+
 	@Override
  	public void configure(WebSecurity web) throws Exception {
  		web.ignoring()
  		// Spring Security should completely ignore URLs starting with /resources/
- 				.antMatchers("/*.js", "/libs/**", "/modules/**", "**/favicon.ico");
+ 				.antMatchers("/*.js", "*.html", "/css/**", "/img/**", "/js/**", "/libs/**", "/modules/**", "**/favicon.ico");
  		web.debug(true);
  	}
 
@@ -68,7 +59,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.anyRequest().authenticated()
                 .and()
             .formLogin()
-                .loginPage("/#!/signin")
                 .permitAll()
                 .loginProcessingUrl("/login")
                 .successHandler(successHandler())
@@ -123,4 +113,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	AuthenticationSuccessHandler successHandler(){
 		return new SimpleUrlAuthenticationSuccessHandler("/rest/users/token");
 	}
+
 }

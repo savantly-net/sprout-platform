@@ -74,7 +74,7 @@
 					<artifactId>maven-dependency-plugin</artifactId>
 					<executions>
 						<execution>
-							<id>copy web-ui resources</id>
+							<id>copy web-ui resources [target/classes folder]</id>
 							<goals>
 								<goal>copy</goal>
 							</goals>
@@ -88,10 +88,17 @@
 										<type>zip</type>
 									</artifactItem>
 								</artifactItems>
-								<outputDirectory>${project.build.directory}/test-classes/</outputDirectory>
+								<outputDirectory>${project.build.directory}/classes/client</outputDirectory>
 							</configuration>
 						</execution>
 					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<configuration>
+						<excludes></excludes>
+					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -103,6 +110,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>

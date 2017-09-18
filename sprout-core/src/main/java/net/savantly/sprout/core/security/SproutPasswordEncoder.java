@@ -1,9 +1,8 @@
 package net.savantly.sprout.core.security;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
 
-@Service
+
 public class SproutPasswordEncoder extends BCryptPasswordEncoder{
 
     @Override

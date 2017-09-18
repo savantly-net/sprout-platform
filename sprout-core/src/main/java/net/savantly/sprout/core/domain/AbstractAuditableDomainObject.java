@@ -15,13 +15,14 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import net.savantly.sprout.core.configuration.SproutConfiguration;
 import net.savantly.sprout.core.security.SproutAuditable;
 
 @MappedSuperclass
 @EntityListeners({ AuditingEntityListener.class })
 public abstract class AbstractAuditableDomainObject<ID extends Serializable> implements SproutAuditable<ID> {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = SproutConfiguration.serialVersionUID;
 
 	// Auditing Metadata
 	private DateTime createdDate;

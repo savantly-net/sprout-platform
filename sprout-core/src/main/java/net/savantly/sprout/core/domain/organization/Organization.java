@@ -2,13 +2,13 @@ package net.savantly.sprout.core.domain.organization;
 
 import javax.persistence.Entity;
 
-import net.savantly.sprout.core.configuration.CoreConfiguration;
-import net.savantly.sprout.core.domain.PersistedModule;
+import net.savantly.sprout.core.configuration.SproutConfiguration;
+import net.savantly.sprout.core.domain.PersistedDomainObject;
 
 @Entity
-public class Organization extends PersistedModule{
+public class Organization extends PersistedDomainObject{
 
-	private static final long serialVersionUID = CoreConfiguration.serialVersionUID;
+	private static final long serialVersionUID = SproutConfiguration.serialVersionUID;
 	
 	private String name;
 

@@ -2,12 +2,9 @@ package net.savantly.sprout.core.security.roles;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import net.savantly.spring.fixture.AbstractBaseFixture;
 import net.savantly.spring.fixture.Fixture;
 
-@Service
 public class RoleFixture extends AbstractBaseFixture<Role, RoleRepository>{
     
     RoleRepository repository;

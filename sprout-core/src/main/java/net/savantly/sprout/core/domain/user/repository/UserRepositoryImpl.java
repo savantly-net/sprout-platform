@@ -15,6 +15,7 @@ import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
 import net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepository;
 import net.savantly.sprout.core.domain.oauth.OAuthAccount;
 import net.savantly.sprout.core.domain.user.SproutUser;
+import net.savantly.sprout.core.domain.user.SproutUserEntity;
 import net.savantly.sprout.core.security.roles.Role;
 
 public class UserRepositoryImpl implements UserRepositoryCustom {
@@ -30,7 +31,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 	 * Set the password in cleartext
 	 */
 	@Override
-	public SproutUser insert(SproutUser sproutUser) {
+	public SproutUser insert(SproutUserEntity sproutUser) {
 		if(sproutUser.getAuthorities().isEmpty()){
 			Set<Role> authorities = new HashSet<Role>(1);
 			authorities.add(new Role("ROLE_USER"));
@@ -51,14 +52,14 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 	 */
 	@Override
 	public SproutUser insert(String firstName, String lastName, EmailAddress emailAddress){
-		SproutUser sproutUser = new SproutUser(UUID.randomUUID().toString(), UUID.randomUUID().toString(), firstName, lastName);
+		SproutUserEntity sproutUser = new SproutUserEntity(UUID.randomUUID().toString(), UUID.randomUUID().toString(), firstName, lastName);
 		sproutUser.addEmailAddress(emailAddress);
 		return insert(sproutUser);
 	}
 	
 	@Override
 	public SproutUser insert(String firstName, String lastName, OAuthAccount oauthAccount, Collection<EmailAddress> emailAddresses ){
-		SproutUser sproutUser = new SproutUser(UUID.randomUUID().toString(), UUID.randomUUID().toString(), firstName, lastName);
+		SproutUserEntity sproutUser = new SproutUserEntity(UUID.randomUUID().toString(), UUID.randomUUID().toString(), firstName, lastName);
 		sproutUser.addEmailAddress(emailAddresses);
 		sproutUser.addOAuthAccount(oauthAccount);
 		sproutUser.setDisplayName(String.format("%s %s", firstName, lastName));
@@ -73,7 +74,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
 	@Override
 	public SproutUser insert(String username, String clearTextPassword, String firstName, String lastName, Set<Role> authorities) {
-		SproutUser user = new SproutUser(username, clearTextPassword, firstName, lastName, authorities);
+		SproutUserEntity user = new SproutUserEntity(username, clearTextPassword, firstName, lastName, authorities);
 		return insert(user);
 	}
 	
