@@ -6,9 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Service;
 
-@Service
+
 public class DelegatingPermissionEvaluator implements PermissionEvaluator {
     
     private static final Logger log = LoggerFactory.getLogger(DelegatingPermissionEvaluator.class);

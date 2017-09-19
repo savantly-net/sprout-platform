@@ -18,7 +18,7 @@ import net.savantly.sprout.core.security.roles.Role;
 import net.savantly.sprout.core.security.roles.RoleRepository;
 
 @Service
-public class UserFixture extends AbstractBaseFixture<SproutUser, UserRepository>{
+public class UserFixture extends AbstractBaseFixture<SproutUserEntity, UserRepository>{
 
     @Autowired
     PasswordEncoder encoder;
@@ -43,35 +43,35 @@ public class UserFixture extends AbstractBaseFixture<SproutUser, UserRepository>
     }
 
     @Override
-    public void addEntities(List<SproutUser> entityList) {
+    public void addEntities(List<SproutUserEntity> entityList) {
         addAdminUser(entityList);
         addSystemUser(entityList);
     }
     
-    private void addSystemUser(List<SproutUser> entityList) {
+    private void addSystemUser(List<SproutUserEntity> entityList) {
         String username = "system";
-        SproutUser userDetails = this.repository.findOneByUsername(username);
+        SproutUserEntity userDetails = this.repository.findOneByUsername(username);
         
         if(userDetails != null) return;
         
         List<Role> authorities = new ArrayList<Role>(1);
         authorities.add(roleRepository.findOne("ADMIN"));
-        userDetails = new SproutUser(username, RandomGenerator.getRandomAlphaNumericString(25) , username, username, authorities);
+        userDetails = new SproutUserEntity(username, RandomGenerator.getRandomAlphaNumericString(25) , username, username, authorities);
         
         EmailAddress emailAddress =  emailAddressRepository.findOne("system@savantly");
         userDetails.setPrimaryEmailAddress(emailAddress);
         entityList.add(userDetails);
     }
 
-    private void addAdminUser(List<SproutUser> entityList) {
+    private void addAdminUser(List<SproutUserEntity> entityList) {
         String username = "admin";
-        SproutUser userDetails = this.repository.findOneByUsername(username);
+        SproutUserEntity userDetails = this.repository.findOneByUsername(username);
         
         if(userDetails != null) return;
         
         List<Role> authorities = new ArrayList<Role>(1);
         authorities.add(roleRepository.findOne("ADMIN"));
-        userDetails = new SproutUser(username, password , "Admin", "User", authorities);
+        userDetails = new SproutUserEntity(username, password , "Admin", "User", authorities);
         userDetails.setPassword(encoder.encode(password));
         userDetails.setPhoneNumber("18177911627");
         

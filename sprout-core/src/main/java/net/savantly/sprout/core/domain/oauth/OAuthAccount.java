@@ -2,10 +2,10 @@ package net.savantly.sprout.core.domain.oauth;
 
 import javax.persistence.Entity;
 
-import net.savantly.sprout.core.domain.PersistedModule;
+import net.savantly.sprout.core.domain.PersistedDomainObject;
 
 @Entity
-public class OAuthAccount extends PersistedModule{
+public class OAuthAccount extends PersistedDomainObject{
 
 	private String provider;
 	private String token;

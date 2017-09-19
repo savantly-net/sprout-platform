@@ -5,10 +5,10 @@ import javax.persistence.Lob;
 import javax.validation.constraints.Size;
 
 import net.savantly.sprout.core.configuration.CoreConfiguration;
-import net.savantly.sprout.core.domain.PersistedModule;
+import net.savantly.sprout.core.domain.PersistedDomainObject;
 
 @Entity
-public class WikiItem extends PersistedModule{
+public class WikiItem extends PersistedDomainObject{
 
 	private static final long serialVersionUID = CoreConfiguration.serialVersionUID;
 	private String content;

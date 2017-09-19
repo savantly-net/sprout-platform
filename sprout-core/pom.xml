@@ -16,8 +16,8 @@
 	<parent>
 		<groupId>net.savantly.sprout</groupId>
 		<artifactId>platform</artifactId>
-		<relativePath>../pom.xml</relativePath>
-		<version>0.1.0-SNAPSHOT</version>
+		<relativePath>../</relativePath>
+		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 	<developers>
 		<developer>
@@ -51,20 +51,32 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy web-ui resources [target/classes folder]</id>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>web-ui</artifactId>
+									<classifier>resources</classifier>
+									<type>zip</type>
+								</artifactItem>
+							</artifactItems>
+							<outputDirectory>${project.build.directory}/test-classes/client</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>net.savantly.sprout</groupId>
-				<artifactId>dependencies</artifactId>
-				<version>0.0.1-RELEASE</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-		</dependencies>
-
-	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>net.savantly</groupId>
@@ -95,6 +107,11 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-rest-hal-browser</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
