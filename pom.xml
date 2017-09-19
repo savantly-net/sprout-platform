@@ -40,7 +40,7 @@
 	<inceptionYear>2017</inceptionYear>
 
 	<properties>
-		<spring.boot.version>1.5.6.RELEASE</spring.boot.version>
+		<spring.boot.version>1.5.7.RELEASE</spring.boot.version>
 		<CHROME_BIN>/usr/bin/chromium-browser</CHROME_BIN>
 		<npm_package_version>${project.version}</npm_package_version>
 	</properties>
@@ -82,13 +82,6 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-parent</artifactId>
-				<version>${spring.boot.version}</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-			<dependency>
 				<groupId>net.savantly.sprout</groupId>
 				<artifactId>sprout-spring-boot-starter</artifactId>
 				<version>${project.version}</version>
@@ -110,27 +103,27 @@
 			</dependency>
 			<dependency>
 				<groupId>net.savantly.sprout</groupId>
-				<artifactId>module-config</artifactId>
-				<version>${project.version}</version>
-				<classifier>resources</classifier>
-				<type>zip</type>
-			</dependency>
-			<dependency>
-				<groupId>net.savantly.sprout</groupId>
 				<artifactId>web-ui</artifactId>
 				<version>${project.version}</version>
 				<classifier>resources</classifier>
 				<type>zip</type>
 			</dependency>
+			<dependency>
+				<!-- Import dependency management from Spring Boot -->
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring.boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<modules>
-		<module>sprout-core</module>
 		<module>web/sprout-web-ui</module>
+		<module>sprout-core</module>
 		<module>spring/sprout-spring-boot-starter</module>
-		<module>test/module-test</module>
-		<module>modules/sprout-module-parent</module>
 		<module>web/sprout-web-parent</module>
+		<!-- <module>test/module-test</module> <module>modules/sprout-module-parent</module> -->
 		<module>web/sprout-garden</module>
 	</modules>
 </project>

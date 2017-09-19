@@ -39,6 +39,7 @@
 
 	<properties>
 		<spring.boot.version>1.5.6.RELEASE</spring.boot.version>
+		<rxjava.version>1.0.14</rxjava.version>
 	</properties>
 
 	<build>
@@ -101,6 +102,20 @@
 			<artifactId>freemarker</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>23.0</version>
+		</dependency>
+
+		<!-- Data source -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>compile</scope>
+		</dependency>
+
+
 		<!-- Spring Dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -119,17 +134,18 @@
 			<artifactId>spring-context-support</artifactId>
 		</dependency>
 
+		<!-- Web sockets -->
+		<dependency>
+			<groupId>io.reactivex</groupId>
+			<artifactId>rxjava</artifactId>
+			<version>${rxjava.version}</version>
+		</dependency>
+
 
 		<!-- Sprout Dependencies -->
 		<dependency>
 			<groupId>net.savantly.sprout</groupId>
 			<artifactId>core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.savantly.sprout</groupId>
-			<artifactId>web-ui</artifactId>
-			<classifier>resources</classifier>
-			<type>zip</type>
 		</dependency>
 
 		<!-- TEST -->

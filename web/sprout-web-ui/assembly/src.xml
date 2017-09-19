@@ -16,7 +16,6 @@
 				<include>*.json</include>
 				<include>dist</include>
 			</includes>
-			<filtered>true</filtered>
 		</fileSet>
 	</fileSets>
 </assembly>

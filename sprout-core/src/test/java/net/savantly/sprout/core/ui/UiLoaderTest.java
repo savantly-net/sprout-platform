@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.attribute.FileAttribute;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,10 +21,13 @@ public class UiLoaderTest {
 	public void test() throws IOException, InterruptedException {
 		Path tmpFolder = Files.createDirectories(Paths.get("target", "ui-test"));
 		try {
-			UiLoader loader = new UiLoader(SproutResourcePatternResolver.of(UiLoaderTest.class), 
-					tmpFolder.toAbsolutePath().toString(), 
-					"**/*.zip");
-			loader.init();
+			UiLoader loader = new UiLoader.UiLoaderBuilder()
+					.resolver(SproutResourcePatternResolver.of(UiLoaderTest.class))
+					.destinationFolder(tmpFolder.toAbsolutePath().toString())
+					.searchPattern("**/*.zip")
+					.extract(true)
+					.compile(false)
+					.build();
 		} catch (Exception ex) {
 			log.error("", ex);
 		} finally {

@@ -4,9 +4,11 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.concurrent.Executors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,28 +29,38 @@ public class UiLoader<T> {
 	
 	SproutResourcePatternResolver<T> resolver;
 	private String destinationFolder;
-	private boolean isWindows = System.getProperty("os.name")
-			  .toLowerCase().startsWith("windows");
-
+	private List<String> installArgs;
+	private List<String> buildArgs;
 	private String searchPattern;
+	private String nodeBin;
+	private String npmBin;
+	private boolean extract;
+	private boolean compile;
 
-	private String nodeBin = "/opt/node-v6.10.2-linux-x64/bin/node";
-
-	private String npmBin = "/opt/node-v6.10.2-linux-x64/bin/npm";
-
-	public UiLoader(SproutResourcePatternResolver<T> resolver, String destinationFolder, String searchPattern) {
-		this.resolver = resolver;
-		this.destinationFolder = destinationFolder;
-		this.searchPattern = searchPattern;
+	public UiLoader(UiLoaderBuilder uiLoaderBuilder) {
+		this.resolver = uiLoaderBuilder.resolver;
+		this.destinationFolder = uiLoaderBuilder.destinationFolder;
+		this.installArgs = uiLoaderBuilder.installArgs;
+		this.buildArgs = uiLoaderBuilder.buildArgs;
+		this.searchPattern = uiLoaderBuilder.searchPattern;
+		this.nodeBin = uiLoaderBuilder.nodeBin;
+		this.npmBin = uiLoaderBuilder.npmBin;
+		this.extract = uiLoaderBuilder.extract;
+		this.compile = uiLoaderBuilder.compile;
+		try {
+			init();
+		} catch (IOException | InterruptedException e) {
+			log.error("Failed to Load UI: {}", e);
+		}
 	}
-	
-	public void init() throws IOException, InterruptedException {
-		extractZippedClientFiles();
-		if(isWindows) {
-			
-		} else {
-			executeCommands(getLinuxInstallArgs());
-			executeCommands(getLinuxBuildArgs());
+
+	private void init() throws IOException, InterruptedException {
+		if(this.extract) {
+			extractZippedClientFiles();
+		}
+		if(this.compile) {
+			executeCommands(installArgs);
+			executeCommands(buildArgs);
 		}
 	}
 
@@ -62,23 +75,6 @@ public class UiLoader<T> {
 	}
 	
 	
-	private List<String> getLinuxInstallArgs() {
-		return Arrays.asList(nodeBin, npmBin, "install");
-	}
-
-	private List<String> getWindowsInstallArgs() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-    private List<String> getLinuxBuildArgs() {
-		return Arrays.asList(nodeBin, npmBin, "run", "build");
-	}
-
-	private List<String> getWindowsBuildArgs() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	private void executeCommands(List<String> args) throws IOException, InterruptedException {
 		log.info("Executing command: {}", args);
@@ -97,11 +93,10 @@ public class UiLoader<T> {
 		assert exitCode == 0;
 	}
 
-
 	private void extractFolder(File zipFile, String targetFolder, boolean createSubDirectory) throws ZipException, IOException 
     {
         System.out.println(zipFile);
-        int BUFFER = 2048;
+        int BUFFER = 1024;
 
         ZipFile zip = new ZipFile(zipFile);
         String fileName = zipFile.getName();
@@ -117,7 +112,6 @@ public class UiLoader<T> {
             ZipEntry entry = (ZipEntry) zipFileEntries.nextElement();
             String currentEntry = entry.getName();
             File destFile = new File(targetFolder, currentEntry);
-            //destFile = new File(newPath, destFile.getName());
             File destinationParent = destFile.getParentFile();
             if(destinationParent != null) {
                 // create the parent directory structure if needed
@@ -155,5 +149,93 @@ public class UiLoader<T> {
             }
         }
     }
+	
+	 public static class UiLoaderBuilder {
+			SproutResourcePatternResolver resolver;
+			private boolean isWindows = System.getProperty("os.name")
+					  .toLowerCase().startsWith("windows");
+			private String destinationFolder = Paths.get(System.getProperty("user.home"), "sprout-ui").toString();
+			private List<String> installArgs;
+			private List<String> buildArgs;
+			private String searchPattern = "classpath*=/**/*-resources-zip";
+			private String NODE_PATH = System.getenv("NODE_PATH");
+			private String nodeBin = "/usr/bin/node";
+			private String npmBin = "/usr/bin/npm";
+			private boolean extract = false;
+			private boolean compile = false;
+
+			public UiLoaderBuilder() {
+				if(NODE_PATH != null){
+					nodeBin = String.format("%s/node", NODE_PATH);
+					npmBin = String.format("%s/npm", NODE_PATH);
+				} else {
+					log.warn("NODE_PATH is not set");
+				}
+				
+				if(isWindows) {
+					installArgs = getWindowsInstallArgs();
+					buildArgs = getWindowsBuildArgs();
+				} else {
+					installArgs = getLinuxInstallArgs();
+					buildArgs = getLinuxBuildArgs();
+				}
+			}
+			
+			private List<String> getLinuxInstallArgs() {
+				return Arrays.asList(nodeBin, npmBin, "install");
+			}
+
+			private List<String> getWindowsInstallArgs() {
+				return Arrays.asList(npmBin+".cmd", "install");
+			}
+			
+		    private List<String> getLinuxBuildArgs() {
+				return Arrays.asList(nodeBin, npmBin, "run", "build");
+			}
+
+			private List<String> getWindowsBuildArgs() {
+				return Arrays.asList(npmBin+".cmd", "run", "build");
+			}
+
+			
+			public UiLoaderBuilder resolver(SproutResourcePatternResolver resolver) {
+				this.resolver = resolver;
+				return this;
+			}
+			
+			public UiLoaderBuilder destinationFolder(String destinationFolder) {
+				this.destinationFolder = destinationFolder;
+				return this;
+			}
+			
+			public UiLoaderBuilder searchPattern(String searchPattern) {
+				this.searchPattern = searchPattern;
+				return this;
+			}
+			
+			public UiLoaderBuilder nodeBin(String nodeBin) {
+				this.nodeBin = nodeBin;
+				return this;
+			}
+			
+			public UiLoaderBuilder npmBin(String npmBin) {
+				this.npmBin = npmBin;
+				return this;
+			}
+			
+			public UiLoaderBuilder extract(boolean extract) {
+				this.extract = extract;
+				return this;
+			}
+			
+			public UiLoaderBuilder compile(boolean compile) {
+				this.compile = compile;
+				return this;
+			}
+			
+			public UiLoader build() {
+				return new UiLoader(this);
+			}
+	 }
 
 }

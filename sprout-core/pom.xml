@@ -16,7 +16,7 @@
 	<parent>
 		<groupId>net.savantly.sprout</groupId>
 		<artifactId>platform</artifactId>
-		<relativePath>../pom.xml</relativePath>
+		<relativePath>../</relativePath>
 		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 	<developers>
@@ -77,18 +77,6 @@
 			</plugin>
 		</plugins>
 	</build>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>net.savantly.sprout</groupId>
-				<artifactId>dependencies</artifactId>
-				<version>0.0.1-RELEASE</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-		</dependencies>
-
-	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>net.savantly</groupId>

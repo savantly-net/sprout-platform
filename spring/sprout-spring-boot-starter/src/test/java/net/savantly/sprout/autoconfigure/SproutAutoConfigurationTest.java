@@ -48,14 +48,5 @@ public class SproutAutoConfigurationTest {
 	@EnableAutoConfiguration
 	static class TestContext{
 		
-/*		@Bean
-		public SproutAutoConfiguration SproutAutoConfiguration() {
-			return new SproutAutoConfiguration();
-		}
-		
-		@Bean
-		SproutConfiguration sproutControllerConfiguration(){
-			return new DefaultSproutControllerConfiguration();
-		}*/
 	}
 }
