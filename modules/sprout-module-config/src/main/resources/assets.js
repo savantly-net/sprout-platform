@@ -1,1 +1,0 @@
-import 'angular-spring-data-rest/dist/angular-spring-data-rest';

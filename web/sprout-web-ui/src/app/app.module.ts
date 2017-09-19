@@ -26,6 +26,10 @@ import { MenuModule } from './menu/menu.module';
     SecurityModule,
     MenuModule
   ],
+  exports: [
+    SecurityModule,
+    MenuModule
+  ],
   declarations: [
     AppComponent,
     HomeComponent,

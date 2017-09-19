@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.savantly.sprout</groupId>
 	<artifactId>platform</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<description>Dependencies pom for Sprout projects</description>
 	<name>sprout-platform</name>
@@ -46,6 +46,7 @@
 	</properties>
 
 	<build>
+		<finalName>${groupId}-${artifactId}-${version}</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -122,8 +123,10 @@
 		<module>web/sprout-web-ui</module>
 		<module>sprout-core</module>
 		<module>spring/sprout-spring-boot-starter</module>
+		<module>test/module-test</module> 
+		<module>modules/sprout-module-parent</module>
+		<module>modules/sprout-wiki-module</module>
 		<module>web/sprout-web-parent</module>
-		<!-- <module>test/module-test</module> <module>modules/sprout-module-parent</module> -->
 		<module>web/sprout-garden</module>
 	</modules>
 </project>

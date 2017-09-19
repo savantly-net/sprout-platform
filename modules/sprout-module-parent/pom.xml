@@ -3,7 +3,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>module-parent</artifactId>
 	<packaging>pom</packaging>
-	<description>Parent POM for Sprout Modules</description>
 	<name>sprout-module-parent</name>
 	<scm>
 		<url>https://github.com/savantly-net/sprout-platform</url>
@@ -16,9 +15,9 @@
 	</issueManagement>
 	<parent>
 		<groupId>net.savantly.sprout</groupId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>1.0.2-SNAPSHOT</version>
 		<artifactId>platform</artifactId>
-		<relativePath>../../pom.xml</relativePath>
+		<relativePath>../../</relativePath>
 	</parent>
 	<developers>
 		<developer>
@@ -37,28 +36,70 @@
 		</license>
 	</licenses>
 	<inceptionYear>2017</inceptionYear>
+
+	<profiles>
+		<profile>
+			<id>Has assembly descriptor</id>
+			<activation>
+				<file>
+					<exists>assembly/src.xml</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>Has npm packages</id>
+			<activation>
+				<file>
+					<exists>package.json</exists>
+				</file>
+			</activation>
+			<build>
+				<resources>
+					<resource>
+						<directory>${project.build.directory}/test-resources/</directory>
+						<filtering>true</filtering>
+					</resource>
+				</resources>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 	<build>
+		<plugins>
+
+		</plugins>
 		<pluginManagement>
 			<plugins>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-dependency-plugin</artifactId>
+					<artifactId>maven-assembly-plugin</artifactId>
 					<executions>
 						<execution>
-							<id>unpack-shared-resources</id>
+							<id>make shared resources</id>
 							<goals>
-								<goal>unpack-dependencies</goal>
+								<goal>single</goal>
 							</goals>
-							<phase>generate-resources</phase>
+							<phase>package</phase>
 							<configuration>
-								<outputDirectory>node_modules/sprout-web-ui</outputDirectory>
-								<includeArtifacIds>web-ui</includeArtifacIds>
-								<includeGroupIds>${project.groupId}</includeGroupIds>
-								<includeClassifiers>resources</includeClassifiers>
-								<includeTypes>zip</includeTypes>
-								<excludeTransitive>true</excludeTransitive>
-								<!--use as much as needed to be specific...also scope,type,classifier 
-									etc -->
+								<descriptors>
+									<descriptor>assembly/src.xml</descriptor>
+								</descriptors>
+								<filters>
+									<filter>assembly/filter.properties</filter>
+								</filters>
 							</configuration>
 						</execution>
 					</executions>
@@ -69,7 +110,6 @@
 					<configuration>
 						<environmentVariables>
 							<CHROME_BIN>${CHROME_BIN}</CHROME_BIN>
-							<npm_package_version>${npm_package_version}</npm_package_version>
 						</environmentVariables>
 					</configuration>
 					<executions>
@@ -89,16 +129,15 @@
 							</configuration>
 						</execution>
 						<execution>
-							<id>npm install sprout-web-ui - dependencies (takes a while)</id>
+							<id>npm install (takes a while)</id>
 							<goals>
 								<goal>exec</goal>
 							</goals>
-							<phase>generate-resources</phase>
+							<phase>post-clean</phase>
 							<configuration>
 								<executable>npm</executable>
 								<arguments>
 									<argument>install</argument>
-									<argument>./node_modules/sprout-web-ui</argument>
 								</arguments>
 							</configuration>
 						</execution>
@@ -107,11 +146,41 @@
 							<goals>
 								<goal>exec</goal>
 							</goals>
-							<phase>compile</phase>
+							<phase>test</phase>
 							<configuration>
 								<executable>npm</executable>
 								<arguments>
 									<argument>test</argument>
+								</arguments>
+								<skip>${exec.test.skip}</skip>
+							</configuration>
+						</execution>
+						<execution>
+							<id>npm build</id>
+							<goals>
+								<goal>exec</goal>
+							</goals>
+							<phase>package</phase>
+							<configuration>
+								<executable>npm</executable>
+								<arguments>
+									<argument>run</argument>
+									<argument>build-noprogress</argument>
+								</arguments>
+								<skip>true</skip>
+							</configuration>
+						</execution>
+						<execution>
+							<id>npm publish</id>
+							<goals>
+								<goal>exec</goal>
+							</goals>
+							<phase>deploy</phase>
+							<configuration>
+								<executable>npm</executable>
+								<arguments>
+									<argument>run</argument>
+									<argument>publish</argument>
 								</arguments>
 							</configuration>
 						</execution>
@@ -119,32 +188,12 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
 	</build>
 	<dependencies>
 		<dependency>
 			<groupId>net.savantly.sprout</groupId>
-			<artifactId>sprout-spring-boot-starter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.savantly.sprout</groupId>
-			<artifactId>web-ui</artifactId>
-			<classifier>resources</classifier>
-			<type>zip</type>
-		</dependency>
-		<dependency>
-			<groupId>net.savantly.sprout</groupId>
 			<artifactId>module-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<description>Parent pom for Sprout modules</description>
 </project>
