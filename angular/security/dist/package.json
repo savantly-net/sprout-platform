@@ -1,0 +1,21 @@
+{
+	"name": "@savantly/security",
+	"version": "1.0.0",
+	"description": "Security service for Angular app",
+	"main": "bundles/ngx.security.umd.js",
+	"module": "index.js",
+	"typings": "index.d.ts",
+	"keywords": [
+		"Sprout",
+		"Security",
+		"Angular"
+	],
+	"author": "Jeremy@Savantly.net",
+	"license": "MIT",
+	"peerdependencies": {
+		"@angular/common": "^4.4.3",
+		"@angular/core": "^4.4.3",
+		"rxjs": "^5.4.3",
+		"zone.js": "^0.8.17"
+	}
+}
