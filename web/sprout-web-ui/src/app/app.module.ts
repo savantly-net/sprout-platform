@@ -12,7 +12,8 @@ import { AboutComponent } from './about/about.component';
 import { ApiService } from './shared';
 import { routing } from './app.routing';
 import { MaterialModule } from './material/material.module';
-import { SecurityModule } from './security/security.module';
+import { SecurityModule, AuthenticationService, AuthGaurdService,
+  RoleGaurdService, SecurityMockService, SecurityService } from '@savantly/ngxSecurity';
 import { MenuModule } from './menu/menu.module';
 
 @NgModule({
@@ -36,7 +37,8 @@ import { MenuModule } from './menu/menu.module';
     AboutComponent,
   ],
   providers: [
-    ApiService
+    ApiService,
+    AuthenticationService, AuthGaurdService, RoleGaurdService, SecurityMockService, SecurityService
   ],
   entryComponents: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,4 @@
-import { SecurityService } from '../security/security.service';
-import { IUser } from '../security/user/user.component';
+import { IUser, SecurityService } from '@savantly/ngxSecurity';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';

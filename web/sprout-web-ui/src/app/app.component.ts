@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ApiService } from './shared';
 
 import '../style/app.scss';
-import { SecurityService } from './security/security.service';
+import { SecurityService } from '@savantly/ngxSecurity';
 
 @Component({
   selector: 'my-app', // <my-app></my-app>
