@@ -1,4 +1,4 @@
-import { SecurityService } from '@savantly/ngxSecurity';
+import { SecurityService } from '@savantly/ngx-security';
 import { Component, OnInit, Input, ViewChildren, QueryList } from '@angular/core';
 import { MenuService, Menu } from './menu.service';
 import { MdMenuTrigger } from '@angular/material';

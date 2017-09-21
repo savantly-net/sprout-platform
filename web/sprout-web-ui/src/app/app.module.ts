@@ -13,7 +13,7 @@ import { ApiService } from './shared';
 import { routing } from './app.routing';
 import { MaterialModule } from './material/material.module';
 import { SecurityModule, AuthenticationService, AuthGaurdService,
-  RoleGaurdService, SecurityMockService, SecurityService } from '@savantly/ngxSecurity';
+  RoleGaurdService, SecurityMockService, SecurityService } from '@savantly/ngx-security';
 import { MenuModule } from './menu/menu.module';
 
 @NgModule({

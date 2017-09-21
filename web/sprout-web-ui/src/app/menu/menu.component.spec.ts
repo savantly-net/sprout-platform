@@ -1,5 +1,5 @@
 import { MaterialModule } from '../material/material.module';
-import { SecurityModule } from '@savantly/ngxSecurity';
+import { SecurityModule } from '@savantly/ngx-security';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MenuComponent } from './menu.component';

@@ -6,7 +6,7 @@ import { ApiService } from './shared';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
 import { MenuModule } from './menu/menu.module';
-import { SecurityModule } from '@savantly/ngxSecurity';
+import { SecurityModule } from '@savantly/ngx-security';
 
 describe('App', () => {
   // provide our implementations or mocks to the dependency injector

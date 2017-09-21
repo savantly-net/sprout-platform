@@ -4,6 +4,7 @@ var webpackConfig = require('./webpack.config');
 
 var ENV = process.env.npm_lifecycle_event;
 var isTestWatch = ENV === 'test-watch';
+var isWin = /^win/.test(process.platform);
 
 module.exports = function (config) {
   var _config = {
@@ -61,12 +62,16 @@ module.exports = function (config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
     
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: true
   };
+  
+  if (!isWin) {
+	 _config.browsers.push('Chrome'); 
+  }
 
   if (!isTestWatch) {
     _config.reporters.push("coverage");
