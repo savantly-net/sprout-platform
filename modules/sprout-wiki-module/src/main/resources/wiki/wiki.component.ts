@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
-import { MdMenuTrigger } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'my-sprout-wiki',
@@ -7,7 +6,6 @@ import { MdMenuTrigger } from '@angular/material';
   styleUrls: []
 })
 export class WikiComponent implements OnInit {
-  @ViewChildren(MdMenuTrigger) triggers: QueryList<MdMenuTrigger>;
 
   constructor() {
   }

@@ -14,7 +14,8 @@ import { routing } from './app.routing';
 import { MaterialModule } from './material/material.module';
 import { SecurityModule, AuthenticationService, AuthGaurdService,
   RoleGaurdService, SecurityMockService, SecurityService } from '@savantly/ngx-security';
-import { MenuService } from '@savantly/ngx-menu';
+import { MenuService, MenuModule } from '@savantly/ngx-menu';
+import { SproutPluginModule, SproutPluginRegistryService } from '@savantly/ngx-sprout-plugin'
 
 @NgModule({
   imports: [
@@ -24,7 +25,9 @@ import { MenuService } from '@savantly/ngx-menu';
     routing,
     BrowserAnimationsModule,
     MaterialModule,
-    SecurityModule
+    SecurityModule,
+    MenuModule,
+    SproutPluginModule
   ],
   exports: [
     SecurityModule
@@ -36,7 +39,9 @@ import { MenuService } from '@savantly/ngx-menu';
   ],
   providers: [
     ApiService,
-    AuthenticationService, AuthGaurdService, RoleGaurdService, SecurityMockService, SecurityService, MenuService
+    AuthenticationService, AuthGaurdService, RoleGaurdService, SecurityMockService, SecurityService,
+    MenuService,
+    SproutPluginRegistryService
   ],
   entryComponents: [],
   bootstrap: [AppComponent]

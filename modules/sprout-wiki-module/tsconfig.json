@@ -1,19 +1,46 @@
 {
-  "compilerOptions": {
-    "target": "ES5",
-    "module": "commonjs",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "sourceMap": true,
-    "noEmitHelpers": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "lib": ["es2015", "dom"]
-  },
-  "compileOnSave": false,
-  "buildOnSave": false,
-  "awesomeTypescriptLoaderOptions": {
-    "forkChecker": true,
-    "useWebpackText": true
-  }
+	"compilerOptions": {
+		"baseUrl": ".",
+		"declaration": true,
+		"stripInternal": true,
+		"target": "es5",
+		"module": "es2015",
+		"moduleResolution": "node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"strictNullChecks": true,
+		"noImplicitAny": true,
+		"sourceMap": true,
+		"noEmitHelpers": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"skipLibCheck": true,
+		"paths": {
+			"*": [
+				"../../../node_modules/*"
+			]
+        },
+		"lib": [
+		    "es2015",
+			"dom"
+		],
+		"rootDir": "./src/main/resources",
+		"outDir": "./dist"
+	},
+	"compileOnSave": false,
+	"buildOnSave": false,
+	"exclude": [
+      "./node_modules",
+      "./target",
+      "./dist"
+    ],
+    "awesomeTypescriptLoaderOptions": {
+		"forkChecker": true,
+		"useWebpackText": true
+	},
+	"angularCompilerOptions": {
+		"strictMetadataEmit": true,
+		"skipTemplateCodegen": true,
+		"genDir": "./aot"
+    }
 }

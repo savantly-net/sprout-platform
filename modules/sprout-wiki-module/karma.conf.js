@@ -1,9 +1,16 @@
-var path = require('path');
+var resolve = require('rollup-plugin-node-resolve-angular');
+var commonjs = require('rollup-plugin-commonjs');
+var angular = require('rollup-plugin-angular');
+var typescript = require('rollup-plugin-typescript2');
 
-var webpackConfig = require('./webpack.config');
+var path = require('path');
 
 var ENV = process.env.npm_lifecycle_event;
 var isTestWatch = ENV === 'test-watch';
+var isWin = /^win/.test(process.platform);
+var testFilePattern = './src/**/*.spec.ts';
+var karmaShim = './karma-shim.js';
+
 
 module.exports = function (config) {
   var _config = {
@@ -14,37 +21,62 @@ module.exports = function (config) {
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine'],
-
+    
     // list of files / patterns to load in the browser
     files: [
-      { pattern: './karma-shim.js', watched: false }
+    	{ pattern: karmaShim, watched: false},
+        { pattern: testFilePattern, watched: false }
     ],
 
     // list of files to exclude
     exclude: [],
+    
+    mime: {
+        'text/x-typescript': ['ts','tsx']
+	},
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      './karma-shim.js': ['webpack', 'sourcemap']
+    	[karmaShim]: ['rollup', 'sourcemap' ],
+    	[testFilePattern]: [ 'rollupTs', 'sourcemap' ]
     },
-
-    webpack: webpackConfig,
-
-    webpackMiddleware: {
-      // webpack-dev-middleware configuration
-      // i. e.
-      stats: 'errors-only'
-    },
-
-    webpackServer: {
-      noInfo: true // please don't spam the console when running in karma!
-    },
+    
+    rollupPreprocessor: {
+		format: 'umd',
+		name: 'ngxLibrary',
+		sourcemap: 'inline',
+    	plugins: [
+			resolve({
+				browser: true
+			}),
+			commonjs()
+		]
+	},
+	
+	customPreprocessors: {
+		// Clones the base preprocessor, but overwrites
+		// its options with those defined below...
+		rollupTs: {
+			base: 'rollup',
+			options: {
+				// In this case, to use a different transpiler:
+				plugins: [
+					angular(),
+		    		typescript(),
+					resolve({
+						browser: true
+					}),
+					commonjs()
+				]
+			}
+		}
+	},
 
     // test results reporter to use
     // possible values: 'dots', 'progress', 'mocha'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ["mocha"],
+    reporters: ["spec"],
 
     // web server port
     port: 9876,
@@ -61,12 +93,16 @@ module.exports = function (config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
     
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: true
   };
+  
+  if (!isWin) {
+	 _config.browsers.push('Chrome'); 
+  }
 
   if (!isTestWatch) {
     _config.reporters.push("coverage");

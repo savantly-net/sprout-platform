@@ -16,3 +16,6 @@ buildNumber.properties
 /node/
 /npm-debug.log
 /node_modules/
+/coverage/
+/.rpt2_cache/
+/dist/
