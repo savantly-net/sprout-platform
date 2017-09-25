@@ -271,6 +271,8 @@ module.exports = function makeWebpackConfig() {
     stats: 'minimal' // none (or false), errors-only, minimal, normal (or true) and verbose
   };
 
+  config.node = {fs:'empty'};
+
   return config;
 }();
 

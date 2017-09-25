@@ -12,10 +12,10 @@ import { AboutComponent } from './about/about.component';
 import { ApiService } from './shared';
 import { routing } from './app.routing';
 import { MaterialModule } from './material/material.module';
-import { SecurityModule, AuthenticationService, AuthGaurdService,
+import { AuthenticationService, AuthGaurdService,
   RoleGaurdService, SecurityMockService, SecurityService } from '@savantly/ngx-security';
-import { MenuService, MenuModule } from '@savantly/ngx-menu';
-import { SproutPluginModule, SproutPluginRegistryService } from '@savantly/ngx-sprout-plugin'
+import { MenuService, MenuComponent } from '@savantly/ngx-menu';
+import { SproutPluginRegistryService } from '@savantly/ngx-sprout-plugin'
 
 @NgModule({
   imports: [
@@ -24,18 +24,15 @@ import { SproutPluginModule, SproutPluginRegistryService } from '@savantly/ngx-s
     FormsModule,
     routing,
     BrowserAnimationsModule,
-    MaterialModule,
-    SecurityModule,
-    MenuModule,
-    SproutPluginModule
+    MaterialModule
   ],
   exports: [
-    SecurityModule
   ],
   declarations: [
     AppComponent,
     HomeComponent,
     AboutComponent,
+    MenuComponent
   ],
   providers: [
     ApiService,
