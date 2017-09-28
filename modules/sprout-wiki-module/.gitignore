@@ -20,3 +20,5 @@ buildNumber.properties
 /.rpt2_cache/
 /dist/
 /build/
+/e2e/
+/.ng_build/

@@ -1,10 +1,7 @@
-import { WikiModule } from '..';
+import { WikiModule } from './wiki.module';
 import { WikiComponent } from './wiki.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { APP_BASE_HREF } from '@angular/common';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { SproutPluginRegistryService } from '@savantly/ngx-sprout-plugin';
-TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
 
 describe('WikiComponent', () => {
   let component: WikiComponent;
@@ -13,7 +10,7 @@ describe('WikiComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [WikiModule],
-      providers: [SproutPluginRegistryService, {provide: APP_BASE_HREF, useValue: '/'}]
+      providers: [SproutPluginRegistryService]
     })
     .compileComponents();
   }));

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'my-sprout-wiki',
+  selector: 'sv-wiki',
   templateUrl: './wiki.component.html',
   styleUrls: []
 })
