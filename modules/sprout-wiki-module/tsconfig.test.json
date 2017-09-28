@@ -1,0 +1,36 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"declaration": true,
+		"stripInternal": true,
+		"target": "es5",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"strictNullChecks": true,
+		"noImplicitAny": true,
+		"sourceMap": true,
+		"noEmitHelpers": false,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"skipLibCheck": true,
+		"paths": {
+			"*": [
+				"./node_modules/*"
+			]
+        },
+		"lib": [
+		    "es5",
+		    "es2015",
+		    "dom"
+		],
+		"rootDir": "./src/main/resources"
+    },
+    "compileOnSave": false,
+	"buildOnSave": false,
+	"exclude": [
+    "./node_modules",
+    "./target"
+    ]
+}

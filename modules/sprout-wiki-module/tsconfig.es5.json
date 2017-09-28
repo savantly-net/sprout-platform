@@ -4,7 +4,7 @@
 		"declaration": true,
 		"stripInternal": true,
 		"target": "es5",
-		"module": "es2015",
+		"module": "umd",
 		"moduleResolution": "node",
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
@@ -17,30 +17,26 @@
 		"skipLibCheck": true,
 		"paths": {
 			"*": [
-				"../../../node_modules/*"
+				"./node_modules/*"
 			]
         },
 		"lib": [
+		    "es5",
 		    "es2015",
-			"dom"
+		    "dom"
 		],
-		"rootDir": "./src/main/resources",
-		"outDir": "./dist"
+		"rootDir": "./src/main/resources/",
+		"outDir": "./build"
 	},
-	"compileOnSave": false,
+	"files":["./src/main/resources/index.ts"],
+    "compileOnSave": false,
 	"buildOnSave": false,
 	"exclude": [
-      "./node_modules",
-      "./target",
-      "./dist"
+    "./node_modules"
     ],
-    "awesomeTypescriptLoaderOptions": {
-		"forkChecker": true,
-		"useWebpackText": true
-	},
 	"angularCompilerOptions": {
-		"strictMetadataEmit": true,
+        "strictMetadataEmit": true,
 		"skipTemplateCodegen": true,
-		"genDir": "./aot"
+		"debug": true
     }
 }

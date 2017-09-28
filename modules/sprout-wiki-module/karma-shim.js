@@ -13,7 +13,6 @@ require('zone.js/dist/jasmine-patch');
 require('zone.js/dist/async-test');
 require('zone.js/dist/fake-async-test');
 
-
 // Select BrowserDomAdapter.
 // see https://github.com/AngularClass/angular2-webpack-starter/issues/124
 // Somewhere in the test setup

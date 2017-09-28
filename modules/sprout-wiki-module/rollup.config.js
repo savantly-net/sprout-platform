@@ -1,15 +1,57 @@
 import resolve from 'rollup-plugin-node-resolve-angular';
-import typescript from 'rollup-plugin-typescript2';
 import angular from 'rollup-plugin-angular';
-import copy from 'rollup-plugin-copy';
 import commonjs from 'rollup-plugin-commonjs';
 import uglify from 'rollup-plugin-uglify';
 import pkgGen from 'rollup-plugin-pkg-generator';
 import autoExternal from 'rollup-plugin-auto-external';
 import pkg from './package.json';
+var fs = require('fs');
 
 import { minify } from 'uglify-es';
 
+
+const globals = {
+  "@angular/core" : "ng.core",
+  "@angular/common" : "ng.common",
+  "@angular/router" : "ng.router"
+};
+
+function copyFile(source, target, cb) {
+  var cbCalled = false;
+
+  var rd = fs.createReadStream(source);
+  rd.on("error", function(err) {
+    done(err);
+  });
+  var wr = fs.createWriteStream(target);
+  wr.on("error", function(err) {
+    done(err);
+  });
+  wr.on("close", function(ex) {
+    done();
+  });
+  rd.pipe(wr);
+
+  function done(err) {
+    if (!cbCalled) {
+      cb(err);
+      cbCalled = true;
+    }
+  }
+}
+
+var glob = require("glob");
+var files = glob.sync("(src/**/*!(*.ts)");
+
+files.map(function(file){
+	console.log('found file: ' + file);
+	copyFile(file, './dist/' + file.substr(4), function(err){
+	  if(err) {
+        console.error(err);
+        process.exit(1);
+	  };
+	});
+});
 
 function cleanName(name){
 	var parts = name.split('/');
@@ -19,103 +61,70 @@ function cleanName(name){
 	return name;
 }
 
-const externals = [
-	'@savantly/ngx-sprout-module',
-	'@angular/core',
-	'@angular/common'
-]
-
+const entryFile = './build/index.js';
+const esFile = 'module.js';
+const bundleFile = cleanName(pkg.name) + '.umd.js';
+const minFile = cleanName(pkg.name) + '.umd.min.js';
 const targetFolder = './dist/';
-const moduleFile = './src/main/resources/index.js';
-const browserFile = cleanName(pkg.name) + '.bundle.js';
-const minFile = cleanName(pkg.name) + '.bundle.min.js';
-const esFile = cleanName(pkg.name) + '.es5.js';
 
-var es5Config = {
-		input : './src/main/resources/index.ts',
+var umdConfig = {
+		input : entryFile,
 		output : {
-			file : targetFolder + esFile,
-			format : 'es',
+			file : targetFolder + bundleFile,
+			format : 'umd',
 			exports: 'named'
 		},
-		externals: externals,
 		sourcemap : true,
-		name : browserFile.split('.')[0].replace(/-/g, '_'),
+		name : bundleFile.split('.')[0].replace(/-/g, '_'),
 		plugins : [
 			angular(),
-			typescript(),
 			resolve({
 				jsnext: true,
 				main: true,
 				browser: true
 			}),
-			autoExternal(),
-			commonjs()
-		]
+			commonjs(),
+			autoExternal()
+		],
+		external: Object.keys(globals),
+		globals: globals
 };
 
-var bundleConfig = {
-		input : './src/main/resources/index.ts',
-		output : {
-			file : targetFolder + browserFile,
-			format : 'iife',
-			exports: 'named'
-		},
-		externals: externals,
-		sourcemap : true,
-		name : browserFile.split('.')[0].replace(/-/g, '_'),
-		plugins : [
-			angular(),
-			typescript(),
-			resolve({
-				jsnext: true,
-				main: true,
-				browser: true
-			}),
-			autoExternal(),
-			commonjs()
-		]
-};
-
-var minifyAndCopySrcConfig = {
-		input : './src/main/resources/index.ts',
+var minifyConfig = {
+		input : entryFile,
 		output : {
 			file : targetFolder + minFile,
-			format : 'iife',
+			format : 'umd',
 			exports: 'named'
 		},
 		sourcemap : true,
 		name : minFile.split('.')[0].replace(/-/g, '_'),
-		externals: externals,
 		plugins : [
-			copy({
-				'./src/main/resources': './dist/'
-			}),
 			angular(),
-			typescript(),
 			resolve({
 				jsnext: true,
 				main: true,
 				browser: true
 			}),
-			autoExternal(),
 			commonjs(),
+			autoExternal(),
 			uglify({}, minify),
 			pkgGen({pkg:{
-				main: './src/main/resources/index.js',
-				module: moduleFile,
-				browser: browserFile,
+				main: bundleFile,
+				module: esFile,
+				"jsnext:main": esFile,
 				dependencies: pkg.peerDependencies,
 				devDependencies: {},
 				scripts: {},
-				typings: './src/main/resources/index.d.ts'
+				typings: 'index.d.ts'
 			}})
-		]
+		],
+		external: Object.keys(globals),
+		globals: globals
 };
 
 
 export default [
-	es5Config,
-	bundleConfig,
-	minifyAndCopySrcConfig
+	umdConfig,
+	minifyConfig
 ]

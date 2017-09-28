@@ -67,6 +67,15 @@
 						<directory>${project.build.directory}/test-resources/</directory>
 						<filtering>true</filtering>
 					</resource>
+					<resource>
+						<directory>src/main/resources/</directory>
+						<filtering>true</filtering>
+						<targetPath>${project.build.directory}/classes/src</targetPath>
+					</resource>
+					<resource>
+						<directory>dist/</directory>
+						<targetPath>${project.build.directory}/classes/dist</targetPath>
+					</resource>
 				</resources>
 				<plugins>
 					<plugin>
