@@ -37,7 +37,9 @@
     "@angular/http": "^4.4.3",
     "@angular/material": "^2.0.0-beta.11",
     "@angular/router": "^4.4.3",
-    "@savantly/ngx-security": "^1.1.12",
+    "@savantly/ngx-menu": "^1.1.12",
+    "@savantly/ngx-security": "^1.1.11",
+    "@savantly/ngx-sprout-plugin": "^1.1.12",
     "rxjs": "^5.4.3",
     "zone.js": "^0.8.17"
   },
@@ -74,10 +76,5 @@
     "tslint": "^5.7.0",
     "typescript": "^2.5.2",
     "zone.js": "^0.8.17"
-  },
-  "dependencies": {
-    "@savantly/ngx-menu": "^1.1.11",
-    "@savantly/ngx-security": "^1.1.11",
-    "@savantly/ngx-sprout-plugin": "^1.1.12"
   }
 }

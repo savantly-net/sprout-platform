@@ -1,9 +1,7 @@
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/add/observable/of')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', 'rxjs/Observable', 'rxjs/add/observable/of'], factory) :
-	(factory((global['sprout-wiki-plugin'] = {}),global.ng.core,global.ng.common,global.Rx));
-}(this, (function (exports,core,common,Observable) { 'use strict';
-
+import { Component, Injectable, NgModule, NgModuleFactoryLoader, SystemJsNgModuleLoader } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Observable as Observable$1 } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 var WikiComponent = /** @class */ (function () {
     function WikiComponent() {
     }
@@ -15,7 +13,7 @@ var WikiComponent = /** @class */ (function () {
     return WikiComponent;
 }());
 WikiComponent.decorators = [
-    { type: core.Component, args: [{
+    { type: Component, args: [{
                 selector: 'sv-wiki',
                 template: "\n    <h1>Hello from the wiki module</h1>\n  ",
                 styles: ["\n\n  "]
@@ -33,7 +31,7 @@ var SproutPluginRegistryService = (function () {
      * @return {?}
      */
     SproutPluginRegistryService.prototype.getPlugins = function () {
-        return Observable.Observable.of(this.plugins);
+        return Observable$1.of(this.plugins);
     };
     /**
      * @param {?} plugin
@@ -45,7 +43,7 @@ var SproutPluginRegistryService = (function () {
     return SproutPluginRegistryService;
 }());
 SproutPluginRegistryService.decorators = [
-    { type: core.Injectable },
+    { type: Injectable },
 ];
 /**
  * @nocollapse
@@ -67,12 +65,12 @@ var SproutPluginLoaderComponent = (function () {
     return SproutPluginLoaderComponent;
 }());
 SproutPluginLoaderComponent.decorators = [
-    { type: core.Component, args: [{
+    { type: Component, args: [{
                 template: "<h1>hello from the plugin loader",
                 providers: [
                     {
-                        provide: core.NgModuleFactoryLoader,
-                        useClass: core.SystemJsNgModuleLoader
+                        provide: NgModuleFactoryLoader,
+                        useClass: SystemJsNgModuleLoader
                     }
                 ]
             },] },
@@ -91,9 +89,9 @@ var SproutPluginModule = (function () {
     return SproutPluginModule;
 }());
 SproutPluginModule.decorators = [
-    { type: core.NgModule, args: [{
+    { type: NgModule, args: [{
                 imports: [
-                    common.CommonModule
+                    CommonModule
                 ],
                 exports: [],
                 declarations: [SproutPluginLoaderComponent],
@@ -116,9 +114,9 @@ var WikiModule = /** @class */ (function () {
     return WikiModule;
 }());
 WikiModule.decorators = [
-    { type: core.NgModule, args: [{
+    { type: NgModule, args: [{
                 imports: [
-                    common.CommonModule
+                    CommonModule
                 ],
                 exports: [WikiComponent],
                 declarations: [WikiComponent],
@@ -131,11 +129,8 @@ WikiModule.decorators = [
 WikiModule.ctorParameters = function () { return [
     { type: SproutPluginRegistryService, },
 ]; };
-
-exports.WikiModule = WikiModule;
-exports.WikiComponent = WikiComponent;
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-})));
-//# sourceMappingURL=sprout-wiki-plugin.umd.js.map
+/**
+ * Generated bundle index. Do not edit.
+ */
+export { WikiModule, WikiComponent };
+//# sourceMappingURL=sprout-wiki-plugin.es5.js.map

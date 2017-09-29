@@ -1,20 +1,4 @@
-<header>
-	<nav>
-		<md-toolbar>
-			<span>
-				<a md-button [routerLink]="['']">
-					<span>Sprout</span>
-				</a>
-			</span>
-			<my-menu></my-menu>
-			<div fxFlex="1 1 auto"></div>
-			<div>
-				<button md-button *ngIf="!security.user.authenticated" [routerLink]="['login']">Sign in</button>
-				<button md-button *ngIf="security.user.authenticated" (click)="security.logout()">Sign out</button>
-			</div>
-		</md-toolbar>
-	</nav>
-</header>
+<my-header></my-header>
 <main fxFlexFill fxLayout="column" fxFlex> 
 	<router-outlet></router-outlet>
 </main>
@@ -23,5 +7,3 @@
 		<small><i>Sprout</i> by savantly.net</small>
 	</a>
 </footer>
-
-<script src="sprout-wiki/sprout-wiki-plugin.umd.js"></script>

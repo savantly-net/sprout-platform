@@ -2,19 +2,33 @@ import { TestBed } from '@angular/core/testing';
 import { provideRoutes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { SecurityModule, SecurityService } from '@savantly/ngx-security';
+import { MenuModule, MenuService } from '@savantly/ngx-menu';
 import { ApiService } from './shared';
+import { HeaderComponent } from './header/header.component';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
-import { MenuService, MenuModule } from '@savantly/ngx-menu';
-import { SecurityService } from '@savantly/ngx-security';
 
-describe('App', () => {
+const menuServiceFactory = (_securityService: SecurityService) => {
+  return new MenuService(_securityService);
+};
+
+describe('AppComponent', () => {
   // provide our implementations or mocks to the dependency injector
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, MaterialModule, MenuModule],
-      declarations: [AppComponent],
-      providers: [ApiService, MenuService, SecurityService, provideRoutes([])]
+      imports: [RouterTestingModule,
+        MaterialModule,
+        SecurityModule.forRoot(),
+        MenuModule
+      ],
+      declarations: [HeaderComponent, AppComponent],
+      providers: [ApiService, provideRoutes([]),
+        {
+          provide: MenuService,
+          useFactory: menuServiceFactory,
+          deps: [SecurityService]
+        }]
     });
   });
 

@@ -17,7 +17,7 @@ export class WikiModule implements SproutPlugin {
 
   constructor(registry: SproutPluginRegistryService) {
     this.name = 'wiki-plugin';
-    this.template = '<h1>Hello from the wiki</h1>';
+    this.template = '<h1>Hello from the wiki plugin registration</h1>';
 
     registry.register(this);
   }
