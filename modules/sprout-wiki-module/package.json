@@ -18,7 +18,8 @@
     "test": "karma start --single-run",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "clean": "rimraf .ng_build dist"
+    "clean": "rimraf .ng_build dist",
+    "aot": "ngc -p tsconfig.aot.json"
   },
   "keywords": [
     "sprout",
@@ -76,5 +77,10 @@
     "tslint": "^5.7.0",
     "typescript": "^2.5.2",
     "zone.js": "^0.8.17"
+  },
+  "dependencies": {
+    "@savantly/ngx-menu": "^1.1.23",
+    "@savantly/ngx-security": "^1.1.15",
+    "@savantly/ngx-sprout-plugin": "^1.1.16"
   }
 }

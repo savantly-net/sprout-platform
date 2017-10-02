@@ -21,6 +21,8 @@
     }
   },
   "exclude": [
-    ".ng_build"
+    ".ng_build",
+    "target",
+    "dist"
   ]
 }
