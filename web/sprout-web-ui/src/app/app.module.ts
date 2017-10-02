@@ -16,7 +16,7 @@ import { MaterialModule } from './material/material.module';
 import { AuthenticationService, AuthGaurdService,
   RoleGaurdService, SecurityMockService, SecurityModule, SecurityService } from '@savantly/ngx-security';
 import { MenuModule, MenuService } from '@savantly/ngx-menu';
-import { SproutPluginRegistryService } from '@savantly/ngx-sprout-plugin';
+import { SproutPluginModule } from '@savantly/ngx-sprout-plugin';
 import { HeaderComponent } from './header/header.component'
 import { PluginsModule } from './plugins/plugins.module';
 
@@ -33,6 +33,7 @@ const menuServiceFactory = (_securityService: SecurityService) => {
     routing,
     BrowserAnimationsModule,
     SecurityModule.forRoot(),
+    SproutPluginModule.forRoot(),
     MaterialModule,
     MenuModule,
     PluginsModule
@@ -49,7 +50,6 @@ const menuServiceFactory = (_securityService: SecurityService) => {
     ApiService,
     AuthenticationService, AuthGaurdService, RoleGaurdService,
     SecurityMockService,
-    SproutPluginRegistryService,
     {
       provide: MenuService,
       useFactory: menuServiceFactory,

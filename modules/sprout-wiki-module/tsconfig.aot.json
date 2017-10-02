@@ -1,0 +1,34 @@
+{
+  "compileOnSave": false,
+  "angularCompilerOptions": {
+  	"genDir": "./dist"
+  },
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src/app/modules/",
+    "baseUrl": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "typeRoots": [	
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2016",
+      "dom"
+    ],
+    "paths": {
+      "*": [ "./node_modules" ]
+    }
+  },
+  "include": ["./src/app/modules"],
+  "exclude": [
+    ".ng_build",
+    "target",
+    "dist",
+    "node_modules"
+  ]
+}
