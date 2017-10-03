@@ -69,7 +69,7 @@
 					</resource>
 					<resource>
 						<directory>src/app/modules/</directory>
-						<targetPath>${project.build.directory}/classes/</targetPath>
+						<targetPath>${project.build.directory}/classes/sprout/</targetPath>
 					</resource>
 				</resources>
 				<plugins>
@@ -137,7 +137,7 @@
 							<goals>
 								<goal>exec</goal>
 							</goals>
-							<phase>post-clean</phase>
+							<phase>install</phase>
 							<configuration>
 								<executable>npm</executable>
 								<arguments>

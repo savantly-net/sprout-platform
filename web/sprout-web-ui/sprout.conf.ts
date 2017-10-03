@@ -1,4 +1,4 @@
-import { WikiModule } from '/etc/sprout/plugins/sprout-wiki/';
+import { WikiModule } from './plugins/wiki/';
 
 
 export const plugins = [
