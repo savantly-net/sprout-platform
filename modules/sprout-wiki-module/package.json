@@ -18,8 +18,7 @@
     "test": "karma start --single-run",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "clean": "rimraf .ng_build dist",
-    "aot": "ngc -p tsconfig.aot.json"
+    "clean": "rimraf .ng_build dist .aot"
   },
   "keywords": [
     "sprout",
@@ -38,9 +37,9 @@
     "@angular/http": "^4.4.3",
     "@angular/material": "^2.0.0-beta.11",
     "@angular/router": "^4.4.3",
-    "@savantly/ngx-menu": "^1.1.12",
-    "@savantly/ngx-security": "^1.1.11",
-    "@savantly/ngx-sprout-plugin": "^1.1.12",
+    "@savantly/ngx-menu": "^1.1.23",
+    "@savantly/ngx-security": "^1.1.15",
+    "@savantly/ngx-sprout-plugin": "^1.1.17",
     "rxjs": "^5.4.3",
     "zone.js": "^0.8.17"
   },
@@ -59,6 +58,9 @@
     "@angular/platform-browser": "^4.4.3",
     "@angular/platform-browser-dynamic": "^4.4.3",
     "@angular/router": "^4.4.3",
+    "@savantly/ngx-menu": "^1.1.23",
+    "@savantly/ngx-security": "^1.1.16",
+    "@savantly/ngx-sprout-plugin": "^1.1.17",
     "@types/jasmine": "^2.6.0",
     "codelyzer": "^3.2.0",
     "core-js": "^2.5.1",
@@ -78,9 +80,5 @@
     "typescript": "^2.5.2",
     "zone.js": "^0.8.17"
   },
-  "dependencies": {
-    "@savantly/ngx-menu": "^1.1.23",
-    "@savantly/ngx-security": "^1.1.15",
-    "@savantly/ngx-sprout-plugin": "^1.1.16"
-  }
+  "dependencies": {}
 }

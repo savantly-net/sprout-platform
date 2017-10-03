@@ -7,8 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WikiComponent implements OnInit {
 
-  constructor() {
-  }
+
+
+  constructor() {}
 
   ngOnInit() {
   }

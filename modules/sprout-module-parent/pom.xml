@@ -68,13 +68,8 @@
 						<filtering>true</filtering>
 					</resource>
 					<resource>
-						<directory>src/main/resources/</directory>
-						<filtering>true</filtering>
-						<targetPath>${project.build.directory}/classes/src</targetPath>
-					</resource>
-					<resource>
-						<directory>dist/</directory>
-						<targetPath>${project.build.directory}/classes/dist</targetPath>
+						<directory>src/app/modules/</directory>
+						<targetPath>${project.build.directory}/classes/</targetPath>
 					</resource>
 				</resources>
 				<plugins>
@@ -162,35 +157,6 @@
 									<argument>test</argument>
 								</arguments>
 								<skip>${exec.test.skip}</skip>
-							</configuration>
-						</execution>
-						<execution>
-							<id>npm build</id>
-							<goals>
-								<goal>exec</goal>
-							</goals>
-							<phase>package</phase>
-							<configuration>
-								<executable>npm</executable>
-								<arguments>
-									<argument>run</argument>
-									<argument>build-noprogress</argument>
-								</arguments>
-								<skip>true</skip>
-							</configuration>
-						</execution>
-						<execution>
-							<id>npm publish</id>
-							<goals>
-								<goal>exec</goal>
-							</goals>
-							<phase>deploy</phase>
-							<configuration>
-								<executable>npm</executable>
-								<arguments>
-									<argument>run</argument>
-									<argument>publish</argument>
-								</arguments>
 							</configuration>
 						</execution>
 					</executions>

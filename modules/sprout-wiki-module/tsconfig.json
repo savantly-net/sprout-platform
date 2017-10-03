@@ -17,7 +17,7 @@
       "dom"
     ],
     "paths": {
-      "@savantly/sprout-wiki-plugin": [ "../.ng_build/ts/sprout-wiki-plugin" ]
+      "@savantly/sprout-wiki-plugin": [ "./.ng_build/ts/sprout-wiki-plugin" ]
     }
   },
   "exclude": [

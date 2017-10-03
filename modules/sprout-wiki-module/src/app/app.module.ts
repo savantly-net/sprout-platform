@@ -3,9 +3,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { MenuModule, MenuService } from '@savantly/ngx-menu';
-import { SecurityService, SecurityModule } from '@savantly/ngx-security';
+import { SecurityModule, SecurityService } from '@savantly/ngx-security';
 import { WikiModule } from '@savantly/sprout-wiki-plugin';
-import { SproutPluginRegistryService } from '@savantly/ngx-sprout-plugin';
+import { SproutPluginModule } from '@savantly/ngx-sprout-plugin';
+
+export const menuServiceFactory1 = (_securityService: SecurityService) => {
+  return new MenuService(_securityService);
+};
 
 @NgModule({
   declarations: [
@@ -14,11 +18,19 @@ import { SproutPluginRegistryService } from '@savantly/ngx-sprout-plugin';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    WikiModule,
+    SproutPluginModule.forRoot(),
+    SecurityModule,
     MenuModule,
-    SecurityModule
+    WikiModule
   ],
-  providers: [MenuService, SecurityService, SproutPluginRegistryService],
+  exports: [],
+  providers: [
+    SecurityService,
+    {
+      provide: MenuService,
+      useFactory: menuServiceFactory1,
+      deps: [SecurityService]
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

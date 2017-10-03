@@ -2,7 +2,7 @@
   "extends": "../tsconfig.json",
   "angularCompilerOptions": {
     "paths": {
-      "@savantly/sprout-wiki-plugin": [ "./modules/wiki" ]
+      "@savantly/sprout-wiki-plugin": [ "../.ng_build/ts/modules/wiki" ]
     }
   },
   "compilerOptions": {
@@ -11,7 +11,7 @@
     "baseUrl": "",
     "types": [],
     "paths": {
-      "@savantly/sprout-wiki-plugin": [ "./modules/menu" ]
+      "@savantly/sprout-wiki-plugin": [ "../.ng_build/ts/modules/menu" ]
     }
   },
   "exclude": [

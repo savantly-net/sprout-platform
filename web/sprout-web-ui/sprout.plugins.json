@@ -1,6 +1,6 @@
 {
   "home": "/etc/sprout/",
   "plugins": [
-    {"name": "sprout-wiki", "path": "sprout-wiki"}
+    {"name": "WikiModuleNgFactory", "path": "/etc/sprout/plugins/wiki/wiki.module.ngfactory"}
   ]
 }

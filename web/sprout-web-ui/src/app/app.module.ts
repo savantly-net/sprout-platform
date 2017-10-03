@@ -38,7 +38,7 @@ const menuServiceFactory = (_securityService: SecurityService) => {
     MenuModule,
     PluginsModule
   ],
-  exports: [],
+  exports: [PluginsModule],
   declarations: [
     AppComponent,
     HomeComponent,

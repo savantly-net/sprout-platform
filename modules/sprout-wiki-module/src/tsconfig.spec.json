@@ -4,7 +4,7 @@
     "outDir": "../out-tsc/spec",
     "module": "commonjs",
     "target": "es5",
-    "baseUrl": "",
+    "baseUrl": ".",
     "types": [
       "jasmine",
       "node"
@@ -19,5 +19,10 @@
   "include": [
     "**/*.spec.ts",
     "**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    ".ng_build"
   ]
 }
