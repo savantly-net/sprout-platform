@@ -34,7 +34,7 @@ public class UiLoader<T> {
 	private static final Logger log = LoggerFactory.getLogger(UiLoader.class);
 
 	SproutResourcePatternResolver<T> resolver;
-	private String destinationFolder;
+	private String sproutHome;
 	private List<String> installArgs;
 	private List<String> buildArgs;
 	private String zipSearchPattern;
@@ -44,7 +44,7 @@ public class UiLoader<T> {
 
 	public UiLoader(UiLoaderBuilder uiLoaderBuilder) {
 		this.resolver = uiLoaderBuilder.resolver;
-		this.destinationFolder = uiLoaderBuilder.destinationFolder;
+		this.sproutHome = uiLoaderBuilder.destinationFolder;
 		this.installArgs = uiLoaderBuilder.installArgs;
 		this.buildArgs = uiLoaderBuilder.buildArgs;
 		this.zipSearchPattern = uiLoaderBuilder.zipSearchPattern;
@@ -70,7 +70,7 @@ public class UiLoader<T> {
 
 	private void extractClientPlugins() {
 		Resource[] resourcePaths = resolver.getResourcePaths(sproutPluginSearchPattern);
-		Path pluginFolderPath = Paths.get(destinationFolder, "plugins");
+		Path pluginFolderPath = Paths.get(sproutHome, "plugins");
 		pluginFolderPath.toFile().mkdirs();
 		if (resourcePaths.length == 0) {
 			log.info("No Sprout client side plugins found");
@@ -90,7 +90,7 @@ public class UiLoader<T> {
 			throw new RuntimeException("No files found that match search pattern: " + zipSearchPattern);
 		}
 		for (Resource resource : resourcePaths) {
-			extractFolder(resource.getFile(), destinationFolder, false);
+			extractFolder(resource.getFile(), sproutHome, false);
 		}
 	}
 
@@ -98,7 +98,7 @@ public class UiLoader<T> {
 		log.info("Executing command: {}", args);
 		ProcessBuilder builder = new ProcessBuilder();
 		builder.command(args);
-		builder.directory(new File(this.destinationFolder));
+		builder.directory(new File(this.sproutHome));
 
 		builder.redirectErrorStream(true);
 
@@ -189,7 +189,7 @@ public class UiLoader<T> {
 		private String destinationFolder = Paths.get(System.getProperty("user.home"), "sprout").toString();
 		private List<String> installArgs;
 		private List<String> buildArgs;
-		private String zipSearchPattern = "classpath*=**/sprout/ui/*-resources.zip";
+		private String zipSearchPattern = "classpath*:/**/sprout/ui/*-resources.zip";
 		private String NODE_PATH = System.getenv("NODE_PATH");
 		private String nodeBin = "/usr/bin/node";
 		private String npmBin = "/usr/bin/npm";
@@ -245,7 +245,9 @@ public class UiLoader<T> {
 		}
 
 		public UiLoaderBuilder destinationFolder(String destinationFolder) {
-			this.destinationFolder = destinationFolder;
+			if(destinationFolder != null && destinationFolder != "") {
+				this.destinationFolder = destinationFolder;
+			}
 			return this;
 		}
 
