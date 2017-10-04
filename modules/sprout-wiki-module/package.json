@@ -13,7 +13,7 @@
     "start": "ng serve",
     "build": "ng build",
     "build:dev": "ng build --app dev",
-    "build:lib": "ng-packagr",
+    "build:lib": "npm run clean && ng-packagr",
     "test-watch": "ng test",
     "test": "karma start --single-run",
     "lint": "ng lint",
