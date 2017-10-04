@@ -38,7 +38,8 @@ public class UiLoader<T> {
 	private List<String> installArgs;
 	private List<String> buildArgs;
 	private String zipSearchPattern;
-	private String sproutPluginSearchPattern = "classpath*:/sprout/plugins/*";
+	private String sproutPluginSearchPattern = "classpath*:/**/sprout/plugins/*";
+	private String overlaySearchPattern = "classpath*:/**/sprout/overlay/*";
 	private boolean extract;
 	private boolean compile;
 
@@ -61,6 +62,7 @@ public class UiLoader<T> {
 		if (this.extract) {
 			extractZippedClientFiles();
 			extractClientPlugins();
+			extractClientOverlays();
 		}
 		if (this.compile) {
 			executeCommands(installArgs);
@@ -68,9 +70,25 @@ public class UiLoader<T> {
 		}
 	}
 
+	private void extractClientOverlays() {
+		Resource[] resourcePaths = resolver.getResourcePaths(overlaySearchPattern);
+		if (resourcePaths.length == 0) {
+			log.info("No Sprout overlay files found");
+		}
+		for (Resource resource : resourcePaths) {
+			try {
+				Path destinationPath = Paths.get(sproutHome, resource.getFilename());
+				destinationPath.toFile().mkdirs();
+				copy(resource.getInputStream(), destinationPath);
+			} catch (IOException e) {
+				log.warn("could not access resource", e);
+			}
+		}
+	}
+
 	private void extractClientPlugins() {
 		Resource[] resourcePaths = resolver.getResourcePaths(sproutPluginSearchPattern);
-		Path pluginFolderPath = Paths.get(sproutHome, "plugins");
+		Path pluginFolderPath = Paths.get(sproutHome, "./plugins/");
 		pluginFolderPath.toFile().mkdirs();
 		if (resourcePaths.length == 0) {
 			log.info("No Sprout client side plugins found");
@@ -173,7 +191,7 @@ public class UiLoader<T> {
 	 */
 	public static boolean copy(InputStream source, Path destination) {
 		boolean success = true;
-		log.info("Copying ->" + source + "\n\tto ->" + destination);
+		log.info("Writing to -> " + destination);
 		try {
 			Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException ex) {

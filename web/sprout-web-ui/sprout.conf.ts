@@ -1,6 +1,6 @@
-import { WikiModule } from './plugins/wiki/';
+// import { WikiModule } from './plugins/wiki/';
 
 
 export const plugins = [
-  WikiModule
+  // WikiModule
 ]

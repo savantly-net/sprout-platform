@@ -4,7 +4,7 @@ import org.h2.server.web.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
-import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
+import org.springframework.boot.autoconfigure.freemarker.FreeMarkerAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,7 @@ import net.savantly.sprout.bean.processors.SlowBeans;
 import net.savantly.sprout.starter.SproutMvcConfiguration;
 
 @Configuration
-@AutoConfigureBefore(WebMvcAutoConfiguration.class)
+@AutoConfigureBefore(FreeMarkerAutoConfiguration.class)
 public class SproutWebMvcAutoConfiguration {
 	
 	private static final Logger log = LoggerFactory.getLogger(SproutWebMvcAutoConfiguration.class);
