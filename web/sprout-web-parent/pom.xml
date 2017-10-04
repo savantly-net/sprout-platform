@@ -88,7 +88,7 @@
 										<type>zip</type>
 									</artifactItem>
 								</artifactItems>
-								<outputDirectory>${project.build.directory}/classes/client</outputDirectory>
+								<outputDirectory>${project.build.directory}/classes/sprout/ui/</outputDirectory>
 							</configuration>
 						</execution>
 					</executions>

@@ -12,6 +12,7 @@
 			<outputDirectory></outputDirectory>
 			<includes>
 				<include>src/**</include>
+				<include>*.ts</include>
 				<include>*.js</include>
 				<include>*.json</include>
 				<include>dist</include>

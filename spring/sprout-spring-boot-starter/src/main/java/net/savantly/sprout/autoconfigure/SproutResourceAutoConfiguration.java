@@ -1,7 +1,6 @@
 package net.savantly.sprout.autoconfigure;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -27,9 +26,8 @@ public class SproutResourceAutoConfiguration {
 	private String buildNumber;
 	private boolean extract = false;
 	private boolean build = false;
-	private Path defaultExtractLocation = Paths.get(System.getProperty("user.home"), "sprout-ui");
-	private String extractLocation = defaultExtractLocation.toString();
-	private String webRoot = String.format("%sdist/", defaultExtractLocation.toUri());
+	private String extractLocation;
+	private String webRoot = Paths.get(extractLocation, "dist").toString();
 
 	@Bean
 	@ConditionalOnMissingBean(ObjectMapper.class)
@@ -51,7 +49,6 @@ public class SproutResourceAutoConfiguration {
 		
 		UiLoader loader = new UiLoader.UiLoaderBuilder().resolver(SproutResourcePatternResolver.of(SproutResourceAutoConfiguration.class))
 				.destinationFolder(extractLocation)
-				.searchPattern("classpath*:/**/*-resources.zip")
 				.compile(build)
 				.extract(extract)
 				.build();
