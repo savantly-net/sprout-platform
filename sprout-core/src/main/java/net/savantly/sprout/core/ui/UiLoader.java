@@ -189,7 +189,7 @@ public class UiLoader<T> {
 		private String destinationFolder = Paths.get(System.getProperty("user.home"), "sprout").toString();
 		private List<String> installArgs;
 		private List<String> buildArgs;
-		private String zipSearchPattern = "classpath*=/sprout/ui/*-resources.zip";
+		private String zipSearchPattern = "classpath*=**/sprout/ui/*-resources.zip";
 		private String NODE_PATH = System.getenv("NODE_PATH");
 		private String nodeBin = "/usr/bin/node";
 		private String npmBin = "/usr/bin/npm";
