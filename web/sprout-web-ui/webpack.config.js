@@ -2,6 +2,8 @@
 var path = require('path');
 var webpack = require('webpack');
 
+var sproutPlugins = require('./sprout.plugins.json');
+
 // Webpack Plugins
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 var autoprefixer = require('autoprefixer');
@@ -18,6 +20,16 @@ var ENV = process.env.npm_lifecycle_event;
 var isTestWatch = ENV === 'test-watch';
 var isTest = ENV === 'test' || isTestWatch;
 var isProd = ENV === 'build';
+
+function log(msg, obj){
+	console.log('[webpack.config] ' + msg);
+	if (obj) {console.log(msg);}
+}
+
+var defaultModuleLocation = root('./node_modules');
+log('defaultModuleLocation: ' + defaultModuleLocation);
+var pluginHome = path.resolve(__dirname, sproutPlugins.home);
+log('pluginHome: ' + pluginHome);
 
 module.exports = function makeWebpackConfig() {
   /**
@@ -72,6 +84,8 @@ module.exports = function makeWebpackConfig() {
   config.resolve = {
     // only discover files that have those extensions
     extensions: ['.ts', '.js', '.json', '.css', '.scss', '.html'],
+    symlinks: true,
+    modules: [defaultModuleLocation, pluginHome]
   };
 
   var atlOptions = '';
@@ -226,12 +240,12 @@ module.exports = function makeWebpackConfig() {
       // Extract css files
       // Reference: https://github.com/webpack/extract-text-webpack-plugin
       // Disabled when in test mode or not in build mode
-      new ExtractTextPlugin({filename: 'css/[name].[hash].css', disable: !isProd}),
+      new ExtractTextPlugin({filename: 'css/[name].[hash].css', disable: !isProd})
       
       // Visualize bundle
-      new BundleAnalyzerPlugin({
+      /*new BundleAnalyzerPlugin({
           analyzerMode: 'static'
-      })
+      })*/
     );
   }
 
@@ -269,6 +283,8 @@ module.exports = function makeWebpackConfig() {
     quiet: true,
     stats: 'minimal' // none (or false), errors-only, minimal, normal (or true) and verbose
   };
+
+  config.node = {fs:'empty'};
 
   return config;
 }();

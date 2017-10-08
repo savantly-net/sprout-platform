@@ -11,9 +11,19 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ApiService } from './shared';
 import { routing } from './app.routing';
+import { ContextMenuComponent } from './contextMenu/contextMenu.component';
 import { MaterialModule } from './material/material.module';
-import { SecurityModule } from './security/security.module';
-import { MenuModule } from './menu/menu.module';
+import { AuthenticationService, AuthGaurdService,
+  RoleGaurdService, SecurityMockService, SecurityModule, SecurityService } from '@savantly/ngx-security';
+import { MenuModule, MenuService } from '@savantly/ngx-menu';
+import { SproutPluginModule } from '@savantly/ngx-sprout-plugin';
+import { HeaderComponent } from './header/header.component'
+import { PluginsModule } from './plugins/plugins.module';
+
+const menuServiceFactory = (_securityService: SecurityService) => {
+  return new MenuService(_securityService);
+};
+
 
 @NgModule({
   imports: [
@@ -22,17 +32,29 @@ import { MenuModule } from './menu/menu.module';
     FormsModule,
     routing,
     BrowserAnimationsModule,
+    SecurityModule.forRoot(),
+    SproutPluginModule.forRoot(),
     MaterialModule,
-    SecurityModule,
-    MenuModule
+    MenuModule,
+    PluginsModule
   ],
+  exports: [PluginsModule],
   declarations: [
     AppComponent,
     HomeComponent,
     AboutComponent,
+    HeaderComponent,
+    ContextMenuComponent
   ],
   providers: [
-    ApiService
+    ApiService,
+    AuthenticationService, AuthGaurdService, RoleGaurdService,
+    SecurityMockService,
+    {
+      provide: MenuService,
+      useFactory: menuServiceFactory,
+      deps: [SecurityService]
+    }
   ],
   entryComponents: [],
   bootstrap: [AppComponent]

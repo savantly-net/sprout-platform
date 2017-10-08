@@ -13,3 +13,5 @@ import '@angularclass/hmr';
 // You can import js, ts, css, sass, ...
 
 import 'hammerjs';
+
+import 'systemjs/dist/system.js';

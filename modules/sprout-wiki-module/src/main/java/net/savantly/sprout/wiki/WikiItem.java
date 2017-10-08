@@ -4,19 +4,19 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.validation.constraints.Size;
 
-import net.savantly.sprout.core.configuration.CoreConfiguration;
+import net.savantly.sprout.core.configuration.SproutConfiguration;
 import net.savantly.sprout.core.domain.PersistedDomainObject;
 
 @Entity
 public class WikiItem extends PersistedDomainObject{
 
-	private static final long serialVersionUID = CoreConfiguration.serialVersionUID;
+	private static final long serialVersionUID = SproutConfiguration.serialVersionUID;
 	private String content;
 	private String title;
 	
 	
 	@Lob
-    @Size(max=2000)
+    @Size(max=10000)
 	public String getContent() {
 		return content;
 	}
