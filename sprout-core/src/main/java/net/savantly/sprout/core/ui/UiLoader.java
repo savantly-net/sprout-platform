@@ -4,10 +4,8 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,7 +18,6 @@ import java.util.concurrent.Executors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,23 +35,26 @@ public class UiLoader<T> {
 	private List<String> installArgs;
 	private List<String> buildArgs;
 	private String zipSearchPattern;
-	private String sproutPluginSearchPattern = "classpath*:/**/sprout/plugins/*";
-	private String overlaySearchPattern = "classpath*:/**/sprout/overlay/*";
+	private String sproutPluginSearchPattern;
+	private String overlaySearchPattern;
 	private boolean extract;
 	private boolean compile;
 
-	public UiLoader(UiLoaderBuilder uiLoaderBuilder) {
+	public UiLoader(UiLoaderBuilder uiLoaderBuilder) throws Exception {
 		this.resolver = uiLoaderBuilder.resolver;
 		this.sproutHome = uiLoaderBuilder.destinationFolder;
 		this.installArgs = uiLoaderBuilder.installArgs;
 		this.buildArgs = uiLoaderBuilder.buildArgs;
 		this.zipSearchPattern = uiLoaderBuilder.zipSearchPattern;
+		this.sproutPluginSearchPattern = uiLoaderBuilder.sproutPluginSearchPattern;
+		this.overlaySearchPattern = uiLoaderBuilder.overlaySearchPattern;
 		this.extract = uiLoaderBuilder.extract;
 		this.compile = uiLoaderBuilder.compile;
 		try {
 			init();
 		} catch (IOException | InterruptedException e) {
-			log.error("Failed to Load UI: {}", e);
+			log.error("Failed to Load Sprout UI");
+			throw e;
 		}
 	}
 
@@ -79,14 +79,14 @@ public class UiLoader<T> {
 			try {
 				Path destinationPath = Paths.get(sproutHome, resource.getFilename());
 				destinationPath.toFile().mkdirs();
-				copy(resource.getInputStream(), destinationPath);
+				copy(resource, destinationPath.toFile());
 			} catch (IOException e) {
 				log.warn("could not access resource", e);
 			}
 		}
 	}
 
-	private void extractClientPlugins() {
+	private void extractClientPlugins() throws IOException {
 		Resource[] resourcePaths = resolver.getResourcePaths(sproutPluginSearchPattern);
 		Path pluginFolderPath = Paths.get(sproutHome, "./plugins/");
 		pluginFolderPath.toFile().mkdirs();
@@ -95,11 +95,39 @@ public class UiLoader<T> {
 		}
 		for (Resource resource : resourcePaths) {
 			try {
-				copy(resource.getInputStream(), Paths.get(pluginFolderPath.toString(), resource.getFilename()));
+				Path destinationPath = generateDestinationPath(pluginFolderPath, resource);
+				File parentFolder = destinationPath.getParent().toFile();
+				if (!parentFolder.exists()) {
+					parentFolder.mkdirs();
+				}
+				destinationPath.toFile().mkdirs();
+				copy(resource, destinationPath.toFile());
 			} catch (IOException e) {
-				log.warn("could not access resource", e);
+				log.error("could not access resource", e);
+				throw e;
 			}
 		}
+	}
+
+	private Path generateDestinationPath(Path rootDir, Resource resource) throws IOException {
+		String relativePath = null;
+		String scheme = resource.getURI().getScheme();
+		if ("JAR".contains(scheme.toUpperCase())) {
+			String[] uriParts = resource.getURL().toString().split("!");
+			relativePath = trimPluginPathPrefix(uriParts[1]);
+		} else {
+			String filePath = resource.getFile().getAbsolutePath();
+			relativePath = trimPluginPathPrefix(filePath);
+		}
+		return Paths.get(rootDir.toString(), relativePath);
+	}
+
+	private String trimPluginPathPrefix(String filePath) {
+		String[] pathParts = filePath.split("sprout/plugins/");
+		if (pathParts.length != 2) {
+			throw new RuntimeException("The plugins must be located in a path containing '**/sprout/plugins/*'");
+		}
+		return pathParts[1];
 	}
 
 	private void extractZippedClientFiles() throws IOException {
@@ -153,7 +181,7 @@ public class UiLoader<T> {
 			}
 
 			if (!entry.isDirectory()) {
-				log.info("Extracting file: {} -> {}", currentEntry, destFile.getAbsolutePath());
+				log.debug("Extracting file: {} -> {}", currentEntry, destFile.getAbsolutePath());
 				BufferedInputStream is = new BufferedInputStream(zip.getInputStream(entry));
 				int currentByte;
 				// establish buffer for writing file
@@ -180,25 +208,13 @@ public class UiLoader<T> {
 		}
 	}
 
-	/**
-	 * Copy a file from source to destination.
-	 *
-	 * @param source
-	 *            the source
-	 * @param destination
-	 *            the destination
-	 * @return True if succeeded , False if not
-	 */
-	public static boolean copy(InputStream source, Path destination) {
-		boolean success = true;
+	public static void copy(Resource source, File destination) throws IOException {
 		log.info("Writing to -> " + destination);
 		try {
-			Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
+			Files.copy(source.getInputStream(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException ex) {
 			log.warn("Failed to copy resource", ex);
-			success = false;
 		}
-		return success;
 	}
 
 	public static class UiLoaderBuilder {
@@ -208,6 +224,8 @@ public class UiLoader<T> {
 		private List<String> installArgs;
 		private List<String> buildArgs;
 		private String zipSearchPattern = "classpath*:/**/sprout/ui/*-resources.zip";
+		private String sproutPluginSearchPattern = "classpath*:/**/sprout/plugins/**/*.*";
+		private String overlaySearchPattern = "classpath*:/**/sprout/overlay/**/*.*";
 		private String NODE_PATH = System.getenv("NODE_PATH");
 		private String nodeBin = "/usr/bin/node";
 		private String npmBin = "/usr/bin/npm";
@@ -263,14 +281,24 @@ public class UiLoader<T> {
 		}
 
 		public UiLoaderBuilder destinationFolder(String destinationFolder) {
-			if(destinationFolder != null && destinationFolder != "") {
+			if (destinationFolder != null && destinationFolder != "") {
 				this.destinationFolder = destinationFolder;
 			}
 			return this;
 		}
 
-		public UiLoaderBuilder searchPattern(String searchPattern) {
+		public UiLoaderBuilder zipSearchPattern(String searchPattern) {
 			this.zipSearchPattern = searchPattern;
+			return this;
+		}
+
+		public UiLoaderBuilder sproutPluginSearchPattern(String searchPattern) {
+			this.sproutPluginSearchPattern = searchPattern;
+			return this;
+		}
+
+		public UiLoaderBuilder overlaySearchPattern(String searchPattern) {
+			this.overlaySearchPattern = searchPattern;
 			return this;
 		}
 
@@ -294,7 +322,7 @@ public class UiLoader<T> {
 			return this;
 		}
 
-		public UiLoader build() {
+		public UiLoader build() throws Exception {
 			return new UiLoader(this);
 		}
 	}

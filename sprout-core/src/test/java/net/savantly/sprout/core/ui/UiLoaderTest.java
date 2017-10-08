@@ -18,21 +18,17 @@ public class UiLoaderTest {
 	private static final Logger log = LoggerFactory.getLogger(UiLoaderTest.class);
 	
 	@Test
-	public void test() throws IOException, InterruptedException {
+	public void test() throws Exception {
 		Path tmpFolder = Files.createDirectories(Paths.get("target", "ui-test"));
-		try {
-			UiLoader loader = new UiLoader.UiLoaderBuilder()
-					.resolver(SproutResourcePatternResolver.of(UiLoaderTest.class))
-					.destinationFolder(tmpFolder.toAbsolutePath().toString())
-					.searchPattern("**/*.zip")
-					.extract(true)
-					.compile(false)
-					.build();
-		} catch (Exception ex) {
-			log.error("", ex);
-		} finally {
-			tmpFolder.toFile().delete();
-		}
+		UiLoader loader = new UiLoader.UiLoaderBuilder()
+				.resolver(SproutResourcePatternResolver.of(UiLoaderTest.class))
+				.destinationFolder(tmpFolder.toAbsolutePath().toString())
+				.zipSearchPattern("**/*.zip")
+				.sproutPluginSearchPattern("**/sprout/plugins/**/*.*")
+				.overlaySearchPattern("**/sprout/overlay/**/*.*")
+				.extract(true)
+				.compile(false)
+				.build();
 	}
 
 }

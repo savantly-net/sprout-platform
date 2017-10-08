@@ -45,7 +45,7 @@ public class SproutResourceAutoConfiguration {
 	@Bean
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@ConditionalOnProperty("sprout.resources.extract")
-	UiLoader defaultUiLoader() throws IOException, InterruptedException {
+	UiLoader defaultUiLoader() throws Exception {
 		
 		UiLoader loader = new UiLoader.UiLoaderBuilder().resolver(SproutResourcePatternResolver.of(SproutResourceAutoConfiguration.class))
 				.destinationFolder(extractLocation)
