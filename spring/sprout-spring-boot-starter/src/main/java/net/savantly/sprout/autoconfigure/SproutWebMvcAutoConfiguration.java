@@ -1,5 +1,7 @@
 package net.savantly.sprout.autoconfigure;
 
+import java.io.IOException;
+
 import org.h2.server.web.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +14,13 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
+import freemarker.template.TemplateException;
 import net.savantly.sprout.bean.processors.ProgressBeanPostProcessor;
 import net.savantly.sprout.bean.processors.SlowBeans;
+import net.savantly.sprout.content.contentItem.ContentItemRenderer;
+import net.savantly.sprout.content.contentItem.ContentItemRestController;
+import net.savantly.sprout.content.contentType.ContentTypeTemplateLoader;
+import net.savantly.sprout.core.content.contentTemplate.ContentTemplateRepository;
 import net.savantly.sprout.starter.SproutMvcConfiguration;
 
 @Configuration
@@ -41,12 +48,27 @@ public class SproutWebMvcAutoConfiguration {
 		freeMarkerConfigurer.setTemplateLoaderPath(resourcesConfiguration.getWebRoot());
 		return freeMarkerConfigurer;
 	}
+	
+	@Bean
+	public ContentItemRenderer contentItemRenderer(FreeMarkerConfigurer configurer, ContentTypeTemplateLoader loader) throws IOException, TemplateException {
+		return new ContentItemRenderer(configurer, loader);
+	}
+	
+	@Bean
+	public ContentTypeTemplateLoader contentTypeTemplateLoader(ContentTemplateRepository repository) {
+		return new ContentTypeTemplateLoader(repository);
+	}
 
 	@Bean
 	public ServletRegistrationBean h2servletRegistration() {
 		ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
 		registrationBean.addUrlMappings("/console/*");
 		return registrationBean;
+	}
+	
+	@Bean
+	public ContentItemRestController contentItemRestController(ContentItemRenderer renderer) {
+		return new ContentItemRestController(renderer);
 	}
 	
 	@Bean

@@ -24,6 +24,5 @@ public class SproutMvcConfiguration extends WebMvcConfigurerAdapter{
 		String index = "index";
 		registry.addViewController("/").setViewName(index);
 	}
-	
 
 }

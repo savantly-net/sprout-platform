@@ -5,41 +5,43 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 import net.savantly.spring.fixture.AbstractBaseFixture;
 import net.savantly.spring.fixture.Fixture;
 import net.savantly.spring.fixture.util.RandomGenerator;
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
+import net.savantly.sprout.core.domain.emailAddress.EmailAddressFixture;
 import net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepository;
-import net.savantly.sprout.core.domain.organization.OrganizationRepository;
 import net.savantly.sprout.core.domain.user.repository.UserRepository;
 import net.savantly.sprout.core.security.roles.Role;
 import net.savantly.sprout.core.security.roles.RoleRepository;
 
-@Service
 public class UserFixture extends AbstractBaseFixture<SproutUserEntity, UserRepository>{
 
-    @Autowired
     PasswordEncoder encoder;
-    @Autowired
-    private OrganizationRepository orgs;
-    @Autowired
     private EmailAddressRepository emailAddressRepository;
-    @Autowired
     private RoleRepository roleRepository;
-    @Autowired
     private Fixture<Role> roleFixture;
-    @Autowired
     private Fixture<EmailAddress> emailFixture;
     private UserRepository repository;
 
     private String password = "password";
  
     @Autowired
-    public UserFixture(UserRepository repository) {
+    public UserFixture(
+    		UserRepository repository, 
+    		PasswordEncoder encoder, 
+    		EmailAddressRepository emailAddressRepository, 
+    		RoleRepository roleRepository, 
+    		Fixture<Role> roleFixture,
+    		Fixture<EmailAddress> emailFixture) {
         super(repository);
         this.repository = repository;
+        this.encoder = encoder;
+        this.emailAddressRepository = emailAddressRepository;
+        this.roleRepository = roleRepository;
+        this.roleFixture = roleFixture;
+        this.emailFixture = emailFixture;
     }
 
     @Override
@@ -58,7 +60,7 @@ public class UserFixture extends AbstractBaseFixture<SproutUserEntity, UserRepos
         authorities.add(roleRepository.findOne("ADMIN"));
         userDetails = new SproutUserEntity(username, RandomGenerator.getRandomAlphaNumericString(25) , username, username, authorities);
         
-        EmailAddress emailAddress =  emailAddressRepository.findOne("system@savantly");
+        EmailAddress emailAddress =  emailAddressRepository.findOne(EmailAddressFixture.SYSTEM_EMAIL);
         userDetails.setPrimaryEmailAddress(emailAddress);
         entityList.add(userDetails);
     }
@@ -75,7 +77,7 @@ public class UserFixture extends AbstractBaseFixture<SproutUserEntity, UserRepos
         userDetails.setPassword(encoder.encode(password));
         userDetails.setPhoneNumber("18177911627");
         
-        EmailAddress emailAddress =  emailAddressRepository.findOne("admin@intnt.co");
+        EmailAddress emailAddress =  emailAddressRepository.findOne(EmailAddressFixture.ADMIN_EMAIL);
         userDetails.setPrimaryEmailAddress(emailAddress);
         entityList.add(userDetails);
     }

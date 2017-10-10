@@ -1,0 +1,27 @@
+<mat-sidenav-container fxLayout="row">
+	<mat-sidenav #mainMenu position="end">
+	  <mat-list>
+	  	<mat-list-item>
+	  		<button mat-button (click)="mainMenu.close()">
+	  			<mat-icon>menu</mat-icon>
+	  		</button>
+	  	</mat-list-item>
+	    <mat-list-item>
+	    	<button mat-button [routerLink]="['home']">
+		      <mat-icon>home</mat-icon>
+		    </button>
+	    </mat-list-item>
+	  </mat-list>
+	</mat-sidenav>
+  
+	<mat-toolbar>
+	    <span>Sprout Administration</span>
+	    <span fxFlex></span>
+		<button mat-fab (click)="mainMenu.toggle()">
+	      <mat-icon>menu</mat-icon>
+	    </button>
+		
+	</mat-toolbar>
+
+	<router-outlet></router-outlet>
+</mat-sidenav-container>

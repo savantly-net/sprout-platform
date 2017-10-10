@@ -8,7 +8,6 @@ import java.util.UUID;
 
 import javax.persistence.EntityManager;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
@@ -20,12 +19,13 @@ import net.savantly.sprout.core.security.roles.Role;
 
 public class UserRepositoryImpl implements UserRepositoryCustom {
 	
-	@Autowired
-    private EntityManager mongoTemplate;
-	@Autowired(required=true)
+    private EntityManager em;
 	PasswordEncoder encoder;
-	@Autowired
 	EmailAddressRepository emailAddressRepository;
+	
+	public UserRepositoryImpl(EntityManager em, PasswordEncoder encoder, EmailAddressRepository emailAddressRepository) {
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * Set the password in cleartext
@@ -42,7 +42,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
         sproutUser.setAccountNonLocked(true);
         sproutUser.setCredentialsNonExpired(true);
         sproutUser.setEnabled(true);
-		mongoTemplate.persist(sproutUser);
+		em.persist(sproutUser);
 		return sproutUser;
 	}
 	
