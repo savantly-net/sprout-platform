@@ -20,7 +20,8 @@ import { MenuComponent } from './menu.component';
   exports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    MenuComponent
   ]
 })
 export class MenuModule { }

@@ -1,16 +1,12 @@
 import { TestBed, async } from '@angular/core/testing';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { routing } from './app.routing';
-
-import { MaterialModule } from './material/material.module';
+import { provideRoutes } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { MenuModule } from './menu/menu.module';
 
 import { ContentItemsModule } from './content-items/content-items.module';
 import { ContentTypesModule } from './content-types/content-types.module';
-import { HomeComponent } from './home/home.component';
 
+import { HomeComponent } from './home/home.component';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
@@ -21,13 +17,11 @@ describe('AppComponent', () => {
         HomeComponent
       ],
       imports: [
-        BrowserModule,
-        routing,
-        BrowserAnimationsModule,
-        MaterialModule,
+        RouterTestingModule,
         MenuModule,
         ContentTypesModule,
-        ContentItemsModule]
+        ContentItemsModule],
+      providers: [provideRoutes([])]
     }).compileComponents();
   }));
   it('should create the app', async(() => {
@@ -38,7 +32,7 @@ describe('AppComponent', () => {
   it(`should have as title 'app'`, async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('SproutAdmin');
+    expect(app.title).toEqual('Sprout Admin');
   }));
   it('should render title in a h1 tag', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
