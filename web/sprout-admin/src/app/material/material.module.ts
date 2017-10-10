@@ -6,10 +6,19 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatIconModule,
+    MatRippleModule,
+    MatListModule,
+    MatMenuModule,
+    MatToolbarModule,
+    FlexLayoutModule
   ],
   declarations: [],
   exports: [
+    CommonModule,
     MatSidenavModule,
     MatButtonModule,
     MatIconModule,

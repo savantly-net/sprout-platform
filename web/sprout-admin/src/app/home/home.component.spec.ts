@@ -7,7 +7,7 @@ import { HomeComponent } from './home.component';
 class TestComponent { }
 
 describe('Home Component', () => {
-  const html = '<my-home></my-home>';
+  const html = '<app-home></app-home>';
 
   beforeEach(() => {
     TestBed.configureTestingModule({declarations: [HomeComponent, TestComponent]});
