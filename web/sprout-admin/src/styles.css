@@ -8,10 +8,12 @@ html, body {
   padding: 0;
 }
 
-html, body, mat-sidenav-container, app-root, material-app {
+html, body, material-app, mat-sidenav-container, main {
+  margin: 0;
   height: 100%;
   width: 100%;
 }
+
 
 img {
   max-width: 100%

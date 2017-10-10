@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { ContentItemsModule } from './content-items/content-items.module';
+import { ContentTemplateModule } from './content-template/content-template.module';
 import { ContentTypesModule } from './content-types/content-types.module';
 import { HomeComponent } from './home/home.component';
 import { MaterialModule } from './material/material.module';
@@ -21,6 +22,7 @@ import { MenuModule } from './menu/menu.module';
     BrowserAnimationsModule,
     MaterialModule,
     MenuModule,
+    ContentTemplateModule,
     ContentTypesModule,
     ContentItemsModule
   ],

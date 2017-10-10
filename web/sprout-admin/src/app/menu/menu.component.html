@@ -1,23 +1,26 @@
-<mat-sidenav #mainMenu position="end">
-  <mat-list>
-  	<mat-list-item>
-  		<button mat-button (click)="mainMenu.close()">
-  			<mat-icon>menu</mat-icon>
-  		</button>
-  	</mat-list-item>
-    <mat-list-item>
-    	<button mat-button [routerLink]="['home']">
-	      <mat-icon>home</mat-icon>
-	    </button>
-    </mat-list-item>
-  </mat-list>
-</mat-sidenav>
-  
-<mat-toolbar>
-    <span>Sprout Administration</span>
-    <span fxFlex></span>
-	<button mat-fab (click)="mainMenu.toggle()">
-      <mat-icon>menu</mat-icon>
-    </button>
-	
-</mat-toolbar>
+<mat-list>
+	<mat-list-item>
+		<button mat-button (click)="menu.close()">
+			<mat-icon>menu</mat-icon>
+			<span>Close Menu</span>
+		</button>
+	</mat-list-item>
+	<mat-list-item>
+		<button mat-button [routerLink]="['']">
+			<mat-icon>home</mat-icon>
+			<span>Home</span>
+		</button>
+	</mat-list-item>
+	<mat-list-item>
+		<button mat-button [routerLink]="['content-types']">
+			<mat-icon>toc</mat-icon>
+			<span>Content Types</span>
+		</button>
+	</mat-list-item>
+	<mat-list-item>
+		<button mat-button [routerLink]="['content-items']">
+			<mat-icon>library_books</mat-icon>
+			<span>Content Items</span>
+		</button>
+	</mat-list-item>
+</mat-list>

@@ -1,5 +1,17 @@
-<mat-sidenav-container fxLayout="row">
-	<app-menu></app-menu>
+<mat-sidenav-container>
+	<mat-sidenav #mainMenu position="end">
+		<app-menu [menu]="mainMenu"></app-menu>
+	</mat-sidenav>
 
-	<router-outlet></router-outlet>
+	<main fxLayout="column">
+		<mat-toolbar color="primary">
+		    <span>Sprout Administration</span>
+		    <span fxFlex></span>
+			<button mat-fab (click)="mainMenu.toggle()">
+		      <mat-icon>menu</mat-icon>
+		    </button>
+			
+		</mat-toolbar>
+		<router-outlet></router-outlet>
+	</main>
 </mat-sidenav-container>

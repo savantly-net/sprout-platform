@@ -1,3 +1,4 @@
+import { ContentTypesService, ContentType } from './content-types.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./content-types.component.css']
 })
 export class ContentTypesComponent implements OnInit {
+  items: ContentType[];
 
-  constructor() { }
+  constructor(contentTypes: ContentTypesService) {
+    this.items = contentTypes.items;
+  }
 
   ngOnInit() {
   }

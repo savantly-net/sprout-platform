@@ -1,3 +1,25 @@
-<p>
-  content-types works!
-</p>
+<div fxLayout="column" fxLayoutGap="10px">
+	<mat-toolbar>
+		<button mat-button>
+			<mat-icon>add</mat-icon>
+			<span>New Content Type</span>
+		</button>
+	</mat-toolbar>
+	
+	<div >
+		<mat-card  *ngFor="let item of items">
+			<mat-card-header>
+				<mat-card-title>{{item.name}}</mat-card-title>
+				<mat-card-subtitle>{{item.description}}</mat-card-subtitle>
+			</mat-card-header>
+			<mat-card-actions>
+				<button mat-button (click)="editItem(item)">
+					<mat-icon matListIcon>edit</mat-icon>
+				</button>
+				<button mat-button>
+					<mat-icon matListIcon>delete</mat-icon>
+				</button>
+			</mat-card-actions>
+		</mat-card>
+	</div>
+</div>

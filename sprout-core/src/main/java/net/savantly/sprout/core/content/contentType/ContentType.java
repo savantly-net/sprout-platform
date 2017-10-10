@@ -18,9 +18,11 @@ import net.savantly.sprout.core.domain.PersistedDomainObject;
 public class ContentType extends PersistedDomainObject{
 	
 	private String name;
+	private String description;
 	private List<ContentField> fields = new ArrayList<>();;
 	private ContentTemplate template;
 	private boolean updateable;
+	private String icon;
 
 	@Column(unique=true)
 	public String getName() {
@@ -29,6 +31,14 @@ public class ContentType extends PersistedDomainObject{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@OneToMany(mappedBy="contentType", orphanRemoval=true, cascade= {CascadeType.ALL}, fetch=FetchType.EAGER)
@@ -55,6 +65,14 @@ public class ContentType extends PersistedDomainObject{
 
 	public void setUpdateable(boolean updateable) {
 		this.updateable = updateable;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 
 }
