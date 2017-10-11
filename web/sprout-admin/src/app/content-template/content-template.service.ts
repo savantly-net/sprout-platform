@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-export abstract class ContentField {
+
+export class ContentField {
   id: string;
   name: string;
   displayName: string;
@@ -9,7 +11,7 @@ export abstract class ContentField {
   required: boolean;
 }
 
-export abstract class ContentTemplate {
+export class ContentTemplate {
   id: string;
   name: string;
   content: string;
@@ -20,7 +22,24 @@ export abstract class ContentTemplate {
 export class ContentTemplateService {
   items: ContentTemplate[];
 
-  constructor() {
+
+  findAll(): any {
+    return this.http.get('/api/contentTemplates').subscribe();
+  }
+
+  saveItem(item: ContentTemplate): any {
+    if (item['isNew']) {
+      return this.http.post('/api/contentTemplates', item).subscribe();
+    } else {
+      return this.http.put('/api/contentTemplates/' + item.id, item).subscribe();
+    }
+  }
+
+  deleteItem(item: ContentTemplate): any {
+    return this.http.delete('/api/contentTemplates' + item.id).subscribe();
+  }
+
+  constructor(private http: HttpClient) {
     this.items = [
       {
         id: '123',

@@ -1,5 +1,6 @@
 import { ContentTypesService, ContentType } from './content-types.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-content-types',
@@ -9,7 +10,11 @@ import { Component, OnInit } from '@angular/core';
 export class ContentTypesComponent implements OnInit {
   items: ContentType[];
 
-  constructor(contentTypes: ContentTypesService) {
+  editItem(item: ContentType): void {
+    this.router.navigate(['content-types-editor', {id: item.id}]);
+  }
+
+  constructor(private router: Router, contentTypes: ContentTypesService) {
     this.items = contentTypes.items;
   }
 

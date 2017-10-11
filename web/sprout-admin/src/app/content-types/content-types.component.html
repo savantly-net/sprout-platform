@@ -6,7 +6,7 @@
 		</button>
 	</mat-toolbar>
 	
-	<div >
+	<div fxLayout fxLayout.lt-sm="column" fxLayoutWrap="true" fxLayoutGap="10px">
 		<mat-card  *ngFor="let item of items">
 			<mat-card-header>
 				<mat-card-title>{{item.name}}</mat-card-title>

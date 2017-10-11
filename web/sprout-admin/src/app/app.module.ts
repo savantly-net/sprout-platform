@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { routing } from './app.routing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppComponent } from './app.component';
 import { ContentItemsModule } from './content-items/content-items.module';
 import { ContentTemplateModule } from './content-template/content-template.module';
@@ -20,6 +22,7 @@ import { MenuModule } from './menu/menu.module';
     BrowserModule,
     routing,
     BrowserAnimationsModule,
+    HttpClientModule,
     MaterialModule,
     MenuModule,
     ContentTemplateModule,

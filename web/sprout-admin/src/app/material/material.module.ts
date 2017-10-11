@@ -8,22 +8,14 @@ import {
   MatListModule,
   MatMenuModule,
   MatToolbarModule,
-  MatCardModule } from '@angular/material';
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule
+  } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MatSidenavModule,
-    MatButtonModule,
-    MatIconModule,
-    MatRippleModule,
-    MatListModule,
-    MatMenuModule,
-    MatToolbarModule,
-    MatCardModule,
-    FlexLayoutModule
-  ],
+  imports: [],
   declarations: [],
   exports: [
     CommonModule,
@@ -35,7 +27,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatMenuModule,
     MatToolbarModule,
     MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
     FlexLayoutModule
-  ]
+  ],
+  providers: []
 })
 export class MaterialModule { }

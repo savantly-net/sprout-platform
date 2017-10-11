@@ -1,17 +1,17 @@
-import { ContentTemplate } from '../../content-template/content-template.service';
-import { ContentTypesService, ContentType } from '../content-types.service';
+import { ContentTypesService } from '../../content-types/content-types.service';
+import { ContentTemplate, ContentTemplateService } from '../content-template.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-content-types-editor',
-  templateUrl: './content-types-editor.component.html',
-  styleUrls: ['./content-types-editor.component.css']
+  selector: 'app-content-template-editor',
+  templateUrl: './content-template-editor.component.html',
+  styleUrls: ['./content-template-editor.component.css']
 })
-export class ContentTypesEditorComponent implements OnInit {
+export class ContentTemplateEditorComponent implements OnInit {
 
-  item: ContentType;
+  item: ContentTemplate;
   rForm: FormGroup;
   post: any; // A property for our submitted form
 
@@ -29,16 +29,16 @@ export class ContentTypesEditorComponent implements OnInit {
 
   loadItem(id: string) {
     if (id) {
-      this.item = this.contentTypesService.items[0];
+      this.item = this.service.items[0];
     } else {
-      this.item = new ContentType();
+      this.item = new ContentTemplate();
     }
   }
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private contentTypesService: ContentTypesService) {
+    private service: ContentTemplateService) {
 
     this.route.params.subscribe( params => this.loadItem(params['id']) );
 
