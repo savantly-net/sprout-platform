@@ -1,7 +1,7 @@
 package net.savantly.sprout.core.content.contentType;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,7 +19,7 @@ public class ContentType extends PersistedDomainObject{
 	
 	private String name;
 	private String description;
-	private List<ContentField> fields = new ArrayList<>();;
+	private Set<ContentField> fields = new HashSet<>();;
 	private ContentTemplate template;
 	private boolean updateable;
 	private String icon;
@@ -42,11 +42,11 @@ public class ContentType extends PersistedDomainObject{
 	}
 
 	@OneToMany(mappedBy="contentType", orphanRemoval=true, cascade= {CascadeType.ALL}, fetch=FetchType.EAGER)
-	public List<ContentField> getFields() {
+	public Set<ContentField> getFields() {
 		return fields;
 	}
 
-	public void setFields(List<ContentField> fields) {
+	public void setFields(Set<ContentField> fields) {
 		this.fields = fields;
 	}
 

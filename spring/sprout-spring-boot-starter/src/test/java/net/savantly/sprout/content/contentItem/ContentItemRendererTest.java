@@ -2,6 +2,7 @@ package net.savantly.sprout.content.contentItem;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -43,7 +44,7 @@ public class ContentItemRendererTest {
 		ContentItem contentItem = new ContentItem();
 		contentItem.setContentType(contentType);
 		
-		List<ContentField> fields = contentType.getFields();
+		Set<ContentField> fields = contentType.getFields();
 		
 		for (ContentField contentField : fields) {
 			contentItem.getFieldValues().put(contentField, "test");

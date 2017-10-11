@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -58,7 +59,7 @@ public class ContentItemRequestTest {
 		contentItem.setContentType(contentType);
 		contentItem.setName(contentItemName);
 		
-		List<ContentField> fields = contentType.getFields();
+		Set<ContentField> fields = contentType.getFields();
 		
 		for (ContentField contentField : fields) {
 			contentItem.getFieldValues().put(contentField, "test");

@@ -123,7 +123,8 @@ public class UiLoader<T> {
 	}
 
 	private String trimPluginPathPrefix(String filePath) {
-		String[] pathParts = filePath.split("sprout/plugins/");
+		// Handle unix and windows path separators
+		String[] pathParts = filePath.split("sprout[/|\\\\]plugins[/|\\\\]");
 		if (pathParts.length != 2) {
 			throw new RuntimeException("The plugins must be located in a path containing '**/sprout/plugins/*'");
 		}

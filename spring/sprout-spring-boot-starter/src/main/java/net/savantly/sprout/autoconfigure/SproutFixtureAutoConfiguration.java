@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
@@ -14,6 +16,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import net.savantly.spring.fixture.Fixture;
+import net.savantly.sprout.core.content.contentTemplate.ContentTemplateFixture;
+import net.savantly.sprout.core.content.contentTemplate.ContentTemplateRepository;
 import net.savantly.sprout.core.content.contentType.ContentTypeFixture;
 import net.savantly.sprout.core.content.contentType.ContentTypeRepository;
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
@@ -29,6 +33,8 @@ import net.savantly.sprout.core.security.roles.RoleRepository;
 @Configuration
 @AutoConfigureAfter(JpaRepositoriesAutoConfiguration.class)
 public class SproutFixtureAutoConfiguration {
+	
+	private static final Logger log = LoggerFactory.getLogger(SproutFixtureAutoConfiguration.class);
 	
     @Autowired
 	ApplicationContext ctx;
@@ -55,8 +61,13 @@ public class SproutFixtureAutoConfiguration {
 	}
 	
 	@Bean 
-	public ContentTypeFixture contentTypeFixture(ContentTypeRepository repository) {
-		return new ContentTypeFixture(repository);
+	public ContentTypeFixture contentTypeFixture(ContentTypeRepository repository, ContentTemplateFixture fixture, ContentTemplateRepository templateRepository) {
+		return new ContentTypeFixture(repository, fixture, templateRepository);
+	}
+	
+	@Bean
+	public ContentTemplateFixture contentTemplateFixture(ContentTemplateRepository templateRepository) {
+		return new ContentTemplateFixture(templateRepository);
 	}
 	
     @PostConstruct
@@ -64,7 +75,11 @@ public class SproutFixtureAutoConfiguration {
     	FakeContext fakeContext = new FakeContext();
         fakeContext.create();
         for (Fixture<?> fixture : getFixtures()) {
-            fixture.install();
+        	try {
+        		fixture.install();
+        	} catch (Exception ex) {
+        		log.warn("could not install fixture");
+        	}
         }
     }
     

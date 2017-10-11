@@ -2,7 +2,7 @@ import { ContentTypesService } from '../../content-types/content-types.service';
 import { ContentTemplate, ContentTemplateService } from '../content-template.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-content-template-editor',
@@ -10,45 +10,46 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./content-template-editor.component.css']
 })
 export class ContentTemplateEditorComponent implements OnInit {
-
-  item: ContentTemplate;
   rForm: FormGroup;
-  post: any; // A property for our submitted form
 
-  // model fields
-  description: string;
-  name: string;
-  template: ContentTemplate;
-  icon: string;
-  // end model fields
-
-  addPost(post) {
-    this.description = post.description;
-    this.name = post.name;
+  save(model) {
+    this.service.saveItem(model).subscribe((response) => {
+      console.log(response);
+      this.router.navigate(['content-template-editor', {id: response.id}]);
+    });
   }
 
   loadItem(id: string) {
     if (id) {
-      this.item = this.service.items[0];
+      this.service.findOne(id).subscribe((response: any) => {
+        this.rForm.patchValue(response);
+      });
     } else {
-      this.item = new ContentTemplate();
+       this.rForm.setValue(new ContentTemplate());
     }
   }
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private route: ActivatedRoute,
     private service: ContentTemplateService) {
 
-    this.route.params.subscribe( params => this.loadItem(params['id']) );
-
     this.rForm = fb.group({
-      'name' : [null, Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(255)])],
-      'description' : [null, Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(255)])],
+      'id' : [null],
+      'name' : ['MyTemplate', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(255)])],
+      'content' : ['<h1>${text}</h1>', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(255)])],
+      'description': ['A new template =]'],
+      'new': [true],
+      'createdDate': [null],
+      'createdBy': [null],
+      'modifiedDate': [null],
+      'modifiedBy': [null]
     });
   }
 
   ngOnInit() {
+    this.route.params.subscribe( params => this.loadItem(params['id']) );
   }
 
 }

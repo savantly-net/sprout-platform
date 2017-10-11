@@ -1,5 +1,7 @@
 package net.savantly.sprout.core.content.contentType;
 
+import javax.transaction.Transactional;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,18 +16,24 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplate;
+import net.savantly.sprout.core.content.contentTemplate.ContentTemplateFixture;
+import net.savantly.sprout.core.content.contentTemplate.ContentTemplateRepository;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration
+@Transactional
 public class ContentTypeTest {
 	
 	@Autowired
 	ContentTypeRepository repository;
 	@Autowired
 	ContentTypeFixture contentTypeFixture;
+	@Autowired
+	ContentTemplateFixture templateFixture;
 	
 	@Before
 	public void before() {
+		templateFixture.install();
 		contentTypeFixture.install();
 	}
 	
@@ -52,10 +60,14 @@ public class ContentTypeTest {
 	@EntityScan(basePackages="net.savantly.sprout.core.content")
 	static class configuration {
 
+		@Bean
+		public ContentTemplateFixture contentTemplateFixture(ContentTemplateRepository templateRepository) {
+			return new ContentTemplateFixture(templateRepository);
+		}
 		
 		@Bean
-		public ContentTypeFixture getContentTypeFixture(ContentTypeRepository repository) {
-			return new ContentTypeFixture(repository);
+		public ContentTypeFixture getContentTypeFixture(ContentTypeRepository repository, ContentTemplateFixture contentTemplateFixture, ContentTemplateRepository cTemplateRepository) {
+			return new ContentTypeFixture(repository, contentTemplateFixture, cTemplateRepository);
 		}
 
 	}
