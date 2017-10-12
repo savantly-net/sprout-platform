@@ -60,11 +60,11 @@ public class SproutFixtureAutoConfiguration {
 				emailFixture);
 	}
 	
-	@Bean 
+/*	@Bean 
 	public ContentTypeFixture contentTypeFixture(ContentTypeRepository repository, ContentTemplateFixture fixture, ContentTemplateRepository templateRepository) {
 		return new ContentTypeFixture(repository, fixture, templateRepository);
 	}
-	
+	*/
 	@Bean
 	public ContentTemplateFixture contentTemplateFixture(ContentTemplateRepository templateRepository) {
 		return new ContentTemplateFixture(templateRepository);
@@ -78,7 +78,8 @@ public class SproutFixtureAutoConfiguration {
         	try {
         		fixture.install();
         	} catch (Exception ex) {
-        		log.warn("could not install fixture");
+        		log.error("could not install fixture", ex);
+        		throw ex;
         	}
         }
     }

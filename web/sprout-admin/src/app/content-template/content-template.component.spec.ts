@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { ComponentTestModule } from '../testing/component-test.module';
+
 import { ContentTemplateComponent } from './content-template.component';
+import { ContentTemplateService } from './content-template.service';
 
 describe('ContentTemplateComponent', () => {
   let component: ContentTemplateComponent;
@@ -8,7 +11,9 @@ describe('ContentTemplateComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ContentTemplateComponent ]
+      declarations: [ ContentTemplateComponent ],
+      imports: [ ComponentTestModule ],
+      providers: [ ContentTemplateService ]
     })
     .compileComponents();
   }));

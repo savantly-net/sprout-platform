@@ -1,0 +1,37 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MaterialModule } from '../material/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { APP_BASE_HREF } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [];
+export const routing = RouterModule.forRoot(routes);
+
+@NgModule({
+  imports: [
+    CommonModule,
+    BrowserAnimationsModule,
+    routing, RouterModule,
+    HttpClientModule,
+    MaterialModule,
+    ReactiveFormsModule,
+    FormsModule
+  ],
+  exports: [
+    CommonModule,
+    BrowserAnimationsModule,
+    RouterModule,
+    HttpClientModule,
+    MaterialModule,
+    ReactiveFormsModule,
+    FormsModule
+  ],
+  declarations: [],
+  providers: [ {provide: APP_BASE_HREF, useValue: '/'} ]
+})
+export class ComponentTestModule { }

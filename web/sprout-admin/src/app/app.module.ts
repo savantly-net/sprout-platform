@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Injector } from '@angular/core';
 import { routing } from './app.routing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -12,6 +12,7 @@ import { ContentTypesModule } from './content-types/content-types.module';
 import { HomeComponent } from './home/home.component';
 import { MaterialModule } from './material/material.module';
 import { MenuModule } from './menu/menu.module';
+import { ServiceLocator } from './standard/service-locator';
 
 @NgModule({
   declarations: [
@@ -33,4 +34,10 @@ import { MenuModule } from './menu/menu.module';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+  constructor (injector: Injector) {
+    ServiceLocator.injector = injector;
+  }
+}
+

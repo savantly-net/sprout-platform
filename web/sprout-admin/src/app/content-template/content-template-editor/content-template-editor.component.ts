@@ -24,8 +24,6 @@ export class ContentTemplateEditorComponent implements OnInit {
       this.service.findOne(id).subscribe((response: any) => {
         this.rForm.patchValue(response);
       });
-    } else {
-       this.rForm.setValue(new ContentTemplate());
     }
   }
 
@@ -36,7 +34,7 @@ export class ContentTemplateEditorComponent implements OnInit {
     private service: ContentTemplateService) {
 
     this.rForm = fb.group({
-      'id' : [null],
+      'id' : [''],
       'name' : ['MyTemplate', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(255)])],
       'content' : ['<h1>${text}</h1>', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(255)])],
       'description': ['A new template =]'],

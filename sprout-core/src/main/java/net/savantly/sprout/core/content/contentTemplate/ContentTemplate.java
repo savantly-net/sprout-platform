@@ -51,5 +51,9 @@ public class ContentTemplate extends PersistedDomainObject{
 	public void setContentTypes(Set<ContentType> contentTypes) {
 		this.contentTypes = contentTypes;
 	}
+	
+	public void addContentType(ContentType contentType) {
+		this.contentTypes.add(contentType);
+	}
 
 }

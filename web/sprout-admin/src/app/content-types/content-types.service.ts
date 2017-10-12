@@ -1,6 +1,8 @@
-import { ContentTemplate, ContentTemplateService } from '../content-template/content-template.service';
+import { ContentTemplate } from '../content-template/content-template.service';
+import { Identifiable, RestRepositoryService } from '../spring-data/rest-repository.service';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { HttpClient } from '@angular/common/http';
 
 export class ContentField {
   id: string;
@@ -11,7 +13,7 @@ export class ContentField {
   required: boolean;
 }
 
-export class ContentType {
+export class ContentType implements Identifiable {
   id: string;
   name: string;
   description?: string;
@@ -22,7 +24,7 @@ export class ContentType {
 }
 
 @Injectable()
-export class ContentTypesService {
+export class ContentTypesService extends RestRepositoryService<ContentType> {
   private itemSource = new BehaviorSubject<ContentType>(new ContentType());
   currentItem = this.itemSource.asObservable();
   items: ContentType[];
@@ -31,11 +33,8 @@ export class ContentTypesService {
     this.itemSource.next(item);
   }
 
-  saveItem(item: ContentType) {
-
-  }
-
-  constructor(contentTemplateService: ContentTemplateService) {
+  constructor(http: HttpClient) {
+    super(http, '/api/contentTypes');
 
   }
 

@@ -3,6 +3,8 @@ package net.savantly.sprout.autoconfigure;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import javax.transaction.Transactional;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +21,7 @@ import org.springframework.web.context.WebApplicationContext;
 @SpringBootTest
 @WebAppConfiguration
 @RunWith(SpringRunner.class)
+@Transactional
 public class SproutAutoConfigurationTest {
 	
 	@Autowired

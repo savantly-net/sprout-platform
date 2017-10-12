@@ -2,6 +2,9 @@
 package net.savantly.sprout.core.content.contentType;
 
 import java.util.List;
+import java.util.Set;
+
+import javax.transaction.Transactional;
 
 import net.savantly.spring.fixture.AbstractBaseFixture;
 import net.savantly.spring.fixture.Fixture;
@@ -11,6 +14,7 @@ import net.savantly.sprout.core.content.contentTemplate.ContentTemplateFixture;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplateRepository;
 import net.savantly.sprout.core.content.fieldType.FieldType;
 
+@Transactional
 public class ContentTypeFixture extends AbstractBaseFixture<ContentType, ContentTypeRepository>{
 
 	private ContentTypeRepository repository;
@@ -56,7 +60,7 @@ public class ContentTypeFixture extends AbstractBaseFixture<ContentType, Content
 		ct.setUpdateable(false);
 		
 		cf.setContentType(ct);
-		template.getContentTypes().add(ct);
+		template.addContentType(ct);
 		
 		return ct;
 	}

@@ -50,7 +50,7 @@ public class ContentType extends PersistedDomainObject{
 		this.fields = fields;
 	}
 
-	@ManyToOne(cascade= {CascadeType.PERSIST})
+	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
 	public ContentTemplate getTemplate() {
 		return template;
 	}
