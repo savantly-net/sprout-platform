@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -111,7 +113,16 @@ public class UiLoader<T> {
 
 	private Path generateDestinationPath(Path rootDir, Resource resource) throws IOException {
 		String relativePath = null;
-		String scheme = resource.getURI().getScheme();
+		String scheme = "file";
+		
+		URL url = resource.getURL();
+		String protocol = url.getProtocol();
+		log.info("using url: {}", url);
+		log.debug("protocol: {}", protocol);
+		if (protocol.toUpperCase().startsWith("JAR")) {
+			scheme = "JAR";
+		}
+
 		if ("JAR".contains(scheme.toUpperCase())) {
 			String[] uriParts = resource.getURL().toString().split("!");
 			relativePath = trimPluginPathPrefix(uriParts[1]);
