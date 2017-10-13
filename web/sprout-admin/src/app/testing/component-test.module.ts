@@ -15,12 +15,7 @@ export const routing = RouterModule.forRoot(routes);
 @NgModule({
   imports: [
     CommonModule,
-    BrowserAnimationsModule,
-    routing, RouterModule,
-    HttpClientModule,
-    MaterialModule,
-    ReactiveFormsModule,
-    FormsModule
+    routing
   ],
   exports: [
     CommonModule,

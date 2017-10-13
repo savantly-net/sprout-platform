@@ -1,8 +1,11 @@
-import { ContentTemplate } from '../../content-template/content-template.service';
+import { ContentTemplate, ContentTemplateService } from '../../content-template/content-template.service';
 import { ContentTypesService, ContentType } from '../content-types.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-content-types-editor',
@@ -11,44 +14,70 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class ContentTypesEditorComponent implements OnInit {
 
-  item: ContentType;
   rForm: FormGroup;
-  post: any; // A property for our submitted form
+  _templates: BehaviorSubject<ContentTemplate[]> = new BehaviorSubject<ContentTemplate[]>([]);
+  templates: Observable<ContentTemplate[]> = this._templates.asObservable();
 
-  // model fields
-  description: string;
-  name: string;
-  template: ContentTemplate;
-  icon: string;
-  // end model fields
+  getContentTemplates(): void {
+    this.contentTemplateService.findAll().subscribe(data => {
+      console.log(data);
+      this._templates.next(data._embedded.contentTemplates);
+    }, err => {
+      console.error('Failed to get contentTemplates');
+    });
+  }
 
-  addPost(post) {
-    this.description = post.description;
-    this.name = post.name;
+  save(model) {
+    this.service.saveItem(model).subscribe(data => {
+      this.router.navigate(['content-types-editor', {id: data.id}]);
+    }, err => {
+      if (err.statusText === 'Conflict') {
+        this.snackBar.open('The template name must be unique', 'Close', {duration: 8000});
+      }
+    });
+  }
+
+  delete(model) {
+    this.service.deleteItem(model).subscribe(data => {
+      this.router.navigate(['content-types']);
+    }, err => {
+      console.error(err);
+    });
   }
 
   loadItem(id: string) {
     if (id) {
-      this.item = this.contentTypesService.items[0];
-    } else {
-      this.item = new ContentType();
+      this.service.findOne(id).subscribe((response: any) => {
+        this.rForm.patchValue(response);
+      });
     }
   }
 
   constructor(
+    protected router: Router,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private contentTypesService: ContentTypesService) {
-
-    this.route.params.subscribe( params => this.loadItem(params['id']) );
+    private snackBar: MatSnackBar,
+    private service: ContentTypesService,
+    private contentTemplateService: ContentTemplateService) {
 
     this.rForm = fb.group({
-      'name' : [null, Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(255)])],
-      'description' : [null, Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(255)])],
+      'id' : [''],
+      'name' : ['MyContentType', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(255)])],
+      'description': ['A new content type =]'],
+      'template': [null],
+      'fields': [[{name: 'testField'}]],
+      'new': [true],
+      'createdDate': [null],
+      'createdBy': [null],
+      'modifiedDate': [null],
+      'modifiedBy': [null]
     });
   }
 
   ngOnInit() {
+    this.route.params.subscribe( params => this.loadItem(params['id']) );
+    this.getContentTemplates();
   }
 
 }

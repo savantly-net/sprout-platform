@@ -8,14 +8,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./content-types.component.css']
 })
 export class ContentTypesComponent implements OnInit {
+
   items: ContentType[];
+
+  addItem(): void {
+    this.router.navigate(['content-types-editor']);
+  }
 
   editItem(item: ContentType): void {
     this.router.navigate(['content-types-editor', {id: item.id}]);
   }
 
   constructor(private router: Router, contentTypes: ContentTypesService) {
-    this.items = contentTypes.items;
+    contentTypes.findAll().subscribe(data => {
+      this.items = data._embedded.contentTypes;
+    }, err => {
+      console.error('Failed to get contentTypes');
+    });
   }
 
   ngOnInit() {

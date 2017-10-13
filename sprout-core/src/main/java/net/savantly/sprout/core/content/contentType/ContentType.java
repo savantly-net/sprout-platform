@@ -7,11 +7,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import net.savantly.sprout.core.content.contentField.ContentField;
-import net.savantly.sprout.core.content.contentTemplate.ContentTemplate;
 import net.savantly.sprout.core.domain.PersistedDomainObject;
 
 @Entity
@@ -20,7 +18,7 @@ public class ContentType extends PersistedDomainObject{
 	private String name;
 	private String description;
 	private Set<ContentField> fields = new HashSet<>();;
-	private ContentTemplate template;
+	
 	private boolean updateable;
 	private String icon;
 
@@ -48,15 +46,6 @@ public class ContentType extends PersistedDomainObject{
 
 	public void setFields(Set<ContentField> fields) {
 		this.fields = fields;
-	}
-
-	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
-	public ContentTemplate getTemplate() {
-		return template;
-	}
-
-	public void setTemplate(ContentTemplate template) {
-		this.template = template;
 	}
 
 	public boolean isUpdateable() {

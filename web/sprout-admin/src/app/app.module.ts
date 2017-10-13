@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { ContentItemsModule } from './content-items/content-items.module';
+import { ContentItemModule } from './content-item/content-item.module';
 import { ContentTemplateModule } from './content-template/content-template.module';
 import { ContentTypesModule } from './content-types/content-types.module';
 import { HomeComponent } from './home/home.component';
@@ -28,7 +28,7 @@ import { ServiceLocator } from './standard/service-locator';
     MenuModule,
     ContentTemplateModule,
     ContentTypesModule,
-    ContentItemsModule
+    ContentItemModule
   ],
   exports: [MaterialModule, MenuModule],
   providers: [],

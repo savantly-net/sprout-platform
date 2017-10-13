@@ -3,6 +3,7 @@ package net.savantly.sprout.core.content.contentItem;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -13,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 
 import net.savantly.sprout.core.content.contentField.ContentField;
+import net.savantly.sprout.core.content.contentTemplate.ContentTemplate;
 import net.savantly.sprout.core.content.contentType.ContentType;
 import net.savantly.sprout.core.domain.PersistedDomainObject;
 
@@ -22,6 +24,7 @@ public class ContentItem extends PersistedDomainObject{
 	private String name;
 	private ContentType contentType;
 	private Map<ContentField, String> fieldValues = new HashMap<>();
+	private ContentTemplate template;
 
 	public String getName() {
 		return name;
@@ -50,6 +53,16 @@ public class ContentItem extends PersistedDomainObject{
 
 	public void setFieldValues(Map<ContentField, String> fieldValues) {
 		this.fieldValues = fieldValues;
+	}
+	
+
+	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+	public ContentTemplate getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(ContentTemplate template) {
+		this.template = template;
 	}
 
 }

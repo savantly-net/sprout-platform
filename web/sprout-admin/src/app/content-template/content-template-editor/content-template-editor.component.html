@@ -1,7 +1,9 @@
 <div class="content" fxLayout fxLayoutAlign="center center" fxLayoutGap="10px" fxFlexFill>
 	<mat-card [fxFlex.lt-md]="100" [fxFlex.md]="80" [fxFlex.lg]="60" [fxFlex.xl]="50">
-		<mat-card-header>
+		<mat-card-header fxLayoutAlign="center center" fxLayout fxFlexFill>
 			<mat-card-title>Content Template Editor</mat-card-title>
+			<span fxFlex></span>
+			<button mat-button (click)="router.navigate(['content-template'])"><mat-icon>close</mat-icon></button>
 		</mat-card-header>
 		<mat-card-content>
 			<form [formGroup]="rForm" fxLayout="column">
@@ -23,9 +25,10 @@
 			
 			</form>
 		</mat-card-content>
-		<mat-card-actions fxLayout fxLayoutAlign="end center">
-			<button mat-button color="accent" (click)="this.router.navigate(['content-template'])">Back</button>
-			<button mat-button type="submit" color="primary" [disabled]="!rForm.valid" (click)="save(rForm.value)">Save</button>
+		<mat-card-actions fxLayout fxLayoutAlign="space-around">
+			<button mat-fab color="warn" [disabled]="rForm.value.new" (click)="this.delete(rForm.value)"><mat-icon>delete</mat-icon></button>
+			
+			<button mat-fab type="submit" color="primary" [disabled]="!rForm.valid" (click)="save(rForm.value)"><mat-icon>save</mat-icon></button>
 		</mat-card-actions>
 	</mat-card>
 </div>

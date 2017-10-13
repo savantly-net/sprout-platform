@@ -1,3 +1,4 @@
+import { ContentFieldModule } from '../content-field/content-field.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,7 +11,8 @@ import { ContentTypesService } from './content-types.service';
   imports: [
     CommonModule,
     FormsModule, ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    ContentFieldModule
   ],
   exports: [MaterialModule],
   declarations: [ContentTypesComponent, ContentTypesEditorComponent],

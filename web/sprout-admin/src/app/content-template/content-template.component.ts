@@ -21,9 +21,14 @@ export class ContentTemplateComponent implements OnInit {
   constructor(private router: Router, private contentTemplateService: ContentTemplateService) { }
 
   ngOnInit() {
-    this.contentTemplateService.findAll().subscribe((response) => {
-      this.items = response._embedded.contentTemplates;
-    });
+    console.log('Initializing');
+    this.contentTemplateService.findAll().subscribe(
+      data => {
+        this.items = data._embedded.contentTemplates;
+      },
+      err => {
+        console.error(err);
+      });
   }
 
 }

@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { ComponentTestModule } from '../../testing/component-test.module';
 import { ContentTypesEditorComponent } from './content-types-editor.component';
+import { ContentTypesService } from '../content-types.service';
+import { ContentTemplateModule } from '../../content-template/content-template.module';
+import { ContentFieldModule } from '../../content-field/content-field.module';
 
 describe('ContentTypesEditorComponent', () => {
   let component: ContentTypesEditorComponent;
@@ -8,7 +12,9 @@ describe('ContentTypesEditorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ContentTypesEditorComponent ]
+      imports: [ComponentTestModule, ContentTemplateModule, ContentFieldModule],
+      declarations: [ ContentTypesEditorComponent ],
+      providers: [ContentTypesService]
     })
     .compileComponents();
   }));

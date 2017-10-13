@@ -3,8 +3,10 @@ import { provideRoutes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuModule } from './menu/menu.module';
 
-import { ContentItemsModule } from './content-items/content-items.module';
+import { ContentItemModule } from './content-item/content-item.module';
 import { ContentTypesModule } from './content-types/content-types.module';
+import { ContentTemplateModule } from './content-template/content-template.module';
+import { ContentFieldModule } from './content-field/content-field.module';
 
 import { HomeComponent } from './home/home.component';
 import { AppComponent } from './app.component';
@@ -20,7 +22,7 @@ describe('AppComponent', () => {
         RouterTestingModule,
         MenuModule,
         ContentTypesModule,
-        ContentItemsModule],
+        ContentItemModule],
       providers: [provideRoutes([])]
     }).compileComponents();
   }));

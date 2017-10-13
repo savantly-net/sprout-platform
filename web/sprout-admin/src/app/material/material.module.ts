@@ -10,8 +10,9 @@ import {
   MatToolbarModule,
   MatCardModule,
   MatFormFieldModule,
-  MatInputModule
-  } from '@angular/material';
+  MatInputModule,
+  MatSnackBarModule,
+  MatSelectModule} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
@@ -29,6 +30,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSnackBarModule,
+    MatSelectModule,
     FlexLayoutModule
   ],
   providers: []

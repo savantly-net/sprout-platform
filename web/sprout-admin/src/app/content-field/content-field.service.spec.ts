@@ -1,17 +1,17 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { ContentTypesService } from './content-types.service';
+import { ContentFieldService } from './content-field.service';
 import { ComponentTestModule } from '../testing/component-test.module';
 
-describe('ContentTypesService', () => {
+describe('ContentFieldService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ComponentTestModule],
-      providers: [ContentTypesService]
+      providers: [ContentFieldService]
     });
   });
 
-  it('should be created', inject([ContentTypesService], (service: ContentTypesService) => {
+  it('should be created', inject([ContentFieldService], (service: ContentFieldService) => {
     expect(service).toBeTruthy();
   }));
 });

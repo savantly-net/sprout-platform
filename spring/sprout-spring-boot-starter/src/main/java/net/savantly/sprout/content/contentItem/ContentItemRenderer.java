@@ -20,18 +20,16 @@ import net.savantly.sprout.core.content.contentItem.ContentItem;
 
 public class ContentItemRenderer {
 
-	private ContentTypeTemplateLoader templateLoader;
 	private Configuration configuration;
 
 	public ContentItemRenderer(FreeMarkerConfigurer configurer, ContentTypeTemplateLoader loader) throws IOException, TemplateException {
-		this.templateLoader = loader;
 		this.configuration = configurer.createConfiguration();
 		this.configuration.setTemplateLoader(loader);
 	}
 
 	public String render(ContentItem item) throws TemplateNotFoundException, 
 		MalformedTemplateNameException, ParseException, IOException, TemplateException {
-		Template template = configuration.getTemplate(item.getContentType().getTemplate().getId());
+		Template template = configuration.getTemplate(item.getTemplate().getId());
 		StringWriter writer = new StringWriter();
 		Map<Object, Object> model = new HashMap<>();
 		

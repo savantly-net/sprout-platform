@@ -3,7 +3,6 @@ package net.savantly.sprout.content.contentItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -30,7 +29,6 @@ import net.savantly.sprout.core.content.contentTemplate.ContentTemplate;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplateFixture;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplateRepository;
 import net.savantly.sprout.core.content.contentType.ContentType;
-import net.savantly.sprout.core.content.contentType.ContentTypeFixture;
 import net.savantly.sprout.core.content.contentType.ContentTypeRepository;
 import net.savantly.sprout.core.content.fieldType.FieldType;
 
@@ -76,18 +74,17 @@ public class ContentItemRequestTest {
 		ContentType ct = new ContentType();
 		ct.setName(defaultContentTypeName);
 		ct.setDescription(defaultContentTypeName);
-		ct.setTemplate(template);
 		ct.getFields().add(cf);
 		ct.setUpdateable(false);
 		
 		cf.setContentType(ct);
-		template.addContentType(ct);
 		
 		ctRepository.save(ct);
 		
 		ContentItem contentItem = new ContentItem();
 		contentItem.setContentType(ct);
 		contentItem.setName(contentItemName);
+		contentItem.setTemplate(template);
 		
 		Set<ContentField> fields = ct.getFields();
 		

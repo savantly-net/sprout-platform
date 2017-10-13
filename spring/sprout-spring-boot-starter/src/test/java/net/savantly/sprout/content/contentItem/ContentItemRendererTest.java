@@ -47,6 +47,8 @@ public class ContentItemRendererTest {
 	@Autowired
 	ContentTemplateRepository cTemplateRepository;
 	
+	ContentTemplate	contentTemplate;
+	
 	@Before
 	public void before() {
 		ContentField cf = new ContentField();
@@ -56,17 +58,15 @@ public class ContentItemRendererTest {
 		cf.setFieldType(FieldType.text);
 		cf.setSortOrder(0);
 		
-		ContentTemplate template = cTemplateRepository.findByName(ContentTemplateFixture.defaultContentTemplateName);
+		contentTemplate = cTemplateRepository.findByName(ContentTemplateFixture.defaultContentTemplateName);
 		
 		ContentType ct = new ContentType();
 		ct.setName(defaultContentTypeName);
 		ct.setDescription(defaultContentTypeName);
-		ct.setTemplate(template);
 		ct.getFields().add(cf);
 		ct.setUpdateable(false);
 		
 		cf.setContentType(ct);
-		template.addContentType(ct);
 		
 		ctRepository.save(ct);
 	}
@@ -79,6 +79,7 @@ public class ContentItemRendererTest {
 		ContentType contentType = ctRepository.findByName(ContentTypeFixture.defaultContentTypeName);
 		ContentItem contentItem = new ContentItem();
 		contentItem.setContentType(contentType);
+		contentItem.setTemplate(contentTemplate);
 		
 		Set<ContentField> fields = contentType.getFields();
 		

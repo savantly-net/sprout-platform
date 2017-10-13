@@ -1,4 +1,4 @@
-import { ContentItemsComponent } from './content-items/content-items.component';
+import { ContentItemComponent } from './content-item/content-item.component';
 import { ContentTemplateEditorComponent } from './content-template/content-template-editor/content-template-editor.component';
 import { ContentTemplateComponent } from './content-template/content-template.component';
 import { ContentTypesEditorComponent } from './content-types/content-types-editor/content-types-editor.component';
@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'content-types', component: ContentTypesComponent },
   { path: 'content-types-editor', component: ContentTypesEditorComponent },
-  { path: 'content-items', component: ContentItemsComponent },
+  { path: 'content-items', component: ContentItemComponent },
   { path: 'content-template', component: ContentTemplateComponent },
   { path: 'content-template-editor', component: ContentTemplateEditorComponent }
 ];

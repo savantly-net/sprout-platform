@@ -3,6 +3,7 @@ import { ContentTemplate, ContentTemplateService } from '../content-template.ser
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-content-template-editor',
@@ -13,9 +14,20 @@ export class ContentTemplateEditorComponent implements OnInit {
   rForm: FormGroup;
 
   save(model) {
-    this.service.saveItem(model).subscribe((response) => {
-      console.log(response);
-      this.router.navigate(['content-template-editor', {id: response.id}]);
+    this.service.saveItem(model).subscribe(data => {
+      this.router.navigate(['content-template-editor', {id: data.id}]);
+    }, err => {
+      if (err.statusText === 'Conflict') {
+        this.snackBar.open('The template name must be unique', 'Close', {duration: 8000});
+      }
+    });
+  }
+
+  delete(model) {
+    this.service.deleteItem(model).subscribe(data => {
+      this.router.navigate(['content-template']);
+    }, err => {
+      console.error(err);
     });
   }
 
@@ -28,10 +40,11 @@ export class ContentTemplateEditorComponent implements OnInit {
   }
 
   constructor(
+    protected router: Router,
     private fb: FormBuilder,
-    private router: Router,
     private route: ActivatedRoute,
-    private service: ContentTemplateService) {
+    private service: ContentTemplateService,
+    private snackBar: MatSnackBar) {
 
     this.rForm = fb.group({
       'id' : [''],

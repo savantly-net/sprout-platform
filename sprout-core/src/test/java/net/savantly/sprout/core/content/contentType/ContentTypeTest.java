@@ -15,7 +15,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import net.savantly.sprout.core.content.contentTemplate.ContentTemplate;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplateFixture;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplateRepository;
 
@@ -39,12 +38,8 @@ public class ContentTypeTest {
 	
 	@Test
 	public void testContentType() {
-		ContentTemplate template = new ContentTemplate();
-		template.setContent("${body}");
-		
 		ContentType contentType = new ContentType();
 		contentType.setName("test");
-		contentType.setTemplate(template);
 		
 		// +1
 		ContentType saved = repository.save(contentType);

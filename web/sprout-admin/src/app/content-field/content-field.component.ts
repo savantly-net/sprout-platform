@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ContentField } from '../content-field/content-field.service';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-content-field',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./content-field.component.css']
 })
 export class ContentFieldComponent implements OnInit {
+  @Input() item: ContentField;
 
   constructor() { }
 
