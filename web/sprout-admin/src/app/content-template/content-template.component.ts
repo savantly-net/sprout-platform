@@ -18,17 +18,29 @@ export class ContentTemplateComponent implements OnInit {
     this.router.navigate(['content-template-editor', {id: item.id}]);
   }
 
-  constructor(private router: Router, private contentTemplateService: ContentTemplateService) { }
+  deleteItem(item: ContentTemplate): void {
+    this.contentTemplateService.deleteItem(item).subscribe(data => {
+      this.getContentTemplates();
+    }, err => {
+      console.error('Failed to delete contentTemplate');
+    });
+  }
 
-  ngOnInit() {
-    console.log('Initializing');
+  getContentTemplates(): void {
     this.contentTemplateService.findAll().subscribe(
       data => {
         this.items = data._embedded.contentTemplates;
       },
       err => {
         console.error(err);
-      });
+    });
+  }
+
+  constructor(private router: Router, private contentTemplateService: ContentTemplateService) { }
+
+  ngOnInit() {
+    console.log('Initializing');
+    this.getContentTemplates();
   }
 
 }

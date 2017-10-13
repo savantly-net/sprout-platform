@@ -13,7 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import net.savantly.sprout.core.content.contentField.ContentField;
+import net.savantly.sprout.core.content.contentField.ContentFieldKeyDeserializer;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplate;
 import net.savantly.sprout.core.content.contentType.ContentType;
 import net.savantly.sprout.core.domain.PersistedDomainObject;
@@ -47,6 +50,7 @@ public class ContentItem extends PersistedDomainObject{
 	@CollectionTable(name = "FIELD_VALUES", joinColumns = @JoinColumn(name = "CONTENT_ITEM_ID"))
 	@MapKeyColumn(name="CONTENT_FIELD_ID")
 	@Column(name = "CONTENT_FIELD_VALUE")
+	@JsonDeserialize(keyUsing=ContentFieldKeyDeserializer.class)
 	public Map<ContentField, String> getFieldValues() {
 		return fieldValues;
 	}

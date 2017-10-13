@@ -5,7 +5,13 @@ export interface Identifiable {
   id: any;
 }
 
-export abstract class RestRepositoryService<T extends Identifiable> {
+export abstract class HalResponse implements Identifiable {
+  id: any;
+  _embedded: any;
+  _links: any;
+}
+
+export abstract class RestRepositoryService<T extends HalResponse> {
 
   findAll(): Observable<any> {
     return this.http.get(this.baseRepositoryPath);
@@ -27,6 +33,6 @@ export abstract class RestRepositoryService<T extends Identifiable> {
     return this.http.delete(this.baseRepositoryPath + '/' + item.id);
   }
 
-  constructor(private http: HttpClient, private baseRepositoryPath: string) { }
+  constructor(protected http: HttpClient, private baseRepositoryPath: string) { }
 
 }

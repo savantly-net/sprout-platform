@@ -1,15 +1,16 @@
-import { RestRepositoryService } from '../spring-data/rest-repository.service';
+import { RestRepositoryService, HalResponse } from '../spring-data/rest-repository.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 
-export class ContentField {
+export class ContentField extends HalResponse {
   id: string;
   name: string;
   displayName: string;
   sortOrder: number;
   fieldType: string;
   required: boolean;
+  contentType: any;
 }
 
 @Injectable()

@@ -12,7 +12,8 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatSnackBarModule,
-  MatSelectModule} from '@angular/material';
+  MatSelectModule,
+  MatCheckboxModule} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
@@ -32,6 +33,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatInputModule,
     MatSnackBarModule,
     MatSelectModule,
+    MatCheckboxModule,
     FlexLayoutModule
   ],
   providers: []

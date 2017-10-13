@@ -1,10 +1,11 @@
 import { ContentField } from '../content-field/content-field.service';
-import { Identifiable, RestRepositoryService } from '../spring-data/rest-repository.service';
+import { Identifiable, RestRepositoryService, HalResponse } from '../spring-data/rest-repository.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
 
-export class ContentType implements Identifiable {
+export class ContentType extends HalResponse {
   id: string;
   name: string;
   description?: string;
@@ -16,9 +17,12 @@ export class ContentType implements Identifiable {
 @Injectable()
 export class ContentTypesService extends RestRepositoryService<ContentType> {
 
+  findContentFields(contentType: ContentType): Observable<any> {
+    return this.http.get(contentType._links.fields.href);
+  }
+
   constructor(http: HttpClient) {
     super(http, '/api/contentTypes');
-
   }
 
 }

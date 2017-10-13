@@ -1,9 +1,8 @@
-import { RestRepositoryService, Identifiable } from '../spring-data/rest-repository.service';
+import { RestRepositoryService, Identifiable, HalResponse } from '../spring-data/rest-repository.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-export class ContentTemplate implements Identifiable {
-  id: string;
+export class ContentTemplate extends HalResponse {
   'new': boolean;
   name: string;
   description: string;

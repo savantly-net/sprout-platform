@@ -1,9 +1,9 @@
-<div class="content" fxLayout fxLayoutAlign="center center" fxLayoutGap="10px" fxFlexFill>
+<div class="content" fxLayout fxLayoutAlign="center center" fxLayoutGap="1em" fxFlexFill>
 	<mat-card [fxFlex.lt-md]="100" [fxFlex.md]="80" [fxFlex.lg]="60" [fxFlex.xl]="50">
 		<mat-card-header fxLayoutAlign="center center" fxLayout fxFlexFill>
-			<mat-card-title>Content Type Editor</mat-card-title>
+			<h3>Content Type Editor</h3>
 			<span fxFlex></span>
-			<button mat-button (click)="router.navigate(['content-template'])"><mat-icon>close</mat-icon></button>
+			<button mat-button (click)="router.navigate(['content-types'])"><mat-icon>close</mat-icon></button>
 		</mat-card-header>
 		<mat-card-content>
 			<form [formGroup]="rForm" fxLayout="column">
@@ -18,17 +18,43 @@
 					<mat-hint align="end">{{rForm.controls['description'].value?.length || 0}}/255</mat-hint>
 				</mat-form-field>
 				
-				<mat-form-field hintLabel="The template that will render this content type">
-					<mat-select matInput formControlName="template" >
-						<mat-option *ngFor="let ct of this.templates | async" [value]="ct">{{ct.name}}</mat-option>
-					</mat-select>
-				</mat-form-field>
-				
 				<div *ngIf="!rForm.value.new">
-					<div *ngFor="let field of rForm.value.fields">
-						<app-content-field item="field"></app-content-field>
+					<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1em">
+						<h3>Fields</h3>
+						<button matInput mat-mini-fab (click)="this.addField()"><mat-icon>add</mat-icon></button>
+					</div>
+					<div formArrayName="fields" class="well">
+						<mat-card *ngFor="let field of fields.controls; let i=index" [formGroupName]="i" >
+							<!-- The repeated field template -->
+							<mat-card-content>
+								<div class="row" fxLayout fxFlexFill fxLayoutAlign="start center" fxLayoutGap="0.5em" fxLayout.lt-sm="column">
+									<button mat-button (click)="removeFieldControl(i)"><mat-icon>delete</mat-icon></button>
+									<span fxFlex></span>
+									<div class="form-group">
+									    <mat-checkbox class="form-control" formControlName="required">Required</mat-checkbox>
+									</div>
+								</div>
+								<div class="row" fxLayout fxLayoutAlign="start start" fxLayoutGap="0.5em" fxLayout.lt-sm="column">
+									<mat-form-field fxFlex class="form-group" hintLabel="Display Name">
+									    <input matInput class="form-control" formControlName="displayName">
+									</mat-form-field>
+									<mat-form-field class="form-group" hintLabel="Name">
+									    <input matInput class="form-control" formControlName="name">
+									    <mat-hint align="end">case sensitive; no special characters</mat-hint>
+									</mat-form-field>
+									<mat-form-field hintLabel="Type of value">
+										<mat-select matInput formControlName="fieldType" >
+											<mat-option *ngFor="let value of this.fieldTypes" [value]="value">{{value}}</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+							</mat-card-content>
+							
+						    <!-- End of the repeated field template -->
+						</mat-card>
 					</div>
 				</div>
+				<br/>
 			
 			</form>
 		</mat-card-content>
