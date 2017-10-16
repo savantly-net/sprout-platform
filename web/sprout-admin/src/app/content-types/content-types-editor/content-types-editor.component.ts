@@ -1,8 +1,9 @@
 import { ContentField, ContentFieldService } from '../../content-field/content-field.service';
 import { ContentTemplate, ContentTemplateService } from '../../content-template/content-template.service';
+import { Identifiable } from '../../spring-data/rest-repository.service';
 import { ContentTypesService, ContentType } from '../content-types.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -46,6 +47,7 @@ export class ContentTypesEditorComponent implements OnInit {
     this.service.deleteItem(model).subscribe(data => {
       this.router.navigate(['content-types']);
     }, err => {
+      this.snackBar.open('Error while deleting the item', 'Close', {duration: 8000});
       console.error(err);
     });
   }
@@ -65,7 +67,20 @@ export class ContentTypesEditorComponent implements OnInit {
 
   setContentFields(contentFields: ContentField[]) {
     contentFields.map(contentField => {
-      this.fields.push(this.fb.group(contentField));
+      const fieldControlGroup = this.fb.group(contentField);
+      this.listenToContentFieldChanges(fieldControlGroup);
+      this.fields.push(fieldControlGroup);
+    });
+  }
+
+  listenToContentFieldChanges(fieldControl: FormGroup) {
+    const source = fieldControl.valueChanges;
+    const valueChangesubscription = source.subscribe(value => {
+      this.contentFieldService.saveItem(fieldControl.value).subscribe(data => {
+        this.snackBar.open('Auto-saved field properties', 'Close', {duration: 8000});
+      }, err => {
+        console.error('failed to save contentField');
+      });
     });
   }
 
@@ -80,14 +95,29 @@ export class ContentTypesEditorComponent implements OnInit {
     field.fieldType = 'text';
     field.contentType = this.rForm.value._links.self.href;
     this.contentFieldService.saveItem(field).subscribe(data => {
-      this.fields.push(this.fb.group(data));
+      const fieldControlGroup = this.fb.group(data);
+      this.listenToContentFieldChanges(fieldControlGroup);
+      this.fields.push(fieldControlGroup);
     }, err => {
       console.error('failed to save contentField');
     });
   }
 
   removeFieldControl(index: number): void {
-    this.fields.removeAt(index);
+    this.service.deleteContentField(this.rForm.value, this.fields.at(index).value).subscribe(data => {
+      this.fields.removeAt(index);
+    }, err => {
+      this.snackBar.open('Error while removing field', 'Close', {duration: 8000});
+      console.error(err);
+    });
+  }
+
+  trackById(index: number, item: Identifiable) {
+    return item.id;
+  }
+
+  idCompare(o1: any, o2: any) {
+    return o1.id === o2.id;
   }
 
   constructor(

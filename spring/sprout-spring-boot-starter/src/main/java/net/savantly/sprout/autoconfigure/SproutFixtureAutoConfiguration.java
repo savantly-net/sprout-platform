@@ -20,6 +20,10 @@ import net.savantly.sprout.core.content.contentTemplate.ContentTemplateFixture;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplateRepository;
 import net.savantly.sprout.core.content.contentType.ContentTypeFixture;
 import net.savantly.sprout.core.content.contentType.ContentTypeRepository;
+import net.savantly.sprout.core.content.webPage.WebPageFixture;
+import net.savantly.sprout.core.content.webPage.WebPageRepository;
+import net.savantly.sprout.core.content.webPageLayout.WebPageLayoutFixture;
+import net.savantly.sprout.core.content.webPageLayout.WebPageLayoutRepository;
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
 import net.savantly.sprout.core.domain.emailAddress.EmailAddressFixture;
 import net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepository;
@@ -47,6 +51,19 @@ public class SproutFixtureAutoConfiguration {
 	@Bean 
 	public EmailAddressFixture emailFixture(EmailAddressRepository repository) {
 		return new EmailAddressFixture(repository);
+	}
+	
+	@Bean
+	public WebPageLayoutFixture webPageLayoutFixture(WebPageLayoutRepository repository) {
+		return new WebPageLayoutFixture(repository);
+	}
+	
+	@Bean
+	public WebPageFixture webPageFixture(
+			WebPageRepository wpRepository, 
+			WebPageLayoutRepository wplRepository, 
+			WebPageLayoutFixture wplFixture) {
+		return new WebPageFixture(wpRepository, wplRepository, wplFixture);
 	}
 	
 	@Bean 

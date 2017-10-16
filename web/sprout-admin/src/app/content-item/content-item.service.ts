@@ -1,6 +1,7 @@
 import { Identifiable, RestRepositoryService, HalResponse } from '../spring-data/rest-repository.service';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ContentTemplate } from '../content-template/content-template.service';
 
 export class ContentItem extends HalResponse {
   id: string;
@@ -20,6 +21,11 @@ export class ContentItemService extends RestRepositoryService<ContentItem>  {
 
   getContentTemplate(contentItem: ContentItem) {
     return this.http.get(contentItem._links.template.href);
+  }
+
+  setContentTemplate(contentItem: ContentItem, template: ContentTemplate) {
+    const headers = new HttpHeaders({'Content-Type': 'text/uri-list'});
+    return this.http.put(contentItem._links.template.href, template._links.self.href, {headers: headers});
   }
 
   constructor(http: HttpClient) {

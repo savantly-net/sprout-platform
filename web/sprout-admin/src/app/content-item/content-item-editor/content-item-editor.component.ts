@@ -35,24 +35,25 @@ export class ContentItemEditorComponent implements OnInit {
       'modifiedDate': [null],
       'modifiedBy': [null],
       'contentType': {
-        'id': [''],
-        'name': [''],
+        'id': [null],
+        'name': [null],
         '_links': {
           'self': {
-            'href': ['']
+            'href': [null]
           }
         }
       },
       'template': {
-        'id': [''],
-        'name': [''],
+        'id': null,
+        'name': null,
         '_links': {
           'self': {
-            'href': ['']
+            'href': null
           }
         }
       },
-      '_embedded': [null]
+      '_embedded': [null],
+      '_links': [null]
     };
 
   getContentTemplates(): void {
@@ -60,6 +61,7 @@ export class ContentItemEditorComponent implements OnInit {
       console.log(data);
       this._templates.next(data._embedded.contentTemplates);
     }, err => {
+      this.snackBar.open('The Content Templates could not be retrieved', 'Close', {duration: 8000});
       console.error('Failed to get contentTemplates');
     });
   }
@@ -67,6 +69,8 @@ export class ContentItemEditorComponent implements OnInit {
   getContentTypes(): void {
     this.contentTypeService.findAll().subscribe(data => {
       this.contentTypes = data._embedded.contentTypes;
+    }, err => {
+       this.snackBar.open('The Content Types could not be retrieved', 'Close', {duration: 8000});
     });
   }
 
@@ -78,9 +82,7 @@ export class ContentItemEditorComponent implements OnInit {
       halModel.fieldValues[control.value.id] = control.value.value;
     });
     halModel.contentType = this.currentContentType.value._links.self.href;
-    if (this.currentTemplate.value !== null) {
-      halModel.template = this.currentTemplate.value._links.self.href;
-    }
+    delete halModel.template;
     console.log('halModel:', halModel);
     return halModel;
   }
@@ -88,10 +90,20 @@ export class ContentItemEditorComponent implements OnInit {
   save(model) {
     const halModel = this.prepareSave(model);
     this.service.saveItem(halModel).subscribe(data => {
-      this.router.navigate(['content-item-editor', {id: data.id}]);
+      if (this.currentTemplate.value.id != null) {
+        this.service.setContentTemplate(data, this.currentTemplate.value).subscribe(contentItem => {
+// need to do anything here?
+        }, err => {
+          console.error(err);
+        });
+      } else {
+        this.router.navigate(['content-item-editor', {id: data.id}]);
+      }
     }, err => {
       if (err.statusText === 'Conflict') {
         this.snackBar.open('The item name must be unique', 'Close', {duration: 8000});
+      } else {
+        this.snackBar.open(err, 'Close', {duration: 8000});
       }
     });
   }
@@ -100,6 +112,7 @@ export class ContentItemEditorComponent implements OnInit {
     this.service.deleteItem(model).subscribe(data => {
       this.router.navigate(['content-item']);
     }, err => {
+      this.snackBar.open('Problem encountered while deleting', 'Close', {duration: 8000});
       console.error(err);
     });
   }
@@ -114,9 +127,15 @@ export class ContentItemEditorComponent implements OnInit {
             obs.finally(() => { this.createFormFromExisting(contentItem, contentFields); })
               .subscribe(contentTemplate => {
               contentItem.template = contentTemplate;
-            }, err => { console.error(err); });
+            }, err => { this.snackBar.open('Please set Content Template', 'Close', {duration: 8000}); console.error(err); });
           });
-        }, err => { console.error(err); });
+        }, err => {
+          this.snackBar.open('Could not retrieve Content Type', 'Close', {duration: 8000});
+          console.error(err);
+        });
+      }, err => {
+        this.snackBar.open('Could not retrieve Content Item', 'Close', {duration: 8000});
+        console.error(err);
       });
     } else {
       this.createEmptyForm();
@@ -144,6 +163,7 @@ export class ContentItemEditorComponent implements OnInit {
       const fields = data._embedded.contentFields;
       callback(fields);
     }, err => {
+      this.snackBar.open('Could not retrieve Content Type Fields', 'Close', {duration: 8000});
       console.error(err);
     });
   }

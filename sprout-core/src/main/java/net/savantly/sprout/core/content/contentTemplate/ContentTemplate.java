@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 import net.savantly.sprout.core.content.contentItem.ContentItem;
@@ -35,6 +36,7 @@ public class ContentTemplate extends PersistedDomainObject{
 		this.description = description;
 	}
 
+	@Lob
 	public String getContent() {
 		return content;
 	}

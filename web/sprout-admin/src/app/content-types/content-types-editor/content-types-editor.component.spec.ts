@@ -4,6 +4,7 @@ import { ComponentTestModule } from '../../testing/component-test.module';
 import { ContentTypesEditorComponent } from './content-types-editor.component';
 import { ContentTypesService } from '../content-types.service';
 import { ContentFieldModule } from '../../content-field/content-field.module';
+import { ContentTemplateModule } from '../../content-template/content-template.module';
 
 describe('ContentTypesEditorComponent', () => {
   let component: ContentTypesEditorComponent;

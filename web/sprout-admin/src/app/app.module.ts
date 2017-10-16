@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { MaterialModule } from './material/material.module';
 import { MenuModule } from './menu/menu.module';
 import { ServiceLocator } from './standard/service-locator';
+import { WebPageModule } from './web-page/web-page.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ServiceLocator } from './standard/service-locator';
     MenuModule,
     ContentTemplateModule,
     ContentTypesModule,
-    ContentItemModule
+    ContentItemModule,
+    WebPageModule
   ],
   exports: [MaterialModule, MenuModule],
   providers: [],

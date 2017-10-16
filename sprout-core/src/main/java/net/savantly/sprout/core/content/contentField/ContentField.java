@@ -19,7 +19,6 @@ public class ContentField extends PersistedDomainObject{
 	private boolean required;
 	private int sortOrder;
 	private String displayName;
-	@JsonIgnore
 	private ContentType contentType;
 
 	public String getName() {

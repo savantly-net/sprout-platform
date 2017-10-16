@@ -3,7 +3,6 @@ package net.savantly.sprout.core.content.contentItem;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -13,10 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
 import net.savantly.sprout.core.content.contentField.ContentField;
-import net.savantly.sprout.core.content.contentField.ContentFieldKeyDeserializer;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplate;
 import net.savantly.sprout.core.content.contentType.ContentType;
 import net.savantly.sprout.core.domain.PersistedDomainObject;
@@ -25,6 +21,7 @@ import net.savantly.sprout.core.domain.PersistedDomainObject;
 public class ContentItem extends PersistedDomainObject{
 	
 	private String name;
+	private String description;
 	private ContentType contentType;
 	private Map<ContentField, String> fieldValues = new HashMap<>();
 	private ContentTemplate template;
@@ -35,6 +32,14 @@ public class ContentItem extends PersistedDomainObject{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@ManyToOne

@@ -24,7 +24,7 @@
 						<button matInput mat-mini-fab (click)="this.addField()"><mat-icon>add</mat-icon></button>
 					</div>
 					<div formArrayName="fields" class="well">
-						<mat-card *ngFor="let field of fields.controls; let i=index" [formGroupName]="i" >
+						<mat-card *ngFor="let field of fields.controls, trackBy:trackById; let i=index" [formGroupName]="i" >
 							<!-- The repeated field template -->
 							<mat-card-content>
 								<div class="row" fxLayout fxFlexFill fxLayoutAlign="start center" fxLayoutGap="0.5em" fxLayout.lt-sm="column">

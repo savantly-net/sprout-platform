@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import net.savantly.sprout.core.content.contentField.ContentField;
 import net.savantly.sprout.core.domain.PersistedDomainObject;
 
@@ -17,7 +19,8 @@ public class ContentType extends PersistedDomainObject{
 	
 	private String name;
 	private String description;
-	private Set<ContentField> fields = new HashSet<>();;
+	@JsonIgnoreProperties("contentType")
+	private Set<ContentField> fields = new HashSet<>();
 	
 	private boolean updateable;
 	private String icon;
