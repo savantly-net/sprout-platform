@@ -50,7 +50,6 @@ public class ContentItem extends PersistedDomainObject{
 	@CollectionTable(name = "FIELD_VALUES", joinColumns = @JoinColumn(name = "CONTENT_ITEM_ID"))
 	@MapKeyColumn(name="CONTENT_FIELD_ID")
 	@Column(name = "CONTENT_FIELD_VALUE")
-	@JsonDeserialize(keyUsing=ContentFieldKeyDeserializer.class)
 	public Map<ContentField, String> getFieldValues() {
 		return fieldValues;
 	}
@@ -60,7 +59,7 @@ public class ContentItem extends PersistedDomainObject{
 	}
 	
 
-	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+	@ManyToOne
 	public ContentTemplate getTemplate() {
 		return template;
 	}

@@ -13,12 +13,12 @@ export abstract class HalResponse implements Identifiable {
 
 export abstract class RestRepositoryService<T extends HalResponse> {
 
-  findAll(): Observable<any> {
-    return this.http.get(this.baseRepositoryPath);
+  findAll(options?: any): Observable<any> {
+    return this.http.get(this.baseRepositoryPath, options);
   }
 
-  findOne(id: string): Observable<any> {
-    return this.http.get(this.baseRepositoryPath + '/' + id);
+  findOne(id: string, options?: any): Observable<any> {
+    return this.http.get(this.baseRepositoryPath + '/' + id, options);
   }
 
   saveItem(item: T): Observable<any> {

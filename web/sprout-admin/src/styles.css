@@ -32,7 +32,7 @@ mat-card {
 	max-width: 100%;
 }
 
-mat-card form, mat-card form > .mat-form-field, mat-card form > * {
+mat-card form, mat-card form .mat-form-field, mat-card form > * {
 	width: 100%;
 }
 

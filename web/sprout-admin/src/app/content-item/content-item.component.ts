@@ -19,14 +19,28 @@ export class ContentItemComponent implements OnInit {
     this.router.navigate(['content-item-editor', {id: item.id}]);
   }
 
-  ngOnInit() {
+  deleteItem(item: ContentItem): void {
+    this.service.deleteItem(item).subscribe(data => {
+      this.getContentItems();
+    }, err => {
+      console.error('Failed to delete content item');
+    });
   }
 
-  constructor(private router: Router, service: ContentItemService) {
-    service.findAll().subscribe(data => {
+  getContentItems(): void {
+    this.service.findAll().subscribe(data => {
       this.items = data._embedded.contentItems;
     }, err => {
       console.error('Failed to get contentItems');
     });
+  }
+
+  ngOnInit() {
+  }
+
+  constructor(
+    private router: Router,
+    private service: ContentItemService) {
+    this.getContentItems();
   }
 }

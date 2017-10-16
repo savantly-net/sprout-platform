@@ -19,6 +19,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -98,7 +100,17 @@ public class ContentItemRequestTest {
 	
 	@Test
 	public void loadIndexPage() throws Exception {
-		mvc.perform(get("/content/"+savedContentItem.getId())).andExpect(status().isOk());
+		mvc.perform(get("/content/"+savedContentItem.getId()))
+			.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void testApiJsonResponse() throws Exception {
+		ResultActions resultsActions = mvc.perform(get("/api/contentItems/"+savedContentItem.getId()));
+		log.info(resultsActions.toString());
+		resultsActions
+			.andExpect(status().isOk())
+			.andExpect(MockMvcResultMatchers.jsonPath("fieldValues").isMap());
 	}
 	
 

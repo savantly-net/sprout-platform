@@ -1,4 +1,4 @@
-<div class="content" fxLayout fxLayoutAlign="center center" fxLayoutGap="10px" fxFlexFill>
+<div *ngIf="rForm" class="content" fxLayout fxLayoutAlign="center center" fxLayoutGap="10px" fxFlexFill>
 	<mat-card [fxFlex.lt-md]="100" [fxFlex.md]="80" [fxFlex.lg]="60" [fxFlex.xl]="50">
 		<mat-card-header fxLayoutAlign="center center" fxLayout fxFlexFill>
 			<mat-card-title>Content Item Editor</mat-card-title>
@@ -18,17 +18,42 @@
 					<mat-hint align="end">{{rForm.controls['description'].value?.length || 0}}/255</mat-hint>
 				</mat-form-field>
 				
-				<mat-form-field hintLabel="The template that will render this content">
-					<mat-select matInput formControlName="template" >
-						<mat-option *ngFor="let ct of this.templates | async" [value]="ct">{{ct.name}}</mat-option>
+				<mat-form-field hintLabel="The content type determines the fields; cannot change once set">
+					<mat-select matInput formControlName="contentType" [disabled]="!rForm.value.new" [compareWith]="idCompare">
+						<mat-option *ngFor="let ct of this.contentTypes; trackBy: trackById" [value]="ct">{{ct.name}}</mat-option>
 					</mat-select>
 				</mat-form-field>
 				
+				
 				<div *ngIf="!rForm.value.new">
-					<div *ngFor="let field of rForm.value.fields">
-						<!-- <app-content-field item="field"></app-content-field> -->
+					<mat-form-field hintLabel="The template that will render this content">
+						<mat-select matInput formControlName="template" [compareWith]="idCompare" >
+							<mat-option *ngFor="let ct of this.templates | async, trackBy: trackById" [value]="ct">{{ct.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+				
+					<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1em">
+						<h3>Fields</h3>
+					</div>
+					<div formArrayName="fieldValues" class="well">
+						<mat-card *ngFor="let field of fieldValues.controls; let i=index" [formGroupName]="i" >
+							<!-- The repeated field template -->
+							<mat-card-content>
+								<mat-card-header>
+									<mat-card-title>{{field.value.displayName}}</mat-card-title>
+									<mat-card-content>
+										<mat-form-field hintLabel="Max 255 characters">
+											<input matInput formControlName="value" maxlength="255">
+											<mat-hint align="end">{{field.value?.length || 0}}/255</mat-hint>
+										</mat-form-field>
+									</mat-card-content>
+								</mat-card-header>
+							</mat-card-content>
+						    <!-- End of the repeated field template -->
+						</mat-card>
 					</div>
 				</div>
+				<br/>
 			
 			</form>
 		</mat-card-content>

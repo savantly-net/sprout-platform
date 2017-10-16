@@ -7,11 +7,17 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.KeyDeserializer;
 
 public class ContentFieldKeyDeserializer extends KeyDeserializer {
+	
+	private ContentFieldRepository repository;
+
+	public ContentFieldKeyDeserializer(ContentFieldRepository repository) {
+		this.repository = repository;
+	}
 
 	@Override
 	public ContentField deserializeKey(String key, DeserializationContext ctx) throws IOException, JsonProcessingException {
-		// TODO Auto-generated method stub
-		return null;
+		String[] parts = key.split("/");
+		return repository.findOne(parts[parts.length-1]);
 	}
 
 	
