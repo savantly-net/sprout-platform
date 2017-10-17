@@ -20,7 +20,11 @@ import net.savantly.sprout.bean.processors.SlowBeans;
 import net.savantly.sprout.content.contentItem.ContentItemRenderer;
 import net.savantly.sprout.content.contentItem.ContentItemRestController;
 import net.savantly.sprout.content.contentType.ContentTypeTemplateLoader;
+import net.savantly.sprout.content.webPage.WebPageRenderer;
+import net.savantly.sprout.content.webPage.WebPageRestController;
+import net.savantly.sprout.content.webPageLayout.WebPageLayoutTemplateLoader;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplateRepository;
+import net.savantly.sprout.core.content.webPageLayout.WebPageLayoutRepository;
 import net.savantly.sprout.starter.SproutMvcConfiguration;
 
 @Configuration
@@ -69,6 +73,21 @@ public class SproutWebMvcAutoConfiguration {
 	@Bean
 	public ContentItemRestController contentItemRestController(ContentItemRenderer renderer) {
 		return new ContentItemRestController(renderer);
+	}
+	
+	@Bean
+	public WebPageRestController webPageRestController(WebPageRenderer renderer) {
+		return new WebPageRestController(renderer);
+	}
+	
+	@Bean
+	public WebPageRenderer webPageRenderer(FreeMarkerConfigurer configurer, WebPageLayoutTemplateLoader loader, ContentItemRenderer contentItemRenderer) throws IOException, TemplateException {
+		return new WebPageRenderer(configurer, loader, contentItemRenderer);
+	}
+	
+	@Bean
+	public WebPageLayoutTemplateLoader webPageLayoutTemplateLoader(WebPageLayoutRepository repository) {
+		return new WebPageLayoutTemplateLoader(repository);
 	}
 	
 	@Bean

@@ -68,7 +68,7 @@ public class WebPageLayoutTemplateLoader implements TemplateLoader {
 			if(item.getLastModifiedDate() != null) {
 				return item.getLastModifiedDate().getMillis();
 			} else {
-				return Long.MAX_VALUE;
+				return Long.MIN_VALUE;
 			}
 		}
 	}

@@ -1,9 +1,9 @@
 <div class="content" fxLayout fxLayoutAlign="center center" fxLayoutGap="10px" fxFlexFill>
-	<mat-card [fxFlex.lt-md]="100" [fxFlex.md]="80" [fxFlex.lg]="60" [fxFlex.xl]="50">
+	<mat-card *ngIf="rForm" [fxFlex.lt-md]="100" [fxFlex.md]="80" [fxFlex.lg]="60" [fxFlex.xl]="50">
 		<mat-card-header fxLayoutAlign="center center" fxLayout fxFlexFill>
-			<mat-card-title>Page Layout Editor</mat-card-title>
+			<mat-card-title>Page Editor</mat-card-title>
 			<span fxFlex></span>
-			<button mat-button (click)="router.navigate(['layouts'])"><mat-icon>close</mat-icon></button>
+			<button mat-button (click)="router.navigate(['pages'])"><mat-icon>close</mat-icon></button>
 		</mat-card-header>
 		<mat-card-content>
 			<form [formGroup]="rForm" fxLayout="column">
@@ -18,27 +18,22 @@
 					<mat-hint align="end">{{rForm.controls['description'].value?.length || 0}}/255</mat-hint>
 				</mat-form-field>
 				
-				<mat-form-field hintLabel="Max 3000 characters">
-					<textarea rows="10" matInput formControlName="template" maxlength="3000" placeholder="Enter a FreeMarker template"></textarea>
-					<mat-hint align="end">{{rForm.controls['template'].value?.length || 0}}/3000</mat-hint>
+				<mat-form-field hintLabel="The page layout determines the placeholders; cannot change once set">
+					<mat-select matInput formControlName="webPageLayout" [disabled]="!rForm.value.new" [compareWith]="idCompare">
+						<mat-option *ngFor="let item of this.layouts; trackBy: trackById" [value]="item">{{item.name}}</mat-option>
+					</mat-select>
 				</mat-form-field>
 				
 				<br/>
 				
-				<div fxLayout fxLayoutAlign="start center">
-					<button mat-button color="accent" (click)="addPlaceHolder()">
-						<mat-icon>add</mat-icon>
-						<span>Add new placeholder</span>
-					</button>
-				</div>
-				
-				<div formArrayName="placeHolders">
-					<div fxLayout fxLayoutAlign="center center" *ngFor="let item of placeHolders.controls; let i=index" [formGroupName]="i" >
-						<mat-form-field hintLabel="Max 255 characters">
-							<input matInput formControlName="value" maxlength="255">
-							<mat-hint align="end">{{item.value?.length || 0}}/255</mat-hint>
+				<div *ngIf="!rForm.value.new" formArrayName="contentItems">
+					<div fxLayout fxLayoutAlign="center center" *ngFor="let item of contentItems.controls; let i=index" [formGroupName]="i" >
+						<mat-form-field hintLabel="{{item.value.key}}">
+							<mat-select matInput formControlName="value" [compareWith]="idCompare">
+								<mat-option *ngFor="let contentItem of this.allContentItems; trackBy: trackById" [value]="contentItem">{{contentItem.name}}</mat-option>
+							</mat-select>
 						</mat-form-field>
-						<button mat-button color="warn" (click)="removePlaceHolderControl(i)"><md-icon>x</md-icon></button>
+						<button mat-button color="warn" (click)="removeContentItem(i)"><md-icon>x</md-icon></button>
 					</div>
 				</div>
 				

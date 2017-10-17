@@ -7,7 +7,9 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Lob;
+import javax.persistence.OrderColumn;
 
 import net.savantly.sprout.core.domain.PersistedDomainObject;
 
@@ -15,7 +17,7 @@ import net.savantly.sprout.core.domain.PersistedDomainObject;
 public class WebPageLayout extends PersistedDomainObject {
 	private String name;
 	private String description;
-	private Set<String> placeholders = new HashSet<>();
+	private Set<String> placeHolders = new HashSet<>();
 	private String template;
 	private boolean showHeader = true;
 	private boolean showFooter = true;
@@ -34,13 +36,14 @@ public class WebPageLayout extends PersistedDomainObject {
 		this.description = description;
 	}
 
-	@ElementCollection
+	@ElementCollection(fetch=FetchType.EAGER)
 	@CollectionTable(name = "WEB_PAGE_LAYOUT_PLACEHOLDER")
-	public Set<String> getPlaceholders() {
-		return placeholders;
+	@OrderColumn(name = "index_id")
+	public Set<String> getPlaceHolders() {
+		return placeHolders;
 	}
-	public void setPlaceholders(Set<String> placeholders) {
-		this.placeholders = placeholders;
+	public void setPlaceHolders(Set<String> placeholders) {
+		this.placeHolders = placeholders;
 	}
 	@Lob
 	public String getTemplate() {

@@ -19,6 +19,9 @@ rForm: FormGroup;
 
   prepareSave(model): any {
     const halModel = Object.assign({}, model);
+    halModel.placeHolders = model.placeHolders.map(item => {
+      return item.value;
+    });
     console.log('halModel:', halModel);
     return halModel;
   }
@@ -29,7 +32,7 @@ rForm: FormGroup;
       this.router.navigate(['layout-editor', {id: data.id}]);
     }, err => {
       if (err.statusText === 'Conflict') {
-        this.snackBar.open('The template name must be unique', 'Close', {duration: 8000});
+        this.snackBar.open('The name must be unique', 'Close', {duration: 8000});
       }
     });
   }
@@ -47,6 +50,9 @@ rForm: FormGroup;
     if (id) {
       this.service.findOne(id).subscribe((response: any) => {
         this.rForm.patchValue(response);
+        response.placeHolders.map(placeHolder => {
+          this.addPlaceHolder(placeHolder);
+        });
       });
     }
   }
@@ -55,8 +61,8 @@ rForm: FormGroup;
     return this.rForm.get('placeHolders') as FormArray;
   }
 
-  addPlaceHolder(value: string): void {
-    const placeHolderControl = this.fb.control({value: value});
+  addPlaceHolder(value?: string): void {
+    const placeHolderControl = this.fb.group({'value': [value]});
     this.placeHolders.push(placeHolderControl);
   }
 

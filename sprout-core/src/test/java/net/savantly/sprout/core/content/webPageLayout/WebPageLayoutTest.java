@@ -39,9 +39,9 @@ public class WebPageLayoutTest {
 		WebPageLayout webPageLayout = new WebPageLayout();
 		webPageLayout.setName("Test Layout");
 		webPageLayout.setDescription("a simple test");
-		webPageLayout.getPlaceholders().add("#{left-side}");
-		webPageLayout.getPlaceholders().add("#{center}");
-		webPageLayout.getPlaceholders().add("#{right-side}");
+		webPageLayout.getPlaceHolders().add("#{left-side}");
+		webPageLayout.getPlaceHolders().add("#{center}");
+		webPageLayout.getPlaceHolders().add("#{right-side}");
 		webPageLayout.setTemplate("<div fxLayout fxFlexFill><div>#{left-side}</div><div fxFlex>#{center}</div><div>#{right-side}</div></div>");
 		
 		repository.save(webPageLayout);

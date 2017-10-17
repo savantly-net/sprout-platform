@@ -7,8 +7,10 @@ import { ContentTypesComponent } from './content-types/content-types.component';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
+import { LayoutEditorComponent } from './web-page/layout/layout-editor/layout-editor.component';
 import { LayoutListComponent } from './web-page/layout/layout-list/layout-list.component';
-import { PageComponent } from './web-page/page/page.component';
+import { PageEditorComponent } from './web-page/page/page-editor/page-editor.component';
+import { PageListComponent } from './web-page/page/page-list/page-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,9 +20,10 @@ const routes: Routes = [
   { path: 'content-item-editor', component: ContentItemEditorComponent },
   { path: 'content-template', component: ContentTemplateComponent },
   { path: 'content-template-editor', component: ContentTemplateEditorComponent },
-  { path: 'pages', component: PageComponent },
+  { path: 'pages', component: PageListComponent },
+  { path: 'page-editor', component: PageEditorComponent },
   { path: 'layouts', component: LayoutListComponent },
-  { path: 'layout-editor', component: LayoutListComponent }
+  { path: 'layout-editor', component: LayoutEditorComponent }
 ];
 
 export const routing = RouterModule.forRoot(routes);

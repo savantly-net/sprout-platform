@@ -1,4 +1,4 @@
-package net.savantly.sprout.content.contentItem;
+package net.savantly.sprout.content.webPage;
 
 import java.io.IOException;
 
@@ -13,23 +13,22 @@ import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
-import net.savantly.sprout.core.content.contentItem.ContentItem;
+import net.savantly.sprout.core.content.webPage.WebPage;
 
 @RestController
-@RequestMapping("/content")
-public class ContentItemRestController {
+@RequestMapping("/page")
+public class WebPageRestController {
+
+	private WebPageRenderer renderer;
 	
-	private ContentItemRenderer renderer;
-	
-	public ContentItemRestController(ContentItemRenderer renderer) {
+	public WebPageRestController(WebPageRenderer renderer) {
 		this.renderer = renderer;
 	}
 	
-	@RequestMapping(value="{id}", method=RequestMethod.GET)
-	public ResponseEntity getContent(@PathVariable("id") ContentItem item) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public ResponseEntity getPage(@PathVariable("id") WebPage item) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
 		String renderedView = renderer.render(item);
 		ResponseEntity<String> response = new ResponseEntity<String>(renderedView, HttpStatus.OK);
 		return response;
 	}
-
 }
