@@ -5,14 +5,13 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
-
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
+import freemarker.template.Version;
 import net.savantly.sprout.content.contentItem.ContentItemRenderer;
 import net.savantly.sprout.content.webPageLayout.WebPageLayoutTemplateLoader;
 import net.savantly.sprout.core.content.webPage.WebPage;
@@ -22,8 +21,9 @@ public class WebPageRenderer {
 	private Configuration configuration;
 	private ContentItemRenderer contentItemRenderer;
 
-	public WebPageRenderer(FreeMarkerConfigurer configurer, WebPageLayoutTemplateLoader loader, ContentItemRenderer contentItemRenderer) throws IOException, TemplateException {
-		this.configuration = configurer.createConfiguration();
+	public WebPageRenderer(WebPageLayoutTemplateLoader loader, ContentItemRenderer contentItemRenderer) throws IOException, TemplateException {
+		Version incompatibleImprovements = new Version("2.3.26");
+		this.configuration = new Configuration(incompatibleImprovements);
 		this.configuration.setTemplateLoader(loader);
 		this.contentItemRenderer = contentItemRenderer;
 	}

@@ -16,7 +16,7 @@ import freemarker.template.TemplateNotFoundException;
 import net.savantly.sprout.core.content.webPage.WebPage;
 
 @RestController
-@RequestMapping("/page")
+@RequestMapping("/rest/pages")
 public class WebPageRestController {
 
 	private WebPageRenderer renderer;

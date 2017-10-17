@@ -16,7 +16,7 @@ import freemarker.template.TemplateNotFoundException;
 import net.savantly.sprout.core.content.contentItem.ContentItem;
 
 @RestController
-@RequestMapping("/content")
+@RequestMapping("/rest/content")
 public class ContentItemRestController {
 	
 	private ContentItemRenderer renderer;
@@ -25,7 +25,7 @@ public class ContentItemRestController {
 		this.renderer = renderer;
 	}
 	
-	@RequestMapping(value="{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity getContent(@PathVariable("id") ContentItem item) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
 		String renderedView = renderer.render(item);
 		ResponseEntity<String> response = new ResponseEntity<String>(renderedView, HttpStatus.OK);

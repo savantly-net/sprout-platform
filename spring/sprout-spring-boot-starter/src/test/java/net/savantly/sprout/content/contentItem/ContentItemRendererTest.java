@@ -14,13 +14,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
+import net.savantly.sprout.content.contentType.ContentTypeTemplateLoader;
 import net.savantly.sprout.core.content.contentField.ContentField;
 import net.savantly.sprout.core.content.contentItem.ContentItem;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplate;
@@ -94,6 +97,16 @@ public class ContentItemRendererTest {
 	@Configuration
 	@EnableAutoConfiguration
 	static class TestContext {
+		
+/*		@Bean
+		public ContentItemRenderer renderer(FreeMarkerConfigurer configurer, ContentTypeTemplateLoader loader) throws IOException, TemplateException {
+			return new ContentItemRenderer(configurer, loader);
+		}
+		
+		@Bean
+		public ContentTypeTemplateLoader loader(ContentTemplateRepository repository) {
+			return new ContentTypeTemplateLoader(repository);
+		}*/
 
 	}
 

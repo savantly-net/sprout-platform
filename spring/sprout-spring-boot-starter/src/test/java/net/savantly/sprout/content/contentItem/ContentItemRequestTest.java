@@ -3,6 +3,7 @@ package net.savantly.sprout.content.contentItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.io.IOException;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -23,7 +25,10 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
+import freemarker.template.TemplateException;
+import net.savantly.sprout.content.contentType.ContentTypeTemplateLoader;
 import net.savantly.sprout.core.content.contentField.ContentField;
 import net.savantly.sprout.core.content.contentItem.ContentItem;
 import net.savantly.sprout.core.content.contentItem.ContentItemRepository;
@@ -100,7 +105,7 @@ public class ContentItemRequestTest {
 	
 	@Test
 	public void loadIndexPage() throws Exception {
-		mvc.perform(get("/content/"+savedContentItem.getId()))
+		mvc.perform(get("/rest/content/"+savedContentItem.getId()))
 			.andExpect(status().isOk());
 	}
 	
@@ -118,7 +123,21 @@ public class ContentItemRequestTest {
 	@Configuration
 	@EnableAutoConfiguration
 	static class TestContext {
+/*		
+		@Bean
+		public ContentItemRestController restController(ContentItemRenderer renderer) {
+			return new ContentItemRestController(renderer);
+		}
 		
+		@Bean
+		public ContentItemRenderer renderer(FreeMarkerConfigurer configurer, ContentTypeTemplateLoader loader) throws IOException, TemplateException {
+			return new ContentItemRenderer(configurer, loader);
+		}
 		
+		@Bean
+		public ContentTypeTemplateLoader loader(ContentTemplateRepository repository) {
+			return new ContentTypeTemplateLoader(repository);
+		}*/
+
 	}
 }

@@ -6,14 +6,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
-
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
+import freemarker.template.Version;
 import net.savantly.sprout.content.contentType.ContentTypeTemplateLoader;
 import net.savantly.sprout.core.content.contentField.ContentField;
 import net.savantly.sprout.core.content.contentItem.ContentItem;
@@ -22,8 +21,9 @@ public class ContentItemRenderer {
 
 	private Configuration configuration;
 
-	public ContentItemRenderer(FreeMarkerConfigurer configurer, ContentTypeTemplateLoader loader) throws IOException, TemplateException {
-		this.configuration = configurer.createConfiguration();
+	public ContentItemRenderer(ContentTypeTemplateLoader loader) throws IOException, TemplateException {
+		Version incompatibleImprovements = new Version("2.3.26");
+		this.configuration = new Configuration(incompatibleImprovements);
 		this.configuration.setTemplateLoader(loader);
 	}
 

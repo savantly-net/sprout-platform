@@ -9,7 +9,7 @@
 		"watch": "webpack --watch --progress --profile",
 		"build": "rimraf dist && webpack --progress --profile --bail --display-error-details",
 		"build-noprogress": "rimraf dist && webpack --bail",
-		"server": "webpack-dev-server --inline --progress --port 8080",
+		"server": "webpack-dev-server --inline --progress --port 3000",
 		"webdriver-update": "webdriver-manager update",
 		"webdriver-start": "webdriver-manager start",
 		"lint": "tslint --project tsconfig.json --force \"src/**/*.ts\"",

@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import javax.transaction.Transactional;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ import org.springframework.web.context.WebApplicationContext;
 @RunWith(SpringRunner.class)
 @Transactional
 public class SproutAutoConfigurationTest {
+	
+	@BeforeClass
+	public static void beforeClass() {
+		System.setProperty("spring.freemarker.template-loader-path", "classpath:/templates/");
+	}
 	
 	@Autowired
 	WebApplicationContext ctx;

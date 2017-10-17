@@ -54,6 +54,7 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
         AuthenticationEntryPoint authenticationEntryPoint = new DelegatingAuthenticationEntryPoint(entryPoints());
         
         http
+        	.headers().frameOptions().disable().and()
             .authorizeRequests()
                 .antMatchers("/", "/home", "/rest/**").permitAll()
                 //.anyRequest().authenticated()

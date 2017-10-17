@@ -10,8 +10,6 @@ import org.springframework.boot.autoconfigure.freemarker.FreeMarkerAutoConfigura
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 import freemarker.template.TemplateException;
@@ -45,17 +43,18 @@ public class SproutWebMvcAutoConfiguration {
 		return resolver;
 	}
 
-	@Bean
+/*	@Bean
 	public FreeMarkerConfigurer freemarkerConfigurer(ResourceLoader resourceLoader, SproutResourceAutoConfiguration  resourcesConfiguration) {
-		log.info("Creating FreeMarkConfigurer with template loader path: {}", resourcesConfiguration.getWebRoot());
+		final String templateLoaderPath = resourcesConfiguration.getTemplatesPath();
+		log.info("Creating FreeMarkConfigurer with template loader path: {}", templateLoaderPath);
 		FreeMarkerConfigurer freeMarkerConfigurer = new FreeMarkerConfigurer();
-		freeMarkerConfigurer.setTemplateLoaderPath(resourcesConfiguration.getWebRoot());
+		freeMarkerConfigurer.setTemplateLoaderPath(templateLoaderPath);
 		return freeMarkerConfigurer;
-	}
+	}*/
 	
 	@Bean
-	public ContentItemRenderer contentItemRenderer(FreeMarkerConfigurer configurer, ContentTypeTemplateLoader loader) throws IOException, TemplateException {
-		return new ContentItemRenderer(configurer, loader);
+	public ContentItemRenderer contentItemRenderer(ContentTypeTemplateLoader loader) throws IOException, TemplateException {
+		return new ContentItemRenderer(loader);
 	}
 	
 	@Bean
@@ -81,8 +80,8 @@ public class SproutWebMvcAutoConfiguration {
 	}
 	
 	@Bean
-	public WebPageRenderer webPageRenderer(FreeMarkerConfigurer configurer, WebPageLayoutTemplateLoader loader, ContentItemRenderer contentItemRenderer) throws IOException, TemplateException {
-		return new WebPageRenderer(configurer, loader, contentItemRenderer);
+	public WebPageRenderer webPageRenderer(WebPageLayoutTemplateLoader loader, ContentItemRenderer contentItemRenderer) throws IOException, TemplateException {
+		return new WebPageRenderer(loader, contentItemRenderer);
 	}
 	
 	@Bean

@@ -1,7 +1,8 @@
 package net.savantly.sprout.autoconfigure;
 
-import java.io.IOException;
 import java.nio.file.Paths;
+
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -27,7 +28,14 @@ public class SproutResourceAutoConfiguration {
 	private boolean extract = false;
 	private boolean build = false;
 	private String extractLocation;
-	private String webRoot = Paths.get(extractLocation, "dist").toString();
+	private String webRoot;
+	
+	@PostConstruct
+	public void post() {
+		if (webRoot == null) {
+			this.webRoot = Paths.get(extractLocation, "dist/").toString();
+		}
+	}
 
 	@Bean
 	@ConditionalOnMissingBean(ObjectMapper.class)
