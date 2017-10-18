@@ -45,7 +45,7 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
  	public void configure(WebSecurity web) throws Exception {
  		web.ignoring()
  		// Spring Security should completely ignore URLs starting with /resources/
- 				.antMatchers("/*.js", "*.html", "/css/**", "/img/**", "/js/**", "/libs/**", "/modules/**", "**/favicon.ico");
+ 				.antMatchers("/", "/index", "*.js", "*.html", "/css/**", "/img/**", "/js/**", "/libs/**", "/modules/**", "**/favicon.ico");
  		web.debug(true);
  	}
 
@@ -53,11 +53,12 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 	protected void configure(HttpSecurity http) throws Exception {
         AuthenticationEntryPoint authenticationEntryPoint = new DelegatingAuthenticationEntryPoint(entryPoints());
         
-        http
-        	.headers().frameOptions().disable().and()
+/*        http
+        	.headers()
+        		.frameOptions().disable().and()
             .authorizeRequests()
-                .antMatchers("/", "/home", "/rest/**").permitAll()
-                //.anyRequest().authenticated()
+                .antMatchers("/", "/index", "/rest/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
             .formLogin()
                 .permitAll()
@@ -71,13 +72,13 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
             .csrf()
                 .disable()
         	.httpBasic()
-        	.and()
+        	    .and()
             .exceptionHandling()
         	.accessDeniedPage("/errors/403")
         	.authenticationEntryPoint(authenticationEntryPoint)
         	.and()
             .addFilterBefore(oauth2ClientContextFilter, BasicAuthenticationFilter.class)
-            .addFilterBefore(ssoFilter, BasicAuthenticationFilter.class);
+            .addFilterBefore(ssoFilter, BasicAuthenticationFilter.class);*/
 	}
 	
 	private LinkedHashMap<RequestMatcher, AuthenticationEntryPoint> entryPoints() {

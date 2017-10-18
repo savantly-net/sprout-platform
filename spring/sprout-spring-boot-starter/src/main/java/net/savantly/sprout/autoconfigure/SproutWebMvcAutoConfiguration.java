@@ -36,12 +36,12 @@ public class SproutWebMvcAutoConfiguration {
 		return new SproutMvcConfiguration(resourcesConfiguration);
 	}
 
-	@Bean
+/*	@Bean
 	public FreeMarkerViewResolver freemarkerViewResolver() {
 		FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
 		resolver.setSuffix(".html");
 		return resolver;
-	}
+	}*/
 
 /*	@Bean
 	public FreeMarkerConfigurer freemarkerConfigurer(ResourceLoader resourceLoader, SproutResourceAutoConfiguration  resourcesConfiguration) {
@@ -53,13 +53,9 @@ public class SproutWebMvcAutoConfiguration {
 	}*/
 	
 	@Bean
-	public ContentItemRenderer contentItemRenderer(ContentTypeTemplateLoader loader) throws IOException, TemplateException {
+	public ContentItemRenderer contentItemRenderer(ContentTemplateRepository repository) throws IOException, TemplateException {
+		ContentTypeTemplateLoader loader = new ContentTypeTemplateLoader(repository);
 		return new ContentItemRenderer(loader);
-	}
-	
-	@Bean
-	public ContentTypeTemplateLoader contentTypeTemplateLoader(ContentTemplateRepository repository) {
-		return new ContentTypeTemplateLoader(repository);
 	}
 
 	@Bean
@@ -80,13 +76,9 @@ public class SproutWebMvcAutoConfiguration {
 	}
 	
 	@Bean
-	public WebPageRenderer webPageRenderer(WebPageLayoutTemplateLoader loader, ContentItemRenderer contentItemRenderer) throws IOException, TemplateException {
+	public WebPageRenderer webPageRenderer(ContentItemRenderer contentItemRenderer, WebPageLayoutRepository webPageLayoutRepository) throws IOException, TemplateException {
+		WebPageLayoutTemplateLoader loader = new WebPageLayoutTemplateLoader(webPageLayoutRepository);
 		return new WebPageRenderer(loader, contentItemRenderer);
-	}
-	
-	@Bean
-	public WebPageLayoutTemplateLoader webPageLayoutTemplateLoader(WebPageLayoutRepository repository) {
-		return new WebPageLayoutTemplateLoader(repository);
 	}
 	
 	@Bean

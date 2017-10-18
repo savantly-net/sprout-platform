@@ -11,7 +11,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
@@ -31,19 +30,18 @@ import net.savantly.sprout.oauth.LinkedinPrincipalExtractor;
 import net.savantly.sprout.starter.SproutWebSecurityConfiguration;
 
 @Configuration
-@EnableWebSecurity
 @EnableOAuth2Client
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SproutSecurityAutoConfiguration {
 	
-	@Bean
+/*	@Bean
 	public SproutWebSecurityConfiguration sproutWebSecurityConfiguration(
 			UserDetailsService userDetailsService, 
 			@Qualifier("ssoFilter")	Filter ssoFilter, 
 			@Qualifier("oauth2ClientContextFilter") Filter oauthFilter, 
 			PasswordEncoder passwordEncoder) {
 		return new SproutWebSecurityConfiguration(userDetailsService, ssoFilter, oauthFilter, passwordEncoder);
-	}
+	}*/
 	
 	
 	@Bean("userDetailsService")
