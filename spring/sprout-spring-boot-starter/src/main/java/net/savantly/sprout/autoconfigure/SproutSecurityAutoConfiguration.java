@@ -11,6 +11,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
@@ -31,17 +32,20 @@ import net.savantly.sprout.starter.SproutWebSecurityConfiguration;
 
 @Configuration
 @EnableOAuth2Client
+@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SproutSecurityAutoConfiguration {
 	
-/*	@Bean
+	@Bean
 	public SproutWebSecurityConfiguration sproutWebSecurityConfiguration(
 			UserDetailsService userDetailsService, 
-			@Qualifier("ssoFilter")	Filter ssoFilter, 
 			@Qualifier("oauth2ClientContextFilter") Filter oauthFilter, 
-			PasswordEncoder passwordEncoder) {
+			PasswordEncoder passwordEncoder,
+			@Qualifier("githubClient") ClientResources gitHubResources, 
+			 @Qualifier("linkedinClient")ClientResources linkedInResources) {
+		Filter ssoFilter = ssoFilter(gitHubResources, linkedInResources);
 		return new SproutWebSecurityConfiguration(userDetailsService, ssoFilter, oauthFilter, passwordEncoder);
-	}*/
+	}
 	
 	
 	@Bean("userDetailsService")
@@ -76,8 +80,8 @@ public class SproutSecurityAutoConfiguration {
 		return resources;
 	}
 	
-	@Bean(name="ssoFilter")
-	public Filter ssoFilter(
+	//@Bean(name="ssoFilter")
+	private Filter ssoFilter(
 			@Qualifier("githubClient") ClientResources gitHubResources, 
 			 @Qualifier("linkedinClient")ClientResources linkedInResources) {
 		CompositeFilter filter = new CompositeFilter();

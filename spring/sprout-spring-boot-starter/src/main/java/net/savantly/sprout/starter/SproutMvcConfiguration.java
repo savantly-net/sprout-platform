@@ -19,11 +19,11 @@ public class SproutMvcConfiguration extends WebMvcConfigurerAdapter{
 		registry.addResourceHandler("/**").addResourceLocations(resourcesLocation);
 	}
 	
-	@Override
+/*	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		String index = "index";
 		registry.addViewController("/").setViewName(index);
-	}
+	}*/
 	
 /*	@RequestMapping("/")
 	public ModelAndView index() {
