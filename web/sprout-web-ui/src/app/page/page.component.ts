@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { PageService } from './page.service';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 
 @Component({
   selector: 'my-page',
@@ -6,8 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page.component.css']
 })
 export class PageComponent implements OnInit {
+  @Input() pageId: string;
 
-  constructor() { }
+  @ViewChild('dataContainer') dataContainer: ElementRef;
+
+  loadData(data) {
+      this.dataContainer.nativeElement.innerHTML = data;
+  }
+
+  constructor(pageService: PageService) {
+    if (this.pageId) {
+      pageService.getPage(this.pageId);
+    }
+  }
 
   ngOnInit() {
   }

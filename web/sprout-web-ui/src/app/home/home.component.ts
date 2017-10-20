@@ -14,8 +14,8 @@ export class HomeComponent implements OnInit {
   page: Observable<string> = this._page.asObservable();
 
   constructor(private pageService: PageService) {
-    this.pageService.getHomePage().subscribe(function(page){
-      this._page.next(page);
+    this.pageService.getHomePage().subscribe((content) => {
+      this._page.next(content);
     });
   }
 

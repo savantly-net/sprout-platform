@@ -46,7 +46,7 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
  	public void configure(WebSecurity web) throws Exception {
  		web.ignoring()
  		// Spring Security should completely ignore URLs starting with /resources/
- 				.antMatchers("/", "**.js", "*.js", "*.html", "/css/**", "/img/**", "/js/**", "/libs/**", "/modules/**", "**/favicon.ico");
+ 				.antMatchers("/", "/*.js", "/js/**", "/*.html", "**/*.html", "/css/**", "/img/**",  "favicon.ico*", "**/favicon.ico*");
  		web.debug(true);
  	}
 

@@ -5,11 +5,11 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class PageService {
 
-  getPage(id: string): Observable<Object> {
+  getPage(id: string): Observable<string> {
     return this.http.get('rest/pages/' + id, {responseType: 'text'});
   }
 
-  getHomePage(): Observable<Object> {
+  getHomePage(): Observable<string> {
     return this.http.get('rest/pages/home', {responseType: 'text'});
   }
 

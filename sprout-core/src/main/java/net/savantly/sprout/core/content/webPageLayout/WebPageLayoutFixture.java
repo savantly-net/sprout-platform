@@ -25,7 +25,7 @@ public class WebPageLayoutFixture extends AbstractBaseFixture<WebPageLayout, Web
 			webPageLayout.getPlaceHolders().add("leftSide");
 			webPageLayout.getPlaceHolders().add("center");
 			webPageLayout.getPlaceHolders().add("rightSide");
-			webPageLayout.setTemplate("<div fxLayout fxFlexFill><div>#{leftSide}</div><div fxFlex>#{center}</div><div>#{rightSide}</div></div>");
+			webPageLayout.setTemplate("<div fxLayout fxFlexFill><div>${leftSide!}</div><div fxFlex>${center!}</div><div>${rightSide!}</div></div>");
 			entityList.add(webPageLayout);
 		}
 	}
