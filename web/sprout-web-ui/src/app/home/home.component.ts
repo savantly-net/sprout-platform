@@ -1,4 +1,7 @@
+import { PageService } from '../page/page.service';
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'my-home',
@@ -7,8 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() {
-    // Do stuff
+  _page: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  page: Observable<string> = this._page.asObservable();
+
+  constructor(private pageService: PageService) {
+    this.pageService.getHomePage().subscribe(function(page){
+      this._page.next(page);
+    });
   }
 
   ngOnInit() {

@@ -21,6 +21,7 @@ export class PageEditorComponent implements OnInit {
 
   formDefinition = {
     'id' : [''],
+    'home': [false],
     'name' : ['My new page', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(255)])],
     'description': ['A page'],
     'contentItems': this.fb.array([]),

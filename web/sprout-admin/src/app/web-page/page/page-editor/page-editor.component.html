@@ -8,6 +8,8 @@
 		<mat-card-content>
 			<form [formGroup]="rForm" fxLayout="column">
 				
+				<mat-checkbox formControlName="home">Make this the home page</mat-checkbox>
+				
 				<mat-form-field hintLabel="Max 255 characters">
 					<input matInput formControlName="name" maxlength="255" placeholder="Enter a name">
 					<mat-hint align="end">{{rForm.controls['name'].value?.length || 0}}/255</mat-hint>

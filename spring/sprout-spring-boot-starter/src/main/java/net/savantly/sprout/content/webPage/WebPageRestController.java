@@ -14,15 +14,18 @@ import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
 import net.savantly.sprout.core.content.webPage.WebPage;
+import net.savantly.sprout.core.content.webPage.WebPageRepository;
 
 @RestController
 @RequestMapping("/rest/pages")
 public class WebPageRestController {
 
 	private WebPageRenderer renderer;
+	private WebPageRepository repository;
 	
-	public WebPageRestController(WebPageRenderer renderer) {
+	public WebPageRestController(WebPageRenderer renderer, WebPageRepository repository) {
 		this.renderer = renderer;
+		this.repository = repository;
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
@@ -30,5 +33,17 @@ public class WebPageRestController {
 		String renderedView = renderer.render(item);
 		ResponseEntity<String> response = new ResponseEntity<String>(renderedView, HttpStatus.OK);
 		return response;
+	}
+	
+	@RequestMapping(value="/home", method=RequestMethod.GET)
+	public ResponseEntity getHomePage() throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
+		WebPage item = repository.findHomePage();
+		if(item == null) {
+			return new ResponseEntity<String>("No Home page", HttpStatus.NOT_FOUND);
+		} else {
+			String renderedView = renderer.render(item);
+			ResponseEntity<String> response = new ResponseEntity<String>(renderedView, HttpStatus.OK);
+			return response;
+		}
 	}
 }

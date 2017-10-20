@@ -10,6 +10,7 @@ export class Page extends HalResponse {
   description?: string;
   webPageLayout: Layout;
   contentItems: {key: string, value: ContentItem}[];
+  home: boolean;
 }
 
 @Injectable()

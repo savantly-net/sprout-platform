@@ -21,6 +21,7 @@ public class WebPage extends PersistedDomainObject {
 	private String description;
 	private WebPageLayout webPageLayout;
 	private Map<String, ContentItem> contentItems = new HashMap<>();
+	private boolean home;
 	
 	public String getName() {
 		return name;
@@ -52,5 +53,11 @@ public class WebPage extends PersistedDomainObject {
 	}
 	public void setContentItems(Map<String, ContentItem> contentItems) {
 		this.contentItems = contentItems;
+	}
+	public boolean isHome() {
+		return home;
+	}
+	public void setHome(boolean home) {
+		this.home = home;
 	}
 }

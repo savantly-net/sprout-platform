@@ -21,6 +21,7 @@ import net.savantly.sprout.content.webPage.WebPageRenderer;
 import net.savantly.sprout.content.webPage.WebPageRestController;
 import net.savantly.sprout.content.webPageLayout.WebPageLayoutTemplateLoader;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplateRepository;
+import net.savantly.sprout.core.content.webPage.WebPageRepository;
 import net.savantly.sprout.core.content.webPageLayout.WebPageLayoutRepository;
 import net.savantly.sprout.starter.DefaultMvcController;
 import net.savantly.sprout.starter.SproutMvcConfiguration;
@@ -60,8 +61,8 @@ public class SproutWebMvcAutoConfiguration {
 	}
 	
 	@Bean
-	public WebPageRestController webPageRestController(WebPageRenderer renderer) {
-		return new WebPageRestController(renderer);
+	public WebPageRestController webPageRestController(WebPageRenderer renderer, WebPageRepository repository) {
+		return new WebPageRestController(renderer, repository);
 	}
 	
 	@Bean

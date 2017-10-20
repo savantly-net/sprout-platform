@@ -22,10 +22,10 @@ public class WebPageLayoutFixture extends AbstractBaseFixture<WebPageLayout, Web
 			webPageLayout = new WebPageLayout();
 			webPageLayout.setName(defaultWebPageLayoutName);
 			webPageLayout.setDescription("Simple 3 column layout");
-			webPageLayout.getPlaceHolders().add("#{left-side}");
-			webPageLayout.getPlaceHolders().add("#{center}");
-			webPageLayout.getPlaceHolders().add("#{right-side}");
-			webPageLayout.setTemplate("<div fxLayout fxFlexFill><div>#{left-side}</div><div fxFlex>#{center}</div><div>#{right-side}</div></div>");
+			webPageLayout.getPlaceHolders().add("leftSide");
+			webPageLayout.getPlaceHolders().add("center");
+			webPageLayout.getPlaceHolders().add("rightSide");
+			webPageLayout.setTemplate("<div fxLayout fxFlexFill><div>#{leftSide}</div><div fxFlex>#{center}</div><div>#{rightSide}</div></div>");
 			entityList.add(webPageLayout);
 		}
 	}

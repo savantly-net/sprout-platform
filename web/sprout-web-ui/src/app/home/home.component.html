@@ -1,3 +1,8 @@
 <div fxFlex fxLayoutAlign="center center">
-	<img src="./img/sprout.png"> 
+	<div *ngIf="page">
+		<div>{{page}}</div>
+	</div>
+	<div *ngIf="!page">
+		<img src="./img/sprout.png"> 
+	</div>
 </div>
