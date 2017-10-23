@@ -2,9 +2,9 @@ import { RestRepositoryService, HalResponse } from '../spring-data/rest-reposito
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-export interface AppMenu extends HalResponse {
+export class AppMenu extends HalResponse {
     id: string;
-    text: string;
+    displayText: string;
     isPublic: boolean;
     roles: string[];
     items: AppMenu[];

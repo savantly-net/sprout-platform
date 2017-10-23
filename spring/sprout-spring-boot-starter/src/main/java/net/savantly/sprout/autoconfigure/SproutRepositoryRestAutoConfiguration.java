@@ -1,7 +1,5 @@
 package net.savantly.sprout.autoconfigure;
 
-import java.awt.Menu;
-
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -15,6 +13,7 @@ import net.savantly.sprout.core.content.contentType.ContentType;
 import net.savantly.sprout.core.content.webPage.WebPage;
 import net.savantly.sprout.core.content.webPageLayout.WebPageLayout;
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
+import net.savantly.sprout.core.domain.menu.Menu;
 import net.savantly.sprout.core.domain.user.SproutUserEntity;
 import net.savantly.sprout.core.security.roles.Role;
 
