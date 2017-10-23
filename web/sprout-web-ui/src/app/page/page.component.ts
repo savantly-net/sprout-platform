@@ -15,13 +15,18 @@ export class PageComponent implements OnInit {
       this.dataContainer.nativeElement.innerHTML = data;
   }
 
-  constructor(pageService: PageService) {
-    if (this.pageId) {
-      pageService.getPage(this.pageId);
-    }
-  }
+  constructor(private pageService: PageService) { }
 
   ngOnInit() {
+    if (this.pageId) {
+      this.pageService.getPage(this.pageId).subscribe((content) => {
+        this.loadData(content);
+      });
+    } else {
+      this.pageService.getHomePage().subscribe((content) => {
+        this.loadData(content);
+      });
+    }
   }
 
 }

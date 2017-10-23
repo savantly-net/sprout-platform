@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   declarations: [PageComponent],
+  exports: [PageComponent],
   providers: [PageService]
 })
 export class PageModule { }

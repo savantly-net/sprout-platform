@@ -1,3 +1,4 @@
+import { AppMenuComponent } from './app-menu/app-menu.component';
 import { ContentItemEditorComponent } from './content-item/content-item-editor/content-item-editor.component';
 import { ContentItemComponent } from './content-item/content-item.component';
 import { ContentTemplateEditorComponent } from './content-template/content-template-editor/content-template-editor.component';
@@ -14,6 +15,7 @@ import { PageListComponent } from './web-page/page/page-list/page-list.component
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'app-menu', component: AppMenuComponent },
   { path: 'content-types', component: ContentTypesComponent },
   { path: 'content-types-editor', component: ContentTypesEditorComponent },
   { path: 'content-item', component: ContentItemComponent },

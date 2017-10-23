@@ -1,0 +1,17 @@
+<mat-list>
+	<mat-list-item>
+		<button mat-button (click)="menu.close()">
+			<mat-icon>menu</mat-icon>
+			<span>Close Menu</span>
+		</button>
+	</mat-list-item>
+	<mat-list-item>
+		<button mat-button [routerLink]="['']">
+			<mat-icon>home</mat-icon>
+			<span>Home</span>
+		</button>
+	</mat-list-item>
+	<mat-list-item *ngFor="let menu of menus | async">
+		<sv-menu menuId="{{menu.id}}"></sv-menu>
+	</mat-list-item>
+</mat-list>

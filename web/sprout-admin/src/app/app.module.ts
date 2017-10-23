@@ -1,3 +1,4 @@
+import { AppMenuModule } from './app-menu/app-menu.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Injector } from '@angular/core';
 import { routing } from './app.routing';
@@ -27,6 +28,7 @@ import { WebPageModule } from './web-page/web-page.module';
     HttpClientModule,
     MaterialModule,
     MenuModule,
+    AppMenuModule,
     ContentTemplateModule,
     ContentTypesModule,
     ContentItemModule,

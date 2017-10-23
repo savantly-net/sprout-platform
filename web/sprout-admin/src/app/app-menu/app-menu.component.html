@@ -1,0 +1,21 @@
+<div fxLayout="column" fxLayoutGap="1em">
+	<mat-list>
+		<ng-container *ngTemplateOutlet="menuTemplate;context:{itemList:menus}"></ng-container>
+		<mat-list-item>
+			<button mat-button (click)="addItem()">Add item <mat-icon>plus</mat-icon></button>
+		</mat-list-item>
+	</mat-list>
+</div>
+
+<ng-template #menuTemplate let-itemList>
+	<mat-list-item *ngFor="let item of itemList">
+		<ng-container *ngTemplateOutlet="menuItemTemplate;context:{item: item}"></ng-container>
+	</mat-list-item>
+</ng-template>
+
+<ng-template #menuItemTemplate let-item>
+	<div>{{item.text}}</div>
+	<mat-list *ngIf="item.items.length > 0">
+		<ng-container *ngTemplateOutlet="menuTemplate;context:{itemList:item.items}"></ng-container>
+	</mat-list>
+</ng-template>

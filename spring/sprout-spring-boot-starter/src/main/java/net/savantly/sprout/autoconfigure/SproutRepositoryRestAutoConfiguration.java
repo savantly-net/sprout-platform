@@ -1,5 +1,7 @@
 package net.savantly.sprout.autoconfigure;
 
+import java.awt.Menu;
+
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -27,9 +29,17 @@ public class SproutRepositoryRestAutoConfiguration {
 		@Override
 		public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
 			config.setBasePath("/api");
-			config.exposeIdsFor(Role.class, EmailAddress.class, SproutUserEntity.class, 
-					ContentTemplate.class, ContentType.class, ContentItem.class, ContentField.class,
-					WebPage.class, WebPageLayout.class);
+			config.exposeIdsFor(
+					Role.class,
+					EmailAddress.class, 
+					SproutUserEntity.class, 
+					ContentTemplate.class, 
+					ContentType.class, 
+					ContentItem.class, 
+					ContentField.class,
+					Menu.class,
+					WebPage.class, 
+					WebPageLayout.class);
 		}
 	}
 
