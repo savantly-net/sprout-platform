@@ -18,8 +18,13 @@ export class AppMenuComponent implements OnInit {
 
   loadMenus() {
     console.log('loading menus');
-    this.appMenuService.findAll().subscribe((response) => {
+    this.appMenuService.getRootMenus().subscribe((response) => {
       console.log(response);
+      response._embedded.menus.map((menu) => {
+//        this.appMenuService.getChildren(menu).subscribe((childrenResponse) => {
+//          menu.items = childrenResponse._embedded.menus;
+//        });
+      });
       this._menus.next(response._embedded.menus);
     });
   }
@@ -33,10 +38,27 @@ export class AppMenuComponent implements OnInit {
     });
   }
 
-  deleteItem(item: AppMenu): void {
-    this.appMenuService.deleteItem(item).subscribe(() => {
+  addToItemList(parentItem: AppMenu) {
+    const menuItem = new AppMenu();
+    menuItem.displayText = 'New Menu Item';
+    this.appMenuService.addToItemList(parentItem, menuItem).subscribe((response) => {
+      console.log(response);
       this.loadMenus();
     });
+  }
+
+  deleteItem(parent: AppMenu, item: AppMenu): void {
+    if (parent != null) {
+      this.appMenuService.removeChild(parent, item).subscribe(() => {
+        this.appMenuService.deleteItem(item).subscribe(() => {
+          this.loadMenus();
+        });
+      });
+    } else {
+      this.appMenuService.deleteItem(item).subscribe(() => {
+        this.loadMenus();
+      });
+    }
   }
 
   trackById(index: number, item: Identifiable) {
