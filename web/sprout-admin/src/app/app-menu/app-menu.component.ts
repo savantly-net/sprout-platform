@@ -11,7 +11,6 @@ import { Observable } from 'rxjs/Observable';
 })
 export class AppMenuComponent implements OnInit {
   _menus: BehaviorSubject<Array<AppMenu>> = new BehaviorSubject<AppMenu[]>([]);
-
   get menus() {
     return this._menus.asObservable();
   }
@@ -20,39 +19,70 @@ export class AppMenuComponent implements OnInit {
     console.log('loading menus');
     this.appMenuService.getRootMenus().subscribe((response) => {
       console.log(response);
-      response._embedded.menus.map((menu) => {
-//        this.appMenuService.getChildren(menu).subscribe((childrenResponse) => {
-//          menu.items = childrenResponse._embedded.menus;
-//        });
-      });
       this._menus.next(response._embedded.menus);
     });
   }
 
-  addItem() {
-    const menuItem = new AppMenu();
-    menuItem.displayText = 'New Menu Item';
-    this.appMenuService.saveItem(menuItem).subscribe((response) => {
+  saveItem(item) {
+    this.appMenuService.saveItem(item).subscribe((response) => {
       console.log(response);
-      this.loadMenus();
     });
   }
 
+  reloadItem(item) {
+    this.appMenuService.findOne(item.id).subscribe((response) => {
+      Object.assign(item, response);
+    });
+  }
+
+  addItem() {
+    this.createMenuItem().then((menuItem) => {
+      this.appMenuService.saveItem(menuItem).subscribe((response) => {
+        console.log(response);
+        this.loadMenus();
+      });
+    });
+  }
+
+  getGreatestPosition(): Promise<number> {
+    const promise = new Promise((resolve, reject) => {
+      let maxPosition = 0;
+      this._menus.value.map((item) => {
+        maxPosition = Math.max(item.position, maxPosition);
+      });
+      resolve(maxPosition);
+    });
+    return promise;
+  }
+
+  createMenuItem(): Promise<AppMenu> {
+    const promise = new Promise((resolve, reject) => {
+      const menuItem = new AppMenu();
+      menuItem.icon = 'bookmark';
+      menuItem.displayText = 'New Menu Item';
+      menuItem.url = '/';
+      this.getGreatestPosition().then((position) => {
+        menuItem.position = position + 1;
+        resolve(menuItem);
+      });
+    });
+    return promise;
+
+  }
+
   addToItemList(parentItem: AppMenu) {
-    const menuItem = new AppMenu();
-    menuItem.displayText = 'New Menu Item';
-    this.appMenuService.addToItemList(parentItem, menuItem).subscribe((response) => {
-      console.log(response);
-      this.loadMenus();
+    this.createMenuItem().then((menuItem) => {
+      this.appMenuService.addToItemList(parentItem, menuItem).subscribe((response) => {
+        console.log(response);
+        this.loadMenus();
+      });
     });
   }
 
   deleteItem(parent: AppMenu, item: AppMenu): void {
     if (parent != null) {
       this.appMenuService.removeChild(parent, item).subscribe(() => {
-        this.appMenuService.deleteItem(item).subscribe(() => {
-          this.loadMenus();
-        });
+        this.loadMenus();
       });
     } else {
       this.appMenuService.deleteItem(item).subscribe(() => {
@@ -67,6 +97,10 @@ export class AppMenuComponent implements OnInit {
 
   idCompare(o1: any, o2: any) {
     return o1.id === o2.id;
+  }
+
+  floatButtonEvents(event) {
+    console.log(event);
   }
 
   constructor(private appMenuService: AppMenuService) {

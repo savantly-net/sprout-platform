@@ -7,12 +7,12 @@ import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import net.savantly.sprout.core.domain.PersistedDomainObject;
 
@@ -27,7 +27,14 @@ public class Menu extends PersistedDomainObject {
 	private boolean disabled;
 	private String icon;
 	private Menu parent;
+	private String url;
 	
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	public String getDisplayText() {
 		return displayText;
 	}
@@ -51,7 +58,7 @@ public class Menu extends PersistedDomainObject {
 		this.roles = roles;
 	}
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="parent")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="parent", orphanRemoval=true)
 	public Set<Menu> getItems() {
 		return items;
 	}
@@ -77,7 +84,8 @@ public class Menu extends PersistedDomainObject {
 		this.icon = icon;
 	}
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY, optional=true)
+	@JoinColumn(name="PARENT_ID", nullable=true)
 	@JsonBackReference
 	public Menu getParent() {
 		return parent;

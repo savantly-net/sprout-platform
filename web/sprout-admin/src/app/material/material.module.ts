@@ -13,8 +13,10 @@ import {
   MatInputModule,
   MatSnackBarModule,
   MatSelectModule,
-  MatCheckboxModule} from '@angular/material';
+  MatCheckboxModule,
+  MatExpansionModule} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { NgcFloatButtonModule } from 'ngc-float-button';
 
 @NgModule({
   imports: [],
@@ -34,7 +36,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatSnackBarModule,
     MatSelectModule,
     MatCheckboxModule,
-    FlexLayoutModule
+    MatExpansionModule,
+    FlexLayoutModule,
+    NgcFloatButtonModule
   ],
   providers: []
 })

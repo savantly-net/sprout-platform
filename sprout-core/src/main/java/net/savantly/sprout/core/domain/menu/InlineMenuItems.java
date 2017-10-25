@@ -10,9 +10,10 @@ public interface InlineMenuItems {
 	String getDisplayText();
 	boolean is_public();
 	Set<String> getRoles();
-	Set<Menu> getItems();
+	Set<InlineMenuItems> getItems();
 	int getPosition();
 	boolean isDisabled();
 	String getIcon();
-
+	boolean isNew();
+	String getUrl();
 }

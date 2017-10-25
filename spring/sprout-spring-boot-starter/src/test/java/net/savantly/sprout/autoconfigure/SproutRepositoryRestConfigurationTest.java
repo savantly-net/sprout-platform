@@ -1,6 +1,6 @@
 package net.savantly.sprout.autoconfigure;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.HashSet;
@@ -30,7 +30,6 @@ import net.savantly.sprout.core.domain.menu.MenuRepository;
 @SpringBootTest
 @WebAppConfiguration
 @RunWith(SpringRunner.class)
-@Transactional
 public class SproutRepositoryRestConfigurationTest {
 	
 	private static final Logger log = LoggerFactory.getLogger(SproutRepositoryRestConfigurationTest.class);
@@ -72,6 +71,12 @@ public class SproutRepositoryRestConfigurationTest {
 		repository.save(menu);
 		
 		MvcResult result = mvc.perform(get("/api/menus/search/findRootMenus?projection=inlineMenuItems")).andExpect(status().isOk()).andReturn();
+		
+		log.info(result.getResponse().getContentAsString());
+		
+		mvc.perform(delete("/api/menus/" + menu.getId() + "/items/" + menu2.getId()));
+		
+		result = mvc.perform(get("/api/menus/search/findRootMenus?projection=inlineMenuItems")).andExpect(status().isOk()).andReturn();
 		
 		log.info(result.getResponse().getContentAsString());
 	}

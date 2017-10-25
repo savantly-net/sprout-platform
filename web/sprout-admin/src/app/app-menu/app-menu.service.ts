@@ -6,13 +6,15 @@ import { Observable } from 'rxjs/Observable';
 export class AppMenu extends HalResponse {
     id: string;
     displayText: string;
-    isPublic: boolean;
+    _public: boolean;
     roles: string[];
     items: AppMenu[];
     position: number;
     disabled: boolean;
     icon: string;
     parent: AppMenu;
+    url: string;
+    new: boolean;
 }
 
 @Injectable()
@@ -28,9 +30,6 @@ export class AppMenuService  extends RestRepositoryService<AppMenu> {
       item.parent = parentItem._links.self.href;
       this.saveItem(item).subscribe((response) => {
         observer.next(<AppMenu>response);
-//        this.http.post(parentItem._links.items.href, response._links.self.href, {headers: headers}).subscribe((savedChild) => {
-//          observer.next(<AppMenu>savedChild);
-//        });
       });
     });
 
