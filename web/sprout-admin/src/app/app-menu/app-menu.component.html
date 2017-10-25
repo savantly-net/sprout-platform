@@ -1,13 +1,15 @@
 <div fxLayout="column" fxLayoutGap="1em">
+	<h3>Application Menu Items</h3>
 	<mat-card>
-		<mat-list>
+    	<mat-list>
 			<mat-list-item *ngFor="let menu of this.menus | async; trackBy: trackById">
 				<ng-container *ngTemplateOutlet="menuItemTemplate;context:{parent: null, item: menu}"></ng-container>
 			</mat-list-item>
 			<mat-list-item>
-				<button mat-raised-button color="accent" (click)="addItem()">Add item <mat-icon>add</mat-icon></button>
+				<button mat-raised-button color="primary" (click)="addItem()">Add item <mat-icon>add</mat-icon></button>
 			</mat-list-item>
 		</mat-list>
+		
 	</mat-card>
 </div>
 
