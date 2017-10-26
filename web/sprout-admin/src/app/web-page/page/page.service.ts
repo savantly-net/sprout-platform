@@ -28,16 +28,34 @@ export class PageService extends RestRepositoryService<Page> {
 
       const newPageContentPromises: Promise<PageContent>[] = [];
       contentItems.map((item) => {
-        newPageContentPromises.push(this.pageContentService.saveItem(item).toPromise());
+        if (!item.webPage) {
+          throw new Error('webPage property must be set');
+        }
+        const itemCopy = Object.assign({}, item);
+        delete itemCopy.contentItems;
+        newPageContentPromises.push(this.pageContentService.saveItem(itemCopy).toPromise());
       });
 
       Promise.all(newPageContentPromises).then((webPageContent: PageContent[]) => {
-        const headers = new HttpHeaders({'Content-Type': 'text/uri-list'});
-        const hrefs = webPageContent.map((item) => {
-          return item._links.self.href;
+        // Loop through the saved items and merge the properties with the objects that were passed in originally
+        webPageContent.map((newItem) => {
+          contentItems.map((oldItem) => {
+            if (newItem.placeHolderId === oldItem.placeHolderId) {
+              oldItem = Object.assign(oldItem, newItem);
+            }
+          } );
         });
-        this.http.put(webPage._links.contentItems.href, hrefs.join('\n')).subscribe((response) => {
-          resolve(response);
+        const associationPromises = contentItems.map((pageContent) => {
+          return this.pageContentService.associateContentItems(pageContent).toPromise();
+        });
+        Promise.all(associationPromises).then((pageContents) => {
+          const headers = new HttpHeaders({'Content-Type': 'text/uri-list'});
+          const hrefs = pageContents.map((item) => {
+            return item._links.self.href;
+          });
+          this.http.post(webPage._links.contentItems.href, hrefs.join('\n')).subscribe((response) => {
+            resolve(response);
+          });
         });
       });
 

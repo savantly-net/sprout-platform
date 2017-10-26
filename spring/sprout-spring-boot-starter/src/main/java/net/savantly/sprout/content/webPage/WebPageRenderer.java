@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
 import freemarker.template.MalformedTemplateNameException;
@@ -30,6 +32,7 @@ public class WebPageRenderer {
 		this.contentItemRenderer = contentItemRenderer;
 	}
 
+	@Transactional
 	public String render(WebPage item) throws TemplateNotFoundException, 
 		MalformedTemplateNameException, ParseException, IOException, TemplateException {
 		Template template = configuration.getTemplate(item.getWebPageLayout().getId());
@@ -37,11 +40,11 @@ public class WebPageRenderer {
 
 		Map<String, List<String>> temp = new HashMap<>();
 		
-		item.getContentItems().forEach((c) -> {
+		item.getContentItems().stream().forEach((c) -> {
 			if (!temp.containsKey(c.getPlaceHolderId())) {
 				temp.put(c.getPlaceHolderId(), new ArrayList<String>());
 			}
-			c.getContentItems().forEach((i) -> {
+			c.getContentItems().stream().forEach((i) -> {
 				String renderedContentItem = String.format("Error while rendering item: %s id: %s", i.getName(), i.getId());
 				try {
 					renderedContentItem = contentItemRenderer.render(i);

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -33,7 +34,7 @@ public class WebPageContent extends PersistedDomainObject {
 	public void setPlaceHolderId(String placeHolderId) {
 		this.placeHolderId = placeHolderId;
 	}
-	@OneToMany(orphanRemoval=true, cascade= {CascadeType.ALL})
+	@OneToMany(orphanRemoval=true, fetch=FetchType.EAGER)
 	public Set<ContentItem> getContentItems() {
 		return contentItems;
 	}

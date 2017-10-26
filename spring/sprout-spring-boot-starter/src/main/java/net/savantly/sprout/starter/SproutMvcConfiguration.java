@@ -17,12 +17,15 @@ public class SproutMvcConfiguration extends WebMvcConfigurerAdapter{
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/**").addResourceLocations(resourcesLocation);
+		registry.addResourceHandler("/admin/**").addResourceLocations("/static/admin/", "classpath:/static/admin/");
 	}
 	
 /*	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		String index = "index";
 		registry.addViewController("/").setViewName(index);
+		registry.addViewController("/admin").setViewName("admin/index");
+		registry.addViewController("/admin/^((?!\\.js).)*$").setViewName("admin/index");
 	}*/
 	
 /*	@RequestMapping("/")

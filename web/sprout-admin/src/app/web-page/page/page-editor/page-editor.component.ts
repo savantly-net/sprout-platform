@@ -47,11 +47,14 @@ export class PageEditorComponent implements OnInit {
           const pageContent = new PageContent();
           pageContent.placeHolderId = item.key;
           pageContent.contentItems = [item.value._links.self.href];
+          pageContent.webPage = this.rForm.value._links.self.href;
           const promise = this.saveWebPageContentItem(this.rForm.value, [pageContent]);
           contentItemPromises.push(promise);
         }
       });
-      Promise.all(contentItemPromises).then((result) => {
+      Promise.all(contentItemPromises).then((savedContentItems) => {
+        // content items have already been saved
+        delete halModel.contentItems;
         console.log('halModel:', halModel);
         resolve(halModel);
       });

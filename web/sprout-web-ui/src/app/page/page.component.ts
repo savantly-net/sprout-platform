@@ -1,5 +1,5 @@
 import { PageService } from './page.service';
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ViewContainerRef, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -10,10 +10,14 @@ import { ActivatedRoute } from '@angular/router';
 export class PageComponent implements OnInit {
   @Input() pageId: string;
 
-  @ViewChild('dataContainer') dataContainer: ElementRef;
+  @ViewChild('dataContainer', {read: ViewContainerRef})
+  dataContainer: ViewContainerRef;
+
+  @ViewChild('dataContainer')
+  dataElement: ElementRef;
 
   loadData(data) {
-      this.dataContainer.nativeElement.innerHTML = data;
+    this.dataContainer.element.nativeElement.innerHTML = data;
   }
 
   constructor(

@@ -54,13 +54,13 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 	protected void configure(HttpSecurity http) throws Exception {
         AuthenticationEntryPoint authenticationEntryPoint = new DelegatingAuthenticationEntryPoint(entryPoints());
         
-       // http.authorizeRequests().antMatchers("/**").permitAll();
+       http.authorizeRequests().antMatchers("/**").permitAll();
 
-        http
+/*        http
         	.headers()
         		.frameOptions().disable().and()
             .authorizeRequests()
-                .antMatchers("/", "/index", "/rest/**", "/api/**").permitAll()
+                .antMatchers("/", "/index", "/rest/**", "/api/**", "/admin", "/admin/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
@@ -81,7 +81,7 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
         	.authenticationEntryPoint(authenticationEntryPoint)
         	.and()
             .addFilterBefore(oauth2ClientContextFilter, BasicAuthenticationFilter.class)
-            .addFilterBefore(ssoFilter, BasicAuthenticationFilter.class);
+            .addFilterBefore(ssoFilter, BasicAuthenticationFilter.class);*/
 	}
 	
 	private LinkedHashMap<RequestMatcher, AuthenticationEntryPoint> entryPoints() {

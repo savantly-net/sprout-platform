@@ -14,6 +14,8 @@ import { AppMenuService } from './app-menu/app-menu.service';
 import { ApiService } from './shared';
 import { routing } from './app.routing';
 import { ContextMenuComponent } from './contextMenu/contextMenu.component';
+import { DynamicBuilderService } from './dynamic/dynamic-builder.service';
+import { DynamicComponent } from './dynamic/dynamic.component';
 import { MaterialModule } from './material/material.module';
 import { AuthenticationService, AuthGaurdService,
   RoleGaurdService, SecurityMockService, SecurityModule } from '@savantly/ngx-security';
@@ -44,14 +46,15 @@ import { MenuModule } from '@savantly/ngx-menu';
     HomeComponent,
     AboutComponent,
     ContextMenuComponent,
-    AppMenuComponent
+    AppMenuComponent,
+    DynamicComponent
   ],
   providers: [
     ApiService,
     AuthenticationService, AuthGaurdService, RoleGaurdService,
-    SecurityMockService, AppMenuService
+    SecurityMockService, AppMenuService, DynamicBuilderService
   ],
-  entryComponents: [],
+  entryComponents: [ DynamicComponent ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
