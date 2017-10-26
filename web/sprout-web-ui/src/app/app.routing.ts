@@ -7,7 +7,7 @@ import { PageComponent } from './page/page.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent},
-  { path: 'page', component: PageComponent }
+  { path: 'page/:id', component: PageComponent }
 ];
 
 export const routing = RouterModule.forRoot(routes);

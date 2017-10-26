@@ -22,6 +22,7 @@ export abstract class RestRepositoryService<T extends HalResponse> {
   }
 
   saveItem(item: T): Observable<any> {
+    console.info('attempting to save object: {}', item);
     if (item['new'] === false) {
       return this.http.put(this.baseRepositoryPath + '/' + item.id, item);
     } else {

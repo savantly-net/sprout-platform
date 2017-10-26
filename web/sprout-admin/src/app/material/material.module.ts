@@ -16,7 +16,6 @@ import {
   MatCheckboxModule,
   MatExpansionModule} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { NgcFloatButtonModule } from 'ngc-float-button';
 
 @NgModule({
   imports: [],
@@ -37,8 +36,7 @@ import { NgcFloatButtonModule } from 'ngc-float-button';
     MatSelectModule,
     MatCheckboxModule,
     MatExpansionModule,
-    FlexLayoutModule,
-    NgcFloatButtonModule
+    FlexLayoutModule
   ],
   providers: []
 })

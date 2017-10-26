@@ -1,5 +1,6 @@
 import { PageService } from './page.service';
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'my-page',
@@ -15,18 +16,24 @@ export class PageComponent implements OnInit {
       this.dataContainer.nativeElement.innerHTML = data;
   }
 
-  constructor(private pageService: PageService) { }
+  constructor(
+    private pageService: PageService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
-    if (this.pageId) {
-      this.pageService.getPage(this.pageId).subscribe((content) => {
-        this.loadData(content);
-      });
-    } else {
-      this.pageService.getHomePage().subscribe((content) => {
-        this.loadData(content);
-      });
-    }
+    this.route.params.subscribe( (params) => {
+      if (params['id']) {
+        this.pageId = params['id'];
+      }
+      if (this.pageId) {
+        this.pageService.getPage(this.pageId).subscribe((content) => {
+          this.loadData(content);
+        });
+      } else {
+        this.pageService.getHomePage().subscribe((content) => {
+          this.loadData(content);
+        });
+      }
+    });
   }
-
 }

@@ -11,6 +11,7 @@ import net.savantly.sprout.core.content.contentItem.ContentItem;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplate;
 import net.savantly.sprout.core.content.contentType.ContentType;
 import net.savantly.sprout.core.content.webPage.WebPage;
+import net.savantly.sprout.core.content.webPageContent.WebPageContent;
 import net.savantly.sprout.core.content.webPageLayout.WebPageLayout;
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
 import net.savantly.sprout.core.domain.menu.Menu;
@@ -38,7 +39,8 @@ public class SproutRepositoryRestAutoConfiguration {
 					ContentField.class,
 					Menu.class,
 					WebPage.class, 
-					WebPageLayout.class);
+					WebPageLayout.class,
+					WebPageContent.class);
 		}
 	}
 

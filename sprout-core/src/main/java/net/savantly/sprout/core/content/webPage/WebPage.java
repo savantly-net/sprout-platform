@@ -1,17 +1,16 @@
 package net.savantly.sprout.core.content.webPage;
 
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapKeyColumn;
+import javax.persistence.OneToMany;
 
-import net.savantly.sprout.core.content.contentItem.ContentItem;
+import net.savantly.sprout.core.content.webPageContent.WebPageContent;
 import net.savantly.sprout.core.content.webPageLayout.WebPageLayout;
 import net.savantly.sprout.core.domain.PersistedDomainObject;
 
@@ -20,7 +19,7 @@ public class WebPage extends PersistedDomainObject {
 	private String name;
 	private String description;
 	private WebPageLayout webPageLayout;
-	private Map<String, ContentItem> contentItems = new HashMap<>();
+	private Set<WebPageContent> contentItems = new HashSet<>();
 	private boolean home;
 	
 	public String getName() {
@@ -44,14 +43,15 @@ public class WebPage extends PersistedDomainObject {
 		this.webPageLayout = webPageLayout;
 	}
 	
-	@ElementCollection(fetch=FetchType.EAGER)
+	/*@ElementCollection(fetch=FetchType.EAGER)
 	@CollectionTable(name = "WEB_PAGE_CONTENT")
 	@MapKeyColumn(name="PLACEHOLDER_ID")
-	@Column(name = "CONTENT_ID")
-	public Map<String, ContentItem> getContentItems() {
+	@Column(name = "CONTENT_ID")*/
+	@OneToMany(orphanRemoval=true, fetch=FetchType.EAGER, cascade= {CascadeType.ALL}, mappedBy="webPage")
+	public Set<WebPageContent> getContentItems() {
 		return contentItems;
 	}
-	public void setContentItems(Map<String, ContentItem> contentItems) {
+	public void setContentItems(Set<WebPageContent> contentItems) {
 		this.contentItems = contentItems;
 	}
 	public boolean isHome() {

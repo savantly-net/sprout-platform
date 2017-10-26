@@ -1,13 +1,15 @@
 import { ContentItem, ContentItemService } from '../../../content-item/content-item.service';
 import { Identifiable } from '../../../spring-data/rest-repository.service';
+import { PageContent } from '../../content/page-content.service';
 import { Layout, LayoutService } from '../../layout/layout.service';
-import { PageService } from '../page.service';
+import { PageService, Page } from '../page.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-page-editory',
@@ -35,27 +37,46 @@ export class PageEditorComponent implements OnInit {
     '_embedded': [null]
   };
 
-  prepareSave(model): any {
-    const halModel = Object.assign({}, model);
-    halModel.contentItems = {};
-    halModel.webPageLayout = model.webPageLayout._links.self.href;
-    model.contentItems.map(item => {
-      if (item.value !== null) {
-       halModel.contentItems[item.key] = item.value;
-      }
+  prepareSave(model): Promise<Page> {
+    const preparePromise = new Promise((resolve, reject) => {
+      const halModel = Object.assign({}, model);
+      halModel.webPageLayout = model.webPageLayout._links.self.href;
+      const contentItemPromises = [];
+      model.contentItems.map(item => {
+        if (item.value !== null) {
+          const pageContent = new PageContent();
+          pageContent.placeHolderId = item.key;
+          pageContent.contentItems = [item.value._links.self.href];
+          const promise = this.saveWebPageContentItem(this.rForm.value, [pageContent]);
+          contentItemPromises.push(promise);
+        }
+      });
+      Promise.all(contentItemPromises).then((result) => {
+        console.log('halModel:', halModel);
+        resolve(halModel);
+      });
     });
-    console.log('halModel:', halModel);
-    return halModel;
+    return preparePromise;
+  }
+
+  saveWebPageContentItem(webPage: Page, contentItems: PageContent[]) {
+    const promise = new Promise((resolve, reject) => {
+      this.service.saveContentItems(webPage, contentItems).then((response) => {
+        resolve(response);
+      }, reject);
+    });
+    return promise;
   }
 
   save(model) {
-    const halModel = this.prepareSave(model);
-    this.service.saveItem(halModel).subscribe(data => {
-      this.router.navigate(['page-editor', {id: data.id}]);
-    }, err => {
-      if (err.statusText === 'Conflict') {
-        this.snackBar.open('The name must be unique', 'Close', {duration: 8000});
-      }
+    this.prepareSave(model).then((halModel) => {
+      this.service.saveItem(halModel).subscribe(data => {
+        this.router.navigate(['page-editor', {id: data.id}]);
+      }, err => {
+        if (err.statusText === 'Conflict') {
+          this.snackBar.open('There was a conflict while saving', 'Close', {duration: 8000});
+        }
+      });
     });
   }
 
@@ -70,8 +91,11 @@ export class PageEditorComponent implements OnInit {
 
   loadItem(id?: string) {
     if (id) {
+      const params = new URLSearchParams();
+      params.append('projection', 'inlineContentItems');
+
       const fDefinition = Object.assign({}, this.formDefinition);
-      this.service.findOne(id).subscribe((page: any) => {
+      this.service.findOne(id, {params: params}).subscribe((page: any) => {
         this.service.getWebPageLayout(page).subscribe(webPageLayout => {
           page.webPageLayout = webPageLayout;
           webPageLayout.placeHolders.map(key => {

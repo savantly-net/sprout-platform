@@ -13,6 +13,9 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import net.savantly.sprout.core.content.contentField.ContentField;
 import net.savantly.sprout.core.content.contentField.ContentFieldKeyDeserializer;
 import net.savantly.sprout.core.content.contentField.ContentFieldRepository;
+import net.savantly.sprout.core.content.contentItem.ContentItem;
+import net.savantly.sprout.core.content.contentItem.ContentItemKeyDeserializer;
+import net.savantly.sprout.core.content.contentItem.ContentItemRepository;
 
 
 @Configuration
@@ -22,19 +25,33 @@ import net.savantly.sprout.core.content.contentField.ContentFieldRepository;
 public class SproutAutoConfiguration {
 	
 	@Bean
-	public Jackson2ObjectMapperBuilderCustomizer objectMapperCustomizer(ContentFieldRepository repository) {
-		Jackson2ObjectMapperBuilderCustomizer customizer = new Jackson2ObjectMapperBuilderCustomizer() {
-
-			@Override
-			public void customize(Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder) {
-				
-				SimpleModule customModule = new SimpleModule();
-				customModule.addKeyDeserializer(ContentField.class, new ContentFieldKeyDeserializer(repository));
-				
-				jacksonObjectMapperBuilder.modulesToInstall(customModule);
-			}
-		};
+	public Jackson2ObjectMapperBuilderCustomizer objectMapperCustomizer(ContentFieldRepository repository, ContentItemRepository contentItemRepository) {
+		Jackson2ObjectMapperBuilderCustomizer customizer = new MapperCustomizer(repository, contentItemRepository);
 		return customizer;
+	}
+	
+	protected class MapperCustomizer implements Jackson2ObjectMapperBuilderCustomizer {
+		
+		private ContentFieldRepository contentFieldrepository;
+		private ContentItemRepository contentItemRepository;
+
+		
+		public MapperCustomizer(ContentFieldRepository contentFieldrepository,
+				ContentItemRepository contentItemRepository) {
+			super();
+			this.contentFieldrepository = contentFieldrepository;
+			this.contentItemRepository = contentItemRepository;
+		}
+
+		@Override
+		public void customize(Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder) {
+			
+			SimpleModule customModule = new SimpleModule();
+			customModule.addKeyDeserializer(ContentField.class, new ContentFieldKeyDeserializer(contentFieldrepository));
+			customModule.addKeyDeserializer(ContentItem.class, new ContentItemKeyDeserializer(contentItemRepository));
+			
+			jacksonObjectMapperBuilder.modulesToInstall(customModule);
+		}
 	}
 
 }

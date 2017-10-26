@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
+import { PageContentService } from './content/page-content.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PageService } from './page/page.service';
@@ -19,6 +20,6 @@ import { PageEditorComponent } from './page/page-editor/page-editor.component';
     HttpClientModule
   ],
   declarations: [LayoutListComponent, LayoutEditorComponent, PageListComponent, PageEditorComponent],
-  providers: [PageService, LayoutService]
+  providers: [PageService, LayoutService, PageContentService]
 })
 export class WebPageModule { }
