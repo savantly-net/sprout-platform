@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -22,6 +23,7 @@ public class WebPage extends PersistedDomainObject {
 	private Set<WebPageContent> contentItems = new HashSet<>();
 	private boolean home;
 	
+	@Column(unique=true)
 	public String getName() {
 		return name;
 	}
@@ -43,10 +45,6 @@ public class WebPage extends PersistedDomainObject {
 		this.webPageLayout = webPageLayout;
 	}
 	
-	/*@ElementCollection(fetch=FetchType.EAGER)
-	@CollectionTable(name = "WEB_PAGE_CONTENT")
-	@MapKeyColumn(name="PLACEHOLDER_ID")
-	@Column(name = "CONTENT_ID")*/
 	@OneToMany(orphanRemoval=true, fetch=FetchType.EAGER, cascade= {CascadeType.ALL}, mappedBy="webPage")
 	public Set<WebPageContent> getContentItems() {
 		return contentItems;

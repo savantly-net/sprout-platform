@@ -3,24 +3,34 @@ package net.savantly.sprout.core.content.webPageContent;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import net.savantly.sprout.core.content.contentItem.ContentItem;
 import net.savantly.sprout.core.content.webPage.WebPage;
 import net.savantly.sprout.core.domain.PersistedDomainObject;
 
 @Entity
+@Table(uniqueConstraints={
+    @UniqueConstraint(columnNames = {WebPageContent.WEBPAGE_ID, WebPageContent.PLACEHOLDER_ID})
+}) 
 public class WebPageContent extends PersistedDomainObject {
+	
+	static final String WEBPAGE_ID = "webPageId";
+	static final String PLACEHOLDER_ID = "placeHolderId";
 
 	private WebPage webPage;
 	private String placeHolderId;
 	private Set<ContentItem> contentItems = new HashSet<>();
 	
 	@ManyToOne
+	@JoinColumn(name=WEBPAGE_ID, nullable=false)
 	public WebPage getWebPage() {
 		return webPage;
 	}
@@ -28,13 +38,14 @@ public class WebPageContent extends PersistedDomainObject {
 		this.webPage = webPage;
 	}
 	
+	@Column(name=PLACEHOLDER_ID)
 	public String getPlaceHolderId() {
 		return placeHolderId;
 	}
 	public void setPlaceHolderId(String placeHolderId) {
 		this.placeHolderId = placeHolderId;
 	}
-	@OneToMany(orphanRemoval=true, fetch=FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.EAGER)
 	public Set<ContentItem> getContentItems() {
 		return contentItems;
 	}

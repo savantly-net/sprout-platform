@@ -12,8 +12,10 @@ import { MatSnackBar } from '@angular/material';
 })
 export class ContentTemplateEditorComponent implements OnInit {
   rForm: FormGroup;
+  content: string;
 
   save(model) {
+    model.content = this.content;
     this.service.saveItem(model).subscribe(data => {
       this.router.navigate(['content-template-editor', {id: data.id}]);
     }, err => {
@@ -35,6 +37,7 @@ export class ContentTemplateEditorComponent implements OnInit {
     if (id) {
       this.service.findOne(id).subscribe((response: any) => {
         this.rForm.patchValue(response);
+        this.content = response.content;
       });
     }
   }
@@ -49,7 +52,6 @@ export class ContentTemplateEditorComponent implements OnInit {
     this.rForm = fb.group({
       'id' : [''],
       'name' : ['MyTemplate', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(255)])],
-      'content' : ['<h1>${text}</h1>', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(255)])],
       'description': ['A new template =]'],
       'new': [true],
       'createdDate': [null],

@@ -2,6 +2,8 @@ package net.savantly.sprout.content.contentItem;
 
 import java.io.IOException;
 
+import javax.transaction.Transactional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import net.savantly.sprout.core.content.contentItem.ContentItem;
 
 @RestController
 @RequestMapping("/rest/content")
+@Transactional
 public class ContentItemRestController {
 	
 	private ContentItemRenderer renderer;

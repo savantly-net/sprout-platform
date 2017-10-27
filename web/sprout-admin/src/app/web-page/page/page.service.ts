@@ -22,8 +22,6 @@ export class PageService extends RestRepositoryService<Page> {
   }
 
   saveContentItems(webPage: Page, contentItems: PageContent[]): Promise<any> {
-    // const headers = new HttpHeaders({'Content-Type': 'text/uri-list'});
-    // const headers = new HttpHeaders({'Content-Type': 'application/json'});
     const promise = new Promise((resolve, reject) => {
 
       const newPageContentPromises: Promise<PageContent>[] = [];
@@ -49,13 +47,14 @@ export class PageService extends RestRepositoryService<Page> {
           return this.pageContentService.associateContentItems(pageContent).toPromise();
         });
         Promise.all(associationPromises).then((pageContents) => {
-          const headers = new HttpHeaders({'Content-Type': 'text/uri-list'});
-          const hrefs = pageContents.map((item) => {
-            return item._links.self.href;
-          });
-          this.http.post(webPage._links.contentItems.href, hrefs.join('\n')).subscribe((response) => {
-            resolve(response);
-          });
+          resolve(pageContents);
+//          const headers = new HttpHeaders({'Content-Type': 'text/uri-list'});
+//          const hrefs = pageContents.map((item) => {
+//            return item._links.self.href;
+//          });
+//          this.http.post(webPage._links.contentItems.href, hrefs.join('\n')).subscribe((response) => {
+//            resolve(response);
+//          });
         });
       });
 

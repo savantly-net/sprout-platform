@@ -15,10 +15,12 @@ import { Observable } from 'rxjs/Observable';
 })
 export class LayoutEditorComponent implements OnInit {
 
-rForm: FormGroup;
+  rForm: FormGroup;
+  template: string;
 
   prepareSave(model): any {
     const halModel = Object.assign({}, model);
+    halModel.template = this.template;
     halModel.placeHolders = model.placeHolders.map(item => {
       return item.value;
     });
@@ -49,6 +51,7 @@ rForm: FormGroup;
   loadItem(id: string) {
     if (id) {
       this.service.findOne(id).subscribe((response: any) => {
+        this.template = response.template;
         this.rForm.patchValue(response);
         response.placeHolders.map(placeHolder => {
           this.addPlaceHolder(placeHolder);
@@ -90,7 +93,6 @@ rForm: FormGroup;
       'name' : ['My new layout', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(255)])],
       'description': ['A layout'],
       'placeHolders': fb.array([]),
-      'template': [''],
       'showHeader': [true],
       'showFooter': [true],
       'new': [true],

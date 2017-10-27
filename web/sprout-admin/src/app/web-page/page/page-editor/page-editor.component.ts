@@ -12,7 +12,7 @@ import { Observable } from 'rxjs/Observable';
 import { HttpParams } from '@angular/common/http';
 
 @Component({
-  selector: 'app-page-editory',
+  selector: 'app-page-editor',
   templateUrl: './page-editor.component.html',
   styleUrls: ['./page-editor.component.css']
 })

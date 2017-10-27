@@ -9,6 +9,8 @@ import java.util.Map;
 
 import javax.transaction.Transactional;
 
+import org.springframework.util.Assert;
+
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
 import freemarker.template.MalformedTemplateNameException;
@@ -35,6 +37,10 @@ public class WebPageRenderer {
 	@Transactional
 	public String render(WebPage item) throws TemplateNotFoundException, 
 		MalformedTemplateNameException, ParseException, IOException, TemplateException {
+		
+		Assert.notNull(item, "The WebPage item should not be null");
+		Assert.notNull(item.getWebPageLayout(), "The WebPageLayout should not be null");
+		
 		Template template = configuration.getTemplate(item.getWebPageLayout().getId());
 		StringWriter writer = new StringWriter();
 

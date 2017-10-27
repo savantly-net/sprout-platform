@@ -26,6 +26,7 @@ public class ContentItem extends PersistedDomainObject{
 	private Map<ContentField, String> fieldValues = new HashMap<>();
 	private ContentTemplate template;
 
+	@Column(unique=true)
 	public String getName() {
 		return name;
 	}

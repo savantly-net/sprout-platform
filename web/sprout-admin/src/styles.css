@@ -21,15 +21,14 @@ img {
 }
 
 router-outlet + * { 
-	flex: 1 1 auto; 
-	display: flex; 
-	flex-direction: column; 
+	overflow-y: auto;
 }
 
 /****** Material Styles ******************/
 
 mat-card {
 	max-width: 100%;
+	max-height: 100%;
 }
 
 mat-card form, mat-card form .mat-form-field, mat-card form > * {

@@ -1,6 +1,8 @@
 import { Identifiable } from '../spring-data/rest-repository.service';
+import { PageBrowserDialogComponent } from '../web-page/page/page-browser-dialog/page-browser-dialog.component';
 import { AppMenu, AppMenuService } from './app-menu.service';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
@@ -99,11 +101,20 @@ export class AppMenuComponent implements OnInit {
     return o1.id === o2.id;
   }
 
-  floatButtonEvents(event) {
-    console.log(event);
+
+  browseContent(item: AppMenu) {
+    const dialogRef = this.dialog.open(PageBrowserDialogComponent, {
+      width: '300px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      item.url = result.value;
+    });
   }
 
-  constructor(private appMenuService: AppMenuService) {
+  constructor(private appMenuService: AppMenuService, private dialog: MatDialog) {
     // this.menus = this._menus.asObservable();
     this.loadMenus();
   }
