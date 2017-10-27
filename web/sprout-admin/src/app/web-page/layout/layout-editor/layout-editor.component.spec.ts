@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LayoutEditorComponent } from './layout-editor.component';
+import { ComponentTestModule } from '../../../testing/component-test.module';
+import { CKEditorModule } from 'ng2-ckeditor';
+import { LayoutService } from '../layout.service';
 
 describe('LayoutEditorComponent', () => {
   let component: LayoutEditorComponent;
@@ -8,6 +11,8 @@ describe('LayoutEditorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ComponentTestModule, CKEditorModule],
+      providers: [LayoutService],
       declarations: [ LayoutEditorComponent ]
     })
     .compileComponents();

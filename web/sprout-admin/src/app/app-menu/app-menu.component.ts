@@ -20,8 +20,9 @@ export class AppMenuComponent implements OnInit {
   loadMenus() {
     console.log('loading menus');
     this.appMenuService.getRootMenus().subscribe((response) => {
-      console.log(response);
       this._menus.next(response._embedded.menus);
+    }, (error) => {
+      console.log(error);
     });
   }
 

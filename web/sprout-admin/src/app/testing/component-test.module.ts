@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { APP_BASE_HREF } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { StandardModule } from '../standard/standard.module';
 
 const routes: Routes = [];
 export const routing = RouterModule.forRoot(routes);
@@ -24,7 +25,8 @@ export const routing = RouterModule.forRoot(routes);
     HttpClientModule,
     MaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    StandardModule
   ],
   declarations: [],
   providers: [ {provide: APP_BASE_HREF, useValue: '/'} ]

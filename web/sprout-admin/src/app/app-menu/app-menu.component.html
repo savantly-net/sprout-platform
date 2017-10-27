@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutGap="1em">
 	<h3>Application Menu Items</h3>
 	<mat-card>
-    	<div fxLayout="column" fxLayoutGap="1em">
+    	<div *ngIf="menus" fxLayout="column" fxLayoutGap="1em">
 			<div *ngFor="let menu of this.menus | async; trackBy: trackById">
 				<ng-container *ngTemplateOutlet="menuItemTemplate;context:{parentItem: null, item: menu}"></ng-container>
 			</div>

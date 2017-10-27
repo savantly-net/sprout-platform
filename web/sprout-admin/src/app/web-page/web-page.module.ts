@@ -14,6 +14,7 @@ import { PageEditorComponent } from './page/page-editor/page-editor.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { PageBrowserDialogComponent } from './page/page-browser-dialog/page-browser-dialog.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
