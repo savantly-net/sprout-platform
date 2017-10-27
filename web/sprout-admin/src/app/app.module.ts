@@ -16,6 +16,7 @@ import { MenuModule } from './menu/menu.module';
 import { ServiceLocator } from './standard/service-locator';
 import { WebPageModule } from './web-page/web-page.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,

@@ -5,6 +5,8 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 import 'hammerjs';
 import 'rxjs/add/operator/toPromise';
+import './assets/js/ckeditor.js';
+
 
 if (environment.production) {
   enableProdMode();

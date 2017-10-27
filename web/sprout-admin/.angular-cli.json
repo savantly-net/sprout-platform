@@ -20,9 +20,11 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-        "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css"
+        "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css"        
       ],
-      "scripts": [],
+      "scripts": [
+        
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

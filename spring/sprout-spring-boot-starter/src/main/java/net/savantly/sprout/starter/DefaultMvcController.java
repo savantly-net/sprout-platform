@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,7 @@ public class DefaultMvcController {
 	private final static Logger log = LoggerFactory.getLogger(DefaultMvcController.class);
 	
 	@Autowired
-	ResourceLoader resources;
+	ResourcePatternResolver resources;
 	@Autowired
 	ResourceHttpRequestHandler resourceHandler;
 
@@ -40,17 +41,14 @@ public class DefaultMvcController {
 		return adminView();
 	}
 	
-	@SuppressWarnings("unused")
 	@RequestMapping({"/admin/{resourcePath:.*}"})
 	public Object adminResources(@PathVariable("resourcePath") String resourcePath,
-			HttpServletRequest request, HttpServletResponse response) throws ServletException {
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		log.info(resourcePath);
-		Resource resource = resources.getResource("/admin/" + resourcePath);
-		try {
-			URI uri = resource.getURI();
+		if(resourcePath.contains(".")) {
 			resourceHandler.handleRequest(request, response);
 			return null;
-		} catch (IOException ex) {
+		} else {
 			log.debug("returning admin/index view for request: {}", resourcePath);
 			return adminView();
 		}

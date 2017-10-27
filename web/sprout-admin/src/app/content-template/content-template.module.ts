@@ -6,6 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ContentTemplateComponent } from './content-template.component';
 import { ContentTemplateService } from './content-template.service';
 import { ContentTemplateEditorComponent } from './content-template-editor/content-template-editor.component';
+import { CKEditorModule } from 'ng2-ckeditor';
+
 
 @NgModule({
   imports: [
@@ -13,7 +15,8 @@ import { ContentTemplateEditorComponent } from './content-template-editor/conten
     HttpClientModule,
     MaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    CKEditorModule
   ],
   declarations: [ContentTemplateComponent, ContentTemplateEditorComponent],
   providers: [ContentTemplateService]
