@@ -11,7 +11,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^4.4.5",
     "@angular/cdk": "^2.0.0-beta.12",
