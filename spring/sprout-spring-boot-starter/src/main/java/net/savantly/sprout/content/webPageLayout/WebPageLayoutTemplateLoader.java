@@ -31,7 +31,6 @@ public class WebPageLayoutTemplateLoader implements TemplateLoader {
 	 * we have to catch NumberFormatException even if it is comes from a numeric
 	 * field in the database.
 	 *
-	 * @param layoutId
 	 * @return a template instance or null if not found.
 	 * @throws IOException
 	 *             if a severe error happens, like not being able to access the

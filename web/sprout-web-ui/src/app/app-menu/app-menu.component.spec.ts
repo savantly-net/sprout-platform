@@ -8,16 +8,20 @@ const routing = RouterModule.forRoot(routes);
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '../material/material.module';
 import { AppMenuComponent } from './app-menu.component';
+import { MenuModule } from '@savantly/ngx-menu';
+import { SecurityService } from '@savantly/ngx-security';
+import { AppMenuService } from './app-menu.service';
+import { HttpClientModule } from '@angular/common/http';
 
-describe('MenuComponent', () => {
+describe('AppMenuComponent', () => {
   let component: AppMenuComponent;
   let fixture: ComponentFixture<AppMenuComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AppMenuComponent ],
-      imports: [routing, RouterModule, BrowserAnimationsModule, MaterialModule],
-      providers: [{provide: APP_BASE_HREF, useValue: '/'}]
+      imports: [routing, RouterModule, HttpClientModule, BrowserAnimationsModule, MaterialModule, MenuModule.forRoot()],
+      providers: [SecurityService, AppMenuService, {provide: APP_BASE_HREF, useValue: '/'}]
     })
     .compileComponents();
   }));
