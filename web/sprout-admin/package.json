@@ -1,5 +1,5 @@
 {
-  "name": "sprout-admin",
+  "name": "@savantly/sprout-admin",
   "version": "1.1.0-RELEASE",
   "license": "MIT",
   "scripts": {
