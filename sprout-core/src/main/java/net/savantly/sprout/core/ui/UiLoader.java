@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -58,24 +60,74 @@ public class UiLoader<T> {
 		}
 	}
 
-	private void init() throws IOException, InterruptedException {
+	private void init() throws IOException, InterruptedException, URISyntaxException {
 		if (this.extract) {
-			extractZippedClientFiles();
-			extractClientPlugins();
-			extractClientOverlays();
+			String sourcePath = extractJar();
+			extractZippedClientFiles(sourcePath);
+			extractClientPlugins(sourcePath);
+			extractClientOverlays(sourcePath);
 		}
 		if (this.compile) {
 			executeCommands(installArgs);
 			executeCommands(buildArgs);
 		}
 	}
+	
+	/**
+	 * returns the path of the extracted jar file
+	 **/
+	private String extractJar() throws URISyntaxException, IOException {
+		URL location = UiLoader.class.getProtectionDomain().getCodeSource().getLocation();
+		int isJar = location.toString().indexOf("!");
+		String locationString = location.toString();
+		if(isJar > -1) {
+			log.info("attempting to extract jar file: {}", locationString);
+			// stripping 'jar:' and everything after the !
+			locationString = locationString.substring(0, isJar);
+			String[] locationParts = locationString.split(":");
+			locationString = locationParts[locationParts.length-1];
+			File jarFile = new File(locationString);
+			log.debug("running from jar: {}", jarFile.getAbsolutePath());
+			Path tempFolderPath = Files.createTempDirectory("sprout");
+			extractFolder(jarFile, tempFolderPath.toString(), false);
+			return tempFolderPath.toString();
+		} else {
+			Path folderPath = Paths.get(locationString);
+			log.debug("running from filesystem folder: {}", folderPath);
+			return folderPath + "/";
+		}
+	}
+	
+	private String ensureLeft(String prefix, String string) {
+		if (!string.startsWith(prefix)) {
+			return prefix + string;
+		} else return string;
+	}
+	
+	private String makeSearchPattern(String sourcePath, String searchPattern) {
+		return ensureLeft("file:/", sourcePath) + searchPattern;
+	}
+	
 
-	private void extractClientOverlays() {
-		Resource[] resourcePaths = resolver.getResourcePaths(overlaySearchPattern);
+	private void extractZippedClientFiles(String sourcePath) throws IOException {
+		String pattern = makeSearchPattern(sourcePath, zipSearchPattern);
+		Resource[] resourcePaths = resolver.getResourcePaths(pattern);
+		if (resourcePaths.length == 0) {
+			throw new RuntimeException("No files found that match search pattern: " + zipSearchPattern);
+		}
+		for (Resource resource : resourcePaths) {
+			extractFolder(resource.getFile(), sproutHome, false);
+		}
+	}
+	
+	private void extractClientOverlays(String sourcePath) {
+		String pattern = makeSearchPattern(sourcePath, overlaySearchPattern);
+		Resource[] resourcePaths = resolver.getResourcePaths(pattern);
 		if (resourcePaths.length == 0) {
 			log.info("No Sprout overlay files found");
 		}
 		for (Resource resource : resourcePaths) {
+			log.debug("found resource: {}", resource);
 			try {
 				Path destinationPath = Paths.get(sproutHome, resource.getFilename());
 				destinationPath.toFile().mkdirs();
@@ -86,8 +138,9 @@ public class UiLoader<T> {
 		}
 	}
 
-	private void extractClientPlugins() throws IOException {
-		Resource[] resourcePaths = resolver.getResourcePaths(sproutPluginSearchPattern);
+	private void extractClientPlugins(String sourcePath) throws IOException {
+		String pattern = makeSearchPattern(sourcePath, sproutPluginSearchPattern);
+		Resource[] resourcePaths = resolver.getResourcePaths(pattern);
 		Path pluginFolderPath = Paths.get(sproutHome, "./plugins/");
 		pluginFolderPath.toFile().mkdirs();
 		if (resourcePaths.length == 0) {
@@ -111,7 +164,16 @@ public class UiLoader<T> {
 
 	private Path generateDestinationPath(Path rootDir, Resource resource) throws IOException {
 		String relativePath = null;
-		String scheme = resource.getURI().getScheme();
+		String scheme = "file";
+		
+		URL url = resource.getURL();
+		String protocol = url.getProtocol();
+		log.info("using url: {}", url);
+		log.debug("protocol: {}", protocol);
+		if (protocol.toUpperCase().startsWith("JAR")) {
+			scheme = "JAR";
+		}
+
 		if ("JAR".contains(scheme.toUpperCase())) {
 			String[] uriParts = resource.getURL().toString().split("!");
 			relativePath = trimPluginPathPrefix(uriParts[1]);
@@ -123,22 +185,14 @@ public class UiLoader<T> {
 	}
 
 	private String trimPluginPathPrefix(String filePath) {
-		String[] pathParts = filePath.split("sprout/plugins/");
+		// Handle unix and windows path separators
+		String[] pathParts = filePath.split("sprout[/|\\\\]plugins[/|\\\\]");
 		if (pathParts.length != 2) {
 			throw new RuntimeException("The plugins must be located in a path containing '**/sprout/plugins/*'");
 		}
 		return pathParts[1];
 	}
 
-	private void extractZippedClientFiles() throws IOException {
-		Resource[] resourcePaths = resolver.getResourcePaths(zipSearchPattern);
-		if (resourcePaths.length == 0) {
-			throw new RuntimeException("No files found that match search pattern: " + zipSearchPattern);
-		}
-		for (Resource resource : resourcePaths) {
-			extractFolder(resource.getFile(), sproutHome, false);
-		}
-	}
 
 	private void executeCommands(List<String> args) throws IOException, InterruptedException {
 		log.info("Executing command: {}", args);
@@ -223,9 +277,9 @@ public class UiLoader<T> {
 		private String destinationFolder = Paths.get(System.getProperty("user.home"), "sprout").toString();
 		private List<String> installArgs;
 		private List<String> buildArgs;
-		private String zipSearchPattern = "classpath*:/**/sprout/ui/*-resources.zip";
-		private String sproutPluginSearchPattern = "classpath*:/**/sprout/plugins/**/*.*";
-		private String overlaySearchPattern = "classpath*:/**/sprout/overlay/**/*.*";
+		private String zipSearchPattern = "/**/sprout/ui/*-resources.zip";
+		private String sproutPluginSearchPattern = "/**/sprout/plugins/**/*.*";
+		private String overlaySearchPattern = "/**/sprout/overlay/**/*.*";
 		private String NODE_PATH = System.getenv("NODE_PATH");
 		private String nodeBin = "/usr/bin/node";
 		private String npmBin = "/usr/bin/npm";

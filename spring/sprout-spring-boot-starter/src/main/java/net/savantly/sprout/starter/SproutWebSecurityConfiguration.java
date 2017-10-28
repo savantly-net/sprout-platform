@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -45,7 +46,7 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
  	public void configure(WebSecurity web) throws Exception {
  		web.ignoring()
  		// Spring Security should completely ignore URLs starting with /resources/
- 				.antMatchers("/*.js", "*.html", "/css/**", "/img/**", "/js/**", "/libs/**", "/modules/**", "**/favicon.ico");
+ 				.antMatchers("/", "/*.js", "/js/**", "/*.html", "**/*.html", "/css/**", "/img/**",  "favicon.ico*", "**/favicon.ico*");
  		web.debug(true);
  	}
 
@@ -53,10 +54,14 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 	protected void configure(HttpSecurity http) throws Exception {
         AuthenticationEntryPoint authenticationEntryPoint = new DelegatingAuthenticationEntryPoint(entryPoints());
         
+       /*http.authorizeRequests().antMatchers("/**").permitAll();*/
+
         http
+        	.headers()
+        		.frameOptions().disable().and()
             .authorizeRequests()
-                .antMatchers("/", "/home", "/rest/**").permitAll()
-                //.anyRequest().authenticated()
+                .antMatchers("/", "/index", "/rest/**", "/api/**", "/admin", "/admin/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
             .formLogin()
                 .permitAll()
@@ -70,7 +75,7 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
             .csrf()
                 .disable()
         	.httpBasic()
-        	.and()
+        	    .and()
             .exceptionHandling()
         	.accessDeniedPage("/errors/403")
         	.authenticationEntryPoint(authenticationEntryPoint)

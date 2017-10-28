@@ -1,9 +1,17 @@
-<my-header></my-header>
-<main fxFlexFill fxLayout="column" fxFlex> 
-	<router-outlet></router-outlet>
-</main>
-<footer fxLayoutAlign="center center">
-	<a href="http://savantly.net">
-		<small><i>Sprout</i> by savantly.net</small>
-	</a>
-</footer>
+<mat-sidenav-container>
+	<mat-sidenav #mainMenu position="end">
+		<my-menu [menu]="mainMenu"></my-menu>
+	</mat-sidenav>
+
+	<main fxLayout="column">
+		<mat-toolbar color="primary">
+		    <span>Sprout</span>
+		    <span fxFlex></span>
+			<button mat-fab (click)="mainMenu.toggle()">
+		      <mat-icon>menu</mat-icon>
+		    </button>
+			
+		</mat-toolbar>
+		<router-outlet></router-outlet>
+	</main>
+</mat-sidenav-container>

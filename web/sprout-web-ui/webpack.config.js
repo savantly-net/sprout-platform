@@ -2,8 +2,6 @@
 var path = require('path');
 var webpack = require('webpack');
 
-var sproutPlugins = require('./sprout.plugins.json');
-
 // Webpack Plugins
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 var autoprefixer = require('autoprefixer');
@@ -11,6 +9,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+var proxyConfig = require('./proxy.conf.js');
 
 /**
  * Env
@@ -28,8 +27,6 @@ function log(msg, obj){
 
 var defaultModuleLocation = root('./node_modules');
 log('defaultModuleLocation: ' + defaultModuleLocation);
-var pluginHome = path.resolve(__dirname, sproutPlugins.home);
-log('pluginHome: ' + pluginHome);
 
 module.exports = function makeWebpackConfig() {
   /**
@@ -72,7 +69,7 @@ module.exports = function makeWebpackConfig() {
    */
   config.output = isTest ? {} : {
     path: root('dist'),
-    publicPath: isProd ? '/' : 'http://localhost:8080/',
+    publicPath: '/', // isProd ? '/' : 'http://localhost:3000/',
     filename: isProd ? 'js/[name].[hash].js' : 'js/[name].js',
     chunkFilename: isProd ? '[id].[hash].chunk.js' : '[id].chunk.js'
   };
@@ -85,7 +82,7 @@ module.exports = function makeWebpackConfig() {
     // only discover files that have those extensions
     extensions: ['.ts', '.js', '.json', '.css', '.scss', '.html'],
     symlinks: true,
-    modules: [defaultModuleLocation, pluginHome]
+    modules: [defaultModuleLocation]
   };
 
   var atlOptions = '';
@@ -281,7 +278,8 @@ module.exports = function makeWebpackConfig() {
     contentBase: './src/public',
     historyApiFallback: true,
     quiet: true,
-    stats: 'minimal' // none (or false), errors-only, minimal, normal (or true) and verbose
+    stats: 'minimal', // none (or false), errors-only, minimal, normal (or true) and verbose
+    proxy: proxyConfig
   };
 
   config.node = {fs:'empty'};

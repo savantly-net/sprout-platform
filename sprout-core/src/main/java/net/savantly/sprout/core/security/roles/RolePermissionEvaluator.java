@@ -3,12 +3,10 @@ package net.savantly.sprout.core.security.roles;
 import java.io.Serializable;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Service;
 
 import net.savantly.sprout.core.security.Permission;
 import net.savantly.sprout.core.security.SproutPermissionEvaluator;
 
-@Service
 public class RolePermissionEvaluator implements SproutPermissionEvaluator<Role> {
     
     @Override
