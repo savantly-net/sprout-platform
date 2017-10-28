@@ -1,0 +1,25 @@
+<div fxLayout="column" fxLayoutGap="1em">
+	<mat-toolbar>
+		<button mat-button (click)="addItem()">
+			<mat-icon>add</mat-icon>
+			<span>New Page</span>
+		</button>
+	</mat-toolbar>
+	
+	<div fxLayout fxLayout.lt-sm="column" fxLayoutWrap="true" fxLayoutGap="1em">
+		<mat-card  *ngFor="let item of items">
+			<mat-card-header>
+				<mat-card-title>{{item.name}}</mat-card-title>
+				<mat-card-subtitle>{{item.description}}</mat-card-subtitle>
+			</mat-card-header>
+			<mat-card-actions>
+				<button mat-button (click)="editItem(item)">
+					<mat-icon matListIcon>edit</mat-icon>
+				</button>
+				<button mat-button (click)="deleteItem(item)">
+					<mat-icon matListIcon>delete</mat-icon>
+				</button>
+			</mat-card-actions>
+		</mat-card>
+	</div>
+</div>

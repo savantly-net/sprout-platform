@@ -9,18 +9,18 @@ import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
 public class SproutPermissionRegistry {
     
     private static final Logger log = LoggerFactory.getLogger(SproutPermissionRegistry.class);
     
     private Map<Class<?>, SproutPermissionEvaluator<?>> permissionEvaluatorMap = new HashMap<>();
     
-    @Autowired(required=false)
     Set<SproutPermissionEvaluator> evaluatorBeans = new HashSet<>();
+    
+    public SproutPermissionRegistry(Set<SproutPermissionEvaluator> evaluatorBeans) {
+		this.evaluatorBeans = evaluatorBeans;
+	}
     
     @PostConstruct
     public void post(){

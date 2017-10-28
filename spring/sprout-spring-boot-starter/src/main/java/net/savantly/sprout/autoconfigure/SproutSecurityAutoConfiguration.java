@@ -31,17 +31,19 @@ import net.savantly.sprout.oauth.LinkedinPrincipalExtractor;
 import net.savantly.sprout.starter.SproutWebSecurityConfiguration;
 
 @Configuration
-@EnableWebSecurity
 @EnableOAuth2Client
+@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SproutSecurityAutoConfiguration {
 	
 	@Bean
 	public SproutWebSecurityConfiguration sproutWebSecurityConfiguration(
 			UserDetailsService userDetailsService, 
-			@Qualifier("ssoFilter")	Filter ssoFilter, 
 			@Qualifier("oauth2ClientContextFilter") Filter oauthFilter, 
-			PasswordEncoder passwordEncoder) {
+			PasswordEncoder passwordEncoder,
+			@Qualifier("githubClient") ClientResources gitHubResources, 
+			 @Qualifier("linkedinClient")ClientResources linkedInResources) {
+		Filter ssoFilter = ssoFilter(gitHubResources, linkedInResources);
 		return new SproutWebSecurityConfiguration(userDetailsService, ssoFilter, oauthFilter, passwordEncoder);
 	}
 	
@@ -78,8 +80,8 @@ public class SproutSecurityAutoConfiguration {
 		return resources;
 	}
 	
-	@Bean(name="ssoFilter")
-	public Filter ssoFilter(
+	//@Bean(name="ssoFilter")
+	private Filter ssoFilter(
 			@Qualifier("githubClient") ClientResources gitHubResources, 
 			 @Qualifier("linkedinClient")ClientResources linkedInResources) {
 		CompositeFilter filter = new CompositeFilter();

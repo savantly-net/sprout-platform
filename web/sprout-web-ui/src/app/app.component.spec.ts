@@ -1,34 +1,30 @@
+import { AppMenuComponent } from './app-menu/app-menu.component';
+import { AppMenuService } from './app-menu/app-menu.service';
 import { TestBed } from '@angular/core/testing';
 import { provideRoutes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { SecurityModule, SecurityService } from '@savantly/ngx-security';
-import { MenuModule, MenuService } from '@savantly/ngx-menu';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SecurityModule } from '@savantly/ngx-security';
 import { ApiService } from './shared';
-import { HeaderComponent } from './header/header.component';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
-
-const menuServiceFactory = (_securityService: SecurityService) => {
-  return new MenuService(_securityService);
-};
+import { MenuModule } from '@savantly/ngx-menu';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
   // provide our implementations or mocks to the dependency injector
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule,
+        BrowserAnimationsModule,
         MaterialModule,
+        HttpClientModule,
         SecurityModule.forRoot(),
-        MenuModule
+        MenuModule.forRoot()
       ],
-      declarations: [HeaderComponent, AppComponent],
-      providers: [ApiService, provideRoutes([]),
-        {
-          provide: MenuService,
-          useFactory: menuServiceFactory,
-          deps: [SecurityService]
-        }]
+      declarations: [AppComponent, AppMenuComponent],
+      providers: [ApiService, AppMenuService, provideRoutes([])]
     });
   });
 

@@ -39,7 +39,6 @@ public abstract class PersistedDomainObject extends AbstractAuditableDomainObjec
     /**
      * Must be {@link Transient} in order to ensure that no JPA provider complains because of a missing setter.
      * 
-     * @see DATAJPA-622
      * @see org.springframework.data.domain.Persistable#isNew()
      */
     @Transient

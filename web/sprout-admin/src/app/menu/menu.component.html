@@ -1,0 +1,50 @@
+<mat-list>
+	<mat-list-item>
+		<button mat-button (click)="menu.close()">
+			<mat-icon>menu</mat-icon>
+			<span>Close Menu</span>
+		</button>
+	</mat-list-item>
+	<mat-list-item>
+		<button mat-button [routerLink]="['']">
+			<mat-icon>home</mat-icon>
+			<span>Home</span>
+		</button>
+	</mat-list-item>
+	<mat-list-item>
+		<button mat-button [routerLink]="['app-menu']">
+			<mat-icon>assignment</mat-icon>
+			<span>App Menu</span>
+		</button>
+	</mat-list-item>
+	<mat-list-item>
+		<button mat-button [routerLink]="['layouts']">
+			<mat-icon>assignment</mat-icon>
+			<span>Page Layouts</span>
+		</button>
+	</mat-list-item>
+	<mat-list-item>
+		<button mat-button [routerLink]="['pages']">
+			<mat-icon>assignment</mat-icon>
+			<span>Pages</span>
+		</button>
+	</mat-list-item>
+	<mat-list-item>
+		<button mat-button [routerLink]="['content-template']">
+			<mat-icon>assignment</mat-icon>
+			<span>Content Templates</span>
+		</button>
+	</mat-list-item>
+	<mat-list-item>
+		<button mat-button [routerLink]="['content-types']">
+			<mat-icon>description</mat-icon>
+			<span>Content Types</span>
+		</button>
+	</mat-list-item>
+	<mat-list-item>
+		<button mat-button [routerLink]="['content-item']">
+			<mat-icon>library_books</mat-icon>
+			<span>Content Items</span>
+		</button>
+	</mat-list-item>
+</mat-list>

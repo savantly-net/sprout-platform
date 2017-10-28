@@ -1,22 +1,41 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MdMenuModule, MdToolbarModule, MdButtonModule } from '@angular/material';
+import {
+  MatSidenavModule,
+  MatButtonModule,
+  MatIconModule,
+  MatRippleModule,
+  MatListModule,
+  MatMenuModule,
+  MatToolbarModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSnackBarModule,
+  MatSelectModule,
+  MatCheckboxModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MdMenuModule,
-    MdToolbarModule,
-    MdButtonModule,
-    FlexLayoutModule
-  ],
+  imports: [],
+  declarations: [],
   exports: [
-    MdMenuModule,
-    MdToolbarModule,
-    MdButtonModule,
+    CommonModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatIconModule,
+    MatRippleModule,
+    MatListModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatSelectModule,
+    MatCheckboxModule,
     FlexLayoutModule
   ],
-  declarations: []
+  providers: []
 })
 export class MaterialModule { }

@@ -9,24 +9,25 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
+import { AppMenuComponent } from './app-menu/app-menu.component';
+import { AppMenuService } from './app-menu/app-menu.service';
 import { ApiService } from './shared';
 import { routing } from './app.routing';
 import { ContextMenuComponent } from './contextMenu/contextMenu.component';
+import { DynamicBuilderService } from './dynamic/dynamic-builder.service';
+import { DynamicComponent } from './dynamic/dynamic.component';
 import { MaterialModule } from './material/material.module';
 import { AuthenticationService, AuthGaurdService,
-  RoleGaurdService, SecurityMockService, SecurityModule, SecurityService } from '@savantly/ngx-security';
-import { MenuModule, MenuService } from '@savantly/ngx-menu';
+  RoleGaurdService, SecurityMockService, SecurityModule } from '@savantly/ngx-security';
 import { SproutPluginModule } from '@savantly/ngx-sprout-plugin';
-import { HeaderComponent } from './header/header.component'
+import { PageModule } from './page/page.module';
 import { PluginsModule } from './plugins/plugins.module';
-
-const menuServiceFactory = (_securityService: SecurityService) => {
-  return new MenuService(_securityService);
-};
-
+import { CommonModule } from '@angular/common';
+import { MenuModule } from '@savantly/ngx-menu';
 
 @NgModule({
   imports: [
+    CommonModule,
     BrowserModule,
     HttpModule,
     FormsModule,
@@ -35,28 +36,25 @@ const menuServiceFactory = (_securityService: SecurityService) => {
     SecurityModule.forRoot(),
     SproutPluginModule.forRoot(),
     MaterialModule,
-    MenuModule,
-    PluginsModule
+    MenuModule.forRoot(),
+    PluginsModule,
+    PageModule
   ],
   exports: [PluginsModule],
   declarations: [
     AppComponent,
     HomeComponent,
     AboutComponent,
-    HeaderComponent,
-    ContextMenuComponent
+    ContextMenuComponent,
+    AppMenuComponent,
+    DynamicComponent
   ],
   providers: [
     ApiService,
     AuthenticationService, AuthGaurdService, RoleGaurdService,
-    SecurityMockService,
-    {
-      provide: MenuService,
-      useFactory: menuServiceFactory,
-      deps: [SecurityService]
-    }
+    SecurityMockService, AppMenuService, DynamicBuilderService
   ],
-  entryComponents: [],
+  entryComponents: [ DynamicComponent ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

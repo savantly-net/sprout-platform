@@ -2,15 +2,16 @@ package net.savantly.sprout.core.domain.emailAddress;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import net.savantly.spring.fixture.AbstractBaseFixture;
 import net.savantly.spring.fixture.Fixture;
 import net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepository;
 
-@Service
+
 public class EmailAddressFixture extends AbstractBaseFixture<EmailAddress, EmailAddressRepository> {
 
+    public static final String SYSTEM_EMAIL = "system@savantly.net";
+    public static final String ADMIN_EMAIL = "admin@savantly.net";
+    
     private EmailAddressRepository repository;
 
     public EmailAddressFixture(EmailAddressRepository repository) {
@@ -20,13 +21,11 @@ public class EmailAddressFixture extends AbstractBaseFixture<EmailAddress, Email
 
     @Override
     public void addEntities(List<EmailAddress> entityList) {
-        String SYSTEMEmail = "system@savantly.net";
-        if(repository.findOne(SYSTEMEmail) == null){
-            entityList.add(new EmailAddress(SYSTEMEmail));
+        if(repository.findOne(SYSTEM_EMAIL) == null){
+            entityList.add(new EmailAddress(SYSTEM_EMAIL));
         }
-        String adminEmail = "admin@savantly.net";
-        if(repository.findOne(adminEmail) == null){
-            entityList.add(new EmailAddress(adminEmail));
+        if(repository.findOne(ADMIN_EMAIL) == null){
+            entityList.add(new EmailAddress(ADMIN_EMAIL));
         }
     }
 

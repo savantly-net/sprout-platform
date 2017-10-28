@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { plugins } from '../../../sprout.conf';
-import { MenuModule } from '@savantly/ngx-menu';
 import { SecurityModule } from '@savantly/ngx-security';
 import { SproutPluginModule } from '@savantly/ngx-sprout-plugin';
 import { Observable } from 'rxjs/Observable';
@@ -18,7 +17,6 @@ const log = (msg: string, obj?: any) => {
   imports: [
     CommonModule,
     SproutPluginModule,
-    MenuModule,
     SecurityModule,
     ...plugins
   ],

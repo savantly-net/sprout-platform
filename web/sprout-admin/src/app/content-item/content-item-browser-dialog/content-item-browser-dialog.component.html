@@ -1,0 +1,14 @@
+<div fxLayout="column" fxLayoutGap="1em">
+	<mat-form-field hintLabel="Filter the items">
+		<input matInput [(ngModel)]="filterText" maxlength="255" placeholder="Enter a search term">
+	</mat-form-field>
+	
+	<div *ngIf="items">
+		<div *ngFor="let item of items | filter : 'name' : filterText">
+			<div fxLayout fxLayoutAlign="space-between center">
+				<span>{{item.name}}</span>
+				<button mat-button (click)="select(item)" color="accent"><mat-icon>done</mat-icon></button>
+			</div>
+		</div>
+	</div>
+</div>
