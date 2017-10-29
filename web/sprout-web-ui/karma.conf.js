@@ -74,11 +74,11 @@ module.exports = function (config) {
     }
   };
   
-  if (!isWin) {
-	 _config.browsers.push('Chrome'); 
-  } else if (isCI) {
+  if (isCI) {
 	  _config.browsers.push('PhantomJS'); 
-  } else {
+  } else if (!isWin) {
+	 //_config.browsers.push('Chrome'); 
+  } else  {
 	 _config.browsers.push('Firefox'); 
   }
 

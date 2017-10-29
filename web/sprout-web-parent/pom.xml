@@ -194,6 +194,7 @@
 										<version>${sprout.version}</version>
 										<classifier>resources</classifier>
 										<type>zip</type>
+										<overWrite>true</overWrite>
 									</artifactItem>
 								</artifactItems>
 								<outputDirectory>${project.build.directory}/sprout-resources/ui/</outputDirectory>
