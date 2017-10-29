@@ -4,6 +4,11 @@
 	<artifactId>web-ui</artifactId>
 	<packaging>pom</packaging>
 	<name>sprout-web-ui</name>
+	<parent>
+		<groupId>net.savantly</groupId>
+		<artifactId>parent-pom</artifactId>
+		<version>1.0.0-RELEASE</version>
+	</parent>
 	<scm>
 		<url>https://github.com/savantly-net/sprout-platform</url>
 		<connection>https://github.com/savantly-net/sprout-platform.git</connection>
@@ -13,12 +18,6 @@
 		<url>https://github.com/savantly-net/sprout-platform/issues</url>
 		<system>GitHub</system>
 	</issueManagement>
-	<parent>
-		<groupId>net.savantly.sprout</groupId>
-		<version>1.2.0-SNAPSHOT</version>
-		<artifactId>platform</artifactId>
-		<relativePath>../../pom.xml</relativePath>
-	</parent>
 	<developers>
 		<developer>
 			<name>Jeremy Branham</name>
@@ -48,7 +47,9 @@
 				</os>
 			</activation>
 			<properties>
-				<!-- For some reason, on windows, it hangs when launching Chrome from the karma tests [only when running from mvn] you can still run 'npm test' from the cli -->
+				<!-- For some reason, on windows, it hangs when launching Chrome from 
+					the karma tests [only when running from mvn] you can still run 'npm test' 
+					from the cli -->
 				<exec.test.skip>true</exec.test.skip>
 			</properties>
 			<build>
@@ -145,4 +146,6 @@
 	</build>
 	<dependencies></dependencies>
 	<description>Default ui for Sprout</description>
+	<groupId>net.savantly.sprout</groupId>
+	<version>1.3.0-SNAPSHOT</version>
 </project>

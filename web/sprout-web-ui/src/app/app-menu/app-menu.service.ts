@@ -27,6 +27,9 @@ export class AppMenuService {
   constructor(private http: HttpClient) {
     this.getRootMenus().subscribe((response) => {
       this.menus = response._embedded.menus;
+    }, (error) => {
+      console.log(error);
+      this.menus = [];
     });
   }
 
