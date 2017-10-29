@@ -82,7 +82,7 @@ public class UiLoader<T> {
 	private String extractJar() throws URISyntaxException, IOException {
 		URL location =  PathUtil.getLocation(hostAppClass);
 		log.info("using this location to find client files: {}", location);
-		boolean isJar = location.toString().endsWith(".jar");
+		boolean isJar = location.toString().endsWith(".jar") || location.toString().contains("!");
 		String locationString = location.toString();
 		if(isJar) {
 			log.info("attempting to extract jar file: {}", locationString);
