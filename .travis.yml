@@ -3,8 +3,6 @@ sudo: required
 language: java
 jdk:
   - oraclejdk8
-node_js:
-  - "8"
 env:
   - TRAVIS_NODE_VERSION="8"
 cache:
@@ -12,11 +10,11 @@ cache:
     - $HOME/.m2
     - node_modules
 install: true
-before_install:
+before_script:
   - sudo apt-get update
   - sudo apt-get install chromium-chromedriver
   - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION
-before_script:
+  - export NODE_PATH = `nvm which $TRAVIS_NODE_VERSION`
   - "export PATH=$PATH:/usr/lib/chromium-browser/"
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
