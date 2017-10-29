@@ -28,6 +28,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import freemarker.template.TemplateException;
+import net.savantly.sprout.autoconfigure.EnableSprout;
 import net.savantly.sprout.content.contentType.ContentTypeTemplateLoader;
 import net.savantly.sprout.core.content.contentField.ContentField;
 import net.savantly.sprout.core.content.contentItem.ContentItem;
@@ -122,6 +123,7 @@ public class ContentItemRequestTest {
 	
 	@Configuration
 	@EnableAutoConfiguration
+	@EnableSprout
 	static class TestContext {
 /*		
 		@Bean

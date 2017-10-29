@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 
 import net.savantly.sprout.core.configuration.SproutConfiguration;
+import net.savantly.sprout.core.file.PathUtil;
 import net.savantly.sprout.core.resource.SproutResourcePatternResolver;
 
 public class UiLoader<T> {
@@ -41,6 +42,7 @@ public class UiLoader<T> {
 	private String overlaySearchPattern;
 	private boolean extract;
 	private boolean compile;
+	private Class<?> hostAppClass;
 
 	public UiLoader(UiLoaderBuilder uiLoaderBuilder) throws Exception {
 		this.resolver = uiLoaderBuilder.resolver;
@@ -52,6 +54,7 @@ public class UiLoader<T> {
 		this.overlaySearchPattern = uiLoaderBuilder.overlaySearchPattern;
 		this.extract = uiLoaderBuilder.extract;
 		this.compile = uiLoaderBuilder.compile;
+		this.hostAppClass = uiLoaderBuilder.hostAppClass;
 		try {
 			init();
 		} catch (IOException | InterruptedException e) {
@@ -77,24 +80,20 @@ public class UiLoader<T> {
 	 * returns the path of the extracted jar file
 	 **/
 	private String extractJar() throws URISyntaxException, IOException {
-		URL location = UiLoader.class.getProtectionDomain().getCodeSource().getLocation();
-		int isJar = location.toString().indexOf("!");
+		URL location =  PathUtil.getLocation(hostAppClass);
+		log.info("using this location to find client files: {}", location);
+		boolean isJar = location.toString().endsWith(".jar");
 		String locationString = location.toString();
-		if(isJar > -1) {
+		if(isJar) {
 			log.info("attempting to extract jar file: {}", locationString);
-			// stripping 'jar:' and everything after the !
-			locationString = locationString.substring(0, isJar);
-			String[] locationParts = locationString.split(":");
-			locationString = locationParts[locationParts.length-1];
-			File jarFile = new File(locationString);
+			File jarFile = PathUtil.urlToFile(location);
 			log.debug("running from jar: {}", jarFile.getAbsolutePath());
 			Path tempFolderPath = Files.createTempDirectory("sprout");
 			extractFolder(jarFile, tempFolderPath.toString(), false);
 			return tempFolderPath.toString();
 		} else {
-			Path folderPath = Paths.get(locationString);
-			log.debug("running from filesystem folder: {}", folderPath);
-			return folderPath + "/";
+			log.debug("running from filesystem folder: {}", locationString);
+			return locationString;
 		}
 	}
 	
@@ -104,8 +103,14 @@ public class UiLoader<T> {
 		} else return string;
 	}
 	
+	private String ensureRight(String suffix, String string) {
+		if (!string.endsWith(suffix)) {
+			return string + suffix;
+		} else return string;
+	}
+	
 	private String makeSearchPattern(String sourcePath, String searchPattern) {
-		return ensureLeft("file:/", sourcePath) + searchPattern;
+		return ensureRight("/", ensureLeft("file:/", sourcePath)) + searchPattern;
 	}
 	
 
@@ -113,7 +118,7 @@ public class UiLoader<T> {
 		String pattern = makeSearchPattern(sourcePath, zipSearchPattern);
 		Resource[] resourcePaths = resolver.getResourcePaths(pattern);
 		if (resourcePaths.length == 0) {
-			throw new RuntimeException("No files found that match search pattern: " + zipSearchPattern);
+			throw new RuntimeException("No files found that match search pattern: " + pattern);
 		}
 		for (Resource resource : resourcePaths) {
 			extractFolder(resource.getFile(), sproutHome, false);
@@ -277,7 +282,7 @@ public class UiLoader<T> {
 		private String destinationFolder = Paths.get(System.getProperty("user.home"), "sprout").toString();
 		private List<String> installArgs;
 		private List<String> buildArgs;
-		private String zipSearchPattern = "/**/sprout/ui/*-resources.zip";
+		private String zipSearchPattern = "**/sprout/ui/*-resources.zip";
 		private String sproutPluginSearchPattern = "/**/sprout/plugins/**/*.*";
 		private String overlaySearchPattern = "/**/sprout/overlay/**/*.*";
 		private String NODE_PATH = System.getenv("NODE_PATH");
@@ -285,6 +290,7 @@ public class UiLoader<T> {
 		private String npmBin = "/usr/bin/npm";
 		private boolean extract = false;
 		private boolean compile = false;
+		private Class<?> hostAppClass;
 
 		public UiLoaderBuilder() {
 
@@ -357,12 +363,20 @@ public class UiLoader<T> {
 		}
 
 		public UiLoaderBuilder nodeBin(String nodeBin) {
-			this.nodeBin = nodeBin;
+			if(nodeBin == null) {
+				log.warn("tried to set null nodeBin");
+			} else {
+				this.nodeBin = nodeBin;
+			}
 			return this;
 		}
 
 		public UiLoaderBuilder npmBin(String npmBin) {
-			this.npmBin = npmBin;
+			if(npmBin == null) {
+				log.warn("tried to set null npmBin");
+			} else {
+				this.npmBin = npmBin;
+			}
 			return this;
 		}
 
@@ -375,10 +389,17 @@ public class UiLoader<T> {
 			this.compile = compile;
 			return this;
 		}
+		
+		public UiLoaderBuilder hostAppClass(Class<?> consumerAppClass) {
+			this.hostAppClass = consumerAppClass;
+			return this;
+		}
 
+		@SuppressWarnings("rawtypes")
 		public UiLoader build() throws Exception {
 			return new UiLoader(this);
 		}
+
 	}
 
 }

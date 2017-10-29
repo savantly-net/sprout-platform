@@ -1,6 +1,5 @@
 package net.savantly.sprout.core.ui;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,6 +20,7 @@ public class UiLoaderTest {
 	public void test() throws Exception {
 		Path tmpFolder = Files.createDirectories(Paths.get("target", "ui-test"));
 		UiLoader loader = new UiLoader.UiLoaderBuilder()
+				.hostAppClass(UiLoaderTest.class)
 				.resolver(SproutResourcePatternResolver.of(UiLoaderTest.class))
 				.destinationFolder(tmpFolder.toAbsolutePath().toString())
 				.zipSearchPattern("../test-classes/**/*.zip")

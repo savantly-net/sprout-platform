@@ -84,6 +84,7 @@ public class SproutRepositoryRestConfigurationTest {
 	
 	@Configuration
 	@EnableAutoConfiguration
+	@EnableSprout
 	static class TestContext{
 		
 	}

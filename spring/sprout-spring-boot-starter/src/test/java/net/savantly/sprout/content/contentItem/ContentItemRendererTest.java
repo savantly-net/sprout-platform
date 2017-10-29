@@ -23,6 +23,7 @@ import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
+import net.savantly.sprout.autoconfigure.EnableSprout;
 import net.savantly.sprout.content.contentType.ContentTypeTemplateLoader;
 import net.savantly.sprout.core.content.contentField.ContentField;
 import net.savantly.sprout.core.content.contentItem.ContentItem;
@@ -96,6 +97,7 @@ public class ContentItemRendererTest {
 	
 	@Configuration
 	@EnableAutoConfiguration
+	@EnableSprout
 	static class TestContext {
 		
 /*		@Bean
