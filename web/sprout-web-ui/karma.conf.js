@@ -78,6 +78,7 @@ module.exports = function (config) {
 	  _config.browsers.push('PhantomJS'); 
   } else if (!isWin) {
 	 //_config.browsers.push('Chrome'); 
+	  _config.browsers.push('PhantomJS'); 
   } else  {
 	 _config.browsers.push('Firefox'); 
   }
