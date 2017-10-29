@@ -17,7 +17,7 @@ before_install:
   - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION
 before_script:
   - "export NODE_BIN=`nvm which $TRAVIS_NODE_VERSION`"
-  - "export NODE_PATH= `dirname $NODE_BIN`"
+  - "export NODE_PATH=`dirname $NODE_BIN`"
   - "export PATH=$PATH:/usr/lib/chromium-browser/"
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
