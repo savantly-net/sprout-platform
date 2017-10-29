@@ -45,7 +45,7 @@ public class SproutAutoConfigurationTest {
 	
 	@Test
 	public void testInitialization(){
-		ctx.getBean(SproutResourceAutoConfiguration.class);
+		ctx.getBean(SproutAutoConfiguration.class);
 	}
 	
 	
@@ -72,7 +72,6 @@ public class SproutAutoConfigurationTest {
 	}
 	
 	@Configuration
-	@EnableSprout
 	@EnableAutoConfiguration
 	static class TestContext{
 		

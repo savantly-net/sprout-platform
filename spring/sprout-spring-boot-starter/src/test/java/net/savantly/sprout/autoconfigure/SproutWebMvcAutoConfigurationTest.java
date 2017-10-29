@@ -1,12 +1,11 @@
 package net.savantly.sprout.autoconfigure;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.transaction.Transactional;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,9 +29,9 @@ import net.savantly.sprout.core.domain.menu.MenuRepository;
 @SpringBootTest
 @WebAppConfiguration
 @RunWith(SpringRunner.class)
-public class SproutRepositoryRestConfigurationTest {
+public class SproutWebMvcAutoConfigurationTest {
 	
-	private static final Logger log = LoggerFactory.getLogger(SproutRepositoryRestConfigurationTest.class);
+	private static final Logger log = LoggerFactory.getLogger(SproutWebMvcAutoConfigurationTest.class);
 
 	@Autowired
 	WebApplicationContext ctx;	
@@ -84,7 +83,6 @@ public class SproutRepositoryRestConfigurationTest {
 	
 	@Configuration
 	@EnableAutoConfiguration
-	@EnableSprout
 	static class TestContext{
 		
 	}

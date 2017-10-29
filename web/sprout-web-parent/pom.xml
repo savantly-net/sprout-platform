@@ -48,6 +48,8 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<sprout.version>${project.version}</sprout.version>
+		<exec.test.skip>false</exec.test.skip>
+		<CHROME_BIN>/usr/bin/chrome</CHROME_BIN>
 	</properties>
 	<distributionManagement>
 		<snapshotRepository>
@@ -155,8 +157,6 @@
 			<artifactId>sprout-spring-boot-starter</artifactId>
 		</dependency>
 
-		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-devtools</artifactId> 
-			<scope>runtime</scope> </dependency> -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -182,9 +182,9 @@
 					<artifactId>maven-dependency-plugin</artifactId>
 					<executions>
 						<execution>
-							<id>copy web-ui resources [target/classes folder]</id>
+							<id>copy web-ui resources from maven dependency</id>
 							<goals>
-								<goal>copy</goal>
+								<goal>unpack</goal>
 							</goals>
 							<phase>generate-resources</phase>
 							<configuration>
@@ -196,7 +196,109 @@
 										<type>zip</type>
 									</artifactItem>
 								</artifactItems>
-								<outputDirectory>${project.build.directory}/classes/sprout/ui/</outputDirectory>
+								<outputDirectory>${project.build.directory}/sprout-resources/ui/</outputDirectory>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<configuration>
+						<environmentVariables>
+							<CHROME_BIN>${CHROME_BIN}</CHROME_BIN>
+							<npm_config_package_version>${npm_package_version}</npm_config_package_version>
+						</environmentVariables>
+					</configuration>
+					<executions>
+						<execution>
+							<id>npm configuration list (validate)</id>
+							<goals>
+								<goal>exec</goal>
+							</goals>
+							<phase>validate</phase>
+							<configuration>
+								<executable>npm</executable>
+								<arguments>
+									<argument>config</argument>
+									<argument>list</argument>
+									<argument>-l</argument>
+								</arguments>
+							</configuration>
+						</execution>
+						<execution>
+							<id>npm install (takes a while)</id>
+							<goals>
+								<goal>exec</goal>
+							</goals>
+							<phase>compile</phase>
+							<configuration>
+								<executable>npm</executable>
+								<arguments>
+									<argument>--prefix</argument>
+									<argument>./target/sprout-resources/ui</argument>
+									<argument>install</argument>
+								</arguments>
+							</configuration>
+						</execution>
+						<execution>
+							<id>npm test</id>
+							<goals>
+								<goal>exec</goal>
+							</goals>
+							<phase>test</phase>
+							<configuration>
+								<executable>npm</executable>
+								<arguments>
+									<argument>run</argument>
+									<argument>test</argument>
+									<argument>--prefix</argument>
+									<argument>./target/sprout-resources/ui</argument>
+								</arguments>
+								<skip>${exec.test.skip}</skip>
+							</configuration>
+						</execution>
+						<execution>
+							<id>npm build</id>
+							<goals>
+								<goal>exec</goal>
+							</goals>
+							<phase>compile</phase>
+							<configuration>
+								<executable>npm</executable>
+								<arguments>
+									<argument>run</argument>
+									<argument>build</argument>
+									<argument>--prefix</argument>
+									<argument>./target/sprout-resources/ui</argument>
+								</arguments>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.0.2</version>
+					<executions>
+						<execution>
+							<id>copy-resources</id>
+							<phase>compile</phase>
+							<goals>
+								<goal>copy-resources</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>${basedir}/target/classes</outputDirectory>
+								<resources>
+									<resource>
+										<directory>${basedir}/target/sprout-resources/ui/dist</directory>
+										<targetPath>./static/ui/</targetPath>
+									</resource>
+									<resource>
+										<directory>${basedir}/target/sprout-resources/ui/dist</directory>
+										<include>index.html</include>
+										<targetPath>./templates/ui/</targetPath>
+									</resource>
+								</resources>
 							</configuration>
 						</execution>
 					</executions>
@@ -211,6 +313,13 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>

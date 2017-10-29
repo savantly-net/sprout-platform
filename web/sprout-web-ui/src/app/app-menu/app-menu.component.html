@@ -14,7 +14,9 @@
 	<mat-list-item *ngFor="let menu of menus | async">
 		<sv-menu menuId="{{menu.id}}"></sv-menu>
 	</mat-list-item>
-	<ng-container *ngTemplateOutlet="menuListTemplate;context:{itemList:appMenus}"></ng-container>
+	<ng-container *ngIf="appMenus">
+		<ng-container *ngTemplateOutlet="menuListTemplate;context:{itemList:appMenus}"></ng-container>
+	</ng-container>
 </mat-list>
 
 <ng-template #menuItemTemplate let-item="item">
