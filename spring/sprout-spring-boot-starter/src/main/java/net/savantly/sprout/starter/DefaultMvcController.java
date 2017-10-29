@@ -31,7 +31,7 @@ public class DefaultMvcController {
 
 	@RequestMapping({"", "index"})
 	public ModelAndView index() throws IOException {
-		String viewName = "index";
+		String viewName = "ui/index";
 		ModelAndView modelAndView = new ModelAndView(viewName);
 		return modelAndView;
 	}

@@ -33,8 +33,8 @@ public class SproutWebMvcAutoConfiguration {
 	private static final Logger log = LoggerFactory.getLogger(SproutWebMvcAutoConfiguration.class);
 
 	@Bean
-	public SproutMvcConfiguration sproutMvcAutoConfigurationAdapter(SproutResourceAutoConfiguration  resourcesConfiguration) {
-		return new SproutMvcConfiguration(resourcesConfiguration);
+	public SproutMvcConfiguration sproutMvcAutoConfigurationAdapter() {
+		return new SproutMvcConfiguration();
 	}
 	
 	@Bean

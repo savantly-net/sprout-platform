@@ -23,7 +23,7 @@ import net.savantly.sprout.core.content.contentItem.ContentItemRepository;
 @EntityScan
 @EnableTransactionManagement
 public class SproutAutoConfiguration {
-	
+
 	@Bean
 	public Jackson2ObjectMapperBuilderCustomizer objectMapperCustomizer(ContentFieldRepository repository, ContentItemRepository contentItemRepository) {
 		Jackson2ObjectMapperBuilderCustomizer customizer = new MapperCustomizer(repository, contentItemRepository);

@@ -1,6 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 net.savantly.sprout.autoconfigure.SproutAutoConfiguration,\
-net.savantly.sprout.autoconfigure.SproutResourceAutoConfiguration,\
 net.savantly.sprout.autoconfigure.SproutRepositoryRestAutoConfiguration,\
 net.savantly.sprout.autoconfigure.SproutFixtureAutoConfiguration,\
 net.savantly.sprout.autoconfigure.SproutWebMvcAutoConfiguration,\

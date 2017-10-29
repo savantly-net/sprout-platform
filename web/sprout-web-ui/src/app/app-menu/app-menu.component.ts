@@ -19,6 +19,9 @@ export class AppMenuComponent implements OnInit {
     this.menus = this.menuService.getMenus();
     this.appMenuService.getRootMenus().subscribe((response) => {
       this.appMenus = response._embedded.menus;
+    }, (error) => {
+      console.log(error);
+      this.appMenus = [];
     });
   }
 
