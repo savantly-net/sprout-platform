@@ -4,7 +4,7 @@ var webpackConfig = require('./webpack.config');
 
 var ENV = process.env.npm_lifecycle_event;
 var isTestWatch = ENV === 'test-watch';
-var isCI = process.env.CI;
+var isCI = process.env.CI == true;
 var isWin = /^win/.test(process.platform);
 
 module.exports = function (config) {
