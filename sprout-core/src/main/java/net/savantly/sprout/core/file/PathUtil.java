@@ -36,7 +36,6 @@ public class PathUtil {
 	 *
 	 * @param c
 	 *            The class whose location is desired.
-	 * @see FileUtils#urlToFile(URL) to convert the result to a {@link File}.
 	 */
 	public static URL getLocation(final Class<?> c) {
 		if (c == null)
