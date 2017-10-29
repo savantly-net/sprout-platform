@@ -49,7 +49,6 @@
 		<java.version>1.8</java.version>
 		<sprout.version>${project.version}</sprout.version>
 		<exec.test.skip>false</exec.test.skip>
-		<CHROME_BIN>/usr/bin/chrome</CHROME_BIN>
 	</properties>
 	<distributionManagement>
 		<snapshotRepository>
