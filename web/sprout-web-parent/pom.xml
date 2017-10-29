@@ -192,6 +192,7 @@
 									<artifactItem>
 										<groupId>${project.groupId}</groupId>
 										<artifactId>web-ui</artifactId>
+										<version>${sprout.version}</version>
 										<classifier>resources</classifier>
 										<type>zip</type>
 									</artifactItem>
