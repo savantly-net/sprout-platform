@@ -49,6 +49,7 @@
 		<java.version>1.8</java.version>
 		<sprout.version>${project.version}</sprout.version>
 		<exec.test.skip>false</exec.test.skip>
+		<npm.binary>npm</npm.binary>
 	</properties>
 	<distributionManagement>
 		<snapshotRepository>
@@ -57,6 +58,17 @@
 		</snapshotRepository>
 	</distributionManagement>
 	<profiles>
+		<profile>
+			<id>windows</id>
+			<activation>
+				<os>
+					<family>windows</family>
+				</os>
+			</activation>
+			<properties>
+				<npm.binary>npm.cmd</npm.binary>
+			</properties>
+		</profile>
 		<profile>
 			<id>release</id>
 			<build>
@@ -219,12 +231,9 @@
 							</goals>
 							<phase>validate</phase>
 							<configuration>
-								<executable>npm</executable>
-								<arguments>
-									<argument>config</argument>
-									<argument>list</argument>
-									<argument>-l</argument>
-								</arguments>
+								<executable>${npm.binary}</executable>
+								<workingDirectory>./target/sprout-resources/ui</workingDirectory>
+								<commandlineArgs>config list -l</commandlineArgs>
 							</configuration>
 						</execution>
 						<execution>
@@ -234,12 +243,9 @@
 							</goals>
 							<phase>compile</phase>
 							<configuration>
-								<executable>npm</executable>
-								<arguments>
-									<argument>--prefix</argument>
-									<argument>./target/sprout-resources/ui</argument>
-									<argument>install</argument>
-								</arguments>
+								<executable>${npm.binary}</executable>
+								<workingDirectory>./target/sprout-resources/ui</workingDirectory>
+								<commandlineArgs>install</commandlineArgs>
 							</configuration>
 						</execution>
 						<execution>
@@ -249,13 +255,9 @@
 							</goals>
 							<phase>test</phase>
 							<configuration>
-								<executable>npm</executable>
-								<arguments>
-									<argument>run</argument>
-									<argument>test</argument>
-									<argument>--prefix</argument>
-									<argument>./target/sprout-resources/ui</argument>
-								</arguments>
+								<executable>${npm.binary}</executable>
+								<workingDirectory>./target/sprout-resources/ui</workingDirectory>
+								<commandlineArgs>test</commandlineArgs>
 								<skip>${exec.test.skip}</skip>
 							</configuration>
 						</execution>
@@ -266,13 +268,9 @@
 							</goals>
 							<phase>compile</phase>
 							<configuration>
-								<executable>npm</executable>
-								<arguments>
-									<argument>run</argument>
-									<argument>build</argument>
-									<argument>--prefix</argument>
-									<argument>./target/sprout-resources/ui</argument>
-								</arguments>
+								<executable>${npm.binary}</executable>
+								<workingDirectory>./target/sprout-resources/ui</workingDirectory>
+								<commandlineArgs>run build</commandlineArgs>
 							</configuration>
 						</execution>
 					</executions>
