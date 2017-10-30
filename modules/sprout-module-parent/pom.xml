@@ -36,8 +36,21 @@
 		</license>
 	</licenses>
 	<inceptionYear>2017</inceptionYear>
-
+	<properties>
+		<npm.binary>npm</npm.binary>
+	</properties>
 	<profiles>
+		<profile>
+			<id>windows</id>
+			<activation>
+				<os>
+					<family>windows</family>
+				</os>
+			</activation>
+			<properties>
+				<npm.binary>npm.cmd</npm.binary>
+			</properties>
+		</profile>
 		<profile>
 			<id>Has assembly descriptor</id>
 			<activation>
@@ -124,7 +137,7 @@
 							</goals>
 							<phase>validate</phase>
 							<configuration>
-								<executable>npm</executable>
+								<executable>${npm.binary}</executable>
 								<arguments>
 									<argument>config</argument>
 									<argument>list</argument>
@@ -139,7 +152,7 @@
 							</goals>
 							<phase>generate-resources</phase>
 							<configuration>
-								<executable>npm</executable>
+								<executable>${npm.binary}</executable>
 								<arguments>
 									<argument>install</argument>
 								</arguments>
@@ -152,7 +165,7 @@
 							</goals>
 							<phase>compile</phase>
 							<configuration>
-								<executable>npm</executable>
+								<executable>${npm.binary}</executable>
 								<arguments>
 									<argument>run</argument>
 									<argument>build:lib</argument>
@@ -166,7 +179,7 @@
 							</goals>
 							<phase>test</phase>
 							<configuration>
-								<executable>npm</executable>
+								<executable>${npm.binary}</executable>
 								<arguments>
 									<argument>test</argument>
 								</arguments>
