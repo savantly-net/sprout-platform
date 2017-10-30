@@ -4,6 +4,7 @@ var webpackConfig = require('./webpack.config');
 
 var ENV = process.env.npm_lifecycle_event;
 var isTestWatch = ENV === 'test-watch';
+var isCI = process.env.CI == true;
 var isWin = /^win/.test(process.platform);
 
 module.exports = function (config) {
@@ -73,9 +74,12 @@ module.exports = function (config) {
     }
   };
   
-  if (!isWin) {
-	 _config.browsers.push('Chrome'); 
-  } else {
+  if (isCI) {
+	  _config.browsers.push('PhantomJS'); 
+  } else if (!isWin) {
+	 //_config.browsers.push('Chrome'); 
+	  _config.browsers.push('PhantomJS'); 
+  } else  {
 	 _config.browsers.push('Firefox'); 
   }
 
