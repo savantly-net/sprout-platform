@@ -75,7 +75,6 @@ public class UserFixture extends AbstractBaseFixture<SproutUserEntity, UserRepos
         authorities.add(roleRepository.findOne("ADMIN"));
         userDetails = new SproutUserEntity(username, password , "Admin", "User", authorities);
         userDetails.setPassword(encoder.encode(password));
-        userDetails.setPhoneNumber("18177911627");
         
         EmailAddress emailAddress =  emailAddressRepository.findOne(EmailAddressFixture.ADMIN_EMAIL);
         userDetails.setPrimaryEmailAddress(emailAddress);

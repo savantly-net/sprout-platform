@@ -1,6 +1,5 @@
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 // styles in src/style directory are applied to the whole page
-
+@import './theme.scss';
 
 html, body {
   border: 0;

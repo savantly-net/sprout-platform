@@ -1,7 +1,6 @@
-package net.savantly.sprout.starter;
+package net.savantly.sprout.controllers;
 
 import java.io.IOException;
-import java.net.URI;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +32,7 @@ public class DefaultMvcController {
 		ModelAndView modelAndView = new ModelAndView(viewName);
 		return modelAndView;
 	}
+
 
 	@RequestMapping({"/admin", "/admin/"})
 	public ModelAndView admin() throws IOException {
