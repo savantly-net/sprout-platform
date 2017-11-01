@@ -20,7 +20,7 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-        "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css"        
+        "./theme.scss"        
       ],
       "scripts": [
         

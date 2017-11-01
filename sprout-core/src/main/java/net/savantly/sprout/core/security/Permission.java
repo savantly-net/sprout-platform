@@ -1,7 +1,8 @@
 package net.savantly.sprout.core.security;
 
 public enum Permission implements java.security.acl.Permission{
-	SAVE,
+	CREATE,
 	READ,
+	UPDATE,
 	DELETE
 }
