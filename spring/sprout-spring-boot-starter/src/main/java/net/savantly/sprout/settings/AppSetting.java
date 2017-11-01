@@ -9,6 +9,16 @@ public class AppSetting {
 	private String id;
 	private String value;
 	
+	public AppSetting() {}
+	
+	public AppSetting(String id, String value) {
+		super();
+		this.id = id;
+		this.value = value;
+	}
+
+
+
 	@Id
 	public String getId() {
 		return id;
