@@ -11,9 +11,11 @@
 			<span>Home</span>
 		</button>
 	</mat-list-item>
+	<mat-divider></mat-divider>
 	<mat-list-item *ngFor="let menu of menus | async">
 		<sv-menu menuId="{{menu.id}}"></sv-menu>
 	</mat-list-item>
+	<mat-divider></mat-divider>
 	<ng-container *ngIf="appMenus">
 		<ng-container *ngTemplateOutlet="menuListTemplate;context:{itemList:appMenus}"></ng-container>
 	</ng-container>

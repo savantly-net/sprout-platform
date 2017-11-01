@@ -1,69 +1,44 @@
 package net.savantly.sprout.settings;
 
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.test.context.support.WithAnonymousUser;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.context.WebApplicationContext;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
-@TestPropertySource(locations="classpath:test.properties")
+@DataJpaTest
 @RunWith(SpringRunner.class)
 public class UISettingsTest {
 
 	private static final Logger log = LoggerFactory.getLogger(UISettingsTest.class);
 
 	@Autowired
-	WebApplicationContext ctx;
-	@Autowired
-	ObjectMapper mapper;
-
-	@Autowired
-	TestRestTemplate rest;
-	
-	@BeforeClass
-	public static void beforeClass() {
-		//System.setProperty("spring.freemarker.template-loader-path", "classpath:/templates/");
-	}
-
-	@Test
-	@WithAnonymousUser
-	public void loadLoginPage() throws Exception {
-		String url = "/login";
-		
-		ResponseEntity<String> result = rest.getForEntity(url, String.class);
-		
-		log.info("{}", result.getBody());
-		Assert.assertTrue("Should find the login view", result.getStatusCode() == HttpStatus.OK);
-	}
+	UISettings settings;
 	
 	@Test
-	@WithAnonymousUser
-	public void loadAdminPage() throws Exception {
-		String url = "/admin/asdasdasd";
-		
-		ResponseEntity<String> result = rest.getForEntity(url, String.class);
-		
-		log.info("{}", result.getBody());
-		Assert.assertTrue("Should be redirected for authentication", result.getStatusCode() == HttpStatus.OK);
+	public void TestSave() throws Exception {
+		String keywords = "one, two, three";
+		AppSetting expected = new AppSetting(UISettings.KEYWORDS, keywords);
+		AppSetting actual = settings.save(expected);
+		Assert.assertEquals("Value should match", expected.getValue(), actual.getValue());
+		Assert.assertEquals("Id should match", expected.getId(), actual.getId());
 	}
+	
 	
 	@Configuration
-	@EnableAutoConfiguration
-	static class TestContext {}
+	@EntityScan(basePackageClasses=AppSetting.class)
+	@EnableJpaRepositories(basePackageClasses=AppSettingRepository.class)
+	static class TestContext {
+		@Bean
+		public UISettings uiSettings(AppSettingRepository appSettings) {
+			return new UISettings(appSettings);
+		}
+	}
 }
