@@ -10,20 +10,22 @@ import org.springframework.boot.autoconfigure.freemarker.FreeMarkerAutoConfigura
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.ui.freemarker.FreeMarkerConfigurationFactory;
+import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 import freemarker.template.TemplateException;
-import net.savantly.sprout.bean.processors.ProgressBeanPostProcessor;
-import net.savantly.sprout.bean.processors.SlowBeans;
 import net.savantly.sprout.content.contentItem.ContentItemRenderer;
 import net.savantly.sprout.content.contentItem.ContentItemRestController;
 import net.savantly.sprout.content.contentType.ContentTypeTemplateLoader;
 import net.savantly.sprout.content.webPage.WebPageRenderer;
 import net.savantly.sprout.content.webPage.WebPageRestController;
 import net.savantly.sprout.content.webPageLayout.WebPageLayoutTemplateLoader;
+import net.savantly.sprout.controllers.DefaultMvcController;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplateRepository;
 import net.savantly.sprout.core.content.webPage.WebPageRepository;
 import net.savantly.sprout.core.content.webPageLayout.WebPageLayoutRepository;
-import net.savantly.sprout.starter.DefaultMvcController;
 import net.savantly.sprout.starter.SproutMvcConfiguration;
 
 @Configuration
@@ -31,6 +33,7 @@ import net.savantly.sprout.starter.SproutMvcConfiguration;
 public class SproutWebMvcAutoConfiguration {
 	
 	private static final Logger log = LoggerFactory.getLogger(SproutWebMvcAutoConfiguration.class);
+	
 
 	@Bean
 	public SproutMvcConfiguration sproutMvcAutoConfigurationAdapter() {
@@ -41,6 +44,21 @@ public class SproutWebMvcAutoConfiguration {
 	public DefaultMvcController defaultMvcController() {
 		return new DefaultMvcController();
 	}
+	
+    @Bean
+    public ViewResolver viewResolver() {
+        FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
+        resolver.setCache(false);
+        resolver.setSuffix(".html");
+        return resolver;
+    }
+
+    @Bean
+    public FreeMarkerConfigurationFactory freemarkerConfigurationFactory() throws IOException, TemplateException {
+        FreeMarkerConfigurationFactory factory = new FreeMarkerConfigurationFactoryBean();
+        factory.setTemplateLoaderPaths("classpath*:/templates", "classpath*:/META-INF/templates");
+        return factory;
+    }
 		
 	@Bean
 	public ContentItemRenderer contentItemRenderer(ContentTemplateRepository repository) throws IOException, TemplateException {
@@ -71,14 +89,14 @@ public class SproutWebMvcAutoConfiguration {
 		return new WebPageRenderer(loader, contentItemRenderer);
 	}
 	
-	@Bean
+/*	@Bean
 	SlowBeans slowBeans() {
 		return new SlowBeans();
-	}
+	}*/
 
-	@Bean
+/*	@Bean
 	public static ProgressBeanPostProcessor progressBeanPostProcessor() {
 		return new ProgressBeanPostProcessor();
-	}
+	}*/
 
 }

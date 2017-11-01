@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +19,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.DelegatingAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -46,26 +46,26 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
  	public void configure(WebSecurity web) throws Exception {
  		web.ignoring()
  		// Spring Security should completely ignore URLs starting with /resources/
- 				.antMatchers("/", "/*.js", "/js/**", "/*.html", "**/*.html", "/css/**", "/img/**",  "favicon.ico*", "**/favicon.ico*");
+ 				.antMatchers("/", "/*.js", "/js/**", "/*.html", "/css/**", "/img/**",  "favicon.ico*", "**/favicon.ico*", "/login", "/login/");
  		web.debug(true);
  	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-        AuthenticationEntryPoint authenticationEntryPoint = new DelegatingAuthenticationEntryPoint(entryPoints());
+		DelegatingAuthenticationEntryPoint authenticationEntryPoint = new DelegatingAuthenticationEntryPoint(entryPoints());
         
-       /*http.authorizeRequests().antMatchers("/**").permitAll();*/
+		authenticationEntryPoint.setDefaultEntryPoint(defaultEntryPoint());
 
         http
         	.headers()
         		.frameOptions().disable().and()
             .authorizeRequests()
-                .antMatchers("/", "/js/**", "/css/**", "/index", "/rest/**", "/api/**", "/ui", "/ui/**", "/admin", "/admin/**").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/", "/js/**", "/css/**", "/index", "/rest/**", "/api/**", "/ui", "/ui/**", "/login", "/login/").permitAll()
+                .antMatchers("/admin", "/admin/**").fullyAuthenticated()
                 .and()
             .formLogin()
+            	.loginPage("/login")
                 .permitAll()
-                .loginProcessingUrl("/login")
                 .successHandler(successHandler())
                 .and()
             .logout()
@@ -79,7 +79,7 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
             .exceptionHandling()
         	.accessDeniedPage("/errors/403")
         	.authenticationEntryPoint(authenticationEntryPoint)
-        	.and()
+        		.and()
             .addFilterBefore(oauth2ClientContextFilter, BasicAuthenticationFilter.class)
             .addFilterBefore(ssoFilter, BasicAuthenticationFilter.class);
 	}
@@ -97,7 +97,15 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 	private RequestMatcher restMatcher() {
 		return new RegexRequestMatcher("/rest/*", null);
 	}
-
+	
+	private RequestMatcher rootRquestMatcher() {
+		return new RegexRequestMatcher("/*", null);
+	}
+	
+	private RequestMatcher adminRequestMatcher() {
+		return new RegexRequestMatcher("^/admin", null);
+	}
+	
 	@Override
  	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
  		auth.userDetailsService(userDetailsService)
@@ -117,6 +125,10 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 	
 	AuthenticationSuccessHandler successHandler(){
 		return new SimpleUrlAuthenticationSuccessHandler("/rest/users/token");
+	}
+	
+	public AuthenticationEntryPoint defaultEntryPoint(){
+	    return new LoginUrlAuthenticationEntryPoint("/login");
 	}
 
 }
