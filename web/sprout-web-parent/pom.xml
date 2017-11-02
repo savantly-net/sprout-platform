@@ -48,6 +48,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<sprout.version>${project.version}</sprout.version>
+		<server.only>false</server.only>
 		<exec.test.skip>false</exec.test.skip>
 		<npm.binary>npm</npm.binary>
 	</properties>
@@ -222,6 +223,7 @@
 							<CHROME_BIN>${CHROME_BIN}</CHROME_BIN>
 							<npm_config_package_version>${npm_package_version}</npm_config_package_version>
 						</environmentVariables>
+						<skip>${server.only}</skip>
 					</configuration>
 					<executions>
 						<execution>
