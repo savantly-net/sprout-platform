@@ -18,7 +18,7 @@ import { DynamicBuilderService } from './dynamic/dynamic-builder.service';
 import { DynamicComponent } from './dynamic/dynamic.component';
 import { MaterialModule } from './material/material.module';
 import { AuthenticationService, AuthGaurdService,
-  RoleGaurdService, SecurityMockService, SecurityModule } from '@savantly/ngx-security';
+  RoleGaurdService, SecurityMockService, SecurityModule, SecurityService } from '@savantly/ngx-security';
 import { SproutPluginModule } from '@savantly/ngx-sprout-plugin';
 import { PageModule } from './page/page.module';
 import { PluginsModule } from './plugins/plugins.module';
@@ -58,7 +58,8 @@ import { MenuModule } from '@savantly/ngx-menu';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(public appRef: ApplicationRef) {}
+  constructor(public appRef: ApplicationRef,
+    protected securityService: SecurityService) {}
   hmrOnInit(store) {
     console.log('HMR store', store);
   }
