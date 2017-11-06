@@ -19,7 +19,8 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
-      { pattern: './karma-shim.js', watched: false }
+      { pattern: './karma-shim.js', watched: false },
+      { pattern: './node_modules/@angular/material/prebuilt-themes/indigo-pink.css', included: true, watched: false},
     ],
 
     // list of files to exclude

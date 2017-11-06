@@ -36,7 +36,7 @@
 	</licenses>
 	<inceptionYear>2017</inceptionYear>
 	<properties>
-		<exec.test.skip>true</exec.test.skip>
+		<exec.test.skip>false</exec.test.skip>
 	</properties>
 	<profiles>
 		<profile>
