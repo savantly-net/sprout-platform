@@ -15,7 +15,7 @@ function _window(): any {
 export class AppComponent {
   url = 'https://github.com/preboot/angular2-webpack';
   title: string;
-  clientConfig: any = _window().clientConfig;
+  clientConfig: any = _window().clientConfig || {};
 
   constructor(private api: ApiService) {
     this.title = this.api.title;
