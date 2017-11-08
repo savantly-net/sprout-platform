@@ -5,7 +5,7 @@ import { provideRoutes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SecurityModule } from '@savantly/ngx-security';
+import { SecurityModule, SecurityMockService } from '@savantly/ngx-security';
 import { ApiService } from './shared';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
@@ -20,7 +20,7 @@ describe('AppComponent', () => {
         BrowserAnimationsModule,
         MaterialModule,
         HttpClientModule,
-        SecurityModule.forRoot(),
+        SecurityModule.forRoot(new SecurityMockService),
         MenuModule.forRoot()
       ],
       declarations: [AppComponent, AppMenuComponent],
