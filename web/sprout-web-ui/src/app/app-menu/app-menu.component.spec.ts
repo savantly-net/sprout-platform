@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '../material/material.module';
 import { AppMenuComponent } from './app-menu.component';
 import { MenuModule } from '@savantly/ngx-menu';
-import { SecurityModule } from '@savantly/ngx-security';
+import { SecurityModule, SecurityMockService, ISecurityService } from '@savantly/ngx-security';
 import { AppMenuService } from './app-menu.service';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -21,9 +21,12 @@ describe('AppMenuComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ AppMenuComponent ],
       imports: [routing, RouterModule, HttpClientModule, BrowserAnimationsModule, MaterialModule,
-        SecurityModule.forRoot(),
+        SecurityModule,
         MenuModule.forRoot()],
-      providers: [AppMenuService, {provide: APP_BASE_HREF, useValue: '/'}]
+      providers: [
+        {provide: ISecurityService, useClass: SecurityMockService},
+        AppMenuService,
+        {provide: APP_BASE_HREF, useValue: '/'}]
     })
     .compileComponents();
   }));

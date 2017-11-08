@@ -18,7 +18,7 @@ import { DynamicBuilderService } from './dynamic/dynamic-builder.service';
 import { DynamicComponent } from './dynamic/dynamic.component';
 import { MaterialModule } from './material/material.module';
 import { AuthenticationService, AuthGaurdService,
-  RoleGaurdService, SecurityMockService, SecurityModule, SecurityService } from '@savantly/ngx-security';
+  RoleGaurdService, SecurityMockService, SecurityModule, ISecurityService } from '@savantly/ngx-security';
 import { SproutPluginModule } from '@savantly/ngx-sprout-plugin';
 import { PageModule } from './page/page.module';
 import { PluginsModule } from './plugins/plugins.module';
@@ -33,7 +33,7 @@ import { MenuModule } from '@savantly/ngx-menu';
     FormsModule,
     routing,
     BrowserAnimationsModule,
-    SecurityModule.forRoot(),
+    SecurityModule.forRoot(new SecurityMockService),
     SproutPluginModule.forRoot(),
     MaterialModule,
     MenuModule.forRoot(),
@@ -59,7 +59,7 @@ import { MenuModule } from '@savantly/ngx-menu';
 })
 export class AppModule {
   constructor(public appRef: ApplicationRef,
-    protected securityService: SecurityService) {}
+    protected securityService: ISecurityService) {}
   hmrOnInit(store) {
     console.log('HMR store', store);
   }
