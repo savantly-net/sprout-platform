@@ -12,11 +12,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -62,6 +67,25 @@ public class SproutWebSecurityConfigurationTest {
 		
 		log.info("{}", result.getBody());
 		Assert.assertTrue("Should find the login view", result.getStatusCode() == HttpStatus.OK);
+	}
+	
+	@Test
+	@WithAnonymousUser
+	public void doLogin() throws Exception {
+		String url = "/login";
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+		MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
+		map.add("username", "admin");
+		map.add("password", "password");
+
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
+
+		ResponseEntity<String> result = rest.postForEntity(url, request, String.class);
+		
+		Assert.assertTrue("Should login successfully and be redirected", result.getStatusCode() == HttpStatus.FOUND);
 	}
 	
 	@Test

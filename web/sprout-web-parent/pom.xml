@@ -51,6 +51,7 @@
 		<server.only>false</server.only>
 		<exec.test.skip>false</exec.test.skip>
 		<npm.binary>npm</npm.binary>
+		<custom.ui>false</custom.ui>
 	</properties>
 	<distributionManagement>
 		<snapshotRepository>
@@ -69,6 +70,50 @@
 			<properties>
 				<npm.binary>npm.cmd</npm.binary>
 			</properties>
+		</profile>
+		<profile>
+			<!-- You can build a custom UI using the default UI as a base -->
+			<id>custom.ui</id>
+			<activation>
+				<property>
+					<name>custom.ui</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<properties>
+				<custom.ui>true</custom.ui>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<artifactId>maven-resources-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<!-- The default UI uses a pre-compiled Angular app for the front-end -->
+			<id>default.ui</id>
+			<activation>
+				<file>
+					<missing>target/sprout-resources</missing>
+				</file>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>${project.groupId}</groupId>
+					<artifactId>web-ui</artifactId>
+					<version>${sprout.version}</version>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<id>release</id>
@@ -314,17 +359,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
