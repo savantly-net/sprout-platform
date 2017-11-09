@@ -121,7 +121,7 @@ export class ContentTypesEditorComponent implements OnInit {
   }
 
   constructor(
-    protected router: Router,
+    public router: Router,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
