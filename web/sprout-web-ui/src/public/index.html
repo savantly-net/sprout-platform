@@ -13,23 +13,23 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black"></meta>
 
 	<!-- Semantic META -->
-	<meta name="keywords" content="<%= '\${clientConfig.keywords}' %>"></meta>
-	<meta name="description" content="<%= '\${clientConfig.siteDescription}' %>"></meta>
+	<meta name="keywords" content="<%= '\${clientConfig.keywords!}' %>"></meta>
+	<meta name="description" content="<%= '\${clientConfig.siteDescription!}' %>"></meta>
 
 	<!-- Facebook META -->
-	<meta property="fb:app_id" content="<%= '\${clientConfig.facebookAppId}' %>"></meta>
-	<meta property="og:site_name" content="<%= '\${clientConfig.siteTitle}' %>"></meta>
-	<meta property="og:title" content="<%= '\${clientConfig.siteTitle}' %>"></meta>
-	<meta property="og:description" content="<%= '\${clientConfig.siteDescription}' %>"></meta>
-	<meta property="og:url" content="<%= '\${clientConfig.siteUrl}' %>"></meta>
-	<meta property="og:image" content="<%= '\${clientConfig.siteImage}' %>"></meta>
+	<meta property="fb:app_id" content="<%= '\${clientConfig.facebookAppId!}' %>"></meta>
+	<meta property="og:site_name" content="<%= '\${clientConfig.siteTitle!}' %>"></meta>
+	<meta property="og:title" content="<%= '\${clientConfig.siteTitle!}' %>"></meta>
+	<meta property="og:description" content="<%= '\${clientConfig.siteDescription!}' %>"></meta>
+	<meta property="og:url" content="<%= '\${clientConfig.siteUrl!}' %>"></meta>
+	<meta property="og:image" content="<%= '\${clientConfig.siteImage!}' %>"></meta>
 	<meta property="og:type" content="website"></meta>
 
 	<!-- Twitter META -->
-	<meta name="twitter:title" content="<%= '\${clientConfig.siteTitle}' %>"></meta>
-	<meta name="twitter:description" content="<%= '\${clientConfig.siteDescription}' %>"></meta>
-	<meta name="twitter:url" content="<%= '\${clientConfig.siteUrl}' %>"></meta>
-	<meta name="twitter:image" content="<%= '\${clientConfig.siteImage}' %>"></meta>
+	<meta name="twitter:title" content="<%= '\${clientConfig.siteTitle!}' %>"></meta>
+	<meta name="twitter:description" content="<%= '\${clientConfig.siteDescription!}' %>"></meta>
+	<meta name="twitter:url" content="<%= '\${clientConfig.siteUrl!}' %>"></meta>
+	<meta name="twitter:image" content="<%= '\${clientConfig.siteImage!}' %>"></meta>
 
 	<!-- Fav Icon -->
 	<link rel="icon" href="/favicon.ico?v=1.0"></link>
@@ -44,7 +44,7 @@
 	<script type="text/javascript">
 		// Ignore this syntax error when running the webpack-dev-server. 
 		// the client config is provided by the server when deployed.
-		window.clientConfig = <%= '\${clientConfig}' %>;
+		window.clientConfig = <%= '\${clientConfig!}' %>;
 	</script>
 	<script type="text/javascript">
 		if (window.clientConfig == undefined) {

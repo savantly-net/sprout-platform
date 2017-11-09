@@ -36,6 +36,7 @@
 	</licenses>
 	<inceptionYear>2017</inceptionYear>
 	<properties>
+		<CHROME_BIN>/usr/bin/chrome</CHROME_BIN>
 		<exec.test.skip>false</exec.test.skip>
 	</properties>
 	<profiles>
@@ -167,11 +168,11 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${basedir}/target/classes</outputDirectory>
+							<outputDirectory>${basedir}/target/classes/META-INF</outputDirectory>
 							<resources>
 								<resource>
 									<directory>${basedir}/dist</directory>
-									<targetPath>./static/admin/</targetPath>
+									<targetPath>./resources/admin/</targetPath>
 								</resource>
 								<resource>
 									<directory>${basedir}/dist</directory>
