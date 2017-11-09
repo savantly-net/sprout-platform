@@ -40,6 +40,18 @@ public class SproutWebSecurityConfigurationTest {
 	public static void beforeClass() {
 		//System.setProperty("spring.freemarker.template-loader-path", "classpath:/templates/");
 	}
+	
+	@Test
+	@WithAnonymousUser
+	public void loadRootPage() throws Exception {
+		String url = "/";
+		
+		ResponseEntity<String> result = rest.getForEntity(url, String.class);
+		
+		log.info("{}", result.getBody());
+		Assert.assertTrue("Should find the root view", result.getStatusCode() == HttpStatus.OK);
+	}
+	
 
 	@Test
 	@WithAnonymousUser

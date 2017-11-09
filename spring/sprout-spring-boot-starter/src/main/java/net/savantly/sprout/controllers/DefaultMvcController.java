@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
+import net.savantly.sprout.settings.UISettings;
+
 @Controller
 @RequestMapping("/")
 public class DefaultMvcController {
@@ -25,11 +27,14 @@ public class DefaultMvcController {
 	ResourcePatternResolver resources;
 	@Autowired
 	ResourceHttpRequestHandler resourceHandler;
+	@Autowired
+	UISettings uiSettings;
 
 	@RequestMapping({"", "index"})
 	public ModelAndView index() throws IOException {
 		String viewName = "ui/index";
 		ModelAndView modelAndView = new ModelAndView(viewName);
+		modelAndView.addObject("clientConfig", uiSettings);
 		return modelAndView;
 	}
 
