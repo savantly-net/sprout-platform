@@ -5,11 +5,11 @@ import { provideRoutes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SecurityModule, SecurityMockService } from '@savantly/ngx-security';
+import { SecurityModule, SecurityMockService, ISecurityService } from '@savantly/ngx-security';
 import { ApiService } from './shared';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
-import { MenuModule } from '@savantly/ngx-menu';
+import { MenuModule, MenuService } from '@savantly/ngx-menu';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
@@ -20,11 +20,14 @@ describe('AppComponent', () => {
         BrowserAnimationsModule,
         MaterialModule,
         HttpClientModule,
-        SecurityModule.forRoot(new SecurityMockService),
-        MenuModule.forRoot()
+        SecurityModule,
+        MenuModule
       ],
       declarations: [AppComponent, AppMenuComponent],
-      providers: [ApiService, AppMenuService, provideRoutes([])]
+      providers: [
+        {provide: ISecurityService, useClass: SecurityMockService},
+        {provide: MenuService, useClass: MenuService, deps: [ISecurityService]},
+        ApiService, AppMenuService, provideRoutes([])]
     });
   });
 
