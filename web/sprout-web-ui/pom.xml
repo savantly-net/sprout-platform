@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>web-ui</artifactId>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 	<name>sprout-web-ui</name>
 	<parent>
 		<groupId>net.savantly</groupId>
@@ -98,6 +98,20 @@
 				</configuration>
 				<executions>
 					<execution>
+						<id>npm clean dist</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>clean</phase>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>run</argument>
+								<argument>clean</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
 						<id>npm configuration list (validate)</id>
 						<goals>
 							<goal>exec</goal>
@@ -117,7 +131,7 @@
 						<goals>
 							<goal>exec</goal>
 						</goals>
-						<phase>pre-clean</phase>
+						<phase>generate-sources</phase>
 						<configuration>
 							<executable>npm</executable>
 							<arguments>
@@ -138,6 +152,51 @@
 								<argument>test</argument>
 							</arguments>
 							<skip>${exec.test.skip}</skip>
+						</configuration>
+					</execution>
+					<execution>
+						<id>npm build</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>compile</phase>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>run</argument>
+								<argument>build-noprogress</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.0.2</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/classes/META-INF</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}/dist</directory>
+									<targetPath>./resources/ui/</targetPath>
+								</resource>
+								<resource>
+									<directory>${basedir}/src/public</directory>
+									<targetPath>./resources/ui/</targetPath>
+								</resource>
+								<resource>
+									<directory>${basedir}/dist</directory>
+									<include>index.html</include>
+									<targetPath>./templates/ui/</targetPath>
+								</resource>
+							</resources>
 						</configuration>
 					</execution>
 				</executions>
