@@ -17,13 +17,13 @@ import { ContextMenuComponent } from './contextMenu/contextMenu.component';
 import { DynamicBuilderService } from './dynamic/dynamic-builder.service';
 import { DynamicComponent } from './dynamic/dynamic.component';
 import { MaterialModule } from './material/material.module';
-import { AuthenticationService, AuthGaurdService,
-  RoleGaurdService, SecurityMockService, SecurityModule, ISecurityService } from '@savantly/ngx-security';
+import { SecurityMockService, SecurityModule, ISecurityService } from '@savantly/ngx-security';
 import { SproutPluginModule } from '@savantly/ngx-sprout-plugin';
 import { PageModule } from './page/page.module';
 import { PluginsModule } from './plugins/plugins.module';
 import { CommonModule } from '@angular/common';
-import { MenuModule } from '@savantly/ngx-menu';
+import { MenuModule, MenuService } from '@savantly/ngx-menu';
+
 
 @NgModule({
   imports: [
@@ -33,10 +33,10 @@ import { MenuModule } from '@savantly/ngx-menu';
     FormsModule,
     routing,
     BrowserAnimationsModule,
-    SecurityModule.forRoot(new SecurityMockService),
+    SecurityModule,
     SproutPluginModule.forRoot(),
     MaterialModule,
-    MenuModule.forRoot(),
+    MenuModule,
     PluginsModule,
     PageModule
   ],
@@ -51,15 +51,15 @@ import { MenuModule } from '@savantly/ngx-menu';
   ],
   providers: [
     ApiService,
-    AuthenticationService, AuthGaurdService, RoleGaurdService,
-    SecurityMockService, AppMenuService, DynamicBuilderService
+    {provide: ISecurityService, useClass: SecurityMockService},
+    {provide: MenuService, useClass: MenuService, deps: [ISecurityService]},
+    AppMenuService, DynamicBuilderService
   ],
   entryComponents: [ DynamicComponent ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(public appRef: ApplicationRef,
-    protected securityService: ISecurityService) {}
+  constructor(public appRef: ApplicationRef) {}
   hmrOnInit(store) {
     console.log('HMR store', store);
   }
