@@ -212,6 +212,7 @@
 		<dependency>
 			<groupId>net.savantly.sprout</groupId>
 			<artifactId>admin</artifactId>
+			<version>${sprout.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.savantly.sprout</groupId>
