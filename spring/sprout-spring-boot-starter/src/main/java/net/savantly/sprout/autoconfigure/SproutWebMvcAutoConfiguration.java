@@ -26,6 +26,8 @@ import net.savantly.sprout.controllers.DefaultMvcController;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplateRepository;
 import net.savantly.sprout.core.content.webPage.WebPageRepository;
 import net.savantly.sprout.core.content.webPageLayout.WebPageLayoutRepository;
+import net.savantly.sprout.settings.AppSettingRepository;
+import net.savantly.sprout.settings.UISettings;
 import net.savantly.sprout.starter.SproutMvcConfiguration;
 
 @Configuration
@@ -34,6 +36,10 @@ public class SproutWebMvcAutoConfiguration {
 	
 	private static final Logger log = LoggerFactory.getLogger(SproutWebMvcAutoConfiguration.class);
 	
+	@Bean
+	public UISettings uiSettings(AppSettingRepository appSettings) {
+		return new UISettings(appSettings);
+	}
 
 	@Bean
 	public SproutMvcConfiguration sproutMvcAutoConfigurationAdapter() {
@@ -56,7 +62,7 @@ public class SproutWebMvcAutoConfiguration {
     @Bean
     public FreeMarkerConfigurationFactory freemarkerConfigurationFactory() throws IOException, TemplateException {
         FreeMarkerConfigurationFactory factory = new FreeMarkerConfigurationFactoryBean();
-        factory.setTemplateLoaderPaths("classpath*:/templates", "classpath*:/META-INF/templates");
+        factory.setTemplateLoaderPaths("classpath:/templates", "classpath:/META-INF/templates");
         return factory;
     }
 		
