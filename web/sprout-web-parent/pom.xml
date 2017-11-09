@@ -166,6 +166,10 @@
 		<!-- Savantly Dependencies -->
 		<dependency>
 			<groupId>net.savantly.sprout</groupId>
+			<artifactId>admin</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.savantly.sprout</groupId>
 			<artifactId>sprout-spring-boot-starter</artifactId>
 		</dependency>
 
@@ -198,7 +202,7 @@
 							<goals>
 								<goal>unpack</goal>
 							</goals>
-							<phase>generate-resources</phase>
+							<phase>generate-sources</phase>
 							<configuration>
 								<artifactItems>
 									<artifactItem>

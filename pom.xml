@@ -104,6 +104,11 @@
 			</dependency>
 			<dependency>
 				<groupId>net.savantly.sprout</groupId>
+				<artifactId>admin</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.savantly.sprout</groupId>
 				<artifactId>web-ui</artifactId>
 				<version>${project.version}</version>
 				<classifier>resources</classifier>
@@ -127,6 +132,6 @@
 		<module>modules/sprout-module-parent</module>
 		<module>modules/sprout-wiki-module</module>
 		<module>web/sprout-web-parent</module>
-		
+		<module>web/sprout-admin</module>
 	</modules>
 </project>
