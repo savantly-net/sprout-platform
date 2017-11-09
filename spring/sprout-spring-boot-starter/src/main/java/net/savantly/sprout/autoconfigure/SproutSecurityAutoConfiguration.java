@@ -11,12 +11,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.filter.CompositeFilter;
 
 import net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepository;
@@ -32,7 +32,6 @@ import net.savantly.sprout.starter.SproutWebSecurityConfiguration;
 
 @Configuration
 @EnableOAuth2Client
-@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SproutSecurityAutoConfiguration {
 	
@@ -46,6 +45,11 @@ public class SproutSecurityAutoConfiguration {
 			 @Qualifier("linkedinClient")ClientResources linkedInResources) {
 		Filter ssoFilter = ssoFilter(gitHubResources, linkedInResources);
 		return new SproutWebSecurityConfiguration(userDetailsService, ssoFilter, oauthFilter, passwordEncoder);
+	}
+	
+	@Bean
+	public HttpSessionSecurityContextRepository securityContextRepository() {
+		return new HttpSessionSecurityContextRepository();
 	}
 	
 	
