@@ -36,6 +36,7 @@ import net.savantly.sprout.starter.SproutWebSecurityConfiguration;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SproutSecurityAutoConfiguration {
 	
+	
 	@Bean
 	public SproutWebSecurityConfiguration sproutWebSecurityConfiguration(
 			UserDetailsService userDetailsService, 

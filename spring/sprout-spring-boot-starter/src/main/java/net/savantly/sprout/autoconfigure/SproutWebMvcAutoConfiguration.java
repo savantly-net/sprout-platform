@@ -23,6 +23,7 @@ import net.savantly.sprout.content.webPage.WebPageRenderer;
 import net.savantly.sprout.content.webPage.WebPageRestController;
 import net.savantly.sprout.content.webPageLayout.WebPageLayoutTemplateLoader;
 import net.savantly.sprout.controllers.DefaultMvcController;
+import net.savantly.sprout.controllers.LoginController;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplateRepository;
 import net.savantly.sprout.core.content.webPage.WebPageRepository;
 import net.savantly.sprout.core.content.webPageLayout.WebPageLayoutRepository;
@@ -49,6 +50,11 @@ public class SproutWebMvcAutoConfiguration {
 	@Bean
 	public DefaultMvcController defaultMvcController() {
 		return new DefaultMvcController();
+	}
+	
+	@Bean
+	public LoginController loginController() {
+		return new LoginController();
 	}
 	
     @Bean
