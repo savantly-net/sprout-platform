@@ -8,6 +8,9 @@ import { ContentTypesComponent } from './content-types/content-types.component';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
+import { RoleListComponent } from './user/role-list/role-list.component';
+import { UserEditorComponent } from './user/user-editor/user-editor.component';
+import { UserListComponent } from './user/user-list/user-list.component';
 import { LayoutEditorComponent } from './web-page/layout/layout-editor/layout-editor.component';
 import { LayoutListComponent } from './web-page/layout/layout-list/layout-list.component';
 import { PageEditorComponent } from './web-page/page/page-editor/page-editor.component';
@@ -24,6 +27,10 @@ const routes: Routes = [
   { path: 'content-template-editor', component: ContentTemplateEditorComponent },
   { path: 'pages', component: PageListComponent },
   { path: 'page-editor', component: PageEditorComponent },
+  { path: 'users', component: UserListComponent },
+  { path: 'user-editor', component: UserEditorComponent },
+  { path: 'roles', component: RoleListComponent },
+  { path: 'role-editor', component: RoleListComponent },
   { path: 'layouts', component: LayoutListComponent },
   { path: 'layout-editor', component: LayoutEditorComponent }
 ];
