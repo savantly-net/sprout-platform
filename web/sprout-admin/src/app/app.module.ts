@@ -15,6 +15,7 @@ import { MaterialModule } from './material/material.module';
 import { MenuModule } from './menu/menu.module';
 import { ServiceLocator } from './standard/service-locator';
 import { WebPageModule } from './web-page/web-page.module';
+import { UserModule } from './user/user.module';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { WebPageModule } from './web-page/web-page.module';
     ContentTemplateModule,
     ContentTypesModule,
     ContentItemModule,
-    WebPageModule
+    WebPageModule,
+    UserModule
   ],
   exports: [MaterialModule, MenuModule],
   providers: [],
