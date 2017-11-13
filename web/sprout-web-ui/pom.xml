@@ -37,8 +37,15 @@
 	<inceptionYear>2017</inceptionYear>
 	<properties>
 		<exec.test.skip>false</exec.test.skip>
+		<npm.build.goal>build-snapshot</npm.build.goal>
 	</properties>
 	<profiles>
+		<profile>
+			<id>release</id>
+			<properties>
+				<npm.build.goal>build-noprogress</npm.build.goal>
+			</properties>
+		</profile>
 		<profile>
 			<id>Windows</id>
 			<activation>
@@ -164,7 +171,7 @@
 							<executable>npm</executable>
 							<arguments>
 								<argument>run</argument>
-								<argument>build-noprogress</argument>
+								<argument>${npm.build.goal}</argument>
 							</arguments>
 						</configuration>
 					</execution>
