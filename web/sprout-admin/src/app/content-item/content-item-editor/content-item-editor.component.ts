@@ -99,6 +99,7 @@ export class ContentItemEditorComponent implements OnInit {
       } else {
         this.router.navigate(['content-item-editor', {id: data.id}]);
       }
+      this.snackBar.open('Saved', 'Close', {duration: 8000});
     }, err => {
       if (err.statusText === 'Conflict') {
         this.snackBar.open('The item name must be unique', 'Close', {duration: 8000});

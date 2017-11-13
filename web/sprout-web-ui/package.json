@@ -9,6 +9,7 @@
 		"watch": "webpack --watch --progress --profile",
 		"build": "rimraf dist && webpack --progress --profile --bail --display-error-details",
 		"build-noprogress": "rimraf dist && webpack --bail --display-error-details",
+		"build-snapshot": "rimraf dist && webpack --bail --display-error-details --devtool eval-source-map",
 		"server": "webpack-dev-server --inline --progress --port 3000",
 		"webdriver-update": "webdriver-manager update",
 		"webdriver-start": "webdriver-manager start",

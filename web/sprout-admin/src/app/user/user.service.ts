@@ -1,12 +1,9 @@
 import { HalResponse, RestRepositoryService } from '../spring-data/rest-repository.service';
+import { EmailAddress } from './email-service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
-export class EmailAddress {
-  emailAddress: string;
-  verified: boolean;
-}
 
 export class Organization extends HalResponse {
   name: string;
@@ -23,6 +20,7 @@ export class User extends HalResponse {
   displayName: string;
   emailAddresses: EmailAddress[];
   hidePrimaryEmailAddress: boolean;
+  primaryEmailAddress: EmailAddress;
   firstName: string;
   lastName: string;
   authorities: string[];
