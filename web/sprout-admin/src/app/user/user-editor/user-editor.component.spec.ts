@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserEditorComponent } from './user-editor.component';
+import { MaterialModule } from '../../material/material.module';
+import { ComponentTestModule } from '../../testing/component-test.module';
+import { UserService } from '../user.service';
 
 describe('UserEditorComponent', () => {
   let component: UserEditorComponent;
@@ -8,7 +11,9 @@ describe('UserEditorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserEditorComponent ]
+      imports: [MaterialModule, ComponentTestModule],
+      declarations: [ UserEditorComponent ],
+      providers: [UserService]
     })
     .compileComponents();
   }));

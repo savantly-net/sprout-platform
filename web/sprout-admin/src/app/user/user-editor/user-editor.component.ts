@@ -1,9 +1,11 @@
 import { Identifiable } from '../../spring-data/rest-repository.service';
-import { UserService } from '../user.service';
+import { EmailService, EmailAddress } from '../email-service';
+import { UserService, User } from '../user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-editor',
@@ -16,18 +18,40 @@ export class UserEditorComponent implements OnInit {
 
   prepareSave(model): any {
     const halModel = Object.assign({}, model);
+    halModel.primaryEmailAddress = { emailAddress: model.primaryEmailAddress },
     console.log('halModel:', halModel);
     return halModel;
   }
 
+  saveEmailAddress(model): Promise<User> {
+    const emailPromise = new Promise((resolve, reject) => {
+      this.emailService.findOne(model.primaryEmailAddress.emailAddress).subscribe(emailAddressResponse => {
+        model.primaryEmailAddress = emailAddressResponse._links.self.href;
+        resolve(model);
+      }, findErr => {
+        console.log('saving new email address: {}', model.primaryEmailAddress.emailAddress);
+        this.emailService.saveItem(model.primaryEmailAddress).subscribe((savedEmailAddress) => {
+          model.primaryEmailAddress = savedEmailAddress._links.self.href;
+          resolve(model);
+        }, saveErr => {
+          reject(saveErr);
+        });
+      });
+    });
+    return emailPromise;
+  }
+
   save(model) {
     const halModel = this.prepareSave(model);
-    this.service.saveItem(halModel).subscribe(data => {
-      this.router.navigate(['user-editor', {id: data.id}]);
-    }, err => {
-      if (err.statusText === 'Conflict') {
-        this.snackBar.open('Failure to save the item', 'Close', {duration: 8000});
-      }
+    this.saveEmailAddress(halModel).then(userResponse => {
+      this.service.saveItem(halModel).subscribe(data => {
+        this.router.navigate(['user-editor', {id: data.id}]);
+        this.snackBar.open('Saved', 'Close', {duration: 8000});
+      }, err => {
+        if (err.statusText === 'Conflict') {
+          this.snackBar.open('Failure to save the item', 'Close', {duration: 8000});
+        }
+      });
     });
   }
 
@@ -44,10 +68,17 @@ export class UserEditorComponent implements OnInit {
     if (id) {
       this.service.findOne(id).subscribe((response: any) => {
         this.rForm.patchValue(response);
+        this.loadPrimaryEmailAddress(response);
       }, err => {
         console.error('Error while loading item with id: {}', id);
       });
     }
+  }
+
+  loadPrimaryEmailAddress(userModel) {
+    this.httpClient.get(userModel._links.primaryEmailAddress.href).subscribe(emailAddressResponse => {
+      this.rForm.controls['primaryEmailAddress'].setValue((<any>emailAddressResponse).emailAddress);
+    });
   }
 
   trackById(index: number, item: Identifiable) {
@@ -63,7 +94,9 @@ export class UserEditorComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
-    private service: UserService) {
+    private service: UserService,
+    private emailService: EmailService,
+    private httpClient: HttpClient) {
 
     this.rForm = fb.group({
       'id' : [''],
@@ -71,6 +104,7 @@ export class UserEditorComponent implements OnInit {
       'displayName': [''],
       'firstName': [''],
       'lastName': [''],
+      'primaryEmailAddress': ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(255)])],
       'clearTextPassword': [''],
       'new': [true],
       'createdDate': [null],

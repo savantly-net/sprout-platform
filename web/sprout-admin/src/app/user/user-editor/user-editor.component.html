@@ -29,6 +29,11 @@
 				</mat-form-field>
 				
 				<mat-form-field hintLabel="Max 255 characters">
+					<input matInput formControlName="primaryEmailAddress" maxlength="255" placeholder="Enter your email address">
+					<mat-hint align="end">{{rForm.controls['primaryEmailAddress'].value?.length || 0}}/255</mat-hint>
+				</mat-form-field>
+				
+				<mat-form-field hintLabel="Max 255 characters">
 					<input matInput formControlName="clearTextPassword" maxlength="255" placeholder="Enter a password">
 					<mat-hint align="end">{{rForm.controls['clearTextPassword'].value?.length || 0}}/255</mat-hint>
 				</mat-form-field>
