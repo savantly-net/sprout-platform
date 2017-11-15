@@ -6,6 +6,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserEditorComponent } from './user-editor/user-editor.component';
 import { RoleListComponent } from './role-list/role-list.component';
 import { RoleEditorComponent } from './role-editor/role-editor.component';
+import { RoleService } from './role.service';
 import { UserService } from './user.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -17,6 +18,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   declarations: [UserListComponent, UserEditorComponent, RoleListComponent, RoleEditorComponent],
   exports: [UserListComponent, UserEditorComponent, RoleListComponent, RoleEditorComponent],
-  providers: [UserService, EmailService]
+  providers: [UserService, EmailService, RoleService]
 })
 export class UserModule { }
