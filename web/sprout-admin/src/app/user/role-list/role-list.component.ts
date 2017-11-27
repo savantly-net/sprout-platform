@@ -12,11 +12,19 @@ export class RoleListComponent implements OnInit {
   items: Role[];
   authority: string;
 
+  keyPress(event: any) {
+    if (event.keyCode === 13) {
+      this.addItem();
+    }
+  }
+
   addItem(): void {
     const role = new Role();
     role.authority = this.authority;
     this.roles.saveItem(role).subscribe(response => {
       console.log(response);
+      this.getItems();
+      this.authority = '';
     });
   }
 
