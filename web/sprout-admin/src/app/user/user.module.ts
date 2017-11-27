@@ -5,7 +5,6 @@ import { EmailService } from './email-service';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserEditorComponent } from './user-editor/user-editor.component';
 import { RoleListComponent } from './role-list/role-list.component';
-import { RoleEditorComponent } from './role-editor/role-editor.component';
 import { RoleService } from './role.service';
 import { UserService } from './user.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,8 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     FormsModule, ReactiveFormsModule
   ],
-  declarations: [UserListComponent, UserEditorComponent, RoleListComponent, RoleEditorComponent],
-  exports: [UserListComponent, UserEditorComponent, RoleListComponent, RoleEditorComponent],
+  declarations: [UserListComponent, UserEditorComponent, RoleListComponent],
+  exports: [UserListComponent, UserEditorComponent, RoleListComponent],
   providers: [UserService, EmailService, RoleService]
 })
 export class UserModule { }

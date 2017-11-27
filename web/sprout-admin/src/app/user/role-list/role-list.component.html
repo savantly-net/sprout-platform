@@ -5,7 +5,7 @@
 			<span>Add Role</span>
 		</button>
 		<mat-input-container>
-			<input matInput type="text" [(ngModel)]="authority" placeholder="role name"/>
+			<input matInput type="text" [(ngModel)]="authority" placeholder="role name" (keypress)="keyPress($event)"/>
 		</mat-input-container>
 	</mat-toolbar>
 	

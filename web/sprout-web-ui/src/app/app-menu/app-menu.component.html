@@ -22,19 +22,30 @@
 </mat-list>
 
 <ng-template #menuItemTemplate let-item="item">
-	<div fxLayout="column">
+		<button mat-button [routerLink]="item.url" [matMenuTriggerFor]="submenu">
+			<mat-icon>{{item.icon}}</mat-icon>
+			<span>{{item.displayText}}</span>
+		</button>
+		<mat-menu #submenu="matMenu" fxLayoutGap="1em">
+			<ng-container *ngTemplateOutlet="menuListTemplate;context:{itemList:item.items}"></ng-container>
+		</mat-menu>
+</ng-template>
+
+<ng-template #simpleItemTemplate let-item="item">
 		<button mat-button [routerLink]="item.url">
 			<mat-icon>{{item.icon}}</mat-icon>
 			<span>{{item.displayText}}</span>
 		</button>
-		<mat-list style="margin-left:2em;" *ngIf=" item.items && item.items.length > 0" fxLayout="column" fxLayoutGap="1em">
-			<ng-container *ngTemplateOutlet="menuListTemplate;context:{itemList:item.items}"></ng-container>
-		</mat-list>
-	</div>
 </ng-template>
 
 <ng-template #menuListTemplate let-itemList="itemList">
 	<mat-list-item *ngFor="let item of itemList">
-		<ng-container *ngTemplateOutlet="menuItemTemplate;context:{item: item}"></ng-container>
+		<div *ngIf="item['items'] && item['items'].length>0; then thenBlock else elseBlock"></div>
+		<ng-template #thenBlock>
+			<ng-container *ngTemplateOutlet="menuItemTemplate;context:{item: item}"></ng-container>
+		</ng-template>
+		<ng-template #elseBlock>
+			<ng-container *ngTemplateOutlet="simpleItemTemplate;context:{item: item}"></ng-container>
+		</ng-template>
 	</mat-list-item>
 </ng-template>
