@@ -61,8 +61,8 @@ public class ContentTypeTest {
 		}
 		
 		@Bean
-		public ContentTypeFixture getContentTypeFixture(ContentTypeRepository repository, ContentTemplateFixture contentTemplateFixture, ContentTemplateRepository cTemplateRepository) {
-			return new ContentTypeFixture(repository, contentTemplateFixture, cTemplateRepository);
+		public ContentTypeFixture getContentTypeFixture(ContentTypeRepository repository) {
+			return new ContentTypeFixture(repository);
 		}
 
 	}
