@@ -8,28 +8,21 @@ import javax.transaction.Transactional;
 import net.savantly.spring.fixture.AbstractBaseFixture;
 import net.savantly.spring.fixture.Fixture;
 import net.savantly.sprout.core.content.contentField.ContentField;
-import net.savantly.sprout.core.content.contentTemplate.ContentTemplateFixture;
-import net.savantly.sprout.core.content.contentTemplate.ContentTemplateRepository;
 import net.savantly.sprout.core.content.fieldType.FieldType;
 
 @Transactional
 public class ContentTypeFixture extends AbstractBaseFixture<ContentType, ContentTypeRepository>{
 
 	private ContentTypeRepository repository;
-	private ContentTemplateFixture contentTemplateFixture;
-	private ContentTemplateRepository cTemplateRepository;
 	public static final String defaultContentTypeName = "Default Content Type";
 
-	public ContentTypeFixture(ContentTypeRepository repository, ContentTemplateFixture contentTemplateFixture, ContentTemplateRepository cTemplateRepository) {
+	public ContentTypeFixture(ContentTypeRepository repository) {
 		super(repository);
 		this.repository = repository;
-		this.contentTemplateFixture = contentTemplateFixture;
-		this.cTemplateRepository = cTemplateRepository;
 	}
 
 	@Override
 	public void addDependencies(List<Fixture<?>> fixtures) {
-		fixtures.add(contentTemplateFixture);
 	}
 
 	@Override
