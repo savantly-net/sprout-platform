@@ -7,7 +7,6 @@ import java.util.Set;
 
 import javax.transaction.Transactional;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -124,8 +123,8 @@ public class WebPageContentRepositoryTest {
 		}
 		
 		@Bean
-		public ContentTypeFixture getContentTypeFixture(ContentTypeRepository repository, ContentTemplateFixture contentTemplateFixture, ContentTemplateRepository cTemplateRepository) {
-			return new ContentTypeFixture(repository, contentTemplateFixture, cTemplateRepository);
+		public ContentTypeFixture getContentTypeFixture(ContentTypeRepository repository) {
+			return new ContentTypeFixture(repository);
 		}
 
 	}
