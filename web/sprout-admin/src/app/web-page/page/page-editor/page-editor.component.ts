@@ -26,7 +26,7 @@ export class PageEditorComponent implements OnInit {
     'home': [false],
     'name' : ['My new page', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(255)])],
     'description': ['A page'],
-    'contentItems': this.fb.array([]),
+    'contentAreas': this.fb.array([]),
     'webPageLayout': [null],
     'new': [true],
     'createdDate': [null],
@@ -42,21 +42,30 @@ export class PageEditorComponent implements OnInit {
       const halModel = Object.assign({}, model);
       halModel.webPageLayout = model.webPageLayout._links.self.href;
       const contentItemPromises = [];
-      model.contentItems.map(item => {
-        if (item.value !== null) {
-          const pageContent = new PageContent();
-          pageContent.placeHolderId = item.key;
-          pageContent.contentItems = [item.value._links.self.href];
-          pageContent.webPage = this.rForm.value._links.self.href;
-          const promise = this.saveWebPageContentItem(this.rForm.value, [pageContent]);
-          contentItemPromises.push(promise);
-        }
-      });
-      Promise.all(contentItemPromises).then((savedContentItems) => {
-        // content items have already been saved
-        delete halModel.contentItems;
-        console.log('halModel:', halModel);
-        resolve(halModel);
+      // first clear any existing content items
+      this.service.clearContentItems(halModel).then((page) => {
+        // then add the items from the form
+        model.contentAreas.map(item => {
+          if (item.value !== null) {
+            const pageContent = new PageContent();
+            pageContent.placeHolderId = item.key;
+            // If the value is an actual model
+            if (item.value._links) {
+              pageContent.contentItems = [item.value._links.self.href];
+            } else { // the value is a placeholder [empty]
+              pageContent.contentItems = [];
+            }
+            pageContent.webPage = this.rForm.value._links.self.href;
+            const promise = this.saveWebPageContentItem(this.rForm.value, [pageContent]);
+            contentItemPromises.push(promise);
+          }
+        });
+        Promise.all(contentItemPromises).then((savedContentItems) => {
+          // content items have already been saved
+          delete halModel.contentAreas;
+          console.log('halModel:', halModel);
+          resolve(halModel);
+        });
       });
     });
     return preparePromise;
@@ -74,6 +83,7 @@ export class PageEditorComponent implements OnInit {
   save(model) {
     this.prepareSave(model).then((halModel) => {
       this.service.saveItem(halModel).subscribe(data => {
+        this.snackBar.open('Saved', 'Close', {duration: 8000});
         this.router.navigate(['page-editor', {id: data.id}]);
       }, err => {
         if (err.statusText === 'Conflict') {
@@ -102,7 +112,7 @@ export class PageEditorComponent implements OnInit {
         this.service.getWebPageLayout(page).subscribe(webPageLayout => {
           page.webPageLayout = webPageLayout;
           webPageLayout.placeHolders.map(key => {
-            fDefinition.contentItems.push(this.fb.group({key: key, value: page.contentItems[key]}));
+            fDefinition.contentAreas.push(this.fb.group({key: key, value: page.contentItems[key]}));
           });
         delete page.contentItems;
         this.rForm = this.fb.group(fDefinition);
@@ -118,17 +128,17 @@ export class PageEditorComponent implements OnInit {
     return <FormControl>this.rForm.get('webPageLayout');
   }
 
-  get contentItems(): FormArray {
-    return this.rForm.get('contentItems') as FormArray;
+  get contentAreas(): FormArray {
+    return this.rForm.get('contentAreas') as FormArray;
   }
 
   addContentItem(item: {key: string, value: ContentItem} ): void {
     const itemControl = this.fb.group({'key': item.key, 'value': [item.value]});
-    this.contentItems.push(itemControl);
+    this.contentAreas.push(itemControl);
   }
 
   removeContentItem(index: number): void {
-     this.contentItems.removeAt(index);
+     this.contentAreas.removeAt(index);
   }
 
   trackById(index: number, item: Identifiable) {

@@ -29,6 +29,8 @@ public class WebPageTest {
 	WebPageLayoutFixture wplFixture;
 	@Autowired
 	WebPageFixture wpFixture;
+	@Autowired
+	WebPageLayoutRepository wplRepository;
 	
 	@Before
 	public void before() {
@@ -40,7 +42,7 @@ public class WebPageTest {
 	public void testRepository() {
 		WebPage page = new WebPage();
 		page.setName("test");
-		page.setWebPageLayout(wplFixture.getRandomEntity());
+		page.setWebPageLayout(this.wplRepository.findOneByName(WebPageLayoutFixture.defaultWebPageLayoutName));
 		repository.save(page);
 	}
 	

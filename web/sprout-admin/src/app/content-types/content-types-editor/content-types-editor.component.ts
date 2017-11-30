@@ -35,6 +35,7 @@ export class ContentTypesEditorComponent implements OnInit {
   save(model) {
     const halModel = this.prepareSave(model);
     this.service.saveItem(halModel).subscribe(data => {
+      this.snackBar.open('Saved', 'Close', {duration: 8000});
       this.router.navigate(['content-types-editor', {id: data.id}]);
     }, err => {
       if (err.statusText === 'Conflict') {
@@ -90,8 +91,8 @@ export class ContentTypesEditorComponent implements OnInit {
 
   addField(): void {
     const field = new ContentField();
-    field.name = 'text';
-    field.displayName = 'Text field';
+    field.name = 'body';
+    field.displayName = 'Body field';
     field.fieldType = 'text';
     field.contentType = this.rForm.value._links.self.href;
     this.contentFieldService.saveItem(field).subscribe(data => {

@@ -28,6 +28,8 @@ public class SproutRepositoryRestAutoConfiguration {
 
 		@Override
 		public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+			config.setReturnBodyOnCreate(true);
+			config.setReturnBodyForPutAndPost(true);
 			config.setBasePath("/api");
 			config.exposeIdsFor(
 					Role.class,

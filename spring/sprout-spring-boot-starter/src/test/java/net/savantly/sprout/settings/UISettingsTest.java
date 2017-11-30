@@ -25,7 +25,7 @@ public class UISettingsTest {
 	@Test
 	public void TestSave() throws Exception {
 		String keywords = "one, two, three";
-		AppSetting expected = new AppSetting(UISettings.KEYWORDS, keywords);
+		AppSetting expected = new AppSetting(SettingName.KEYWORDS, keywords);
 		AppSetting actual = settings.save(expected);
 		Assert.assertEquals("Value should match", expected.getValue(), actual.getValue());
 		Assert.assertEquals("Id should match", expected.getId(), actual.getId());

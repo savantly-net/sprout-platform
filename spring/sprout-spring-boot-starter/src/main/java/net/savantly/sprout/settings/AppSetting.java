@@ -6,12 +6,12 @@ import javax.persistence.Id;
 @Entity
 public class AppSetting {
 	
-	private String id;
+	private SettingName id;
 	private String value;
 	
 	public AppSetting() {}
 	
-	public AppSetting(String id, String value) {
+	public AppSetting(SettingName id, String value) {
 		super();
 		this.id = id;
 		this.value = value;
@@ -20,10 +20,10 @@ public class AppSetting {
 
 
 	@Id
-	public String getId() {
+	public SettingName getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(SettingName id) {
 		this.id = id;
 	}
 	
