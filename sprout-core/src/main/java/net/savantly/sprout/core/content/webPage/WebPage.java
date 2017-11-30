@@ -1,7 +1,6 @@
 package net.savantly.sprout.core.content.webPage;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -20,7 +19,7 @@ public class WebPage extends PersistedDomainObject {
 	private String name;
 	private String description;
 	private WebPageLayout webPageLayout;
-	private Set<WebPageContent> contentItems = new HashSet<>();
+	private Set<WebPageContent> contentItems;
 	private boolean home;
 	
 	@Column(unique=true)
@@ -45,12 +44,17 @@ public class WebPage extends PersistedDomainObject {
 		this.webPageLayout = webPageLayout;
 	}
 	
-	@OneToMany(orphanRemoval=true, fetch=FetchType.EAGER, cascade= {CascadeType.ALL}, mappedBy="webPage")
+	@OneToMany(cascade= {CascadeType.ALL}, mappedBy="webPage")
 	public Set<WebPageContent> getContentItems() {
 		return contentItems;
 	}
 	public void setContentItems(Set<WebPageContent> contentItems) {
-		this.contentItems = contentItems;
+		if (this.contentItems == null) {
+			this.contentItems = contentItems;
+		} else {
+			this.contentItems.retainAll(contentItems);
+			this.contentItems.addAll(contentItems);
+		}
 	}
 	public boolean isHome() {
 		return home;

@@ -77,11 +77,11 @@ public class SproutFixtureAutoConfiguration {
 				emailFixture);
 	}
 	
-/*	@Bean 
-	public ContentTypeFixture contentTypeFixture(ContentTypeRepository repository, ContentTemplateFixture fixture, ContentTemplateRepository templateRepository) {
-		return new ContentTypeFixture(repository, fixture, templateRepository);
+	@Bean 
+	public ContentTypeFixture contentTypeFixture(ContentTypeRepository repository) {
+		return new ContentTypeFixture(repository);
 	}
-	*/
+	
 	@Bean
 	public ContentTemplateFixture contentTemplateFixture(ContentTemplateRepository templateRepository) {
 		return new ContentTemplateFixture(templateRepository);

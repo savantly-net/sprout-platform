@@ -8,12 +8,13 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.domain.Persistable;
+import org.springframework.hateoas.Identifiable;
 import org.springframework.util.ClassUtils;
 
 import net.savantly.sprout.core.configuration.SproutConfiguration;
 
 @MappedSuperclass
-public abstract class PersistedDomainObject extends AbstractAuditableDomainObject<String> implements Persistable<String>  {
+public abstract class PersistedDomainObject extends AbstractAuditableDomainObject<String> implements Persistable<String>, Identifiable<String>  {
 
     private static final long serialVersionUID = SproutConfiguration.serialVersionUID;
 

@@ -6,6 +6,7 @@ import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -25,7 +26,7 @@ public abstract class AbstractAuditableDomainObject<ID extends Serializable> imp
 	private static final long serialVersionUID = SproutConfiguration.serialVersionUID;
 
 	// Auditing Metadata
-	private DateTime createdDate;
+	private DateTime createdDate = DateTime.now();
 	private String createdBy;
 	private DateTime lastModifiedDate;
 	private String lastModifiedBy;
@@ -38,6 +39,7 @@ public abstract class AbstractAuditableDomainObject<ID extends Serializable> imp
 
 	@CreatedDate
 	@JsonIgnore(false)
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	public DateTime getCreatedDate() {
 		return createdDate;
 	}
@@ -50,6 +52,7 @@ public abstract class AbstractAuditableDomainObject<ID extends Serializable> imp
 
 	@LastModifiedDate
 	@JsonIgnore(false)
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	public DateTime getLastModifiedDate() {
 		return lastModifiedDate;
 	}

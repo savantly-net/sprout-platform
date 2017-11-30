@@ -21,6 +21,20 @@ export class PageService extends RestRepositoryService<Page> {
     return this.http.get(item._links.webPageLayout.href);
   }
 
+  clearContentItems(webPage: Page): Promise<any> {
+    const lastPromise = new Promise((resolve, reject) => {
+      this.http.get(webPage._links.contentItems.href).subscribe(webPageContentItems => {
+        const promises = (webPageContentItems as HalResponse)._embedded.webPageContents.map((webPageContentItem) => {
+          return this.http.delete(webPageContentItem._links.self.href).toPromise();
+        });
+        Promise.all(promises).then((result) => {
+          resolve(result);
+        });
+      });
+    });
+    return lastPromise;
+  }
+
   saveContentItems(webPage: Page, contentItems: PageContent[]): Promise<any> {
     const promise = new Promise((resolve, reject) => {
 
@@ -44,7 +58,13 @@ export class PageService extends RestRepositoryService<Page> {
           } );
         });
         const associationPromises = contentItems.map((pageContent) => {
-          return this.pageContentService.associateContentItems(pageContent).toPromise();
+          if (pageContent.contentItems.length > 0) {
+            return this.pageContentService.associateContentItems(pageContent).toPromise();
+          } else {
+            return new Promise((resolve2, reject2) => {
+              resolve2([]);
+            });
+          }
         });
         Promise.all(associationPromises).then((pageContents) => {
           resolve(pageContents);
