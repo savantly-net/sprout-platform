@@ -1,7 +1,7 @@
 package net.savantly.sprout.core.content.webPageContent;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +27,7 @@ public class WebPageContent extends PersistedDomainObject {
 
 	private WebPage webPage;
 	private String placeHolderId;
-	private Set<ContentItem> contentItems = new HashSet<>();
+	private List<ContentItem> contentItems = new ArrayList<>();
 	
 	@ManyToOne
 	@JoinColumn(name=WEBPAGE_ID, nullable=false)
@@ -46,10 +46,10 @@ public class WebPageContent extends PersistedDomainObject {
 		this.placeHolderId = placeHolderId;
 	}
 	@ManyToMany(fetch=FetchType.EAGER)
-	public Set<ContentItem> getContentItems() {
+	public List<ContentItem> getContentItems() {
 		return contentItems;
 	}
-	public void setContentItems(Set<ContentItem> contentItems) {
+	public void setContentItems(List<ContentItem> contentItems) {
 		this.contentItems = contentItems;
 	}
 }

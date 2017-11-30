@@ -5,6 +5,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
 //@PreAuthorize("hasPermission(APP_SETTINGS_ADMIN")
-public interface AppSettingRepository extends CrudRepository<AppSetting, String> {
+public interface AppSettingRepository extends CrudRepository<AppSetting, SettingName> {
 
 }

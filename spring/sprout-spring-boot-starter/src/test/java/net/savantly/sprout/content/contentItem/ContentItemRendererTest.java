@@ -12,8 +12,10 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -21,6 +23,7 @@ import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
+import net.savantly.spring.fixture.Fixture;
 import net.savantly.sprout.core.content.contentField.ContentField;
 import net.savantly.sprout.core.content.contentItem.ContentItem;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplate;
@@ -29,7 +32,6 @@ import net.savantly.sprout.core.content.contentTemplate.ContentTemplateRepositor
 import net.savantly.sprout.core.content.contentType.ContentType;
 import net.savantly.sprout.core.content.contentType.ContentTypeFixture;
 import net.savantly.sprout.core.content.contentType.ContentTypeRepository;
-import net.savantly.sprout.core.content.fieldType.FieldType;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -38,43 +40,31 @@ public class ContentItemRendererTest {
 	
 	private static final Logger log = LoggerFactory.getLogger(ContentItemRendererTest.class);
 	
-	static final String defaultContentTypeName = "Default Content Type";
-	
 	@Autowired
-	ContentItemRenderer renderer;
+	private ContentItemRenderer renderer;
 	@Autowired
-	ContentTypeRepository ctRepository;
+	private ContentTypeRepository ctRepository;
 	@Autowired
-	ContentTemplateRepository cTemplateRepository;
+	private ContentTemplateRepository templateRepository;
+	@Autowired
+	@Qualifier("contentTypeFixture")
+	private Fixture<ContentType> contentTypeFixture;
+	@Autowired
+	@Qualifier("contentTemplateFixture")
+	private Fixture<ContentTemplate> templateFixture;
 	
 	ContentTemplate	contentTemplate;
 	
 	@Before
 	public void before() {
-		ContentField cf = new ContentField();
-		cf.setName("body");
-		cf.setDisplayName("Body");
-		cf.setRequired(true);
-		cf.setFieldType(FieldType.text);
-		cf.setSortOrder(0);
-		
-		contentTemplate = cTemplateRepository.findByName(ContentTemplateFixture.defaultContentTemplateName);
-		
-		ContentType ct = new ContentType();
-		ct.setName(defaultContentTypeName);
-		ct.setDescription(defaultContentTypeName);
-		ct.getFields().add(cf);
-		ct.setUpdateable(false);
-		
-		cf.setContentType(ct);
-		
-		ctRepository.save(ct);
+		templateFixture.install();
+		contentTypeFixture.install();
+		contentTemplate = templateRepository.findByName(ContentTemplateFixture.defaultContentTemplateName);
 	}
 	
 	
 	@Test
 	public void testContentItemRenderer() throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
-		
 		
 		ContentType contentType = ctRepository.findByName(ContentTypeFixture.defaultContentTypeName);
 		ContentItem contentItem = new ContentItem();
@@ -94,16 +84,16 @@ public class ContentItemRendererTest {
 	@Configuration
 	@EnableAutoConfiguration
 	static class TestContext {
-		
-/*		@Bean
-		public ContentItemRenderer renderer(FreeMarkerConfigurer configurer, ContentTypeTemplateLoader loader) throws IOException, TemplateException {
-			return new ContentItemRenderer(configurer, loader);
+
+		@Bean
+		public ContentTemplateFixture contentTemplateFixture(ContentTemplateRepository templateRepository) {
+			return new ContentTemplateFixture(templateRepository);
 		}
 		
 		@Bean
-		public ContentTypeTemplateLoader loader(ContentTemplateRepository repository) {
-			return new ContentTypeTemplateLoader(repository);
-		}*/
+		public ContentTypeFixture contentTypeFixture(ContentTypeRepository repository) {
+			return new ContentTypeFixture(repository);
+		}
 
 	}
 

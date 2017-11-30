@@ -1,9 +1,9 @@
 package net.savantly.sprout.core.content.webPageContent;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -89,7 +89,7 @@ public class WebPageContentRepositoryTest {
 		webPageRepository.save(page);
 		WebPageContent webPageContent = new WebPageContent();
 		
-		Set<ContentItem> cItems = new HashSet<>();
+		List<ContentItem> cItems = new ArrayList<>();
 		cItems.add(item);
 		
 		webPageContent.setContentItems(cItems );

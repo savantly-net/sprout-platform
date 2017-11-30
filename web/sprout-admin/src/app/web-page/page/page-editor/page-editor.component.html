@@ -28,10 +28,11 @@
 				
 				<br/>
 				
-				<div *ngIf="!rForm.value.new" formArrayName="contentItems">
-					<div fxLayout fxLayoutAlign="center center" *ngFor="let item of contentItems.controls; let i=index" [formGroupName]="i" >
+				<div *ngIf="!rForm.value.new" formArrayName="contentAreas">
+					<div fxLayout fxLayoutAlign="center center" *ngFor="let item of contentAreas.controls; let i=index" [formGroupName]="i" >
 						<mat-form-field hintLabel="{{item.value.key}}">
 							<mat-select matInput formControlName="value" [compareWith]="idCompare">
+								<mat-option value=""></mat-option>
 								<mat-option *ngFor="let contentItem of this.allContentItems; trackBy: trackById" [value]="contentItem">{{contentItem.name}}</mat-option>
 							</mat-select>
 						</mat-form-field>
