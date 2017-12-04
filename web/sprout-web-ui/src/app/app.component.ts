@@ -12,10 +12,12 @@ import { SettingsService } from './settings/settings.service';
 export class AppComponent {
   url = 'https://github.com/preboot/angular2-webpack';
   title: string;
-  clientConfig: any;
+  siteName: any;
 
   constructor(private api: ApiService, settingsService: SettingsService) {
     this.title = this.api.title;
-    this.clientConfig = settingsService.value.getValue();
+    settingsService.value.then(clientConfig => {
+      this.siteName = clientConfig.siteName;
+    });
   }
 }
