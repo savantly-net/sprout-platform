@@ -24,6 +24,7 @@ import net.savantly.sprout.content.contentType.ContentTypeTemplateLoader;
 import net.savantly.sprout.content.webPage.WebPageRenderer;
 import net.savantly.sprout.content.webPage.WebPageRestController;
 import net.savantly.sprout.content.webPageLayout.WebPageLayoutTemplateLoader;
+import net.savantly.sprout.controllers.ClientController;
 import net.savantly.sprout.controllers.DefaultMvcController;
 import net.savantly.sprout.controllers.LoginController;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplateRepository;
@@ -57,6 +58,11 @@ public class SproutWebMvcAutoConfiguration {
 	@Bean
 	public LoginController loginController() {
 		return new LoginController();
+	}
+	
+	@Bean
+	public ClientController clientController(UISettings uiSettings) {
+		return new ClientController(uiSettings);
 	}
 	
     @Bean("freeMarkerViewResolver")
