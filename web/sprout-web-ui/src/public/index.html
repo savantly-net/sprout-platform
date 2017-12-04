@@ -32,7 +32,7 @@
 	<meta name="twitter:image" content="<%= '\${clientConfig.siteImage!}' %>"></meta>
 
 	<!-- Fav Icon -->
-	<link rel="icon" href="/favicon.ico?v=1.0"></link>
+	<link rel="icon" href="/img/favicon.ico?v=1.0"></link>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	
 	<!-- HTML5 Shim -->
@@ -44,7 +44,7 @@
 	<script type="text/javascript">
 		// Ignore this syntax error when running the webpack-dev-server. 
 		// the client config is provided by the server when deployed.
-		window.clientConfig = <%= '\${clientConfig!}' %>;
+		window.clientConfig = <%= '\${clientConfigJson!}' %>;
 	</script>
 	<script type="text/javascript">
 		if (window.clientConfig == undefined) {

@@ -1,6 +1,7 @@
 package net.savantly.sprout.controllers;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import net.savantly.sprout.settings.UISettings;
 
 @Controller
@@ -29,12 +32,26 @@ public class DefaultMvcController {
 	ResourceHttpRequestHandler resourceHandler;
 	@Autowired
 	UISettings uiSettings;
+	@Autowired
+	ObjectMapper mapper;
 
 	@RequestMapping({"", "index"})
 	public ModelAndView index() throws IOException {
 		String viewName = "ui/index";
 		ModelAndView modelAndView = new ModelAndView(viewName);
-		modelAndView.addObject("clientConfig", uiSettings);
+
+		HashMap<String, Object> clientConfig = new HashMap<String, Object>();
+		clientConfig.put("keywords", uiSettings.getKeywords());
+		clientConfig.put("previewImage", uiSettings.getPreviewImage());
+		clientConfig.put("showBanner", uiSettings.getShowBanner());
+		clientConfig.put("siteBanner", uiSettings.getSiteBanner());
+		clientConfig.put("siteDescription", uiSettings.getSiteDescription());
+		clientConfig.put("siteName", uiSettings.getSiteName());
+		clientConfig.put("siteTitle", uiSettings.getSiteTitle());
+		clientConfig.put("siteUrl", uiSettings.getSiteUrl());
+		
+		modelAndView.addObject("clientConfig", clientConfig);
+		modelAndView.addObject("clientConfigJson", mapper.writerWithDefaultPrettyPrinter().writeValueAsString(clientConfig));
 		return modelAndView;
 	}
 

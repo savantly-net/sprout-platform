@@ -1,3 +1,9 @@
 The Root Page
 
-${clientConfig.keywords!}
+<meta name="keywords" content="<%= '\${clientConfig.keywords!}' %>"></meta>
+
+<script type="text/javascript">
+	// Ignore this syntax error when running the webpack-dev-server. 
+	// the client config is provided by the server when deployed.
+	window.clientConfig = <%= '\${clientConfigJson!}' %>;
+</script>
