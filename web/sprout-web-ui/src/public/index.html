@@ -40,26 +40,6 @@
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 	<base href="/">
-	
-	<script type="text/javascript">
-		// Ignore this syntax error when running the webpack-dev-server. 
-		// the client config is provided by the server when deployed.
-		window.clientConfig = <%= '\${clientConfigJson!}' %>;
-	</script>
-	<script type="text/javascript">
-		if (window.clientConfig == undefined) {
-			// We must be running the UI from outside the Sprout Platform
-			// Let's set some mock values
-			window.clientConfig = {
-				siteTitle: 'Sprout App',
-				siteDescription: 'My Awesome Sprout Application',
-				siteUrl: window.location.href,
-				keywords: 'sprout, spring, cms',
-				siteName: 'Sprout site',
-				siteImage: './img/sprout.png'
-			}
-		}
-	</script>
 
 </head>
 

@@ -1,7 +1,6 @@
 package net.savantly.sprout.controllers;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -38,23 +37,10 @@ public class DefaultMvcController {
 	@RequestMapping({"", "index"})
 	public ModelAndView index() throws IOException {
 		String viewName = "ui/index";
-		ModelAndView modelAndView = new ModelAndView(viewName);
-
-		HashMap<String, Object> clientConfig = new HashMap<String, Object>();
-		clientConfig.put("keywords", uiSettings.getKeywords());
-		clientConfig.put("previewImage", uiSettings.getPreviewImage());
-		clientConfig.put("showBanner", uiSettings.getShowBanner());
-		clientConfig.put("siteBanner", uiSettings.getSiteBanner());
-		clientConfig.put("siteDescription", uiSettings.getSiteDescription());
-		clientConfig.put("siteName", uiSettings.getSiteName());
-		clientConfig.put("siteTitle", uiSettings.getSiteTitle());
-		clientConfig.put("siteUrl", uiSettings.getSiteUrl());
-		
-		modelAndView.addObject("clientConfig", clientConfig);
-		modelAndView.addObject("clientConfigJson", mapper.writerWithDefaultPrettyPrinter().writeValueAsString(clientConfig));
+		ModelAndView modelAndView = new ModelAndView(viewName);		
+		modelAndView.addObject("clientConfig", uiSettings);
 		return modelAndView;
 	}
-
 
 	@RequestMapping({"/admin", "/admin/"})
 	public ModelAndView admin() throws IOException {

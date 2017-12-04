@@ -18,23 +18,23 @@ import { PageEditorComponent } from './web-page/page/page-editor/page-editor.com
 import { PageListComponent } from './web-page/page/page-list/page-list.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'app-menu', component: AppMenuComponent },
-  { path: 'content-types', component: ContentTypesComponent },
-  { path: 'content-types-editor', component: ContentTypesEditorComponent },
-  { path: 'content-item', component: ContentItemComponent },
-  { path: 'content-item-editor', component: ContentItemEditorComponent },
-  { path: 'content-template', component: ContentTemplateComponent },
-  { path: 'content-template-editor', component: ContentTemplateEditorComponent },
-  { path: 'pages', component: PageListComponent },
-  { path: 'page-editor', component: PageEditorComponent },
-  { path: 'users', component: UserListComponent },
-  { path: 'user-editor', component: UserEditorComponent },
-  { path: 'roles', component: RoleListComponent },
-  { path: 'role-editor', component: RoleListComponent },
-  { path: 'settings', component: AppSettingsComponent },
-  { path: 'layouts', component: LayoutListComponent },
-  { path: 'layout-editor', component: LayoutEditorComponent }
+  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: 'app-menu', component: AppMenuComponent, pathMatch: 'full' },
+  { path: 'content-types', component: ContentTypesComponent, pathMatch: 'full' },
+  { path: 'content-types-editor', component: ContentTypesEditorComponent, pathMatch: 'full' },
+  { path: 'content-item', component: ContentItemComponent, pathMatch: 'full' },
+  { path: 'content-item-editor', component: ContentItemEditorComponent, pathMatch: 'full' },
+  { path: 'content-template', component: ContentTemplateComponent, pathMatch: 'full' },
+  { path: 'content-template-editor', component: ContentTemplateEditorComponent, pathMatch: 'full' },
+  { path: 'pages', component: PageListComponent, pathMatch: 'full' },
+  { path: 'page-editor', component: PageEditorComponent, pathMatch: 'full' },
+  { path: 'users', component: UserListComponent, pathMatch: 'full' },
+  { path: 'user-editor', component: UserEditorComponent, pathMatch: 'full' },
+  { path: 'roles', component: RoleListComponent, pathMatch: 'full' },
+  { path: 'role-editor', component: RoleListComponent, pathMatch: 'full' },
+  { path: 'settings', component: AppSettingsComponent, pathMatch: 'full' },
+  { path: 'layouts', component: LayoutListComponent, pathMatch: 'full' },
+  { path: 'layout-editor', component: LayoutEditorComponent, pathMatch: 'full' }
 ];
 
 export const routing = RouterModule.forRoot(routes);

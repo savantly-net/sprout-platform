@@ -2,10 +2,7 @@ import { Component } from '@angular/core';
 import { ApiService } from './shared';
 
 import '../style/app.scss';
-
-function _window(): any {
-  return window;
-}
+import { SettingsService } from './settings/settings.service';
 
 @Component({
   selector: 'my-app', // <my-app></my-app>
@@ -15,9 +12,10 @@ function _window(): any {
 export class AppComponent {
   url = 'https://github.com/preboot/angular2-webpack';
   title: string;
-  clientConfig: any = _window().clientConfig || {};
+  clientConfig: any;
 
-  constructor(private api: ApiService) {
+  constructor(private api: ApiService, settingsService: SettingsService) {
     this.title = this.api.title;
+    this.clientConfig = settingsService.value.getValue();
   }
 }

@@ -21,6 +21,8 @@ import { SecurityMockService, SecurityModule, ISecurityService } from '@savantly
 import { SproutPluginModule } from '@savantly/ngx-sprout-plugin';
 import { PageModule } from './page/page.module';
 import { PluginsModule } from './plugins/plugins.module';
+import { SettingsService } from './settings/settings.service';
+import { StandardModule } from './standard/standard.module';
 import { CommonModule } from '@angular/common';
 import { MenuModule, MenuService } from '@savantly/ngx-menu';
 
@@ -38,7 +40,8 @@ import { MenuModule, MenuService } from '@savantly/ngx-menu';
     MaterialModule,
     MenuModule,
     PluginsModule,
-    PageModule
+    PageModule,
+    StandardModule
   ],
   exports: [PluginsModule],
   declarations: [
@@ -53,7 +56,8 @@ import { MenuModule, MenuService } from '@savantly/ngx-menu';
     ApiService,
     {provide: ISecurityService, useClass: SecurityMockService},
     {provide: MenuService, useClass: MenuService, deps: [ISecurityService]},
-    AppMenuService, DynamicBuilderService
+    AppMenuService, DynamicBuilderService,
+    SettingsService
   ],
   entryComponents: [ DynamicComponent ],
   bootstrap: [AppComponent]
