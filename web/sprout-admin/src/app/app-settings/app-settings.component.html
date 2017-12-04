@@ -1,0 +1,10 @@
+<div fxLayout="column" fxLayoutGap="1em">
+	<h3>Settings</h3>
+	<mat-card>
+    	<div fxLayout="column" fxLayoutGap="1em" fxLayout-align="stretch start">
+    		<div *ngIf="SITE_NAME | async; let item">
+				<inline-input-edit [(ngModel)]="item.value" [prefix]="'Site Name: &nbsp;'" [changed]="onChange('SITE_NAME')"></inline-input-edit>
+    		</div>
+		</div>
+	</mat-card>
+</div>

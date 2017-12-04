@@ -33,6 +33,8 @@ import net.savantly.sprout.core.security.FakeContext;
 import net.savantly.sprout.core.security.roles.Role;
 import net.savantly.sprout.core.security.roles.RoleFixture;
 import net.savantly.sprout.core.security.roles.RoleRepository;
+import net.savantly.sprout.settings.AppSettingFixture;
+import net.savantly.sprout.settings.AppSettingRepository;
 
 @Configuration
 @AutoConfigureAfter(JpaRepositoriesAutoConfiguration.class)
@@ -42,6 +44,11 @@ public class SproutFixtureAutoConfiguration {
 	
     @Autowired
 	ApplicationContext ctx;
+    
+	@Bean 
+	public AppSettingFixture appSettingFixture(AppSettingRepository repository) {
+		return new AppSettingFixture(repository);
+	}
 	
 	@Bean 
 	public RoleFixture roleFixture(RoleRepository repository) {
