@@ -1,4 +1,5 @@
 import { AppMenuComponent } from './app-menu/app-menu.component';
+import { AppSettingsComponent } from './app-settings/app-settings.component';
 import { ContentItemEditorComponent } from './content-item/content-item-editor/content-item-editor.component';
 import { ContentItemComponent } from './content-item/content-item.component';
 import { ContentTemplateEditorComponent } from './content-template/content-template-editor/content-template-editor.component';
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'user-editor', component: UserEditorComponent },
   { path: 'roles', component: RoleListComponent },
   { path: 'role-editor', component: RoleListComponent },
+  { path: 'settings', component: AppSettingsComponent },
   { path: 'layouts', component: LayoutListComponent },
   { path: 'layout-editor', component: LayoutEditorComponent }
 ];

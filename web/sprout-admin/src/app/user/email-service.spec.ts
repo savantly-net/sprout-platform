@@ -1,15 +1,17 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { EmailServiceService } from './email-service.service';
+import { EmailService } from './email-service';
+import { StandardModule } from '../standard/standard.module';
 
-describe('EmailServiceService', () => {
+describe('EmailService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [EmailServiceService]
+      imports: [StandardModule],
+      providers: [EmailService]
     });
   });
 
-  it('should be created', inject([EmailServiceService], (service: EmailServiceService) => {
+  it('should be created', inject([EmailService], (service: EmailService) => {
     expect(service).toBeTruthy();
   }));
 });

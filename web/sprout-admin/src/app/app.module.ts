@@ -1,4 +1,5 @@
 import { AppMenuModule } from './app-menu/app-menu.module';
+import { AppSettingsModule } from './app-settings/app-settings.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Injector } from '@angular/core';
 import { routing } from './app.routing';
@@ -35,7 +36,8 @@ import { UserModule } from './user/user.module';
     ContentTypesModule,
     ContentItemModule,
     WebPageModule,
-    UserModule
+    UserModule,
+    AppSettingsModule
   ],
   exports: [MaterialModule, MenuModule],
   providers: [],

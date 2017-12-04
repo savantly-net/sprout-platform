@@ -17,6 +17,7 @@ import {
   MatExpansionModule,
   MatDialogModule} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { InlineEditModule } from '@savantly/ngx-inline-edit';
 
 @NgModule({
   imports: [],
@@ -38,7 +39,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatCheckboxModule,
     MatExpansionModule,
     MatDialogModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    InlineEditModule
   ],
   providers: []
 })

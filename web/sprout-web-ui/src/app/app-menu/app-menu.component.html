@@ -22,13 +22,13 @@
 </mat-list>
 
 <ng-template #menuItemTemplate let-item="item">
+		<mat-menu #submenu="matMenu" fxLayoutGap="1em">
+			<ng-container *ngTemplateOutlet="menuListTemplate;context:{itemList:item.items}"></ng-container>
+		</mat-menu>
 		<button mat-button [routerLink]="item.url" [matMenuTriggerFor]="submenu">
 			<mat-icon>{{item.icon}}</mat-icon>
 			<span>{{item.displayText}}</span>
 		</button>
-		<mat-menu #submenu="matMenu" fxLayoutGap="1em">
-			<ng-container *ngTemplateOutlet="menuListTemplate;context:{itemList:item.items}"></ng-container>
-		</mat-menu>
 </ng-template>
 
 <ng-template #simpleItemTemplate let-item="item">
