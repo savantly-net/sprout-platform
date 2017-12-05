@@ -22,3 +22,43 @@ $sprout-app-theme: mat-light-theme($sprout-app-primary, $sprout-app-accent, $spr
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($sprout-app-theme);
+
+.light-blue-yellow-theme {
+  @include angular-material-theme(mat-light-theme(mat-palette($mat-light-blue), mat-palette($mat-yellow)));
+}
+
+.light-blue-green-theme {
+  @include angular-material-theme(mat-light-theme(mat-palette($mat-light-blue), mat-palette($mat-green)));
+}
+
+.light-blue-pink-theme {
+  @include angular-material-theme(mat-light-theme(mat-palette($mat-light-blue), mat-palette($mat-pink)));
+}
+
+.light-blue-cyan-theme {
+  @include angular-material-theme(mat-light-theme(mat-palette($mat-light-blue), mat-palette($mat-cyan)));
+}
+
+.light-blue-amber-theme {
+  @include angular-material-theme(mat-light-theme(mat-palette($mat-light-blue), mat-palette($mat-amber)));
+}
+
+.light-blue-teal-theme {
+  @include angular-material-theme(mat-light-theme(mat-palette($mat-light-blue), mat-palette($mat-teal)));
+}
+
+.indigo-pink-theme {
+  @include angular-material-theme(mat-light-theme(mat-palette($mat-indigo), mat-palette($mat-pink)));
+}
+
+.indigo-deep-purple-theme {
+  @include angular-material-theme(mat-light-theme(mat-palette($mat-indigo), mat-palette($mat-deep-purple)));
+}
+
+.indigo-blue-theme {
+  @include angular-material-theme(mat-light-theme(mat-palette($mat-indigo), mat-palette($mat-blue)));
+}
+
+.indigo-cyan-theme {
+  @include angular-material-theme(mat-light-theme(mat-palette($mat-indigo), mat-palette($mat-cyan)));
+}

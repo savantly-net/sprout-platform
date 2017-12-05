@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.savantly.sprout.settings.AppSetting;
+import net.savantly.sprout.settings.AppSettingRepository;
 import net.savantly.sprout.settings.UISettings;
 
 @RestController
@@ -16,25 +18,16 @@ import net.savantly.sprout.settings.UISettings;
 public class ClientController {
 
 	@Autowired
-	UISettings uiSettings;
+	AppSettingRepository settings;
 	
-	public ClientController(UISettings uiSettings) {
-		this.uiSettings = uiSettings;
+	public ClientController(AppSettingRepository settings) {
+		this.settings = settings;
 	}
 
 	@RequestMapping({"/config"})
 	@ResponseBody
-	public Map<String, Object> config() throws IOException {
-		HashMap<String, Object> clientConfig = new HashMap<String, Object>();
-		clientConfig.put("keywords", uiSettings.getKeywords());
-		clientConfig.put("previewImage", uiSettings.getPreviewImage());
-		clientConfig.put("showBanner", uiSettings.getShowBanner());
-		clientConfig.put("siteBanner", uiSettings.getSiteBanner());
-		clientConfig.put("siteDescription", uiSettings.getSiteDescription());
-		clientConfig.put("siteName", uiSettings.getSiteName());
-		clientConfig.put("siteTitle", uiSettings.getSiteTitle());
-		clientConfig.put("siteUrl", uiSettings.getSiteUrl());
-		return clientConfig;
+	public Iterable<AppSetting> config() throws IOException {
+		return this.settings.findAll();
 	}
 
 }

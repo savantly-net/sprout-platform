@@ -1,4 +1,4 @@
 <div fxLayout="column" fxFlex fxLayoutAlign="center center">
-	<img src="./img/sprout.png"> 
+	<img *ngIf="showBanner" [src]="siteBanner"> 
 	<my-page></my-page>
 </div>

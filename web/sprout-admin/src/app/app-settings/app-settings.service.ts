@@ -4,8 +4,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 export class AppSetting extends HalResponse {
-    id: string;
-    value: boolean;
+  id: string;
+  value: boolean;
+  new = false;
 }
 
 export class SettingName {
@@ -17,6 +18,7 @@ export class SettingName {
   static SITE_BANNER = 'SITE_BANNER';
   static SHOW_BANNER = 'SHOW_BANNER';
   static SITE_NAME = 'SITE_NAME';
+  static THEME = 'THEME';
 }
 
 @Injectable()

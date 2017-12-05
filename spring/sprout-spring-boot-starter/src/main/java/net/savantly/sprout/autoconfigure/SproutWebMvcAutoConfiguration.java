@@ -61,8 +61,8 @@ public class SproutWebMvcAutoConfiguration {
 	}
 	
 	@Bean
-	public ClientController clientController(UISettings uiSettings) {
-		return new ClientController(uiSettings);
+	public ClientController clientController(AppSettingRepository settingsRepository) {
+		return new ClientController(settingsRepository);
 	}
 	
     @Bean("freeMarkerViewResolver")
