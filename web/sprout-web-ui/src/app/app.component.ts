@@ -13,11 +13,14 @@ export class AppComponent {
   url = 'https://github.com/preboot/angular2-webpack';
   title: string;
   siteName: any;
+  theme = 'default-theme';
 
   constructor(private api: ApiService, settingsService: SettingsService) {
     this.title = this.api.title;
-    settingsService.value.then(clientConfig => {
-      this.siteName = clientConfig.siteName;
+    settingsService.value.subscribe(clientConfig => {
+      if (clientConfig === {}) { return; }
+      this.siteName = clientConfig.SITE_NAME;
+      this.theme = clientConfig.THEME;
     });
   }
 }

@@ -1,3 +1,4 @@
+import { SettingsService } from '../settings/settings.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  siteBanner: string;
+  showBanner: boolean;
+
+  constructor(settingsService: SettingsService) {
+    settingsService.value.subscribe((settings) => {
+      if (!settings) { return; }
+      this.siteBanner = settings.SITE_BANNER;
+      this.showBanner = settings.SHOW_BANNER === 'false' ? false : true;
+    });
+  }
 
   ngOnInit() {
     console.log('Hello Home');

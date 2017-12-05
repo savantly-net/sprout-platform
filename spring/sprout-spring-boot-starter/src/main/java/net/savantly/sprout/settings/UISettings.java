@@ -19,28 +19,28 @@ public class UISettings {
 	}
 
 	public AppSetting getKeywords() {
-		return settings.findOne(SettingName.KEYWORDS);
+		return settings.findOne(SettingName.KEYWORDS.toString());
 	}
 	public AppSetting getSiteDescription() {
-		return settings.findOne(SettingName.SITE_DESCRIPTION);
+		return settings.findOne(SettingName.SITE_DESCRIPTION.toString());
 	}
 	public AppSetting getSiteUrl() {
-		return settings.findOne(SettingName.SITE_URL);
+		return settings.findOne(SettingName.SITE_URL.toString());
 	}
 	public AppSetting getPreviewImage() {
-		return settings.findOne(SettingName.PREVIEW_IMAGE);
+		return settings.findOne(SettingName.PREVIEW_IMAGE.toString());
 	}
 	public AppSetting getSiteTitle() {
-		return settings.findOne(SettingName.SITE_TITLE);
+		return settings.findOne(SettingName.SITE_TITLE.toString());
 	}
 	public AppSetting getSiteBanner() {
-		return settings.findOne(SettingName.SITE_BANNER);
+		return settings.findOne(SettingName.SITE_BANNER.toString());
 	}
 	public AppSetting getShowBanner() {
-		return settings.findOne(SettingName.SHOW_BANNER);
+		return settings.findOne(SettingName.SHOW_BANNER.toString());
 	}
 	public AppSetting getSiteName() {
-		return settings.findOne(SettingName.SITE_NAME);
+		return settings.findOne(SettingName.SITE_NAME.toString());
 	}
 	
 }
