@@ -1,10 +1,42 @@
 <div fxLayout="column" fxLayoutGap="1em">
 	<h3>Settings</h3>
-	<mat-card>
-    	<div fxLayout="column" fxLayoutGap="1em" fxLayout-align="stretch start">
-    		<div *ngIf="SITE_NAME | async; let item">
-				<inline-input-edit [(ngModel)]="item.value" [prefix]="'Site Name: &nbsp;'" [changed]="onChange('SITE_NAME')"></inline-input-edit>
-    		</div>
-		</div>
-	</mat-card>
+	<div fxLayout fxLayoutAlign="center start">
+		<mat-card fxLayout fxFlexFill fxFlex fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="60" fxFlex.gt-md="50">
+	    	<div fxLayout="column" fxFlex="100">
+	    		<div *ngIf="THEME | async; let item">
+	    			<mat-form-field>
+	    				<mat-select placeholder="Theme" [(ngModel)]="item.value">
+	    					<mat-option>Default Theme</mat-option>
+	    					<mat-option *ngFor="let item of THEME_OPTIONS" [value]="item.value">{{item.key}}</mat-option>
+	    				</mat-select>
+	    			</mat-form-field>
+	    			<button mat-button (click)="itemChange(item)">Apply</button>
+	    		</div>
+	    		<div *ngIf="SITE_TITLE | async; let item">
+					<inline-input-edit [(ngModel)]="item.value" [label]="'Site Title [in browser tab]'" [changed]="onChange('SITE_TITLE')"></inline-input-edit>
+	    		</div>
+	    		<div *ngIf="SITE_NAME | async; let item" fxFlex="100">
+					<inline-input-edit [(ngModel)]="item.value" [label]="'Site Name [in header]'" [changed]="onChange('SITE_NAME')"></inline-input-edit>
+	    		</div>
+	    		<div *ngIf="SITE_DESCRIPTION | async; let item">
+					<inline-input-edit [(ngModel)]="item.value" [label]="'Site Description [meta information]'" [changed]="onChange('SITE_DESCRIPTION')"></inline-input-edit>
+	    		</div>
+	    		<div *ngIf="KEYWORDS | async; let item">
+					<inline-input-edit [(ngModel)]="item.value" [label]="'Keywords [meta information]'" [changed]="onChange('KEYWORDS')"></inline-input-edit>
+	    		</div>
+	    		<div *ngIf="SHOW_BANNER | async; let item">
+					<mat-checkbox [(ngModel)]="item.value" (change)="itemChange(item)">Show Banner [above rendered content]</mat-checkbox>
+	    		</div>
+	    		<div *ngIf="SITE_BANNER | async; let item">
+					<inline-input-edit [(ngModel)]="item.value" [label]="'Site Banner [url]'" [changed]="onChange('SITE_BANNER')"></inline-input-edit>
+	    		</div>
+	    		<div *ngIf="PREVIEW_IMAGE | async; let item">
+					<inline-input-edit [(ngModel)]="item.value" [label]="'Preview Image [url / meta information]'" [changed]="onChange('PREVIEW_IMAGE')"></inline-input-edit>
+	    		</div>
+	    		<div *ngIf="SITE_URL | async; let item">
+					<inline-input-edit [(ngModel)]="item.value" [label]="'Site Url [for some generated links]'" [changed]="onChange('SITE_URL')"></inline-input-edit>
+	    		</div>
+			</div>
+		</mat-card>
+	</div>
 </div>

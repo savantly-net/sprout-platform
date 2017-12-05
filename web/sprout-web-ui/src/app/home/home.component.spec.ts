@@ -1,6 +1,7 @@
 // This shows a different way of testing a component, check about for a simpler one
 import { PageComponent } from '../page/page.component';
 import { PageService } from '../page/page.service';
+import { SettingsService } from '../settings/settings.service';
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
@@ -21,7 +22,8 @@ describe('Home Component', () => {
     TestBed.configureTestingModule({
       imports: [routing, RouterModule, HttpClientModule],
       declarations: [PageComponent, HomeComponent, TestComponent],
-      providers: [PageService, {provide: APP_BASE_HREF, useValue: '/'}]});
+      providers: [PageService, {provide: APP_BASE_HREF, useValue: '/'},
+        SettingsService]});
     TestBed.overrideComponent(TestComponent, { set: { template: html }});
   });
 

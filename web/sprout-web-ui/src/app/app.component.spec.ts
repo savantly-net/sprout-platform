@@ -9,6 +9,7 @@ import { SecurityModule, SecurityMockService, ISecurityService } from '@savantly
 import { ApiService } from './shared';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
+import { SettingsService } from './settings/settings.service';
 import { MenuModule, MenuService } from '@savantly/ngx-menu';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -27,6 +28,7 @@ describe('AppComponent', () => {
       providers: [
         {provide: ISecurityService, useClass: SecurityMockService},
         {provide: MenuService, useClass: MenuService, deps: [ISecurityService]},
+        SettingsService,
         ApiService, AppMenuService, provideRoutes([])]
     });
   });

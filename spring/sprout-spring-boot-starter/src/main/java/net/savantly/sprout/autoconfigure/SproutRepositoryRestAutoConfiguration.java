@@ -17,6 +17,7 @@ import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
 import net.savantly.sprout.core.domain.menu.Menu;
 import net.savantly.sprout.core.domain.user.SproutUserEntity;
 import net.savantly.sprout.core.security.roles.Role;
+import net.savantly.sprout.settings.AppSetting;
 
 @Configuration
 @EnableJpaRepositories(basePackages="net.savantly.sprout.**")
@@ -32,6 +33,7 @@ public class SproutRepositoryRestAutoConfiguration {
 			config.setReturnBodyForPutAndPost(true);
 			config.setBasePath("/api");
 			config.exposeIdsFor(
+					AppSetting.class,
 					Role.class,
 					EmailAddress.class, 
 					SproutUserEntity.class, 
