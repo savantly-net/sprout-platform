@@ -42,9 +42,11 @@ module.exports = function (config) {
     singleRun: false
   });
   
+  config.browsers.push('Firefox'); 
+/*  
   if (!isWin) {
 	 config.browsers.push('Chrome'); 
   } else  {
 	 config.browsers.push('Firefox'); 
-  }
+  }*/
 };
