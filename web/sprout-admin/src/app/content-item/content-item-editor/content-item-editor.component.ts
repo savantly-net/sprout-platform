@@ -156,7 +156,9 @@ export class ContentItemEditorComponent implements OnInit {
   }
 
   get currentContentType(): FormControl {
-    return this.rForm.get('contentType') as FormControl;
+    const ctrl = this.rForm.get('contentType') as FormControl;
+    ctrl.disable();
+    return ctrl;
   }
 
   getContentTypeFields(contentType: ContentType, callback): void {
