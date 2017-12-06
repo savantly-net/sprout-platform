@@ -23,6 +23,14 @@ A Spring-Boot starter that provides a full server/client framework for rapidly d
   
   
 ### Quick Start Installation  
+Download the latest [release], and start it from the command line -  
+`java -jar garden.jar`  
+
+You can override properties by including a `application.properties` file in the same directory as the jar file.  
+[See here for more info.](./src/main/resources/)  
+
+
+### Development   
 [Requires nodejs]  
 - Branch the [Garden App]
 - Run `mvn spring-boot:run` from the base directory of the project  
@@ -37,6 +45,9 @@ Customizable landing page for your visitors
 Manage your Sprout application here  
 ![admin](./examples/img/sprout-admin.png)  
 ![admin menu](./examples/img/sprout-admin-menu.png)  
+
+### Settings Page
+![admin settings](./examples/img/sprout-admin-settings.png)  
 
 #### Menu Admin Page  
 Manage the menu for your Sprout application  
@@ -82,6 +93,7 @@ Content Items are added to the placeholders, and rendered using the Page Layout 
 
 
 
+[release]: https://github.com/savantly-net/garden/releases  
 [Garden App]: https://github.com/savantly-net/garden  
 [sprout-spring-boot-starter]: https://github.com/savantly-net/sprout-platform/tree/master/spring/sprout-spring-boot-starter  
 [Material Icons]: https://material.io/icons/  
