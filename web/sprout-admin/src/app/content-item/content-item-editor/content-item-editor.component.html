@@ -19,7 +19,7 @@
 				</mat-form-field>
 				
 				<mat-form-field hintLabel="The content type determines the fields; cannot change once set">
-					<mat-select matInput formControlName="contentType" [disabled]="!rForm.value.new" [compareWith]="idCompare">
+					<mat-select matInput formControlName="contentType" [compareWith]="idCompare">
 						<mat-option *ngFor="let ct of this.contentTypes; trackBy: trackById" [value]="ct">{{ct.name}}</mat-option>
 					</mat-select>
 				</mat-form-field>
