@@ -25,6 +25,10 @@ export class ContentTypesService extends RestRepositoryService<ContentType> {
     return this.http.delete(contentType._links.fields.href + '/' + field.id);
   }
 
+  getFieldTypes(): Observable<any> {
+    return this.http.get('/rest/client/fieldTypes');
+  }
+
   constructor(http: HttpClient) {
     super(http, '/api/contentTypes');
   }
