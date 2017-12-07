@@ -16,7 +16,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class ContentTypesEditorComponent implements OnInit {
 
-  fieldTypes: string[] = ['text'];
+  fieldTypes: any[];
   rForm: FormGroup;
 
   prepareSave(model): any {
@@ -128,6 +128,10 @@ export class ContentTypesEditorComponent implements OnInit {
     private snackBar: MatSnackBar,
     private service: ContentTypesService,
     private contentFieldService: ContentFieldService) {
+
+    this.service.getFieldTypes().subscribe((fieldTypes: any[]) => {
+      this.fieldTypes = fieldTypes;
+    });
 
     this.rForm = fb.group({
       'id' : [''],
