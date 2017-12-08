@@ -36,16 +36,9 @@
 						<h3>Fields</h3>
 					</div>
 					<div formArrayName="fieldValues" class="well">
-						<mat-card *ngFor="let field of fieldValues.controls; let i=index" [formGroupName]="i" >
-							<!-- The repeated field template -->
-							<mat-card-content>
-								<mat-form-field [hintLabel]="field.value.displayName">
-									<textarea rows="3" matInput formControlName="value" maxlength="3000"></textarea>
-									<mat-hint align="end">{{field.value?.value?.length || 0}}/3000</mat-hint>
-								</mat-form-field>
-							</mat-card-content>
-						    <!-- End of the repeated field template -->
-						</mat-card>
+						<div *ngFor="let field of fieldValues.controls; let i=index" [formGroupName]="i" >
+							<app-field-type [fieldControl]="field"></app-field-type>
+						</div>
 					</div>
 				</div>
 				<br/>
