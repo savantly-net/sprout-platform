@@ -1,3 +1,4 @@
+import { FieldTypeModule } from '../field-type/field-type.module';
 import { MaterialModule } from '../material/material.module';
 import { StandardModule } from '../standard/standard.module';
 import { NgModule } from '@angular/core';
@@ -15,8 +16,10 @@ import { ContentItemBrowserDialogComponent } from './content-item-browser-dialog
     MaterialModule,
     FormsModule, ReactiveFormsModule,
     HttpClientModule,
-    StandardModule
+    StandardModule,
+    FieldTypeModule
   ],
+  exports: [FieldTypeModule],
   declarations: [ContentItemComponent, ContentItemEditorComponent, ContentItemBrowserDialogComponent],
   providers: [ContentItemService],
   entryComponents: [ContentItemBrowserDialogComponent]
