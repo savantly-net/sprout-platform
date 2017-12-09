@@ -1,3 +1,4 @@
+import { AppService } from './app.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Sprout Admin';
+  hideToolbar = this.appService.getHideToolbar();
+
+  constructor (private appService: AppService) { }
 }

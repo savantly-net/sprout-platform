@@ -21,7 +21,6 @@ img {
 
 router-outlet + * { 
 	overflow-y: auto;
-	height: 100%;
 }
 
 /****** Material Styles ******************/
