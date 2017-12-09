@@ -50,7 +50,7 @@ export class PageEditorComponent implements OnInit {
             const pageContent = new PageContent();
             pageContent.placeHolderId = item.key;
             // If the value is an actual model
-            if (item.value._links) {
+            if (item.value) {
               pageContent.contentItems = [item.value._links.self.href];
             } else { // the value is a placeholder [empty]
               pageContent.contentItems = [];
@@ -112,7 +112,16 @@ export class PageEditorComponent implements OnInit {
         this.service.getWebPageLayout(page).subscribe(webPageLayout => {
           page.webPageLayout = webPageLayout;
           webPageLayout.placeHolders.map(key => {
-            fDefinition.contentAreas.push(this.fb.group({key: key, value: page.contentItems[key]}));
+            const value = page.contentItems.map((contentArea) => {
+              if (key === contentArea.placeHolderId) {
+                const contentReferences = contentArea.contentItems.map((singleContentItem) => {
+                  return singleContentItem;
+                });
+                return contentReferences[0];
+              }
+            });
+            const itemControl = this.fb.group({'key': key, 'value': value[0]});
+            fDefinition.contentAreas.push(itemControl);
           });
         delete page.contentItems;
         this.rForm = this.fb.group(fDefinition);
@@ -154,6 +163,7 @@ export class PageEditorComponent implements OnInit {
       return o1.id === o2.id;
     }
   }
+
   trackByKey(index: number, item: {key: string}) {
     return item.key;
   }

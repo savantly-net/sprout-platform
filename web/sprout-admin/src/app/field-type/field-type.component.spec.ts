@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
+import { CKEditorModule } from 'ng2-ckeditor';
 import { FieldTypeComponent } from './field-type.component';
 
 describe('FieldTypeComponent', () => {
@@ -11,7 +12,8 @@ describe('FieldTypeComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule, ReactiveFormsModule,
-        MaterialModule],
+        MaterialModule,
+        CKEditorModule],
       declarations: [ FieldTypeComponent ]
     })
     .compileComponents();

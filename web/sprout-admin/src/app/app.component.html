@@ -4,7 +4,7 @@
 	</mat-sidenav>
 
 	<main fxLayout="column" fxFlexFill>
-		<mat-toolbar color="primary">
+		<mat-toolbar *ngIf="!(hideToolbar | async)" color="primary">
 		    <span>Sprout Administration</span>
 		    <span fxFlex></span>
 			<button mat-fab (click)="mainMenu.toggle()">

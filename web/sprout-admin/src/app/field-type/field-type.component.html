@@ -7,6 +7,9 @@
 				<mat-hint align="end">{{fieldControl.value.value?.length || 0}}/3000</mat-hint>
 			</mat-form-field>
 		</div>
+		<div *ngSwitchCase="'markup'">
+			<ckeditor [(ngModel)]="fieldControl.value.value" [ngModelOptions]="{standalone: true}"></ckeditor>
+		</div>
 		<div *ngSwitchDefault>
 			<b>Field type: {{fieldControl.value?.fieldType}} has no editor yet =(</b>
 		</div>
