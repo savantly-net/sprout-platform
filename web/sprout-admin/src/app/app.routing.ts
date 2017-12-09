@@ -6,6 +6,7 @@ import { ContentTemplateEditorComponent } from './content-template/content-templ
 import { ContentTemplateComponent } from './content-template/content-template.component';
 import { ContentTypesEditorComponent } from './content-types/content-types-editor/content-types-editor.component';
 import { ContentTypesComponent } from './content-types/content-types.component';
+import { FileBrowserComponent } from './file-browser/file-browser.component';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'content-item-editor', component: ContentItemEditorComponent, pathMatch: 'full' },
   { path: 'content-template', component: ContentTemplateComponent, pathMatch: 'full' },
   { path: 'content-template-editor', component: ContentTemplateEditorComponent, pathMatch: 'full' },
+  { path: 'browser', component: FileBrowserComponent, pathMatch: 'full' },
   { path: 'pages', component: PageListComponent, pathMatch: 'full' },
   { path: 'page-editor', component: PageEditorComponent, pathMatch: 'full' },
   { path: 'users', component: UserListComponent, pathMatch: 'full' },

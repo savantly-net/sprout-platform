@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
+import { AppService } from './app.service';
 import { ContentItemModule } from './content-item/content-item.module';
 import { ContentTemplateModule } from './content-template/content-template.module';
 import { ContentTypesModule } from './content-types/content-types.module';
@@ -17,12 +18,14 @@ import { MenuModule } from './menu/menu.module';
 import { ServiceLocator } from './standard/service-locator';
 import { WebPageModule } from './web-page/web-page.module';
 import { UserModule } from './user/user.module';
+import { FileBrowserComponent } from './file-browser/file-browser.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    FileBrowserComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,7 @@ import { UserModule } from './user/user.module';
     AppSettingsModule
   ],
   exports: [MaterialModule, MenuModule],
-  providers: [],
+  providers: [AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
