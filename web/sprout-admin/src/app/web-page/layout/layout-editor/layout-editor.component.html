@@ -1,5 +1,5 @@
 <div class="content" fxLayout >
-	<mat-card [fxFlex.lt-md]="100" [fxFlex.md]="80" [fxFlex.lg]="60" [fxFlex.xl]="50">
+	<mat-card class="centered" [fxFlex.lt-md]="100" [fxFlex.md]="80" [fxFlex.lg]="60" [fxFlex.xl]="50">
 		<mat-card-header fxLayoutAlign="center center" fxLayout >
 			<mat-card-title>Page Layout Editor</mat-card-title>
 			<span fxFlex></span>
@@ -18,7 +18,7 @@
 					<mat-hint align="end">{{rForm.controls['description'].value?.length || 0}}/255</mat-hint>
 				</mat-form-field>
 				
-				<ckeditor [(ngModel)]="template" [ngModelOptions]="{standalone: true}"></ckeditor>
+				<ckeditor #ckEditor [ngModelOptions]="{standalone: true}" [ngModel]="template | async" (ngModelChange)="template.next($event)"></ckeditor>
 				
 				<br/>
 				

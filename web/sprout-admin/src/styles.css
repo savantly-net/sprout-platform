@@ -23,6 +23,11 @@ router-outlet + * {
 	overflow-y: auto;
 }
 
+router-outlet + * > div > mat-card { 
+	margin-left: auto;
+	margin-right: auto;
+}
+
 /****** Material Styles ******************/
 
 mat-card {
@@ -46,5 +51,10 @@ mat-card-header button.mat-button {
 
 .content {
 	padding: 1em;
+}
+
+.centered {
+	margin-left: auto;
+	margin-right: auto;
 }
 
