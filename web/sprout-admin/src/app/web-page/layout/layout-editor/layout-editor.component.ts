@@ -1,9 +1,10 @@
 import { Identifiable } from '../../../spring-data/rest-repository.service';
 import { LayoutService } from '../layout.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+import { CKEditorComponent } from 'ng2-ckeditor';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
@@ -13,14 +14,14 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: './layout-editor.component.html',
   styleUrls: ['./layout-editor.component.css']
 })
-export class LayoutEditorComponent implements OnInit {
-
+export class LayoutEditorComponent implements OnInit, OnDestroy {
+  @ViewChild('ckEditor') ckEditor: CKEditorComponent;
   rForm: FormGroup;
-  template: string;
+  template: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   prepareSave(model): any {
     const halModel = Object.assign({}, model);
-    halModel.template = this.template;
+    halModel.template = this.template.getValue();
     halModel.placeHolders = model.placeHolders.map(item => {
       return item.value;
     });
@@ -31,10 +32,13 @@ export class LayoutEditorComponent implements OnInit {
   save(model) {
     const halModel = this.prepareSave(model);
     this.service.saveItem(halModel).subscribe(data => {
+      this.snackBar.open('Saved', 'Close', {duration: 4000});
       this.router.navigate(['layout-editor', {id: data.id}]);
     }, err => {
       if (err.statusText === 'Conflict') {
-        this.snackBar.open('The name must be unique', 'Close', {duration: 8000});
+        this.snackBar.open('The name must be unique', 'Close', {duration: 4000});
+      } else {
+        this.snackBar.open(err, 'Close', {duration: 4000});
       }
     });
   }
@@ -51,7 +55,7 @@ export class LayoutEditorComponent implements OnInit {
   loadItem(id: string) {
     if (id) {
       this.service.findOne(id).subscribe((response: any) => {
-        this.template = response.template;
+        this.template.next(response.template || '');
         this.rForm.patchValue(response);
         response.placeHolders.map(placeHolder => {
           this.addPlaceHolder(placeHolder);
@@ -108,4 +112,6 @@ export class LayoutEditorComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe( params => this.loadItem(params['id']) );
   }
+
+  ngOnDestroy(): void { }
 }
