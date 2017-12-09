@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FileBrowserComponent } from './file-browser.component';
+import { AppService } from '../app.service';
 
 describe('FileBrowserComponent', () => {
   let component: FileBrowserComponent;
@@ -8,7 +9,8 @@ describe('FileBrowserComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FileBrowserComponent ]
+      declarations: [ FileBrowserComponent ],
+      providers: [AppService]
     })
     .compileComponents();
   }));

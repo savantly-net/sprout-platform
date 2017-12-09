@@ -10,6 +10,7 @@ import { ContentFieldModule } from './content-field/content-field.module';
 
 import { HomeComponent } from './home/home.component';
 import { AppComponent } from './app.component';
+import { AppService } from './app.service';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -23,7 +24,7 @@ describe('AppComponent', () => {
         MenuModule,
         ContentTypesModule,
         ContentItemModule],
-      providers: [provideRoutes([])]
+      providers: [provideRoutes([]), AppService]
     }).compileComponents();
   }));
   it('should create the app', async(() => {

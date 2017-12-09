@@ -131,7 +131,7 @@ export class ContentTypesEditorComponent implements OnInit {
 
     this.service.getFieldTypes().subscribe((fieldTypes: any[]) => {
       this.fieldTypes = fieldTypes;
-    });
+    }, (err) => { console.log('failed to retrieve Field Types'); } );
 
     this.rForm = fb.group({
       'id' : [''],

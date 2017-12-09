@@ -3,7 +3,7 @@
 
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"></meta>
-	<title ng-bind="title"><%= '\${clientConfig.siteTitle!.value}' %></title>
+	<title ng-bind="title"><%= '\${(clientConfig.siteTitle.value)!}' %></title>
 
 	<!-- General META -->
 	<meta charset="utf-8"></meta>
@@ -13,23 +13,23 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black"></meta>
 
 	<!-- Semantic META -->
-	<meta name="keywords" content="<%= '\${clientConfig.keywords!}' %>"></meta>
-	<meta name="description" content="<%= '\${clientConfig.siteDescription!}' %>"></meta>
+	<meta name="keywords" content="<%= '\${(clientConfig.keywords.value)!}' %>"></meta>
+	<meta name="description" content="<%= '\${(clientConfig.siteDescription.value)!}' %>"></meta>
 
 	<!-- Facebook META -->
-	<meta property="fb:app_id" content="<%= '\${clientConfig.facebookAppId!}' %>"></meta>
-	<meta property="og:site_name" content="<%= '\${clientConfig.siteTitle!}' %>"></meta>
-	<meta property="og:title" content="<%= '\${clientConfig.siteTitle!}' %>"></meta>
-	<meta property="og:description" content="<%= '\${clientConfig.siteDescription!}' %>"></meta>
-	<meta property="og:url" content="<%= '\${clientConfig.siteUrl!}' %>"></meta>
-	<meta property="og:image" content="<%= '\${clientConfig.siteImage!}' %>"></meta>
+	<meta property="fb:app_id" content="<%= '\${(clientConfig.facebookAppId.value)!}' %>"></meta>
+	<meta property="og:site_name" content="<%= '\${(clientConfig.siteTitle.value)!}' %>"></meta>
+	<meta property="og:title" content="<%= '\${(clientConfig.siteTitle.value)!}' %>"></meta>
+	<meta property="og:description" content="<%= '\${(clientConfig.siteDescription.value)!}' %>"></meta>
+	<meta property="og:url" content="<%= '\${(clientConfig.siteUrl.value)!}' %>"></meta>
+	<meta property="og:image" content="<%= '\${(clientConfig.siteImage.value)!}' %>"></meta>
 	<meta property="og:type" content="website"></meta>
 
 	<!-- Twitter META -->
-	<meta name="twitter:title" content="<%= '\${clientConfig.siteTitle!}' %>"></meta>
-	<meta name="twitter:description" content="<%= '\${clientConfig.siteDescription!}' %>"></meta>
-	<meta name="twitter:url" content="<%= '\${clientConfig.siteUrl!}' %>"></meta>
-	<meta name="twitter:image" content="<%= '\${clientConfig.siteImage!}' %>"></meta>
+	<meta name="twitter:title" content="<%= '\${(clientConfig.siteTitle.value)!}' %>"></meta>
+	<meta name="twitter:description" content="<%= '\${(clientConfig.siteDescription.value)!}' %>"></meta>
+	<meta name="twitter:url" content="<%= '\${(clientConfig.siteUrl.value)!}' %>"></meta>
+	<meta name="twitter:image" content="<%= '\${(clientConfig.siteImage.value)!}' %>"></meta>
 
 	<!-- Fav Icon -->
 	<link rel="icon" href="/img/favicon.ico?v=1.0"></link>
