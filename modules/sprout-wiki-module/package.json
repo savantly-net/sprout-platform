@@ -1,6 +1,6 @@
 {
   "name": "@savantly/sprout-wiki-plugin",
-  "version": "1.4.0-RC1",
+  "version": "1.4.0-RC2",
   "description": "Wiki plugin for the Sprout platform",
   "main": "src/main/resources/index.ts",
   "homepage": "https://github.com/savantly-net/sprout-platform",

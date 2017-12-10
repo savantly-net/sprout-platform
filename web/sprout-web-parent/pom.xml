@@ -5,7 +5,7 @@
 	<groupId>net.savantly.sprout</groupId>
 	<artifactId>web-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>1.4.0-RC1</version>
+	<version>1.4.0-RC3</version>
 	<name>sprout-web-parent</name>
 	<description>Parent pom for Sprout Web Applications</description>
 	<url>https://github.com/savantly-net/sprout-platform/</url>

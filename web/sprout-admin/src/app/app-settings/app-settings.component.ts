@@ -32,7 +32,8 @@ export class AppSettingsComponent implements OnInit {
     {key: 'Indigo/Pink', value: 'indigo-pink-theme'},
     {key: 'Indigo/Deep Purple', value: 'indigo-deep-purple-theme'},
     {key: 'Indigo/Blue', value: 'indigo-blue-theme'},
-    {key: 'Indigo/Cyan', value: 'indigo-cyan-theme'}
+    {key: 'Indigo/Cyan', value: 'indigo-cyan-theme'},
+    {key: 'Savantly', value: 'savantly-theme'}
   ];
 
   itemChange(item: AppSetting) {
