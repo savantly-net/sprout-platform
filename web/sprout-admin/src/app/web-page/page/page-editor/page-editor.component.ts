@@ -112,15 +112,15 @@ export class PageEditorComponent implements OnInit {
         this.service.getWebPageLayout(page).subscribe(webPageLayout => {
           page.webPageLayout = webPageLayout;
           webPageLayout.placeHolders.map(key => {
-            const value = page.contentItems.map((contentArea) => {
+            const values = [];
+            page.contentItems.map((contentArea) => {
               if (key === contentArea.placeHolderId) {
                 const contentReferences = contentArea.contentItems.map((singleContentItem) => {
-                  return singleContentItem;
+                  values.push(singleContentItem);
                 });
-                return contentReferences[0];
               }
             });
-            const itemControl = this.fb.group({'key': key, 'value': value[0]});
+            const itemControl = this.fb.group({'key': key, 'value': values[0]});
             fDefinition.contentAreas.push(itemControl);
           });
         delete page.contentItems;
