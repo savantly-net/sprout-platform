@@ -10,6 +10,9 @@
 		<div *ngSwitchCase="'markup'">
 			<ckeditor [(ngModel)]="fieldControl.value.value" [ngModelOptions]="{standalone: true}"></ckeditor>
 		</div>
+		<div *ngSwitchCase="'markdown'">
+			<md-editor name="markdownContent" [(ngModel)]="fieldControl.value.value" [height]="'200px'" [mode]="markdownMode" [required]="fieldControl.value.required"></md-editor>
+		</div>
 		<div *ngSwitchDefault>
 			<b>Field type: {{fieldControl.value?.fieldType}} has no editor yet =(</b>
 		</div>

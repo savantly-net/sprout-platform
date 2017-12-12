@@ -46,7 +46,7 @@ export class PageEditorComponent implements OnInit {
       this.service.clearContentItems(halModel).then((page) => {
         // then add the items from the form
         model.contentAreas.map(item => {
-          if (item.value !== null) {
+          if (item.value !== null && item.value._links) {
             const pageContent = new PageContent();
             pageContent.placeHolderId = item.key;
             // If the value is an actual model

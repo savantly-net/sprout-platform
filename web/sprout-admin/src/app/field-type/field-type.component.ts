@@ -18,6 +18,7 @@ export class FieldTypeComponent implements OnInit, ControlValueAccessor {
   _onChange: any;
   value: any;
   _fieldControl: any;
+  markdownMode = 'editor';
 
   get fieldControl() {
     return this._fieldControl;

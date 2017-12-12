@@ -26,7 +26,6 @@ import { StandardModule } from './standard/standard.module';
 import { CommonModule } from '@angular/common';
 import { MenuModule, MenuService } from '@savantly/ngx-menu';
 
-
 @NgModule({
   imports: [
     CommonModule,
