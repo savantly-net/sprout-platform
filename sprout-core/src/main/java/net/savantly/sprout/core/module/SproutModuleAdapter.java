@@ -3,14 +3,8 @@ package net.savantly.sprout.core.module;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-
-public abstract class SproutModuleAdapter implements SproutModule, ApplicationContextAware {
+public abstract class SproutModuleAdapter implements SproutModule {
 	
-	protected ApplicationContext appContext;
-
 	@Override
 	public Map<String, String> getUserConfiguration() {
 		return new HashMap<>();
@@ -26,10 +20,4 @@ public abstract class SproutModuleAdapter implements SproutModule, ApplicationCo
 
 	@Override
 	public void saveAdminConfiguration(Map<String, String> configuration) {}
-	
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		this.appContext = applicationContext;
-	}
-
 }
