@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import net.savantly.sprout.core.module.SproutModuleAdapter;
 import net.savantly.sprout.core.module.SproutModuleConfiguration;
-import net.savantly.sprout.module.SproutModuleRegistry;
 import net.savantly.sprout.wiki.repository.WikiItemRepository;
 
 @EntityScan
@@ -19,10 +18,6 @@ public class WikiModule extends SproutModuleAdapter {
 
 	private static final String NAME = "sprout-wiki";
 	private static final String PATH = "/rest/modules/sprout-wiki";
-	
-	public WikiModule() {
-		SproutModuleRegistry.registerPluginModule("wikiModule", this);
-	}
 
 	@Override
 	public String name() {

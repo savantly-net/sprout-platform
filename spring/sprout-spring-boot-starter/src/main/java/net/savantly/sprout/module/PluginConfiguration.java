@@ -15,11 +15,6 @@ public class PluginConfiguration {
 	}
 	
 	@Bean
-	public SproutModuleRegistry pluginRegistry(WebApplicationContext context) {
-		return new SproutModuleRegistry(context);
-	}
-	
-	@Bean
 	public SproutModuleAspect sproutModuleAspect() {
 		return new SproutModuleAspect();
 	}

@@ -28,14 +28,14 @@ import net.savantly.sprout.controllers.PluginsController;
 import net.savantly.sprout.core.module.SproutModule;
 import net.savantly.sprout.core.module.SproutModuleAdapter;
 import net.savantly.sprout.core.module.SproutModuleConfiguration;
-import net.savantly.sprout.module.PluginRegistryTest.TestContext.ExampleController;
+import net.savantly.sprout.module.PluginConfigurationTest.TestContext.ExampleController;
 
 @SpringBootTest
 @WebAppConfiguration
 @RunWith(SpringRunner.class)
-public class PluginRegistryTest {
+public class PluginConfigurationTest {
 
-	private static final Logger log = LoggerFactory.getLogger(PluginRegistryTest.class);
+	private static final Logger log = LoggerFactory.getLogger(PluginConfigurationTest.class);
 
 	@Autowired
 	WebApplicationContext ctx;
@@ -98,10 +98,6 @@ public class PluginRegistryTest {
 		@SproutModuleConfiguration("example-module")
 		class ExampleModule extends SproutModuleAdapter {
 			
-			public ExampleModule() {
-				SproutModuleRegistry.registerPluginModule("exampleModule", this);
-			}
-
 			@Override
 			public String name() {
 				return "example";
