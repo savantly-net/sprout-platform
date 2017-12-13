@@ -21,7 +21,7 @@ public class PluginsController {
 	private final static Logger log = LoggerFactory.getLogger(PluginsController.class);
 
 	private ApplicationContext context;
-	private HashMap<String, Object> plugins = new HashMap<String, Object>();
+	private HashMap<String, Map> plugins = new HashMap<String, Map>();
 	
 	public PluginsController(ApplicationContext context) {
 		this.context = context;
@@ -32,26 +32,29 @@ public class PluginsController {
 		this.context.getBeansOfType(SproutModule.class).entrySet().stream().forEach((m) -> {
 			HashMap<String, Object> value = new HashMap<String, Object>();
 			 value.put("name", m.getValue().name());
-			 value.put("url", m.getValue().renderUrl());
+			 value.put("key", m.getKey());
+			 value.put("url", m.getValue().welcomeUrl());
 			 value.put("config", m.getValue().getUserConfiguration());
-			 plugins.put(m.getKey(), value);
+			 plugins.put(m.getValue().name(), value);
 		});
 	}
 	
 	@RequestMapping({"", "/"})
-	public Map<String, Object> getSproutModules(){
+	public HashMap<String, Map> getSproutModules(){
 		return plugins;
 	}
 	
 	@RequestMapping("/{name}/user-config")
 	public Map<String, String> getSproutModuleUserConfig(@PathVariable("name") String name){
-		SproutModule bean = this.context.getBean(name, SproutModule.class);
+		String key = ((String)this.plugins.get(name).get("key"));
+		SproutModule bean = this.context.getBean(key, SproutModule.class);
 		return bean.getUserConfiguration();
 	}
 
 	@RequestMapping("/{name}/admin-config")
 	public Map<String, String> getSproutModuleAdminConfig(@PathVariable("name") String name){
-		SproutModule bean = this.context.getBean(name, SproutModule.class);
+		String key = ((String)this.plugins.get(name).get("key"));
+		SproutModule bean = this.context.getBean(key, SproutModule.class);
 		return bean.getAdminConfiguration();
 	}
 }

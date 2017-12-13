@@ -5,7 +5,7 @@ import java.util.Map;
 public interface SproutModule {
 
 	String name();
-	String renderUrl();
+	String welcomeUrl();
 	
 	Map<String, String> getUserConfiguration();
 	void saveUserConfiguration(Map<String, String> configuration);

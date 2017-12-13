@@ -21,6 +21,7 @@ import { SecurityMockService, SecurityModule, ISecurityService } from '@savantly
 import { SproutPluginModule } from '@savantly/ngx-sprout-plugin';
 import { PageModule } from './page/page.module';
 import { ClientPluginsModule } from './client-plugins/client-plugins.module';
+import { ServerPluginsModule } from './server-plugins/server-plugins.module';
 import { SettingsService } from './settings/settings.service';
 import { StandardModule } from './standard/standard.module';
 import { CommonModule } from '@angular/common';
@@ -40,7 +41,8 @@ import { MenuModule, MenuService } from '@savantly/ngx-menu';
     MenuModule,
     ClientPluginsModule,
     PageModule,
-    StandardModule
+    StandardModule,
+    ServerPluginsModule
   ],
   exports: [ClientPluginsModule],
   declarations: [

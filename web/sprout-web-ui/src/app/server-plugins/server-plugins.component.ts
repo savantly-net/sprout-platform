@@ -17,9 +17,14 @@ export class ServerPluginsComponent implements OnInit {
 
     this.route.params.subscribe( (params) => {
       if (params['id']) {
-        console.log(params['id']);
-        this.pluginService.renderPlugin(params['id']).subscribe(response => {
-          console.log(response);
+        this.pluginService.plugins.subscribe(plugins => {
+          let plugin = plugins[params['id']];
+          console.log('trying to render plugin: ', plugin);
+          this.pluginService.renderPlugin(plugin).subscribe(response => {
+            console.log(response);
+          }, (error) => {
+            console.log(error);
+          });
         });
       }
     });

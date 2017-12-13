@@ -8,6 +8,7 @@ import { ServerPluginsService } from './server-plugins.service';
     CommonModule
   ],
   declarations: [ServerPluginsComponent],
-  providers: [ServerPluginsService]
+  providers: [ServerPluginsService],
+  exports: [ServerPluginsComponent]
 })
 export class ServerPluginsModule { }

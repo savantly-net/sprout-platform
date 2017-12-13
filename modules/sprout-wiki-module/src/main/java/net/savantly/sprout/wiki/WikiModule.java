@@ -21,7 +21,7 @@ public class WikiModule extends SproutModuleAdapter {
 	private static final Logger log = LoggerFactory.getLogger(WikiModule.class);
 
 	private static final String NAME = "sprout-wiki";
-	private static final String PATH = "/rest/modules/sprout-wiki";
+	private static final String PATH = "/rest/modules/sprout-wiki/";
 
 	public WikiModule() {
 		log.info("Instantiated WikiModule");
@@ -33,7 +33,7 @@ public class WikiModule extends SproutModuleAdapter {
 	}
 
 	@Override
-	public String renderUrl() {
+	public String welcomeUrl() {
 		return PATH;
 	}
 }

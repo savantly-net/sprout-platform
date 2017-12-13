@@ -104,7 +104,7 @@ public class PluginConfigurationTest {
 			}
 
 			@Override
-			public String renderUrl() {
+			public String welcomeUrl() {
 				return "example/url";
 			}
 			
