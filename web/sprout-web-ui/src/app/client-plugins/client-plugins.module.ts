@@ -23,7 +23,7 @@ const log = (msg: string, obj?: any) => {
   exports: [...plugins],
   declarations: []
 })
-export class PluginsModule {
+export class ClientPluginsModule {
   private ngModules: NgModule[] = [];
 
   getNgModules(): Observable<NgModule[]> {

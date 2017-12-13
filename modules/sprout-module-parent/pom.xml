@@ -191,10 +191,33 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>net.savantly.sprout</groupId>
+				<artifactId>module-test</artifactId>
+				<version>${project.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>net.savantly.sprout</groupId>
+				<artifactId>sprout-spring-boot-starter</artifactId>
+				<version>${project.version}</version>
+				<scope>compile</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>net.savantly.sprout</groupId>
 			<artifactId>module-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.savantly.sprout</groupId>
+			<artifactId>sprout-spring-boot-starter</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 	<description>Parent pom for Sprout modules</description>

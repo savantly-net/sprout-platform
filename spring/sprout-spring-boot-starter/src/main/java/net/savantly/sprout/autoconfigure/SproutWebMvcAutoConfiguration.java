@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.ui.freemarker.FreeMarkerConfigurationFactory;
 import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
@@ -30,12 +31,14 @@ import net.savantly.sprout.controllers.LoginController;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplateRepository;
 import net.savantly.sprout.core.content.webPage.WebPageRepository;
 import net.savantly.sprout.core.content.webPageLayout.WebPageLayoutRepository;
+import net.savantly.sprout.module.PluginConfiguration;
 import net.savantly.sprout.settings.AppSettingRepository;
 import net.savantly.sprout.settings.UISettings;
 import net.savantly.sprout.starter.SproutMvcConfiguration;
 
 @Configuration
 @AutoConfigureBefore(WebMvcAutoConfiguration.class)
+@Import(PluginConfiguration.class)
 public class SproutWebMvcAutoConfiguration {
 	
 	private static final Logger log = LoggerFactory.getLogger(SproutWebMvcAutoConfiguration.class);
@@ -112,6 +115,7 @@ public class SproutWebMvcAutoConfiguration {
 		WebPageLayoutTemplateLoader loader = new WebPageLayoutTemplateLoader(webPageLayoutRepository);
 		return new WebPageRenderer(loader, contentItemRenderer);
 	}
+	
 	
 /*	@Bean
 	SlowBeans slowBeans() {

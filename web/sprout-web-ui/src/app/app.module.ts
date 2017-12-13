@@ -20,7 +20,7 @@ import { MaterialModule } from './material/material.module';
 import { SecurityMockService, SecurityModule, ISecurityService } from '@savantly/ngx-security';
 import { SproutPluginModule } from '@savantly/ngx-sprout-plugin';
 import { PageModule } from './page/page.module';
-import { PluginsModule } from './plugins/plugins.module';
+import { ClientPluginsModule } from './client-plugins/client-plugins.module';
 import { SettingsService } from './settings/settings.service';
 import { StandardModule } from './standard/standard.module';
 import { CommonModule } from '@angular/common';
@@ -38,11 +38,11 @@ import { MenuModule, MenuService } from '@savantly/ngx-menu';
     SproutPluginModule.forRoot(),
     MaterialModule,
     MenuModule,
-    PluginsModule,
+    ClientPluginsModule,
     PageModule,
     StandardModule
   ],
-  exports: [PluginsModule],
+  exports: [ClientPluginsModule],
   declarations: [
     AppComponent,
     HomeComponent,
