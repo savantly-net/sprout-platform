@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { FieldTypeComponent } from './field-type.component';
+import { LMarkdownEditorModule } from 'ngx-markdown-editor';
 
 describe('FieldTypeComponent', () => {
   let component: FieldTypeComponent;
@@ -13,7 +14,8 @@ describe('FieldTypeComponent', () => {
       imports: [
         FormsModule, ReactiveFormsModule,
         MaterialModule,
-        CKEditorModule],
+        CKEditorModule,
+        LMarkdownEditorModule],
       declarations: [ FieldTypeComponent ]
     })
     .compileComponents();
