@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 export class ServerPlugin {
@@ -14,7 +14,9 @@ export class ServerPluginsService {
   plugins: Observable<any>;
 
   renderPlugin(plugin: ServerPlugin): Observable<any> {
-    return this.http.get(plugin.url);
+    const headers = new HttpHeaders({'Accept': 'text/html'});
+    const options = {headers: headers, responseType: 'text' as 'text'};
+    return this.http.get(plugin.url, options);
   }
 
   constructor(private http: HttpClient) {

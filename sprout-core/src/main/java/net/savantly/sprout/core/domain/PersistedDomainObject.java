@@ -21,8 +21,8 @@ public abstract class PersistedDomainObject extends AbstractAuditableDomainObjec
     protected String id;
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid")
+    @GeneratedValue(generator = "UseExistingOrGenerateIdGenerator")
+    @GenericGenerator(name = "UseExistingOrGenerateIdGenerator", strategy = "net.savantly.sprout.core.domain.UseExistingOrGenerateIdGenerator")
     @Column(columnDefinition = "CHAR(36)")
     public String getId() {
         return id;

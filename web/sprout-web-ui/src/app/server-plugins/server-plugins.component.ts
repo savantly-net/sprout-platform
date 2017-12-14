@@ -1,5 +1,6 @@
+import { DynamicBuilderService } from '../dynamic/dynamic-builder.service';
 import { ServerPluginsService } from './server-plugins.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -9,9 +10,16 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ServerPluginsComponent implements OnInit {
 
+  loading = true;
+
+  @ViewChild('dynamic', {
+    read: ViewContainerRef
+  }) viewContainerRef: ViewContainerRef
+
   constructor(
     private pluginService: ServerPluginsService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private dynamicBuilder: DynamicBuilderService) { }
 
   ngOnInit() {
 
@@ -21,9 +29,11 @@ export class ServerPluginsComponent implements OnInit {
           let plugin = plugins[params['id']];
           console.log('trying to render plugin: ', plugin);
           this.pluginService.renderPlugin(plugin).subscribe(response => {
-            console.log(response);
+            this.dynamicBuilder.createComponent(response, this.viewContainerRef);
+            this.loading = false;
           }, (error) => {
-            console.log(error);
+            this.dynamicBuilder.createComponent(JSON.stringify(error), this.viewContainerRef);
+            this.loading = false;
           });
         });
       }

@@ -1,12 +1,16 @@
 import { DynamicComponent } from './dynamic.component';
-import { Injectable } from '@angular/core';
+import { Injectable, ViewContainerRef, ComponentFactoryResolver, ComponentRef } from '@angular/core';
 
 @Injectable()
 export class DynamicBuilderService {
 
-  createComponent(template: string): any {
-    const component = new DynamicComponent();
-    component.body = template;
-    return component;
+  constructor(private factoryResolver: ComponentFactoryResolver) { }
+
+  createComponent(template: string, viewContainerRef: ViewContainerRef): ComponentRef<DynamicComponent> {
+    const factory = this.factoryResolver.resolveComponentFactory(DynamicComponent);
+    const componentRef = factory.create(viewContainerRef.parentInjector)
+    componentRef.instance.body = template;
+    viewContainerRef.insert(componentRef.hostView);
+    return componentRef;
   }
 }
