@@ -37,6 +37,7 @@ export class ContentItemEditorComponent implements OnInit {
       'contentType': {
         'id': [null],
         'name': [null],
+        'requiresTemplate': [false],
         '_links': {
           'self': {
             'href': [null]

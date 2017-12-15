@@ -12,6 +12,10 @@ public class UseExistingOrGenerateIdGenerator extends UUIDGenerator {
                         throws HibernateException {
         Serializable id = session.getEntityPersister(null, object)
                       .getClassMetadata().getIdentifier(object, session);
-        return id != null ? id : super.generate(session, object);
+        if (id == null || id == "") {
+        	return super.generate(session, object);
+        } else {
+        	return id;
+        }
     }
 }

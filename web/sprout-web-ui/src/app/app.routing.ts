@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent},
   { path: 'page/:id', component: PageComponent },
-  { path: 'plugins/:id', component: ServerPluginsComponent }
+  { path: 'plugins', component: ServerPluginsComponent }
 ];
 
 export const routing = RouterModule.forRoot(routes);

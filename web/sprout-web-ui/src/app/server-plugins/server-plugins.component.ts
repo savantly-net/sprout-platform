@@ -24,11 +24,12 @@ export class ServerPluginsComponent implements OnInit {
   ngOnInit() {
 
     this.route.params.subscribe( (params) => {
+      console.log(params);
       if (params['id']) {
         this.pluginService.plugins.subscribe(plugins => {
           let plugin = plugins[params['id']];
           console.log('trying to render plugin: ', plugin);
-          this.pluginService.renderPlugin(plugin).subscribe(response => {
+          this.pluginService.renderPlugin(plugin, params).subscribe(response => {
             this.dynamicBuilder.createComponent(response, this.viewContainerRef);
             this.loading = false;
           }, (error) => {

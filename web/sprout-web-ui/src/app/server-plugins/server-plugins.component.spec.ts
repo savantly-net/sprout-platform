@@ -1,3 +1,4 @@
+import { DynamicBuilderService } from '../dynamic/dynamic-builder.service';
 import { ComponentTestModule } from '../testing/component-test.module';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -11,7 +12,7 @@ describe('ServerPluginsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ComponentTestModule],
-      providers: [ServerPluginsService],
+      providers: [ServerPluginsService, DynamicBuilderService],
       declarations: [ ServerPluginsComponent ]
     })
     .compileComponents();

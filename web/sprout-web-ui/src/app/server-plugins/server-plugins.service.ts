@@ -13,10 +13,20 @@ export class ServerPluginsService {
 
   plugins: Observable<any>;
 
-  renderPlugin(plugin: ServerPlugin): Observable<any> {
+  renderPlugin(plugin: ServerPlugin, params?): Observable<any> {
+    let method = 'get';
+    let path = plugin.welcomeUrl;
+    if (params) {
+      if (params['method']) {
+        method = params['method'];
+      }
+      if (params['path']) {
+        path = path + params['path'];
+      }
+    }
     const headers = new HttpHeaders({'Accept': 'text/html'});
     const options = {headers: headers, responseType: 'text' as 'text'};
-    return this.http.get(plugin.welcomeUrl, options);
+    return this.http[method](path, options);
   }
 
   constructor(private http: HttpClient) {

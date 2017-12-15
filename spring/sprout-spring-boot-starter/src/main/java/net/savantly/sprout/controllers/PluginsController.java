@@ -88,7 +88,9 @@ public class PluginsController {
 		String key = request.get("key");
 		Assert.notNull(key, "A module key was not provided");
 		SproutModule bean = this.context.getBean(key, SproutModule.class);
-		return bean.uninstall();
+		SproutModuleExecutionResponse result = bean.uninstall();
+		markRegistrationInstallStatus(key, false);
+		return result;
 	}
 	
 	@RequestMapping("/{name}/user-config")

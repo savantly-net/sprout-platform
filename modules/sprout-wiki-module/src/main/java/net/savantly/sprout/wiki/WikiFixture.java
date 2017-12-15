@@ -48,12 +48,12 @@ public class WikiFixture {
 			ct.setCreatedBy(WikiModule.BEAN_NAME);
 			ct.setRequiresTemplate(false);
 			ct.setDescription(DEFAULT_WIKI_CONTENT_TYPE_DESCRIPTION);
-			ct.setFields(getFields());
+			ct.setFields(getFields(ct));
 			contentTypes.save(ct);
 		}
 	}
 
-	private Set<ContentField> getFields() {
+	private Set<ContentField> getFields(ContentType ct) {
 
 		Set<ContentField> fields = new HashSet<ContentField>();
 		
@@ -65,6 +65,7 @@ public class WikiFixture {
 		titleField.setName("title");
 		titleField.setRequired(true);
 		titleField.setSortOrder(0);
+		titleField.setContentType(ct);
 		
 		fields.add(titleField);
 		
@@ -76,6 +77,7 @@ public class WikiFixture {
 		bodyField.setName("body");
 		bodyField.setRequired(false);
 		bodyField.setSortOrder(1);
+		bodyField.setContentType(ct);
 		
 		fields.add(bodyField);
 		
@@ -102,9 +104,10 @@ public class WikiFixture {
 		Menu menu = menuRepository.findOne(DEFAULT_WIKI_MENU_ID);
 		if (menu == null) {
 			menu = new Menu();
+			menu.setIcon("bookmark");
 			menu.setId(DEFAULT_WIKI_MENU_ID);
 			menu.setDisplayText(DEFAULT_WIKI_MENU_NAME);
-			menu.setUrl("plugins/"+WikiModule.BEAN_NAME);
+			menu.setUrl("plugins;id="+WikiModule.BEAN_NAME);
 			menuRepository.save(menu);
 		}
 	}

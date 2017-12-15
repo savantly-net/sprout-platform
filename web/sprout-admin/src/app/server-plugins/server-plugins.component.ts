@@ -23,12 +23,21 @@ export class ServerPluginsComponent implements OnInit {
         this.snackBar.open('Failed to install plugin: ' + response.code + ': ' + response.message, 'Close', {duration: 4000});
       }
     }, error => {
-      console.error('failed to install plugin: ', error);
+      console.error('failed to install plugin: ', error.message);
     });
   }
 
   uninstallPlugin(plugin: ServerPlugin) {
-
+    this.pluginService.uninstallPlugin(plugin).subscribe(response => {
+      if (response.succeeded) {
+        this.snackBar.open('Uninstalled plugin', 'Close', {duration: 4000});
+        this.refreshPluginList();
+      } else {
+        this.snackBar.open('Failed to uninstall plugin: ' + response.code + ': ' + response.message, 'Close', {duration: 4000});
+      }
+    }, error => {
+      console.error('failed to uninstall plugin: ', error.message);
+    });
   }
 
   refreshPluginList() {
