@@ -37,14 +37,12 @@ import net.savantly.sprout.core.content.contentType.ContentTypeRepository;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @Transactional
-public class ContentItemRendererTest {
+public class ContentItemRenderingChainTest {
 	
-	private static final Logger log = LoggerFactory.getLogger(ContentItemRendererTest.class);
-	private static final String BOGUS = "BOGUS";
-	private static final String PICKY = "PICKY";
+	private static final Logger log = LoggerFactory.getLogger(ContentItemRenderingChainTest.class);
 	
 	@Autowired
-	private ContentItemRenderingChain renderer;
+	private ContentItemRenderer renderer;
 	@Autowired
 	private ContentTypeRepository ctRepository;
 	@Autowired
@@ -67,7 +65,7 @@ public class ContentItemRendererTest {
 	
 	
 	@Test
-	public void testBogusRenderer() {
+	public void testContentItemRenderer() throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
 		
 		ContentType contentType = ctRepository.findByName(ContentTypeFixture.defaultContentTypeName);
 		ContentItem contentItem = new ContentItem();
@@ -81,30 +79,8 @@ public class ContentItemRendererTest {
 		}
 	
 		StringWriter writer = new StringWriter();
-		renderer.renderContentItem(contentItem, writer);
-		Assert.assertEquals("should equal", BOGUS, writer.toString());
-	}
-	
-	@Test
-	public void testPickyRenderer() {
-		
-		ContentType contentType = new ContentType();
-		contentType.setId(PICKY);
-		contentType.setName(PICKY);
-		
-		ContentItem contentItem = new ContentItem();
-		contentItem.setContentType(contentType);
-		contentItem.setTemplate(contentTemplate);
-		
-		Set<ContentField> fields = contentType.getFields();
-		
-		for (ContentField contentField : fields) {
-			contentItem.getFieldValues().put(contentField, "test");
-		}
-	
-		StringWriter writer = new StringWriter();
-		renderer.renderContentItem(contentItem, writer);
-		Assert.assertEquals("should equal", PICKY, writer.toString());
+		renderer.render(contentItem, writer);
+		Assert.assertEquals("should equal", "test", writer.toString());
 	}
 	
 	@Configuration
@@ -119,61 +95,6 @@ public class ContentItemRendererTest {
 		@Bean
 		public ContentTypeFixture contentTypeFixture(ContentTypeRepository repository) {
 			return new ContentTypeFixture(repository);
-		}
-		
-		@Bean
-		public ContentItemRenderer bogusRenderer() {
-			return new ContentItemRenderer() {
-				
-				@Override
-				public boolean render(ContentItem item, StringWriter writer) {
-					writer.write(BOGUS);
-					return true;
-				}
-				
-				@Override
-				public int getPriority() {
-					return 1;
-				}
-			};
-		}
-		
-		@Bean
-		public ContentItemRenderer lazyRenderer() {
-			return new ContentItemRenderer() {
-				
-				@Override
-				public boolean render(ContentItem item, StringWriter writer) {
-					// I dont render anyting
-					return false;
-				}
-				
-				@Override
-				public int getPriority() {
-					return 2;
-				}
-			};
-		}
-		
-		@Bean
-		public ContentItemRenderer pickyRenderer() {
-			return new ContentItemRenderer() {
-				
-				@Override
-				public boolean render(ContentItem item, StringWriter writer) {
-					if (item.getContentType().getId() == PICKY) {
-						writer.write(PICKY);
-						return true;
-					} else {
-						return false;
-					}
-				}
-				
-				@Override
-				public int getPriority() {
-					return 2;
-				}
-			};
 		}
 
 	}

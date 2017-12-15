@@ -24,10 +24,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import net.savantly.sprout.controllers.PluginsController;
+import net.savantly.sprout.core.module.SimpleSproutModuleExecutionResponse;
 import net.savantly.sprout.core.module.SproutModule;
 import net.savantly.sprout.core.module.SproutModuleAdapter;
 import net.savantly.sprout.core.module.SproutModuleConfiguration;
+import net.savantly.sprout.core.module.SproutModuleExecutionResponse;
 import net.savantly.sprout.module.PluginConfigurationTest.TestContext.ExampleController;
 
 @SpringBootTest
@@ -36,9 +41,12 @@ import net.savantly.sprout.module.PluginConfigurationTest.TestContext.ExampleCon
 public class PluginConfigurationTest {
 
 	private static final Logger log = LoggerFactory.getLogger(PluginConfigurationTest.class);
+	private static final String EXAMPLE_MODULE_KEY = "myExampleModule";
 
 	@Autowired
 	WebApplicationContext ctx;
+	@Autowired
+	ObjectMapper mapper;
 	
 	private MockMvc mvc;
 
@@ -69,7 +77,25 @@ public class PluginConfigurationTest {
 	
 	@Test
 	public void testPluginController() throws Exception {
+		MvcResult result = mvc.perform(get("/rest/plugins")).andExpect(status().isOk()).andReturn();
+		String content = result.getResponse().getContentAsString();
+		log.info(content);
+		JsonNode jsonNode = mapper.readTree(content);
+		Assert.assertTrue("the example module should be in the payload: " + content, jsonNode.has(EXAMPLE_MODULE_KEY));
+	}
+	
+	@Test
+	public void testExampleModule() throws Exception {
 		MvcResult result = mvc.perform(get("/rest/modules/example/")).andExpect(status().isOk()).andReturn();
+		String content = result.getResponse().getContentAsString();
+		Assert.assertEquals("The response should be the same", "example-response", content);
+	}
+
+	@Test
+	public void testPluginControllerForExampleModuleUserConfig() throws Exception {
+		MvcResult result = mvc.perform(get("/rest/plugins/"+EXAMPLE_MODULE_KEY+"/user-config")).andExpect(status().isOk()).andReturn();
+		String content = result.getResponse().getContentAsString();
+		Assert.assertEquals("The response should be the same", "{}", content);
 	}
 	
 	
@@ -77,7 +103,7 @@ public class PluginConfigurationTest {
 	@EnableAutoConfiguration
 	static class TestContext{
 		
-		@Bean
+		@Bean(EXAMPLE_MODULE_KEY)
 		public SproutModule exampleSproutModule() {
 			return new ExampleModule();
 		}
@@ -99,13 +125,34 @@ public class PluginConfigurationTest {
 		class ExampleModule extends SproutModuleAdapter {
 			
 			@Override
-			public String name() {
+			public String getName() {
 				return "example";
 			}
 
 			@Override
-			public String welcomeUrl() {
-				return "example/url";
+			public String getWelcomeUrl() {
+				return "rest/modules/example/";
+			}
+
+			@Override
+			public String getVersion() {
+				return "0.0.0";
+			}
+
+			@Override
+			public SproutModuleExecutionResponse install() {
+				return new SimpleSproutModuleExecutionResponse(true, 0, "Install completed");
+			}
+
+			@Override
+			public SproutModuleExecutionResponse uninstall() {
+				return new SimpleSproutModuleExecutionResponse(true, 0, "Uninstall completed");
+			}
+
+			@Override
+			public String getDescription() {
+				// TODO Auto-generated method stub
+				return null;
 			}
 			
 		};

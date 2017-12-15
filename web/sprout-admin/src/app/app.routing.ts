@@ -10,6 +10,7 @@ import { FileBrowserComponent } from './file-browser/file-browser.component';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
+import { ServerPluginsComponent } from './server-plugins/server-plugins.component';
 import { RoleListComponent } from './user/role-list/role-list.component';
 import { UserEditorComponent } from './user/user-editor/user-editor.component';
 import { UserListComponent } from './user/user-list/user-list.component';
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'roles', component: RoleListComponent, pathMatch: 'full' },
   { path: 'role-editor', component: RoleListComponent, pathMatch: 'full' },
   { path: 'settings', component: AppSettingsComponent, pathMatch: 'full' },
+  { path: 'plugins', component: ServerPluginsComponent, pathMatch: 'full' },
   { path: 'layouts', component: LayoutListComponent, pathMatch: 'full' },
   { path: 'layout-editor', component: LayoutEditorComponent, pathMatch: 'full' }
 ];

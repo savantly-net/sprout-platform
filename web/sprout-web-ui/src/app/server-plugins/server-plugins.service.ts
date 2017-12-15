@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 export class ServerPlugin {
   name: String;
   key: string;
-  url: string;
+  welcomeUrl: string;
 }
 
 @Injectable()
@@ -16,7 +16,7 @@ export class ServerPluginsService {
   renderPlugin(plugin: ServerPlugin): Observable<any> {
     const headers = new HttpHeaders({'Accept': 'text/html'});
     const options = {headers: headers, responseType: 'text' as 'text'};
-    return this.http.get(plugin.url, options);
+    return this.http.get(plugin.welcomeUrl, options);
   }
 
   constructor(private http: HttpClient) {

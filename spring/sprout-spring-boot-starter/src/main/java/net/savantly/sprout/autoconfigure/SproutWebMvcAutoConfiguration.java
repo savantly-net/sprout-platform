@@ -19,7 +19,9 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 import freemarker.template.TemplateException;
+import net.savantly.sprout.content.contentItem.ContentItemFreemarkerRenderer;
 import net.savantly.sprout.content.contentItem.ContentItemRenderer;
+import net.savantly.sprout.content.contentItem.ContentItemRenderingChain;
 import net.savantly.sprout.content.contentItem.ContentItemRestController;
 import net.savantly.sprout.content.contentType.ContentTypeTemplateLoader;
 import net.savantly.sprout.content.webPage.WebPageRenderer;
@@ -86,11 +88,16 @@ public class SproutWebMvcAutoConfiguration {
     	configurer.setConfiguration(config);
     	return configurer;
     }
+    
+    @Bean
+    public ContentItemRenderingChain contentItemRenderingChain() {
+    	return new ContentItemRenderingChain();
+    }
 		
 	@Bean
-	public ContentItemRenderer contentItemRenderer(ContentTemplateRepository repository) throws IOException, TemplateException {
+	public ContentItemRenderer defaultContentItemRenderer(ContentTemplateRepository repository) throws IOException, TemplateException {
 		ContentTypeTemplateLoader loader = new ContentTypeTemplateLoader(repository);
-		return new ContentItemRenderer(loader);
+		return new ContentItemFreemarkerRenderer(loader);
 	}
 
 	@Bean
@@ -101,7 +108,7 @@ public class SproutWebMvcAutoConfiguration {
 	}
 	
 	@Bean
-	public ContentItemRestController contentItemRestController(ContentItemRenderer renderer) {
+	public ContentItemRestController contentItemRestController(ContentItemRenderingChain renderer) {
 		return new ContentItemRestController(renderer);
 	}
 	
@@ -111,7 +118,7 @@ public class SproutWebMvcAutoConfiguration {
 	}
 	
 	@Bean
-	public WebPageRenderer webPageRenderer(ContentItemRenderer contentItemRenderer, WebPageLayoutRepository webPageLayoutRepository) throws IOException, TemplateException {
+	public WebPageRenderer webPageRenderer(ContentItemRenderingChain contentItemRenderer, WebPageLayoutRepository webPageLayoutRepository) throws IOException, TemplateException {
 		WebPageLayoutTemplateLoader loader = new WebPageLayoutTemplateLoader(webPageLayoutRepository);
 		return new WebPageRenderer(loader, contentItemRenderer);
 	}

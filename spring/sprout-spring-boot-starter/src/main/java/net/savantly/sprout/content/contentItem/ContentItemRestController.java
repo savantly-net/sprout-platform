@@ -1,6 +1,7 @@
 package net.savantly.sprout.content.contentItem;
 
 import java.io.IOException;
+import java.io.StringWriter;
 
 import javax.transaction.Transactional;
 
@@ -22,16 +23,17 @@ import net.savantly.sprout.core.content.contentItem.ContentItem;
 @Transactional
 public class ContentItemRestController {
 	
-	private ContentItemRenderer renderer;
+	private ContentItemRenderingChain renderer;
 	
-	public ContentItemRestController(ContentItemRenderer renderer) {
+	public ContentItemRestController(ContentItemRenderingChain renderer) {
 		this.renderer = renderer;
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity getContent(@PathVariable("id") ContentItem item) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
-		String renderedView = renderer.render(item);
-		ResponseEntity<String> response = new ResponseEntity<String>(renderedView, HttpStatus.OK);
+		StringWriter writer = new StringWriter();
+		renderer.renderContentItem(item, writer);
+		ResponseEntity<String> response = new ResponseEntity<String>(writer.toString(), HttpStatus.OK);
 		return response;
 	}
 

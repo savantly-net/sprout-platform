@@ -12,6 +12,8 @@ import { AppService } from './app.service';
 import { ContentItemModule } from './content-item/content-item.module';
 import { ContentTemplateModule } from './content-template/content-template.module';
 import { ContentTypesModule } from './content-types/content-types.module';
+import { DynamicBuilderService } from './dynamic/dynamic-builder.service';
+import { DynamicComponent } from './dynamic/dynamic.component';
 import { HomeComponent } from './home/home.component';
 import { MaterialModule } from './material/material.module';
 import { MenuModule } from './menu/menu.module';
@@ -19,13 +21,15 @@ import { ServiceLocator } from './standard/service-locator';
 import { WebPageModule } from './web-page/web-page.module';
 import { UserModule } from './user/user.module';
 import { FileBrowserComponent } from './file-browser/file-browser.component';
+import { ServerPluginsModule } from './server-plugins/server-plugins.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    FileBrowserComponent
+    FileBrowserComponent,
+    DynamicComponent
   ],
   imports: [
     BrowserModule,
@@ -40,10 +44,12 @@ import { FileBrowserComponent } from './file-browser/file-browser.component';
     ContentItemModule,
     WebPageModule,
     UserModule,
-    AppSettingsModule
+    AppSettingsModule,
+    ServerPluginsModule
   ],
   exports: [MaterialModule, MenuModule],
-  providers: [AppService],
+  providers: [AppService, DynamicBuilderService],
+  entryComponents: [DynamicComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {
