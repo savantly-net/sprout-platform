@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MaterialModule} from '../../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RoleService } from '../role.service';
+import { PrivilegeService } from '../privilege.service';
 import { StandardModule } from '../../standard/standard.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -16,7 +17,7 @@ describe('RoleListComponent', () => {
     TestBed.configureTestingModule({
       imports: [BrowserAnimationsModule, MaterialModule, FormsModule, ReactiveFormsModule, StandardModule],
       declarations: [ RoleListComponent ],
-      providers: [RoleService]
+      providers: [RoleService, PrivilegeService]
     })
     .compileComponents();
   }));

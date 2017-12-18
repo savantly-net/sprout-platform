@@ -154,6 +154,8 @@ export class UserEditorComponent implements OnInit {
     this.roleService.findAll().subscribe(response => {
       this.roles = response._embedded.roles;
       this.route.params.subscribe( params => this.loadItem(params['id']) );
+    }, err => {
+      console.log('Failed to retrieve roles from server');
     });
   }
 
