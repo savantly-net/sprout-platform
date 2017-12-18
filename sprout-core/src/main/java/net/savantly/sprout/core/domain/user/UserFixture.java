@@ -1,7 +1,8 @@
 package net.savantly.sprout.core.domain.user;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,8 +14,8 @@ import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
 import net.savantly.sprout.core.domain.emailAddress.EmailAddressFixture;
 import net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepository;
 import net.savantly.sprout.core.domain.user.repository.UserRepository;
-import net.savantly.sprout.core.security.roles.Role;
-import net.savantly.sprout.core.security.roles.RoleRepository;
+import net.savantly.sprout.core.security.role.Role;
+import net.savantly.sprout.core.security.role.RoleRepository;
 
 public class UserFixture extends AbstractBaseFixture<SproutUserEntity, UserRepository>{
 
@@ -56,7 +57,7 @@ public class UserFixture extends AbstractBaseFixture<SproutUserEntity, UserRepos
         
         if(userDetails != null) return;
         
-        List<Role> authorities = new ArrayList<Role>(1);
+        Set<Role> authorities = new HashSet<Role>(1);
         authorities.add(roleRepository.findOne("ADMIN"));
         userDetails = new SproutUserEntity(username, RandomGenerator.getRandomAlphaNumericString(25) , username, username, authorities);
         userDetails.setDisplayName("SYSTEM");
@@ -72,7 +73,7 @@ public class UserFixture extends AbstractBaseFixture<SproutUserEntity, UserRepos
         
         if(userDetails != null) return;
         
-        List<Role> authorities = new ArrayList<Role>(1);
+        Set<Role> authorities = new HashSet<Role>(1);
         authorities.add(roleRepository.findOne("ADMIN"));
         userDetails = new SproutUserEntity(username, password , "Admin", "User", authorities);
         userDetails.setDisplayName("Admin User");

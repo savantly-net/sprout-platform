@@ -17,6 +17,7 @@ import {
   MatExpansionModule,
   MatDialogModule} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InlineEditModule } from '@savantly/ngx-inline-edit';
 
 @NgModule({
@@ -24,6 +25,7 @@ import { InlineEditModule } from '@savantly/ngx-inline-edit';
   declarations: [],
   exports: [
     CommonModule,
+    FormsModule, ReactiveFormsModule,
     MatSidenavModule,
     MatButtonModule,
     MatIconModule,

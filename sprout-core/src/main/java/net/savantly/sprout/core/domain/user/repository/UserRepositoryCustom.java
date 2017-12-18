@@ -7,7 +7,7 @@ import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
 import net.savantly.sprout.core.domain.oauth.OAuthAccount;
 import net.savantly.sprout.core.domain.user.SproutUser;
 import net.savantly.sprout.core.domain.user.SproutUserEntity;
-import net.savantly.sprout.core.security.roles.Role;
+import net.savantly.sprout.core.security.role.Role;
 
 public interface UserRepositoryCustom {
 	SproutUser insert(SproutUserEntity sproutUser);

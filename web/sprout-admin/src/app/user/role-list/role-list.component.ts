@@ -1,3 +1,4 @@
+import { PrivilegeService, Privilege } from '../privilege.service';
 import { Role, RoleService } from '../role.service';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
@@ -11,6 +12,7 @@ export class RoleListComponent implements OnInit {
 
   items: Role[];
   authority: string;
+  privileges: Privilege[];
 
   keyPress(event: any) {
     if (event.keyCode === 13) {
@@ -20,7 +22,7 @@ export class RoleListComponent implements OnInit {
 
   addItem(): void {
     const role = new Role();
-    role.authority = this.authority;
+    role.id = this.authority;
     this.roles.saveItem(role).subscribe(response => {
       console.log(response);
       this.getItems();
@@ -45,8 +47,15 @@ export class RoleListComponent implements OnInit {
     });
   }
 
-  constructor(private roles: RoleService, private snackBar: MatSnackBar) {
+  getPrivileges(): void {
+    this.privs.findAll().subscribe(response => {
+      this.privileges = response._embedded.privileges;
+    });
+  }
+
+  constructor(private roles: RoleService, private privs: PrivilegeService, private snackBar: MatSnackBar) {
     this.getItems();
+    this.getPrivileges();
   }
 
   ngOnInit() {

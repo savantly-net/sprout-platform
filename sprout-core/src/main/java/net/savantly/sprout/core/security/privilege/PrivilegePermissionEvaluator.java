@@ -1,4 +1,4 @@
-package net.savantly.sprout.core.security.roles;
+package net.savantly.sprout.core.security.privilege;
 
 import java.io.Serializable;
 
@@ -7,10 +7,10 @@ import org.springframework.security.core.Authentication;
 import net.savantly.sprout.core.security.Permission;
 import net.savantly.sprout.core.security.SproutPermissionEvaluator;
 
-public class RolePermissionEvaluator implements SproutPermissionEvaluator<Role> {
+public class PrivilegePermissionEvaluator implements SproutPermissionEvaluator<Privilege> {
     
     @Override
-    public boolean hasPermission(Authentication authentication, Role targetDomainObject, Permission permission) {
+    public boolean hasPermission(Authentication authentication, Privilege targetDomainObject, Permission permission) {
         // TODO Auto-generated method stub
         return true;
     }
@@ -22,8 +22,8 @@ public class RolePermissionEvaluator implements SproutPermissionEvaluator<Role> 
     }
 
     @Override
-    public Class<Role> getEvaluationType() {
-        return Role.class;
+    public Class<Privilege> getEvaluationType() {
+        return Privilege.class;
     }
 
 }

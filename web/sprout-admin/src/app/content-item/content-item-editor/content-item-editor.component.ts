@@ -62,7 +62,7 @@ export class ContentItemEditorComponent implements OnInit {
       console.log(data);
       this._templates.next(data._embedded.contentTemplates);
     }, err => {
-      this.snackBar.open('The Content Templates could not be retrieved', 'Close', {duration: 8000});
+      this.snackBar.open('The Content Templates could not be retrieved', 'Close', {duration: 4000});
       console.error('Failed to get contentTemplates');
     });
   }

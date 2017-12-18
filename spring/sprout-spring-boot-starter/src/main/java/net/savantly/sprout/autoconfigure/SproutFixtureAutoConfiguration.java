@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,9 +31,11 @@ import net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepos
 import net.savantly.sprout.core.domain.user.UserFixture;
 import net.savantly.sprout.core.domain.user.repository.UserRepository;
 import net.savantly.sprout.core.security.FakeContext;
-import net.savantly.sprout.core.security.roles.Role;
-import net.savantly.sprout.core.security.roles.RoleFixture;
-import net.savantly.sprout.core.security.roles.RoleRepository;
+import net.savantly.sprout.core.security.privilege.PrivilegeFixture;
+import net.savantly.sprout.core.security.privilege.PrivilegeRepository;
+import net.savantly.sprout.core.security.role.Role;
+import net.savantly.sprout.core.security.role.RoleFixture;
+import net.savantly.sprout.core.security.role.RoleRepository;
 import net.savantly.sprout.settings.AppSettingFixture;
 import net.savantly.sprout.settings.AppSettingRepository;
 
@@ -50,9 +53,14 @@ public class SproutFixtureAutoConfiguration {
 		return new AppSettingFixture(repository);
 	}
 	
-	@Bean 
-	public RoleFixture roleFixture(RoleRepository repository) {
-		return new RoleFixture(repository);
+	@Bean
+	public RoleFixture roleFixture(RoleRepository repository, PrivilegeFixture privilegeFixture, PrivilegeRepository privilegeRepository) {
+		return new RoleFixture(repository, privilegeFixture, privilegeRepository);
+	}
+
+	@Bean
+	PrivilegeFixture privilegeFixture(PrivilegeRepository repository) {
+		return new PrivilegeFixture(repository);
 	}
 	
 	@Bean 
@@ -95,6 +103,7 @@ public class SproutFixtureAutoConfiguration {
 	}
 	
     @PostConstruct
+    @Transactional
     public void installFixtures() {
     	FakeContext fakeContext = new FakeContext();
         fakeContext.create();

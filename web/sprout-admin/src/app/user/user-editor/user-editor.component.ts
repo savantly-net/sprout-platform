@@ -1,11 +1,16 @@
 import { Identifiable } from '../../spring-data/rest-repository.service';
 import { EmailService, EmailAddress } from '../email-service';
+import { Role, RoleService } from '../role.service';
 import { UserService, User } from '../user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+
+export class SelectableRole extends Role {
+  selected?: boolean;
+}
 
 @Component({
   selector: 'app-user-editor',
@@ -15,10 +20,12 @@ import { HttpClient } from '@angular/common/http';
 export class UserEditorComponent implements OnInit {
 
   rForm: FormGroup;
+  roles: SelectableRole[];
+  selectedRoles: SelectableRole[];
 
   prepareSave(model): any {
     const halModel = Object.assign({}, model);
-    halModel.primaryEmailAddress = { emailAddress: model.primaryEmailAddress },
+    halModel.primaryEmailAddress = { emailAddress: model.primaryEmailAddress };
     console.log('halModel:', halModel);
     return halModel;
   }
@@ -43,24 +50,49 @@ export class UserEditorComponent implements OnInit {
 
   save(model) {
     const halModel = this.prepareSave(model);
+    const selectedRoles = this.getSelectedRoles();
+    delete halModel.roles;
     this.saveEmailAddress(halModel).then(userResponse => {
       this.service.saveItem(halModel).subscribe(data => {
-        this.router.navigate(['user-editor', {id: data.id}]);
-        this.snackBar.open('Saved', 'Close', {duration: 8000});
+        this.service.putRoles(halModel, selectedRoles).subscribe(response => {
+          this.router.navigate(['user-editor', {id: data.id}]);
+          this.snackBar.open('Saved', 'Close', {duration: 8000});
+        }, err => { this.snackBar.open('Failure to save the roles', 'Close', {duration: 4000}); });
       }, err => {
         if (err.statusText === 'Conflict') {
-          this.snackBar.open('Failure to save the item', 'Close', {duration: 8000});
+          this.snackBar.open('Failure to save the item', 'Close', {duration: 4000});
         }
       });
-    });
+    }, err => { console.error('Failed to save email address'); });
   }
 
   delete(model) {
     this.service.deleteItem(model).subscribe(data => {
       this.router.navigate(['users']);
     }, err => {
-      this.snackBar.open('Error while deleting the item', 'Close', {duration: 8000});
+      this.snackBar.open('Error while deleting the item', 'Close', {duration: 4000});
       console.error(err);
+    });
+  }
+
+  onRoleSelectionChange(rolesList) {
+    this.selectedRoles = rolesList.selectedOptions.selected.map(item => item.value);
+  }
+
+  getSelectedRoles() {
+    return this.selectedRoles;
+  }
+
+  addSelectedRoles(existingRoles: Role[]) {
+    this.roles.map((r, ri) => {
+      existingRoles.map((er, eri) => {
+        if (r.id === er.id) {
+          r.selected = true;
+        }
+      });
+      if (!r.selected) {
+        r.selected = false;
+      }
     });
   }
 
@@ -69,6 +101,7 @@ export class UserEditorComponent implements OnInit {
       this.service.findOne(id).subscribe((response: any) => {
         this.rForm.patchValue(response);
         this.loadPrimaryEmailAddress(response);
+        this.addSelectedRoles(response._embedded.roles);
       }, err => {
         console.error('Error while loading item with id: {}', id);
       });
@@ -96,6 +129,7 @@ export class UserEditorComponent implements OnInit {
     private snackBar: MatSnackBar,
     private service: UserService,
     private emailService: EmailService,
+    private roleService: RoleService,
     private httpClient: HttpClient) {
 
     this.rForm = fb.group({
@@ -117,7 +151,10 @@ export class UserEditorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe( params => this.loadItem(params['id']) );
+    this.roleService.findAll().subscribe(response => {
+      this.roles = response._embedded.roles;
+      this.route.params.subscribe( params => this.loadItem(params['id']) );
+    });
   }
 
 }

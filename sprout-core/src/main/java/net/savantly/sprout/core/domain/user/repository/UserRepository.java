@@ -1,6 +1,8 @@
 package net.savantly.sprout.core.domain.user.repository;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +17,9 @@ public interface UserRepository extends PagingAndSortingRepository<SproutUserEnt
 	ProfileProjection findProfileById(String id);
 	SproutUserEntity findOneByUsername(String username);
 	SproutUser findByPrimaryEmailAddress_EmailAddress(String emailAddress);
+	
+	@Query("SELECT u FROM SproutUserEntity u where u.id = :id")
+	DefaultUserProjection getFullDetailsById(@Param("id") String id);
+	@Query("SELECT u FROM SproutUserEntity u where u.username = :username")
+	DefaultUserProjection getFullDetailsByUsername(@Param("username") String username);
 }

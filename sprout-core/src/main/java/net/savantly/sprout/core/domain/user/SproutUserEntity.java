@@ -1,18 +1,3 @@
-/* Copyright 2004, 2005, 2006 Acegi Technology Pty Limited
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package net.savantly.sprout.core.domain.user;
 
 import java.io.Serializable;
@@ -27,21 +12,25 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+import javax.transaction.Transactional;
+import javax.transaction.Transactional.TxType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Fetch;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.util.Assert;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -51,31 +40,11 @@ import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
 import net.savantly.sprout.core.domain.oauth.OAuthAccount;
 import net.savantly.sprout.core.domain.organization.Organization;
 import net.savantly.sprout.core.security.MD5Util;
-import net.savantly.sprout.core.security.roles.Role;
+import net.savantly.sprout.core.security.privilege.Privilege;
+import net.savantly.sprout.core.security.role.Role;
 
-/**
- * Models core user information retrieved by a {@link UserDetailsService}.
- * <p>
- * Developers may use this class directly, subclass it, or write their own
- * {@link UserDetails} implementation from scratch.
- * <p>
- * {@code equals} and {@code hashcode} implementations are based on the {@code username}
- * property only, as the intention is that lookups of the same user principal object (in a
- * user registry, for example) will match where the objects represent the same user, not
- * just when all the properties (authorities, password for example) are the same.
- * <p>
- * Note that this implementation is not immutable. It implements the
- * {@code CredentialsContainer} interface, in order to allow the password to be erased
- * after authentication. This may cause side-effects if you are storing instances
- * in-memory and reusing them. If so, make sure you return a copy from your
- * {@code UserDetailsService} each time it is invoked.
- *
- * @author Ben Alex
- * @author Luke Taylor
- * @author Jeremy Branham (modified original)
- */
 @Entity
-public class SproutUserEntity extends PersistedDomainObject implements UserDetails, CredentialsContainer, SproutUser {
+public class SproutUserEntity extends PersistedDomainObject implements CredentialsContainer, SproutUser {
 
     private static final long serialVersionUID = 6629698068044899330L;
 
@@ -91,15 +60,14 @@ public class SproutUserEntity extends PersistedDomainObject implements UserDetai
     private boolean hidePrimaryEmailAddress;
     private String firstName;
     private String lastName;
-    @JsonTypeInfo(use = com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NONE)
-    private Set<Role> authorities = new HashSet<Role>();
     private boolean accountNonExpired = true;
     private boolean accountNonLocked = true;
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
     private Organization organization;
     private String phoneNumber;
-    private Set<OAuthAccount> oAuthAccounts = new HashSet<>();;
+    private Set<OAuthAccount> oAuthAccounts = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
     private String clearTextPassword;
 
@@ -116,8 +84,8 @@ public class SproutUserEntity extends PersistedDomainObject implements UserDetai
     /**
      * Calls the more complex constructor with all boolean arguments set to {@code true}.
      */
-    public SproutUserEntity(String username, String password, String firstName, String lastName, Collection<? extends Role> authorities) {
-        this(username, password, firstName, lastName, true, true, true, true, authorities);
+    public SproutUserEntity(String username, String password, String firstName, String lastName, Set<Role> roles) {
+        this(username, password, firstName, lastName, true, true, true, true, roles);
     }
 
     /**
@@ -133,13 +101,13 @@ public class SproutUserEntity extends PersistedDomainObject implements UserDetai
      * @param credentialsNonExpired set to <code>true</code> if the credentials have not
      * expired
      * @param accountNonLocked set to <code>true</code> if the account is not locked
-     * @param authorities the authorities that should be granted to the caller if they
+     * @param roles the authorities that should be granted to the caller if they
      * presented the correct username and password and the user is enabled. Not null.
      *
      * @throws IllegalArgumentException if a <code>null</code> value was passed either as
      * a parameter or as an element in the <code>GrantedAuthority</code> collection
      */
-    public SproutUserEntity(String username, String password, String firstName, String lastName, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends Role> authorities) {
+    public SproutUserEntity(String username, String password, String firstName, String lastName, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Set<Role> roles) {
 
         // if (((username == null) || "".equals(username)) || (password == null)) {
         // throw new IllegalArgumentException(
@@ -154,31 +122,23 @@ public class SproutUserEntity extends PersistedDomainObject implements UserDetai
         this.accountNonExpired = accountNonExpired;
         this.credentialsNonExpired = credentialsNonExpired;
         this.accountNonLocked = accountNonLocked;
-        this.authorities = sortAuthorities(authorities);
+        this.roles = roles;
     }
 
     // ~ Methods
     // ========================================================================================================
 
-    public void addAuthority(Role role) {
-        this.authorities.add(role);
-    }
-
-    public void removeAuthority(Role role) {
-        this.authorities.remove(role);
-    }
-
     public void eraseCredentials() {
         password = null;
     }
 
-    private static SortedSet<Role> sortAuthorities(Collection<? extends Role> authorities) {
+    private static SortedSet<Privilege> sortAuthorities(Collection<? extends Privilege> authorities) {
         Assert.notNull(authorities, "Cannot pass a null GrantedAuthority collection");
         // Ensure array iteration order is predictable (as per
         // UserDetails.getAuthorities() contract and SEC-717)
-        SortedSet<Role> sortedAuthorities = new TreeSet<Role>(new AuthorityComparator());
+        SortedSet<Privilege> sortedAuthorities = new TreeSet<Privilege>(new AuthorityComparator());
 
-        for (Role grantedAuthority : authorities) {
+        for (Privilege grantedAuthority : authorities) {
             Assert.notNull(grantedAuthority, "GrantedAuthority list cannot contain any null elements");
             sortedAuthorities.add(grantedAuthority);
         }
@@ -206,6 +166,247 @@ public class SproutUserEntity extends PersistedDomainObject implements UserDetai
         }
     }
 
+
+
+    // **********************************
+    // GETTERS/SETTERS
+    //
+    // **********************************
+
+    @Transient
+    @Override
+    @JsonTypeInfo(use = com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NONE)
+    public Set<Privilege> getAuthorities() {
+        Set<Privilege> privileges = new HashSet<>();
+        this.roles.stream().forEach(r -> {
+        	r.getPrivileges().forEach(p -> {
+        		if (!privileges.contains(p)) {
+        			privileges.add(p);
+        		}
+        	});
+        });
+        return privileges;
+    }
+
+    @Override
+	@Column(length=60)
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+	@Column(unique = true)
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+	@Size(min = 1)
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    @Override
+	public boolean isEnabled() {
+        return enabled;
+    }
+
+    @Override
+	public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+
+    @Override
+	public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    @Override
+	public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+
+    @Override
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
+    public Set<EmailAddress> getEmailAddresses() {
+        return emailAddresses;
+    }
+
+    protected void setEmailAddresses(Set<EmailAddress> emailAddresses) {
+        this.emailAddresses = emailAddresses;
+    }
+
+    @Override
+	@NotNull
+    @OneToOne(cascade=CascadeType.REMOVE)
+    public EmailAddress getPrimaryEmailAddress() {
+        return primaryEmailAddress;
+    }
+
+    public void setPrimaryEmailAddress(EmailAddress primaryEmailAddress) {
+        this.primaryEmailAddress = primaryEmailAddress;
+    }
+
+    @Override
+	public boolean isHidePrimaryEmailAddress() {
+        return hidePrimaryEmailAddress;
+    }
+
+    public void setHidePrimaryEmailAddress(boolean hidePrimaryEmailAddress) {
+        this.hidePrimaryEmailAddress = hidePrimaryEmailAddress;
+    }
+
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setClearTextPassword(String password) {
+        this.clearTextPassword = password;
+    }
+    @Transient
+    public String getClearTextPassword() {
+        return this.clearTextPassword;
+    }
+
+    @Override
+	public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    @Override
+	public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Override
+	@Transient
+    public String getGravatarUrl() {
+        return String.format("https://www.gravatar.com/avatar/%s?s=200&d=identicon", MD5Util.md5Hex(primaryEmailAddress.getEmailAddress()));
+    }
+
+    // ************************
+    // Rich domain methods
+    // ************************
+
+    /**
+     * Add an email address to associate to the user.
+     * If this is the first address added, make it the primary email address
+     * 
+     * @param emailAddress
+     * @return true is the email address was added, false if the email already existed
+     */
+    public boolean addEmailAddress(EmailAddress emailAddress) {
+        boolean added = this.emailAddresses.add(emailAddress);
+        if (this.emailAddresses.size() == 1) {
+            this.setPrimaryEmailAddress(emailAddress);
+        }
+        return added;
+    }
+
+    public void addEmailAddress(Collection<EmailAddress> emailAddresses) {
+        for (EmailAddress emailAddress : emailAddresses) {
+            if (!this.emailAddresses.contains(emailAddress))
+                this.addEmailAddress(emailAddress);
+        }
+    }
+
+    @Override
+	@ManyToOne(fetch=FetchType.EAGER)
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization memberOf) {
+        this.organization = memberOf;
+    }
+
+    public void clearEmailAddresses() {
+        this.emailAddresses.clear();
+    }
+
+    @Override
+	public boolean hasAuthority(String authority) {
+        String authorityString = authority.toUpperCase();
+        boolean result = this.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals(authorityString));
+        return result;
+    }
+    
+    @Transient
+    public boolean hasNewPassword(){
+        return (this.clearTextPassword != null);
+    }
+
+	@Override
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	@Override
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
+	public Set<OAuthAccount> getoAuthAccounts() {
+		return oAuthAccounts;
+	}
+
+	public void setoAuthAccounts(Set<OAuthAccount> oAuthAccounts) {
+		this.oAuthAccounts = oAuthAccounts;
+	}
+
+	public void addOAuthAccount(OAuthAccount oauthAccount) {
+		this.oAuthAccounts.add(oauthAccount);
+	}
+
+	@ManyToMany(targetEntity=Role.class, fetch=FetchType.EAGER)
+    @JoinTable( 
+        name = "users_roles", 
+        joinColumns = @JoinColumn(
+          name = "user_id", referencedColumnName = "id"), 
+        inverseJoinColumns = @JoinColumn(
+          name = "role_id", referencedColumnName = "id"))
+    @JsonIgnoreProperties("users")
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+	
     /**
      * Returns {@code true} if the supplied object is a {@code User} instance with the
      * same {@code username} value.
@@ -240,11 +441,11 @@ public class SproutUserEntity extends PersistedDomainObject implements UserDetai
         sb.append("credentialsNonExpired: ").append(this.credentialsNonExpired).append("; ");
         sb.append("AccountNonLocked: ").append(this.accountNonLocked).append("; ");
 
-        if (!authorities.isEmpty()) {
+        if (!getAuthorities().isEmpty()) {
             sb.append("Granted Authorities: ");
 
             boolean first = true;
-            for (GrantedAuthority auth : authorities) {
+            for (GrantedAuthority auth : getAuthorities()) {
                 if (!first) {
                     sb.append(",");
                 }
@@ -258,277 +459,5 @@ public class SproutUserEntity extends PersistedDomainObject implements UserDetai
 
         return sb.toString();
     }
-
-    // **********************************
-    // GETTERS/SETTERS
-    //
-    // **********************************
-
-    /* (non-Javadoc)
-	 * @see net.savantly.sprout.core.domain.user.ISproutUser#getAuthorities()
-	 */
-    @Override
-	@ManyToMany(targetEntity = Role.class)
-    public Set<Role> getAuthorities() {
-        return authorities;
-    }
-
-    /* (non-Javadoc)
-	 * @see net.savantly.sprout.core.domain.user.ISproutUser#getPassword()
-	 */
-    @Override
-	@Column(length=60)
-    public String getPassword() {
-        return password;
-    }
-
-    /* (non-Javadoc)
-	 * @see net.savantly.sprout.core.domain.user.ISproutUser#getUsername()
-	 */
-    @Override
-	@Column(unique = true)
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    /* (non-Javadoc)
-	 * @see net.savantly.sprout.core.domain.user.ISproutUser#getDisplayName()
-	 */
-    @Override
-	@Size(min = 1)
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
-    /* (non-Javadoc)
-	 * @see net.savantly.sprout.core.domain.user.ISproutUser#isEnabled()
-	 */
-    @Override
-	public boolean isEnabled() {
-        return enabled;
-    }
-
-    /* (non-Javadoc)
-	 * @see net.savantly.sprout.core.domain.user.ISproutUser#isAccountNonExpired()
-	 */
-    @Override
-	public boolean isAccountNonExpired() {
-        return accountNonExpired;
-    }
-
-    /* (non-Javadoc)
-	 * @see net.savantly.sprout.core.domain.user.ISproutUser#isAccountNonLocked()
-	 */
-    @Override
-	public boolean isAccountNonLocked() {
-        return accountNonLocked;
-    }
-
-    /* (non-Javadoc)
-	 * @see net.savantly.sprout.core.domain.user.ISproutUser#isCredentialsNonExpired()
-	 */
-    @Override
-	public boolean isCredentialsNonExpired() {
-        return credentialsNonExpired;
-    }
-
-    /* (non-Javadoc)
-	 * @see net.savantly.sprout.core.domain.user.ISproutUser#getEmailAddresses()
-	 */
-    @Override
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
-    public Set<EmailAddress> getEmailAddresses() {
-        return emailAddresses;
-    }
-
-    protected void setEmailAddresses(Set<EmailAddress> emailAddresses) {
-        this.emailAddresses = emailAddresses;
-    }
-
-    /* (non-Javadoc)
-	 * @see net.savantly.sprout.core.domain.user.ISproutUser#getPrimaryEmailAddress()
-	 */
-    @Override
-	@NotNull
-    @OneToOne(cascade=CascadeType.REMOVE)
-    public EmailAddress getPrimaryEmailAddress() {
-        return primaryEmailAddress;
-    }
-
-    public void setPrimaryEmailAddress(EmailAddress primaryEmailAddress) {
-        this.primaryEmailAddress = primaryEmailAddress;
-    }
-
-    /* (non-Javadoc)
-	 * @see net.savantly.sprout.core.domain.user.ISproutUser#isHidePrimaryEmailAddress()
-	 */
-    @Override
-	public boolean isHidePrimaryEmailAddress() {
-        return hidePrimaryEmailAddress;
-    }
-
-    public void setHidePrimaryEmailAddress(boolean hidePrimaryEmailAddress) {
-        this.hidePrimaryEmailAddress = hidePrimaryEmailAddress;
-    }
-
-    public void setAuthorities(Set<Role> authorities) {
-        this.authorities = sortAuthorities(authorities);
-    }
-
-    public void setAccountNonExpired(boolean accountNonExpired) {
-        this.accountNonExpired = accountNonExpired;
-    }
-
-    public void setAccountNonLocked(boolean accountNonLocked) {
-        this.accountNonLocked = accountNonLocked;
-    }
-
-    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
-        this.credentialsNonExpired = credentialsNonExpired;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setClearTextPassword(String password) {
-        this.clearTextPassword = password;
-    }
-    @Transient
-    public String getClearTextPassword() {
-        return this.clearTextPassword;
-    }
-
-    /* (non-Javadoc)
-	 * @see net.savantly.sprout.core.domain.user.ISproutUser#getFirstName()
-	 */
-    @Override
-	public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    /* (non-Javadoc)
-	 * @see net.savantly.sprout.core.domain.user.ISproutUser#getLastName()
-	 */
-    @Override
-	public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    /* (non-Javadoc)
-	 * @see net.savantly.sprout.core.domain.user.ISproutUser#getGravatarUrl()
-	 */
-    @Override
-	@Transient
-    public String getGravatarUrl() {
-        return String.format("https://www.gravatar.com/avatar/%s?s=200&d=identicon", MD5Util.md5Hex(primaryEmailAddress.getEmailAddress()));
-    }
-
-    // ************************
-    // Rich domain methods
-    // ************************
-
-    /**
-     * Add an email address to associate to the user.
-     * If this is the first address added, make it the primary email address
-     * 
-     * @param emailAddress
-     * @return true is the email address was added, false if the email already existed
-     */
-    public boolean addEmailAddress(EmailAddress emailAddress) {
-        boolean added = this.emailAddresses.add(emailAddress);
-        if (this.emailAddresses.size() == 1) {
-            this.setPrimaryEmailAddress(emailAddress);
-        }
-        return added;
-    }
-
-    public void addEmailAddress(Collection<EmailAddress> emailAddresses) {
-        for (EmailAddress emailAddress : emailAddresses) {
-            if (!this.emailAddresses.contains(emailAddress))
-                this.addEmailAddress(emailAddress);
-        }
-    }
-
-    /* (non-Javadoc)
-	 * @see net.savantly.sprout.core.domain.user.ISproutUser#getOrganization()
-	 */
-    @Override
-	@ManyToOne(fetch=FetchType.EAGER)
-    public Organization getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(Organization memberOf) {
-        this.organization = memberOf;
-    }
-
-    public void clearEmailAddresses() {
-        this.emailAddresses.clear();
-    }
-
-    /* (non-Javadoc)
-	 * @see net.savantly.sprout.core.domain.user.ISproutUser#hasRole(java.lang.String)
-	 */
-    @Override
-	public boolean hasRole(String role) {
-        String roleString = role.toUpperCase();
-        boolean result = this.authorities.stream().anyMatch(r -> r.getAuthority().equals(roleString));
-        return result;
-    }
-    
-    @Transient
-    public boolean hasNewPassword(){
-        return (this.clearTextPassword != null);
-    }
-
-	/* (non-Javadoc)
-	 * @see net.savantly.sprout.core.domain.user.ISproutUser#getPhoneNumber()
-	 */
-	@Override
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	/* (non-Javadoc)
-	 * @see net.savantly.sprout.core.domain.user.ISproutUser#getoAuthAccounts()
-	 */
-	@Override
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
-	public Set<OAuthAccount> getoAuthAccounts() {
-		return oAuthAccounts;
-	}
-
-	public void setoAuthAccounts(Set<OAuthAccount> oAuthAccounts) {
-		this.oAuthAccounts = oAuthAccounts;
-	}
-
-	public void addOAuthAccount(OAuthAccount oauthAccount) {
-		this.oAuthAccounts.add(oauthAccount);
-	}
 
 }

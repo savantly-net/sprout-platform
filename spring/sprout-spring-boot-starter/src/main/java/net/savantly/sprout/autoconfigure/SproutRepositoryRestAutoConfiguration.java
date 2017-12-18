@@ -16,7 +16,8 @@ import net.savantly.sprout.core.content.webPageLayout.WebPageLayout;
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
 import net.savantly.sprout.core.domain.menu.Menu;
 import net.savantly.sprout.core.domain.user.SproutUserEntity;
-import net.savantly.sprout.core.security.roles.Role;
+import net.savantly.sprout.core.security.privilege.Privilege;
+import net.savantly.sprout.core.security.role.Role;
 import net.savantly.sprout.settings.AppSetting;
 
 @Configuration
@@ -34,7 +35,7 @@ public class SproutRepositoryRestAutoConfiguration {
 			config.setBasePath("/api");
 			config.exposeIdsFor(
 					AppSetting.class,
-					Role.class,
+					Privilege.class,
 					EmailAddress.class, 
 					SproutUserEntity.class, 
 					ContentTemplate.class, 
@@ -42,6 +43,7 @@ public class SproutRepositoryRestAutoConfiguration {
 					ContentItem.class, 
 					ContentField.class,
 					Menu.class,
+					Role.class,
 					WebPage.class, 
 					WebPageLayout.class,
 					WebPageContent.class);
