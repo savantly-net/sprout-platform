@@ -107,7 +107,7 @@ public class WikiFixture {
 			menu.setIcon("bookmark");
 			menu.setId(DEFAULT_WIKI_MENU_ID);
 			menu.setDisplayText(DEFAULT_WIKI_MENU_NAME);
-			menu.setUrl("plugins;id="+WikiModule.BEAN_NAME);
+			menu.setUrl("/plugins;id="+WikiModule.BEAN_NAME);
 			menuRepository.save(menu);
 		}
 	}
