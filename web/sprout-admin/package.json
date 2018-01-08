@@ -1,6 +1,6 @@
 {
   "name": "@savantly/sprout-admin",
-  "version": "1.4.0-RC3",
+  "version": "1.4.1-SNAPSHOT",
   "license": "MIT",
   "scripts": {
     "ng": "ng",

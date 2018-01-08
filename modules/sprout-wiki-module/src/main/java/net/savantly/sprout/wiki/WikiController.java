@@ -3,9 +3,12 @@ package net.savantly.sprout.wiki;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import info.bliki.wiki.model.WikiModel;
@@ -27,8 +30,22 @@ public class WikiController {
 		return renderTemplate("home");
 	}
 
-	@RequestMapping(path = "/{id}")
+	@PreAuthorize("hasAuthority('" + WikiFixture.READ_WIKI_PRIVILEGE +"')")
+	@RequestMapping(path = "/{id}", method=RequestMethod.GET)
 	public ModelAndView getItem(@PathVariable("id") String id) {
+		return renderTemplate(id);
+	}
+	
+	@PreAuthorize("hasAuthority('" + WikiFixture.EDIT_WIKI_PRIVILEGE +"')")
+	@RequestMapping(path = "/{id}", method=RequestMethod.POST)
+	public ModelAndView saveItem(@PathVariable("id") String id, @RequestBody String content) {
+		WikiItem wikiItem = repository.findOne(id);
+		if (wikiItem == null) {
+			wikiItem = new WikiItem();
+			wikiItem.setId(id);
+		}
+		wikiItem.setContent(content);
+		repository.save(wikiItem);
 		return renderTemplate(id);
 	}
 

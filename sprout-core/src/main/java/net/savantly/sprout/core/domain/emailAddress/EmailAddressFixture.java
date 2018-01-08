@@ -11,6 +11,7 @@ public class EmailAddressFixture extends AbstractBaseFixture<EmailAddress, Email
 
     public static final String SYSTEM_EMAIL = "system@savantly.net";
     public static final String ADMIN_EMAIL = "admin@savantly.net";
+    public static final String ANONYMOUS_EMAIL = "anonymous@savantly.net";
     
     private EmailAddressRepository repository;
 
@@ -26,6 +27,9 @@ public class EmailAddressFixture extends AbstractBaseFixture<EmailAddress, Email
         }
         if(repository.findOne(ADMIN_EMAIL) == null){
             entityList.add(new EmailAddress(ADMIN_EMAIL));
+        }
+        if(repository.findOne(ANONYMOUS_EMAIL) == null){
+            entityList.add(new EmailAddress(ANONYMOUS_EMAIL));
         }
     }
 

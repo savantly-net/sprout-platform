@@ -33,7 +33,7 @@ export class ServerPluginsComponent implements OnInit {
             this.dynamicBuilder.createComponent(response, this.viewContainerRef);
             this.loading = false;
           }, (error) => {
-            this.dynamicBuilder.createComponent(JSON.stringify(error), this.viewContainerRef);
+            this.dynamicBuilder.createComponent(error.error, this.viewContainerRef);
             this.loading = false;
           });
         });

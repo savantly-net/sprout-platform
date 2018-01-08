@@ -2,6 +2,7 @@ import { PrivilegeService, Privilege } from '../privilege.service';
 import { Role, RoleService } from '../role.service';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-role-list',
@@ -39,6 +40,10 @@ export class RoleListComponent implements OnInit {
     });
   }
 
+  editItem(item: Role): void {
+    this.router.navigate(['role-editor', {id: item.id}]);
+  }
+
   getItems(): void {
     this.roles.findAll().subscribe(data => {
       this.items = data._embedded.roles;
@@ -53,7 +58,11 @@ export class RoleListComponent implements OnInit {
     });
   }
 
-  constructor(private roles: RoleService, private privs: PrivilegeService, private snackBar: MatSnackBar) {
+  constructor(
+    public router: Router,
+    private roles: RoleService,
+    private privs: PrivilegeService,
+    private snackBar: MatSnackBar) {
     this.getItems();
     this.getPrivileges();
   }
