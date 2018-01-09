@@ -109,7 +109,7 @@
 			</activation>
 			<dependencies>
 				<dependency>
-					<groupId>${project.groupId}</groupId>
+					<groupId>net.savantly.sprout</groupId>
 					<artifactId>web-ui</artifactId>
 					<version>${sprout.version}</version>
 				</dependency>
