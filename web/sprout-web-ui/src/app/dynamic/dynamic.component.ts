@@ -12,27 +12,36 @@ export class DynamicDirective {}
 export class DynamicComponent implements AfterViewInit {
   @Input() body: any;
   @ViewChild(DynamicDirective, {read: ElementRef}) dynamic: ElementRef;
-  html: HTMLDivElement = document.createElement('div');
 
+  constructor() { }
+
+  // loads all the html from the plugin, but removes the script tags and appends them individually,
+  // since html will not execute them if they are part of the innerHTML
   ngAfterViewInit(): void {
-    this.html.innerHTML = this.body;
-    for (let i = 0; i < this.html.childNodes.length; i++) {
-      const n = this.html.childNodes[i];
-      if (n.nodeName === 'SCRIPT') {
-        // Create a new script element so HTML5 will execute it upon adding to DOM
-        const scriptElement = document.createElement('script');
-        // Copy all the attributes from the original script element
-        for (let aI = 0; aI < n.attributes.length; aI++) {
-          scriptElement.attributes.setNamedItem(<Attr>n.attributes[aI].cloneNode());
-        }
-        // Add any content the original script element has
-        const scriptContent = document.createTextNode(n.textContent);
-        scriptElement.appendChild(scriptContent);
-        // Finally add the script element to the DOM
-        this.dynamic.nativeElement.appendChild(scriptElement);
-      } else {
-        this.dynamic.nativeElement.appendChild(n);
+    const div = document.createElement('div');
+    div.innerHTML = this.body;
+    const scriptElements = [];
+    const scriptNodes = div.querySelectorAll('script');
+    for (let i = 0; i < scriptNodes.length; i++) {
+      const scriptNode = scriptNodes[i];
+      // Create a new script element so HTML5 will execute it upon adding to DOM
+      const scriptElement = document.createElement('script');
+      // Copy all the attributes from the original script element
+      for (let aI = 0; aI < scriptNode.attributes.length; aI++) {
+        scriptElement.attributes.setNamedItem(<Attr>scriptNode.attributes[aI].cloneNode());
       }
+      // Add any content the original script element has
+      const scriptContent = document.createTextNode(scriptNode.textContent);
+      scriptElement.appendChild(scriptContent);
+      // Remove the original script element
+      scriptNode.remove();
+      // add the new element to the list
+      scriptElements.push(scriptElement);
+    }
+    this.dynamic.nativeElement.appendChild(div);
+    // Finally add the new script elements to the DOM
+    for (let i = 0; i < scriptElements.length; i++) {
+      this.dynamic.nativeElement.appendChild(scriptElements[i]);
     }
   }
 }
