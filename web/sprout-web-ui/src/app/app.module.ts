@@ -15,7 +15,7 @@ import { ApiService } from './shared';
 import { routing } from './app.routing';
 import { ContextMenuComponent } from './contextMenu/contextMenu.component';
 import { DynamicBuilderService } from './dynamic/dynamic-builder.service';
-import { DynamicComponent } from './dynamic/dynamic.component';
+import { DynamicComponent, DynamicDirective } from './dynamic/dynamic.component';
 import { MaterialModule } from './material/material.module';
 import { SecurityMockService, SecurityModule, ISecurityService } from '@savantly/ngx-security';
 import { SproutPluginModule } from '@savantly/ngx-sprout-plugin';
@@ -51,7 +51,8 @@ import { MenuModule, MenuService } from '@savantly/ngx-menu';
     AboutComponent,
     ContextMenuComponent,
     AppMenuComponent,
-    DynamicComponent
+    DynamicComponent,
+    DynamicDirective
   ],
   providers: [
     ApiService,
