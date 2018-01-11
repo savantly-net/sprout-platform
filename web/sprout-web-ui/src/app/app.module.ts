@@ -13,6 +13,8 @@ import { AppMenuComponent } from './app-menu/app-menu.component';
 import { AppMenuService } from './app-menu/app-menu.service';
 import { ApiService } from './shared';
 import { routing } from './app.routing';
+import { ClientApiModule } from './client-api/client-api.module';
+import { ClientApiService } from './client-api/client-api.service';
 import { ContextMenuComponent } from './contextMenu/contextMenu.component';
 import { DynamicBuilderService } from './dynamic/dynamic-builder.service';
 import { DynamicComponent, DynamicDirective } from './dynamic/dynamic.component';
@@ -35,6 +37,7 @@ import { MenuModule, MenuService } from '@savantly/ngx-menu';
     FormsModule,
     routing,
     BrowserAnimationsModule,
+    ClientApiModule,
     SecurityModule,
     SproutPluginModule.forRoot(),
     MaterialModule,
@@ -65,7 +68,9 @@ import { MenuModule, MenuService } from '@savantly/ngx-menu';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(public appRef: ApplicationRef) {}
+  constructor(public appRef: ApplicationRef, sproutApi: ClientApiService) {
+    window.sprout = sproutApi;
+  }
   hmrOnInit(store) {
     console.log('HMR store', store);
   }
