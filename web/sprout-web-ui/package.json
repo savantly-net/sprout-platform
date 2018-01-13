@@ -1,7 +1,7 @@
 {
 	"name": "@savantly/sprout-web-ui",
 	"license": "Apache-2.0",
-	"version": "1.4.0-RC3",
+	"version": "1.5.0-SNAPSHOT",
 	"scripts": {
 		"clean": "rimraf doc dist",
 		"clean-install": "npm run clean && npm install",

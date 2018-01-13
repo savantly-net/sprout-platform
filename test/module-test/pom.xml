@@ -8,8 +8,8 @@
 	<parent>
 		<groupId>net.savantly.sprout</groupId>
 		<artifactId>platform</artifactId>
-		<relativePath>../../pom.xml</relativePath>
-		<version>1.4.0-RC3</version>
+		<relativePath>../web/sprout-web-parent/pom.xml</relativePath>
+		<version>1.5.0-SNAPSHOT</version>
 	</parent>
 
 

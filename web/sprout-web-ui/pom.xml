@@ -213,5 +213,5 @@
 	<dependencies></dependencies>
 	<description>Default ui for Sprout</description>
 	<groupId>net.savantly.sprout</groupId>
-	<version>1.4.0-RC3</version>
+	<version>1.5.0-SNAPSHOT</version>
 </project>

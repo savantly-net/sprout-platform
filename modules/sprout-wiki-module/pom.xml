@@ -16,7 +16,7 @@
 	<parent>
 		<groupId>net.savantly.sprout</groupId>
 		<artifactId>module-parent</artifactId>
-		<version>1.4.0-RC3</version>
+		<version>1.5.0-SNAPSHOT</version>
 		<relativePath>../sprout-module-parent</relativePath>
 	</parent>
 	<developers>
