@@ -1,21 +1,23 @@
 package net.savantly.sprout.autoconfigure;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.h2.server.web.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.freemarker.FreeMarkerProperties;
 import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.ui.freemarker.FreeMarkerConfigurationFactory;
-import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfig;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 import freemarker.template.TemplateException;
@@ -41,7 +43,7 @@ import net.savantly.sprout.starter.SproutMvcConfiguration;
 @Configuration
 @AutoConfigureBefore(WebMvcAutoConfiguration.class)
 @Import(PluginConfiguration.class)
-public class SproutWebMvcAutoConfiguration {
+public class SproutWebMvcAutoConfiguration implements InitializingBean {
 	
 	private static final Logger log = LoggerFactory.getLogger(SproutWebMvcAutoConfiguration.class);
 	
@@ -70,23 +72,23 @@ public class SproutWebMvcAutoConfiguration {
 		return new ClientController(settingsRepository);
 	}
 	
+	// Also intercepts FreeMarker properties to ensure required paths are included
     @Bean("freeMarkerViewResolver")
-    public ViewResolver viewResolver() {
+    public ViewResolver viewResolver(FreeMarkerProperties freeMarkerProps) {
+		final String path1 = "classpath:/META-INF/templates";
+		final String path2 = "classpath:/templates";
+		List<String> pathsToAdd = new ArrayList<String>();
+		pathsToAdd.add(path1);
+		pathsToAdd.add(path2);
+		String[] paths = freeMarkerProps.getTemplateLoaderPath();
+		pathsToAdd.addAll(Arrays.stream(paths).collect(Collectors.toList()));
+		
+		freeMarkerProps.setTemplateLoaderPath(pathsToAdd.toArray(new String[pathsToAdd.size()]));
+		freeMarkerProps.setCheckTemplateLocation(false);
+		
         FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
         resolver.setSuffix(".html");
         return resolver;
-    }
-
-    @Bean("freeMarkerConfig")
-    public FreeMarkerConfig freeMarkerConfigurationFactory() throws IOException, TemplateException {
-        FreeMarkerConfigurationFactory factory = new FreeMarkerConfigurationFactoryBean();
-        factory.setTemplateLoaderPaths("classpath:/META-INF/templates", "classpath:/templates");
-        factory.setPreferFileSystemAccess(false);
-        freemarker.template.Configuration config = factory.createConfiguration();
-
-    	FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
-    	configurer.setConfiguration(config);
-    	return configurer;
     }
     
     @Bean
@@ -121,6 +123,12 @@ public class SproutWebMvcAutoConfiguration {
 	public WebPageRenderer webPageRenderer(ContentItemRenderingChain contentItemRenderer, WebPageLayoutRepository webPageLayoutRepository) throws IOException, TemplateException {
 		WebPageLayoutTemplateLoader loader = new WebPageLayoutTemplateLoader(webPageLayoutRepository);
 		return new WebPageRenderer(loader, contentItemRenderer);
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

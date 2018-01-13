@@ -12,6 +12,8 @@ import net.savantly.sprout.core.content.contentType.ContentTypeRepository;
 import net.savantly.sprout.core.content.fieldType.FieldType;
 import net.savantly.sprout.core.domain.menu.Menu;
 import net.savantly.sprout.core.domain.menu.MenuRepository;
+import net.savantly.sprout.core.security.privilege.Privilege;
+import net.savantly.sprout.core.security.privilege.PrivilegeRepository;
 import net.savantly.sprout.wiki.repository.WikiItemRepository;
 
 /** 
@@ -25,6 +27,8 @@ public class WikiFixture {
 	static final String DEFAULT_WIKI_MENU_NAME = "Wiki";
 	static final String DEFAULT_CONTENT_TYPE_NAME = "Wiki";
 	static final String DEFAULT_WIKI_CONTENT_TYPE_DESCRIPTION = "A custom content type for the wiki plugin";
+	static final String EDIT_WIKI_PRIVILEGE = "EDIT_WIKI";
+	static final String READ_WIKI_PRIVILEGE = "READ_WIKI";
 
 	@Autowired
 	private MenuRepository menuRepository;
@@ -32,13 +36,25 @@ public class WikiFixture {
 	private ContentTypeRepository contentTypes;
 	@Autowired
 	private WikiItemRepository wikiRepository;
+	@Autowired
+	private PrivilegeRepository privileges;
 
 	public void install() throws Exception {
 		ensureMenuItemsExist();
 		ensureDefaultWikiItemExists();
 		ensureContentTypeExists();
+		ensureWikiPrivilegesExist();
 	}
 	
+	private void ensureWikiPrivilegesExist() {
+		if (privileges.findOne(READ_WIKI_PRIVILEGE) == null) {
+			privileges.save(new Privilege(READ_WIKI_PRIVILEGE));
+		}
+		if (privileges.findOne(EDIT_WIKI_PRIVILEGE) == null) {
+			privileges.save(new Privilege(EDIT_WIKI_PRIVILEGE));
+		}
+	}
+
 	private void ensureContentTypeExists() {
 		ContentType ct = contentTypes.findOne(DEFAULT_CONTENT_TYPE_NAME);
 		if (ct == null) {
@@ -107,7 +123,7 @@ public class WikiFixture {
 			menu.setIcon("bookmark");
 			menu.setId(DEFAULT_WIKI_MENU_ID);
 			menu.setDisplayText(DEFAULT_WIKI_MENU_NAME);
-			menu.setUrl("plugins;id="+WikiModule.BEAN_NAME);
+			menu.setUrl("/plugins;id="+WikiModule.BEAN_NAME);
 			menuRepository.save(menu);
 		}
 	}

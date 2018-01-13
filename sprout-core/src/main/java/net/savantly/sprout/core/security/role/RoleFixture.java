@@ -8,6 +8,10 @@ import net.savantly.sprout.core.security.privilege.PrivilegeFixture;
 import net.savantly.sprout.core.security.privilege.PrivilegeRepository;
 
 public class RoleFixture extends AbstractBaseFixture<Role, RoleRepository>{
+
+	public static final String USER_ROLE = "USER";
+	public static final String ADMIN_ROLE = "ADMIN";
+	public static final String ANONYMOUS_ROLE = "ANONYMOUS";
     
     RoleRepository repository;
     PrivilegeFixture privilegeFixture;
@@ -23,17 +27,19 @@ public class RoleFixture extends AbstractBaseFixture<Role, RoleRepository>{
     @Override
     public void addEntities(List<Role> entityList) {
     	
-    	final String USER = "USER";
-    	final String ADMIN = "ADMIN";
-    	
-        if(repository.findOne(USER) == null){
-        	Role role = new Role(USER);
+        if(repository.findOne(USER_ROLE) == null){
+        	Role role = new Role(USER_ROLE);
         	role.getPrivileges().add(this.privilegeRepository.findOne(PrivilegeFixture.GENERAL_READ));
             entityList.add(role);
         }
-        if(repository.findOne(ADMIN) == null){
-        	Role role = new Role(ADMIN);
+        if(repository.findOne(ADMIN_ROLE) == null){
+        	Role role = new Role(ADMIN_ROLE);
         	role.getPrivileges().add(this.privilegeRepository.findOne(PrivilegeFixture.GENERAL_ADMIN));
+            entityList.add(role);
+        }
+        if(repository.findOne(ANONYMOUS_ROLE) == null){
+        	Role role = new Role(ANONYMOUS_ROLE);
+        	role.getPrivileges().add(this.privilegeRepository.findOne(PrivilegeFixture.GENERAL_READ));
             entityList.add(role);
         }
     }

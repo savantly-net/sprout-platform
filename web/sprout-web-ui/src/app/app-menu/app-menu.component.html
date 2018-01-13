@@ -25,14 +25,14 @@
 		<mat-menu #submenu="matMenu" fxLayoutGap="1em">
 			<ng-container *ngTemplateOutlet="menuListTemplate;context:{itemList:item.items}"></ng-container>
 		</mat-menu>
-		<button mat-button [routerLink]="item.url" [matMenuTriggerFor]="submenu">
+		<button mat-button (click)="navigate(item.url)" [matMenuTriggerFor]="submenu">
 			<mat-icon>{{item.icon}}</mat-icon>
 			<span>{{item.displayText}}</span>
 		</button>
 </ng-template>
 
 <ng-template #simpleItemTemplate let-item="item">
-		<button mat-button [routerLink]="item.url">
+		<button mat-button (click)="navigate(item.url)">
 			<mat-icon>{{item.icon}}</mat-icon>
 			<span>{{item.displayText}}</span>
 		</button>

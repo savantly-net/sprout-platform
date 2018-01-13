@@ -28,67 +28,71 @@ import net.savantly.sprout.core.security.SproutUserDetailsServiceImpl;
 import net.savantly.sprout.oauth.ClientResources;
 import net.savantly.sprout.oauth.GithubPrincipalExtractor;
 import net.savantly.sprout.oauth.LinkedinPrincipalExtractor;
+import net.savantly.sprout.security.CustomAnonymousFilter;
 import net.savantly.sprout.starter.SproutWebSecurityConfiguration;
 
 @Configuration
 @EnableOAuth2Client
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SproutSecurityAutoConfiguration {
-	
-	
+
+
 	@Bean
-	public SproutWebSecurityConfiguration sproutWebSecurityConfiguration(
-			UserDetailsService userDetailsService, 
-			@Qualifier("oauth2ClientContextFilter") Filter oauthFilter, 
-			PasswordEncoder passwordEncoder,
-			@Qualifier("githubClient") ClientResources gitHubResources, 
-			 @Qualifier("linkedinClient")ClientResources linkedInResources) {
+	public SproutWebSecurityConfiguration sproutWebSecurityConfiguration(UserDetailsService userDetailsService,
+			@Qualifier("oauth2ClientContextFilter") Filter oauthFilter, PasswordEncoder passwordEncoder,
+			@Qualifier("githubClient") ClientResources gitHubResources,
+			@Qualifier("linkedinClient") ClientResources linkedInResources) {
 		Filter ssoFilter = ssoFilter(gitHubResources, linkedInResources);
-		return new SproutWebSecurityConfiguration(userDetailsService, ssoFilter, oauthFilter, passwordEncoder);
+		return new SproutWebSecurityConfiguration(userDetailsService, ssoFilter, oauthFilter, passwordEncoder,
+				getAnonymousFilter(userDetailsService));
 	}
-	
+
 	@Bean
 	public HttpSessionSecurityContextRepository securityContextRepository() {
 		return new HttpSessionSecurityContextRepository();
 	}
-	
-	
+
 	@Bean("userDetailsService")
-	public SproutUserDetailsService sproutUserDetailsService(UserRepository userRepository, EmailAddressRepository emailAddressRepository) {
+	public SproutUserDetailsService sproutUserDetailsService(UserRepository userRepository,
+			EmailAddressRepository emailAddressRepository) {
 		return new SproutUserDetailsServiceImpl(userRepository, emailAddressRepository);
 	}
-	
+
 	@Bean
 	public SproutPasswordEncoder sproutPasswordEncoder() {
 		return new SproutPasswordEncoder();
 	}
-	
+
 	@Bean
 	public SproutAuditorAware sproutAuditorAware() {
 		return new SproutAuditorAware();
 	}
-	
 
-	@Bean(name="githubClient")
+	@Bean(name = "githubClient")
 	@ConfigurationProperties("github")
 	ClientResources github(OAuth2ClientContext oauth2ClientContext, UserRepository userRepository) {
 		ClientResources resources = new ClientResources(oauth2ClientContext);
 		resources.setPrincipalExtractor(new GithubPrincipalExtractor(userRepository, resources.getRestTemplate()));
 		return resources;
 	}
-	
-	@Bean(name="linkedinClient")
+
+	@Bean(name = "linkedinClient")
 	@ConfigurationProperties("linkedin")
-	ClientResources linkedin(OAuth2ClientContext oauth2ClientContext, UserRepository userRepository, SproutUserDetailsService userDetailsService) {
+	ClientResources linkedin(OAuth2ClientContext oauth2ClientContext, UserRepository userRepository,
+			SproutUserDetailsService userDetailsService) {
 		ClientResources resources = new ClientResources(oauth2ClientContext);
-		resources.setPrincipalExtractor(new LinkedinPrincipalExtractor(userRepository, userDetailsService, resources.getRestTemplate()));
+		resources.setPrincipalExtractor(
+				new LinkedinPrincipalExtractor(userRepository, userDetailsService, resources.getRestTemplate()));
 		return resources;
 	}
-	
-	//@Bean(name="ssoFilter")
-	private Filter ssoFilter(
-			@Qualifier("githubClient") ClientResources gitHubResources, 
-			 @Qualifier("linkedinClient")ClientResources linkedInResources) {
+
+	private Filter getAnonymousFilter(UserDetailsService userDetailsService) {
+		return new CustomAnonymousFilter(userDetailsService);
+	}
+
+	// @Bean(name="ssoFilter")
+	private Filter ssoFilter(@Qualifier("githubClient") ClientResources gitHubResources,
+			@Qualifier("linkedinClient") ClientResources linkedInResources) {
 		CompositeFilter filter = new CompositeFilter();
 		List<Filter> filters = new ArrayList<>();
 		/* filters.add(ssoFilter(facebook(), "/login/facebook")); */
@@ -99,7 +103,8 @@ public class SproutSecurityAutoConfiguration {
 	}
 
 	private Filter ssoFilter(ClientResources client, String path) {
-		UserInfoTokenServices userInfoTokenServices = new UserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId());
+		UserInfoTokenServices userInfoTokenServices = new UserInfoTokenServices(client.getResource().getUserInfoUri(),
+				client.getClient().getClientId());
 		userInfoTokenServices.setPrincipalExtractor(client.getPrincipalExtractor());
 		OAuth2ClientAuthenticationProcessingFilter filter = new OAuth2ClientAuthenticationProcessingFilter(path);
 		filter.setRestTemplate(client.getRestTemplate());

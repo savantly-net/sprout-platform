@@ -15,10 +15,15 @@ import net.savantly.sprout.core.domain.emailAddress.EmailAddressFixture;
 import net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepository;
 import net.savantly.sprout.core.domain.user.repository.UserRepository;
 import net.savantly.sprout.core.security.role.Role;
+import net.savantly.sprout.core.security.role.RoleFixture;
 import net.savantly.sprout.core.security.role.RoleRepository;
 
 public class UserFixture extends AbstractBaseFixture<SproutUserEntity, UserRepository>{
 
+	public static final String ANONYMOUS_USER = "anonymousUser";
+	public static final String SYSTEM_USER = "systemUser";
+	public static final String ADMIN_USER = "adminUser";
+	
     PasswordEncoder encoder;
     private EmailAddressRepository emailAddressRepository;
     private RoleRepository roleRepository;
@@ -49,20 +54,37 @@ public class UserFixture extends AbstractBaseFixture<SproutUserEntity, UserRepos
     public void addEntities(List<SproutUserEntity> entityList) {
         addAdminUser(entityList);
         addSystemUser(entityList);
+        addAnonymousUser(entityList);
     }
     
     private void addSystemUser(List<SproutUserEntity> entityList) {
-        String username = "system";
+        String username = SYSTEM_USER;
         SproutUserEntity userDetails = this.repository.findOneByUsername(username);
         
         if(userDetails != null) return;
         
         Set<Role> authorities = new HashSet<Role>(1);
-        authorities.add(roleRepository.findOne("ADMIN"));
+        authorities.add(roleRepository.findOne(RoleFixture.ADMIN_ROLE));
         userDetails = new SproutUserEntity(username, RandomGenerator.getRandomAlphaNumericString(25) , username, username, authorities);
         userDetails.setDisplayName("SYSTEM");
         
         EmailAddress emailAddress =  emailAddressRepository.findOne(EmailAddressFixture.SYSTEM_EMAIL);
+        userDetails.setPrimaryEmailAddress(emailAddress);
+        entityList.add(userDetails);
+    }
+    
+    private void addAnonymousUser(List<SproutUserEntity> entityList) {
+        String username = ANONYMOUS_USER;
+        SproutUserEntity userDetails = this.repository.findOneByUsername(username);
+        
+        if(userDetails != null) return;
+        
+        Set<Role> authorities = new HashSet<Role>(1);
+        authorities.add(roleRepository.findOne(RoleFixture.ANONYMOUS_ROLE));
+        userDetails = new SproutUserEntity(username, RandomGenerator.getRandomAlphaNumericString(25) , username, username, authorities);
+        userDetails.setDisplayName(ANONYMOUS_USER);
+        
+        EmailAddress emailAddress =  emailAddressRepository.findOne(EmailAddressFixture.ANONYMOUS_EMAIL);
         userDetails.setPrimaryEmailAddress(emailAddress);
         entityList.add(userDetails);
     }

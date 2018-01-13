@@ -1,6 +1,7 @@
 package net.savantly.sprout.controllers;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,9 +12,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.MatrixVariable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,13 +38,24 @@ public class DefaultMvcController {
 	@Autowired
 	ObjectMapper mapper;
 
-	@RequestMapping({"", "index"})
+	@RequestMapping({ "", "index" })
 	public ModelAndView index() throws IOException {
 		String viewName = "ui/index";
 		ModelAndView modelAndView = new ModelAndView(viewName);		
 		modelAndView.addObject("clientConfig", uiSettings);
 		return modelAndView;
 	}
+
+	// Match paths that contain the 'matrix' parameter style that angular uses
+	@RequestMapping({"*{variables}"})
+	public ModelAndView index(@MatrixVariable Map<String, String> variables) throws IOException {
+		log.debug("Found matrix variables: ", variables);
+		String viewName = "ui/index";
+		ModelAndView modelAndView = new ModelAndView(viewName);		
+		modelAndView.addObject("clientConfig", uiSettings);
+		return modelAndView;
+	}
+
 
 	@RequestMapping({"/admin", "/admin/"})
 	public ModelAndView admin() throws IOException {
@@ -58,6 +73,25 @@ public class DefaultMvcController {
 			log.debug("returning admin/index view for request: {}", resourcePath);
 			return adminView();
 		}
+	}
+	
+	@ExceptionHandler(NoHandlerFoundException.class)
+	public ModelAndView handleNoHandlerFound(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            NoHandlerFoundException exception) throws IOException {
+
+		String viewName = "ui/index";
+		ModelAndView modelAndView;
+		
+		log.warn(exception.getLocalizedMessage());
+		if (request.getRequestURI().contains("/admin/")) {
+			viewName = "admin/index";	
+		}
+
+		modelAndView = new ModelAndView(viewName);	
+		modelAndView.addObject("clientConfig", uiSettings);
+		return modelAndView;
 	}
 	
 	private ModelAndView adminView() {
