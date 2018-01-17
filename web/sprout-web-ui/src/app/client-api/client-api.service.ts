@@ -11,12 +11,21 @@ export interface SproutApi {
   zone: NgZone;
   toast(options: any);
   navigate(options: any);
+  showLoader(options: LoaderOptions);
+  hideLoader(options: LoaderOptions);
+}
+
+export class LoaderOptions {
+  key: string;
+  element: Element
 }
 
 @Injectable()
 export class ClientApiService implements SproutApi {
 
   toastSubject = new BehaviorSubject<any>(null);
+  showLoaderBehavior = new BehaviorSubject<LoaderOptions>(null);
+  hideLoaderBehavior = new BehaviorSubject<LoaderOptions>(null);
 
   toast(options) {
     this.zone.run(() => this.toastSubject.next(options));
@@ -26,6 +35,14 @@ export class ClientApiService implements SproutApi {
     this.zone.run(() => {
       this.router.navigate(options);
     });
+  }
+
+  showLoader(options: LoaderOptions) {
+    this.zone.run(() => this.showLoaderBehavior.next(options));
+  }
+
+  hideLoader(options: LoaderOptions) {
+    this.zone.run(() => this.hideLoaderBehavior.next(options));
   }
 
   get http() {
