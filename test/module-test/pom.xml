@@ -9,7 +9,7 @@
 		<groupId>net.savantly.sprout</groupId>
 		<artifactId>platform</artifactId>
 		<relativePath>../web/sprout-web-parent/pom.xml</relativePath>
-		<version>1.4.1-SNAPSHOT</version>
+		<version>1.5.0-SNAPSHOT</version>
 	</parent>
 
 	<dependencies>

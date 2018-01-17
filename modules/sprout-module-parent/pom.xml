@@ -15,7 +15,7 @@
 	</issueManagement>
 	<parent>
 		<groupId>net.savantly.sprout</groupId>
-		<version>1.4.1-SNAPSHOT</version>
+		<version>1.5.0-SNAPSHOT</version>
 		<artifactId>platform</artifactId>
 		<relativePath>../../</relativePath>
 	</parent>

@@ -48,13 +48,15 @@ export class RoleListComponent implements OnInit {
     this.roles.findAll().subscribe(data => {
       this.items = data._embedded.roles;
     }, err => {
-      console.error('Failed to get roles');
+      console.error('Failed to get roles', err);
     });
   }
 
   getPrivileges(): void {
     this.privs.findAll().subscribe(response => {
       this.privileges = response._embedded.privileges;
+    }, err => {
+      console.log('Failed to get privileges', err);
     });
   }
 
