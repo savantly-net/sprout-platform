@@ -17,7 +17,8 @@ export interface SproutApi {
 
 export class LoaderOptions {
   key: string;
-  element: Element
+  element: Element;
+  fullScreen: boolean;
 }
 
 @Injectable()

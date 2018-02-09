@@ -1,5 +1,7 @@
+import { DynamicBuilderService } from '../dynamic/dynamic-builder.service';
+import { LoaderComponent } from '../dynamic/loader/loader.component';
 import { ClientApiService, LoaderOptions } from './client-api.service';
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ViewContainerRef, ComponentRef } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
@@ -9,7 +11,15 @@ import { MatSnackBar } from '@angular/material';
 })
 export class ClientApiComponent implements AfterViewInit {
 
-  constructor(private sproutApi: ClientApiService, private snackBar: MatSnackBar) { }
+  fullScreenLoaderComponent: ComponentRef<LoaderComponent>;
+  @ViewChild('dynamic', {
+    read: ViewContainerRef
+  }) viewContainerRef: ViewContainerRef
+
+  constructor(
+    private sproutApi: ClientApiService,
+    private snackBar: MatSnackBar,
+    private dynamicBuilder: DynamicBuilderService) { }
 
   handleToast(options) {
     if (options) {
@@ -21,12 +31,15 @@ export class ClientApiComponent implements AfterViewInit {
     }
   }
 
-  showLoader = function (options: LoaderOptions) {
+  showFullScreenLoader() {
+    this.fullScreenLoaderComponent = this.dynamicBuilder.createLoaderComponent(this.viewContainerRef);
+  }
+  showLoader (options: LoaderOptions) {
     if (options == null) {
       return; // probably just initialized, so return silently
     }
-    if (!options.key) {
-        throw new Error('A key is required to show the loader, so that it may be removed with the same key.');
+    if (!options.key || options.fullScreen) {
+        return this.showFullScreenLoader();
       }
       const defaultElement = document.querySelector('my-client-api');
       options.element = options.element || defaultElement;
@@ -43,15 +56,15 @@ export class ClientApiComponent implements AfterViewInit {
       options.element.appendChild(imgWrapper);
   };
 
-  hideLoader = function (options: LoaderOptions) {
-    if (options == null) {
-      return; // probably just initialized, so return silently
+  hideLoader (options: LoaderOptions) {
+    if (options == null || !options.key || options.fullScreen) {
+      if (this.fullScreenLoaderComponent) {
+        this.fullScreenLoaderComponent.destroy();
+      }
+    } else {
+      const imgWrapper = document.querySelector('div#' + options.key);
+      imgWrapper.remove();
     }
-    if (!options.key) {
-      throw new Error('A key is required to remove the loader');
-    }
-    const imgWrapper = document.querySelector('div#' + options.key);
-    imgWrapper.remove();
   };
 
   ngAfterViewInit() {

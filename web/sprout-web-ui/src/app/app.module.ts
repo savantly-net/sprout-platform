@@ -16,13 +16,12 @@ import { routing } from './app.routing';
 import { ClientApiModule } from './client-api/client-api.module';
 import { ClientApiService } from './client-api/client-api.service';
 import { ContextMenuComponent } from './contextMenu/contextMenu.component';
-import { DynamicBuilderService } from './dynamic/dynamic-builder.service';
-import { DynamicComponent, DynamicDirective } from './dynamic/dynamic.component';
 import { MaterialModule } from './material/material.module';
 import { SecurityMockService, SecurityModule, ISecurityService } from '@savantly/ngx-security';
 import { SproutPluginModule } from '@savantly/ngx-sprout-plugin';
 import { PageModule } from './page/page.module';
 import { ClientPluginsModule } from './client-plugins/client-plugins.module';
+import { DynamicModule } from './dynamic/dynamic.module';
 import { ServerPluginsModule } from './server-plugins/server-plugins.module';
 import { SettingsService } from './settings/settings.service';
 import { StandardModule } from './standard/standard.module';
@@ -45,7 +44,8 @@ import { MenuModule, MenuService } from '@savantly/ngx-menu';
     ClientPluginsModule,
     PageModule,
     StandardModule,
-    ServerPluginsModule
+    ServerPluginsModule,
+    DynamicModule
   ],
   exports: [ClientPluginsModule],
   declarations: [
@@ -53,18 +53,15 @@ import { MenuModule, MenuService } from '@savantly/ngx-menu';
     HomeComponent,
     AboutComponent,
     ContextMenuComponent,
-    AppMenuComponent,
-    DynamicComponent,
-    DynamicDirective
+    AppMenuComponent
   ],
   providers: [
     ApiService,
     {provide: ISecurityService, useClass: SecurityMockService},
     {provide: MenuService, useClass: MenuService, deps: [ISecurityService]},
-    AppMenuService, DynamicBuilderService,
+    AppMenuService,
     SettingsService
   ],
-  entryComponents: [ DynamicComponent ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,3 +1,4 @@
+import { ComponentTestModule } from '../testing/component-test.module';
 import { TestBed, inject } from '@angular/core/testing';
 
 import { ClientApiService } from './client-api.service';
@@ -5,6 +6,7 @@ import { ClientApiService } from './client-api.service';
 describe('ClientApiService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [ ComponentTestModule ],
       providers: [ClientApiService]
     });
   });

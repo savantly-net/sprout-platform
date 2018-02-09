@@ -52,6 +52,8 @@
 		<exec.test.skip>false</exec.test.skip>
 		<npm.binary>npm</npm.binary>
 		<custom.ui>false</custom.ui>
+		<ui.dist.folder>${basedir}/target/sprout-resources/ui/dist</ui.dist.folder>
+		<ui.root.folder>${basedir}/target/sprout-resources/ui</ui.root.folder>
 	</properties>
 	<distributionManagement>
 		<snapshotRepository>
@@ -79,10 +81,10 @@
 					<name>custom.ui</name>
 					<value>true</value>
 				</property>
+				<file>
+					<exists>${project.basedir}/package.json</exists>
+				</file>
 			</activation>
-			<properties>
-				<custom.ui>true</custom.ui>
-			</properties>
 			<build>
 				<plugins>
 					<plugin>
@@ -97,15 +99,79 @@
 						<artifactId>maven-resources-plugin</artifactId>
 					</plugin>
 				</plugins>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>exec-maven-plugin</artifactId>
+							<configuration>
+								<environmentVariables>
+									<CHROME_BIN>${CHROME_BIN}</CHROME_BIN>
+									<npm_config_package_version>${npm_package_version}</npm_config_package_version>
+								</environmentVariables>
+								<skip>${server.only}</skip>
+							</configuration>
+							<executions>
+								<execution>
+									<id>npm configuration list (validate)</id>
+									<goals>
+										<goal>exec</goal>
+									</goals>
+									<phase>validate</phase>
+									<configuration>
+										<executable>${npm.binary}</executable>
+										<workingDirectory>${ui.root.folder}</workingDirectory>
+										<commandlineArgs>config list -l</commandlineArgs>
+									</configuration>
+								</execution>
+								<execution>
+									<id>npm install (takes a while)</id>
+									<goals>
+										<goal>exec</goal>
+									</goals>
+									<phase>compile</phase>
+									<configuration>
+										<executable>${npm.binary}</executable>
+										<workingDirectory>${ui.root.folder}</workingDirectory>
+										<commandlineArgs>install</commandlineArgs>
+									</configuration>
+								</execution>
+								<execution>
+									<id>npm test</id>
+									<goals>
+										<goal>exec</goal>
+									</goals>
+									<phase>test</phase>
+									<configuration>
+										<executable>${npm.binary}</executable>
+										<workingDirectory>${ui.root.folder}</workingDirectory>
+										<commandlineArgs>test</commandlineArgs>
+										<skip>${exec.test.skip}</skip>
+									</configuration>
+								</execution>
+								<execution>
+									<id>npm build</id>
+									<goals>
+										<goal>exec</goal>
+									</goals>
+									<phase>compile</phase>
+									<configuration>
+										<executable>${npm.binary}</executable>
+										<workingDirectory>${ui.root.folder}</workingDirectory>
+										<commandlineArgs>run build</commandlineArgs>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</pluginManagement>
 			</build>
 		</profile>
 		<profile>
 			<!-- The default UI uses a pre-compiled Angular app for the front-end -->
 			<id>default.ui</id>
 			<activation>
-				<file>
-					<missing>target/sprout-resources</missing>
-				</file>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<dependencies>
 				<dependency>
@@ -114,6 +180,38 @@
 					<version>${sprout.version}</version>
 				</dependency>
 			</dependencies>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-dependency-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>copy web-ui resources from maven dependency</id>
+									<goals>
+										<goal>unpack</goal>
+									</goals>
+									<phase>generate-sources</phase>
+									<configuration>
+										<artifactItems>
+											<artifactItem>
+												<groupId>${project.groupId}</groupId>
+												<artifactId>web-ui</artifactId>
+												<version>${sprout.version}</version>
+												<classifier>resources</classifier>
+												<type>zip</type>
+												<overWrite>true</overWrite>
+											</artifactItem>
+										</artifactItems>
+										<outputDirectory>${ui.root.folder}</outputDirectory>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
 		</profile>
 		<profile>
 			<id>release</id>
@@ -241,94 +339,6 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-dependency-plugin</artifactId>
-					<executions>
-						<execution>
-							<id>copy web-ui resources from maven dependency</id>
-							<goals>
-								<goal>unpack</goal>
-							</goals>
-							<phase>generate-sources</phase>
-							<configuration>
-								<artifactItems>
-									<artifactItem>
-										<groupId>${project.groupId}</groupId>
-										<artifactId>web-ui</artifactId>
-										<version>${sprout.version}</version>
-										<classifier>resources</classifier>
-										<type>zip</type>
-										<overWrite>true</overWrite>
-									</artifactItem>
-								</artifactItems>
-								<outputDirectory>${project.build.directory}/sprout-resources/ui/</outputDirectory>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>exec-maven-plugin</artifactId>
-					<configuration>
-						<environmentVariables>
-							<CHROME_BIN>${CHROME_BIN}</CHROME_BIN>
-							<npm_config_package_version>${npm_package_version}</npm_config_package_version>
-						</environmentVariables>
-						<skip>${server.only}</skip>
-					</configuration>
-					<executions>
-						<execution>
-							<id>npm configuration list (validate)</id>
-							<goals>
-								<goal>exec</goal>
-							</goals>
-							<phase>validate</phase>
-							<configuration>
-								<executable>${npm.binary}</executable>
-								<workingDirectory>./target/sprout-resources/ui</workingDirectory>
-								<commandlineArgs>config list -l</commandlineArgs>
-							</configuration>
-						</execution>
-						<execution>
-							<id>npm install (takes a while)</id>
-							<goals>
-								<goal>exec</goal>
-							</goals>
-							<phase>compile</phase>
-							<configuration>
-								<executable>${npm.binary}</executable>
-								<workingDirectory>./target/sprout-resources/ui</workingDirectory>
-								<commandlineArgs>install</commandlineArgs>
-							</configuration>
-						</execution>
-						<execution>
-							<id>npm test</id>
-							<goals>
-								<goal>exec</goal>
-							</goals>
-							<phase>test</phase>
-							<configuration>
-								<executable>${npm.binary}</executable>
-								<workingDirectory>./target/sprout-resources/ui</workingDirectory>
-								<commandlineArgs>test</commandlineArgs>
-								<skip>${exec.test.skip}</skip>
-							</configuration>
-						</execution>
-						<execution>
-							<id>npm build</id>
-							<goals>
-								<goal>exec</goal>
-							</goals>
-							<phase>compile</phase>
-							<configuration>
-								<executable>${npm.binary}</executable>
-								<workingDirectory>./target/sprout-resources/ui</workingDirectory>
-								<commandlineArgs>run build</commandlineArgs>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>3.0.2</version>
 					<executions>
@@ -342,11 +352,11 @@
 								<outputDirectory>${basedir}/target/classes</outputDirectory>
 								<resources>
 									<resource>
-										<directory>${basedir}/target/sprout-resources/ui/dist</directory>
+										<directory>${ui.dist.folder}</directory>
 										<targetPath>./static/ui/</targetPath>
 									</resource>
 									<resource>
-										<directory>${basedir}/target/sprout-resources/ui/dist</directory>
+										<directory>${ui.dist.folder}</directory>
 										<include>index.html</include>
 										<targetPath>./templates/ui/</targetPath>
 									</resource>
