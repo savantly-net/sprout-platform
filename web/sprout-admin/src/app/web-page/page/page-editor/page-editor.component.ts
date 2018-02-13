@@ -38,7 +38,7 @@ export class PageEditorComponent implements OnInit {
   };
 
   prepareSave(model): Promise<Page> {
-    const preparePromise = new Promise((resolve, reject) => {
+    const preparePromise = new Promise<Page>((resolve, reject) => {
       const halModel = Object.assign({}, model);
       halModel.webPageLayout = model.webPageLayout._links.self.href;
       const contentItemPromises = [];

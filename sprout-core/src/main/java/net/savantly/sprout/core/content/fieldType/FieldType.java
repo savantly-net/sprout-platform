@@ -9,7 +9,8 @@ public enum FieldType {
 	text(),
 	markup(),
 	markdown(),
-	email("[\\w-]+@([\\w-]+\\.)+[\\w-]+");
+	email("[\\w-]+@([\\w-]+\\.)+[\\w-]+"),
+	json();
 	
 	private String validator;
 	

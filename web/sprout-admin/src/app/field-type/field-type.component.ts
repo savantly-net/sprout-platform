@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, forwardRef, Renderer2, ElementRef } from '@angular/core';
 import { FormGroup, DefaultValueAccessor, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { JsonEditorComponent, JsonEditorOptions } from 'angular4-jsoneditor/jsoneditor/jsoneditor.component';
 
 @Component({
   selector: 'app-field-type',
@@ -19,6 +20,7 @@ export class FieldTypeComponent implements OnInit, ControlValueAccessor {
   value: any;
   _fieldControl: any;
   markdownMode = 'editor';
+  jsonEditorOptions: JsonEditorOptions = new JsonEditorOptions();
 
   get fieldControl() {
     return this._fieldControl;
@@ -44,7 +46,9 @@ export class FieldTypeComponent implements OnInit, ControlValueAccessor {
   }
 
 
-  constructor(element: ElementRef, _renderer: Renderer2) { }
+  constructor(element: ElementRef, _renderer: Renderer2) {
+    this.jsonEditorOptions.modes = ['code', 'text', 'tree', 'view']; // set all allowed modes
+  }
 
   ngOnInit() {
   }

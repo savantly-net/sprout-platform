@@ -31,7 +31,7 @@ export class UserEditorComponent implements OnInit {
   }
 
   saveEmailAddress(model): Promise<User> {
-    const emailPromise = new Promise((resolve, reject) => {
+    const emailPromise = new Promise<User>((resolve, reject) => {
       this.emailService.findOne(model.primaryEmailAddress.emailAddress).subscribe(emailAddressResponse => {
         model.primaryEmailAddress = emailAddressResponse._links.self.href;
         resolve(model);

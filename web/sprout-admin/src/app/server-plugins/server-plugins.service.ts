@@ -31,11 +31,11 @@ export class ServerPluginsService {
   }
 
   installPlugin(plugin: ServerPlugin): Observable<ServerPluginExecutionResponse> {
-    return this.http.post('/rest/plugins/install', {key: plugin.key});
+    return this.http.post('/rest/plugins/install', {key: plugin.key})as Observable<ServerPluginExecutionResponse>;
   }
 
   uninstallPlugin(plugin: ServerPlugin): Observable<ServerPluginExecutionResponse>  {
-    return this.http.post('/rest/plugins/uninstall', {key: plugin.key});
+    return this.http.post('/rest/plugins/uninstall', {key: plugin.key})as Observable<ServerPluginExecutionResponse>;
   }
 
   constructor(private http: HttpClient) {}

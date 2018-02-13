@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FieldTypeComponent } from './field-type.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { LMarkdownEditorModule } from 'ngx-markdown-editor';
+import { Ng4JsonEditorModule } from 'angular4-jsoneditor';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { LMarkdownEditorModule } from 'ngx-markdown-editor';
     FormsModule, ReactiveFormsModule,
     MaterialModule,
     CKEditorModule,
-    LMarkdownEditorModule
+    LMarkdownEditorModule,
+    Ng4JsonEditorModule
   ],
   exports: [ FieldTypeComponent, FormsModule, ReactiveFormsModule, MaterialModule, CKEditorModule ],
   declarations: [ FieldTypeComponent ]
