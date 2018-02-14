@@ -33,12 +33,6 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/animations@^4.0.0":
-  version "4.4.6"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-4.4.6.tgz#fa661899a8a4e38cb7c583c7a5c97ce65d592a35"
-  dependencies:
-    tslib "^1.7.1"
-
 "@angular/cdk@~2.0.0-beta.12":
   version "2.0.0-beta.12"
   resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-2.0.0-beta.12.tgz#3a243cb62b93f4e039120ba70f900dc9e235622e"
@@ -120,12 +114,6 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/common@^4.0.0":
-  version "4.4.6"
-  resolved "https://registry.yarnpkg.com/@angular/common/-/common-4.4.6.tgz#4b81420724e0828a0e839b95a55eb1a7e83918f2"
-  dependencies:
-    tslib "^1.7.1"
-
 "@angular/compiler-cli@~5.2":
   version "5.2.4"
   resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-5.2.4.tgz#6d236f8433abe6752441e20884e599e8aa13c567"
@@ -141,21 +129,9 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/compiler@^4.0.0":
-  version "4.4.6"
-  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-4.4.6.tgz#2ee1faf25b757e1d128979074be7fae529b3bc20"
-  dependencies:
-    tslib "^1.7.1"
-
 "@angular/core@>=4", "@angular/core@~5.2":
   version "5.2.4"
   resolved "https://registry.yarnpkg.com/@angular/core/-/core-5.2.4.tgz#44a59bcea87b3aac9ce8ff2ff674fe9cb60e2041"
-  dependencies:
-    tslib "^1.7.1"
-
-"@angular/core@^4.0.0":
-  version "4.4.6"
-  resolved "https://registry.yarnpkg.com/@angular/core/-/core-4.4.6.tgz#13031fd10dcfe438875419b38f21120958bc2354"
   dependencies:
     tslib "^1.7.1"
 
@@ -171,21 +147,9 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/forms@^4.0.0":
-  version "4.4.6"
-  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-4.4.6.tgz#fe64ace42435c1b80f49034b7c41ce8caf14a44a"
-  dependencies:
-    tslib "^1.7.1"
-
 "@angular/http@>=4", "@angular/http@~5.2":
   version "5.2.4"
   resolved "https://registry.yarnpkg.com/@angular/http/-/http-5.2.4.tgz#da2764875196c3a2c8412457714057e56a6545e2"
-  dependencies:
-    tslib "^1.7.1"
-
-"@angular/http@^4.0.0":
-  version "4.4.6"
-  resolved "https://registry.yarnpkg.com/@angular/http/-/http-4.4.6.tgz#0af680c6710bdc026d940e225cfd0f6a5c005d0c"
   dependencies:
     tslib "^1.7.1"
 
@@ -211,33 +175,15 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/platform-browser-dynamic@^4.0.0":
-  version "4.4.6"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-4.4.6.tgz#4d3d9a6a7bf2cf3de4058a615ae059eff641fa36"
-  dependencies:
-    tslib "^1.7.1"
-
 "@angular/platform-browser@>=4", "@angular/platform-browser@~5.2":
   version "5.2.4"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-5.2.4.tgz#dcb2dc6083774dcf2e17c9e9d0653d87057bf732"
   dependencies:
     tslib "^1.7.1"
 
-"@angular/platform-browser@^4.0.0":
-  version "4.4.6"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-4.4.6.tgz#a9839c547e1b654fa1d24a89780c8ba6ab8dcce0"
-  dependencies:
-    tslib "^1.7.1"
-
 "@angular/router@>=4", "@angular/router@~5.2":
   version "5.2.4"
   resolved "https://registry.yarnpkg.com/@angular/router/-/router-5.2.4.tgz#21b81958aaf8335454a55ba28ea37166edbcb042"
-  dependencies:
-    tslib "^1.7.1"
-
-"@angular/router@^4.0.0":
-  version "4.4.6"
-  resolved "https://registry.yarnpkg.com/@angular/router/-/router-4.4.6.tgz#0f6ad29ae0ff8d2c9ea379bd320447217b7ec866"
   dependencies:
     tslib "^1.7.1"
 
@@ -258,9 +204,9 @@
     tree-kill "^1.0.0"
     webpack-sources "^1.1.0"
 
-"@savantly/ngx-inline-edit@^0.2.8":
-  version "0.2.8"
-  resolved "https://registry.yarnpkg.com/@savantly/ngx-inline-edit/-/ngx-inline-edit-0.2.8.tgz#8cd5456883e4bd0506c1a56a784389851283e5fa"
+"@savantly/ngx-inline-edit@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@savantly/ngx-inline-edit/-/ngx-inline-edit-0.3.0.tgz#e3c8b5dfcfdc1a57fa04ed56828407a21e80d7bb"
   dependencies:
     "@angular/animations" ">= 4"
     "@angular/cdk" "~2.0.0-beta.12"
@@ -276,6 +222,13 @@
     core-js "^2.4.1"
     rxjs "^5.4.2"
     zone.js "^0.8.14"
+
+"@savantly/ngx-jsoneditor@^1.2.9":
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/@savantly/ngx-jsoneditor/-/ngx-jsoneditor-1.2.9.tgz#50d6fb1a480ce550b0e35009fb5559bb2786bb5a"
+  dependencies:
+    jsoneditor "^5.13.3"
+    tslib "^1.7.1"
 
 "@savantly/ngx-security@^1.2.4":
   version "1.2.4"
@@ -430,24 +383,6 @@ angular-ide@^0.9.32:
     tar-fs "1.13.2"
     winston "2.3.1"
     ws "1.1.1"
-
-angular4-jsoneditor@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/angular4-jsoneditor/-/angular4-jsoneditor-1.0.7.tgz#3fc380c580b3510e3de550973da6afcef306c4dd"
-  dependencies:
-    "@angular/animations" "^4.0.0"
-    "@angular/common" "^4.0.0"
-    "@angular/compiler" "^4.0.0"
-    "@angular/core" "^4.0.0"
-    "@angular/forms" "^4.0.0"
-    "@angular/http" "^4.0.0"
-    "@angular/platform-browser" "^4.0.0"
-    "@angular/platform-browser-dynamic" "^4.0.0"
-    "@angular/router" "^4.0.0"
-    core-js "^2.4.1"
-    jsoneditor "^5.9.3"
-    rxjs "^5.1.0"
-    zone.js "^0.8.4"
 
 ansi-html@0.0.7:
   version "0.0.7"
@@ -1297,7 +1232,7 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
-codelyzer@~4.1.1:
+codelyzer@~4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/codelyzer/-/codelyzer-4.1.0.tgz#3117754538d8f5ffa36dff91d340573a836cf373"
   dependencies:
@@ -3672,7 +3607,7 @@ json5@^0.5.0, json5@^0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/json5/-/json5-0.5.1.tgz#1eade7acc012034ad84e2396767ead9fa5495821"
 
-jsoneditor@^5.9.3:
+jsoneditor@^5.13.3:
   version "5.13.3"
   resolved "https://registry.yarnpkg.com/jsoneditor/-/jsoneditor-5.13.3.tgz#0afcf9127a1c69ea7f36fc8eb6fcb06ca703405a"
   dependencies:
@@ -5679,7 +5614,7 @@ rxjs@5.0.1:
   dependencies:
     symbol-observable "^1.0.1"
 
-rxjs@^5.1.0, rxjs@^5.4.2, rxjs@^5.5.6:
+rxjs@^5.4.2, rxjs@^5.5.6:
   version "5.5.6"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.5.6.tgz#e31fb96d6fd2ff1fd84bcea8ae9c02d007179c02"
   dependencies:
@@ -7208,6 +7143,6 @@ yn@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/yn/-/yn-2.0.0.tgz#e5adabc8acf408f6385fc76495684c88e6af689a"
 
-zone.js@^0.8.14, zone.js@^0.8.17, zone.js@^0.8.4:
+zone.js@^0.8.14, zone.js@^0.8.17:
   version "0.8.20"
   resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.8.20.tgz#a218c48db09464b19ff6fc8f0d4bb5b1046e185d"

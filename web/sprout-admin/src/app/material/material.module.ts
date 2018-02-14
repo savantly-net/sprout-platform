@@ -21,10 +21,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InlineEditModule } from '@savantly/ngx-inline-edit';
 
 @NgModule({
-  imports: [],
+  imports: [
+    CommonModule
+  ],
   declarations: [],
   exports: [
-    CommonModule,
     FormsModule, ReactiveFormsModule,
     MatSidenavModule,
     MatButtonModule,

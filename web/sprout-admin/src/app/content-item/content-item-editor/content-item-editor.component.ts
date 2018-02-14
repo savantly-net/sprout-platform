@@ -37,7 +37,7 @@ export class ContentItemEditorComponent implements OnInit {
       'contentType': {
         'id': [null],
         'name': [null],
-        'requiresTemplate': [false],
+        'requiresTemplate': [null],
         '_links': {
           'self': {
             'href': [null]
@@ -122,14 +122,18 @@ export class ContentItemEditorComponent implements OnInit {
   loadItem(id: string) {
     if (id) {
       this.service.findOne(id).subscribe((contentItem: any) => {
-        this.service.getContentType(contentItem).subscribe(contentType => {
+        this.service.getContentType(contentItem).subscribe((contentType: ContentType)=> {
           contentItem.contentType = contentType;
-          this.getContentTypeFields(<ContentType>contentType, (contentFields) => {
-            const obs = this.service.getContentTemplate(contentItem);
-            obs.finally(() => { this.createFormFromExisting(contentItem, contentFields); })
-              .subscribe(contentTemplate => {
-              contentItem.template = contentTemplate;
-            }, err => { this.snackBar.open('Please set Content Template', 'Close', {duration: 8000}); console.error(err); });
+          this.getContentTypeFields(contentType, (contentFields) => {
+            if (!contentType.requiresTemplate) {
+              this.createFormFromExisting(contentItem, contentFields);
+            } else {
+              const obs = this.service.getContentTemplate(contentItem);
+              obs.finally(() => { this.createFormFromExisting(contentItem, contentFields); })
+                .subscribe(contentTemplate => {
+                contentItem.template = contentTemplate;
+              }, err => { this.snackBar.open('Please set Content Template', 'Close', {duration: 8000}); console.error(err); });
+            }
           });
         }, err => {
           this.snackBar.open('Could not retrieve Content Type', 'Close', {duration: 8000});

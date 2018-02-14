@@ -47,7 +47,7 @@ import { ServerPluginsModule } from './server-plugins/server-plugins.module';
     AppSettingsModule,
     ServerPluginsModule
   ],
-  exports: [MaterialModule, MenuModule],
+  exports: [],
   providers: [AppService, DynamicBuilderService],
   entryComponents: [DynamicComponent],
   bootstrap: [AppComponent]

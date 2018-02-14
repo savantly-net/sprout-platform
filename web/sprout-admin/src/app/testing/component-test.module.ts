@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialModule } from '../material/material.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { APP_BASE_HREF } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
@@ -19,13 +18,10 @@ export const routing = RouterModule.forRoot(routes);
     routing
   ],
   exports: [
-    CommonModule,
     BrowserAnimationsModule,
     RouterModule,
     HttpClientModule,
     MaterialModule,
-    ReactiveFormsModule,
-    FormsModule,
     StandardModule
   ],
   declarations: [],

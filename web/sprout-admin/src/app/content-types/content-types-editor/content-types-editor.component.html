@@ -6,7 +6,7 @@
 			<button mat-button (click)="router.navigate(['content-types'])"><mat-icon>close</mat-icon></button>
 		</mat-card-header>
 		<mat-card-content>
-			<form [formGroup]="rForm" fxLayout="column">
+			<form [formGroup]="rForm" fxLayout="column"  fxLayoutGap="1em">
 				
 				<mat-form-field hintLabel="Max 255 characters">
 					<input matInput formControlName="name" maxlength="255" placeholder="Enter a name">
@@ -18,7 +18,11 @@
 					<mat-hint align="end">{{rForm.controls['description'].value?.length || 0}}/255</mat-hint>
 				</mat-form-field>
 				
-				<div *ngIf="!rForm.value.new">
+				<div *ngIf="!rForm.value.new" fxLayout="column" fxLayoutGap="1em">
+					<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1em">
+						<label>Requires a template</label>
+						<mat-checkbox matInput formControlName="requiresTemplate"></mat-checkbox>
+					</div>
 					<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1em">
 						<h3>Fields</h3>
 						<button matInput mat-mini-fab (click)="this.addField()"><mat-icon>add</mat-icon></button>

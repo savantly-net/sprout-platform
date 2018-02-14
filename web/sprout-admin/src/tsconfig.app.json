@@ -4,10 +4,16 @@
     "outDir": "../out-tsc/app",
     "baseUrl": "./",
     "module": "es2015",
-    "types": []
+    "types": [],
+    "paths": {}
   },
+  "include": [
+    "./**/*.ts",
+	"../node_modules/ngx-markdown-editor/**/*.ts"
+  ],
   "exclude": [
     "test.ts",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "./app/testing*.ts"
   ]
 }

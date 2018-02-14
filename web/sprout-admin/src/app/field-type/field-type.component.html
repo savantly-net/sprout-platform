@@ -13,8 +13,8 @@
 		<div *ngSwitchCase="'markdown'">
 			<md-editor name="markdownContent" [(ngModel)]="fieldControl.value.value" [height]="'200px'" [mode]="markdownMode" [required]="fieldControl.value.required"></md-editor>
 		</div>
-		<div *ngSwitchCase="'json'">
-			<json-editor [options]="jsonEditorOptions" [(data)]="fieldControl.value.value"></json-editor>
+		<div *ngSwitchCase="'json'" class="jsoneditor">
+			<sv-json-editor [(ngModel)]="fieldControl.value.value"></sv-json-editor>
 		</div>
 		<div *ngSwitchDefault>
 			<b>Field type: {{fieldControl.value?.fieldType}} has no editor yet =(</b>

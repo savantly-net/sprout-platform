@@ -2,6 +2,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { provideRoutes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuModule } from './menu/menu.module';
+import { MaterialModule } from './material/material.module';
 
 import { ContentItemModule } from './content-item/content-item.module';
 import { ContentTypesModule } from './content-types/content-types.module';
@@ -21,6 +22,7 @@ describe('AppComponent', () => {
       ],
       imports: [
         RouterTestingModule,
+        MaterialModule,
         MenuModule,
         ContentTypesModule,
         ContentItemModule],

@@ -4,6 +4,7 @@ import { MaterialModule } from '../material/material.module';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { FieldTypeComponent } from './field-type.component';
 import { LMarkdownEditorModule } from 'ngx-markdown-editor';
+import { JsonEditorModule } from '@savantly/ngx-jsoneditor';
 
 describe('FieldTypeComponent', () => {
   let component: FieldTypeComponent;
@@ -15,7 +16,8 @@ describe('FieldTypeComponent', () => {
         FormsModule, ReactiveFormsModule,
         MaterialModule,
         CKEditorModule,
-        LMarkdownEditorModule],
+        LMarkdownEditorModule,
+        JsonEditorModule],
       declarations: [ FieldTypeComponent ]
     })
     .compileComponents();
