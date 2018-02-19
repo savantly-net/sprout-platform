@@ -6,12 +6,14 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 
 import net.savantly.sprout.core.domain.user.SproutUserEntity;
 
 @Entity
+@Table(name="APP_ROLE")
 public class Role implements GrantedAuthority{
 
 	private static final long serialVersionUID = -8442995033031637920L;

@@ -19,20 +19,21 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.security.core.CredentialsContainer;
@@ -75,6 +76,7 @@ import net.savantly.sprout.core.security.roles.Role;
  * @author Jeremy Branham (modified original)
  */
 @Entity
+@Table(name="APP_USER")
 public class SproutUserEntity extends PersistedDomainObject implements UserDetails, CredentialsContainer, SproutUser {
 
     private static final long serialVersionUID = 6629698068044899330L;
@@ -87,7 +89,6 @@ public class SproutUserEntity extends PersistedDomainObject implements UserDetai
     private String username;
     private String displayName;
     private Set<EmailAddress> emailAddresses = new HashSet<>();
-    private EmailAddress primaryEmailAddress;
     private boolean hidePrimaryEmailAddress;
     private String firstName;
     private String lastName;
@@ -345,6 +346,7 @@ public class SproutUserEntity extends PersistedDomainObject implements UserDetai
 	 */
     @Override
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
+    @CollectionTable(name="APP_USER_EMAIL_ADDRESS")
     public Set<EmailAddress> getEmailAddresses() {
         return emailAddresses;
     }
@@ -353,18 +355,17 @@ public class SproutUserEntity extends PersistedDomainObject implements UserDetai
         this.emailAddresses = emailAddresses;
     }
 
-    /* (non-Javadoc)
-	 * @see net.savantly.sprout.core.domain.user.ISproutUser#getPrimaryEmailAddress()
-	 */
-    @Override
-	@NotNull
-    @OneToOne(cascade=CascadeType.REMOVE)
+    @Transient
     public EmailAddress getPrimaryEmailAddress() {
-        return primaryEmailAddress;
+        Optional<EmailAddress> optionalEmail = this.emailAddresses.stream().filter(e -> e.isPrimary()).findFirst();
+        if(optionalEmail.isPresent()) return optionalEmail.get();
+        else {
+        	return null;
+        }
     }
 
     public void setPrimaryEmailAddress(EmailAddress primaryEmailAddress) {
-        this.primaryEmailAddress = primaryEmailAddress;
+        primaryEmailAddress.setPrimary(true);
     }
 
     /* (non-Javadoc)
@@ -441,7 +442,11 @@ public class SproutUserEntity extends PersistedDomainObject implements UserDetai
     @Override
 	@Transient
     public String getGravatarUrl() {
-        return String.format("https://www.gravatar.com/avatar/%s?s=200&d=identicon", MD5Util.md5Hex(primaryEmailAddress.getEmailAddress()));
+    	String address = "me@example.com";
+    	if (this.getPrimaryEmailAddress() != null) {
+    		address = this.getPrimaryEmailAddress().getEmailAddress();
+    	}
+        return String.format("https://www.gravatar.com/avatar/%s?s=200&d=identicon", MD5Util.md5Hex(address));
     }
 
     // ************************
@@ -519,6 +524,7 @@ public class SproutUserEntity extends PersistedDomainObject implements UserDetai
 	 */
 	@Override
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
+	@CollectionTable(name="APP_USER_O_AUTH_ACCOUNTS")
 	public Set<OAuthAccount> getoAuthAccounts() {
 		return oAuthAccounts;
 	}

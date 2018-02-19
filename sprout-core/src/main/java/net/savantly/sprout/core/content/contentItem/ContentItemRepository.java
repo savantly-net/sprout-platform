@@ -7,4 +7,5 @@ import net.savantly.sprout.core.domain.PersistedDomainObjectRepository;
 @RepositoryRestResource
 public interface ContentItemRepository extends PersistedDomainObjectRepository<ContentItem> {
 
+	ContentItem findByName(String name);
 }

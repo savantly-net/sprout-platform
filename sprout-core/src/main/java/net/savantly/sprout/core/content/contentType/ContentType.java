@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -15,6 +16,7 @@ import net.savantly.sprout.core.content.contentField.ContentField;
 import net.savantly.sprout.core.domain.PersistedDomainObject;
 
 @Entity
+@Table(name="CONTENT_TYPE")
 public class ContentType extends PersistedDomainObject{
 	
 	private String name;
