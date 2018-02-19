@@ -1,3 +1,4 @@
+import { DynamicBuilderService } from '../dynamic/dynamic-builder.service';
 import { ComponentTestModule } from '../testing/component-test.module';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -12,7 +13,7 @@ describe('ClientApiComponent', () => {
     TestBed.configureTestingModule({
       imports: [ComponentTestModule],
       declarations: [ ClientApiComponent ],
-      providers: [ClientApiService]
+      providers: [ClientApiService, DynamicBuilderService]
     })
     .compileComponents();
   }));

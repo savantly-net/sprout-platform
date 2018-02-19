@@ -12,8 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import net.savantly.sprout.core.security.roles.Role;
-import net.savantly.sprout.core.security.roles.RoleRepository;
+import net.savantly.sprout.core.security.role.RoleRepository;
 
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations="classpath:test.properties")

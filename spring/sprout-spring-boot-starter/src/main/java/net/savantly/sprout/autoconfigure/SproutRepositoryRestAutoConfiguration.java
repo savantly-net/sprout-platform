@@ -16,7 +16,7 @@ import net.savantly.sprout.core.domain.menu.Menu;
 import net.savantly.sprout.core.domain.oauth.OAuthAccount;
 import net.savantly.sprout.core.domain.organization.Organization;
 import net.savantly.sprout.core.domain.user.SproutUserEntity;
-import net.savantly.sprout.core.security.roles.Role;
+import net.savantly.sprout.core.security.role.Role;
 import net.savantly.sprout.settings.AppSetting;
 
 @Configuration
