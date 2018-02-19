@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "start-proxy": "ng serve --proxy-config proxy.conf.js --watch",
-    "build": "ng build -prod --base-href \"/admin/\"",
+    "build": "ng build -prod --no-aot --base-href \"/admin/\"",
     "test": "ng test",
     "ci-test": "ng test --watch false",
     "lint": "ng lint",
