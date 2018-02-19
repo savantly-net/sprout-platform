@@ -2,8 +2,10 @@ package net.savantly.sprout.settings;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="APP_SETTING")
 public class AppSetting {
 	
 	private String id;
