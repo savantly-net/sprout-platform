@@ -6,14 +6,14 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@DataJpaTest
+import net.savantly.sprout.starter.SchemaConfiguration;
+
+@SpringBootTest
 @RunWith(SpringRunner.class)
 public class UISettingsTest {
 
@@ -33,12 +33,7 @@ public class UISettingsTest {
 	
 	
 	@Configuration
-	@EntityScan(basePackageClasses=AppSetting.class)
-	@EnableJpaRepositories(basePackageClasses=AppSettingRepository.class)
+	@EnableAutoConfiguration
 	static class TestContext {
-		@Bean
-		public UISettings uiSettings(AppSettingRepository appSettings) {
-			return new UISettings(appSettings);
-		}
 	}
 }

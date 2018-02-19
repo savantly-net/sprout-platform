@@ -7,11 +7,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import net.savantly.sprout.core.content.contentItem.ContentItem;
 import net.savantly.sprout.core.domain.PersistedDomainObject;
 
 @Entity
+@Table(name="CONTENT_TEMPLATE")
 public class ContentTemplate extends PersistedDomainObject{
 	
 	private String name;

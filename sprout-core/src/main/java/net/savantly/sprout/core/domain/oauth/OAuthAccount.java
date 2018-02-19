@@ -1,10 +1,12 @@
 package net.savantly.sprout.core.domain.oauth;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import net.savantly.sprout.core.domain.PersistedDomainObject;
 
 @Entity
+@Table(name="OAUTH_ACCOUNT")
 public class OAuthAccount extends PersistedDomainObject{
 
 	private String provider;

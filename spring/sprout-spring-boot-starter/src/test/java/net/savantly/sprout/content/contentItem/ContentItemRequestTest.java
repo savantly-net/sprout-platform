@@ -37,7 +37,6 @@ import net.savantly.sprout.core.content.fieldType.FieldType;
 @SpringBootTest
 @WebAppConfiguration
 @RunWith(SpringRunner.class)
-@Transactional
 public class ContentItemRequestTest {
 	
 	private static final Logger log = LoggerFactory.getLogger(ContentItemRequestTest.class);
@@ -64,38 +63,46 @@ public class ContentItemRequestTest {
 				.webAppContextSetup(ctx)
 				.build();
 		
-		ContentField cf = new ContentField();
-		cf.setName("body");
-		cf.setDisplayName("Body");
-		cf.setRequired(true);
-		cf.setFieldType(FieldType.text);
-		cf.setSortOrder(0);
+
 		
 		ContentTemplate template = cTemplateRepository.findByName(ContentTemplateFixture.defaultContentTemplateName);
 		
-		ContentType ct = new ContentType();
-		ct.setName(defaultContentTypeName);
-		ct.setDescription(defaultContentTypeName);
-		ct.getFields().add(cf);
-		ct.setUpdateable(false);
-		
-		cf.setContentType(ct);
-		
-		ctRepository.save(ct);
-		
-		ContentItem contentItem = new ContentItem();
-		contentItem.setContentType(ct);
-		contentItem.setName(contentItemName);
-		contentItem.setTemplate(template);
-		
-		Set<ContentField> fields = ct.getFields();
-		
-		for (ContentField contentField : fields) {
-			contentItem.getFieldValues().put(contentField, "test");
+		ContentType ct = ctRepository.findByName(defaultContentTypeName);
+		if ( ct == null) {
+			ContentField cf = new ContentField();
+			cf.setName("body");
+			cf.setDisplayName("Body");
+			cf.setRequired(true);
+			cf.setFieldType(FieldType.text);
+			cf.setSortOrder(0);
+			
+			ct = new ContentType();
+			ct.setName(defaultContentTypeName);
+			ct.setDescription(defaultContentTypeName);
+			ct.getFields().add(cf);
+			ct.setUpdateable(false);
+			
+			cf.setContentType(ct);
+			ctRepository.save(ct);
 		}
 		
-		savedContentItem = ciRepository.save(contentItem);
 		
+		
+		ContentItem contentItem = ciRepository.findByName(contentItemName);
+		if(contentItem == null ) {
+			contentItem = new ContentItem();
+			contentItem.setContentType(ct);
+			contentItem.setName(contentItemName);
+			contentItem.setTemplate(template);
+			
+			Set<ContentField> fields = ct.getFields();
+			
+			for (ContentField contentField : fields) {
+				contentItem.getFieldValues().put(contentField, "test");
+			}	
+		}
+
+		savedContentItem = ciRepository.save(contentItem);
 	}
 	
 	@Test
