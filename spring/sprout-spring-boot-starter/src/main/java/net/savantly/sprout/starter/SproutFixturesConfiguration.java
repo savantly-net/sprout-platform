@@ -18,9 +18,11 @@ import net.savantly.sprout.core.domain.emailAddress.EmailAddressFixture;
 import net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepository;
 import net.savantly.sprout.core.domain.user.UserFixture;
 import net.savantly.sprout.core.domain.user.repository.UserRepository;
-import net.savantly.sprout.core.security.roles.Role;
-import net.savantly.sprout.core.security.roles.RoleFixture;
-import net.savantly.sprout.core.security.roles.RoleRepository;
+import net.savantly.sprout.core.security.privilege.PrivilegeFixture;
+import net.savantly.sprout.core.security.privilege.PrivilegeRepository;
+import net.savantly.sprout.core.security.role.Role;
+import net.savantly.sprout.core.security.role.RoleFixture;
+import net.savantly.sprout.core.security.role.RoleRepository;
 import net.savantly.sprout.settings.AppSettingFixture;
 import net.savantly.sprout.settings.AppSettingRepository;
 
@@ -37,8 +39,8 @@ public class SproutFixturesConfiguration {
 	}
 
 	@Bean
-	protected RoleFixture roleFixture(RoleRepository repository) {
-		return new RoleFixture(repository);
+	protected RoleFixture roleFixture(RoleRepository repository, PrivilegeFixture privFixture, PrivilegeRepository privRepository) {
+		return new RoleFixture(repository, privFixture, privRepository);
 	}
 
 	@Bean
