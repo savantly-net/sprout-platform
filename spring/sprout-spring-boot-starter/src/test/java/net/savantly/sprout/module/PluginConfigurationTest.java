@@ -12,11 +12,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -27,6 +29,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import net.savantly.sprout.autoconfigure.SproutAutoConfiguration;
 import net.savantly.sprout.controllers.PluginsController;
 import net.savantly.sprout.core.module.SimpleSproutModuleExecutionResponse;
 import net.savantly.sprout.core.module.SproutModule;
@@ -34,9 +37,10 @@ import net.savantly.sprout.core.module.SproutModuleAdapter;
 import net.savantly.sprout.core.module.SproutModuleConfiguration;
 import net.savantly.sprout.core.module.SproutModuleExecutionResponse;
 import net.savantly.sprout.module.PluginConfigurationTest.TestContext.ExampleController;
+import net.savantly.sprout.starter.SchemaConfiguration;
 
-@SpringBootTest
-@WebAppConfiguration
+@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
+@TestPropertySource(locations="classpath:test.properties")
 @RunWith(SpringRunner.class)
 public class PluginConfigurationTest {
 
@@ -51,7 +55,7 @@ public class PluginConfigurationTest {
 	private MockMvc mvc;
 
 	@Before
-	public void setup() {
+	public void setup() throws Exception {
 		mvc = MockMvcBuilders
 				.webAppContextSetup(ctx)
 				.build();
@@ -101,6 +105,7 @@ public class PluginConfigurationTest {
 	
 	@Configuration
 	@EnableAutoConfiguration
+	@Import(SproutAutoConfiguration.class)
 	static class TestContext{
 		
 		@Bean(EXAMPLE_MODULE_KEY)

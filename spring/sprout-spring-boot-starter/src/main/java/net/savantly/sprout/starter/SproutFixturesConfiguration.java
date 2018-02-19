@@ -76,5 +76,10 @@ public class SproutFixturesConfiguration {
 	protected ContentTemplateFixture contentTemplateFixture(ContentTemplateRepository templateRepository) {
 		return new ContentTemplateFixture(templateRepository);
 	}
+	
+	@Bean
+	protected PrivilegeFixture privilegeFixture(PrivilegeRepository repository) {
+		return new PrivilegeFixture(repository);
+	}
 
 }

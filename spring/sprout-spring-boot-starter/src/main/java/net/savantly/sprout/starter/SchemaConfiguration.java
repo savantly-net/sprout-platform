@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 import org.hibernate.boot.MetadataSources;
@@ -20,8 +21,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.context.ApplicationContext;
 
-import net.savantly.sprout.autoconfigure.SproutRepositoryRestAutoConfiguration;
-
 public class SchemaConfiguration implements InitializingBean {
 	private static Logger log = LoggerFactory.getLogger(SchemaConfiguration.class);
 	public static String DEFAULT_SCHEMA = "sprout";
@@ -35,6 +34,8 @@ public class SchemaConfiguration implements InitializingBean {
 	private DataSource dataSource;
 	@Autowired
 	private ApplicationContext ctx;
+	@Autowired
+	private EntityManager em;
 	
 	public void ensureSchemaExists(String schema) throws SQLException {
 		boolean exists = false;
@@ -75,10 +76,12 @@ public class SchemaConfiguration implements InitializingBean {
         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
         builder.applySettings(getDataSourceSettings(schema));
 		MetadataSources metadata = new MetadataSources(builder.build());
-        
-        for (Class clazz : SproutRepositoryRestAutoConfiguration.ENTITIES) {
-			metadata.addAnnotatedClass(clazz);
-		}
+		
+		// Scaffold all entities that have been added to the entity manager
+		em.getMetamodel().getManagedTypes().forEach(m -> {
+			Class<?> type = m.getJavaType();
+			metadata.addAnnotatedClass(type);
+		});
         
         SchemaExport schemaExport = new SchemaExport(
                 (MetadataImplementor) metadata.buildMetadata()

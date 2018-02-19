@@ -16,6 +16,8 @@ import net.savantly.sprout.core.domain.menu.Menu;
 import net.savantly.sprout.core.domain.oauth.OAuthAccount;
 import net.savantly.sprout.core.domain.organization.Organization;
 import net.savantly.sprout.core.domain.user.SproutUserEntity;
+import net.savantly.sprout.core.module.registration.SproutModuleRegistration;
+import net.savantly.sprout.core.security.privilege.Privilege;
 import net.savantly.sprout.core.security.role.Role;
 import net.savantly.sprout.settings.AppSetting;
 
@@ -34,6 +36,8 @@ public class SproutRepositoryRestAutoConfiguration {
 		Menu.class,
 		OAuthAccount.class,
 		Organization.class,
+		Privilege.class,
+		SproutModuleRegistration.class,
 		WebPage.class, 
 		WebPageLayout.class,
 		WebPageContent.class

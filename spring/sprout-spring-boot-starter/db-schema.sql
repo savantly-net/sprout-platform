@@ -17,60 +17,16 @@
         primary key (id)
     );
 
-    create table sprout.app_role (
-        authority varchar(255) not null,
-        primary key (authority)
-    );
-
-    create table sprout.app_role_users (
-        role_authority varchar(255) not null,
-        users_id CHAR(36) not null,
-        primary key (role_authority, users_id)
-    );
-
     create table sprout.app_setting (
         id varchar(255) not null,
         value varchar(255),
         primary key (id)
     );
 
-    create table sprout.app_user (
-        id CHAR(36) not null,
-        created_by varchar(255),
-        created_date timestamp,
-        last_modified_by varchar(255),
-        last_modified_date timestamp,
-        account_non_expired boolean not null,
-        account_non_locked boolean not null,
-        credentials_non_expired boolean not null,
-        display_name varchar(255),
-        enabled boolean not null,
-        first_name varchar(255),
-        hide_primary_email_address boolean not null,
-        last_name varchar(255),
-        password varchar(60),
-        phone_number varchar(255),
-        username varchar(255),
-        organization_id CHAR(36),
-        primary key (id)
-    );
-
-    create table sprout.app_user_authorities (
-        sprout_user_entity_id CHAR(36) not null,
-        authorities_authority varchar(255) not null,
-        primary key (sprout_user_entity_id, authorities_authority)
-    );
-
     create table sprout.app_user_email_address (
         sprout_user_entity_id CHAR(36) not null,
         email_addresses_email_address varchar(255) not null,
         primary key (sprout_user_entity_id, email_addresses_email_address)
-    );
-
-    create table sprout.app_user_o_auth_accounts (
-        sprout_user_entity_id CHAR(36) not null,
-        o_auth_accounts_id CHAR(36) not null,
-        primary key (sprout_user_entity_id, o_auth_accounts_id)
     );
 
     create table sprout.content_field (
@@ -128,13 +84,14 @@
         description varchar(255),
         icon varchar(255),
         name varchar(255),
+        requires_template boolean not null,
         updateable boolean not null,
         primary key (id)
     );
 
     create table sprout.field_values (
         content_item_id CHAR(36) not null,
-        content_field_value varchar(255),
+        content_field_value clob,
         field_values_key CHAR(36) not null,
         primary key (content_item_id, field_values_key)
     );
@@ -169,6 +126,85 @@
         provider varchar(255),
         token varchar(255),
         primary key (id)
+    );
+
+    create table sprout.privilege (
+        id CHAR(36) not null,
+        created_by varchar(255),
+        created_date timestamp,
+        last_modified_by varchar(255),
+        last_modified_date timestamp,
+        primary key (id)
+    );
+
+    create table sprout.role (
+        id CHAR(36) not null,
+        created_by varchar(255),
+        created_date timestamp,
+        last_modified_by varchar(255),
+        last_modified_date timestamp,
+        primary key (id)
+    );
+
+    create table sprout.roles_privileges (
+        role_id CHAR(36) not null,
+        privilege_id CHAR(36) not null,
+        primary key (role_id, privilege_id)
+    );
+
+    create table sprout.sprout_module_registration (
+        id CHAR(36) not null,
+        enabled boolean not null,
+        installed boolean not null,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.sprout_user_entity (
+        id CHAR(36) not null,
+        created_by varchar(255),
+        created_date timestamp,
+        last_modified_by varchar(255),
+        last_modified_date timestamp,
+        account_non_expired boolean not null,
+        account_non_locked boolean not null,
+        credentials_non_expired boolean not null,
+        display_name varchar(255),
+        enabled boolean not null,
+        first_name varchar(255),
+        hide_primary_email_address boolean not null,
+        last_name varchar(255),
+        password varchar(60),
+        phone_number varchar(255),
+        username varchar(255),
+        organization_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.sprout_user_entity_o_auth_accounts (
+        sprout_user_entity_id CHAR(36) not null,
+        o_auth_accounts_id CHAR(36) not null,
+        primary key (sprout_user_entity_id, o_auth_accounts_id)
+    );
+
+    create table sprout.tenant (
+        id CHAR(36) not null,
+        created_by varchar(255),
+        created_date timestamp,
+        last_modified_by varchar(255),
+        last_modified_date timestamp,
+        primary key (id)
+    );
+
+    create table sprout.tenant_entity_aliases (
+        tenant_entity_id CHAR(36) not null,
+        aliases varchar(255)
+    );
+
+    create table sprout.users_roles (
+        user_id CHAR(36) not null,
+        role_id CHAR(36) not null,
+        primary key (user_id, role_id)
     );
 
     create table sprout.web_page (
@@ -219,17 +255,8 @@
         place_holders varchar(255)
     );
 
-    alter table sprout.app_role_users 
-        add constraint UK_ie3616poxd9w4cv6x9iih1ox1 unique (users_id);
-
-    alter table sprout.app_user 
-        add constraint UK_3k4cplvh82srueuttfkwnylq0 unique (username);
-
     alter table sprout.app_user_email_address 
         add constraint UK_3dm9sa7qw4qp9r6tr5njayssa unique (email_addresses_email_address);
-
-    alter table sprout.app_user_o_auth_accounts 
-        add constraint UK_45ooewvcei6f3v7xmos9t0vjh unique (o_auth_accounts_id);
 
     alter table sprout.content_item 
         add constraint UK_1ptj5d8k4w475nakthmqbml72 unique (name);
@@ -243,6 +270,12 @@
     alter table sprout.content_type 
         add constraint UK_835k6p59oajhwv7t0iotr99go unique (name);
 
+    alter table sprout.sprout_user_entity 
+        add constraint UK_pmcf9ihu4cd849xym8wy8pikb unique (username);
+
+    alter table sprout.sprout_user_entity_o_auth_accounts 
+        add constraint UK_ljr1bg2p2jt2a3dbvy4je5q6 unique (o_auth_accounts_id);
+
     alter table sprout.web_page 
         add constraint UK_et1jyaok73j9p3vxypsupbfmv unique (name);
 
@@ -253,34 +286,9 @@
         add constraint UK_jtaucwtf2k8d953wexll3luj1 unique (name);
 
     alter table sprout.app_email_address 
-        add constraint FKn1hoqgk6xeqwffj4bts3btm5i 
+        add constraint FK99fphtpb6636ryd2sqr5hog8u 
         foreign key (user_id) 
-        references sprout.app_user;
-
-    alter table sprout.app_role_users 
-        add constraint FKt08nm9davrrdgauef0qvrvrib 
-        foreign key (users_id) 
-        references sprout.app_user;
-
-    alter table sprout.app_role_users 
-        add constraint FKm0t072oixp4qpfhc8rbt28w8t 
-        foreign key (role_authority) 
-        references sprout.app_role;
-
-    alter table sprout.app_user 
-        add constraint FKp5u93ifi53i4bpbkekuhfl0xf 
-        foreign key (organization_id) 
-        references sprout.app_organization;
-
-    alter table sprout.app_user_authorities 
-        add constraint FKsmb0c79d3bvr2kxhwomc3hs2l 
-        foreign key (authorities_authority) 
-        references sprout.app_role;
-
-    alter table sprout.app_user_authorities 
-        add constraint FK94d8420ew5qidqr85lkavtx3d 
-        foreign key (sprout_user_entity_id) 
-        references sprout.app_user;
+        references sprout.sprout_user_entity;
 
     alter table sprout.app_user_email_address 
         add constraint FKt1urrsp2yiipagu3nom7j6qi 
@@ -288,19 +296,9 @@
         references sprout.app_email_address;
 
     alter table sprout.app_user_email_address 
-        add constraint FKret0418w6rp1483aq5ktpflna 
+        add constraint FKjbtne07q2blcb1w8pm2ancd7f 
         foreign key (sprout_user_entity_id) 
-        references sprout.app_user;
-
-    alter table sprout.app_user_o_auth_accounts 
-        add constraint FKi8fnqfxmoeo1h9ooxuwdry19d 
-        foreign key (o_auth_accounts_id) 
-        references sprout.oauth_account;
-
-    alter table sprout.app_user_o_auth_accounts 
-        add constraint FKf3m11dcr7srwd4i9hcd96n2wk 
-        foreign key (sprout_user_entity_id) 
-        references sprout.app_user;
+        references sprout.sprout_user_entity;
 
     alter table sprout.content_field 
         add constraint FKgo572o06qlstntluo2hru84g8 
@@ -346,6 +344,46 @@
         add constraint FKq7k54hb6f3ngdbfpblwj68bhg 
         foreign key (menu_id) 
         references sprout.menu;
+
+    alter table sprout.roles_privileges 
+        add constraint FK5yjwxw2gvfyu76j3rgqwo685u 
+        foreign key (privilege_id) 
+        references sprout.privilege;
+
+    alter table sprout.roles_privileges 
+        add constraint FK9h2vewsqh8luhfq71xokh4who 
+        foreign key (role_id) 
+        references sprout.role;
+
+    alter table sprout.sprout_user_entity 
+        add constraint FKnyy368m8x3q0jgjg49aa146bg 
+        foreign key (organization_id) 
+        references sprout.app_organization;
+
+    alter table sprout.sprout_user_entity_o_auth_accounts 
+        add constraint FK64ur0auu6pox9r71r2khfxv9e 
+        foreign key (o_auth_accounts_id) 
+        references sprout.oauth_account;
+
+    alter table sprout.sprout_user_entity_o_auth_accounts 
+        add constraint FKfb5ryh9nxirs36ci8bnmjod18 
+        foreign key (sprout_user_entity_id) 
+        references sprout.sprout_user_entity;
+
+    alter table sprout.tenant_entity_aliases 
+        add constraint FK4agn1d7ga54q9nvt3dxuafd6b 
+        foreign key (tenant_entity_id) 
+        references sprout.tenant;
+
+    alter table sprout.users_roles 
+        add constraint FKt4v0rrweyk393bdgt107vdx0x 
+        foreign key (role_id) 
+        references sprout.role;
+
+    alter table sprout.users_roles 
+        add constraint FKju2ds6cby7r1du290pju52c6x 
+        foreign key (user_id) 
+        references sprout.sprout_user_entity;
 
     alter table sprout.web_page 
         add constraint FKjmu47ca9ew4eccd6b6wy26ib5 
