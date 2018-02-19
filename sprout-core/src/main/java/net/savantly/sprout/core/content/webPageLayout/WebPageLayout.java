@@ -10,10 +10,12 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Lob;
 import javax.persistence.OrderColumn;
+import javax.persistence.Table;
 
 import net.savantly.sprout.core.domain.PersistedDomainObject;
 
 @Entity
+@Table(name="WEB_PAGE_LAYOUT")
 public class WebPageLayout extends PersistedDomainObject {
 	private String name;
 	private String description;

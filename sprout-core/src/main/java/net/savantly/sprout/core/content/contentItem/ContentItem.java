@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.Table;
 
 import net.savantly.sprout.core.content.contentField.ContentField;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplate;
@@ -19,6 +20,7 @@ import net.savantly.sprout.core.content.contentType.ContentType;
 import net.savantly.sprout.core.domain.PersistedDomainObject;
 
 @Entity
+@Table(name="CONTENT_ITEM")
 public class ContentItem extends PersistedDomainObject{
 	
 	private String name;

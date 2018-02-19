@@ -9,4 +9,5 @@ import net.savantly.sprout.core.domain.PersistedDomainObjectRepository;
 public interface ContentItemRepository extends PersistedDomainObjectRepository<ContentItem> {
 
 	public Set<ContentItem> findAllByContentType_id(String contentTypeId);
+	ContentItem findByName(String name);
 }

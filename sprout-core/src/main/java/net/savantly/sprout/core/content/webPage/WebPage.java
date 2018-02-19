@@ -9,12 +9,14 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import net.savantly.sprout.core.content.webPageContent.WebPageContent;
 import net.savantly.sprout.core.content.webPageLayout.WebPageLayout;
 import net.savantly.sprout.core.domain.PersistedDomainObject;
 
 @Entity
+@Table(name="WEB_PAGE")
 public class WebPage extends PersistedDomainObject {
 	private String name;
 	private String description;

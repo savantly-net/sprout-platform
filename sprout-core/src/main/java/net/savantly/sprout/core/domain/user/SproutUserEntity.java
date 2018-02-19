@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -56,7 +58,6 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
     private String username;
     private String displayName;
     private Set<EmailAddress> emailAddresses = new HashSet<>();
-    private EmailAddress primaryEmailAddress;
     private boolean hidePrimaryEmailAddress;
     private String firstName;
     private String lastName;
@@ -236,6 +237,7 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
 
     @Override
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
+    @CollectionTable(name="APP_USER_EMAIL_ADDRESS")
     public Set<EmailAddress> getEmailAddresses() {
         return emailAddresses;
     }
@@ -244,15 +246,17 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
         this.emailAddresses = emailAddresses;
     }
 
-    @Override
-	@NotNull
-    @OneToOne(cascade=CascadeType.REMOVE)
+    @Transient
     public EmailAddress getPrimaryEmailAddress() {
-        return primaryEmailAddress;
+        Optional<EmailAddress> optionalEmail = this.emailAddresses.stream().filter(e -> e.isPrimary()).findFirst();
+        if(optionalEmail.isPresent()) return optionalEmail.get();
+        else {
+        	return null;
+        }
     }
 
     public void setPrimaryEmailAddress(EmailAddress primaryEmailAddress) {
-        this.primaryEmailAddress = primaryEmailAddress;
+        primaryEmailAddress.setPrimary(true);
     }
 
     @Override
@@ -313,7 +317,11 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
     @Override
 	@Transient
     public String getGravatarUrl() {
-        return String.format("https://www.gravatar.com/avatar/%s?s=200&d=identicon", MD5Util.md5Hex(primaryEmailAddress.getEmailAddress()));
+    	String address = "me@example.com";
+    	if (this.getPrimaryEmailAddress() != null) {
+    		address = this.getPrimaryEmailAddress().getEmailAddress();
+    	}
+        return String.format("https://www.gravatar.com/avatar/%s?s=200&d=identicon", MD5Util.md5Hex(address));
     }
 
     // ************************

@@ -16,7 +16,7 @@ public interface UserRepository extends PagingAndSortingRepository<SproutUserEnt
 	ProfileProjection findProfileFirstByUsername(String username);
 	ProfileProjection findProfileById(String id);
 	SproutUserEntity findOneByUsername(String username);
-	SproutUser findByPrimaryEmailAddress_EmailAddress(String emailAddress);
+	SproutUser findByEmailAddresses_EmailAddress(String emailAddress);
 	
 	@Query("SELECT u FROM SproutUserEntity u where u.id = :id")
 	DefaultUserProjection getFullDetailsById(@Param("id") String id);

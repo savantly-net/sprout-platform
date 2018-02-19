@@ -39,6 +39,7 @@ import net.savantly.sprout.module.PluginConfiguration;
 import net.savantly.sprout.settings.AppSettingRepository;
 import net.savantly.sprout.settings.UISettings;
 import net.savantly.sprout.starter.SproutMvcConfiguration;
+import net.savantly.sprout.tenancy.TenantInterceptor;
 
 @Configuration
 @AutoConfigureBefore(WebMvcAutoConfiguration.class)
@@ -46,6 +47,11 @@ import net.savantly.sprout.starter.SproutMvcConfiguration;
 public class SproutWebMvcAutoConfiguration implements InitializingBean {
 	
 	private static final Logger log = LoggerFactory.getLogger(SproutWebMvcAutoConfiguration.class);
+	
+	@Bean
+	public TenantInterceptor tenantInterceptor() {
+		return new TenantInterceptor();
+	}
 	
 	@Bean
 	public UISettings uiSettings(AppSettingRepository appSettings) {

@@ -19,7 +19,8 @@ import net.savantly.sprout.core.domain.PersistedDomainObject;
 @Entity
 @Table(uniqueConstraints={
     @UniqueConstraint(columnNames = {WebPageContent.WEBPAGE_ID, WebPageContent.PLACEHOLDER_ID})
-}) 
+},
+name="WEB_PAGE_CONTENT") 
 public class WebPageContent extends PersistedDomainObject {
 	
 	static final String WEBPAGE_ID = "webPageId";
