@@ -1,8 +1,6 @@
 package net.savantly.sprout.autoconfigure;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 
@@ -15,14 +13,31 @@ import net.savantly.sprout.core.content.webPageContent.WebPageContent;
 import net.savantly.sprout.core.content.webPageLayout.WebPageLayout;
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
 import net.savantly.sprout.core.domain.menu.Menu;
+import net.savantly.sprout.core.domain.oauth.OAuthAccount;
+import net.savantly.sprout.core.domain.organization.Organization;
 import net.savantly.sprout.core.domain.user.SproutUserEntity;
 import net.savantly.sprout.core.security.roles.Role;
 import net.savantly.sprout.settings.AppSetting;
 
 @Configuration
-@EnableJpaRepositories(basePackages="net.savantly.sprout.**")
-@EntityScan(basePackages="net.savantly.**")
 public class SproutRepositoryRestAutoConfiguration {
+	
+	public static Class[] ENTITIES = {
+		AppSetting.class,
+		Role.class,
+		EmailAddress.class, 
+		SproutUserEntity.class, 
+		ContentTemplate.class, 
+		ContentType.class, 
+		ContentItem.class, 
+		ContentField.class,
+		Menu.class,
+		OAuthAccount.class,
+		Organization.class,
+		WebPage.class, 
+		WebPageLayout.class,
+		WebPageContent.class
+	};
 
 	@Configuration
 	static class SproutRepositoryRestConfigurer extends RepositoryRestConfigurerAdapter {
@@ -32,19 +47,7 @@ public class SproutRepositoryRestAutoConfiguration {
 			config.setReturnBodyOnCreate(true);
 			config.setReturnBodyForPutAndPost(true);
 			config.setBasePath("/api");
-			config.exposeIdsFor(
-					AppSetting.class,
-					Role.class,
-					EmailAddress.class, 
-					SproutUserEntity.class, 
-					ContentTemplate.class, 
-					ContentType.class, 
-					ContentItem.class, 
-					ContentField.class,
-					Menu.class,
-					WebPage.class, 
-					WebPageLayout.class,
-					WebPageContent.class);
+			config.exposeIdsFor(ENTITIES);
 		}
 	}
 

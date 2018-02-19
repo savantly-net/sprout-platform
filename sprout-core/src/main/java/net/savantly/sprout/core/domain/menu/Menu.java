@@ -11,12 +11,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import net.savantly.sprout.core.domain.PersistedDomainObject;
 
 @Entity
+@Table(name="MENU")
 public class Menu extends PersistedDomainObject {
 	
 	private String displayText;

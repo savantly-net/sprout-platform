@@ -25,10 +25,13 @@ import org.springframework.web.context.WebApplicationContext;
 @RunWith(SpringRunner.class)
 @Transactional
 public class SproutAutoConfigurationTest {
+	{
+		System.setProperty("spring.freemarker.template-loader-path", "classpath:/templates/");
+	}
 	
 	@BeforeClass
 	public static void beforeClass() {
-		System.setProperty("spring.freemarker.template-loader-path", "classpath:/templates/");
+		
 	}
 	
 	@Autowired
