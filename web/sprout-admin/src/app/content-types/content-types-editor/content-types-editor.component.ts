@@ -137,6 +137,7 @@ export class ContentTypesEditorComponent implements OnInit {
       'id' : [''],
       'name' : ['MyContentType', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(255)])],
       'description': ['A new content type =]'],
+      'requiresTemplate': [true],
       'fields': fb.array([]),
       'new': [true],
       'createdDate': [null],

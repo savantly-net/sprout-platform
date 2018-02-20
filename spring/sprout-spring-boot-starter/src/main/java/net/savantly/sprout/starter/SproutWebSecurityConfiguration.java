@@ -30,18 +30,20 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 @EnableWebSecurity
 public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
-	UserDetailsService userDetailsService;
-	Filter ssoFilter;
-	Filter oauth2ClientContextFilter;
-	PasswordEncoder passwordEncoder;
+	private UserDetailsService userDetailsService;
+	private Filter ssoFilter;
+	private Filter oauth2ClientContextFilter;
+	private PasswordEncoder passwordEncoder;
+	private Filter anonymousFilter;
 	
 	public SproutWebSecurityConfiguration(UserDetailsService userDetailsService, Filter ssoFilter,
-			Filter oauth2ClientContextFilter, PasswordEncoder passwordEncoder) {
+			Filter oauth2ClientContextFilter, PasswordEncoder passwordEncoder, Filter anonymousFilter) {
 		super();
 		this.userDetailsService = userDetailsService;
 		this.ssoFilter = ssoFilter;
 		this.oauth2ClientContextFilter = oauth2ClientContextFilter;
 		this.passwordEncoder = passwordEncoder;
+        this.anonymousFilter = anonymousFilter;
 	}
 
 	@Override
@@ -58,7 +60,7 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
         
 		authenticationEntryPoint.setDefaultEntryPoint(defaultEntryPoint());
 
-        http
+		http
         	.headers()
         		.frameOptions().disable().and()
             .authorizeRequests()
@@ -82,10 +84,12 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
         	.accessDeniedPage("/errors/403")
         	.authenticationEntryPoint(authenticationEntryPoint)
         		.and()
+        	.addFilterBefore(anonymousFilter , BasicAuthenticationFilter.class)
             .addFilterBefore(oauth2ClientContextFilter, BasicAuthenticationFilter.class)
             .addFilterBefore(ssoFilter, BasicAuthenticationFilter.class);
 	}
 	
+
 	private LinkedHashMap<RequestMatcher, AuthenticationEntryPoint> entryPoints() {
 		LinkedHashMap<RequestMatcher, AuthenticationEntryPoint> entryPoints = new LinkedHashMap<>(2);
 		entryPoints.put(restMatcher(), auth403());
@@ -97,7 +101,7 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 	}
 
 	private RequestMatcher restMatcher() {
-		return new RegexRequestMatcher("/rest/*", null);
+		return new RegexRequestMatcher("/rest/.*", null);
 	}
 	
 	private RequestMatcher rootRquestMatcher() {

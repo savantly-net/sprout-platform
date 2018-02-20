@@ -10,4 +10,5 @@ public interface MenuRepository extends PersistedDomainObjectRepository<Menu>{
 
 	@Query("SELECT m from Menu m WHERE m.parent = null")
 	public Set<Menu> findRootMenus();
+
 }

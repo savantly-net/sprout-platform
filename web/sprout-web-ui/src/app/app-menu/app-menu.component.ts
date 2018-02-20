@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { Menu, MenuService } from '@savantly/ngx-menu';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'my-menu',
@@ -14,7 +15,13 @@ export class AppMenuComponent implements OnInit {
   menus: Observable<Menu[]>;
   appMenus: AppMenu[];
 
-  constructor(private menuService: MenuService, private appMenuService: AppMenuService) {
+  navigate(url: string) {
+    if (url !== null) {
+      this.router.navigateByUrl(url);
+    }
+  }
+
+  constructor(private menuService: MenuService, private appMenuService: AppMenuService, private router: Router) {
     this.menus = this.menuService.getMenus();
     this.appMenuService.getRootMenus().subscribe((response) => {
       this.appMenus = response._embedded.menus;

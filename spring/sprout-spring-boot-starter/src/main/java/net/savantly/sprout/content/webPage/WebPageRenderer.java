@@ -18,16 +18,16 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
 import freemarker.template.Version;
-import net.savantly.sprout.content.contentItem.ContentItemRenderer;
+import net.savantly.sprout.content.contentItem.ContentItemRenderingChain;
 import net.savantly.sprout.content.webPageLayout.WebPageLayoutTemplateLoader;
 import net.savantly.sprout.core.content.webPage.WebPage;
 
 public class WebPageRenderer {
 
 	private Configuration configuration;
-	private ContentItemRenderer contentItemRenderer;
+	private ContentItemRenderingChain contentItemRenderer;
 
-	public WebPageRenderer(WebPageLayoutTemplateLoader loader, ContentItemRenderer contentItemRenderer) throws IOException, TemplateException {
+	public WebPageRenderer(WebPageLayoutTemplateLoader loader, ContentItemRenderingChain contentItemRenderer) throws IOException, TemplateException {
 		Version incompatibleImprovements = new Version("2.3.26");
 		this.configuration = new Configuration(incompatibleImprovements);
 		this.configuration.setTemplateLoader(loader);
@@ -51,14 +51,9 @@ public class WebPageRenderer {
 				temp.put(c.getPlaceHolderId(), new ArrayList<String>());
 			}
 			c.getContentItems().stream().forEach((i) -> {
-				String renderedContentItem = String.format("Error while rendering item: %s id: %s", i.getName(), i.getId());
-				try {
-					renderedContentItem = contentItemRenderer.render(i);
-				} catch (IOException | TemplateException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				temp.get(c.getPlaceHolderId()).add(renderedContentItem);
+				StringWriter ciWriter = new StringWriter();
+				contentItemRenderer.renderContentItem(i, ciWriter);
+				temp.get(c.getPlaceHolderId()).add(ciWriter.toString());
 			});
 		});
 		

@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, forwardRef, Renderer2, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, forwardRef, Renderer2, ElementRef, ViewEncapsulation } from '@angular/core';
 import { FormGroup, DefaultValueAccessor, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { JsonEditorComponent } from '@savantly/ngx-jsoneditor';
 
 @Component({
   selector: 'app-field-type',
@@ -11,13 +12,15 @@ import { FormGroup, DefaultValueAccessor, NG_VALUE_ACCESSOR, ControlValueAccesso
       useExisting: forwardRef(() => FieldTypeComponent),
       multi: true
     }
-  ]
+  ],
+  encapsulation: ViewEncapsulation.None
 })
 export class FieldTypeComponent implements OnInit, ControlValueAccessor {
   _onTouched: any;
   _onChange: any;
   value: any;
   _fieldControl: any;
+  markdownMode = 'editor';
 
   get fieldControl() {
     return this._fieldControl;

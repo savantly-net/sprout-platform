@@ -6,6 +6,8 @@ import { environment } from './environments/environment';
 import 'hammerjs';
 import 'rxjs/add/operator/toPromise';
 
+
+
 if (environment.production) {
   enableProdMode();
 }

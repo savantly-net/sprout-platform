@@ -13,7 +13,8 @@ import {
   MatInputModule,
   MatSnackBarModule,
   MatSelectModule,
-  MatCheckboxModule } from '@angular/material';
+  MatCheckboxModule,
+  MatProgressSpinnerModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
@@ -34,6 +35,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatSnackBarModule,
     MatSelectModule,
     MatCheckboxModule,
+    MatProgressSpinnerModule,
     FlexLayoutModule
   ],
   providers: []

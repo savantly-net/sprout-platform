@@ -1,6 +1,13 @@
 @import '~@angular/material/theming';
 // Plus imports for other components in your app.
 
+// Breakpoints
+$xsmall: '600px';
+$small: '960px';
+$medium: '1024px';
+$large: '1600px';
+
+
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
@@ -9,16 +16,51 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue.
-$sprout-app-primary: mat-palette($mat-blue);
-$sprout-app-accent:  mat-palette($mat-grey);
-
-// The warn palette is optional (defaults to red).
-$sprout-app-warn:    mat-palette($mat-red);
+$sprout-app-primary: mat-palette($mat-blue-grey);
+$sprout-app-accent:  mat-palette($mat-amber);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$sprout-app-theme: mat-light-theme($sprout-app-primary, $sprout-app-accent, $sprout-app-warn);
+$sprout-app-theme: mat-light-theme($sprout-app-primary, $sprout-app-accent);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($sprout-app-theme);
+
+
+// X-Small 
+@media (max-width: $xsmall) {
+  .content {
+    mat-card.centered {
+      max-width: 100%;
+    }
+  }
+}
+
+// Small
+@media (min-width: $small) and (max-width: $medium)  {
+  .content {
+    mat-card.centered {
+      max-width: 80%;
+    }
+  }
+}
+
+// Medium
+@media (min-width: $medium) and (max-width: $large)  {
+  .content {
+    mat-card.centered {
+      max-width: 80%;
+    }
+  }
+}
+
+
+// Large
+@media (min-width: $large) {
+  .content {
+    mat-card.centered {
+      max-width: 60%;
+    }
+  }
+}

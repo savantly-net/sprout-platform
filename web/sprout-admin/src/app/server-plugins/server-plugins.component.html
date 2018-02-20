@@ -1,0 +1,19 @@
+<div class="content" fxLayout="column" fxLayoutGap="1em">
+	
+	<div fxLayout fxLayout.lt-sm="column" fxLayoutWrap="true" fxLayoutGap="1em">
+		<mat-card  *ngFor="let item of plugins">
+			<mat-card-header>
+				<mat-card-title><b>{{item.name}}</b> <i>[{{item.version}}]</i></mat-card-title>
+				<mat-card-subtitle>{{item.description}}</mat-card-subtitle>
+			</mat-card-header>
+			<mat-card-actions fxLayoutAlign="space-around">
+				<button mat-fab [disabled]="!item.installed" color="warn" (click)="uninstallPlugin(item)">
+					<mat-icon matListIcon>clear</mat-icon>
+				</button>
+				<button mat-fab [disabled]="item.installed" (click)="installPlugin(item)">
+					<mat-icon matListIcon>check</mat-icon>
+				</button>
+			</mat-card-actions>
+		</mat-card>
+	</div>
+</div>

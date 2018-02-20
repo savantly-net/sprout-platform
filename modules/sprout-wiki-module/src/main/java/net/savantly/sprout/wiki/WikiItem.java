@@ -2,7 +2,6 @@ package net.savantly.sprout.wiki;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
-import javax.validation.constraints.Size;
 
 import net.savantly.sprout.core.configuration.SproutConfiguration;
 import net.savantly.sprout.core.domain.PersistedDomainObject;
@@ -16,7 +15,6 @@ public class WikiItem extends PersistedDomainObject{
 	
 	
 	@Lob
-    @Size(max=10000)
 	public String getContent() {
 		return content;
 	}

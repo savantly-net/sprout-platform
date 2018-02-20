@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import net.savantly.sprout.autoconfigure.SproutAutoConfiguration;
 
-@SpringBootApplication(scanBasePackageClasses = { SproutAutoConfiguration.class })
+@SpringBootApplication(scanBasePackages = { "net.savantly.sprout.autoconfigure" })
 public class ModuleTestApplication {
 
 	public static void main(String[] args) {

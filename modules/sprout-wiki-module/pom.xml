@@ -16,7 +16,7 @@
 	<parent>
 		<groupId>net.savantly.sprout</groupId>
 		<artifactId>module-parent</artifactId>
-		<version>1.4.0-RC1</version>
+		<version>1.5.0-SNAPSHOT</version>
 		<relativePath>../sprout-module-parent</relativePath>
 	</parent>
 	<developers>
@@ -39,4 +39,12 @@
 	<build>
 		<plugins></plugins>
 	</build>
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/info.bliki.wiki/bliki-core -->
+		<dependency>
+			<groupId>info.bliki.wiki</groupId>
+			<artifactId>bliki-core</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+	</dependencies>
 </project>

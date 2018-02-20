@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LayoutEditorComponent } from './layout-editor.component';
 import { ComponentTestModule } from '../../../testing/component-test.module';
+import { LayoutEditorComponent } from './layout-editor.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { LayoutService } from '../layout.service';
 

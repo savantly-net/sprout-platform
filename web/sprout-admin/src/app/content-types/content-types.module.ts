@@ -14,7 +14,7 @@ import { ContentTypesService } from './content-types.service';
     MaterialModule,
     ContentFieldModule
   ],
-  exports: [MaterialModule],
+  exports: [],
   declarations: [ContentTypesComponent, ContentTypesEditorComponent],
   providers: [ContentTypesService]
 })

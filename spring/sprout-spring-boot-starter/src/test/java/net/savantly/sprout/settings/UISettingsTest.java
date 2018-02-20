@@ -21,8 +21,6 @@ public class UISettingsTest {
 
 	@Autowired
 	UISettings settings;
-	@Autowired
-	SchemaConfiguration config;
 	
 	@Test
 	public void TestSave() throws Exception {

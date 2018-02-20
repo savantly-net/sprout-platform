@@ -13,19 +13,20 @@ import { AppMenuComponent } from './app-menu/app-menu.component';
 import { AppMenuService } from './app-menu/app-menu.service';
 import { ApiService } from './shared';
 import { routing } from './app.routing';
+import { ClientApiModule } from './client-api/client-api.module';
+import { ClientApiService } from './client-api/client-api.service';
 import { ContextMenuComponent } from './contextMenu/contextMenu.component';
-import { DynamicBuilderService } from './dynamic/dynamic-builder.service';
-import { DynamicComponent } from './dynamic/dynamic.component';
 import { MaterialModule } from './material/material.module';
 import { SecurityMockService, SecurityModule, ISecurityService } from '@savantly/ngx-security';
 import { SproutPluginModule } from '@savantly/ngx-sprout-plugin';
 import { PageModule } from './page/page.module';
-import { PluginsModule } from './plugins/plugins.module';
+import { ClientPluginsModule } from './client-plugins/client-plugins.module';
+import { DynamicModule } from './dynamic/dynamic.module';
+import { ServerPluginsModule } from './server-plugins/server-plugins.module';
 import { SettingsService } from './settings/settings.service';
 import { StandardModule } from './standard/standard.module';
 import { CommonModule } from '@angular/common';
 import { MenuModule, MenuService } from '@savantly/ngx-menu';
-
 
 @NgModule({
   imports: [
@@ -35,35 +36,38 @@ import { MenuModule, MenuService } from '@savantly/ngx-menu';
     FormsModule,
     routing,
     BrowserAnimationsModule,
+    ClientApiModule,
     SecurityModule,
     SproutPluginModule.forRoot(),
     MaterialModule,
     MenuModule,
-    PluginsModule,
+    ClientPluginsModule,
     PageModule,
-    StandardModule
+    StandardModule,
+    ServerPluginsModule,
+    DynamicModule
   ],
-  exports: [PluginsModule],
+  exports: [ClientPluginsModule],
   declarations: [
     AppComponent,
     HomeComponent,
     AboutComponent,
     ContextMenuComponent,
-    AppMenuComponent,
-    DynamicComponent
+    AppMenuComponent
   ],
   providers: [
     ApiService,
     {provide: ISecurityService, useClass: SecurityMockService},
     {provide: MenuService, useClass: MenuService, deps: [ISecurityService]},
-    AppMenuService, DynamicBuilderService,
+    AppMenuService,
     SettingsService
   ],
-  entryComponents: [ DynamicComponent ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(public appRef: ApplicationRef) {}
+  constructor(public appRef: ApplicationRef, sproutApi: ClientApiService) {
+    window.sprout = sproutApi;
+  }
   hmrOnInit(store) {
     console.log('HMR store', store);
   }

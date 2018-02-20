@@ -9,6 +9,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
@@ -54,6 +55,7 @@ public class ContentItem extends PersistedDomainObject{
 		this.contentType = contentType;
 	}
 
+	@Lob
 	@ElementCollection(fetch=FetchType.EAGER)
 	@CollectionTable(name = "FIELD_VALUES", joinColumns = @JoinColumn(name = "CONTENT_ITEM_ID"))
 	@MapKeyColumn(name="CONTENT_FIELD_ID")

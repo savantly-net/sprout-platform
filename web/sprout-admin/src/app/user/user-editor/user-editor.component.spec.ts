@@ -5,6 +5,7 @@ import { MaterialModule } from '../../material/material.module';
 import { ComponentTestModule } from '../../testing/component-test.module';
 import { UserService } from '../user.service';
 import { EmailService } from '../email-service';
+import { RoleService } from '../role.service';
 
 describe('UserEditorComponent', () => {
   let component: UserEditorComponent;
@@ -14,7 +15,7 @@ describe('UserEditorComponent', () => {
     TestBed.configureTestingModule({
       imports: [MaterialModule, ComponentTestModule],
       declarations: [ UserEditorComponent ],
-      providers: [UserService, EmailService]
+      providers: [UserService, EmailService, RoleService]
     })
     .compileComponents();
   }));

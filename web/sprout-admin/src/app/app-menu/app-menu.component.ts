@@ -20,7 +20,7 @@ export class AppMenuComponent implements OnInit {
   loadMenus() {
     console.log('loading menus');
     this.appMenuService.getRootMenus().subscribe((response) => {
-      this._menus.next(response._embedded.menus);
+      this._menus.next(response._embedded.menus as AppMenu[]);
     }, (error) => {
       console.log(error);
     });
@@ -48,7 +48,7 @@ export class AppMenuComponent implements OnInit {
   }
 
   getGreatestPosition(): Promise<number> {
-    const promise = new Promise((resolve, reject) => {
+    const promise = new Promise<number>((resolve, reject) => {
       let maxPosition = 0;
       this._menus.value.map((item) => {
         maxPosition = Math.max(item.position, maxPosition);
@@ -59,7 +59,7 @@ export class AppMenuComponent implements OnInit {
   }
 
   createMenuItem(): Promise<AppMenu> {
-    const promise = new Promise((resolve, reject) => {
+    const promise = new Promise<AppMenu>((resolve, reject) => {
       const menuItem = new AppMenu();
       menuItem.icon = 'bookmark';
       menuItem.displayText = 'New Menu Item';

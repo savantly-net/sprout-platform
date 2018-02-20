@@ -16,9 +16,6 @@ import { RouterModule } from '@angular/router';
     RouterModule.forChild([])
   ],
   exports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MaterialModule,
     AppSettingsComponent
   ],
   declarations: [
