@@ -23,6 +23,7 @@ public class ContentType extends PersistedDomainObject{
 	private String description;
 	@JsonIgnoreProperties("contentType")
 	private Set<ContentField> fields = new HashSet<>();
+	private boolean requiresTemplate = true;
 	
 	private boolean updateable;
 	private String icon;
@@ -67,6 +68,14 @@ public class ContentType extends PersistedDomainObject{
 
 	public void setIcon(String icon) {
 		this.icon = icon;
+	}
+
+	public boolean isRequiresTemplate() {
+		return requiresTemplate;
+	}
+
+	public void setRequiresTemplate(boolean requiresTemplate) {
+		this.requiresTemplate = requiresTemplate;
 	}
 
 }

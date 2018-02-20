@@ -62,3 +62,7 @@ $sprout-app-theme: mat-light-theme($sprout-app-primary, $sprout-app-accent, $spr
 .indigo-cyan-theme {
   @include angular-material-theme(mat-light-theme(mat-palette($mat-indigo), mat-palette($mat-cyan)));
 }
+
+.savantly-theme {
+  @include angular-material-theme(mat-light-theme(mat-palette($mat-blue-grey), mat-palette($mat-amber)));
+}

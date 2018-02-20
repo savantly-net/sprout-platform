@@ -8,8 +8,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SecurityModule, SecurityMockService, ISecurityService } from '@savantly/ngx-security';
 import { ApiService } from './shared';
 import { AppComponent } from './app.component';
+import { ClientApiModule } from './client-api/client-api.module';
+import { DynamicModule } from './dynamic/dynamic.module';
 import { MaterialModule } from './material/material.module';
 import { SettingsService } from './settings/settings.service';
+import { ComponentTestModule } from './testing/component-test.module';
 import { MenuModule, MenuService } from '@savantly/ngx-menu';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -22,7 +25,10 @@ describe('AppComponent', () => {
         MaterialModule,
         HttpClientModule,
         SecurityModule,
-        MenuModule
+        MenuModule,
+        ComponentTestModule,
+        ClientApiModule,
+        DynamicModule
       ],
       declarations: [AppComponent, AppMenuComponent],
       providers: [

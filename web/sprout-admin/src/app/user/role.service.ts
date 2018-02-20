@@ -1,10 +1,12 @@
 import { HalResponse, RestRepositoryService } from '../spring-data/rest-repository.service';
+import { Privilege } from './privilege.service';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 export class Role {
-  authority: string;
+  id: string;
+  privileges: Privilege[];
   _links: any;
   _embedded: any;
 }
@@ -24,14 +26,20 @@ export class RoleService {
   saveItem(item: Role): Observable<any> {
     console.info('attempting to save object: {}', item);
     if (item['new'] === false) {
-      return this.http.put(this.baseRepositoryPath + '/' + item.authority, item);
+      return this.http.put(this.baseRepositoryPath + '/' + item.id, item);
     } else {
       return this.http.post(this.baseRepositoryPath, item);
     }
   }
 
+  putPrivileges(role: Role, refs: string[]) {
+    const payload = refs.join('\n');
+    const headers = new HttpHeaders({'Content-Type': 'text/uri-list'});
+    return this.http.put(role._links.privileges.href, payload, {headers: headers});
+  }
+
   deleteItem(item: Role): Observable<any> {
-    return this.http.delete(this.baseRepositoryPath + '/' + item.authority);
+    return this.http.delete(this.baseRepositoryPath + '/' + item.id);
   }
 
   constructor(protected http: HttpClient) { }

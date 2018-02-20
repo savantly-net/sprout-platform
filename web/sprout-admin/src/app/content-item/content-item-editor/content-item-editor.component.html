@@ -26,7 +26,7 @@
 				
 				
 				<div *ngIf="!rForm.value.new">
-					<mat-form-field hintLabel="The template that will render this content">
+					<mat-form-field *ngIf="currentContentType.value.requiresTemplate" hintLabel="The template that will render this content">
 						<mat-select matInput formControlName="template" [compareWith]="idCompare" >
 							<mat-option *ngFor="let ct of this.templates | async, trackBy: trackById" [value]="ct">{{ct.name}}</mat-option>
 						</mat-select>

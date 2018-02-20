@@ -1,20 +1,24 @@
 package net.savantly.sprout.core.module;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.util.Map;
 
-import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.BeanNameAware;
 
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Inherited
-@Configuration
-public @interface SproutModule {
+public interface SproutModule extends BeanNameAware {
 
-	String value();
-	String bundleJs();
+	String getKey();
+	String getName();
+	String getWelcomeUrl();
+	String getVersion();
+	String getDescription();
+	
+	SproutModuleExecutionResponse install();
+	SproutModuleExecutionResponse uninstall();
+	
+	Map<String, String> getUserConfiguration();
+	void saveUserConfiguration(Map<String, String> configuration);
+	
+	Map<String, String> getAdminConfiguration();
+	void saveAdminConfiguration(Map<String, String> configuration);
 
 }

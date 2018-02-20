@@ -8,17 +8,11 @@
 	<parent>
 		<groupId>net.savantly.sprout</groupId>
 		<artifactId>platform</artifactId>
-		<relativePath>../../pom.xml</relativePath>
-		<version>1.4.0-RC1</version>
+		<relativePath>../web/sprout-web-parent/pom.xml</relativePath>
+		<version>1.5.0-SNAPSHOT</version>
 	</parent>
 
-
 	<dependencies>
-		<!-- Savantly Dependencies -->
-		<dependency>
-			<groupId>net.savantly.sprout</groupId>
-			<artifactId>sprout-spring-boot-starter</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -27,6 +21,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- Savantly Dependencies -->
+		<dependency>
+			<groupId>net.savantly.sprout</groupId>
+			<artifactId>sprout-spring-boot-starter</artifactId>
 		</dependency>
 
 
@@ -45,6 +45,4 @@
 		</dependency>
 
 	</dependencies>
-
-	<build></build>
 </project>

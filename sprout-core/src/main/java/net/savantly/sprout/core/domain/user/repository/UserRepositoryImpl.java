@@ -15,7 +15,8 @@ import net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepos
 import net.savantly.sprout.core.domain.oauth.OAuthAccount;
 import net.savantly.sprout.core.domain.user.SproutUser;
 import net.savantly.sprout.core.domain.user.SproutUserEntity;
-import net.savantly.sprout.core.security.roles.Role;
+import net.savantly.sprout.core.security.role.DefaultRoleProjection;
+import net.savantly.sprout.core.security.role.Role;
 
 public class UserRepositoryImpl implements UserRepositoryCustom {
 	
@@ -33,9 +34,9 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 	@Override
 	public SproutUser insert(SproutUserEntity sproutUser) {
 		if(sproutUser.getAuthorities().isEmpty()){
-			Set<Role> authorities = new HashSet<Role>(1);
-			authorities.add(new Role("ROLE_USER"));
-	        sproutUser.setAuthorities(authorities);
+			Set<Role> roles = new HashSet<Role>(1);
+			roles.add(new Role("ROLE_USER"));
+	        sproutUser.setRoles(roles);
 		}
         sproutUser.setPassword(encoder.encode(sproutUser.getPassword()));
         sproutUser.setAccountNonExpired(true);

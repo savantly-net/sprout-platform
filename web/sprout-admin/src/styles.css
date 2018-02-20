@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 @import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic';
+@import '../node_modules/font-awesome/css/font-awesome.min.css';
+
 
 html, body {
   border: 0;
@@ -46,6 +48,7 @@ mat-card-header button.mat-button {
 .mat-form-field {
 	margin-top: 1.5em;
 }
+
 
 /****** End Material Styles **************/
 

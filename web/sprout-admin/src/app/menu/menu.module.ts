@@ -18,9 +18,6 @@ import { MenuComponent } from './menu.component';
   ],
   declarations: [MenuComponent],
   exports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MaterialModule,
     MenuComponent
   ]
 })

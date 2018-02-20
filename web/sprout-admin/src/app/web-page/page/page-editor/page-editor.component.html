@@ -36,7 +36,7 @@
 								<mat-option *ngFor="let contentItem of this.allContentItems; trackBy: trackById" [value]="contentItem">{{contentItem.name}}</mat-option>
 							</mat-select>
 						</mat-form-field>
-						<button mat-button color="warn" (click)="removeContentItem(i)"><md-icon>x</md-icon></button>
+						<button mat-button color="warn" (click)="removeContentItem(i)"><mat-icon>clear</mat-icon></button>
 					</div>
 				</div>
 				

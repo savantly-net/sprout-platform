@@ -1,6 +1,7 @@
 package net.savantly.sprout.content.contentItem;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -39,9 +40,11 @@ import net.savantly.sprout.core.content.contentType.ContentTypeRepository;
 public class ContentItemRendererTest {
 	
 	private static final Logger log = LoggerFactory.getLogger(ContentItemRendererTest.class);
+	private static final String BOGUS = "BOGUS";
+	private static final String PICKY = "PICKY";
 	
 	@Autowired
-	private ContentItemRenderer renderer;
+	private ContentItemRenderingChain renderer;
 	@Autowired
 	private ContentTypeRepository ctRepository;
 	@Autowired
@@ -64,7 +67,7 @@ public class ContentItemRendererTest {
 	
 	
 	@Test
-	public void testContentItemRenderer() throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
+	public void testBogusRenderer() {
 		
 		ContentType contentType = ctRepository.findByName(ContentTypeFixture.defaultContentTypeName);
 		ContentItem contentItem = new ContentItem();
@@ -77,8 +80,31 @@ public class ContentItemRendererTest {
 			contentItem.getFieldValues().put(contentField, "test");
 		}
 	
-		String text = renderer.render(contentItem);
-		Assert.assertEquals("should equal", "test", text);
+		StringWriter writer = new StringWriter();
+		renderer.renderContentItem(contentItem, writer);
+		Assert.assertEquals("should equal", BOGUS, writer.toString());
+	}
+	
+	@Test
+	public void testPickyRenderer() {
+		
+		ContentType contentType = new ContentType();
+		contentType.setId(PICKY);
+		contentType.setName(PICKY);
+		
+		ContentItem contentItem = new ContentItem();
+		contentItem.setContentType(contentType);
+		contentItem.setTemplate(contentTemplate);
+		
+		Set<ContentField> fields = contentType.getFields();
+		
+		for (ContentField contentField : fields) {
+			contentItem.getFieldValues().put(contentField, "test");
+		}
+	
+		StringWriter writer = new StringWriter();
+		renderer.renderContentItem(contentItem, writer);
+		Assert.assertEquals("should equal", PICKY, writer.toString());
 	}
 	
 	@Configuration
@@ -93,6 +119,61 @@ public class ContentItemRendererTest {
 		@Bean
 		public ContentTypeFixture contentTypeFixture(ContentTypeRepository repository) {
 			return new ContentTypeFixture(repository);
+		}
+		
+		@Bean
+		public ContentItemRenderer bogusRenderer() {
+			return new ContentItemRenderer() {
+				
+				@Override
+				public boolean render(ContentItem item, StringWriter writer) {
+					writer.write(BOGUS);
+					return true;
+				}
+				
+				@Override
+				public int getPriority() {
+					return 1;
+				}
+			};
+		}
+		
+		@Bean
+		public ContentItemRenderer lazyRenderer() {
+			return new ContentItemRenderer() {
+				
+				@Override
+				public boolean render(ContentItem item, StringWriter writer) {
+					// I dont render anyting
+					return false;
+				}
+				
+				@Override
+				public int getPriority() {
+					return 2;
+				}
+			};
+		}
+		
+		@Bean
+		public ContentItemRenderer pickyRenderer() {
+			return new ContentItemRenderer() {
+				
+				@Override
+				public boolean render(ContentItem item, StringWriter writer) {
+					if (item.getContentType().getId() == PICKY) {
+						writer.write(PICKY);
+						return true;
+					} else {
+						return false;
+					}
+				}
+				
+				@Override
+				public int getPriority() {
+					return 2;
+				}
+			};
 		}
 
 	}

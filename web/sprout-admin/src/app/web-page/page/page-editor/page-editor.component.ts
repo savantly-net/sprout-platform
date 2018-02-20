@@ -38,7 +38,7 @@ export class PageEditorComponent implements OnInit {
   };
 
   prepareSave(model): Promise<Page> {
-    const preparePromise = new Promise((resolve, reject) => {
+    const preparePromise = new Promise<Page>((resolve, reject) => {
       const halModel = Object.assign({}, model);
       halModel.webPageLayout = model.webPageLayout._links.self.href;
       const contentItemPromises = [];
@@ -46,7 +46,7 @@ export class PageEditorComponent implements OnInit {
       this.service.clearContentItems(halModel).then((page) => {
         // then add the items from the form
         model.contentAreas.map(item => {
-          if (item.value !== null) {
+          if (item.value !== null && item.value._links) {
             const pageContent = new PageContent();
             pageContent.placeHolderId = item.key;
             // If the value is an actual model
@@ -112,15 +112,15 @@ export class PageEditorComponent implements OnInit {
         this.service.getWebPageLayout(page).subscribe(webPageLayout => {
           page.webPageLayout = webPageLayout;
           webPageLayout.placeHolders.map(key => {
-            const value = page.contentItems.map((contentArea) => {
+            const values = [];
+            page.contentItems.map((contentArea) => {
               if (key === contentArea.placeHolderId) {
                 const contentReferences = contentArea.contentItems.map((singleContentItem) => {
-                  return singleContentItem;
+                  values.push(singleContentItem);
                 });
-                return contentReferences[0];
               }
             });
-            const itemControl = this.fb.group({'key': key, 'value': value[0]});
+            const itemControl = this.fb.group({'key': key, 'value': values[0]});
             fDefinition.contentAreas.push(itemControl);
           });
         delete page.contentItems;

@@ -38,6 +38,13 @@
 					<mat-hint align="end">{{rForm.controls['clearTextPassword'].value?.length || 0}}/255</mat-hint>
 				</mat-form-field>
 				<br/>
+				
+				<div>
+					<mat-selection-list #rolesList>
+						<h3 mat-subheader>Roles</h3>
+						<mat-list-option *ngFor="let item of roles, trackBy:trackById; let i=index" [selected]="item.selected" (click)="onRoleSelectionChange(rolesList)" [value]="item">{{item.id}}</mat-list-option>
+					</mat-selection-list>
+				</div>
 			
 			</form>
 		</mat-card-content>

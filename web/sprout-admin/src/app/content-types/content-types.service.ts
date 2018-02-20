@@ -12,6 +12,7 @@ export class ContentType extends HalResponse {
   updateable: boolean;
   fields: ContentField[];
   icon?: string;
+  requiresTemplate: boolean;
 }
 
 @Injectable()

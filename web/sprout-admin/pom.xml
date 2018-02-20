@@ -4,6 +4,9 @@
 	<artifactId>admin</artifactId>
 	<packaging>jar</packaging>
 	<name>sprout-admin</name>
+	<description>Default admin ui for Sprout</description>
+	<groupId>net.savantly.sprout</groupId>
+	<version>1.5.0-SNAPSHOT</version>
 	<parent>
 		<groupId>net.savantly</groupId>
 		<artifactId>parent-pom</artifactId>
@@ -163,7 +166,7 @@
 				<executions>
 					<execution>
 						<id>copy-resources</id>
-						<phase>package</phase>
+						<phase>prepare-package</phase>
 						<goals>
 							<goal>copy-resources</goal>
 						</goals>
@@ -187,7 +190,4 @@
 		</plugins>
 	</build>
 	<dependencies></dependencies>
-	<description>Default admin ui for Sprout</description>
-	<groupId>net.savantly.sprout</groupId>
-	<version>1.4.0-RC1</version>
 </project>
