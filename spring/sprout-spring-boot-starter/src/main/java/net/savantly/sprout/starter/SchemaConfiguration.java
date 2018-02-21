@@ -15,13 +15,15 @@ import org.hibernate.boot.spi.MetadataImplementor;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
-public class SchemaConfiguration implements InitializingBean {
+public class SchemaConfiguration implements InitializingBean, ApplicationContextAware {
 	private static Logger log = LoggerFactory.getLogger(SchemaConfiguration.class);
 	public static String DEFAULT_SCHEMA = "sprout";
 	// public static String NAMING_STRATEGY = "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy"; // org.hibernate.cfg.ImprovedNamingStrategy; // "org.springframework.boot.orm.jpa.SpringNamingStrategy";
@@ -36,7 +38,16 @@ public class SchemaConfiguration implements InitializingBean {
 	private ApplicationContext ctx;
 	@Autowired
 	private EntityManager em;
+
 	
+	public SchemaConfiguration(DataSourceProperties dataSourceProperties, JpaProperties jpaProperties,
+			DataSource dataSource, EntityManager em) {
+		this.dataSourceProperties = dataSourceProperties;
+		this.jpaProperties = jpaProperties;
+		this.dataSource = dataSource;
+		this.em = em;
+	}
+
 	public void ensureSchemaExists(String schema) throws SQLException {
 		boolean exists = false;
 		Connection connection = this.dataSource.getConnection();
@@ -111,5 +122,10 @@ public class SchemaConfiguration implements InitializingBean {
 	public void afterPropertiesSet() throws Exception {
 		this.ensureSchemaExists(DEFAULT_SCHEMA);
 		this.ensureTablesExist(DEFAULT_SCHEMA);
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.ctx = applicationContext;
 	}
 }

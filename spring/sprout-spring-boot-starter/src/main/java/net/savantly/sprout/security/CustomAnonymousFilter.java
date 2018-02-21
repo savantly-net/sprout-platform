@@ -43,14 +43,14 @@ public class CustomAnonymousFilter extends GenericFilterBean implements Initiali
 			SecurityContextHolder.getContext().setAuthentication(
 					createAuthentication((HttpServletRequest) req));
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("Populated SecurityContextHolder with anonymous token: '"
+			if (logger.isTraceEnabled()) {
+				logger.trace("Populated SecurityContextHolder with anonymous token: '"
 						+ SecurityContextHolder.getContext().getAuthentication() + "'");
 			}
 		}
 		else {
-			if (logger.isDebugEnabled()) {
-				logger.debug("SecurityContextHolder not populated with anonymous token, as it already contained: '"
+			if (logger.isTraceEnabled()) {
+				logger.trace("SecurityContextHolder not populated with anonymous token, as it already contained: '"
 						+ SecurityContextHolder.getContext().getAuthentication() + "'");
 			}
 		}
