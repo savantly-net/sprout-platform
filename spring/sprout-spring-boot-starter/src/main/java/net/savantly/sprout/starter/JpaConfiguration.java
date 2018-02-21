@@ -3,6 +3,7 @@ package net.savantly.sprout.starter;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
@@ -28,7 +29,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import net.savantly.sprout.tenancy.MultiTenantConnectionProviderImpl;
 import net.savantly.sprout.tenancy.TenantIdentifierResolver;
 
-@Configuration
+@Configuration("sproutJpaConfiguration")
 @EnableJpaRepositories(basePackages="net.savantly.sprout.**")
 public class JpaConfiguration  {	
 	
@@ -88,8 +89,8 @@ public class JpaConfiguration  {
     }
     
     @Bean
-	public SchemaConfiguration schemaConfiguration(DataSource ds) {
-		SchemaConfiguration schemaConfiguration = new SchemaConfiguration();
+	public SchemaConfiguration schemaConfiguration(DataSource ds, EntityManager em) {
+		SchemaConfiguration schemaConfiguration = new SchemaConfiguration(dataSourceProperties, jpaProperties, ds, em);
 		return schemaConfiguration;
 	}
     
