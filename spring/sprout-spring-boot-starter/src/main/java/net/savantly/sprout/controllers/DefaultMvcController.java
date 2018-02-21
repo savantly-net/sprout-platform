@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.savantly.sprout.settings.UISettings;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping(path="/", produces="!application/json")
 public class DefaultMvcController {
 	private final static Logger log = LoggerFactory.getLogger(DefaultMvcController.class);
 	
@@ -47,9 +47,12 @@ public class DefaultMvcController {
 	}
 
 	// Match paths that contain the 'matrix' parameter style that angular uses
-	@RequestMapping({"*{variables}"})
-	public ModelAndView index(@MatrixVariable Map<String, String> variables) throws IOException {
-		log.debug("Found matrix variables: ", variables);
+	// rejects requests that are for json, so we dont accidently respond to an api request
+	@RequestMapping(path={"*{variables}"}, produces = "!application/json")
+	public ModelAndView index(@MatrixVariable Map<String, String> variables, HttpServletRequest request) throws IOException {
+		if(!variables.isEmpty()) {
+			log.debug("Found matrix variables: ", variables);
+		}
 		String viewName = "ui/index";
 		ModelAndView modelAndView = new ModelAndView(viewName);		
 		modelAndView.addObject("clientConfig", uiSettings);
