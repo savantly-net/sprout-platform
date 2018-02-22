@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start-proxy": "ng serve --proxy-config proxy.conf.js --watch",
+    "start-proxy": "ng serve --proxy-config proxy.conf.js --watch --disable-host-check",
     "build": "ng build -prod --no-aot --base-href \"/admin/\"",
     "test": "ng test",
     "ci-test": "ng test --watch false",

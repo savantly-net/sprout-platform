@@ -5,6 +5,7 @@ import java.util.Set;
 public interface Tenant {
 	
 	String getId();
+	String getDescription();
 	Set<String> getAliases();
 
 }

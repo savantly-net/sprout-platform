@@ -193,6 +193,7 @@
         created_date timestamp,
         last_modified_by varchar(255),
         last_modified_date timestamp,
+        description varchar(255),
         primary key (id)
     );
 
