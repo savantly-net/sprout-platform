@@ -3,24 +3,27 @@ package net.savantly.sprout.tenancy;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import net.savantly.sprout.core.domain.tenant.Tenant;
 import net.savantly.sprout.core.domain.tenant.TenantRepository;
 
-@Component
 public class TenantInterceptor extends HandlerInterceptorAdapter {
 	
-	@Autowired
-	TenantRepository repository;
+	private TenantRepository repository;
+	
+	public TenantInterceptor(TenantRepository repository) {
+		this.repository = repository;
+	}
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        String hostName = request.getRemoteHost();
+    	
+        String hostName = request.getHeader("host") != null ? request.getHeader("host") : request.getRemoteHost();
+        hostName = cleanHostHeader(hostName);
+        TenantContext.clear();
         Tenant tenant = this.repository.findOneByAliases(hostName);
         if (tenant ==  null) {
         	TenantContext.setCurrentTenant(null);
@@ -31,7 +34,13 @@ public class TenantInterceptor extends HandlerInterceptorAdapter {
         
         return true;
     }
-    @Override
+    private String cleanHostHeader(String hostName) {
+		if (hostName.contains(":")) {
+			return hostName.split(":")[0];
+		} else return hostName;
+	}
+
+	@Override
     public void postHandle(
             HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
             throws Exception {
