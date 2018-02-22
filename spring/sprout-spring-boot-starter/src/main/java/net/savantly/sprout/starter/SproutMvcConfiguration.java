@@ -12,7 +12,7 @@ public class SproutMvcConfiguration extends WebMvcConfigurerAdapter{
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/", "/"+staticFilePattern, "/**/"+staticFilePattern).addResourceLocations("classpath:/static/", "classpath:/public/", "classpath:/META-INF/resources/", "classpath:/META-INF/resources/ui/");
+		registry.addResourceHandler("/", "/"+staticFilePattern, "/**/"+staticFilePattern).addResourceLocations("classpath:/static/", "classpath:/public/", "classpath:/META-INF/resources/ui/");
 		registry.addResourceHandler("/admin/", "/admin/"+staticFilePattern, "/admin/**/"+staticFilePattern).addResourceLocations("/static/admin/", "classpath:/static/admin/", "classpath:/META-INF/resources/admin/");
 	}
 	
