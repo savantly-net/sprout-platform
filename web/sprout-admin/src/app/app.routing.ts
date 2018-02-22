@@ -19,6 +19,8 @@ import { LayoutEditorComponent } from './web-page/layout/layout-editor/layout-ed
 import { LayoutListComponent } from './web-page/layout/layout-list/layout-list.component';
 import { PageEditorComponent } from './web-page/page/page-editor/page-editor.component';
 import { PageListComponent } from './web-page/page/page-list/page-list.component';
+import { TenantListComponent } from './tenant/tenant-list/tenant-list.component';
+import { TenantEditorComponent } from './tenant/tenant-editor/tenant-editor.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -30,16 +32,18 @@ const routes: Routes = [
   { path: 'content-template', component: ContentTemplateComponent, pathMatch: 'full' },
   { path: 'content-template-editor', component: ContentTemplateEditorComponent, pathMatch: 'full' },
   { path: 'browser', component: FileBrowserComponent, pathMatch: 'full' },
+  { path: 'layouts', component: LayoutListComponent, pathMatch: 'full' },
+  { path: 'layout-editor', component: LayoutEditorComponent, pathMatch: 'full' },
   { path: 'pages', component: PageListComponent, pathMatch: 'full' },
   { path: 'page-editor', component: PageEditorComponent, pathMatch: 'full' },
-  { path: 'users', component: UserListComponent, pathMatch: 'full' },
-  { path: 'user-editor', component: UserEditorComponent, pathMatch: 'full' },
+  { path: 'plugins', component: ServerPluginsComponent, pathMatch: 'full' },
   { path: 'roles', component: RoleListComponent, pathMatch: 'full' },
   { path: 'role-editor', component: RoleEditorComponent, pathMatch: 'full' },
   { path: 'settings', component: AppSettingsComponent, pathMatch: 'full' },
-  { path: 'plugins', component: ServerPluginsComponent, pathMatch: 'full' },
-  { path: 'layouts', component: LayoutListComponent, pathMatch: 'full' },
-  { path: 'layout-editor', component: LayoutEditorComponent, pathMatch: 'full' }
+  { path: 'tenants', component: TenantListComponent, pathMatch: 'full' },
+  { path: 'tenant-editor', component: TenantEditorComponent, pathMatch: 'full' },
+  { path: 'users', component: UserListComponent, pathMatch: 'full' },
+  { path: 'user-editor', component: UserEditorComponent, pathMatch: 'full' }
 ];
 
 export const routing = RouterModule.forRoot(routes);
