@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.savantly.sprout.settings.UISettings;
 
 @Controller
-@RequestMapping(path="/", produces="!application/json")
+@RequestMapping(path="/")
 public class DefaultMvcController {
 	private final static Logger log = LoggerFactory.getLogger(DefaultMvcController.class);
 	

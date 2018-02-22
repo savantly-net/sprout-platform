@@ -10,7 +10,7 @@ export class Tenant extends HalResponse {
 export class TenantService extends RestRepositoryService<Tenant> {
 
   provision(tenantId: string) {
-    return this.http.post('/rest/provisioning/tenant/' + tenantId);
+    return this.http.post('/rest/provisioning/tenant/' + tenantId, null, {});
   }
 
   constructor(http: HttpClient) {
