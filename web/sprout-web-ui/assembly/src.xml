@@ -15,7 +15,7 @@
 				<include>*.ts</include>
 				<include>*.js</include>
 				<include>*.json</include>
-				<include>dist</include>
+				<include>dist/**</include>
 			</includes>
 		</fileSet>
 	</fileSets>
