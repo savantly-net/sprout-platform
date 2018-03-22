@@ -31,14 +31,13 @@ public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionP
         String tenantIdentifier = TenantContext.getCurrentTenant();
         final Connection connection = getAnyConnection();
         try {
-            if (tenantIdentifier != null) {
-                connection.createStatement().execute(String.format("USE %s", tenantIdentifier));
-            } else {
-            	connection.createStatement().execute(String.format("USE %s", SchemaConfiguration.DEFAULT_SCHEMA));
+            if (tenantIdentifier == null) {
+            	tenantIdentifier = SchemaConfiguration.DEFAULT_SCHEMA;
             }
+            connection.createStatement().execute(String.format("USE %s", tenantIdentifier));
         }
         catch ( SQLException e ) {
-            throw new HibernateException(
+        	throw new HibernateException(
                     "Problem setting schema to " + tenantIdentifier,
                     e
             );
