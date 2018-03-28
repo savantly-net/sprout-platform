@@ -126,7 +126,7 @@ public class PluginConfigurationTest {
 			}
 		}
 		
-		@SproutModuleConfiguration("example-module")
+		@SproutModuleConfiguration(value="example-module", enabled=true)
 		class ExampleModule extends SproutModuleAdapter {
 			
 			@Override

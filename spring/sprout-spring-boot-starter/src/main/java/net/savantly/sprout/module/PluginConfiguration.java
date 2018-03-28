@@ -2,6 +2,7 @@ package net.savantly.sprout.module;
 
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,9 +52,9 @@ public class PluginConfiguration implements ApplicationContextAware, Initializin
 	}
 
 	private void ensureRegistration(Entry<String, SproutModule> entry) {
-		SproutModuleRegistration item = registrationRepository.findOne(entry.getKey());
-		if (item == null) {
-			item = new SproutModuleRegistration();
+		Optional<SproutModuleRegistration> existingItem = registrationRepository.findById(entry.getKey());
+		if (!existingItem.isPresent()) {
+			SproutModuleRegistration item = new SproutModuleRegistration();
 			item.setEnabled(true);
 			item.setId(entry.getKey());
 			item.setName(entry.getValue().getName());

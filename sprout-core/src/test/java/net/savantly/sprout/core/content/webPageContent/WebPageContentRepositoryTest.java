@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import net.savantly.sprout.core.content.contentField.ContentField;
@@ -37,6 +38,7 @@ import net.savantly.sprout.core.content.webPageLayout.WebPageLayoutRepository;
 @RunWith(SpringRunner.class)
 @ContextConfiguration
 @Transactional
+@TestPropertySource("classpath:application.properties")
 public class WebPageContentRepositoryTest {
 
 	@Autowired
