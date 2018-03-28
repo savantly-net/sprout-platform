@@ -2,6 +2,7 @@ package net.savantly.sprout.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
@@ -55,9 +56,9 @@ public class PluginsController {
 			try {
 				String stringValue = moduleWriter.writeValueAsString(m.getValue());
 				JsonNode json = mapper.readTree(stringValue);
-				SproutModuleRegistration registration = registrationRepository.findOne(m.getKey());
-				if (registration != null) {
-					((ObjectNode)json).putPOJO("installed", registration.isInstalled());
+				Optional<SproutModuleRegistration> registration = registrationRepository.findById(m.getKey());
+				if (registration.isPresent()) {
+					((ObjectNode)json).putPOJO("installed", registration.get().isInstalled());
 				}
 				plugins.put(m.getKey(), json);
 			} catch (Exception e) {
@@ -78,9 +79,9 @@ public class PluginsController {
 	}
 	
 	private void markRegistrationInstallStatus(String key, boolean b) {
-		SproutModuleRegistration registration = registrationRepository.findOne(key);
-		registration.setInstalled(b);
-		registrationRepository.save(registration);
+		Optional<SproutModuleRegistration> registration = registrationRepository.findById(key);
+		registration.get().setInstalled(b);
+		registrationRepository.save(registration.get());
 	}
 
 	@RequestMapping("/uninstall")

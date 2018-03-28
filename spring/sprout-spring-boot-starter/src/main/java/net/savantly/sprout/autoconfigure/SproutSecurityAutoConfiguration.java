@@ -10,6 +10,9 @@ import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoT
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,6 +39,10 @@ import net.savantly.sprout.starter.SproutWebSecurityConfiguration;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SproutSecurityAutoConfiguration {
 
+	@Bean
+	public AuthenticationManager authenticationManager(SproutWebSecurityConfiguration securityConfig) throws Exception {
+		return securityConfig.authenticationManagerBean();
+	}
 
 	@Bean
 	public SproutWebSecurityConfiguration sproutWebSecurityConfiguration(UserDetailsService userDetailsService,

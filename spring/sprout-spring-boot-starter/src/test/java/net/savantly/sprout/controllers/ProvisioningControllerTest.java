@@ -3,6 +3,8 @@ package net.savantly.sprout.controllers;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Optional;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,9 +54,9 @@ public class ProvisioningControllerTest {
 	@Test
 	public void testSuccessfulProvisioning() throws Exception {
 		
-		TenantEntity tenant = repository.findOne(TENANT_ID);
-		if (null == tenant) {
-			tenant = new TenantEntity();
+		Optional<TenantEntity> tenantOpt = repository.findById(TENANT_ID);
+		if (!tenantOpt.isPresent()) {
+			TenantEntity tenant = new TenantEntity();
 			tenant.setId(TENANT_ID);
 			repository.save(tenant);
 		}

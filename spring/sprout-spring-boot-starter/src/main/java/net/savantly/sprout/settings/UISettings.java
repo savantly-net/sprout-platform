@@ -15,32 +15,32 @@ public class UISettings {
 		return settings.save(setting);
 	}
 	public Iterable<AppSetting> save(Iterable<AppSetting> setting) {
-		return settings.save(setting);
+		return settings.saveAll(setting);
 	}
 
 	public AppSetting getKeywords() {
-		return settings.findOne(SettingName.KEYWORDS.toString());
+		return settings.findById(SettingName.KEYWORDS.toString()).orElseGet(null);
 	}
 	public AppSetting getSiteDescription() {
-		return settings.findOne(SettingName.SITE_DESCRIPTION.toString());
+		return settings.findById(SettingName.SITE_DESCRIPTION.toString()).orElseGet(null);
 	}
 	public AppSetting getSiteUrl() {
-		return settings.findOne(SettingName.SITE_URL.toString());
+		return settings.findById(SettingName.SITE_URL.toString()).orElseGet(null);
 	}
 	public AppSetting getPreviewImage() {
-		return settings.findOne(SettingName.PREVIEW_IMAGE.toString());
+		return settings.findById(SettingName.PREVIEW_IMAGE.toString()).orElseGet(null);
 	}
 	public AppSetting getSiteTitle() {
-		return settings.findOne(SettingName.SITE_TITLE.toString());
+		return settings.findById(SettingName.SITE_TITLE.toString()).orElseGet(null);
 	}
 	public AppSetting getSiteBanner() {
-		return settings.findOne(SettingName.SITE_BANNER.toString());
+		return settings.findById(SettingName.SITE_BANNER.toString()).orElseGet(null);
 	}
 	public AppSetting getShowBanner() {
-		return settings.findOne(SettingName.SHOW_BANNER.toString());
+		return settings.findById(SettingName.SHOW_BANNER.toString()).orElseGet(null);
 	}
 	public AppSetting getSiteName() {
-		return settings.findOne(SettingName.SITE_NAME.toString());
+		return settings.findById(SettingName.SITE_NAME.toString()).orElseGet(null);
 	}
 	
 }

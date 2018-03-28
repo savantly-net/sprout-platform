@@ -104,8 +104,7 @@ export class PageEditorComponent implements OnInit {
 
   loadItem(id?: string) {
     if (id) {
-      const params = new URLSearchParams();
-      params.append('projection', 'inlineContentItems');
+      const params = {'projection': 'inlineContentItems'};
 
       const fDefinition = Object.assign({}, this.formDefinition);
       this.service.findOne(id, {params: params}).subscribe((page: any) => {

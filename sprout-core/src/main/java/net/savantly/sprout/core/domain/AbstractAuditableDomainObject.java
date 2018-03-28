@@ -1,13 +1,14 @@
 package net.savantly.sprout.core.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
+import javax.persistence.Convert;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -26,35 +27,37 @@ public abstract class AbstractAuditableDomainObject<ID extends Serializable> imp
 	private static final long serialVersionUID = SproutConfiguration.serialVersionUID;
 
 	// Auditing Metadata
-	private DateTime createdDate = DateTime.now();
-	private String createdBy;
-	private DateTime lastModifiedDate;
-	private String lastModifiedBy;
+	private LocalDateTime createdDate = LocalDateTime.now();
+	private String createdBy = "";
+	private LocalDateTime lastModifiedDate = LocalDateTime.now();
+	private String lastModifiedBy = "";
 
 	@CreatedBy
 	@JsonIgnore(false)
-	public String getCreatedBy() {
-		return createdBy;
+	@Convert(converter=OptionalStringAttributeConverter.class)
+	public Optional<String> getCreatedBy() {
+		return Optional.of(createdBy);
 	}
 
 	@CreatedDate
 	@JsonIgnore(false)
-	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	public DateTime getCreatedDate() {
-		return createdDate;
+	@Convert(converter=OptionalLocalDateTimeAttributeConverter.class)
+	public Optional<LocalDateTime> getCreatedDate() {
+		return Optional.of(createdDate);
 	}
 
 	@LastModifiedBy
 	@JsonIgnore(false)
-	public String getLastModifiedBy() {
-		return lastModifiedBy;
+	@Convert(converter=OptionalStringAttributeConverter.class)
+	public Optional<String> getLastModifiedBy() {
+		return Optional.of(lastModifiedBy);
 	}
 
 	@LastModifiedDate
 	@JsonIgnore(false)
-	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	public DateTime getLastModifiedDate() {
-		return lastModifiedDate;
+	@Convert(converter=OptionalLocalDateTimeAttributeConverter.class)
+	public Optional<LocalDateTime> getLastModifiedDate() {
+		return Optional.of(lastModifiedDate);
 	}
 
 	@Transient
@@ -62,23 +65,35 @@ public abstract class AbstractAuditableDomainObject<ID extends Serializable> imp
 		return (createdDate == null || createdBy == null);
 	}
 
-	// @JsonIgnore(true)
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
-
-	// @JsonIgnore(true)
-	public void setCreatedDate(DateTime createdDate) {
-		this.createdDate = createdDate;
+	@JsonIgnore
+	public void setCreatedBy(Optional<String> createdBy) {
+		this.createdBy = createdBy.get();
 	}
 
-	// @JsonIgnore(true)
+	public void setCreatedDate(LocalDateTime createdDate) {
+		this.createdDate = createdDate;
+	}
+	@JsonIgnore
+	public void setCreatedDate(Optional<LocalDateTime> createdDate) {
+		this.createdDate = createdDate.get();
+	}
+
 	public void setLastModifiedBy(String lastModifiedBy) {
 		this.lastModifiedBy = lastModifiedBy;
 	}
+	@JsonIgnore
+	public void setLastModifiedBy(Optional<String> lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy.get();
+	}
 
-	// @JsonIgnore(true)
-	public void setLastModifiedDate(DateTime lastModifiedDate) {
+	public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
 		this.lastModifiedDate = lastModifiedDate;
+	}
+	@JsonIgnore
+	public void setLastModifiedDate(Optional<LocalDateTime> lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate.get();
 	}
 }

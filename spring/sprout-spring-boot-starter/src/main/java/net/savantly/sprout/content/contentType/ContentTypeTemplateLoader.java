@@ -3,6 +3,8 @@ package net.savantly.sprout.content.contentType;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.time.ZoneOffset;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,12 +41,12 @@ public class ContentTypeTemplateLoader implements TemplateLoader {
 	@Override
 	public Object findTemplateSource(String id) throws IOException {
 
-		ContentTemplate ct = repository.findOne(id);
-		if (ct == null) {
+		Optional<ContentTemplate> ct = repository.findById(id);
+		if (!ct.isPresent()) {
 			log.warn("ContentTemplate: {} \tDoes not exist", id);
 			return null;
 		} else {
-			return ct;
+			return ct.get();
 		}
 	}
 
@@ -59,13 +61,13 @@ public class ContentTypeTemplateLoader implements TemplateLoader {
 	@Override
 	public long getLastModified(Object templateSource) {
 		ContentTemplate template = (ContentTemplate) templateSource;
-		ContentTemplate ct = repository.findOne(template.getId());
-		if (ct == null) {
+		Optional<ContentTemplate> ct = repository.findById(template.getId());
+		if (!ct.isPresent()) {
 			log.warn("ContentTemplate: {} \tDoes not exist", template);
 			return Long.MAX_VALUE;
 		} else {
-			if(ct.getLastModifiedDate() != null) {
-				return ct.getLastModifiedDate().getMillis();
+			if(ct.get().getLastModifiedDate() != null) {
+				return ct.get().getLastModifiedDate().get().toEpochSecond(ZoneOffset.UTC);
 			} else {
 				return Long.MAX_VALUE;
 			}

@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -31,6 +32,7 @@ import net.savantly.sprout.core.content.fieldType.FieldType;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration
+@TestPropertySource("classpath:application.properties")
 public class ContentItemTest {
 	
 	static final String defaultContentTypeName = "Default Content Type";

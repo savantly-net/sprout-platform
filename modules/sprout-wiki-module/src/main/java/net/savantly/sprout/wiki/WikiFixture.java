@@ -1,6 +1,7 @@
 package net.savantly.sprout.wiki;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,18 +48,18 @@ public class WikiFixture {
 	}
 	
 	private void ensureWikiPrivilegesExist() {
-		if (privileges.findOne(READ_WIKI_PRIVILEGE) == null) {
+		if (!privileges.findById(READ_WIKI_PRIVILEGE).isPresent()) {
 			privileges.save(new Privilege(READ_WIKI_PRIVILEGE));
 		}
-		if (privileges.findOne(EDIT_WIKI_PRIVILEGE) == null) {
+		if (!privileges.findById(EDIT_WIKI_PRIVILEGE).isPresent()) {
 			privileges.save(new Privilege(EDIT_WIKI_PRIVILEGE));
 		}
 	}
 
 	private void ensureContentTypeExists() {
-		ContentType ct = contentTypes.findOne(DEFAULT_CONTENT_TYPE_NAME);
-		if (ct == null) {
-			ct = new ContentType();
+		Optional<ContentType> ctOpt = contentTypes.findById(DEFAULT_CONTENT_TYPE_NAME);
+		if (!ctOpt.isPresent()) {
+			ContentType ct = new ContentType();
 			ct.setId(DEFAULT_CONTENT_TYPE_NAME);
 			ct.setName(DEFAULT_CONTENT_TYPE_NAME);
 			ct.setCreatedBy(WikiModule.BEAN_NAME);
@@ -105,9 +106,9 @@ public class WikiFixture {
 	}
 
 	private void ensureMenuItemsRemoved() {
-		Menu menu = menuRepository.findOne(DEFAULT_WIKI_MENU_ID);
-		if (menu == null) {
-			menuRepository.delete(menu);
+		Optional<Menu> menuOpt = menuRepository.findById(DEFAULT_WIKI_MENU_ID);
+		if (menuOpt.isPresent()) {
+			menuRepository.delete(menuOpt.get());
 		}
 	}
 
@@ -117,9 +118,9 @@ public class WikiFixture {
 	}
 
 	private void ensureMenuItemsExist() {
-		Menu menu = menuRepository.findOne(DEFAULT_WIKI_MENU_ID);
-		if (menu == null) {
-			menu = new Menu();
+		Optional<Menu> menuOpt = menuRepository.findById(DEFAULT_WIKI_MENU_ID);
+		if (!menuOpt.isPresent()) {
+			Menu menu = new Menu();
 			menu.setIcon("bookmark");
 			menu.setId(DEFAULT_WIKI_MENU_ID);
 			menu.setDisplayText(DEFAULT_WIKI_MENU_NAME);
