@@ -1,6 +1,7 @@
 package net.savantly.sprout.wiki;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -39,10 +40,13 @@ public class WikiController {
 	@PreAuthorize("hasAuthority('" + WikiFixture.EDIT_WIKI_PRIVILEGE +"')")
 	@RequestMapping(path = "/{id}", method=RequestMethod.POST)
 	public ModelAndView saveItem(@PathVariable("id") String id, @RequestBody String content) {
-		WikiItem wikiItem = repository.findOne(id);
-		if (wikiItem == null) {
+		Optional<WikiItem> wikiItemOpt = repository.findById(id);
+		WikiItem wikiItem;
+		if (!wikiItemOpt.isPresent()) {
 			wikiItem = new WikiItem();
 			wikiItem.setId(id);
+		} else {
+			wikiItem = wikiItemOpt.get();
 		}
 		wikiItem.setContent(content);
 		repository.save(wikiItem);
@@ -50,11 +54,14 @@ public class WikiController {
 	}
 
 	private ModelAndView renderTemplate(String title) {
-		WikiItem home = repository.findOne(title);
-		if(home == null) {
+		Optional<WikiItem> homeOpt = repository.findById(title);
+		WikiItem home;
+		if(!homeOpt.isPresent()) {
 			home = new WikiItem();
 			home.setTitle(title);
 			repository.save(home);
+		} else {
+			home = homeOpt.get();
 		}
 		ModelAndView response = new ModelAndView("wikiModule/content");
 		response.addObject("title", title);

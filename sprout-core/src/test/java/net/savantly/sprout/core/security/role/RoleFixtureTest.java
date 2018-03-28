@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import net.savantly.sprout.core.security.privilege.PrivilegeFixture;
@@ -19,6 +20,7 @@ import net.savantly.sprout.core.security.privilege.PrivilegeRepository;
 @SpringBootTest
 @ContextConfiguration
 @RunWith(SpringRunner.class)
+@TestPropertySource("classpath:application.properties")
 public class RoleFixtureTest {
 
 	@Autowired

@@ -64,11 +64,11 @@ public class UserFixture extends AbstractBaseFixture<SproutUserEntity, UserRepos
         if(userDetails != null) return;
         
         Set<Role> authorities = new HashSet<Role>(1);
-        authorities.add(roleRepository.findOne(RoleFixture.ADMIN_ROLE));
+        authorities.add(roleRepository.findById(RoleFixture.ADMIN_ROLE).get());
         userDetails = new SproutUserEntity(username, RandomGenerator.getRandomAlphaNumericString(25) , username, username, authorities);
         userDetails.setDisplayName("SYSTEM");
         
-        EmailAddress emailAddress =  emailAddressRepository.findOne(EmailAddressFixture.SYSTEM_EMAIL);
+        EmailAddress emailAddress =  emailAddressRepository.findById(EmailAddressFixture.SYSTEM_EMAIL).get();
         userDetails.setPrimaryEmailAddress(emailAddress);
         entityList.add(userDetails);
     }
@@ -80,11 +80,11 @@ public class UserFixture extends AbstractBaseFixture<SproutUserEntity, UserRepos
         if(userDetails != null) return;
         
         Set<Role> authorities = new HashSet<Role>(1);
-        authorities.add(roleRepository.findOne(RoleFixture.ANONYMOUS_ROLE));
+        authorities.add(roleRepository.findById(RoleFixture.ANONYMOUS_ROLE).get());
         userDetails = new SproutUserEntity(username, RandomGenerator.getRandomAlphaNumericString(25) , username, username, authorities);
         userDetails.setDisplayName(ANONYMOUS_USER);
         
-        EmailAddress emailAddress =  emailAddressRepository.findOne(EmailAddressFixture.ANONYMOUS_EMAIL);
+        EmailAddress emailAddress =  emailAddressRepository.findById(EmailAddressFixture.ANONYMOUS_EMAIL).get();
         userDetails.setPrimaryEmailAddress(emailAddress);
         entityList.add(userDetails);
     }
@@ -96,12 +96,12 @@ public class UserFixture extends AbstractBaseFixture<SproutUserEntity, UserRepos
         if(userDetails != null) return;
         
         Set<Role> authorities = new HashSet<Role>(1);
-        authorities.add(roleRepository.findOne("ADMIN"));
+        authorities.add(roleRepository.findById("ADMIN").get());
         userDetails = new SproutUserEntity(username, password , "Admin", "User", authorities);
         userDetails.setDisplayName("Admin User");
         userDetails.setPassword(encoder.encode(password));
         
-        EmailAddress emailAddress =  emailAddressRepository.findOne(EmailAddressFixture.ADMIN_EMAIL);
+        EmailAddress emailAddress =  emailAddressRepository.findById(EmailAddressFixture.ADMIN_EMAIL).get();
         userDetails.setPrimaryEmailAddress(emailAddress);
         entityList.add(userDetails);
     }

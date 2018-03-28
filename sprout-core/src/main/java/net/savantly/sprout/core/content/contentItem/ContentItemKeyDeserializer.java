@@ -17,7 +17,7 @@ public class ContentItemKeyDeserializer extends KeyDeserializer {
 	@Override
 	public Object deserializeKey(String key, DeserializationContext ctxt) throws IOException, JsonProcessingException {
 		String[] parts = key.split("/");
-		return repository.findOne(parts[parts.length-1]);
+		return repository.findById(parts[parts.length-1]).get();
 	}
 
 }

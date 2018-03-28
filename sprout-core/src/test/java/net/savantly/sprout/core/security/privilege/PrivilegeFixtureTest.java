@@ -8,10 +8,12 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @ContextConfiguration
 @RunWith(SpringRunner.class)
+@TestPropertySource("classpath:application.properties")
 public class PrivilegeFixtureTest {
 
 	@Autowired

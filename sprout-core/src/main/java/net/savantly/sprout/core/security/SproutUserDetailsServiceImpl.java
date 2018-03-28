@@ -33,7 +33,7 @@ public class SproutUserDetailsServiceImpl implements SproutUserDetailsService {
 
     @Override
     public SproutUser loadByEmailAddress(String emailAddress) {
-        EmailAddress email = emailAddressRepository.findOne(emailAddress);
+        EmailAddress email = emailAddressRepository.findById(emailAddress).get();
         return email.getUser();
     }
 
