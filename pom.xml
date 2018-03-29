@@ -124,11 +124,18 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<repositories>
+		<repository>
+			<id>ossrh</id>
+			<name>Sonatype Staging Repository</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+		</repository>
+	</repositories>
 	<modules>
 		<module>web/sprout-web-ui</module>
 		<module>sprout-core</module>
 		<module>spring/sprout-spring-boot-starter</module>
-		<module>test/module-test</module> 
+		<module>test/module-test</module>
 		<module>modules/sprout-module-parent</module>
 		<module>modules/sprout-wiki-module</module>
 		<module>web/sprout-web-parent</module>
