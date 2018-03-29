@@ -77042,3 +77042,5771 @@
        add constraint FK5hi52ap0h0f127qfj7mf0flnu 
        foreign key (WebPageLayout_id) 
        references sprout.WEB_PAGE_LAYOUT;
+
+    create table sprout.APP_EMAIL_ADDRESS (
+       emailAddress varchar(255) not null,
+        IS_PRIMARY boolean,
+        verified boolean not null,
+        user_id CHAR(36),
+        primary key (emailAddress)
+    );
+
+    create table sprout.APP_ORGANIZATION (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_SETTING (
+       id varchar(255) not null,
+        value varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_USER_EMAIL_ADDRESS (
+       SproutUserEntity_id CHAR(36) not null,
+        emailAddresses_emailAddress varchar(255) not null,
+        primary key (SproutUserEntity_id, emailAddresses_emailAddress)
+    );
+
+    create table sprout.CONTENT_FIELD (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        displayName varchar(255),
+        fieldType integer,
+        name varchar(255),
+        required boolean not null,
+        sortOrder integer not null,
+        contentType_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_ITEM (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        contentType_id CHAR(36),
+        template_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        content clob,
+        description varchar(255),
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE_CONTENT_ITEM (
+       ContentTemplate_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null,
+        primary key (ContentTemplate_id, contentItems_id)
+    );
+
+    create table sprout.CONTENT_TYPE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        icon varchar(255),
+        name varchar(255),
+        requiresTemplate boolean not null,
+        updateable boolean not null,
+        primary key (id)
+    );
+
+    create table sprout.FIELD_VALUES (
+       CONTENT_ITEM_ID CHAR(36) not null,
+        CONTENT_FIELD_VALUE clob,
+        fieldValues_KEY CHAR(36) not null,
+        primary key (CONTENT_ITEM_ID, fieldValues_KEY)
+    );
+
+    create table sprout.MENU (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        _public boolean not null,
+        disabled boolean not null,
+        displayText varchar(255),
+        icon varchar(255),
+        position integer not null,
+        url varchar(255),
+        PARENT_ID CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.MENU_ROLES (
+       Menu_id CHAR(36) not null,
+        roles varchar(255)
+    );
+
+    create table sprout.OAUTH_ACCOUNT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        provider varchar(255),
+        token varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.Privilege (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.Role (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.roles_privileges (
+       role_id CHAR(36) not null,
+        privilege_id CHAR(36) not null,
+        primary key (role_id, privilege_id)
+    );
+
+    create table sprout.SproutModuleRegistration (
+       id CHAR(36) not null,
+        enabled boolean not null,
+        installed boolean not null,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        accountNonExpired boolean not null,
+        accountNonLocked boolean not null,
+        credentialsNonExpired boolean not null,
+        displayName varchar(255),
+        enabled boolean not null,
+        firstName varchar(255),
+        hidePrimaryEmailAddress boolean not null,
+        lastName varchar(255),
+        password varchar(60),
+        phoneNumber varchar(255),
+        username varchar(255),
+        organization_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity_OAUTH_ACCOUNT (
+       SproutUserEntity_id CHAR(36) not null,
+        oAuthAccounts_id CHAR(36) not null,
+        primary key (SproutUserEntity_id, oAuthAccounts_id)
+    );
+
+    create table sprout.TENANT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.TenantEntity_aliases (
+       TenantEntity_id CHAR(36) not null,
+        aliases varchar(255)
+    );
+
+    create table sprout.users_roles (
+       user_id CHAR(36) not null,
+        role_id CHAR(36) not null,
+        primary key (user_id, role_id)
+    );
+
+    create table sprout.WEB_PAGE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        home boolean not null,
+        name varchar(255),
+        webPageLayout_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        placeHolderId varchar(255),
+        webPageId CHAR(36) not null,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM (
+       WebPageContent_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        showFooter boolean not null,
+        showHeader boolean not null,
+        template clob,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER (
+       WebPageLayout_id CHAR(36) not null,
+        placeHolders varchar(255)
+    );
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint UK_sjnmk2yq84bgbuajwwjduhrmc unique (emailAddresses_emailAddress);
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint UK_ixryr2t7j4oqywctb9n56p83i unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE 
+       add constraint UK_3w365n2wpfwulx1ucaherjkxg unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint UK_eqgi22v3h08i4l9agpk5o6tuk unique (contentItems_id);
+
+    alter table sprout.CONTENT_TYPE 
+       add constraint UK_29yefw2xspftysxj5y3jga2u4 unique (name);
+
+    alter table sprout.SproutUserEntity 
+       add constraint UK_kx1mb5mce88fdespshsnpu651 unique (username);
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint UK_nyocjlnoegwrhqus5509ftgt8 unique (oAuthAccounts_id);
+
+    alter table sprout.WEB_PAGE 
+       add constraint UK_ftb52fk5cgfmpt7tq7ynf4g1w unique (name);
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint UKqa9pc0tmih3ol4ysst3itaspy unique (webPageId, placeHolderId);
+
+    alter table sprout.WEB_PAGE_LAYOUT 
+       add constraint UK_68gpw0l1ehlr10bnn3mfkp6ht unique (name);
+
+    alter table sprout.APP_EMAIL_ADDRESS 
+       add constraint FKsjvmetedltw7d7hegp2xcduae 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FK3bx4te9vk9tysjdtu0373okrt 
+       foreign key (emailAddresses_emailAddress) 
+       references sprout.APP_EMAIL_ADDRESS;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FKmexebkxwbmig1s4lvn94ngamq 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.CONTENT_FIELD 
+       add constraint FKqnxrg37axuc3ab77l6iatqkbi 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKrg7f9hpl9ewcmukoxisxii57t 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKjwb0rmyio31o5k6yxuuoj3oys 
+       foreign key (template_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKo31txq3mnemsmho4bmeerg9oy 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKp7nxh6myhubj64amkfsqm8k1t 
+       foreign key (ContentTemplate_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FKsgmd8u14gw4gl8ilbcq1rpgtw 
+       foreign key (fieldValues_KEY) 
+       references sprout.CONTENT_FIELD;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FK417w3k691xud90h5rlugw871o 
+       foreign key (CONTENT_ITEM_ID) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.MENU 
+       add constraint FK263eq7c7fssswy4ul5q2yoorf 
+       foreign key (PARENT_ID) 
+       references sprout.MENU;
+
+    alter table sprout.MENU_ROLES 
+       add constraint FKoxr7fc6rbtvlxcju9vlt2sgdh 
+       foreign key (Menu_id) 
+       references sprout.MENU;
+
+    alter table sprout.roles_privileges 
+       add constraint FKp0x1d9k5aksyqd1akwwfkh0ki 
+       foreign key (privilege_id) 
+       references sprout.Privilege;
+
+    alter table sprout.roles_privileges 
+       add constraint FK2rfl694fu6ls2f2mqcxesqc6p 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.SproutUserEntity 
+       add constraint FK8or9iqrn8lcskgasxhfp6o3gk 
+       foreign key (organization_id) 
+       references sprout.APP_ORGANIZATION;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKghfkqe1myw5xytpn2y4hdnj5e 
+       foreign key (oAuthAccounts_id) 
+       references sprout.OAUTH_ACCOUNT;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKa8n4gfu6st119lctn35tg07nt 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.TenantEntity_aliases 
+       add constraint FK52gloxy4ioo3nw74kou1grorq 
+       foreign key (TenantEntity_id) 
+       references sprout.TENANT;
+
+    alter table sprout.users_roles 
+       add constraint FKa9r8g5hiyy57ts5u4tkf0lbab 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.users_roles 
+       add constraint FKl0nbq0uruqlov72oxsm2lw2b0 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.WEB_PAGE 
+       add constraint FKrt3159uhog03d97vu94oh83y5 
+       foreign key (webPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint FK2f9thn2c84bhd1uev4yykave7 
+       foreign key (webPageId) 
+       references sprout.WEB_PAGE;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FKlrjrtbsmtpvhw2co7cnhe3tph 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FK6fwdwe3lnyhy1ejo9es2flk2u 
+       foreign key (WebPageContent_id) 
+       references sprout.WEB_PAGE_CONTENT;
+
+    alter table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER 
+       add constraint FK5hi52ap0h0f127qfj7mf0flnu 
+       foreign key (WebPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    create table sprout.APP_EMAIL_ADDRESS (
+       emailAddress varchar(255) not null,
+        IS_PRIMARY boolean,
+        verified boolean not null,
+        user_id CHAR(36),
+        primary key (emailAddress)
+    );
+
+    create table sprout.APP_ORGANIZATION (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_SETTING (
+       id varchar(255) not null,
+        value varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_USER_EMAIL_ADDRESS (
+       SproutUserEntity_id CHAR(36) not null,
+        emailAddresses_emailAddress varchar(255) not null,
+        primary key (SproutUserEntity_id, emailAddresses_emailAddress)
+    );
+
+    create table sprout.CONTENT_FIELD (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        displayName varchar(255),
+        fieldType integer,
+        name varchar(255),
+        required boolean not null,
+        sortOrder integer not null,
+        contentType_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_ITEM (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        contentType_id CHAR(36),
+        template_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        content clob,
+        description varchar(255),
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE_CONTENT_ITEM (
+       ContentTemplate_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null,
+        primary key (ContentTemplate_id, contentItems_id)
+    );
+
+    create table sprout.CONTENT_TYPE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        icon varchar(255),
+        name varchar(255),
+        requiresTemplate boolean not null,
+        updateable boolean not null,
+        primary key (id)
+    );
+
+    create table sprout.FIELD_VALUES (
+       CONTENT_ITEM_ID CHAR(36) not null,
+        CONTENT_FIELD_VALUE clob,
+        fieldValues_KEY CHAR(36) not null,
+        primary key (CONTENT_ITEM_ID, fieldValues_KEY)
+    );
+
+    create table sprout.MENU (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        _public boolean not null,
+        disabled boolean not null,
+        displayText varchar(255),
+        icon varchar(255),
+        position integer not null,
+        url varchar(255),
+        PARENT_ID CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.MENU_ROLES (
+       Menu_id CHAR(36) not null,
+        roles varchar(255)
+    );
+
+    create table sprout.OAUTH_ACCOUNT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        provider varchar(255),
+        token varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.Privilege (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.Role (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.roles_privileges (
+       role_id CHAR(36) not null,
+        privilege_id CHAR(36) not null,
+        primary key (role_id, privilege_id)
+    );
+
+    create table sprout.SproutModuleRegistration (
+       id CHAR(36) not null,
+        enabled boolean not null,
+        installed boolean not null,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        accountNonExpired boolean not null,
+        accountNonLocked boolean not null,
+        credentialsNonExpired boolean not null,
+        displayName varchar(255),
+        enabled boolean not null,
+        firstName varchar(255),
+        hidePrimaryEmailAddress boolean not null,
+        lastName varchar(255),
+        password varchar(60),
+        phoneNumber varchar(255),
+        username varchar(255),
+        organization_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity_OAUTH_ACCOUNT (
+       SproutUserEntity_id CHAR(36) not null,
+        oAuthAccounts_id CHAR(36) not null,
+        primary key (SproutUserEntity_id, oAuthAccounts_id)
+    );
+
+    create table sprout.TENANT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.TenantEntity_aliases (
+       TenantEntity_id CHAR(36) not null,
+        aliases varchar(255)
+    );
+
+    create table sprout.users_roles (
+       user_id CHAR(36) not null,
+        role_id CHAR(36) not null,
+        primary key (user_id, role_id)
+    );
+
+    create table sprout.WEB_PAGE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        home boolean not null,
+        name varchar(255),
+        webPageLayout_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        placeHolderId varchar(255),
+        webPageId CHAR(36) not null,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM (
+       WebPageContent_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        showFooter boolean not null,
+        showHeader boolean not null,
+        template clob,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER (
+       WebPageLayout_id CHAR(36) not null,
+        placeHolders varchar(255)
+    );
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint UK_sjnmk2yq84bgbuajwwjduhrmc unique (emailAddresses_emailAddress);
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint UK_ixryr2t7j4oqywctb9n56p83i unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE 
+       add constraint UK_3w365n2wpfwulx1ucaherjkxg unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint UK_eqgi22v3h08i4l9agpk5o6tuk unique (contentItems_id);
+
+    alter table sprout.CONTENT_TYPE 
+       add constraint UK_29yefw2xspftysxj5y3jga2u4 unique (name);
+
+    alter table sprout.SproutUserEntity 
+       add constraint UK_kx1mb5mce88fdespshsnpu651 unique (username);
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint UK_nyocjlnoegwrhqus5509ftgt8 unique (oAuthAccounts_id);
+
+    alter table sprout.WEB_PAGE 
+       add constraint UK_ftb52fk5cgfmpt7tq7ynf4g1w unique (name);
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint UKqa9pc0tmih3ol4ysst3itaspy unique (webPageId, placeHolderId);
+
+    alter table sprout.WEB_PAGE_LAYOUT 
+       add constraint UK_68gpw0l1ehlr10bnn3mfkp6ht unique (name);
+
+    alter table sprout.APP_EMAIL_ADDRESS 
+       add constraint FKsjvmetedltw7d7hegp2xcduae 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FK3bx4te9vk9tysjdtu0373okrt 
+       foreign key (emailAddresses_emailAddress) 
+       references sprout.APP_EMAIL_ADDRESS;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FKmexebkxwbmig1s4lvn94ngamq 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.CONTENT_FIELD 
+       add constraint FKqnxrg37axuc3ab77l6iatqkbi 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKrg7f9hpl9ewcmukoxisxii57t 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKjwb0rmyio31o5k6yxuuoj3oys 
+       foreign key (template_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKo31txq3mnemsmho4bmeerg9oy 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKp7nxh6myhubj64amkfsqm8k1t 
+       foreign key (ContentTemplate_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FKsgmd8u14gw4gl8ilbcq1rpgtw 
+       foreign key (fieldValues_KEY) 
+       references sprout.CONTENT_FIELD;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FK417w3k691xud90h5rlugw871o 
+       foreign key (CONTENT_ITEM_ID) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.MENU 
+       add constraint FK263eq7c7fssswy4ul5q2yoorf 
+       foreign key (PARENT_ID) 
+       references sprout.MENU;
+
+    alter table sprout.MENU_ROLES 
+       add constraint FKoxr7fc6rbtvlxcju9vlt2sgdh 
+       foreign key (Menu_id) 
+       references sprout.MENU;
+
+    alter table sprout.roles_privileges 
+       add constraint FKp0x1d9k5aksyqd1akwwfkh0ki 
+       foreign key (privilege_id) 
+       references sprout.Privilege;
+
+    alter table sprout.roles_privileges 
+       add constraint FK2rfl694fu6ls2f2mqcxesqc6p 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.SproutUserEntity 
+       add constraint FK8or9iqrn8lcskgasxhfp6o3gk 
+       foreign key (organization_id) 
+       references sprout.APP_ORGANIZATION;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKghfkqe1myw5xytpn2y4hdnj5e 
+       foreign key (oAuthAccounts_id) 
+       references sprout.OAUTH_ACCOUNT;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKa8n4gfu6st119lctn35tg07nt 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.TenantEntity_aliases 
+       add constraint FK52gloxy4ioo3nw74kou1grorq 
+       foreign key (TenantEntity_id) 
+       references sprout.TENANT;
+
+    alter table sprout.users_roles 
+       add constraint FKa9r8g5hiyy57ts5u4tkf0lbab 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.users_roles 
+       add constraint FKl0nbq0uruqlov72oxsm2lw2b0 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.WEB_PAGE 
+       add constraint FKrt3159uhog03d97vu94oh83y5 
+       foreign key (webPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint FK2f9thn2c84bhd1uev4yykave7 
+       foreign key (webPageId) 
+       references sprout.WEB_PAGE;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FKlrjrtbsmtpvhw2co7cnhe3tph 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FK6fwdwe3lnyhy1ejo9es2flk2u 
+       foreign key (WebPageContent_id) 
+       references sprout.WEB_PAGE_CONTENT;
+
+    alter table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER 
+       add constraint FK5hi52ap0h0f127qfj7mf0flnu 
+       foreign key (WebPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    create table sprout.APP_EMAIL_ADDRESS (
+       emailAddress varchar(255) not null,
+        IS_PRIMARY boolean,
+        verified boolean not null,
+        user_id CHAR(36),
+        primary key (emailAddress)
+    );
+
+    create table sprout.APP_ORGANIZATION (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_SETTING (
+       id varchar(255) not null,
+        value varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_USER_EMAIL_ADDRESS (
+       SproutUserEntity_id CHAR(36) not null,
+        emailAddresses_emailAddress varchar(255) not null,
+        primary key (SproutUserEntity_id, emailAddresses_emailAddress)
+    );
+
+    create table sprout.CONTENT_FIELD (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        displayName varchar(255),
+        fieldType integer,
+        name varchar(255),
+        required boolean not null,
+        sortOrder integer not null,
+        contentType_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_ITEM (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        contentType_id CHAR(36),
+        template_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        content clob,
+        description varchar(255),
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE_CONTENT_ITEM (
+       ContentTemplate_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null,
+        primary key (ContentTemplate_id, contentItems_id)
+    );
+
+    create table sprout.CONTENT_TYPE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        icon varchar(255),
+        name varchar(255),
+        requiresTemplate boolean not null,
+        updateable boolean not null,
+        primary key (id)
+    );
+
+    create table sprout.FIELD_VALUES (
+       CONTENT_ITEM_ID CHAR(36) not null,
+        CONTENT_FIELD_VALUE clob,
+        fieldValues_KEY CHAR(36) not null,
+        primary key (CONTENT_ITEM_ID, fieldValues_KEY)
+    );
+
+    create table sprout.MENU (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        _public boolean not null,
+        disabled boolean not null,
+        displayText varchar(255),
+        icon varchar(255),
+        position integer not null,
+        url varchar(255),
+        PARENT_ID CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.MENU_ROLES (
+       Menu_id CHAR(36) not null,
+        roles varchar(255)
+    );
+
+    create table sprout.OAUTH_ACCOUNT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        provider varchar(255),
+        token varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.Privilege (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.Role (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.roles_privileges (
+       role_id CHAR(36) not null,
+        privilege_id CHAR(36) not null,
+        primary key (role_id, privilege_id)
+    );
+
+    create table sprout.SproutModuleRegistration (
+       id CHAR(36) not null,
+        enabled boolean not null,
+        installed boolean not null,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        accountNonExpired boolean not null,
+        accountNonLocked boolean not null,
+        credentialsNonExpired boolean not null,
+        displayName varchar(255),
+        enabled boolean not null,
+        firstName varchar(255),
+        hidePrimaryEmailAddress boolean not null,
+        lastName varchar(255),
+        password varchar(60),
+        phoneNumber varchar(255),
+        username varchar(255),
+        organization_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity_OAUTH_ACCOUNT (
+       SproutUserEntity_id CHAR(36) not null,
+        oAuthAccounts_id CHAR(36) not null,
+        primary key (SproutUserEntity_id, oAuthAccounts_id)
+    );
+
+    create table sprout.TENANT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.TenantEntity_aliases (
+       TenantEntity_id CHAR(36) not null,
+        aliases varchar(255)
+    );
+
+    create table sprout.users_roles (
+       user_id CHAR(36) not null,
+        role_id CHAR(36) not null,
+        primary key (user_id, role_id)
+    );
+
+    create table sprout.WEB_PAGE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        home boolean not null,
+        name varchar(255),
+        webPageLayout_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        placeHolderId varchar(255),
+        webPageId CHAR(36) not null,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM (
+       WebPageContent_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        showFooter boolean not null,
+        showHeader boolean not null,
+        template clob,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER (
+       WebPageLayout_id CHAR(36) not null,
+        placeHolders varchar(255)
+    );
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint UK_sjnmk2yq84bgbuajwwjduhrmc unique (emailAddresses_emailAddress);
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint UK_ixryr2t7j4oqywctb9n56p83i unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE 
+       add constraint UK_3w365n2wpfwulx1ucaherjkxg unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint UK_eqgi22v3h08i4l9agpk5o6tuk unique (contentItems_id);
+
+    alter table sprout.CONTENT_TYPE 
+       add constraint UK_29yefw2xspftysxj5y3jga2u4 unique (name);
+
+    alter table sprout.SproutUserEntity 
+       add constraint UK_kx1mb5mce88fdespshsnpu651 unique (username);
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint UK_nyocjlnoegwrhqus5509ftgt8 unique (oAuthAccounts_id);
+
+    alter table sprout.WEB_PAGE 
+       add constraint UK_ftb52fk5cgfmpt7tq7ynf4g1w unique (name);
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint UKqa9pc0tmih3ol4ysst3itaspy unique (webPageId, placeHolderId);
+
+    alter table sprout.WEB_PAGE_LAYOUT 
+       add constraint UK_68gpw0l1ehlr10bnn3mfkp6ht unique (name);
+
+    alter table sprout.APP_EMAIL_ADDRESS 
+       add constraint FKsjvmetedltw7d7hegp2xcduae 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FK3bx4te9vk9tysjdtu0373okrt 
+       foreign key (emailAddresses_emailAddress) 
+       references sprout.APP_EMAIL_ADDRESS;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FKmexebkxwbmig1s4lvn94ngamq 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.CONTENT_FIELD 
+       add constraint FKqnxrg37axuc3ab77l6iatqkbi 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKrg7f9hpl9ewcmukoxisxii57t 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKjwb0rmyio31o5k6yxuuoj3oys 
+       foreign key (template_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKo31txq3mnemsmho4bmeerg9oy 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKp7nxh6myhubj64amkfsqm8k1t 
+       foreign key (ContentTemplate_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FKsgmd8u14gw4gl8ilbcq1rpgtw 
+       foreign key (fieldValues_KEY) 
+       references sprout.CONTENT_FIELD;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FK417w3k691xud90h5rlugw871o 
+       foreign key (CONTENT_ITEM_ID) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.MENU 
+       add constraint FK263eq7c7fssswy4ul5q2yoorf 
+       foreign key (PARENT_ID) 
+       references sprout.MENU;
+
+    alter table sprout.MENU_ROLES 
+       add constraint FKoxr7fc6rbtvlxcju9vlt2sgdh 
+       foreign key (Menu_id) 
+       references sprout.MENU;
+
+    alter table sprout.roles_privileges 
+       add constraint FKp0x1d9k5aksyqd1akwwfkh0ki 
+       foreign key (privilege_id) 
+       references sprout.Privilege;
+
+    alter table sprout.roles_privileges 
+       add constraint FK2rfl694fu6ls2f2mqcxesqc6p 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.SproutUserEntity 
+       add constraint FK8or9iqrn8lcskgasxhfp6o3gk 
+       foreign key (organization_id) 
+       references sprout.APP_ORGANIZATION;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKghfkqe1myw5xytpn2y4hdnj5e 
+       foreign key (oAuthAccounts_id) 
+       references sprout.OAUTH_ACCOUNT;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKa8n4gfu6st119lctn35tg07nt 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.TenantEntity_aliases 
+       add constraint FK52gloxy4ioo3nw74kou1grorq 
+       foreign key (TenantEntity_id) 
+       references sprout.TENANT;
+
+    alter table sprout.users_roles 
+       add constraint FKa9r8g5hiyy57ts5u4tkf0lbab 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.users_roles 
+       add constraint FKl0nbq0uruqlov72oxsm2lw2b0 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.WEB_PAGE 
+       add constraint FKrt3159uhog03d97vu94oh83y5 
+       foreign key (webPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint FK2f9thn2c84bhd1uev4yykave7 
+       foreign key (webPageId) 
+       references sprout.WEB_PAGE;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FKlrjrtbsmtpvhw2co7cnhe3tph 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FK6fwdwe3lnyhy1ejo9es2flk2u 
+       foreign key (WebPageContent_id) 
+       references sprout.WEB_PAGE_CONTENT;
+
+    alter table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER 
+       add constraint FK5hi52ap0h0f127qfj7mf0flnu 
+       foreign key (WebPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    create table sprout.APP_EMAIL_ADDRESS (
+       emailAddress varchar(255) not null,
+        IS_PRIMARY boolean,
+        verified boolean not null,
+        user_id CHAR(36),
+        primary key (emailAddress)
+    );
+
+    create table sprout.APP_ORGANIZATION (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_SETTING (
+       id varchar(255) not null,
+        value varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_USER_EMAIL_ADDRESS (
+       SproutUserEntity_id CHAR(36) not null,
+        emailAddresses_emailAddress varchar(255) not null,
+        primary key (SproutUserEntity_id, emailAddresses_emailAddress)
+    );
+
+    create table sprout.CONTENT_FIELD (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        displayName varchar(255),
+        fieldType integer,
+        name varchar(255),
+        required boolean not null,
+        sortOrder integer not null,
+        contentType_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_ITEM (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        contentType_id CHAR(36),
+        template_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        content clob,
+        description varchar(255),
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE_CONTENT_ITEM (
+       ContentTemplate_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null,
+        primary key (ContentTemplate_id, contentItems_id)
+    );
+
+    create table sprout.CONTENT_TYPE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        icon varchar(255),
+        name varchar(255),
+        requiresTemplate boolean not null,
+        updateable boolean not null,
+        primary key (id)
+    );
+
+    create table sprout.FIELD_VALUES (
+       CONTENT_ITEM_ID CHAR(36) not null,
+        CONTENT_FIELD_VALUE clob,
+        fieldValues_KEY CHAR(36) not null,
+        primary key (CONTENT_ITEM_ID, fieldValues_KEY)
+    );
+
+    create table sprout.MENU (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        _public boolean not null,
+        disabled boolean not null,
+        displayText varchar(255),
+        icon varchar(255),
+        position integer not null,
+        url varchar(255),
+        PARENT_ID CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.MENU_ROLES (
+       Menu_id CHAR(36) not null,
+        roles varchar(255)
+    );
+
+    create table sprout.OAUTH_ACCOUNT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        provider varchar(255),
+        token varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.Privilege (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.Role (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.roles_privileges (
+       role_id CHAR(36) not null,
+        privilege_id CHAR(36) not null,
+        primary key (role_id, privilege_id)
+    );
+
+    create table sprout.SproutModuleRegistration (
+       id CHAR(36) not null,
+        enabled boolean not null,
+        installed boolean not null,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        accountNonExpired boolean not null,
+        accountNonLocked boolean not null,
+        credentialsNonExpired boolean not null,
+        displayName varchar(255),
+        enabled boolean not null,
+        firstName varchar(255),
+        hidePrimaryEmailAddress boolean not null,
+        lastName varchar(255),
+        password varchar(60),
+        phoneNumber varchar(255),
+        username varchar(255),
+        organization_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity_OAUTH_ACCOUNT (
+       SproutUserEntity_id CHAR(36) not null,
+        oAuthAccounts_id CHAR(36) not null,
+        primary key (SproutUserEntity_id, oAuthAccounts_id)
+    );
+
+    create table sprout.TENANT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.TenantEntity_aliases (
+       TenantEntity_id CHAR(36) not null,
+        aliases varchar(255)
+    );
+
+    create table sprout.users_roles (
+       user_id CHAR(36) not null,
+        role_id CHAR(36) not null,
+        primary key (user_id, role_id)
+    );
+
+    create table sprout.WEB_PAGE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        home boolean not null,
+        name varchar(255),
+        webPageLayout_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        placeHolderId varchar(255),
+        webPageId CHAR(36) not null,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM (
+       WebPageContent_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        showFooter boolean not null,
+        showHeader boolean not null,
+        template clob,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER (
+       WebPageLayout_id CHAR(36) not null,
+        placeHolders varchar(255)
+    );
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint UK_sjnmk2yq84bgbuajwwjduhrmc unique (emailAddresses_emailAddress);
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint UK_ixryr2t7j4oqywctb9n56p83i unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE 
+       add constraint UK_3w365n2wpfwulx1ucaherjkxg unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint UK_eqgi22v3h08i4l9agpk5o6tuk unique (contentItems_id);
+
+    alter table sprout.CONTENT_TYPE 
+       add constraint UK_29yefw2xspftysxj5y3jga2u4 unique (name);
+
+    alter table sprout.SproutUserEntity 
+       add constraint UK_kx1mb5mce88fdespshsnpu651 unique (username);
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint UK_nyocjlnoegwrhqus5509ftgt8 unique (oAuthAccounts_id);
+
+    alter table sprout.WEB_PAGE 
+       add constraint UK_ftb52fk5cgfmpt7tq7ynf4g1w unique (name);
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint UKqa9pc0tmih3ol4ysst3itaspy unique (webPageId, placeHolderId);
+
+    alter table sprout.WEB_PAGE_LAYOUT 
+       add constraint UK_68gpw0l1ehlr10bnn3mfkp6ht unique (name);
+
+    alter table sprout.APP_EMAIL_ADDRESS 
+       add constraint FKsjvmetedltw7d7hegp2xcduae 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FK3bx4te9vk9tysjdtu0373okrt 
+       foreign key (emailAddresses_emailAddress) 
+       references sprout.APP_EMAIL_ADDRESS;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FKmexebkxwbmig1s4lvn94ngamq 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.CONTENT_FIELD 
+       add constraint FKqnxrg37axuc3ab77l6iatqkbi 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKrg7f9hpl9ewcmukoxisxii57t 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKjwb0rmyio31o5k6yxuuoj3oys 
+       foreign key (template_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKo31txq3mnemsmho4bmeerg9oy 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKp7nxh6myhubj64amkfsqm8k1t 
+       foreign key (ContentTemplate_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FKsgmd8u14gw4gl8ilbcq1rpgtw 
+       foreign key (fieldValues_KEY) 
+       references sprout.CONTENT_FIELD;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FK417w3k691xud90h5rlugw871o 
+       foreign key (CONTENT_ITEM_ID) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.MENU 
+       add constraint FK263eq7c7fssswy4ul5q2yoorf 
+       foreign key (PARENT_ID) 
+       references sprout.MENU;
+
+    alter table sprout.MENU_ROLES 
+       add constraint FKoxr7fc6rbtvlxcju9vlt2sgdh 
+       foreign key (Menu_id) 
+       references sprout.MENU;
+
+    alter table sprout.roles_privileges 
+       add constraint FKp0x1d9k5aksyqd1akwwfkh0ki 
+       foreign key (privilege_id) 
+       references sprout.Privilege;
+
+    alter table sprout.roles_privileges 
+       add constraint FK2rfl694fu6ls2f2mqcxesqc6p 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.SproutUserEntity 
+       add constraint FK8or9iqrn8lcskgasxhfp6o3gk 
+       foreign key (organization_id) 
+       references sprout.APP_ORGANIZATION;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKghfkqe1myw5xytpn2y4hdnj5e 
+       foreign key (oAuthAccounts_id) 
+       references sprout.OAUTH_ACCOUNT;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKa8n4gfu6st119lctn35tg07nt 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.TenantEntity_aliases 
+       add constraint FK52gloxy4ioo3nw74kou1grorq 
+       foreign key (TenantEntity_id) 
+       references sprout.TENANT;
+
+    alter table sprout.users_roles 
+       add constraint FKa9r8g5hiyy57ts5u4tkf0lbab 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.users_roles 
+       add constraint FKl0nbq0uruqlov72oxsm2lw2b0 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.WEB_PAGE 
+       add constraint FKrt3159uhog03d97vu94oh83y5 
+       foreign key (webPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint FK2f9thn2c84bhd1uev4yykave7 
+       foreign key (webPageId) 
+       references sprout.WEB_PAGE;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FKlrjrtbsmtpvhw2co7cnhe3tph 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FK6fwdwe3lnyhy1ejo9es2flk2u 
+       foreign key (WebPageContent_id) 
+       references sprout.WEB_PAGE_CONTENT;
+
+    alter table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER 
+       add constraint FK5hi52ap0h0f127qfj7mf0flnu 
+       foreign key (WebPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    create table sprout.APP_EMAIL_ADDRESS (
+       emailAddress varchar(255) not null,
+        IS_PRIMARY boolean,
+        verified boolean not null,
+        user_id CHAR(36),
+        primary key (emailAddress)
+    );
+
+    create table sprout.APP_ORGANIZATION (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_SETTING (
+       id varchar(255) not null,
+        value varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_USER_EMAIL_ADDRESS (
+       SproutUserEntity_id CHAR(36) not null,
+        emailAddresses_emailAddress varchar(255) not null,
+        primary key (SproutUserEntity_id, emailAddresses_emailAddress)
+    );
+
+    create table sprout.CONTENT_FIELD (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        displayName varchar(255),
+        fieldType integer,
+        name varchar(255),
+        required boolean not null,
+        sortOrder integer not null,
+        contentType_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_ITEM (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        contentType_id CHAR(36),
+        template_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        content clob,
+        description varchar(255),
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE_CONTENT_ITEM (
+       ContentTemplate_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null,
+        primary key (ContentTemplate_id, contentItems_id)
+    );
+
+    create table sprout.CONTENT_TYPE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        icon varchar(255),
+        name varchar(255),
+        requiresTemplate boolean not null,
+        updateable boolean not null,
+        primary key (id)
+    );
+
+    create table sprout.FIELD_VALUES (
+       CONTENT_ITEM_ID CHAR(36) not null,
+        CONTENT_FIELD_VALUE clob,
+        fieldValues_KEY CHAR(36) not null,
+        primary key (CONTENT_ITEM_ID, fieldValues_KEY)
+    );
+
+    create table sprout.MENU (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        _public boolean not null,
+        disabled boolean not null,
+        displayText varchar(255),
+        icon varchar(255),
+        position integer not null,
+        url varchar(255),
+        PARENT_ID CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.MENU_ROLES (
+       Menu_id CHAR(36) not null,
+        roles varchar(255)
+    );
+
+    create table sprout.OAUTH_ACCOUNT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        provider varchar(255),
+        token varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.Privilege (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.Role (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.roles_privileges (
+       role_id CHAR(36) not null,
+        privilege_id CHAR(36) not null,
+        primary key (role_id, privilege_id)
+    );
+
+    create table sprout.SproutModuleRegistration (
+       id CHAR(36) not null,
+        enabled boolean not null,
+        installed boolean not null,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        accountNonExpired boolean not null,
+        accountNonLocked boolean not null,
+        credentialsNonExpired boolean not null,
+        displayName varchar(255),
+        enabled boolean not null,
+        firstName varchar(255),
+        hidePrimaryEmailAddress boolean not null,
+        lastName varchar(255),
+        password varchar(60),
+        phoneNumber varchar(255),
+        username varchar(255),
+        organization_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity_OAUTH_ACCOUNT (
+       SproutUserEntity_id CHAR(36) not null,
+        oAuthAccounts_id CHAR(36) not null,
+        primary key (SproutUserEntity_id, oAuthAccounts_id)
+    );
+
+    create table sprout.TENANT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.TenantEntity_aliases (
+       TenantEntity_id CHAR(36) not null,
+        aliases varchar(255)
+    );
+
+    create table sprout.users_roles (
+       user_id CHAR(36) not null,
+        role_id CHAR(36) not null,
+        primary key (user_id, role_id)
+    );
+
+    create table sprout.WEB_PAGE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        home boolean not null,
+        name varchar(255),
+        webPageLayout_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        placeHolderId varchar(255),
+        webPageId CHAR(36) not null,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM (
+       WebPageContent_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        showFooter boolean not null,
+        showHeader boolean not null,
+        template clob,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER (
+       WebPageLayout_id CHAR(36) not null,
+        placeHolders varchar(255)
+    );
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint UK_sjnmk2yq84bgbuajwwjduhrmc unique (emailAddresses_emailAddress);
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint UK_ixryr2t7j4oqywctb9n56p83i unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE 
+       add constraint UK_3w365n2wpfwulx1ucaherjkxg unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint UK_eqgi22v3h08i4l9agpk5o6tuk unique (contentItems_id);
+
+    alter table sprout.CONTENT_TYPE 
+       add constraint UK_29yefw2xspftysxj5y3jga2u4 unique (name);
+
+    alter table sprout.SproutUserEntity 
+       add constraint UK_kx1mb5mce88fdespshsnpu651 unique (username);
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint UK_nyocjlnoegwrhqus5509ftgt8 unique (oAuthAccounts_id);
+
+    alter table sprout.WEB_PAGE 
+       add constraint UK_ftb52fk5cgfmpt7tq7ynf4g1w unique (name);
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint UKqa9pc0tmih3ol4ysst3itaspy unique (webPageId, placeHolderId);
+
+    alter table sprout.WEB_PAGE_LAYOUT 
+       add constraint UK_68gpw0l1ehlr10bnn3mfkp6ht unique (name);
+
+    alter table sprout.APP_EMAIL_ADDRESS 
+       add constraint FKsjvmetedltw7d7hegp2xcduae 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FK3bx4te9vk9tysjdtu0373okrt 
+       foreign key (emailAddresses_emailAddress) 
+       references sprout.APP_EMAIL_ADDRESS;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FKmexebkxwbmig1s4lvn94ngamq 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.CONTENT_FIELD 
+       add constraint FKqnxrg37axuc3ab77l6iatqkbi 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKrg7f9hpl9ewcmukoxisxii57t 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKjwb0rmyio31o5k6yxuuoj3oys 
+       foreign key (template_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKo31txq3mnemsmho4bmeerg9oy 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKp7nxh6myhubj64amkfsqm8k1t 
+       foreign key (ContentTemplate_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FKsgmd8u14gw4gl8ilbcq1rpgtw 
+       foreign key (fieldValues_KEY) 
+       references sprout.CONTENT_FIELD;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FK417w3k691xud90h5rlugw871o 
+       foreign key (CONTENT_ITEM_ID) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.MENU 
+       add constraint FK263eq7c7fssswy4ul5q2yoorf 
+       foreign key (PARENT_ID) 
+       references sprout.MENU;
+
+    alter table sprout.MENU_ROLES 
+       add constraint FKoxr7fc6rbtvlxcju9vlt2sgdh 
+       foreign key (Menu_id) 
+       references sprout.MENU;
+
+    alter table sprout.roles_privileges 
+       add constraint FKp0x1d9k5aksyqd1akwwfkh0ki 
+       foreign key (privilege_id) 
+       references sprout.Privilege;
+
+    alter table sprout.roles_privileges 
+       add constraint FK2rfl694fu6ls2f2mqcxesqc6p 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.SproutUserEntity 
+       add constraint FK8or9iqrn8lcskgasxhfp6o3gk 
+       foreign key (organization_id) 
+       references sprout.APP_ORGANIZATION;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKghfkqe1myw5xytpn2y4hdnj5e 
+       foreign key (oAuthAccounts_id) 
+       references sprout.OAUTH_ACCOUNT;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKa8n4gfu6st119lctn35tg07nt 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.TenantEntity_aliases 
+       add constraint FK52gloxy4ioo3nw74kou1grorq 
+       foreign key (TenantEntity_id) 
+       references sprout.TENANT;
+
+    alter table sprout.users_roles 
+       add constraint FKa9r8g5hiyy57ts5u4tkf0lbab 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.users_roles 
+       add constraint FKl0nbq0uruqlov72oxsm2lw2b0 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.WEB_PAGE 
+       add constraint FKrt3159uhog03d97vu94oh83y5 
+       foreign key (webPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint FK2f9thn2c84bhd1uev4yykave7 
+       foreign key (webPageId) 
+       references sprout.WEB_PAGE;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FKlrjrtbsmtpvhw2co7cnhe3tph 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FK6fwdwe3lnyhy1ejo9es2flk2u 
+       foreign key (WebPageContent_id) 
+       references sprout.WEB_PAGE_CONTENT;
+
+    alter table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER 
+       add constraint FK5hi52ap0h0f127qfj7mf0flnu 
+       foreign key (WebPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    create table sprout.APP_EMAIL_ADDRESS (
+       emailAddress varchar(255) not null,
+        IS_PRIMARY boolean,
+        verified boolean not null,
+        user_id CHAR(36),
+        primary key (emailAddress)
+    );
+
+    create table sprout.APP_ORGANIZATION (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_SETTING (
+       id varchar(255) not null,
+        value varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_USER_EMAIL_ADDRESS (
+       SproutUserEntity_id CHAR(36) not null,
+        emailAddresses_emailAddress varchar(255) not null,
+        primary key (SproutUserEntity_id, emailAddresses_emailAddress)
+    );
+
+    create table sprout.CONTENT_FIELD (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        displayName varchar(255),
+        fieldType integer,
+        name varchar(255),
+        required boolean not null,
+        sortOrder integer not null,
+        contentType_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_ITEM (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        contentType_id CHAR(36),
+        template_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        content clob,
+        description varchar(255),
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE_CONTENT_ITEM (
+       ContentTemplate_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null,
+        primary key (ContentTemplate_id, contentItems_id)
+    );
+
+    create table sprout.CONTENT_TYPE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        icon varchar(255),
+        name varchar(255),
+        requiresTemplate boolean not null,
+        updateable boolean not null,
+        primary key (id)
+    );
+
+    create table sprout.FIELD_VALUES (
+       CONTENT_ITEM_ID CHAR(36) not null,
+        CONTENT_FIELD_VALUE clob,
+        fieldValues_KEY CHAR(36) not null,
+        primary key (CONTENT_ITEM_ID, fieldValues_KEY)
+    );
+
+    create table sprout.MENU (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        _public boolean not null,
+        disabled boolean not null,
+        displayText varchar(255),
+        icon varchar(255),
+        position integer not null,
+        url varchar(255),
+        PARENT_ID CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.MENU_ROLES (
+       Menu_id CHAR(36) not null,
+        roles varchar(255)
+    );
+
+    create table sprout.OAUTH_ACCOUNT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        provider varchar(255),
+        token varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.Privilege (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.Role (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.roles_privileges (
+       role_id CHAR(36) not null,
+        privilege_id CHAR(36) not null,
+        primary key (role_id, privilege_id)
+    );
+
+    create table sprout.SproutModuleRegistration (
+       id CHAR(36) not null,
+        enabled boolean not null,
+        installed boolean not null,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        accountNonExpired boolean not null,
+        accountNonLocked boolean not null,
+        credentialsNonExpired boolean not null,
+        displayName varchar(255),
+        enabled boolean not null,
+        firstName varchar(255),
+        hidePrimaryEmailAddress boolean not null,
+        lastName varchar(255),
+        password varchar(60),
+        phoneNumber varchar(255),
+        username varchar(255),
+        organization_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity_OAUTH_ACCOUNT (
+       SproutUserEntity_id CHAR(36) not null,
+        oAuthAccounts_id CHAR(36) not null,
+        primary key (SproutUserEntity_id, oAuthAccounts_id)
+    );
+
+    create table sprout.TENANT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.TenantEntity_aliases (
+       TenantEntity_id CHAR(36) not null,
+        aliases varchar(255)
+    );
+
+    create table sprout.users_roles (
+       user_id CHAR(36) not null,
+        role_id CHAR(36) not null,
+        primary key (user_id, role_id)
+    );
+
+    create table sprout.WEB_PAGE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        home boolean not null,
+        name varchar(255),
+        webPageLayout_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        placeHolderId varchar(255),
+        webPageId CHAR(36) not null,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM (
+       WebPageContent_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        showFooter boolean not null,
+        showHeader boolean not null,
+        template clob,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER (
+       WebPageLayout_id CHAR(36) not null,
+        placeHolders varchar(255)
+    );
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint UK_sjnmk2yq84bgbuajwwjduhrmc unique (emailAddresses_emailAddress);
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint UK_ixryr2t7j4oqywctb9n56p83i unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE 
+       add constraint UK_3w365n2wpfwulx1ucaherjkxg unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint UK_eqgi22v3h08i4l9agpk5o6tuk unique (contentItems_id);
+
+    alter table sprout.CONTENT_TYPE 
+       add constraint UK_29yefw2xspftysxj5y3jga2u4 unique (name);
+
+    alter table sprout.SproutUserEntity 
+       add constraint UK_kx1mb5mce88fdespshsnpu651 unique (username);
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint UK_nyocjlnoegwrhqus5509ftgt8 unique (oAuthAccounts_id);
+
+    alter table sprout.WEB_PAGE 
+       add constraint UK_ftb52fk5cgfmpt7tq7ynf4g1w unique (name);
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint UKqa9pc0tmih3ol4ysst3itaspy unique (webPageId, placeHolderId);
+
+    alter table sprout.WEB_PAGE_LAYOUT 
+       add constraint UK_68gpw0l1ehlr10bnn3mfkp6ht unique (name);
+
+    alter table sprout.APP_EMAIL_ADDRESS 
+       add constraint FKsjvmetedltw7d7hegp2xcduae 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FK3bx4te9vk9tysjdtu0373okrt 
+       foreign key (emailAddresses_emailAddress) 
+       references sprout.APP_EMAIL_ADDRESS;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FKmexebkxwbmig1s4lvn94ngamq 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.CONTENT_FIELD 
+       add constraint FKqnxrg37axuc3ab77l6iatqkbi 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKrg7f9hpl9ewcmukoxisxii57t 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKjwb0rmyio31o5k6yxuuoj3oys 
+       foreign key (template_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKo31txq3mnemsmho4bmeerg9oy 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKp7nxh6myhubj64amkfsqm8k1t 
+       foreign key (ContentTemplate_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FKsgmd8u14gw4gl8ilbcq1rpgtw 
+       foreign key (fieldValues_KEY) 
+       references sprout.CONTENT_FIELD;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FK417w3k691xud90h5rlugw871o 
+       foreign key (CONTENT_ITEM_ID) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.MENU 
+       add constraint FK263eq7c7fssswy4ul5q2yoorf 
+       foreign key (PARENT_ID) 
+       references sprout.MENU;
+
+    alter table sprout.MENU_ROLES 
+       add constraint FKoxr7fc6rbtvlxcju9vlt2sgdh 
+       foreign key (Menu_id) 
+       references sprout.MENU;
+
+    alter table sprout.roles_privileges 
+       add constraint FKp0x1d9k5aksyqd1akwwfkh0ki 
+       foreign key (privilege_id) 
+       references sprout.Privilege;
+
+    alter table sprout.roles_privileges 
+       add constraint FK2rfl694fu6ls2f2mqcxesqc6p 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.SproutUserEntity 
+       add constraint FK8or9iqrn8lcskgasxhfp6o3gk 
+       foreign key (organization_id) 
+       references sprout.APP_ORGANIZATION;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKghfkqe1myw5xytpn2y4hdnj5e 
+       foreign key (oAuthAccounts_id) 
+       references sprout.OAUTH_ACCOUNT;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKa8n4gfu6st119lctn35tg07nt 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.TenantEntity_aliases 
+       add constraint FK52gloxy4ioo3nw74kou1grorq 
+       foreign key (TenantEntity_id) 
+       references sprout.TENANT;
+
+    alter table sprout.users_roles 
+       add constraint FKa9r8g5hiyy57ts5u4tkf0lbab 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.users_roles 
+       add constraint FKl0nbq0uruqlov72oxsm2lw2b0 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.WEB_PAGE 
+       add constraint FKrt3159uhog03d97vu94oh83y5 
+       foreign key (webPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint FK2f9thn2c84bhd1uev4yykave7 
+       foreign key (webPageId) 
+       references sprout.WEB_PAGE;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FKlrjrtbsmtpvhw2co7cnhe3tph 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FK6fwdwe3lnyhy1ejo9es2flk2u 
+       foreign key (WebPageContent_id) 
+       references sprout.WEB_PAGE_CONTENT;
+
+    alter table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER 
+       add constraint FK5hi52ap0h0f127qfj7mf0flnu 
+       foreign key (WebPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    create table sprout.APP_EMAIL_ADDRESS (
+       emailAddress varchar(255) not null,
+        IS_PRIMARY boolean,
+        verified boolean not null,
+        user_id CHAR(36),
+        primary key (emailAddress)
+    );
+
+    create table sprout.APP_ORGANIZATION (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_SETTING (
+       id varchar(255) not null,
+        value varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_USER_EMAIL_ADDRESS (
+       SproutUserEntity_id CHAR(36) not null,
+        emailAddresses_emailAddress varchar(255) not null,
+        primary key (SproutUserEntity_id, emailAddresses_emailAddress)
+    );
+
+    create table sprout.CONTENT_FIELD (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        displayName varchar(255),
+        fieldType integer,
+        name varchar(255),
+        required boolean not null,
+        sortOrder integer not null,
+        contentType_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_ITEM (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        contentType_id CHAR(36),
+        template_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        content clob,
+        description varchar(255),
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE_CONTENT_ITEM (
+       ContentTemplate_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null,
+        primary key (ContentTemplate_id, contentItems_id)
+    );
+
+    create table sprout.CONTENT_TYPE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        icon varchar(255),
+        name varchar(255),
+        requiresTemplate boolean not null,
+        updateable boolean not null,
+        primary key (id)
+    );
+
+    create table sprout.FIELD_VALUES (
+       CONTENT_ITEM_ID CHAR(36) not null,
+        CONTENT_FIELD_VALUE clob,
+        fieldValues_KEY CHAR(36) not null,
+        primary key (CONTENT_ITEM_ID, fieldValues_KEY)
+    );
+
+    create table sprout.MENU (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        _public boolean not null,
+        disabled boolean not null,
+        displayText varchar(255),
+        icon varchar(255),
+        position integer not null,
+        url varchar(255),
+        PARENT_ID CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.MENU_ROLES (
+       Menu_id CHAR(36) not null,
+        roles varchar(255)
+    );
+
+    create table sprout.OAUTH_ACCOUNT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        provider varchar(255),
+        token varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.Privilege (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.Role (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.roles_privileges (
+       role_id CHAR(36) not null,
+        privilege_id CHAR(36) not null,
+        primary key (role_id, privilege_id)
+    );
+
+    create table sprout.SproutModuleRegistration (
+       id CHAR(36) not null,
+        enabled boolean not null,
+        installed boolean not null,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        accountNonExpired boolean not null,
+        accountNonLocked boolean not null,
+        credentialsNonExpired boolean not null,
+        displayName varchar(255),
+        enabled boolean not null,
+        firstName varchar(255),
+        hidePrimaryEmailAddress boolean not null,
+        lastName varchar(255),
+        password varchar(60),
+        phoneNumber varchar(255),
+        username varchar(255),
+        organization_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity_OAUTH_ACCOUNT (
+       SproutUserEntity_id CHAR(36) not null,
+        oAuthAccounts_id CHAR(36) not null,
+        primary key (SproutUserEntity_id, oAuthAccounts_id)
+    );
+
+    create table sprout.TENANT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.TenantEntity_aliases (
+       TenantEntity_id CHAR(36) not null,
+        aliases varchar(255)
+    );
+
+    create table sprout.users_roles (
+       user_id CHAR(36) not null,
+        role_id CHAR(36) not null,
+        primary key (user_id, role_id)
+    );
+
+    create table sprout.WEB_PAGE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        home boolean not null,
+        name varchar(255),
+        webPageLayout_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        placeHolderId varchar(255),
+        webPageId CHAR(36) not null,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM (
+       WebPageContent_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        showFooter boolean not null,
+        showHeader boolean not null,
+        template clob,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER (
+       WebPageLayout_id CHAR(36) not null,
+        placeHolders varchar(255)
+    );
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint UK_sjnmk2yq84bgbuajwwjduhrmc unique (emailAddresses_emailAddress);
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint UK_ixryr2t7j4oqywctb9n56p83i unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE 
+       add constraint UK_3w365n2wpfwulx1ucaherjkxg unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint UK_eqgi22v3h08i4l9agpk5o6tuk unique (contentItems_id);
+
+    alter table sprout.CONTENT_TYPE 
+       add constraint UK_29yefw2xspftysxj5y3jga2u4 unique (name);
+
+    alter table sprout.SproutUserEntity 
+       add constraint UK_kx1mb5mce88fdespshsnpu651 unique (username);
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint UK_nyocjlnoegwrhqus5509ftgt8 unique (oAuthAccounts_id);
+
+    alter table sprout.WEB_PAGE 
+       add constraint UK_ftb52fk5cgfmpt7tq7ynf4g1w unique (name);
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint UKqa9pc0tmih3ol4ysst3itaspy unique (webPageId, placeHolderId);
+
+    alter table sprout.WEB_PAGE_LAYOUT 
+       add constraint UK_68gpw0l1ehlr10bnn3mfkp6ht unique (name);
+
+    alter table sprout.APP_EMAIL_ADDRESS 
+       add constraint FKsjvmetedltw7d7hegp2xcduae 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FK3bx4te9vk9tysjdtu0373okrt 
+       foreign key (emailAddresses_emailAddress) 
+       references sprout.APP_EMAIL_ADDRESS;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FKmexebkxwbmig1s4lvn94ngamq 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.CONTENT_FIELD 
+       add constraint FKqnxrg37axuc3ab77l6iatqkbi 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKrg7f9hpl9ewcmukoxisxii57t 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKjwb0rmyio31o5k6yxuuoj3oys 
+       foreign key (template_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKo31txq3mnemsmho4bmeerg9oy 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKp7nxh6myhubj64amkfsqm8k1t 
+       foreign key (ContentTemplate_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FKsgmd8u14gw4gl8ilbcq1rpgtw 
+       foreign key (fieldValues_KEY) 
+       references sprout.CONTENT_FIELD;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FK417w3k691xud90h5rlugw871o 
+       foreign key (CONTENT_ITEM_ID) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.MENU 
+       add constraint FK263eq7c7fssswy4ul5q2yoorf 
+       foreign key (PARENT_ID) 
+       references sprout.MENU;
+
+    alter table sprout.MENU_ROLES 
+       add constraint FKoxr7fc6rbtvlxcju9vlt2sgdh 
+       foreign key (Menu_id) 
+       references sprout.MENU;
+
+    alter table sprout.roles_privileges 
+       add constraint FKp0x1d9k5aksyqd1akwwfkh0ki 
+       foreign key (privilege_id) 
+       references sprout.Privilege;
+
+    alter table sprout.roles_privileges 
+       add constraint FK2rfl694fu6ls2f2mqcxesqc6p 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.SproutUserEntity 
+       add constraint FK8or9iqrn8lcskgasxhfp6o3gk 
+       foreign key (organization_id) 
+       references sprout.APP_ORGANIZATION;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKghfkqe1myw5xytpn2y4hdnj5e 
+       foreign key (oAuthAccounts_id) 
+       references sprout.OAUTH_ACCOUNT;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKa8n4gfu6st119lctn35tg07nt 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.TenantEntity_aliases 
+       add constraint FK52gloxy4ioo3nw74kou1grorq 
+       foreign key (TenantEntity_id) 
+       references sprout.TENANT;
+
+    alter table sprout.users_roles 
+       add constraint FKa9r8g5hiyy57ts5u4tkf0lbab 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.users_roles 
+       add constraint FKl0nbq0uruqlov72oxsm2lw2b0 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.WEB_PAGE 
+       add constraint FKrt3159uhog03d97vu94oh83y5 
+       foreign key (webPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint FK2f9thn2c84bhd1uev4yykave7 
+       foreign key (webPageId) 
+       references sprout.WEB_PAGE;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FKlrjrtbsmtpvhw2co7cnhe3tph 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FK6fwdwe3lnyhy1ejo9es2flk2u 
+       foreign key (WebPageContent_id) 
+       references sprout.WEB_PAGE_CONTENT;
+
+    alter table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER 
+       add constraint FK5hi52ap0h0f127qfj7mf0flnu 
+       foreign key (WebPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    create table sprout.APP_EMAIL_ADDRESS (
+       emailAddress varchar(255) not null,
+        IS_PRIMARY boolean,
+        verified boolean not null,
+        user_id CHAR(36),
+        primary key (emailAddress)
+    );
+
+    create table sprout.APP_ORGANIZATION (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_SETTING (
+       id varchar(255) not null,
+        value varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_USER_EMAIL_ADDRESS (
+       SproutUserEntity_id CHAR(36) not null,
+        emailAddresses_emailAddress varchar(255) not null,
+        primary key (SproutUserEntity_id, emailAddresses_emailAddress)
+    );
+
+    create table sprout.CONTENT_FIELD (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        displayName varchar(255),
+        fieldType integer,
+        name varchar(255),
+        required boolean not null,
+        sortOrder integer not null,
+        contentType_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_ITEM (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        contentType_id CHAR(36),
+        template_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        content clob,
+        description varchar(255),
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE_CONTENT_ITEM (
+       ContentTemplate_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null,
+        primary key (ContentTemplate_id, contentItems_id)
+    );
+
+    create table sprout.CONTENT_TYPE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        icon varchar(255),
+        name varchar(255),
+        requiresTemplate boolean not null,
+        updateable boolean not null,
+        primary key (id)
+    );
+
+    create table sprout.FIELD_VALUES (
+       CONTENT_ITEM_ID CHAR(36) not null,
+        CONTENT_FIELD_VALUE clob,
+        fieldValues_KEY CHAR(36) not null,
+        primary key (CONTENT_ITEM_ID, fieldValues_KEY)
+    );
+
+    create table sprout.MENU (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        _public boolean not null,
+        disabled boolean not null,
+        displayText varchar(255),
+        icon varchar(255),
+        position integer not null,
+        url varchar(255),
+        PARENT_ID CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.MENU_ROLES (
+       Menu_id CHAR(36) not null,
+        roles varchar(255)
+    );
+
+    create table sprout.OAUTH_ACCOUNT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        provider varchar(255),
+        token varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.Privilege (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.Role (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.roles_privileges (
+       role_id CHAR(36) not null,
+        privilege_id CHAR(36) not null,
+        primary key (role_id, privilege_id)
+    );
+
+    create table sprout.SproutModuleRegistration (
+       id CHAR(36) not null,
+        enabled boolean not null,
+        installed boolean not null,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        accountNonExpired boolean not null,
+        accountNonLocked boolean not null,
+        credentialsNonExpired boolean not null,
+        displayName varchar(255),
+        enabled boolean not null,
+        firstName varchar(255),
+        hidePrimaryEmailAddress boolean not null,
+        lastName varchar(255),
+        password varchar(60),
+        phoneNumber varchar(255),
+        username varchar(255),
+        organization_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity_OAUTH_ACCOUNT (
+       SproutUserEntity_id CHAR(36) not null,
+        oAuthAccounts_id CHAR(36) not null,
+        primary key (SproutUserEntity_id, oAuthAccounts_id)
+    );
+
+    create table sprout.TENANT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.TenantEntity_aliases (
+       TenantEntity_id CHAR(36) not null,
+        aliases varchar(255)
+    );
+
+    create table sprout.users_roles (
+       user_id CHAR(36) not null,
+        role_id CHAR(36) not null,
+        primary key (user_id, role_id)
+    );
+
+    create table sprout.WEB_PAGE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        home boolean not null,
+        name varchar(255),
+        webPageLayout_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        placeHolderId varchar(255),
+        webPageId CHAR(36) not null,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM (
+       WebPageContent_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        showFooter boolean not null,
+        showHeader boolean not null,
+        template clob,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER (
+       WebPageLayout_id CHAR(36) not null,
+        placeHolders varchar(255)
+    );
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint UK_sjnmk2yq84bgbuajwwjduhrmc unique (emailAddresses_emailAddress);
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint UK_ixryr2t7j4oqywctb9n56p83i unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE 
+       add constraint UK_3w365n2wpfwulx1ucaherjkxg unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint UK_eqgi22v3h08i4l9agpk5o6tuk unique (contentItems_id);
+
+    alter table sprout.CONTENT_TYPE 
+       add constraint UK_29yefw2xspftysxj5y3jga2u4 unique (name);
+
+    alter table sprout.SproutUserEntity 
+       add constraint UK_kx1mb5mce88fdespshsnpu651 unique (username);
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint UK_nyocjlnoegwrhqus5509ftgt8 unique (oAuthAccounts_id);
+
+    alter table sprout.WEB_PAGE 
+       add constraint UK_ftb52fk5cgfmpt7tq7ynf4g1w unique (name);
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint UKqa9pc0tmih3ol4ysst3itaspy unique (webPageId, placeHolderId);
+
+    alter table sprout.WEB_PAGE_LAYOUT 
+       add constraint UK_68gpw0l1ehlr10bnn3mfkp6ht unique (name);
+
+    alter table sprout.APP_EMAIL_ADDRESS 
+       add constraint FKsjvmetedltw7d7hegp2xcduae 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FK3bx4te9vk9tysjdtu0373okrt 
+       foreign key (emailAddresses_emailAddress) 
+       references sprout.APP_EMAIL_ADDRESS;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FKmexebkxwbmig1s4lvn94ngamq 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.CONTENT_FIELD 
+       add constraint FKqnxrg37axuc3ab77l6iatqkbi 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKrg7f9hpl9ewcmukoxisxii57t 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKjwb0rmyio31o5k6yxuuoj3oys 
+       foreign key (template_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKo31txq3mnemsmho4bmeerg9oy 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKp7nxh6myhubj64amkfsqm8k1t 
+       foreign key (ContentTemplate_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FKsgmd8u14gw4gl8ilbcq1rpgtw 
+       foreign key (fieldValues_KEY) 
+       references sprout.CONTENT_FIELD;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FK417w3k691xud90h5rlugw871o 
+       foreign key (CONTENT_ITEM_ID) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.MENU 
+       add constraint FK263eq7c7fssswy4ul5q2yoorf 
+       foreign key (PARENT_ID) 
+       references sprout.MENU;
+
+    alter table sprout.MENU_ROLES 
+       add constraint FKoxr7fc6rbtvlxcju9vlt2sgdh 
+       foreign key (Menu_id) 
+       references sprout.MENU;
+
+    alter table sprout.roles_privileges 
+       add constraint FKp0x1d9k5aksyqd1akwwfkh0ki 
+       foreign key (privilege_id) 
+       references sprout.Privilege;
+
+    alter table sprout.roles_privileges 
+       add constraint FK2rfl694fu6ls2f2mqcxesqc6p 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.SproutUserEntity 
+       add constraint FK8or9iqrn8lcskgasxhfp6o3gk 
+       foreign key (organization_id) 
+       references sprout.APP_ORGANIZATION;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKghfkqe1myw5xytpn2y4hdnj5e 
+       foreign key (oAuthAccounts_id) 
+       references sprout.OAUTH_ACCOUNT;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKa8n4gfu6st119lctn35tg07nt 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.TenantEntity_aliases 
+       add constraint FK52gloxy4ioo3nw74kou1grorq 
+       foreign key (TenantEntity_id) 
+       references sprout.TENANT;
+
+    alter table sprout.users_roles 
+       add constraint FKa9r8g5hiyy57ts5u4tkf0lbab 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.users_roles 
+       add constraint FKl0nbq0uruqlov72oxsm2lw2b0 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.WEB_PAGE 
+       add constraint FKrt3159uhog03d97vu94oh83y5 
+       foreign key (webPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint FK2f9thn2c84bhd1uev4yykave7 
+       foreign key (webPageId) 
+       references sprout.WEB_PAGE;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FKlrjrtbsmtpvhw2co7cnhe3tph 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FK6fwdwe3lnyhy1ejo9es2flk2u 
+       foreign key (WebPageContent_id) 
+       references sprout.WEB_PAGE_CONTENT;
+
+    alter table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER 
+       add constraint FK5hi52ap0h0f127qfj7mf0flnu 
+       foreign key (WebPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    create table sprout.TENANT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        primary key (id)
+    );
+
+    create table TENANT_X.APP_EMAIL_ADDRESS (
+       emailAddress varchar(255) not null,
+        IS_PRIMARY boolean,
+        verified boolean not null,
+        user_id CHAR(36),
+        primary key (emailAddress)
+    );
+
+    create table TENANT_X.APP_ORGANIZATION (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table TENANT_X.APP_SETTING (
+       id varchar(255) not null,
+        value varchar(255),
+        primary key (id)
+    );
+
+    create table TENANT_X.APP_USER_EMAIL_ADDRESS (
+       SproutUserEntity_id CHAR(36) not null,
+        emailAddresses_emailAddress varchar(255) not null,
+        primary key (SproutUserEntity_id, emailAddresses_emailAddress)
+    );
+
+    create table TENANT_X.CONTENT_FIELD (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        displayName varchar(255),
+        fieldType integer,
+        name varchar(255),
+        required boolean not null,
+        sortOrder integer not null,
+        contentType_id CHAR(36),
+        primary key (id)
+    );
+
+    create table TENANT_X.CONTENT_ITEM (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        contentType_id CHAR(36),
+        template_id CHAR(36),
+        primary key (id)
+    );
+
+    create table TENANT_X.CONTENT_TEMPLATE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        content clob,
+        description varchar(255),
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table TENANT_X.CONTENT_TEMPLATE_CONTENT_ITEM (
+       ContentTemplate_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null,
+        primary key (ContentTemplate_id, contentItems_id)
+    );
+
+    create table TENANT_X.CONTENT_TYPE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        icon varchar(255),
+        name varchar(255),
+        requiresTemplate boolean not null,
+        updateable boolean not null,
+        primary key (id)
+    );
+
+    create table TENANT_X.FIELD_VALUES (
+       CONTENT_ITEM_ID CHAR(36) not null,
+        CONTENT_FIELD_VALUE clob,
+        fieldValues_KEY CHAR(36) not null,
+        primary key (CONTENT_ITEM_ID, fieldValues_KEY)
+    );
+
+    create table TENANT_X.MENU (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        _public boolean not null,
+        disabled boolean not null,
+        displayText varchar(255),
+        icon varchar(255),
+        position integer not null,
+        url varchar(255),
+        PARENT_ID CHAR(36),
+        primary key (id)
+    );
+
+    create table TENANT_X.MENU_ROLES (
+       Menu_id CHAR(36) not null,
+        roles varchar(255)
+    );
+
+    create table TENANT_X.OAUTH_ACCOUNT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        provider varchar(255),
+        token varchar(255),
+        primary key (id)
+    );
+
+    create table TENANT_X.Privilege (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table TENANT_X.Role (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table TENANT_X.roles_privileges (
+       role_id CHAR(36) not null,
+        privilege_id CHAR(36) not null,
+        primary key (role_id, privilege_id)
+    );
+
+    create table TENANT_X.SproutModuleRegistration (
+       id CHAR(36) not null,
+        enabled boolean not null,
+        installed boolean not null,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table TENANT_X.SproutUserEntity (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        accountNonExpired boolean not null,
+        accountNonLocked boolean not null,
+        credentialsNonExpired boolean not null,
+        displayName varchar(255),
+        enabled boolean not null,
+        firstName varchar(255),
+        hidePrimaryEmailAddress boolean not null,
+        lastName varchar(255),
+        password varchar(60),
+        phoneNumber varchar(255),
+        username varchar(255),
+        organization_id CHAR(36),
+        primary key (id)
+    );
+
+    create table TENANT_X.SproutUserEntity_OAUTH_ACCOUNT (
+       SproutUserEntity_id CHAR(36) not null,
+        oAuthAccounts_id CHAR(36) not null,
+        primary key (SproutUserEntity_id, oAuthAccounts_id)
+    );
+
+    create table TENANT_X.TenantEntity_aliases (
+       TenantEntity_id CHAR(36) not null,
+        aliases varchar(255)
+    );
+
+    create table TENANT_X.users_roles (
+       user_id CHAR(36) not null,
+        role_id CHAR(36) not null,
+        primary key (user_id, role_id)
+    );
+
+    create table TENANT_X.WEB_PAGE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        home boolean not null,
+        name varchar(255),
+        webPageLayout_id CHAR(36),
+        primary key (id)
+    );
+
+    create table TENANT_X.WEB_PAGE_CONTENT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        placeHolderId varchar(255),
+        webPageId CHAR(36) not null,
+        primary key (id)
+    );
+
+    create table TENANT_X.WEB_PAGE_CONTENT_CONTENT_ITEM (
+       WebPageContent_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null
+    );
+
+    create table TENANT_X.WEB_PAGE_LAYOUT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        showFooter boolean not null,
+        showHeader boolean not null,
+        template clob,
+        primary key (id)
+    );
+
+    create table TENANT_X.WEB_PAGE_LAYOUT_PLACEHOLDER (
+       WebPageLayout_id CHAR(36) not null,
+        placeHolders varchar(255)
+    );
+
+    alter table TENANT_X.APP_USER_EMAIL_ADDRESS 
+       add constraint UK_sjnmk2yq84bgbuajwwjduhrmc unique (emailAddresses_emailAddress);
+
+    alter table TENANT_X.CONTENT_ITEM 
+       add constraint UK_ixryr2t7j4oqywctb9n56p83i unique (name);
+
+    alter table TENANT_X.CONTENT_TEMPLATE 
+       add constraint UK_3w365n2wpfwulx1ucaherjkxg unique (name);
+
+    alter table TENANT_X.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint UK_eqgi22v3h08i4l9agpk5o6tuk unique (contentItems_id);
+
+    alter table TENANT_X.CONTENT_TYPE 
+       add constraint UK_29yefw2xspftysxj5y3jga2u4 unique (name);
+
+    alter table TENANT_X.SproutUserEntity 
+       add constraint UK_kx1mb5mce88fdespshsnpu651 unique (username);
+
+    alter table TENANT_X.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint UK_nyocjlnoegwrhqus5509ftgt8 unique (oAuthAccounts_id);
+
+    alter table TENANT_X.WEB_PAGE 
+       add constraint UK_ftb52fk5cgfmpt7tq7ynf4g1w unique (name);
+
+    alter table TENANT_X.WEB_PAGE_CONTENT 
+       add constraint UKqa9pc0tmih3ol4ysst3itaspy unique (webPageId, placeHolderId);
+
+    alter table TENANT_X.WEB_PAGE_LAYOUT 
+       add constraint UK_68gpw0l1ehlr10bnn3mfkp6ht unique (name);
+
+    alter table TENANT_X.APP_EMAIL_ADDRESS 
+       add constraint FKsjvmetedltw7d7hegp2xcduae 
+       foreign key (user_id) 
+       references TENANT_X.SproutUserEntity;
+
+    alter table TENANT_X.APP_USER_EMAIL_ADDRESS 
+       add constraint FK3bx4te9vk9tysjdtu0373okrt 
+       foreign key (emailAddresses_emailAddress) 
+       references TENANT_X.APP_EMAIL_ADDRESS;
+
+    alter table TENANT_X.APP_USER_EMAIL_ADDRESS 
+       add constraint FKmexebkxwbmig1s4lvn94ngamq 
+       foreign key (SproutUserEntity_id) 
+       references TENANT_X.SproutUserEntity;
+
+    alter table TENANT_X.CONTENT_FIELD 
+       add constraint FKqnxrg37axuc3ab77l6iatqkbi 
+       foreign key (contentType_id) 
+       references TENANT_X.CONTENT_TYPE;
+
+    alter table TENANT_X.CONTENT_ITEM 
+       add constraint FKrg7f9hpl9ewcmukoxisxii57t 
+       foreign key (contentType_id) 
+       references TENANT_X.CONTENT_TYPE;
+
+    alter table TENANT_X.CONTENT_ITEM 
+       add constraint FKjwb0rmyio31o5k6yxuuoj3oys 
+       foreign key (template_id) 
+       references TENANT_X.CONTENT_TEMPLATE;
+
+    alter table TENANT_X.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKo31txq3mnemsmho4bmeerg9oy 
+       foreign key (contentItems_id) 
+       references TENANT_X.CONTENT_ITEM;
+
+    alter table TENANT_X.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKp7nxh6myhubj64amkfsqm8k1t 
+       foreign key (ContentTemplate_id) 
+       references TENANT_X.CONTENT_TEMPLATE;
+
+    alter table TENANT_X.FIELD_VALUES 
+       add constraint FKsgmd8u14gw4gl8ilbcq1rpgtw 
+       foreign key (fieldValues_KEY) 
+       references TENANT_X.CONTENT_FIELD;
+
+    alter table TENANT_X.FIELD_VALUES 
+       add constraint FK417w3k691xud90h5rlugw871o 
+       foreign key (CONTENT_ITEM_ID) 
+       references TENANT_X.CONTENT_ITEM;
+
+    alter table TENANT_X.MENU 
+       add constraint FK263eq7c7fssswy4ul5q2yoorf 
+       foreign key (PARENT_ID) 
+       references TENANT_X.MENU;
+
+    alter table TENANT_X.MENU_ROLES 
+       add constraint FKoxr7fc6rbtvlxcju9vlt2sgdh 
+       foreign key (Menu_id) 
+       references TENANT_X.MENU;
+
+    alter table TENANT_X.roles_privileges 
+       add constraint FKp0x1d9k5aksyqd1akwwfkh0ki 
+       foreign key (privilege_id) 
+       references TENANT_X.Privilege;
+
+    alter table TENANT_X.roles_privileges 
+       add constraint FK2rfl694fu6ls2f2mqcxesqc6p 
+       foreign key (role_id) 
+       references TENANT_X.Role;
+
+    alter table TENANT_X.SproutUserEntity 
+       add constraint FK8or9iqrn8lcskgasxhfp6o3gk 
+       foreign key (organization_id) 
+       references TENANT_X.APP_ORGANIZATION;
+
+    alter table TENANT_X.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKghfkqe1myw5xytpn2y4hdnj5e 
+       foreign key (oAuthAccounts_id) 
+       references TENANT_X.OAUTH_ACCOUNT;
+
+    alter table TENANT_X.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKa8n4gfu6st119lctn35tg07nt 
+       foreign key (SproutUserEntity_id) 
+       references TENANT_X.SproutUserEntity;
+
+    alter table TENANT_X.TenantEntity_aliases 
+       add constraint FK52gloxy4ioo3nw74kou1grorq 
+       foreign key (TenantEntity_id) 
+       references sprout.TENANT;
+
+    alter table TENANT_X.users_roles 
+       add constraint FKa9r8g5hiyy57ts5u4tkf0lbab 
+       foreign key (role_id) 
+       references TENANT_X.Role;
+
+    alter table TENANT_X.users_roles 
+       add constraint FKl0nbq0uruqlov72oxsm2lw2b0 
+       foreign key (user_id) 
+       references TENANT_X.SproutUserEntity;
+
+    alter table TENANT_X.WEB_PAGE 
+       add constraint FKrt3159uhog03d97vu94oh83y5 
+       foreign key (webPageLayout_id) 
+       references TENANT_X.WEB_PAGE_LAYOUT;
+
+    alter table TENANT_X.WEB_PAGE_CONTENT 
+       add constraint FK2f9thn2c84bhd1uev4yykave7 
+       foreign key (webPageId) 
+       references TENANT_X.WEB_PAGE;
+
+    alter table TENANT_X.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FKlrjrtbsmtpvhw2co7cnhe3tph 
+       foreign key (contentItems_id) 
+       references TENANT_X.CONTENT_ITEM;
+
+    alter table TENANT_X.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FK6fwdwe3lnyhy1ejo9es2flk2u 
+       foreign key (WebPageContent_id) 
+       references TENANT_X.WEB_PAGE_CONTENT;
+
+    alter table TENANT_X.WEB_PAGE_LAYOUT_PLACEHOLDER 
+       add constraint FK5hi52ap0h0f127qfj7mf0flnu 
+       foreign key (WebPageLayout_id) 
+       references TENANT_X.WEB_PAGE_LAYOUT;
+
+    create table sprout.APP_EMAIL_ADDRESS (
+       emailAddress varchar(255) not null,
+        IS_PRIMARY boolean,
+        verified boolean not null,
+        user_id CHAR(36),
+        primary key (emailAddress)
+    );
+
+    create table sprout.APP_ORGANIZATION (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_SETTING (
+       id varchar(255) not null,
+        value varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_USER_EMAIL_ADDRESS (
+       SproutUserEntity_id CHAR(36) not null,
+        emailAddresses_emailAddress varchar(255) not null,
+        primary key (SproutUserEntity_id, emailAddresses_emailAddress)
+    );
+
+    create table sprout.CONTENT_FIELD (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        displayName varchar(255),
+        fieldType integer,
+        name varchar(255),
+        required boolean not null,
+        sortOrder integer not null,
+        contentType_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_ITEM (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        contentType_id CHAR(36),
+        template_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        content clob,
+        description varchar(255),
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE_CONTENT_ITEM (
+       ContentTemplate_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null,
+        primary key (ContentTemplate_id, contentItems_id)
+    );
+
+    create table sprout.CONTENT_TYPE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        icon varchar(255),
+        name varchar(255),
+        requiresTemplate boolean not null,
+        updateable boolean not null,
+        primary key (id)
+    );
+
+    create table sprout.FIELD_VALUES (
+       CONTENT_ITEM_ID CHAR(36) not null,
+        CONTENT_FIELD_VALUE clob,
+        fieldValues_KEY CHAR(36) not null,
+        primary key (CONTENT_ITEM_ID, fieldValues_KEY)
+    );
+
+    create table sprout.MENU (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        _public boolean not null,
+        disabled boolean not null,
+        displayText varchar(255),
+        icon varchar(255),
+        position integer not null,
+        url varchar(255),
+        PARENT_ID CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.MENU_ROLES (
+       Menu_id CHAR(36) not null,
+        roles varchar(255)
+    );
+
+    create table sprout.OAUTH_ACCOUNT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        provider varchar(255),
+        token varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.Privilege (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.Role (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.roles_privileges (
+       role_id CHAR(36) not null,
+        privilege_id CHAR(36) not null,
+        primary key (role_id, privilege_id)
+    );
+
+    create table sprout.SproutModuleRegistration (
+       id CHAR(36) not null,
+        enabled boolean not null,
+        installed boolean not null,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        accountNonExpired boolean not null,
+        accountNonLocked boolean not null,
+        credentialsNonExpired boolean not null,
+        displayName varchar(255),
+        enabled boolean not null,
+        firstName varchar(255),
+        hidePrimaryEmailAddress boolean not null,
+        lastName varchar(255),
+        password varchar(60),
+        phoneNumber varchar(255),
+        username varchar(255),
+        organization_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity_OAUTH_ACCOUNT (
+       SproutUserEntity_id CHAR(36) not null,
+        oAuthAccounts_id CHAR(36) not null,
+        primary key (SproutUserEntity_id, oAuthAccounts_id)
+    );
+
+    create table sprout.TENANT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.TenantEntity_aliases (
+       TenantEntity_id CHAR(36) not null,
+        aliases varchar(255)
+    );
+
+    create table sprout.users_roles (
+       user_id CHAR(36) not null,
+        role_id CHAR(36) not null,
+        primary key (user_id, role_id)
+    );
+
+    create table sprout.WEB_PAGE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        home boolean not null,
+        name varchar(255),
+        webPageLayout_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        placeHolderId varchar(255),
+        webPageId CHAR(36) not null,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM (
+       WebPageContent_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        showFooter boolean not null,
+        showHeader boolean not null,
+        template clob,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER (
+       WebPageLayout_id CHAR(36) not null,
+        placeHolders varchar(255)
+    );
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint UK_sjnmk2yq84bgbuajwwjduhrmc unique (emailAddresses_emailAddress);
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint UK_ixryr2t7j4oqywctb9n56p83i unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE 
+       add constraint UK_3w365n2wpfwulx1ucaherjkxg unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint UK_eqgi22v3h08i4l9agpk5o6tuk unique (contentItems_id);
+
+    alter table sprout.CONTENT_TYPE 
+       add constraint UK_29yefw2xspftysxj5y3jga2u4 unique (name);
+
+    alter table sprout.SproutUserEntity 
+       add constraint UK_kx1mb5mce88fdespshsnpu651 unique (username);
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint UK_nyocjlnoegwrhqus5509ftgt8 unique (oAuthAccounts_id);
+
+    alter table sprout.WEB_PAGE 
+       add constraint UK_ftb52fk5cgfmpt7tq7ynf4g1w unique (name);
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint UKqa9pc0tmih3ol4ysst3itaspy unique (webPageId, placeHolderId);
+
+    alter table sprout.WEB_PAGE_LAYOUT 
+       add constraint UK_68gpw0l1ehlr10bnn3mfkp6ht unique (name);
+
+    alter table sprout.APP_EMAIL_ADDRESS 
+       add constraint FKsjvmetedltw7d7hegp2xcduae 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FK3bx4te9vk9tysjdtu0373okrt 
+       foreign key (emailAddresses_emailAddress) 
+       references sprout.APP_EMAIL_ADDRESS;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FKmexebkxwbmig1s4lvn94ngamq 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.CONTENT_FIELD 
+       add constraint FKqnxrg37axuc3ab77l6iatqkbi 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKrg7f9hpl9ewcmukoxisxii57t 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKjwb0rmyio31o5k6yxuuoj3oys 
+       foreign key (template_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKo31txq3mnemsmho4bmeerg9oy 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKp7nxh6myhubj64amkfsqm8k1t 
+       foreign key (ContentTemplate_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FKsgmd8u14gw4gl8ilbcq1rpgtw 
+       foreign key (fieldValues_KEY) 
+       references sprout.CONTENT_FIELD;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FK417w3k691xud90h5rlugw871o 
+       foreign key (CONTENT_ITEM_ID) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.MENU 
+       add constraint FK263eq7c7fssswy4ul5q2yoorf 
+       foreign key (PARENT_ID) 
+       references sprout.MENU;
+
+    alter table sprout.MENU_ROLES 
+       add constraint FKoxr7fc6rbtvlxcju9vlt2sgdh 
+       foreign key (Menu_id) 
+       references sprout.MENU;
+
+    alter table sprout.roles_privileges 
+       add constraint FKp0x1d9k5aksyqd1akwwfkh0ki 
+       foreign key (privilege_id) 
+       references sprout.Privilege;
+
+    alter table sprout.roles_privileges 
+       add constraint FK2rfl694fu6ls2f2mqcxesqc6p 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.SproutUserEntity 
+       add constraint FK8or9iqrn8lcskgasxhfp6o3gk 
+       foreign key (organization_id) 
+       references sprout.APP_ORGANIZATION;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKghfkqe1myw5xytpn2y4hdnj5e 
+       foreign key (oAuthAccounts_id) 
+       references sprout.OAUTH_ACCOUNT;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKa8n4gfu6st119lctn35tg07nt 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.TenantEntity_aliases 
+       add constraint FK52gloxy4ioo3nw74kou1grorq 
+       foreign key (TenantEntity_id) 
+       references sprout.TENANT;
+
+    alter table sprout.users_roles 
+       add constraint FKa9r8g5hiyy57ts5u4tkf0lbab 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.users_roles 
+       add constraint FKl0nbq0uruqlov72oxsm2lw2b0 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.WEB_PAGE 
+       add constraint FKrt3159uhog03d97vu94oh83y5 
+       foreign key (webPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint FK2f9thn2c84bhd1uev4yykave7 
+       foreign key (webPageId) 
+       references sprout.WEB_PAGE;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FKlrjrtbsmtpvhw2co7cnhe3tph 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FK6fwdwe3lnyhy1ejo9es2flk2u 
+       foreign key (WebPageContent_id) 
+       references sprout.WEB_PAGE_CONTENT;
+
+    alter table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER 
+       add constraint FK5hi52ap0h0f127qfj7mf0flnu 
+       foreign key (WebPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    create table sprout.APP_EMAIL_ADDRESS (
+       emailAddress varchar(255) not null,
+        IS_PRIMARY boolean,
+        verified boolean not null,
+        user_id CHAR(36),
+        primary key (emailAddress)
+    );
+
+    create table sprout.APP_ORGANIZATION (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_SETTING (
+       id varchar(255) not null,
+        value varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_USER_EMAIL_ADDRESS (
+       SproutUserEntity_id CHAR(36) not null,
+        emailAddresses_emailAddress varchar(255) not null,
+        primary key (SproutUserEntity_id, emailAddresses_emailAddress)
+    );
+
+    create table sprout.CONTENT_FIELD (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        displayName varchar(255),
+        fieldType integer,
+        name varchar(255),
+        required boolean not null,
+        sortOrder integer not null,
+        contentType_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_ITEM (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        contentType_id CHAR(36),
+        template_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        content clob,
+        description varchar(255),
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE_CONTENT_ITEM (
+       ContentTemplate_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null,
+        primary key (ContentTemplate_id, contentItems_id)
+    );
+
+    create table sprout.CONTENT_TYPE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        icon varchar(255),
+        name varchar(255),
+        requiresTemplate boolean not null,
+        updateable boolean not null,
+        primary key (id)
+    );
+
+    create table sprout.FIELD_VALUES (
+       CONTENT_ITEM_ID CHAR(36) not null,
+        CONTENT_FIELD_VALUE clob,
+        fieldValues_KEY CHAR(36) not null,
+        primary key (CONTENT_ITEM_ID, fieldValues_KEY)
+    );
+
+    create table sprout.MENU (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        _public boolean not null,
+        disabled boolean not null,
+        displayText varchar(255),
+        icon varchar(255),
+        position integer not null,
+        url varchar(255),
+        PARENT_ID CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.MENU_ROLES (
+       Menu_id CHAR(36) not null,
+        roles varchar(255)
+    );
+
+    create table sprout.OAUTH_ACCOUNT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        provider varchar(255),
+        token varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.Privilege (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.Role (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.roles_privileges (
+       role_id CHAR(36) not null,
+        privilege_id CHAR(36) not null,
+        primary key (role_id, privilege_id)
+    );
+
+    create table sprout.SproutModuleRegistration (
+       id CHAR(36) not null,
+        enabled boolean not null,
+        installed boolean not null,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        accountNonExpired boolean not null,
+        accountNonLocked boolean not null,
+        credentialsNonExpired boolean not null,
+        displayName varchar(255),
+        enabled boolean not null,
+        firstName varchar(255),
+        hidePrimaryEmailAddress boolean not null,
+        lastName varchar(255),
+        password varchar(60),
+        phoneNumber varchar(255),
+        username varchar(255),
+        organization_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity_OAUTH_ACCOUNT (
+       SproutUserEntity_id CHAR(36) not null,
+        oAuthAccounts_id CHAR(36) not null,
+        primary key (SproutUserEntity_id, oAuthAccounts_id)
+    );
+
+    create table sprout.TENANT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.TenantEntity_aliases (
+       TenantEntity_id CHAR(36) not null,
+        aliases varchar(255)
+    );
+
+    create table sprout.users_roles (
+       user_id CHAR(36) not null,
+        role_id CHAR(36) not null,
+        primary key (user_id, role_id)
+    );
+
+    create table sprout.WEB_PAGE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        home boolean not null,
+        name varchar(255),
+        webPageLayout_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        placeHolderId varchar(255),
+        webPageId CHAR(36) not null,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM (
+       WebPageContent_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        showFooter boolean not null,
+        showHeader boolean not null,
+        template clob,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER (
+       WebPageLayout_id CHAR(36) not null,
+        placeHolders varchar(255)
+    );
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint UK_sjnmk2yq84bgbuajwwjduhrmc unique (emailAddresses_emailAddress);
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint UK_ixryr2t7j4oqywctb9n56p83i unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE 
+       add constraint UK_3w365n2wpfwulx1ucaherjkxg unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint UK_eqgi22v3h08i4l9agpk5o6tuk unique (contentItems_id);
+
+    alter table sprout.CONTENT_TYPE 
+       add constraint UK_29yefw2xspftysxj5y3jga2u4 unique (name);
+
+    alter table sprout.SproutUserEntity 
+       add constraint UK_kx1mb5mce88fdespshsnpu651 unique (username);
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint UK_nyocjlnoegwrhqus5509ftgt8 unique (oAuthAccounts_id);
+
+    alter table sprout.WEB_PAGE 
+       add constraint UK_ftb52fk5cgfmpt7tq7ynf4g1w unique (name);
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint UKqa9pc0tmih3ol4ysst3itaspy unique (webPageId, placeHolderId);
+
+    alter table sprout.WEB_PAGE_LAYOUT 
+       add constraint UK_68gpw0l1ehlr10bnn3mfkp6ht unique (name);
+
+    alter table sprout.APP_EMAIL_ADDRESS 
+       add constraint FKsjvmetedltw7d7hegp2xcduae 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FK3bx4te9vk9tysjdtu0373okrt 
+       foreign key (emailAddresses_emailAddress) 
+       references sprout.APP_EMAIL_ADDRESS;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FKmexebkxwbmig1s4lvn94ngamq 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.CONTENT_FIELD 
+       add constraint FKqnxrg37axuc3ab77l6iatqkbi 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKrg7f9hpl9ewcmukoxisxii57t 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKjwb0rmyio31o5k6yxuuoj3oys 
+       foreign key (template_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKo31txq3mnemsmho4bmeerg9oy 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKp7nxh6myhubj64amkfsqm8k1t 
+       foreign key (ContentTemplate_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FKsgmd8u14gw4gl8ilbcq1rpgtw 
+       foreign key (fieldValues_KEY) 
+       references sprout.CONTENT_FIELD;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FK417w3k691xud90h5rlugw871o 
+       foreign key (CONTENT_ITEM_ID) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.MENU 
+       add constraint FK263eq7c7fssswy4ul5q2yoorf 
+       foreign key (PARENT_ID) 
+       references sprout.MENU;
+
+    alter table sprout.MENU_ROLES 
+       add constraint FKoxr7fc6rbtvlxcju9vlt2sgdh 
+       foreign key (Menu_id) 
+       references sprout.MENU;
+
+    alter table sprout.roles_privileges 
+       add constraint FKp0x1d9k5aksyqd1akwwfkh0ki 
+       foreign key (privilege_id) 
+       references sprout.Privilege;
+
+    alter table sprout.roles_privileges 
+       add constraint FK2rfl694fu6ls2f2mqcxesqc6p 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.SproutUserEntity 
+       add constraint FK8or9iqrn8lcskgasxhfp6o3gk 
+       foreign key (organization_id) 
+       references sprout.APP_ORGANIZATION;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKghfkqe1myw5xytpn2y4hdnj5e 
+       foreign key (oAuthAccounts_id) 
+       references sprout.OAUTH_ACCOUNT;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKa8n4gfu6st119lctn35tg07nt 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.TenantEntity_aliases 
+       add constraint FK52gloxy4ioo3nw74kou1grorq 
+       foreign key (TenantEntity_id) 
+       references sprout.TENANT;
+
+    alter table sprout.users_roles 
+       add constraint FKa9r8g5hiyy57ts5u4tkf0lbab 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.users_roles 
+       add constraint FKl0nbq0uruqlov72oxsm2lw2b0 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.WEB_PAGE 
+       add constraint FKrt3159uhog03d97vu94oh83y5 
+       foreign key (webPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint FK2f9thn2c84bhd1uev4yykave7 
+       foreign key (webPageId) 
+       references sprout.WEB_PAGE;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FKlrjrtbsmtpvhw2co7cnhe3tph 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FK6fwdwe3lnyhy1ejo9es2flk2u 
+       foreign key (WebPageContent_id) 
+       references sprout.WEB_PAGE_CONTENT;
+
+    alter table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER 
+       add constraint FK5hi52ap0h0f127qfj7mf0flnu 
+       foreign key (WebPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    create table sprout.APP_EMAIL_ADDRESS (
+       emailAddress varchar(255) not null,
+        IS_PRIMARY boolean,
+        verified boolean not null,
+        user_id CHAR(36),
+        primary key (emailAddress)
+    );
+
+    create table sprout.APP_ORGANIZATION (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_SETTING (
+       id varchar(255) not null,
+        value varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_USER_EMAIL_ADDRESS (
+       SproutUserEntity_id CHAR(36) not null,
+        emailAddresses_emailAddress varchar(255) not null,
+        primary key (SproutUserEntity_id, emailAddresses_emailAddress)
+    );
+
+    create table sprout.CONTENT_FIELD (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        displayName varchar(255),
+        fieldType integer,
+        name varchar(255),
+        required boolean not null,
+        sortOrder integer not null,
+        contentType_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_ITEM (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        contentType_id CHAR(36),
+        template_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        content clob,
+        description varchar(255),
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE_CONTENT_ITEM (
+       ContentTemplate_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null,
+        primary key (ContentTemplate_id, contentItems_id)
+    );
+
+    create table sprout.CONTENT_TYPE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        icon varchar(255),
+        name varchar(255),
+        requiresTemplate boolean not null,
+        updateable boolean not null,
+        primary key (id)
+    );
+
+    create table sprout.FIELD_VALUES (
+       CONTENT_ITEM_ID CHAR(36) not null,
+        CONTENT_FIELD_VALUE clob,
+        fieldValues_KEY CHAR(36) not null,
+        primary key (CONTENT_ITEM_ID, fieldValues_KEY)
+    );
+
+    create table sprout.MENU (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        _public boolean not null,
+        disabled boolean not null,
+        displayText varchar(255),
+        icon varchar(255),
+        position integer not null,
+        url varchar(255),
+        PARENT_ID CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.MENU_ROLES (
+       Menu_id CHAR(36) not null,
+        roles varchar(255)
+    );
+
+    create table sprout.OAUTH_ACCOUNT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        provider varchar(255),
+        token varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.Privilege (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.Role (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.roles_privileges (
+       role_id CHAR(36) not null,
+        privilege_id CHAR(36) not null,
+        primary key (role_id, privilege_id)
+    );
+
+    create table sprout.SproutModuleRegistration (
+       id CHAR(36) not null,
+        enabled boolean not null,
+        installed boolean not null,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        accountNonExpired boolean not null,
+        accountNonLocked boolean not null,
+        credentialsNonExpired boolean not null,
+        displayName varchar(255),
+        enabled boolean not null,
+        firstName varchar(255),
+        hidePrimaryEmailAddress boolean not null,
+        lastName varchar(255),
+        password varchar(60),
+        phoneNumber varchar(255),
+        username varchar(255),
+        organization_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity_OAUTH_ACCOUNT (
+       SproutUserEntity_id CHAR(36) not null,
+        oAuthAccounts_id CHAR(36) not null,
+        primary key (SproutUserEntity_id, oAuthAccounts_id)
+    );
+
+    create table sprout.TENANT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.TenantEntity_aliases (
+       TenantEntity_id CHAR(36) not null,
+        aliases varchar(255)
+    );
+
+    create table sprout.users_roles (
+       user_id CHAR(36) not null,
+        role_id CHAR(36) not null,
+        primary key (user_id, role_id)
+    );
+
+    create table sprout.WEB_PAGE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        home boolean not null,
+        name varchar(255),
+        webPageLayout_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        placeHolderId varchar(255),
+        webPageId CHAR(36) not null,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM (
+       WebPageContent_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        showFooter boolean not null,
+        showHeader boolean not null,
+        template clob,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER (
+       WebPageLayout_id CHAR(36) not null,
+        placeHolders varchar(255)
+    );
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint UK_sjnmk2yq84bgbuajwwjduhrmc unique (emailAddresses_emailAddress);
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint UK_ixryr2t7j4oqywctb9n56p83i unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE 
+       add constraint UK_3w365n2wpfwulx1ucaherjkxg unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint UK_eqgi22v3h08i4l9agpk5o6tuk unique (contentItems_id);
+
+    alter table sprout.CONTENT_TYPE 
+       add constraint UK_29yefw2xspftysxj5y3jga2u4 unique (name);
+
+    alter table sprout.SproutUserEntity 
+       add constraint UK_kx1mb5mce88fdespshsnpu651 unique (username);
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint UK_nyocjlnoegwrhqus5509ftgt8 unique (oAuthAccounts_id);
+
+    alter table sprout.WEB_PAGE 
+       add constraint UK_ftb52fk5cgfmpt7tq7ynf4g1w unique (name);
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint UKqa9pc0tmih3ol4ysst3itaspy unique (webPageId, placeHolderId);
+
+    alter table sprout.WEB_PAGE_LAYOUT 
+       add constraint UK_68gpw0l1ehlr10bnn3mfkp6ht unique (name);
+
+    alter table sprout.APP_EMAIL_ADDRESS 
+       add constraint FKsjvmetedltw7d7hegp2xcduae 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FK3bx4te9vk9tysjdtu0373okrt 
+       foreign key (emailAddresses_emailAddress) 
+       references sprout.APP_EMAIL_ADDRESS;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FKmexebkxwbmig1s4lvn94ngamq 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.CONTENT_FIELD 
+       add constraint FKqnxrg37axuc3ab77l6iatqkbi 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKrg7f9hpl9ewcmukoxisxii57t 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKjwb0rmyio31o5k6yxuuoj3oys 
+       foreign key (template_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKo31txq3mnemsmho4bmeerg9oy 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKp7nxh6myhubj64amkfsqm8k1t 
+       foreign key (ContentTemplate_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FKsgmd8u14gw4gl8ilbcq1rpgtw 
+       foreign key (fieldValues_KEY) 
+       references sprout.CONTENT_FIELD;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FK417w3k691xud90h5rlugw871o 
+       foreign key (CONTENT_ITEM_ID) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.MENU 
+       add constraint FK263eq7c7fssswy4ul5q2yoorf 
+       foreign key (PARENT_ID) 
+       references sprout.MENU;
+
+    alter table sprout.MENU_ROLES 
+       add constraint FKoxr7fc6rbtvlxcju9vlt2sgdh 
+       foreign key (Menu_id) 
+       references sprout.MENU;
+
+    alter table sprout.roles_privileges 
+       add constraint FKp0x1d9k5aksyqd1akwwfkh0ki 
+       foreign key (privilege_id) 
+       references sprout.Privilege;
+
+    alter table sprout.roles_privileges 
+       add constraint FK2rfl694fu6ls2f2mqcxesqc6p 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.SproutUserEntity 
+       add constraint FK8or9iqrn8lcskgasxhfp6o3gk 
+       foreign key (organization_id) 
+       references sprout.APP_ORGANIZATION;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKghfkqe1myw5xytpn2y4hdnj5e 
+       foreign key (oAuthAccounts_id) 
+       references sprout.OAUTH_ACCOUNT;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKa8n4gfu6st119lctn35tg07nt 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.TenantEntity_aliases 
+       add constraint FK52gloxy4ioo3nw74kou1grorq 
+       foreign key (TenantEntity_id) 
+       references sprout.TENANT;
+
+    alter table sprout.users_roles 
+       add constraint FKa9r8g5hiyy57ts5u4tkf0lbab 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.users_roles 
+       add constraint FKl0nbq0uruqlov72oxsm2lw2b0 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.WEB_PAGE 
+       add constraint FKrt3159uhog03d97vu94oh83y5 
+       foreign key (webPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint FK2f9thn2c84bhd1uev4yykave7 
+       foreign key (webPageId) 
+       references sprout.WEB_PAGE;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FKlrjrtbsmtpvhw2co7cnhe3tph 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FK6fwdwe3lnyhy1ejo9es2flk2u 
+       foreign key (WebPageContent_id) 
+       references sprout.WEB_PAGE_CONTENT;
+
+    alter table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER 
+       add constraint FK5hi52ap0h0f127qfj7mf0flnu 
+       foreign key (WebPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    create table sprout.TENANT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        primary key (id)
+    );
+
+    create table unit_test.APP_EMAIL_ADDRESS (
+       emailAddress varchar(255) not null,
+        IS_PRIMARY boolean,
+        verified boolean not null,
+        user_id CHAR(36),
+        primary key (emailAddress)
+    );
+
+    create table unit_test.APP_ORGANIZATION (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table unit_test.APP_SETTING (
+       id varchar(255) not null,
+        value varchar(255),
+        primary key (id)
+    );
+
+    create table unit_test.APP_USER_EMAIL_ADDRESS (
+       SproutUserEntity_id CHAR(36) not null,
+        emailAddresses_emailAddress varchar(255) not null,
+        primary key (SproutUserEntity_id, emailAddresses_emailAddress)
+    );
+
+    create table unit_test.CONTENT_FIELD (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        displayName varchar(255),
+        fieldType integer,
+        name varchar(255),
+        required boolean not null,
+        sortOrder integer not null,
+        contentType_id CHAR(36),
+        primary key (id)
+    );
+
+    create table unit_test.CONTENT_ITEM (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        contentType_id CHAR(36),
+        template_id CHAR(36),
+        primary key (id)
+    );
+
+    create table unit_test.CONTENT_TEMPLATE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        content clob,
+        description varchar(255),
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table unit_test.CONTENT_TEMPLATE_CONTENT_ITEM (
+       ContentTemplate_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null,
+        primary key (ContentTemplate_id, contentItems_id)
+    );
+
+    create table unit_test.CONTENT_TYPE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        icon varchar(255),
+        name varchar(255),
+        requiresTemplate boolean not null,
+        updateable boolean not null,
+        primary key (id)
+    );
+
+    create table unit_test.FIELD_VALUES (
+       CONTENT_ITEM_ID CHAR(36) not null,
+        CONTENT_FIELD_VALUE clob,
+        fieldValues_KEY CHAR(36) not null,
+        primary key (CONTENT_ITEM_ID, fieldValues_KEY)
+    );
+
+    create table unit_test.MENU (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        _public boolean not null,
+        disabled boolean not null,
+        displayText varchar(255),
+        icon varchar(255),
+        position integer not null,
+        url varchar(255),
+        PARENT_ID CHAR(36),
+        primary key (id)
+    );
+
+    create table unit_test.MENU_ROLES (
+       Menu_id CHAR(36) not null,
+        roles varchar(255)
+    );
+
+    create table unit_test.OAUTH_ACCOUNT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        provider varchar(255),
+        token varchar(255),
+        primary key (id)
+    );
+
+    create table unit_test.Privilege (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table unit_test.Role (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table unit_test.roles_privileges (
+       role_id CHAR(36) not null,
+        privilege_id CHAR(36) not null,
+        primary key (role_id, privilege_id)
+    );
+
+    create table unit_test.SproutModuleRegistration (
+       id CHAR(36) not null,
+        enabled boolean not null,
+        installed boolean not null,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table unit_test.SproutUserEntity (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        accountNonExpired boolean not null,
+        accountNonLocked boolean not null,
+        credentialsNonExpired boolean not null,
+        displayName varchar(255),
+        enabled boolean not null,
+        firstName varchar(255),
+        hidePrimaryEmailAddress boolean not null,
+        lastName varchar(255),
+        password varchar(60),
+        phoneNumber varchar(255),
+        username varchar(255),
+        organization_id CHAR(36),
+        primary key (id)
+    );
+
+    create table unit_test.SproutUserEntity_OAUTH_ACCOUNT (
+       SproutUserEntity_id CHAR(36) not null,
+        oAuthAccounts_id CHAR(36) not null,
+        primary key (SproutUserEntity_id, oAuthAccounts_id)
+    );
+
+    create table unit_test.TenantEntity_aliases (
+       TenantEntity_id CHAR(36) not null,
+        aliases varchar(255)
+    );
+
+    create table unit_test.users_roles (
+       user_id CHAR(36) not null,
+        role_id CHAR(36) not null,
+        primary key (user_id, role_id)
+    );
+
+    create table unit_test.WEB_PAGE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        home boolean not null,
+        name varchar(255),
+        webPageLayout_id CHAR(36),
+        primary key (id)
+    );
+
+    create table unit_test.WEB_PAGE_CONTENT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        placeHolderId varchar(255),
+        webPageId CHAR(36) not null,
+        primary key (id)
+    );
+
+    create table unit_test.WEB_PAGE_CONTENT_CONTENT_ITEM (
+       WebPageContent_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null
+    );
+
+    create table unit_test.WEB_PAGE_LAYOUT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        showFooter boolean not null,
+        showHeader boolean not null,
+        template clob,
+        primary key (id)
+    );
+
+    create table unit_test.WEB_PAGE_LAYOUT_PLACEHOLDER (
+       WebPageLayout_id CHAR(36) not null,
+        placeHolders varchar(255)
+    );
+
+    alter table unit_test.APP_USER_EMAIL_ADDRESS 
+       add constraint UK_sjnmk2yq84bgbuajwwjduhrmc unique (emailAddresses_emailAddress);
+
+    alter table unit_test.CONTENT_ITEM 
+       add constraint UK_ixryr2t7j4oqywctb9n56p83i unique (name);
+
+    alter table unit_test.CONTENT_TEMPLATE 
+       add constraint UK_3w365n2wpfwulx1ucaherjkxg unique (name);
+
+    alter table unit_test.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint UK_eqgi22v3h08i4l9agpk5o6tuk unique (contentItems_id);
+
+    alter table unit_test.CONTENT_TYPE 
+       add constraint UK_29yefw2xspftysxj5y3jga2u4 unique (name);
+
+    alter table unit_test.SproutUserEntity 
+       add constraint UK_kx1mb5mce88fdespshsnpu651 unique (username);
+
+    alter table unit_test.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint UK_nyocjlnoegwrhqus5509ftgt8 unique (oAuthAccounts_id);
+
+    alter table unit_test.WEB_PAGE 
+       add constraint UK_ftb52fk5cgfmpt7tq7ynf4g1w unique (name);
+
+    alter table unit_test.WEB_PAGE_CONTENT 
+       add constraint UKqa9pc0tmih3ol4ysst3itaspy unique (webPageId, placeHolderId);
+
+    alter table unit_test.WEB_PAGE_LAYOUT 
+       add constraint UK_68gpw0l1ehlr10bnn3mfkp6ht unique (name);
+
+    alter table unit_test.APP_EMAIL_ADDRESS 
+       add constraint FKsjvmetedltw7d7hegp2xcduae 
+       foreign key (user_id) 
+       references unit_test.SproutUserEntity;
+
+    alter table unit_test.APP_USER_EMAIL_ADDRESS 
+       add constraint FK3bx4te9vk9tysjdtu0373okrt 
+       foreign key (emailAddresses_emailAddress) 
+       references unit_test.APP_EMAIL_ADDRESS;
+
+    alter table unit_test.APP_USER_EMAIL_ADDRESS 
+       add constraint FKmexebkxwbmig1s4lvn94ngamq 
+       foreign key (SproutUserEntity_id) 
+       references unit_test.SproutUserEntity;
+
+    alter table unit_test.CONTENT_FIELD 
+       add constraint FKqnxrg37axuc3ab77l6iatqkbi 
+       foreign key (contentType_id) 
+       references unit_test.CONTENT_TYPE;
+
+    alter table unit_test.CONTENT_ITEM 
+       add constraint FKrg7f9hpl9ewcmukoxisxii57t 
+       foreign key (contentType_id) 
+       references unit_test.CONTENT_TYPE;
+
+    alter table unit_test.CONTENT_ITEM 
+       add constraint FKjwb0rmyio31o5k6yxuuoj3oys 
+       foreign key (template_id) 
+       references unit_test.CONTENT_TEMPLATE;
+
+    alter table unit_test.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKo31txq3mnemsmho4bmeerg9oy 
+       foreign key (contentItems_id) 
+       references unit_test.CONTENT_ITEM;
+
+    alter table unit_test.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKp7nxh6myhubj64amkfsqm8k1t 
+       foreign key (ContentTemplate_id) 
+       references unit_test.CONTENT_TEMPLATE;
+
+    alter table unit_test.FIELD_VALUES 
+       add constraint FKsgmd8u14gw4gl8ilbcq1rpgtw 
+       foreign key (fieldValues_KEY) 
+       references unit_test.CONTENT_FIELD;
+
+    alter table unit_test.FIELD_VALUES 
+       add constraint FK417w3k691xud90h5rlugw871o 
+       foreign key (CONTENT_ITEM_ID) 
+       references unit_test.CONTENT_ITEM;
+
+    alter table unit_test.MENU 
+       add constraint FK263eq7c7fssswy4ul5q2yoorf 
+       foreign key (PARENT_ID) 
+       references unit_test.MENU;
+
+    alter table unit_test.MENU_ROLES 
+       add constraint FKoxr7fc6rbtvlxcju9vlt2sgdh 
+       foreign key (Menu_id) 
+       references unit_test.MENU;
+
+    alter table unit_test.roles_privileges 
+       add constraint FKp0x1d9k5aksyqd1akwwfkh0ki 
+       foreign key (privilege_id) 
+       references unit_test.Privilege;
+
+    alter table unit_test.roles_privileges 
+       add constraint FK2rfl694fu6ls2f2mqcxesqc6p 
+       foreign key (role_id) 
+       references unit_test.Role;
+
+    alter table unit_test.SproutUserEntity 
+       add constraint FK8or9iqrn8lcskgasxhfp6o3gk 
+       foreign key (organization_id) 
+       references unit_test.APP_ORGANIZATION;
+
+    alter table unit_test.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKghfkqe1myw5xytpn2y4hdnj5e 
+       foreign key (oAuthAccounts_id) 
+       references unit_test.OAUTH_ACCOUNT;
+
+    alter table unit_test.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKa8n4gfu6st119lctn35tg07nt 
+       foreign key (SproutUserEntity_id) 
+       references unit_test.SproutUserEntity;
+
+    alter table unit_test.TenantEntity_aliases 
+       add constraint FK52gloxy4ioo3nw74kou1grorq 
+       foreign key (TenantEntity_id) 
+       references sprout.TENANT;
+
+    alter table unit_test.users_roles 
+       add constraint FKa9r8g5hiyy57ts5u4tkf0lbab 
+       foreign key (role_id) 
+       references unit_test.Role;
+
+    alter table unit_test.users_roles 
+       add constraint FKl0nbq0uruqlov72oxsm2lw2b0 
+       foreign key (user_id) 
+       references unit_test.SproutUserEntity;
+
+    alter table unit_test.WEB_PAGE 
+       add constraint FKrt3159uhog03d97vu94oh83y5 
+       foreign key (webPageLayout_id) 
+       references unit_test.WEB_PAGE_LAYOUT;
+
+    alter table unit_test.WEB_PAGE_CONTENT 
+       add constraint FK2f9thn2c84bhd1uev4yykave7 
+       foreign key (webPageId) 
+       references unit_test.WEB_PAGE;
+
+    alter table unit_test.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FKlrjrtbsmtpvhw2co7cnhe3tph 
+       foreign key (contentItems_id) 
+       references unit_test.CONTENT_ITEM;
+
+    alter table unit_test.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FK6fwdwe3lnyhy1ejo9es2flk2u 
+       foreign key (WebPageContent_id) 
+       references unit_test.WEB_PAGE_CONTENT;
+
+    alter table unit_test.WEB_PAGE_LAYOUT_PLACEHOLDER 
+       add constraint FK5hi52ap0h0f127qfj7mf0flnu 
+       foreign key (WebPageLayout_id) 
+       references unit_test.WEB_PAGE_LAYOUT;
+
+    create table sprout.APP_EMAIL_ADDRESS (
+       emailAddress varchar(255) not null,
+        IS_PRIMARY boolean,
+        verified boolean not null,
+        user_id CHAR(36),
+        primary key (emailAddress)
+    );
+
+    create table sprout.APP_ORGANIZATION (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_SETTING (
+       id varchar(255) not null,
+        value varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.APP_USER_EMAIL_ADDRESS (
+       SproutUserEntity_id CHAR(36) not null,
+        emailAddresses_emailAddress varchar(255) not null,
+        primary key (SproutUserEntity_id, emailAddresses_emailAddress)
+    );
+
+    create table sprout.CONTENT_FIELD (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        displayName varchar(255),
+        fieldType integer,
+        name varchar(255),
+        required boolean not null,
+        sortOrder integer not null,
+        contentType_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_ITEM (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        contentType_id CHAR(36),
+        template_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        content clob,
+        description varchar(255),
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.CONTENT_TEMPLATE_CONTENT_ITEM (
+       ContentTemplate_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null,
+        primary key (ContentTemplate_id, contentItems_id)
+    );
+
+    create table sprout.CONTENT_TYPE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        icon varchar(255),
+        name varchar(255),
+        requiresTemplate boolean not null,
+        updateable boolean not null,
+        primary key (id)
+    );
+
+    create table sprout.FIELD_VALUES (
+       CONTENT_ITEM_ID CHAR(36) not null,
+        CONTENT_FIELD_VALUE clob,
+        fieldValues_KEY CHAR(36) not null,
+        primary key (CONTENT_ITEM_ID, fieldValues_KEY)
+    );
+
+    create table sprout.MENU (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        _public boolean not null,
+        disabled boolean not null,
+        displayText varchar(255),
+        icon varchar(255),
+        position integer not null,
+        url varchar(255),
+        PARENT_ID CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.MENU_ROLES (
+       Menu_id CHAR(36) not null,
+        roles varchar(255)
+    );
+
+    create table sprout.OAUTH_ACCOUNT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        provider varchar(255),
+        token varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.Privilege (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.Role (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        primary key (id)
+    );
+
+    create table sprout.roles_privileges (
+       role_id CHAR(36) not null,
+        privilege_id CHAR(36) not null,
+        primary key (role_id, privilege_id)
+    );
+
+    create table sprout.SproutModuleRegistration (
+       id CHAR(36) not null,
+        enabled boolean not null,
+        installed boolean not null,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        accountNonExpired boolean not null,
+        accountNonLocked boolean not null,
+        credentialsNonExpired boolean not null,
+        displayName varchar(255),
+        enabled boolean not null,
+        firstName varchar(255),
+        hidePrimaryEmailAddress boolean not null,
+        lastName varchar(255),
+        password varchar(60),
+        phoneNumber varchar(255),
+        username varchar(255),
+        organization_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.SproutUserEntity_OAUTH_ACCOUNT (
+       SproutUserEntity_id CHAR(36) not null,
+        oAuthAccounts_id CHAR(36) not null,
+        primary key (SproutUserEntity_id, oAuthAccounts_id)
+    );
+
+    create table sprout.TENANT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        primary key (id)
+    );
+
+    create table sprout.TenantEntity_aliases (
+       TenantEntity_id CHAR(36) not null,
+        aliases varchar(255)
+    );
+
+    create table sprout.users_roles (
+       user_id CHAR(36) not null,
+        role_id CHAR(36) not null,
+        primary key (user_id, role_id)
+    );
+
+    create table sprout.WEB_PAGE (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        home boolean not null,
+        name varchar(255),
+        webPageLayout_id CHAR(36),
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        placeHolderId varchar(255),
+        webPageId CHAR(36) not null,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM (
+       WebPageContent_id CHAR(36) not null,
+        contentItems_id CHAR(36) not null
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT (
+       id CHAR(36) not null,
+        createdBy varchar(255),
+        createdDate timestamp,
+        lastModifiedBy varchar(255),
+        lastModifiedDate timestamp,
+        description varchar(255),
+        name varchar(255),
+        showFooter boolean not null,
+        showHeader boolean not null,
+        template clob,
+        primary key (id)
+    );
+
+    create table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER (
+       WebPageLayout_id CHAR(36) not null,
+        placeHolders varchar(255)
+    );
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint UK_sjnmk2yq84bgbuajwwjduhrmc unique (emailAddresses_emailAddress);
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint UK_ixryr2t7j4oqywctb9n56p83i unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE 
+       add constraint UK_3w365n2wpfwulx1ucaherjkxg unique (name);
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint UK_eqgi22v3h08i4l9agpk5o6tuk unique (contentItems_id);
+
+    alter table sprout.CONTENT_TYPE 
+       add constraint UK_29yefw2xspftysxj5y3jga2u4 unique (name);
+
+    alter table sprout.SproutUserEntity 
+       add constraint UK_kx1mb5mce88fdespshsnpu651 unique (username);
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint UK_nyocjlnoegwrhqus5509ftgt8 unique (oAuthAccounts_id);
+
+    alter table sprout.WEB_PAGE 
+       add constraint UK_ftb52fk5cgfmpt7tq7ynf4g1w unique (name);
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint UKqa9pc0tmih3ol4ysst3itaspy unique (webPageId, placeHolderId);
+
+    alter table sprout.WEB_PAGE_LAYOUT 
+       add constraint UK_68gpw0l1ehlr10bnn3mfkp6ht unique (name);
+
+    alter table sprout.APP_EMAIL_ADDRESS 
+       add constraint FKsjvmetedltw7d7hegp2xcduae 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FK3bx4te9vk9tysjdtu0373okrt 
+       foreign key (emailAddresses_emailAddress) 
+       references sprout.APP_EMAIL_ADDRESS;
+
+    alter table sprout.APP_USER_EMAIL_ADDRESS 
+       add constraint FKmexebkxwbmig1s4lvn94ngamq 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.CONTENT_FIELD 
+       add constraint FKqnxrg37axuc3ab77l6iatqkbi 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKrg7f9hpl9ewcmukoxisxii57t 
+       foreign key (contentType_id) 
+       references sprout.CONTENT_TYPE;
+
+    alter table sprout.CONTENT_ITEM 
+       add constraint FKjwb0rmyio31o5k6yxuuoj3oys 
+       foreign key (template_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKo31txq3mnemsmho4bmeerg9oy 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.CONTENT_TEMPLATE_CONTENT_ITEM 
+       add constraint FKp7nxh6myhubj64amkfsqm8k1t 
+       foreign key (ContentTemplate_id) 
+       references sprout.CONTENT_TEMPLATE;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FKsgmd8u14gw4gl8ilbcq1rpgtw 
+       foreign key (fieldValues_KEY) 
+       references sprout.CONTENT_FIELD;
+
+    alter table sprout.FIELD_VALUES 
+       add constraint FK417w3k691xud90h5rlugw871o 
+       foreign key (CONTENT_ITEM_ID) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.MENU 
+       add constraint FK263eq7c7fssswy4ul5q2yoorf 
+       foreign key (PARENT_ID) 
+       references sprout.MENU;
+
+    alter table sprout.MENU_ROLES 
+       add constraint FKoxr7fc6rbtvlxcju9vlt2sgdh 
+       foreign key (Menu_id) 
+       references sprout.MENU;
+
+    alter table sprout.roles_privileges 
+       add constraint FKp0x1d9k5aksyqd1akwwfkh0ki 
+       foreign key (privilege_id) 
+       references sprout.Privilege;
+
+    alter table sprout.roles_privileges 
+       add constraint FK2rfl694fu6ls2f2mqcxesqc6p 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.SproutUserEntity 
+       add constraint FK8or9iqrn8lcskgasxhfp6o3gk 
+       foreign key (organization_id) 
+       references sprout.APP_ORGANIZATION;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKghfkqe1myw5xytpn2y4hdnj5e 
+       foreign key (oAuthAccounts_id) 
+       references sprout.OAUTH_ACCOUNT;
+
+    alter table sprout.SproutUserEntity_OAUTH_ACCOUNT 
+       add constraint FKa8n4gfu6st119lctn35tg07nt 
+       foreign key (SproutUserEntity_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.TenantEntity_aliases 
+       add constraint FK52gloxy4ioo3nw74kou1grorq 
+       foreign key (TenantEntity_id) 
+       references sprout.TENANT;
+
+    alter table sprout.users_roles 
+       add constraint FKa9r8g5hiyy57ts5u4tkf0lbab 
+       foreign key (role_id) 
+       references sprout.Role;
+
+    alter table sprout.users_roles 
+       add constraint FKl0nbq0uruqlov72oxsm2lw2b0 
+       foreign key (user_id) 
+       references sprout.SproutUserEntity;
+
+    alter table sprout.WEB_PAGE 
+       add constraint FKrt3159uhog03d97vu94oh83y5 
+       foreign key (webPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
+
+    alter table sprout.WEB_PAGE_CONTENT 
+       add constraint FK2f9thn2c84bhd1uev4yykave7 
+       foreign key (webPageId) 
+       references sprout.WEB_PAGE;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FKlrjrtbsmtpvhw2co7cnhe3tph 
+       foreign key (contentItems_id) 
+       references sprout.CONTENT_ITEM;
+
+    alter table sprout.WEB_PAGE_CONTENT_CONTENT_ITEM 
+       add constraint FK6fwdwe3lnyhy1ejo9es2flk2u 
+       foreign key (WebPageContent_id) 
+       references sprout.WEB_PAGE_CONTENT;
+
+    alter table sprout.WEB_PAGE_LAYOUT_PLACEHOLDER 
+       add constraint FK5hi52ap0h0f127qfj7mf0flnu 
+       foreign key (WebPageLayout_id) 
+       references sprout.WEB_PAGE_LAYOUT;
