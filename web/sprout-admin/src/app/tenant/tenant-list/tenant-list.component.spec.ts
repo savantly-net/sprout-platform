@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TenantListComponent } from './tenant-list.component';
+import { ComponentTestModule } from '../../testing/component-test.module';
+import { TenantService } from '../tenant.service';
 
 describe('TenantListComponent', () => {
   let component: TenantListComponent;
@@ -8,6 +10,8 @@ describe('TenantListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ComponentTestModule],
+      providers: [TenantService],
       declarations: [ TenantListComponent ]
     })
     .compileComponents();
