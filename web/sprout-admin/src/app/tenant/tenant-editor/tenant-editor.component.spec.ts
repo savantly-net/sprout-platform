@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TenantEditorComponent } from './tenant-editor.component';
+import { ComponentTestModule } from '../../testing/component-test.module';
+import { TenantService } from '../tenant.service';
 
 describe('TenantEditorComponent', () => {
   let component: TenantEditorComponent;
@@ -8,6 +10,8 @@ describe('TenantEditorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ComponentTestModule],
+      providers: [TenantService],
       declarations: [ TenantEditorComponent ]
     })
     .compileComponents();
