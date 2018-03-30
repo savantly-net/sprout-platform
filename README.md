@@ -1,6 +1,5 @@
-[![Build Status](https://travis-ci.org/savantly-net/sprout-platform.svg?branch=master)](https://travis-ci.org/savantly-net/sprout-platform)  master
+[![Build Status](https://travis-ci.org/savantly-net/sprout-platform.svg?branch=master)](https://travis-ci.org/savantly-net/sprout-platform)  
 
-[![Build Status](https://travis-ci.org/savantly-net/sprout-platform.svg?branch=development)](https://travis-ci.org/savantly-net/sprout-platform)  development
 
 
 # sprout-platform  
@@ -11,7 +10,7 @@ If this project helps you, feel free to buy me a cup of coffee so I can program 
 
 Sprout platform is an opinionated collection of libraries to make rapid development of Spring+Java web applications easier  
 
-#### Check out the [Demo App](https://sprout-garden.herokuapp.com/)
+#### Check out the [Demo App](https://sprout.savantly.net/)
 
 ### Must see projects  
 
@@ -30,7 +29,7 @@ You can override properties by including a `application.properties` file in the 
 [See here for more info.](./src/main/resources/)  
 
 
-### Development   
+### Quick Start Development   
 [Requires nodejs]  
 - Branch the [Garden App]
 - Run `mvn spring-boot:run` from the base directory of the project  
