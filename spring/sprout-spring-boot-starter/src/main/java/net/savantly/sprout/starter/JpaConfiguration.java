@@ -1,6 +1,8 @@
 package net.savantly.sprout.starter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.SmartFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +33,7 @@ import net.savantly.sprout.tenancy.MultiTenantConnectionProviderImpl;
 import net.savantly.sprout.tenancy.TenantIdentifierResolver;
 
 @Configuration("sproutJpaConfiguration")
+@ConfigurationProperties("sprout.jpa")
 @EnableJpaRepositories(basePackages="net.savantly.sprout.**")
 public class JpaConfiguration  {	
 	
@@ -37,6 +41,9 @@ public class JpaConfiguration  {
 	private DataSourceProperties dataSourceProperties;
     @Autowired
     private JpaProperties jpaProperties;  
+    
+    private List<String> entityPackages = new ArrayList<String>();
+    private static final String internalEntityPackages = "net.savantly.sprout.**";
     
     public JpaConfiguration() {
     	System.setProperty("spring.jpa.hibernate.ddl-auto", "none");
@@ -68,6 +75,8 @@ public class JpaConfiguration  {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
                                                                        MultiTenantConnectionProvider multiTenantConnectionProviderImpl,
                                                                        CurrentTenantIdentifierResolver currentTenantIdentifierResolverImpl) {
+    	this.getEntityPackages().add(internalEntityPackages);
+    	
         Map<String, Object> properties = new HashMap<>();
         // TODO: broke when updated to Spring Boot 2
         // properties.putAll(jpaProperties.getHibernateProperties(dataSource));
@@ -76,7 +85,7 @@ public class JpaConfiguration  {
         properties.put(Environment.MULTI_TENANT_IDENTIFIER_RESOLVER, currentTenantIdentifierResolverImpl);
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan("net.savantly.**");
+        em.setPackagesToScan(this.getEntityPackages().toArray(new String[0]));
         em.setJpaVendorAdapter(jpaVendorAdapter());
         em.setJpaPropertyMap(properties);
         return em;
@@ -125,5 +134,13 @@ public class JpaConfiguration  {
 			}
 		};
     }
+
+	public List<String> getEntityPackages() {
+		return entityPackages;
+	}
+
+	public void setEntityPackages(List<String> entityPackages) {
+		this.entityPackages = entityPackages;
+	}
 
 }

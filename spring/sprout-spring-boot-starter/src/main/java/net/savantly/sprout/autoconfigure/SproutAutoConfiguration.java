@@ -1,12 +1,10 @@
 package net.savantly.sprout.autoconfigure;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -22,8 +20,6 @@ import net.savantly.sprout.starter.JpaConfiguration;
 
 
 @Configuration
-@EnableJpaRepositories
-@EntityScan
 @EnableTransactionManagement
 @Import({JpaConfiguration.class})
 @EnableAspectJAutoProxy
