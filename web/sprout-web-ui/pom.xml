@@ -183,7 +183,7 @@
 				<executions>
 					<execution>
 						<id>copy-resources</id>
-						<phase>prepare-package</phase>
+						<phase></phase>
 						<goals>
 							<goal>copy-resources</goal>
 						</goals>

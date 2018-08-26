@@ -29,7 +29,7 @@ public class Privilege extends PersistedDomainObject implements GrantedAuthority
 		return id;
 	}
 
-    @ManyToMany(mappedBy = "privileges")
+    @ManyToMany(mappedBy = "privileges", targetEntity=Role.class)
 	public Set<Role> getRoles() {
 		return roles;
 	}

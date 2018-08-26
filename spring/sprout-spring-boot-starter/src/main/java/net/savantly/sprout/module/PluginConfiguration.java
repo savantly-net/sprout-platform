@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
 import org.springframework.context.ApplicationContext;
@@ -20,9 +21,11 @@ import net.savantly.sprout.controllers.PluginsController;
 import net.savantly.sprout.core.module.SproutModule;
 import net.savantly.sprout.core.module.registration.SproutModuleRegistration;
 import net.savantly.sprout.core.module.registration.SproutModuleRegistrationRepository;
+import net.savantly.sprout.starter.JpaConfiguration;
 
 @Configuration
 @AutoConfigureBefore(WebMvcAutoConfiguration.class)
+@AutoConfigureAfter(JpaConfiguration.class)
 public class PluginConfiguration implements ApplicationContextAware, InitializingBean {
 	
 	private static final Logger log = LoggerFactory.getLogger(PluginConfiguration.class);

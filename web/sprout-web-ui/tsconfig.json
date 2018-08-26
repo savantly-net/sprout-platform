@@ -15,7 +15,7 @@
       "*": ["./node_modules/*"]
     }
   },
-  "exclude": ["dist", "target", "build"],
+  "exclude": ["dist", "target", "build", "node_modules/@types"],
   "compileOnSave": false,
   "buildOnSave": false,
   "awesomeTypescriptLoaderOptions": {
