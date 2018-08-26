@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ClientApiComponent } from './client-api.component';
 import { ClientApiService } from './client-api.service';
+import { DynamicModule } from '../dynamic/dynamic.module';
 
 describe('ClientApiComponent', () => {
   let component: ClientApiComponent;
@@ -10,7 +11,7 @@ describe('ClientApiComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ComponentTestModule],
+      imports: [ComponentTestModule, DynamicModule],
       declarations: [ ClientApiComponent ],
       providers: [ClientApiService]
     })

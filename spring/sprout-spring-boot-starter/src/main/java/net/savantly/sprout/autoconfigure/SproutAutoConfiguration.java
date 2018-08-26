@@ -22,7 +22,7 @@ import net.savantly.sprout.starter.JpaConfiguration;
 
 
 @Configuration
-@EnableJpaRepositories
+@EnableJpaRepositories(basePackages="net.savantly.sprout.**")
 @EntityScan
 @EnableTransactionManagement
 @Import(JpaConfiguration.class)
