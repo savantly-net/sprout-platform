@@ -91,5 +91,4 @@ public abstract class PersistedDomainObject extends AbstractAuditableDomainObjec
 
         return hashCode;
     }
-
 }

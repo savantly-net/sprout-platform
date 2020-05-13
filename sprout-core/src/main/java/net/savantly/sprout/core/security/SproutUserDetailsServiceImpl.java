@@ -36,5 +36,4 @@ public class SproutUserDetailsServiceImpl implements SproutUserDetailsService {
         EmailAddress email = emailAddressRepository.findById(emailAddress).orElseThrow(()->new RuntimeException("did not find email address: " + emailAddress) );
         return email.getUser();
     }
-
 }

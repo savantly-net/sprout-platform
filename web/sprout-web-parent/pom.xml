@@ -5,7 +5,7 @@
 	<groupId>net.savantly.sprout</groupId>
 	<artifactId>web-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>1.5.0-SNAPSHOT</version>
+	<version>2.0.0-SNAPSHOT</version>
 	<name>sprout-web-parent</name>
 	<description>Parent pom for Sprout Web Applications</description>
 	<url>https://github.com/savantly-net/sprout-platform/</url>
@@ -41,7 +41,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.9.RELEASE</version>
+		<version>2.0.0.RELEASE</version>
 	</parent>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -81,9 +81,6 @@
 					<name>custom.ui</name>
 					<value>true</value>
 				</property>
-				<file>
-					<exists>${project.basedir}/package.json</exists>
-				</file>
 			</activation>
 			<build>
 				<plugins>
@@ -163,48 +160,29 @@
 								</execution>
 							</executions>
 						</plugin>
-					</plugins>
-				</pluginManagement>
-			</build>
-		</profile>
-		<profile>
-			<!-- The default UI uses a pre-compiled Angular app for the front-end -->
-			<id>default.ui</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>net.savantly.sprout</groupId>
-					<artifactId>web-ui</artifactId>
-					<version>${sprout.version}</version>
-				</dependency>
-			</dependencies>
-			<build>
-				<pluginManagement>
-					<plugins>
 						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-dependency-plugin</artifactId>
+							<artifactId>maven-resources-plugin</artifactId>
+							<version>3.0.2</version>
 							<executions>
 								<execution>
-									<id>copy web-ui resources from maven dependency</id>
+									<id>copy-resources</id>
+									<phase>compile</phase>
 									<goals>
-										<goal>unpack</goal>
+										<goal>copy-resources</goal>
 									</goals>
-									<phase>generate-sources</phase>
 									<configuration>
-										<artifactItems>
-											<artifactItem>
-												<groupId>${project.groupId}</groupId>
-												<artifactId>web-ui</artifactId>
-												<version>${sprout.version}</version>
-												<classifier>resources</classifier>
-												<type>zip</type>
-												<overWrite>true</overWrite>
-											</artifactItem>
-										</artifactItems>
-										<outputDirectory>${ui.root.folder}</outputDirectory>
+										<outputDirectory>${basedir}/target/classes</outputDirectory>
+										<resources>
+											<resource>
+												<directory>${ui.dist.folder}</directory>
+												<targetPath>./static/ui/</targetPath>
+											</resource>
+											<resource>
+												<directory>${ui.dist.folder}</directory>
+												<include>index.html</include>
+												<targetPath>./templates/ui/</targetPath>
+											</resource>
+										</resources>
 									</configuration>
 								</execution>
 							</executions>
@@ -317,6 +295,11 @@
 			<artifactId>sprout-spring-boot-starter</artifactId>
 			<version>${sprout.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>net.savantly.sprout</groupId>
+			<artifactId>web-ui</artifactId>
+			<version>${sprout.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -336,37 +319,6 @@
 	</dependencies>
 
 	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>3.0.2</version>
-					<executions>
-						<execution>
-							<id>copy-resources</id>
-							<phase>compile</phase>
-							<goals>
-								<goal>copy-resources</goal>
-							</goals>
-							<configuration>
-								<outputDirectory>${basedir}/target/classes</outputDirectory>
-								<resources>
-									<resource>
-										<directory>${ui.dist.folder}</directory>
-										<targetPath>./static/ui/</targetPath>
-									</resource>
-									<resource>
-										<directory>${ui.dist.folder}</directory>
-										<include>index.html</include>
-										<targetPath>./templates/ui/</targetPath>
-									</resource>
-								</resources>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

@@ -19,5 +19,4 @@ public class ContentItemKeyDeserializer extends KeyDeserializer {
 		String[] parts = key.split("/");
 		return repository.findById(parts[parts.length-1]).orElseThrow(RuntimeException::new);
 	}
-
 }

@@ -153,7 +153,7 @@ public class PluginConfigurationTest {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 		};
 	}
 }

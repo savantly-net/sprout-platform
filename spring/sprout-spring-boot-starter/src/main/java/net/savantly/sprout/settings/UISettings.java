@@ -46,5 +46,5 @@ public class UISettings {
 	private AppSetting getSetting(SettingName settingName) {
 		return settings.findById(settingName.name()).orElseThrow(()->new RuntimeException("missing setting: " + settingName.name()));
 	}
-	
+
 }

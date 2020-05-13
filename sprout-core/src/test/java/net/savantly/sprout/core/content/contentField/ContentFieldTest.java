@@ -23,5 +23,4 @@ public class ContentFieldTest {
 		Assertions.assertEquals(item.getName(), saved.getName(), "name should match");
 		Assertions.assertEquals(item.getFieldType(), saved.getFieldType(), "fieldType should match");
 	}
-
 }

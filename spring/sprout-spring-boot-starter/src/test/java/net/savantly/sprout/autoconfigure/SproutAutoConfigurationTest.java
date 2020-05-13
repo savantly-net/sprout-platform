@@ -56,7 +56,7 @@ public class SproutAutoConfigurationTest {
 	
 	@Test
 	public void loadAdminStaticFile() throws Exception {
-		mvc.perform(get("/admin/test.js")).andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType("text/javascript"));
+		mvc.perform(get("/admin/test.js")).andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType("application/javascript"));
 	}
 	
 	@Test

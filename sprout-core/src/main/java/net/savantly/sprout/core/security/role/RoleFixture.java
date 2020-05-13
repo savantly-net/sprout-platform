@@ -56,3 +56,4 @@ public class RoleFixture extends AbstractBaseFixture<Role, RoleRepository>{
     }
 
 }
+

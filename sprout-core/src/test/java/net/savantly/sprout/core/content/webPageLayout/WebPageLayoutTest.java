@@ -48,6 +48,5 @@ public class WebPageLayoutTest {
 		public WebPageLayoutFixture webPageLayoutFixture(WebPageLayoutRepository repository) {
 			return new WebPageLayoutFixture(repository);
 		}
-
 	}
 }

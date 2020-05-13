@@ -114,6 +114,5 @@ public class WebPageContentRepositoryTest {
 		public ContentTypeFixture getContentTypeFixture(ContentTypeRepository repository) {
 			return new ContentTypeFixture(repository);
 		}
-
 	}
 }
