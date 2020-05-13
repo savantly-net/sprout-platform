@@ -1,16 +1,17 @@
 package net.savantly.sprout.autoconfigure;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;
 import org.springframework.hateoas.Link;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -42,7 +42,6 @@ import net.savantly.sprout.core.content.webPageLayout.WebPageLayoutRepository;
 
 @SpringBootTest
 @WebAppConfiguration
-@RunWith(SpringRunner.class)
 public class WebPageRestRepositoryTest {
 
 	private static final Logger log = LoggerFactory.getLogger(WebPageRestRepositoryTest.class);
@@ -65,7 +64,7 @@ public class WebPageRestRepositoryTest {
 	private MockMvc mvc;
 	private ContentItem contentItem;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		mvc = MockMvcBuilders
 				.webAppContextSetup(ctx)
@@ -108,12 +107,12 @@ public class WebPageRestRepositoryTest {
 	private void makeWebPageAssertions(JsonNode webPage, int contentItemCount) throws Exception {
 		String contentItemsHref = webPage.get("_links").get("contentItems").get("href").asText();
 		JsonNode contentItems = getEntity(contentItemsHref);
-		Assert.assertEquals("the number of webPageContent items is wrong", contentItemCount, contentItems.get("_embedded").get("webPageContents").size());
+		Assertions.assertEquals(contentItemCount, contentItems.get("_embedded").get("webPageContents").size(), "the number of webPageContent items is wrong");
 	}
 
 
 	private MvcResult addContentItemToWebPageContent(JsonNode webPageContent) throws Exception {
-		Link contentItemLink = entityLinks.linkToSingleResource(contentItem);
+		Link contentItemLink = entityLinks.linkToItemResource(contentItem, item->item.getId());
 		String path = webPageContent.get("_links").get("contentItems").get("href").asText();
 		MvcResult results = putUriListToCollectionResource(path, contentItemLink.getHref());
 		return results;
@@ -129,7 +128,7 @@ public class WebPageRestRepositoryTest {
 
 	private JsonNode createWebPageContent(String webPageId) throws Exception {
 		Map<String, Object> webPageContent = new HashMap<>();
-		webPageContent.put("webPage", entityLinks.linkToSingleResource(WebPage.class, webPageId).getHref());
+		webPageContent.put("webPage", entityLinks.linkToItemResource(WebPage.class, webPageId).getHref());
 		webPageContent.put("placeHolderId", "leftSide");
 		String bodyString = mapper.writeValueAsString(webPageContent);
 		
@@ -140,7 +139,7 @@ public class WebPageRestRepositoryTest {
 
 	private JsonNode createWebPage() throws Exception {
 		WebPageLayout layout = wplRepository.findOneByName(WebPageLayoutFixture.defaultWebPageLayoutName);
-		Link layoutLink = entityLinks.linkToSingleResource(layout);
+		Link layoutLink = entityLinks.linkToItemResource(layout, item->item.getId());
 
 		String exampleName = "EXAMPLE";
 		Map<String, Object> bodyMap = new HashMap<>();
@@ -151,7 +150,7 @@ public class WebPageRestRepositoryTest {
 		log.info("bodyString: {}", bodyString);
 		
 		JsonNode jsonResult = createEntity("/api/webPages", bodyString);
-		Assert.assertEquals("name should be the same", exampleName, jsonResult.get("name").asText());
+		Assertions.assertEquals(exampleName, jsonResult.get("name").asText(), "name should be the same");
 		return jsonResult;
 	}
 
@@ -159,7 +158,7 @@ public class WebPageRestRepositoryTest {
 	private JsonNode createEntity(String path, String body) throws Exception {
 		MvcResult mvcResult = mvc.perform(
 				post(path)
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.contentType(MediaType.APPLICATION_JSON)
 				.content(body)).andExpect(status().isCreated()).andReturn();
 		JsonNode resultJson = mapper.readTree(mvcResult.getResponse().getContentAsString());
 		log.info("resultJson: {}", resultJson);

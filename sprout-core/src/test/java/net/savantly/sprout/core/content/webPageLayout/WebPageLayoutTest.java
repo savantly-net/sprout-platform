@@ -1,27 +1,15 @@
 package net.savantly.sprout.core.content.webPageLayout;
 
-import javax.transaction.Transactional;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import net.savantly.sprout.core.content.webPageLayout.WebPageLayout;
-import net.savantly.sprout.core.content.webPageLayout.WebPageLayoutFixture;
-import net.savantly.sprout.core.content.webPageLayout.WebPageLayoutRepository;
+import net.savantly.sprout.core.DataIntegrationTest;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration
-@Transactional
+@DataIntegrationTest
 public class WebPageLayoutTest {
 
 	@Autowired
@@ -29,7 +17,7 @@ public class WebPageLayoutTest {
 	@Autowired
 	WebPageLayoutFixture fixture;
 	
-	@Before
+	@BeforeEach
 	public void before() {
 		fixture.install();
 	}
@@ -50,13 +38,10 @@ public class WebPageLayoutTest {
 	@Test
 	public void testFixture() {
 		WebPageLayout webPageLayout = repository.findOneByName(WebPageLayoutFixture.defaultWebPageLayoutName);
-		Assert.assertNotNull("WebPageLayout should exist", webPageLayout);
+		Assertions.assertNotNull(webPageLayout, "WebPageLayout should exist");
 	}
 	
-	@Configuration
-	@SpringBootApplication
-	@EnableJpaRepositories(basePackages= {"net.savantly.sprout.core.content"})
-	@EntityScan(basePackages="net.savantly.sprout.core.content")
+	@TestConfiguration
 	static class configuration {
 		
 		@Bean

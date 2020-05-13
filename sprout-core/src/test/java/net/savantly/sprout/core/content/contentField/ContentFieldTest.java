@@ -1,20 +1,13 @@
 package net.savantly.sprout.core.content.contentField;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 
+import net.savantly.sprout.core.DataIntegrationTest;
 import net.savantly.sprout.core.content.fieldType.FieldType;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration
+@DataIntegrationTest
 public class ContentFieldTest {
 	
 	@Autowired
@@ -27,16 +20,8 @@ public class ContentFieldTest {
 		item.setFieldType(FieldType.text);
 		
 		ContentField saved = repository.save(item);
-		Assert.assertEquals("name should match", saved.getName(), item.getName());
-		Assert.assertEquals("fieldType should match", saved.getFieldType(), item.getFieldType());
-	}
-	
-	@Configuration
-	@SpringBootApplication
-	@EnableJpaRepositories(basePackages="net.savantly.sprout.core.content")
-	@EntityScan(basePackages="net.savantly.sprout.core.content")
-	static class configuration {
-
+		Assertions.assertEquals(item.getName(), saved.getName(), "name should match");
+		Assertions.assertEquals(item.getFieldType(), saved.getFieldType(), "fieldType should match");
 	}
 
 }

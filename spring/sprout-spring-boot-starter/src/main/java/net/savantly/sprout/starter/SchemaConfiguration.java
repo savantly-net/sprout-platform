@@ -3,6 +3,7 @@ package net.savantly.sprout.starter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,8 +11,9 @@ import javax.sql.DataSource;
 
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.boot.spi.MetadataImplementor;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
+import org.hibernate.tool.hbm2ddl.SchemaExport.Action;
+import org.hibernate.tool.schema.TargetType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -80,19 +82,18 @@ public class SchemaConfiguration implements InitializingBean {
 			metadata.addAnnotatedClass(clazz);
 		}
         
-        SchemaExport schemaExport = new SchemaExport(
-                (MetadataImplementor) metadata.buildMetadata()
-        );
+        SchemaExport schemaExport = new SchemaExport();
         schemaExport.setHaltOnError(false);
         schemaExport.setFormat(true);
         schemaExport.setDelimiter(";");
         schemaExport.setOutputFile("db-schema.sql");
-        schemaExport.execute(true, true, false, true);
+        EnumSet<TargetType> targetTypes = EnumSet.of(TargetType.SCRIPT, TargetType.DATABASE);
+		schemaExport.execute(targetTypes, Action.CREATE, metadata.buildMetadata());
 	}
 	
 	private Map<String, String> getDataSourceSettings(String schema) {
         Map<String, String> settings = new HashMap<>();
-        settings.putAll(jpaProperties.getHibernateProperties(dataSource));
+        settings.putAll(jpaProperties.getProperties());
         settings.put("connection.driver_class", dataSourceProperties.determineDriverClassName());
         settings.put("hibernate.connection.url", dataSourceProperties.determineUrl());
         settings.put("hibernate.connection.username", dataSourceProperties.determineUsername());

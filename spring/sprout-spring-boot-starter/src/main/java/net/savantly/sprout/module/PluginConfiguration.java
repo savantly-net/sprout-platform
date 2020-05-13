@@ -2,6 +2,7 @@ package net.savantly.sprout.module;
 
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +11,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
-import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -55,8 +56,9 @@ public class PluginConfiguration implements ApplicationContextAware, Initializin
 	}
 
 	private void ensureRegistration(Entry<String, SproutModule> entry) {
-		SproutModuleRegistration item = registrationRepository.findOne(entry.getKey());
-		if (item == null) {
+		Optional<SproutModuleRegistration> optItem = registrationRepository.findById(entry.getKey());
+		if (!optItem.isPresent()) {
+			SproutModuleRegistration item = new SproutModuleRegistration();
 			item = new SproutModuleRegistration();
 			item.setEnabled(true);
 			item.setId(entry.getKey());

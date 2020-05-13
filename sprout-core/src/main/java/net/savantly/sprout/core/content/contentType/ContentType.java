@@ -18,17 +18,18 @@ import net.savantly.sprout.core.domain.PersistedDomainObject;
 @Entity
 @Table(name="CONTENT_TYPE")
 public class ContentType extends PersistedDomainObject{
-	
+
+	@Column(unique=true)
 	private String name;
 	private String description;
 	@JsonIgnoreProperties("contentType")
+	@OneToMany(mappedBy="contentType", orphanRemoval=true, cascade= {CascadeType.ALL}, fetch=FetchType.EAGER)
 	private Set<ContentField> fields = new HashSet<>();
 	private boolean requiresTemplate = true;
 	
 	private boolean updateable;
 	private String icon;
 
-	@Column(unique=true)
 	public String getName() {
 		return name;
 	}
@@ -45,7 +46,6 @@ public class ContentType extends PersistedDomainObject{
 		this.description = description;
 	}
 
-	@OneToMany(mappedBy="contentType", orphanRemoval=true, cascade= {CascadeType.ALL}, fetch=FetchType.EAGER)
 	public Set<ContentField> getFields() {
 		return fields;
 	}

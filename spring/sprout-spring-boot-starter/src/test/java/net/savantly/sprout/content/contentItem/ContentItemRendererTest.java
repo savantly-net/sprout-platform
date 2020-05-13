@@ -1,15 +1,13 @@
 package net.savantly.sprout.content.contentItem;
 
-import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Set;
 
 import javax.transaction.Transactional;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +16,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import freemarker.core.ParseException;
-import freemarker.template.MalformedTemplateNameException;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateNotFoundException;
 import net.savantly.spring.fixture.Fixture;
 import net.savantly.sprout.core.content.contentField.ContentField;
 import net.savantly.sprout.core.content.contentItem.ContentItem;
@@ -35,7 +28,6 @@ import net.savantly.sprout.core.content.contentType.ContentTypeFixture;
 import net.savantly.sprout.core.content.contentType.ContentTypeRepository;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
 @Transactional
 public class ContentItemRendererTest {
 	
@@ -58,7 +50,7 @@ public class ContentItemRendererTest {
 	
 	ContentTemplate	contentTemplate;
 	
-	@Before
+	@BeforeEach
 	public void before() {
 		templateFixture.install();
 		contentTypeFixture.install();
@@ -82,7 +74,7 @@ public class ContentItemRendererTest {
 	
 		StringWriter writer = new StringWriter();
 		renderer.renderContentItem(contentItem, writer);
-		Assert.assertEquals("should equal", BOGUS, writer.toString());
+		Assertions.assertEquals(BOGUS, writer.toString());
 	}
 	
 	@Test
@@ -104,7 +96,7 @@ public class ContentItemRendererTest {
 	
 		StringWriter writer = new StringWriter();
 		renderer.renderContentItem(contentItem, writer);
-		Assert.assertEquals("should equal", PICKY, writer.toString());
+		Assertions.assertEquals(PICKY, writer.toString());
 	}
 	
 	@Configuration

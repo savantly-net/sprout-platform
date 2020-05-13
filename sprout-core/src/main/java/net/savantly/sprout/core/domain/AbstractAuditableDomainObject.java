@@ -1,84 +1,92 @@
 package net.savantly.sprout.core.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.Optional;
 
+import javax.persistence.Column;
 import javax.persistence.EntityListeners;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.TypeDef;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.lang.Nullable;
 
 import net.savantly.sprout.core.configuration.SproutConfiguration;
+import net.savantly.sprout.core.domain.user.SproutUser;
+import net.savantly.sprout.core.domain.user.SproutUserEntity;
 import net.savantly.sprout.core.security.SproutAuditable;
 
 @MappedSuperclass
 @EntityListeners({ AuditingEntityListener.class })
+@TypeDef(name = "sproutUser", defaultForType = SproutUser.class, typeClass = SproutUserEntity.class)
 public abstract class AbstractAuditableDomainObject<ID extends Serializable> implements SproutAuditable<ID> {
 
 	private static final long serialVersionUID = SproutConfiguration.serialVersionUID;
 
-	// Auditing Metadata
-	private DateTime createdDate = DateTime.now();
-	private String createdBy;
-	private DateTime lastModifiedDate;
-	private String lastModifiedBy;
+	@ManyToOne(targetEntity = SproutUserEntity.class)
+	private @Nullable SproutUser createdBy;
 
-	@CreatedBy
-	@JsonIgnore(false)
-	public String getCreatedBy() {
-		return createdBy;
+	@Temporal(TemporalType.TIMESTAMP) //
+	private @Nullable Date createdDate;
+
+	@ManyToOne(targetEntity = SproutUserEntity.class)
+	private @Nullable SproutUser lastModifiedBy;
+
+	@Temporal(TemporalType.TIMESTAMP) //
+	private @Nullable Date lastModifiedDate;
+
+	@Override
+	public Optional<SproutUser> getCreatedBy() {
+		return Optional.ofNullable(createdBy);
 	}
 
-	@CreatedDate
-	@JsonIgnore(false)
-	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	public DateTime getCreatedDate() {
-		return createdDate;
+	@Override
+	public void setCreatedBy(SproutUser createdBy) {
+		this.createdBy = createdBy;
 	}
 
-	@LastModifiedBy
-	@JsonIgnore(false)
-	public String getLastModifiedBy() {
-		return lastModifiedBy;
+	@Override
+	public Optional<LocalDateTime> getCreatedDate() {
+		return null == createdDate ? Optional.empty()
+				: Optional.of(LocalDateTime.ofInstant(createdDate.toInstant(), ZoneId.systemDefault()));
 	}
 
-	@LastModifiedDate
-	@JsonIgnore(false)
-	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	public DateTime getLastModifiedDate() {
-		return lastModifiedDate;
+	@Override
+	public void setCreatedDate(LocalDateTime createdDate) {
+		this.createdDate = Date.from(createdDate.atZone(ZoneId.systemDefault()).toInstant());
+	}
+
+	@Override
+	public Optional<SproutUser> getLastModifiedBy() {
+		return Optional.ofNullable(lastModifiedBy);
+	}
+
+	@Override
+	public void setLastModifiedBy(SproutUser lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
+
+	@Override
+	public Optional<LocalDateTime> getLastModifiedDate() {
+		return null == lastModifiedDate ? Optional.empty()
+				: Optional.of(LocalDateTime.ofInstant(lastModifiedDate.toInstant(), ZoneId.systemDefault()));
+	}
+
+	@Override
+	public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
+		this.lastModifiedDate = Date.from(lastModifiedDate.atZone(ZoneId.systemDefault()).toInstant());
 	}
 
 	@Transient
 	public boolean isNew() {
 		return (createdDate == null || createdBy == null);
-	}
-
-	// @JsonIgnore(true)
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	// @JsonIgnore(true)
-	public void setCreatedDate(DateTime createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	// @JsonIgnore(true)
-	public void setLastModifiedBy(String lastModifiedBy) {
-		this.lastModifiedBy = lastModifiedBy;
-	}
-
-	// @JsonIgnore(true)
-	public void setLastModifiedDate(DateTime lastModifiedDate) {
-		this.lastModifiedDate = lastModifiedDate;
 	}
 }

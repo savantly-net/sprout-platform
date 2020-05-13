@@ -1,0 +1,75 @@
+plugins {
+	id 'org.springframework.boot' apply false
+	id 'io.spring.dependency-management'
+	id 'java'
+	id 'java-library'
+	id 'signing'
+	id 'maven'
+ 	id 'jacoco'
+ 	id 'org.sonarqube'
+	id "org.owasp.dependencycheck" version "5.3.1"
+}
+
+archivesBaseName = name
+description = "A Spring Boot starter for Sprout Projects"
+sourceCompatibility = '1.8'
+
+apply from: "${rootProject.projectDir}/gradle/sonar.gradle"
+apply from: "${rootProject.projectDir}/gradle/sonatype.gradle"
+
+configurations {
+	clientUI
+	adminUI
+}
+
+dependencies {
+	api project(':sprout-core')
+	adminUI project(':web:sprout-admin')
+	
+	api 'org.freemarker:freemarker',
+		'org.springframework.boot:spring-boot-starter-web',
+		'org.springframework.boot:spring-boot-starter-security',
+		'org.springframework.boot:spring-boot-starter-oauth2-resource-server',
+		'org.springframework:spring-context-support',
+		'io.reactivex:rxjava',
+		"org.zalando:problem-spring-web:${problem_version}",
+		"io.jsonwebtoken:jjwt-api:${json_web_token_version}"
+		
+	clientUI group: 'net.savantly.sprout', name: 'web-ui', version: '1.4.0-RC3', ext: 'zip', classifier: 'resources'
+	
+		
+	runtimeOnly "io.jsonwebtoken:jjwt-impl:${json_web_token_version}",
+		"io.jsonwebtoken:jjwt-jackson:${json_web_token_version}"
+
+	compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok',
+        'org.springframework.boot:spring-boot-configuration-processor'
+        
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testImplementation 'org.springframework.security:spring-security-test',
+		'com.h2database:h2'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+dependencyManagement {
+	imports {
+		mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+	}
+}
+
+task copyClientUI(type: Copy) {
+    from configurations.clientUI
+    into "$buildDir/test-classes/client"
+}
+compileJava.dependsOn(copyClientUI)
+
+task copyAdminUI(type: Copy) {
+    from configurations.adminUI
+    into "$buildDir/test-classes/admin"
+}
+compileJava.dependsOn(copyAdminUI)

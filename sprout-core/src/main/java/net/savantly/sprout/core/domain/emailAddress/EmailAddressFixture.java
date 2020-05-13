@@ -22,13 +22,13 @@ public class EmailAddressFixture extends AbstractBaseFixture<EmailAddress, Email
 
     @Override
     public void addEntities(List<EmailAddress> entityList) {
-        if(repository.findOne(SYSTEM_EMAIL) == null){
+        if(!repository.findById(SYSTEM_EMAIL).isPresent()){
             entityList.add(new EmailAddress(SYSTEM_EMAIL));
         }
-        if(repository.findOne(ADMIN_EMAIL) == null){
+        if(!repository.findById(ADMIN_EMAIL).isPresent()){
             entityList.add(new EmailAddress(ADMIN_EMAIL));
         }
-        if(repository.findOne(ANONYMOUS_EMAIL) == null){
+        if(!repository.findById(ANONYMOUS_EMAIL).isPresent()){
             entityList.add(new EmailAddress(ANONYMOUS_EMAIL));
         }
     }

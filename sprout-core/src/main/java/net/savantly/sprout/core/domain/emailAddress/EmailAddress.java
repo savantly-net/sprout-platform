@@ -18,10 +18,13 @@ import net.savantly.sprout.core.domain.user.SproutUserEntity;
 public class EmailAddress implements Serializable{
 
     private static final long serialVersionUID = 1L;
-    
+
+    @Id
     private String emailAddress;
     private boolean verified;
+    @ManyToOne(targetEntity=SproutUserEntity.class)
     private SproutUser user;
+    @Column(name="IS_PRIMARY")
     private boolean primary;
 
     public EmailAddress() {
@@ -37,7 +40,6 @@ public class EmailAddress implements Serializable{
         this.verified = verified;
     }
 
-    @Id
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -55,7 +57,6 @@ public class EmailAddress implements Serializable{
         this.verified = confirmed;
     }
 
-    @ManyToOne(targetEntity=SproutUserEntity.class)
     public SproutUser getUser() {
         return user;
     }
@@ -64,7 +65,6 @@ public class EmailAddress implements Serializable{
         this.user = user;
     }
 
-    @Column(name="IS_PRIMARY")
 	public boolean isPrimary() {
 		return primary;
 	}

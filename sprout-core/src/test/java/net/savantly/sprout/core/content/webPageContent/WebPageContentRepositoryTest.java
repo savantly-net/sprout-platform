@@ -5,20 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.transaction.Transactional;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 
+import net.savantly.sprout.core.DataIntegrationTest;
 import net.savantly.sprout.core.content.contentField.ContentField;
 import net.savantly.sprout.core.content.contentField.ContentFieldRepository;
 import net.savantly.sprout.core.content.contentItem.ContentItem;
@@ -34,9 +27,7 @@ import net.savantly.sprout.core.content.webPage.WebPageRepository;
 import net.savantly.sprout.core.content.webPageLayout.WebPageLayoutFixture;
 import net.savantly.sprout.core.content.webPageLayout.WebPageLayoutRepository;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration
-@Transactional
+@DataIntegrationTest
 public class WebPageContentRepositoryTest {
 
 	@Autowired
@@ -58,7 +49,7 @@ public class WebPageContentRepositoryTest {
 	
 	ContentItem item = new ContentItem();
 	
-	@Before
+	@BeforeEach
 	public void before() {
 		wpLayoutFixture.install();
 		wpFixture.install();
@@ -98,10 +89,7 @@ public class WebPageContentRepositoryTest {
 	}
 	
 
-	@Configuration
-	@SpringBootApplication
-	@EnableJpaRepositories(basePackages= {"net.savantly.sprout.core.content"})
-	@EntityScan(basePackages="net.savantly.sprout.core.content")
+	@TestConfiguration
 	static class configuration {
 		
 		@Bean

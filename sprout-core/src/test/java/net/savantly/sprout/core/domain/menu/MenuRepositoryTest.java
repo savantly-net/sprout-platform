@@ -3,21 +3,12 @@ package net.savantly.sprout.core.domain.menu;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.repository.support.PageableExecutionUtils;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration
+import net.savantly.sprout.core.DataIntegrationTest;
+
+@DataIntegrationTest
 public class MenuRepositoryTest {
 	
 	@Autowired
@@ -48,13 +39,4 @@ public class MenuRepositoryTest {
 		
 		repository.findRootMenus();
 	}
-	
-	@Configuration
-	@SpringBootApplication
-	@EnableJpaRepositories(basePackages="net.savantly.sprout.core.domain.menu")
-	@EntityScan(basePackages="net.savantly.sprout.core.domain.menu")
-	static class configuration {
-
-	}
-
 }

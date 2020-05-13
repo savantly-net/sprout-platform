@@ -3,6 +3,8 @@ package net.savantly.sprout.content.webPageLayout;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.time.ZoneOffset;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,12 +41,12 @@ public class WebPageLayoutTemplateLoader implements TemplateLoader {
 	@Override
 	public Object findTemplateSource(String id) throws IOException {
 
-		WebPageLayout item = repository.findOne(id);
-		if (item == null) {
+		Optional<WebPageLayout> item = repository.findById(id);
+		if (item.isPresent()) {
+			return item;
+		} else {
 			log.warn("Item: {} \tDoes not exist", id);
 			return null;
-		} else {
-			return item;
 		}
 	}
 
@@ -59,16 +61,16 @@ public class WebPageLayoutTemplateLoader implements TemplateLoader {
 	@Override
 	public long getLastModified(Object templateSource) {
 		WebPageLayout template = (WebPageLayout) templateSource;
-		WebPageLayout item = repository.findOne(template.getId());
-		if (item == null) {
-			log.warn("item: {} \tDoes not exist", template);
-			return Long.MAX_VALUE;
-		} else {
-			if(item.getLastModifiedDate() != null) {
-				return item.getLastModifiedDate().getMillis();
+		Optional<WebPageLayout> item = repository.findById(template.getId());
+		if (item.isPresent()) {
+			if(item.get().getLastModifiedDate().isPresent()) {
+				return item.get().getLastModifiedDate().get().toEpochSecond(ZoneOffset.UTC);
 			} else {
 				return Long.MIN_VALUE;
 			}
+		} else {
+			log.warn("item: {} \tDoes not exist", template);
+			return Long.MAX_VALUE;
 		}
 	}
 	

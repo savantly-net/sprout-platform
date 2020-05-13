@@ -22,14 +22,24 @@ import net.savantly.sprout.core.domain.PersistedDomainObject;
 @Entity
 @Table(name="CONTENT_ITEM")
 public class ContentItem extends PersistedDomainObject{
-	
-	private String name;
-	private String description;
-	private ContentType contentType;
-	private Map<ContentField, String> fieldValues = new HashMap<>();
-	private ContentTemplate template;
 
 	@Column(unique=true)
+	private String name;
+	private String description;
+	
+	@ManyToOne
+	private ContentType contentType;
+	
+	@Lob
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name = "FIELD_VALUES", joinColumns = @JoinColumn(name = "CONTENT_ITEM_ID"))
+	@MapKeyColumn(name="CONTENT_FIELD_ID")
+	@Column(name = "CONTENT_FIELD_VALUE")
+	private Map<ContentField, String> fieldValues = new HashMap<>();
+	
+	@ManyToOne
+	private ContentTemplate template;
+
 	public String getName() {
 		return name;
 	}
@@ -46,7 +56,6 @@ public class ContentItem extends PersistedDomainObject{
 		this.description = description;
 	}
 
-	@ManyToOne
 	public ContentType getContentType() {
 		return contentType;
 	}
@@ -55,11 +64,6 @@ public class ContentItem extends PersistedDomainObject{
 		this.contentType = contentType;
 	}
 
-	@Lob
-	@ElementCollection(fetch=FetchType.EAGER)
-	@CollectionTable(name = "FIELD_VALUES", joinColumns = @JoinColumn(name = "CONTENT_ITEM_ID"))
-	@MapKeyColumn(name="CONTENT_FIELD_ID")
-	@Column(name = "CONTENT_FIELD_VALUE")
 	public Map<ContentField, String> getFieldValues() {
 		return fieldValues;
 	}
@@ -68,8 +72,6 @@ public class ContentItem extends PersistedDomainObject{
 		this.fieldValues = fieldValues;
 	}
 	
-
-	@ManyToOne
 	public ContentTemplate getTemplate() {
 		return template;
 	}

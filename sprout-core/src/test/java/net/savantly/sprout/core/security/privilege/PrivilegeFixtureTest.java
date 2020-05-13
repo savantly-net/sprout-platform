@@ -1,17 +1,13 @@
 package net.savantly.sprout.core.security.privilege;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@ContextConfiguration
-@RunWith(SpringRunner.class)
+import net.savantly.sprout.core.DataIntegrationTest;
+
+@DataIntegrationTest
 public class PrivilegeFixtureTest {
 
 	@Autowired
@@ -22,9 +18,7 @@ public class PrivilegeFixtureTest {
 		fixture.install();
 	}
 	
-	@Configuration
-	@EnableAutoConfiguration
-	@EntityScan(basePackages="net.savantly.sprout.core")
+	@TestConfiguration
 	static class TestContext {
 		
 		@Bean

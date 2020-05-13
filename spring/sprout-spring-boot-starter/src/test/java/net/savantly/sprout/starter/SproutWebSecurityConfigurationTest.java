@@ -1,9 +1,8 @@
 package net.savantly.sprout.starter;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
@@ -28,7 +26,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations="classpath:test.properties")
-@RunWith(SpringRunner.class)
 public class SproutWebSecurityConfigurationTest {
 
 	private static final Logger log = LoggerFactory.getLogger(SproutWebSecurityConfigurationTest.class);
@@ -41,7 +38,7 @@ public class SproutWebSecurityConfigurationTest {
 	@Autowired
 	TestRestTemplate rest;
 	
-	@BeforeClass
+	@BeforeAll
 	public static void beforeClass() {
 		//System.setProperty("spring.freemarker.template-loader-path", "classpath:/templates/");
 	}
@@ -54,7 +51,7 @@ public class SproutWebSecurityConfigurationTest {
 		ResponseEntity<String> result = rest.getForEntity(url, String.class);
 		
 		log.info("{}", result.getBody());
-		Assert.assertTrue("Should find the root view", result.getStatusCode() == HttpStatus.OK);
+		Assertions.assertTrue(result.getStatusCode() == HttpStatus.OK, "Should find the root view");
 	}
 	
 
@@ -66,7 +63,7 @@ public class SproutWebSecurityConfigurationTest {
 		ResponseEntity<String> result = rest.getForEntity(url, String.class);
 		
 		log.info("{}", result.getBody());
-		Assert.assertTrue("Should find the login view", result.getStatusCode() == HttpStatus.OK);
+		Assertions.assertTrue(result.getStatusCode() == HttpStatus.OK, "Should find the login view");
 	}
 	
 	@Test
@@ -85,7 +82,7 @@ public class SproutWebSecurityConfigurationTest {
 
 		ResponseEntity<String> result = rest.postForEntity(url, request, String.class);
 		
-		Assert.assertTrue("Should login successfully and be redirected", result.getStatusCode() == HttpStatus.FOUND);
+		Assertions.assertTrue(result.getStatusCode() == HttpStatus.FOUND, "Should login successfully and be redirected");
 	}
 	
 	@Test
@@ -96,7 +93,7 @@ public class SproutWebSecurityConfigurationTest {
 		ResponseEntity<String> result = rest.getForEntity(url, String.class);
 		
 		log.info("{}", result.getBody());
-		Assert.assertTrue("Should be redirected for authentication", result.getStatusCode() == HttpStatus.OK);
+		Assertions.assertTrue(result.getStatusCode() == HttpStatus.OK, "Should be redirected for authentication");
 	}
 	
 	@Configuration

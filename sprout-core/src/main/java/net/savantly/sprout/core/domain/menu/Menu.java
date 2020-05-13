@@ -4,7 +4,6 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,11 +23,18 @@ public class Menu extends PersistedDomainObject {
 	
 	private String displayText;
 	private boolean _public;
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name = "MENU_ROLES")
+	@OrderColumn(name = "index_id")
 	private Set<String> roles;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="parent", orphanRemoval=true)
 	private Set<Menu> items;
 	private int position;
 	private boolean disabled;
 	private String icon;
+	@ManyToOne(fetch=FetchType.LAZY, optional=true)
+	@JoinColumn(name="PARENT_ID", nullable=true)
+	@JsonBackReference
 	private Menu parent;
 	private String url;
 	
@@ -52,9 +58,6 @@ public class Menu extends PersistedDomainObject {
 		this._public = _public;
 	}
 	
-	@ElementCollection(fetch=FetchType.EAGER)
-	@CollectionTable(name = "MENU_ROLES")
-	@OrderColumn(name = "index_id")
 	public Set<String> getRoles() {
 		return roles;
 	}
@@ -62,7 +65,6 @@ public class Menu extends PersistedDomainObject {
 		this.roles = roles;
 	}
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="parent", orphanRemoval=true)
 	public Set<Menu> getItems() {
 		return items;
 	}
@@ -88,9 +90,6 @@ public class Menu extends PersistedDomainObject {
 		this.icon = icon;
 	}
 	
-	@ManyToOne(fetch=FetchType.LAZY, optional=true)
-	@JoinColumn(name="PARENT_ID", nullable=true)
-	@JsonBackReference
 	public Menu getParent() {
 		return parent;
 	}

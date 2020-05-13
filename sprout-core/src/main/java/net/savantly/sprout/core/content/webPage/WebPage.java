@@ -1,12 +1,10 @@
 package net.savantly.sprout.core.content.webPage;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -18,13 +16,16 @@ import net.savantly.sprout.core.domain.PersistedDomainObject;
 @Entity
 @Table(name="WEB_PAGE")
 public class WebPage extends PersistedDomainObject {
+	
+	@Column(unique=true)
 	private String name;
 	private String description;
+	@ManyToOne
 	private WebPageLayout webPageLayout;
+	@OneToMany(cascade= {CascadeType.ALL}, mappedBy="webPage")
 	private Set<WebPageContent> contentItems;
 	private boolean home;
 	
-	@Column(unique=true)
 	public String getName() {
 		return name;
 	}
@@ -38,7 +39,6 @@ public class WebPage extends PersistedDomainObject {
 		this.description = description;
 	}
 	
-	@ManyToOne
 	public WebPageLayout getWebPageLayout() {
 		return webPageLayout;
 	}
@@ -46,7 +46,6 @@ public class WebPage extends PersistedDomainObject {
 		this.webPageLayout = webPageLayout;
 	}
 	
-	@OneToMany(cascade= {CascadeType.ALL}, mappedBy="webPage")
 	public Set<WebPageContent> getContentItems() {
 		return contentItems;
 	}

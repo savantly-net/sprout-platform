@@ -1,0 +1,25 @@
+allprojects {
+	group = 'net.savantly.sprout'
+    version = '1.6.0-SNAPSHOT'
+    repositories {
+	    mavenCentral()
+        gradlePluginPortal()
+        maven { url "https://repo.spring.io/plugins-release" }
+	}
+	
+	// There are a few dependencies that this cannot reach.
+	// https://stackoverflow.com/a/44168582/1308685
+	task downloadDependencies {
+	  description "Pre-downloads *most* dependencies"
+	  doLast {
+	    configurations.getAsMap().each { name, config ->
+	      println "Retrieving dependencies for $name"
+	      try {
+	        config.files
+	      } catch (e) {
+	        project.logger.info e.message // some cannot be resolved, silentlyish skip them
+	      }
+	    }
+	  }
+	}
+}

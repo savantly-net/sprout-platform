@@ -4,27 +4,19 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Set;
 
-import javax.transaction.Transactional;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
-import net.savantly.spring.fixture.Fixture;
 import net.savantly.sprout.core.content.contentField.ContentField;
 import net.savantly.sprout.core.content.contentItem.ContentItem;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplate;
@@ -33,10 +25,9 @@ import net.savantly.sprout.core.content.contentTemplate.ContentTemplateRepositor
 import net.savantly.sprout.core.content.contentType.ContentType;
 import net.savantly.sprout.core.content.contentType.ContentTypeFixture;
 import net.savantly.sprout.core.content.contentType.ContentTypeRepository;
+import net.savantly.sprout.test.IntegrationTest;
 
-@SpringBootTest
-@RunWith(SpringRunner.class)
-@Transactional
+@IntegrationTest
 public class ContentItemRenderingChainTest {
 	
 	private static final Logger log = LoggerFactory.getLogger(ContentItemRenderingChainTest.class);
@@ -47,19 +38,11 @@ public class ContentItemRenderingChainTest {
 	private ContentTypeRepository ctRepository;
 	@Autowired
 	private ContentTemplateRepository templateRepository;
-	@Autowired
-	@Qualifier("contentTypeFixture")
-	private Fixture<ContentType> contentTypeFixture;
-	@Autowired
-	@Qualifier("contentTemplateFixture")
-	private Fixture<ContentTemplate> templateFixture;
 	
 	ContentTemplate	contentTemplate;
 	
-	@Before
+	@BeforeEach
 	public void before() {
-		templateFixture.install();
-		contentTypeFixture.install();
 		contentTemplate = templateRepository.findByName(ContentTemplateFixture.defaultContentTemplateName);
 	}
 	
@@ -80,11 +63,10 @@ public class ContentItemRenderingChainTest {
 	
 		StringWriter writer = new StringWriter();
 		renderer.render(contentItem, writer);
-		Assert.assertEquals("should equal", "test", writer.toString());
+		Assertions.assertEquals("test", writer.toString());
 	}
 	
-	@Configuration
-	@EnableAutoConfiguration
+	@TestConfiguration
 	static class TestContext {
 
 		@Bean

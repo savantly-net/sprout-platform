@@ -35,7 +35,7 @@ public class AppSettingFixture extends AbstractBaseFixture<AppSetting, AppSettin
 	}
 
 	private void ensure(SettingName name, String value) {
-		if(this.repository.findOne(name.toString()) == null) {
+		if(!this.repository.findById(name.toString()).isPresent()) {
 			this.repository.save(new AppSetting(name, value));
 		}
 	}

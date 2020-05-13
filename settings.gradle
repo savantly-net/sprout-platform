@@ -1,0 +1,14 @@
+pluginManagement {
+	plugins {
+		id 'io.spring.dependency-management' version "${spring_plugin_version}"
+		id 'org.springframework.boot' version "${spring_boot_version}"
+        id 'org.sonarqube' version "${sonarqube_plugin_version}"
+	}
+}
+
+rootProject.name = 'sprout-platform'
+
+include 'sprout-core'
+include 'spring:sprout-spring-boot-starter'
+include 'server'
+include 'web:sprout-admin'
