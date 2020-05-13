@@ -3,6 +3,7 @@ package net.savantly.sprout.starter;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
@@ -28,7 +29,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import net.savantly.sprout.tenancy.MultiTenantConnectionProviderImpl;
 import net.savantly.sprout.tenancy.TenantIdentifierResolver;
 
-@Configuration
+@Configuration("sproutJpaConfiguration")
 @EnableJpaRepositories(basePackages="net.savantly.sprout.**")
 public class JpaConfiguration  {	
 	
@@ -69,12 +70,14 @@ public class JpaConfiguration  {
                                                                        CurrentTenantIdentifierResolver currentTenantIdentifierResolverImpl) {
         Map<String, Object> properties = new HashMap<>();
         properties.putAll(jpaProperties.getProperties());
+        // TODO??: broke when updated to Spring Boot 2
+        // properties.putAll(jpaProperties.getHibernateProperties(dataSource));
         properties.put(Environment.MULTI_TENANT, MultiTenancyStrategy.SCHEMA);
         properties.put(Environment.MULTI_TENANT_CONNECTION_PROVIDER, multiTenantConnectionProviderImpl);
         properties.put(Environment.MULTI_TENANT_IDENTIFIER_RESOLVER, currentTenantIdentifierResolverImpl);
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan("net.savantly.sprout.**");
+        em.setPackagesToScan("net.savantly.**");
         em.setJpaVendorAdapter(jpaVendorAdapter());
         em.setJpaPropertyMap(properties);
         return em;
@@ -88,8 +91,8 @@ public class JpaConfiguration  {
     }
     
     @Bean
-	public SchemaConfiguration schemaConfiguration(DataSource ds) {
-		SchemaConfiguration schemaConfiguration = new SchemaConfiguration();
+	public SchemaConfiguration schemaConfiguration(DataSource ds, EntityManager em) {
+		SchemaConfiguration schemaConfiguration = new SchemaConfiguration(dataSourceProperties, jpaProperties, ds);
 		return schemaConfiguration;
 	}
     

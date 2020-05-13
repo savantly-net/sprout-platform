@@ -98,5 +98,4 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 	AuthenticationSuccessHandler successHandler(){
 		return new SimpleUrlAuthenticationSuccessHandler("/rest/users/token");
 	}
-
 }

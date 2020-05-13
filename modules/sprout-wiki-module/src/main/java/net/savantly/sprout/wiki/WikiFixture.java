@@ -18,7 +18,7 @@ import net.savantly.sprout.wiki.repository.WikiItemRepository;
 
 /** 
  * Add some fixture stuff, like a menu and default wiki page
- * @author jdb6853
+ * @author jdbranham
  *
  */
 @Component

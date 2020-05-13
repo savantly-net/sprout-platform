@@ -138,5 +138,4 @@ public interface SproutUser extends UserDetails {
 			}
 		};
 	}
-
 }

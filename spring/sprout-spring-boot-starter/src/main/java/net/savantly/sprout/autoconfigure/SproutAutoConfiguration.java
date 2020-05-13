@@ -24,7 +24,7 @@ import net.savantly.sprout.starter.JpaConfiguration;
 @Configuration
 @EntityScan
 @EnableTransactionManagement
-@Import(JpaConfiguration.class)
+@Import({JpaConfiguration.class})
 @EnableAspectJAutoProxy
 @ConfigurationPropertiesScan
 public class SproutAutoConfiguration {

@@ -42,7 +42,7 @@ public class SproutFixturesConfiguration {
 	protected RoleFixture roleFixture(RoleRepository repository, PrivilegeFixture privFixture, PrivilegeRepository privRepository) {
 		return new RoleFixture(repository, privFixture, privRepository);
 	}
-	
+
 	@Bean
 	protected PrivilegeFixture privilegeFixture(PrivilegeRepository privRepository) {
 		return new PrivilegeFixture(privRepository);

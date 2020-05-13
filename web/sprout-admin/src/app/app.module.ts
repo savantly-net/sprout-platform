@@ -22,6 +22,7 @@ import { WebPageModule } from './web-page/web-page.module';
 import { UserModule } from './user/user.module';
 import { FileBrowserComponent } from './file-browser/file-browser.component';
 import { ServerPluginsModule } from './server-plugins/server-plugins.module';
+import { TenantModule } from './tenant/tenant.module';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { ServerPluginsModule } from './server-plugins/server-plugins.module';
     WebPageModule,
     UserModule,
     AppSettingsModule,
-    ServerPluginsModule
+    ServerPluginsModule,
+    TenantModule
   ],
   exports: [],
   providers: [AppService, DynamicBuilderService],

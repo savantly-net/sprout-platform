@@ -118,5 +118,4 @@ public class UserFixture extends AbstractBaseFixture<SproutUserEntity, UserRepos
         dependencies.add(roleFixture);
         dependencies.add(emailFixture);
     }
-
 }

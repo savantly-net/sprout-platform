@@ -25,7 +25,7 @@ public class SproutAuditorAware implements AuditorAware<SproutUser> {
             	return Optional.of(SproutUser.guestUser());
             }
         }
-        
+
         return null;
     }
 }

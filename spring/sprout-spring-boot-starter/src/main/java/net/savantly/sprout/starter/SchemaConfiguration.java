@@ -7,6 +7,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 import org.hibernate.boot.MetadataSources;
@@ -23,10 +24,12 @@ import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.context.ApplicationContext;
 
 import net.savantly.sprout.autoconfigure.SproutRepositoryRestAutoConfiguration;
+import net.savantly.sprout.core.domain.tenant.TenantEntity;
+import net.savantly.sprout.tenancy.TenantContext;
 
 public class SchemaConfiguration implements InitializingBean {
 	private static Logger log = LoggerFactory.getLogger(SchemaConfiguration.class);
-	public static String DEFAULT_SCHEMA = "sprout";
+	public static String DEFAULT_SCHEMA = TenantEntity.TENANT_SCHEMA;
 	// public static String NAMING_STRATEGY = "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy"; // org.hibernate.cfg.ImprovedNamingStrategy; // "org.springframework.boot.orm.jpa.SpringNamingStrategy";
 
 	@Autowired
@@ -38,6 +41,13 @@ public class SchemaConfiguration implements InitializingBean {
 	@Autowired
 	private ApplicationContext ctx;
 	
+	public SchemaConfiguration(DataSourceProperties dataSourceProperties, JpaProperties jpaProperties,
+			DataSource dataSource) {
+		this.dataSourceProperties = dataSourceProperties;
+		this.jpaProperties = jpaProperties;
+		this.dataSource = dataSource;
+	}
+
 	public void ensureSchemaExists(String schema) throws SQLException {
 		boolean exists = false;
 		Connection connection = this.dataSource.getConnection();
@@ -67,8 +77,12 @@ public class SchemaConfiguration implements InitializingBean {
 		
 		if(!exists) {
 			this.scaffoldSchema(schema);
+			String prevTenant = TenantContext.getCurrentTenant();
+			TenantContext.setCurrentTenant(DEFAULT_SCHEMA);
 			SproutFixtures fixtures = ctx.getBean(SproutFixtures.class);
 			fixtures.installFixtures(schema);
+			// reset back to previous schema
+			TenantContext.setCurrentTenant(prevTenant);
 		}
 	}
 	

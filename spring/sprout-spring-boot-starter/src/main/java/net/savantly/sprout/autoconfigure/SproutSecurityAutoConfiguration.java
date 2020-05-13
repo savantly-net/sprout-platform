@@ -5,6 +5,7 @@ import javax.servlet.Filter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
@@ -26,6 +27,10 @@ import net.savantly.sprout.starter.SproutWebSecurityConfiguration;
 @Import(SecurityProblemSupport.class)
 public class SproutSecurityAutoConfiguration {
 
+	@Bean
+	public AuthenticationManager authenticationManager(SproutWebSecurityConfiguration securityConfig) throws Exception {
+		return securityConfig.authenticationManagerBean();
+	}
 
 	@Bean
 	public SproutWebSecurityConfiguration sproutWebSecurityConfiguration(

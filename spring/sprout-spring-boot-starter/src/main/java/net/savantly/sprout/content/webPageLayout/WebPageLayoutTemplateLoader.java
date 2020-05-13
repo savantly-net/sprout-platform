@@ -83,5 +83,4 @@ public class WebPageLayoutTemplateLoader implements TemplateLoader {
 	public void closeTemplateSource(Object templateSource) throws IOException {
 		// Nothing to do here...
 	}
-
 }
