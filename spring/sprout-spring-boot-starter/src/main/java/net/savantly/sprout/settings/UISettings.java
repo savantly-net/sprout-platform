@@ -15,32 +15,36 @@ public class UISettings {
 		return settings.save(setting);
 	}
 	public Iterable<AppSetting> save(Iterable<AppSetting> setting) {
-		return settings.save(setting);
+		return settings.saveAll(setting);
 	}
 
 	public AppSetting getKeywords() {
-		return settings.findOne(SettingName.KEYWORDS.toString());
+		return getSetting(SettingName.KEYWORDS);
 	}
 	public AppSetting getSiteDescription() {
-		return settings.findOne(SettingName.SITE_DESCRIPTION.toString());
+		return getSetting(SettingName.SITE_DESCRIPTION);
 	}
 	public AppSetting getSiteUrl() {
-		return settings.findOne(SettingName.SITE_URL.toString());
+		return getSetting(SettingName.SITE_URL);
 	}
 	public AppSetting getPreviewImage() {
-		return settings.findOne(SettingName.PREVIEW_IMAGE.toString());
+		return getSetting(SettingName.PREVIEW_IMAGE);
 	}
 	public AppSetting getSiteTitle() {
-		return settings.findOne(SettingName.SITE_TITLE.toString());
+		return getSetting(SettingName.SITE_TITLE);
 	}
 	public AppSetting getSiteBanner() {
-		return settings.findOne(SettingName.SITE_BANNER.toString());
+		return getSetting(SettingName.SITE_BANNER);
 	}
 	public AppSetting getShowBanner() {
-		return settings.findOne(SettingName.SHOW_BANNER.toString());
+		return getSetting(SettingName.SHOW_BANNER);
 	}
 	public AppSetting getSiteName() {
-		return settings.findOne(SettingName.SITE_NAME.toString());
+		return getSetting(SettingName.SITE_NAME);
+	}
+	
+	private AppSetting getSetting(SettingName settingName) {
+		return settings.findById(settingName.name()).orElseThrow(()->new RuntimeException("missing setting: " + settingName.name()));
 	}
 	
 }

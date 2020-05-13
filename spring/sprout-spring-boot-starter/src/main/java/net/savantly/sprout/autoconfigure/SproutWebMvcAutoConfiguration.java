@@ -6,18 +6,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.h2.server.web.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.freemarker.FreeMarkerProperties;
-import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
+import org.springframework.web.servlet.resource.ResourceResolver;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 import freemarker.template.TemplateException;
@@ -43,10 +43,21 @@ import net.savantly.sprout.tenancy.TenantInterceptor;
 
 @Configuration
 @AutoConfigureBefore(WebMvcAutoConfiguration.class)
-@Import(PluginConfiguration.class)
+@Import({PluginConfiguration.class, SproutMvcConfiguration.class})
 public class SproutWebMvcAutoConfiguration implements InitializingBean {
 	
 	private static final Logger log = LoggerFactory.getLogger(SproutWebMvcAutoConfiguration.class);
+	
+	//@Bean 
+	public ResourceHttpRequestHandler resourceHttpRequestHandler(SproutMvcConfiguration mvcConfig) {
+		ResourceHttpRequestHandler resourceHandler = new ResourceHttpRequestHandler();
+		/*
+		List<ResourceResolver> resourceResolvers = new ArrayList<>();
+		resourceResolvers.add(mvcConfig.)
+		resourceHandler.setResourceResolvers(resourceResolvers);
+		*/
+		return resourceHandler;
+	}
 	
 	@Bean
 	public TenantInterceptor tenantInterceptor() {
@@ -58,25 +69,12 @@ public class SproutWebMvcAutoConfiguration implements InitializingBean {
 		return new UISettings(appSettings);
 	}
 
+	/*
 	@Bean
 	public SproutMvcConfiguration sproutMvcAutoConfigurationAdapter() {
 		return new SproutMvcConfiguration();
-	}
-	
-	@Bean
-	public DefaultMvcController defaultMvcController() {
-		return new DefaultMvcController();
-	}
-	
-	@Bean
-	public LoginController loginController() {
-		return new LoginController();
-	}
-	
-	@Bean
-	public ClientController clientController(AppSettingRepository settingsRepository) {
-		return new ClientController(settingsRepository);
-	}
+	} */
+
 	
 	// Also intercepts FreeMarker properties to ensure required paths are included
     @Bean("freeMarkerViewResolver")
@@ -91,6 +89,7 @@ public class SproutWebMvcAutoConfiguration implements InitializingBean {
 		
 		freeMarkerProps.setTemplateLoaderPath(pathsToAdd.toArray(new String[pathsToAdd.size()]));
 		freeMarkerProps.setCheckTemplateLocation(false);
+		freeMarkerProps.setSuffix(".html");
 		
         FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
         resolver.setSuffix(".html");
@@ -106,13 +105,6 @@ public class SproutWebMvcAutoConfiguration implements InitializingBean {
 	public ContentItemRenderer defaultContentItemRenderer(ContentTemplateRepository repository) throws IOException, TemplateException {
 		ContentTypeTemplateLoader loader = new ContentTypeTemplateLoader(repository);
 		return new ContentItemFreemarkerRenderer(loader);
-	}
-
-	@Bean
-	public ServletRegistrationBean h2servletRegistration() {
-		ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
-		registrationBean.addUrlMappings("/console/*");
-		return registrationBean;
 	}
 	
 	@Bean

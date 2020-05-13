@@ -19,14 +19,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Transient;
-import javax.transaction.Transactional;
-import javax.transaction.Transactional.TxType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Fetch;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
@@ -54,9 +49,13 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
     // ================================================================================================
 
     @JsonProperty(access = Access.WRITE_ONLY)
+	@Column(length=60)
     private String password;
+	@Column(unique = true)
     private String username;
     private String displayName;
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
+    @CollectionTable(name="APP_USER_EMAIL_ADDRESS")
     private Set<EmailAddress> emailAddresses = new HashSet<>();
     private boolean hidePrimaryEmailAddress;
     private String firstName;
@@ -65,9 +64,18 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
     private boolean accountNonLocked = true;
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
+	@ManyToOne(fetch=FetchType.EAGER)
     private Organization organization;
     private String phoneNumber;
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
     private Set<OAuthAccount> oAuthAccounts = new HashSet<>();
+	@ManyToMany(targetEntity=Role.class, fetch=FetchType.EAGER)
+    @JoinTable( 
+        name = "users_roles", 
+        joinColumns = @JoinColumn(
+          name = "user_id", referencedColumnName = "id"), 
+        inverseJoinColumns = @JoinColumn(
+          name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles = new HashSet<>();
 
     private String clearTextPassword;
@@ -190,13 +198,11 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
     }
 
     @Override
-	@Column(length=60)
     public String getPassword() {
         return password;
     }
 
     @Override
-	@Column(unique = true)
     public String getUsername() {
         return username;
     }
@@ -236,8 +242,6 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
     }
 
     @Override
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
-    @CollectionTable(name="APP_USER_EMAIL_ADDRESS")
     public Set<EmailAddress> getEmailAddresses() {
         return emailAddresses;
     }
@@ -351,7 +355,6 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
     }
 
     @Override
-	@ManyToOne(fetch=FetchType.EAGER)
     public Organization getOrganization() {
         return organization;
     }
@@ -386,7 +389,6 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
 	}
 
 	@Override
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
 	public Set<OAuthAccount> getoAuthAccounts() {
 		return oAuthAccounts;
 	}
@@ -399,13 +401,6 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
 		this.oAuthAccounts.add(oauthAccount);
 	}
 
-	@ManyToMany(targetEntity=Role.class, fetch=FetchType.EAGER)
-    @JoinTable( 
-        name = "users_roles", 
-        joinColumns = @JoinColumn(
-          name = "user_id", referencedColumnName = "id"), 
-        inverseJoinColumns = @JoinColumn(
-          name = "role_id", referencedColumnName = "id"))
     @JsonIgnoreProperties("users")
 	public Set<Role> getRoles() {
 		return roles;

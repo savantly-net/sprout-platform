@@ -15,13 +15,15 @@ import net.savantly.sprout.core.domain.PersistedDomainObject;
 @Entity
 @Table(name="CONTENT_TEMPLATE")
 public class ContentTemplate extends PersistedDomainObject{
-	
+
+	@Column(unique=true)
 	private String name;
 	private String description;
+	@Lob
 	private String content;
+	@OneToMany
 	private Set<ContentItem> contentItems = new HashSet<ContentItem>();
 	
-	@Column(unique=true)
 	public String getName() {
 		return name;
 	}
@@ -38,7 +40,6 @@ public class ContentTemplate extends PersistedDomainObject{
 		this.description = description;
 	}
 
-	@Lob
 	public String getContent() {
 		return content;
 	}
@@ -47,7 +48,6 @@ public class ContentTemplate extends PersistedDomainObject{
 		this.content = content;
 	}
 
-	@OneToMany
 	public Set<ContentItem> getContentItems() {
 		return contentItems;
 	}

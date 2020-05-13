@@ -26,12 +26,14 @@ public class WebPageContent extends PersistedDomainObject {
 	static final String WEBPAGE_ID = "webPageId";
 	static final String PLACEHOLDER_ID = "placeHolderId";
 
-	private WebPage webPage;
-	private String placeHolderId;
-	private List<ContentItem> contentItems = new ArrayList<>();
-	
 	@ManyToOne
 	@JoinColumn(name=WEBPAGE_ID, nullable=false)
+	private WebPage webPage;
+	@Column(name=PLACEHOLDER_ID)
+	private String placeHolderId;
+	@ManyToMany(fetch=FetchType.EAGER)
+	private List<ContentItem> contentItems = new ArrayList<>();
+	
 	public WebPage getWebPage() {
 		return webPage;
 	}
@@ -39,14 +41,12 @@ public class WebPageContent extends PersistedDomainObject {
 		this.webPage = webPage;
 	}
 	
-	@Column(name=PLACEHOLDER_ID)
 	public String getPlaceHolderId() {
 		return placeHolderId;
 	}
 	public void setPlaceHolderId(String placeHolderId) {
 		this.placeHolderId = placeHolderId;
 	}
-	@ManyToMany(fetch=FetchType.EAGER)
 	public List<ContentItem> getContentItems() {
 		return contentItems;
 	}

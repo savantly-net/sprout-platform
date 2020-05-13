@@ -18,26 +18,10 @@ import net.savantly.sprout.core.security.privilege.Privilege;
 
 @Entity
 public class Role extends PersistedDomainObject  {
-  
-    private Set<SproutUserEntity> users = new HashSet<>();
-    private Set<Privilege> privileges = new HashSet<>();
-    
-    public Role() {	}
-
-    public Role(String string) {
-		this.id = string;
-	}
 
     @JsonIgnore
     @ManyToMany(mappedBy = "roles")
-	public Set<SproutUserEntity> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Set<SproutUserEntity> users) {
-		this.users = users;
-	}
-
+    private Set<SproutUserEntity> users = new HashSet<>();
 	@ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
         name = "roles_privileges", 
@@ -46,6 +30,22 @@ public class Role extends PersistedDomainObject  {
         inverseJoinColumns = @JoinColumn(
           name = "privilege_id"))
     @JsonIgnoreProperties("roles")
+    private Set<Privilege> privileges = new HashSet<>();
+    
+    public Role() {	}
+
+    public Role(String string) {
+		this.id = string;
+	}
+
+	public Set<SproutUserEntity> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<SproutUserEntity> users) {
+		this.users = users;
+	}
+
 	public Set<Privilege> getPrivileges() {
 		return privileges;
 	}

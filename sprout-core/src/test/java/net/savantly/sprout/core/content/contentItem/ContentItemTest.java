@@ -2,23 +2,18 @@ package net.savantly.sprout.core.content.contentItem;
 
 import java.util.Set;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import net.savantly.sprout.core.DataIntegrationTest;
 import net.savantly.sprout.core.content.contentField.ContentField;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplate;
 import net.savantly.sprout.core.content.contentTemplate.ContentTemplateFixture;
@@ -28,9 +23,7 @@ import net.savantly.sprout.core.content.contentType.ContentTypeFixture;
 import net.savantly.sprout.core.content.contentType.ContentTypeRepository;
 import net.savantly.sprout.core.content.fieldType.FieldType;
 
-
-@RunWith(SpringRunner.class)
-@ContextConfiguration
+@DataIntegrationTest
 public class ContentItemTest {
 	
 	static final String defaultContentTypeName = "Default Content Type";
@@ -48,7 +41,7 @@ public class ContentItemTest {
 	ContentTemplate	contentTemplate;
 	ContentType contentType;
 	
-	@Before
+	@BeforeEach
 	public void before() {
 		
 		ContentField cf = new ContentField();
@@ -89,10 +82,7 @@ public class ContentItemTest {
 		
 	}
 
-	@Configuration
-	@SpringBootApplication
-	@EnableJpaRepositories(basePackages="net.savantly.sprout.core.content")
-	@EntityScan(basePackages="net.savantly.sprout.core.content")
+	@TestConfiguration
 	static class configuration {
 
 		@Bean

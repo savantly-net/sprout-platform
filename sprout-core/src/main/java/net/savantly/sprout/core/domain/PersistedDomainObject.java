@@ -8,22 +8,17 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.domain.Persistable;
-import org.springframework.hateoas.Identifiable;
 import org.springframework.util.ClassUtils;
 
-import net.savantly.sprout.core.configuration.SproutConfiguration;
-
 @MappedSuperclass
-public abstract class PersistedDomainObject extends AbstractAuditableDomainObject<String> implements Persistable<String>, Identifiable<String>  {
-
-    private static final long serialVersionUID = SproutConfiguration.serialVersionUID;
-
-    protected String id;
-
-    @Id
+public abstract class PersistedDomainObject extends AbstractAuditableDomainObject<String> implements Persistable<String> {
+   
+	@Id
     @GeneratedValue(generator = "UseExistingOrGenerateIdGenerator")
     @GenericGenerator(name = "UseExistingOrGenerateIdGenerator", strategy = "net.savantly.sprout.core.domain.UseExistingOrGenerateIdGenerator")
     @Column(columnDefinition = "CHAR(36)")
+    protected String id;
+	
     public String getId() {
         return id;
     }

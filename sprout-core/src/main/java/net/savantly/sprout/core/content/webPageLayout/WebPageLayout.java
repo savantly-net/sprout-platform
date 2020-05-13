@@ -17,14 +17,18 @@ import net.savantly.sprout.core.domain.PersistedDomainObject;
 @Entity
 @Table(name="WEB_PAGE_LAYOUT")
 public class WebPageLayout extends PersistedDomainObject {
+	@Column(unique=true)
 	private String name;
 	private String description;
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name = "WEB_PAGE_LAYOUT_PLACEHOLDER")
+	@OrderColumn(name = "index_id")
 	private Set<String> placeHolders = new HashSet<>();
+	@Lob
 	private String template;
 	private boolean showHeader = true;
 	private boolean showFooter = true;
 	
-	@Column(unique=true)
 	public String getName() {
 		return name;
 	}
@@ -38,16 +42,12 @@ public class WebPageLayout extends PersistedDomainObject {
 		this.description = description;
 	}
 
-	@ElementCollection(fetch=FetchType.EAGER)
-	@CollectionTable(name = "WEB_PAGE_LAYOUT_PLACEHOLDER")
-	@OrderColumn(name = "index_id")
 	public Set<String> getPlaceHolders() {
 		return placeHolders;
 	}
 	public void setPlaceHolders(Set<String> placeholders) {
 		this.placeHolders = placeholders;
 	}
-	@Lob
 	public String getTemplate() {
 		return template;
 	}

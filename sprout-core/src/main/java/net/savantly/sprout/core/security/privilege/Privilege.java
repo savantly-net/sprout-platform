@@ -15,6 +15,8 @@ import net.savantly.sprout.core.security.role.Role;
 public class Privilege extends PersistedDomainObject implements GrantedAuthority{
 
 	private static final long serialVersionUID = -8442995033031637920L;
+
+    @ManyToMany(mappedBy = "privileges", targetEntity=Role.class)
     private Set<Role> roles;
 	
 	public Privilege(){}
@@ -29,7 +31,6 @@ public class Privilege extends PersistedDomainObject implements GrantedAuthority
 		return id;
 	}
 
-    @ManyToMany(mappedBy = "privileges", targetEntity=Role.class)
 	public Set<Role> getRoles() {
 		return roles;
 	}

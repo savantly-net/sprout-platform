@@ -1,0 +1,52 @@
+plugins {
+	id 'org.springframework.boot' apply false
+	id 'io.spring.dependency-management'
+	id 'java'
+	id 'java-library'
+	id 'signing'
+	id 'maven'
+ 	id 'jacoco'
+ 	id 'org.sonarqube'
+	id "org.owasp.dependencycheck" version "5.3.1"
+}
+
+archivesBaseName = name
+description = "The core of the Sprout Platform"
+sourceCompatibility = '1.8'
+
+apply from: '../gradle/sonar.gradle'
+apply from: '../gradle/sonatype.gradle'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	api 'org.springframework.boot:spring-boot-starter-data-jpa',
+		'org.springframework.boot:spring-boot-starter-security',
+		'org.springframework.boot:spring-boot-starter-data-rest',
+		'org.springframework.boot:spring-boot-starter-hateoas',
+		'org.springframework.data:spring-data-rest-hal-explorer',
+		'net.savantly:spring-fixtures:1.0.0-RELEASE'
+
+	compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok',
+        'org.springframework.boot:spring-boot-configuration-processor'
+        
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testImplementation 'org.springframework.security:spring-security-test',
+		'com.h2database:h2'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+dependencyManagement {
+	imports {
+		mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+	}
+}
+

@@ -7,16 +7,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -28,7 +26,6 @@ import net.savantly.sprout.core.domain.menu.MenuRepository;
 
 @SpringBootTest
 @WebAppConfiguration
-@RunWith(SpringRunner.class)
 public class SproutWebMvcAutoConfigurationTest {
 	
 	private static final Logger log = LoggerFactory.getLogger(SproutWebMvcAutoConfigurationTest.class);
@@ -40,7 +37,7 @@ public class SproutWebMvcAutoConfigurationTest {
 	
 	private MockMvc mvc;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		mvc = MockMvcBuilders
 				.webAppContextSetup(ctx)

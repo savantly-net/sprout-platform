@@ -64,11 +64,11 @@ public class UserFixture extends AbstractBaseFixture<SproutUserEntity, UserRepos
         if(userDetails != null) return;
         
         Set<Role> authorities = new HashSet<Role>(1);
-        authorities.add(roleRepository.findOne(RoleFixture.ADMIN_ROLE));
+        authorities.add(getRole(RoleFixture.ADMIN_ROLE));
         userDetails = new SproutUserEntity(username, RandomGenerator.getRandomAlphaNumericString(25) , username, username, authorities);
         userDetails.setDisplayName("SYSTEM");
         
-        EmailAddress emailAddress =  emailAddressRepository.findOne(EmailAddressFixture.SYSTEM_EMAIL);
+        EmailAddress emailAddress =  getEmailAddress(EmailAddressFixture.SYSTEM_EMAIL);
         userDetails.setPrimaryEmailAddress(emailAddress);
         entityList.add(userDetails);
     }
@@ -80,11 +80,11 @@ public class UserFixture extends AbstractBaseFixture<SproutUserEntity, UserRepos
         if(userDetails != null) return;
         
         Set<Role> authorities = new HashSet<Role>(1);
-        authorities.add(roleRepository.findOne(RoleFixture.ANONYMOUS_ROLE));
+        authorities.add(getRole(RoleFixture.ANONYMOUS_ROLE));
         userDetails = new SproutUserEntity(username, RandomGenerator.getRandomAlphaNumericString(25) , username, username, authorities);
         userDetails.setDisplayName(ANONYMOUS_USER);
         
-        EmailAddress emailAddress =  emailAddressRepository.findOne(EmailAddressFixture.ANONYMOUS_EMAIL);
+        EmailAddress emailAddress =  getEmailAddress(EmailAddressFixture.ANONYMOUS_EMAIL);
         userDetails.setPrimaryEmailAddress(emailAddress);
         entityList.add(userDetails);
     }
@@ -96,16 +96,23 @@ public class UserFixture extends AbstractBaseFixture<SproutUserEntity, UserRepos
         if(userDetails != null) return;
         
         Set<Role> authorities = new HashSet<Role>(1);
-        authorities.add(roleRepository.findOne("ADMIN"));
+        authorities.add(getRole(RoleFixture.ADMIN_ROLE));
         userDetails = new SproutUserEntity(username, password , "Admin", "User", authorities);
         userDetails.setDisplayName("Admin User");
         userDetails.setPassword(encoder.encode(password));
         
-        EmailAddress emailAddress =  emailAddressRepository.findOne(EmailAddressFixture.ADMIN_EMAIL);
+        EmailAddress emailAddress =  getEmailAddress(EmailAddressFixture.ADMIN_EMAIL);
         userDetails.setPrimaryEmailAddress(emailAddress);
         entityList.add(userDetails);
     }
 
+    private Role getRole(String roleId) {
+    	return roleRepository.findById(roleId).orElseThrow(()->new RuntimeException("didn't find role: " + roleId));
+    }
+    
+    private EmailAddress getEmailAddress(String id) {
+    	return emailAddressRepository.findById(id).orElseThrow(()->new RuntimeException("didn't find email address with id: " + id));
+    }
    
     public void addDependencies(List<Fixture<?>> dependencies) {
         dependencies.add(roleFixture);

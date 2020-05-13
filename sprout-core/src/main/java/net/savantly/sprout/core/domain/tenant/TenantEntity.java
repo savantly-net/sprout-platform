@@ -12,10 +12,10 @@ import net.savantly.sprout.core.domain.PersistedDomainObject;
 @Entity
 @Table(name="TENANT")
 public class TenantEntity extends PersistedDomainObject implements Tenant{
-	
-	private Set<String> aliases = new HashSet<String>();
 
 	@ElementCollection
+	private Set<String> aliases = new HashSet<String>();
+
 	public Set<String> getAliases() {
 		return aliases;
 	}

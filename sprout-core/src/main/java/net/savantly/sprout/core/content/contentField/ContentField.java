@@ -4,8 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import net.savantly.sprout.core.content.contentType.ContentType;
 import net.savantly.sprout.core.content.fieldType.FieldType;
 import net.savantly.sprout.core.domain.PersistedDomainObject;
@@ -19,6 +17,7 @@ public class ContentField extends PersistedDomainObject{
 	private boolean required;
 	private int sortOrder;
 	private String displayName;
+	@ManyToOne
 	private ContentType contentType;
 
 	public String getName() {
@@ -61,7 +60,6 @@ public class ContentField extends PersistedDomainObject{
 		this.displayName = displayName;
 	}
 
-	@ManyToOne
 	public ContentType getContentType() {
 		return contentType;
 	}
