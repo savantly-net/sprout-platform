@@ -12,10 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
@@ -42,7 +39,7 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
  	public void configure(WebSecurity web) throws Exception {
  		web.ignoring()
  			.antMatchers(HttpMethod.OPTIONS, "/**")
- 			.antMatchers("/", "/*.js", "/js/**", "/*.html", "/css/**", "/img/**",  "favicon.ico*", "**/favicon.ico*", "/login", "/login/");
+ 			.antMatchers("/", "/*.js", "/js/**", "/*.html", "/css/**", "/img/**",  "/favicon.ico*", "**/favicon.ico*", "/login", "/login/");
  		web.debug(true);
  	}
 
@@ -55,12 +52,11 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
         .and()
             .authorizeRequests()
             .antMatchers("/", "/js/**", "/css/**", "/index", "/rest/**", "/api/**", "/ui", "/ui/**", "/login", "/login/").permitAll()
-            .antMatchers("/admin", "/admin/**").fullyAuthenticated()
+            .antMatchers("/admin", "/admin/**").authenticated()
         .and()
             .formLogin()
             	.loginPage("/login")
                 .permitAll()
-                .successHandler(successHandler())
         .and()
             .logout()
             	.logoutSuccessHandler(logoutSuccessHandler())
@@ -70,15 +66,12 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
         	.httpBasic()
         .and()
         	.exceptionHandling()
-            .authenticationEntryPoint(problemSupport)
             .accessDeniedHandler(problemSupport)
-        	.accessDeniedPage("/errors/403")
-        .and()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        	//.accessDeniedPage("/errors/403")
         .and()
         	.addFilterBefore(anonymousFilter , BasicAuthenticationFilter.class)
-            .apply(securityConfigurerAdapter());
+            .apply(securityConfigurerAdapter())
+        ;
 	}
 
 	private JWTConfigurer securityConfigurerAdapter() {
@@ -93,9 +86,5 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 				res.setStatus(200);
 			}
 		};
-	}
-	
-	AuthenticationSuccessHandler successHandler(){
-		return new SimpleUrlAuthenticationSuccessHandler("/rest/users/token");
 	}
 }

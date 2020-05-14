@@ -32,24 +32,24 @@ npm_run_build {
     inputs.files fileTree("src")
     inputs.file 'package.json'
     inputs.file 'package-lock.json'
-    outputs.dir 'target'
+    outputs.dir "${projectDir}/dist"
 }
 task copyDist(type: Copy) {
 	dependsOn npm_run_build
 	from 'dist'
-    into "$buildDir/classes/META-INF/resources/admin"
+    into "${projectDir}/build/classes/META-INF/resources/admin"
 }
 task copyIndex(type: Copy) {
 	dependsOn copyDist
 	from 'dist/index.html'
-	into "$buildDir/classes/META-INF/templates/admin"
+	into "${projectDir}/build/classes/META-INF/templates/admin"
 }
 task packageNpmApp(type: Zip) {
-    dependsOn copyDist
+    dependsOn copyIndex
     baseName 'sprout-admin'
     extension 'jar'
-    destinationDir file("$buildDir/")
-    from("$buildDir/classes/") {
+    destinationDir file("${projectDir}/target/")
+    from("${projectDir}/build/classes/") {
         // optional path under which output will be visible in Java classpath, e.g. static resources path
         // into 'static' 
     }
@@ -71,4 +71,6 @@ assemble.dependsOn packageNpmApp
 
 clean {
     delete packageNpmApp.archivePath
+    delete 'dist'
+    delete 'target'
 }
