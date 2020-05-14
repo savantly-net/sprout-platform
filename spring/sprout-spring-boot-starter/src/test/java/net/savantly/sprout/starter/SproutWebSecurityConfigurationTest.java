@@ -1,5 +1,7 @@
 package net.savantly.sprout.starter;
 
+import java.net.URI;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -15,6 +17,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.test.context.TestPropertySource;
@@ -24,8 +27,11 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import net.savantly.sprout.test.IntegrationTest;
+
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations="classpath:test.properties")
+@IntegrationTest
 public class SproutWebSecurityConfigurationTest {
 
 	private static final Logger log = LoggerFactory.getLogger(SproutWebSecurityConfigurationTest.class);
@@ -48,10 +54,11 @@ public class SproutWebSecurityConfigurationTest {
 	public void loadRootPage() throws Exception {
 		String url = "/";
 		
-		ResponseEntity<String> result = rest.getForEntity(url, String.class);
+		RequestEntity request = RequestEntity.get(new URI(url)).accept(MediaType.TEXT_HTML).build();
+		ResponseEntity<String> response = rest.exchange(request, String.class);
 		
-		log.info("{}", result.getBody());
-		Assertions.assertTrue(result.getStatusCode() == HttpStatus.OK, "Should find the root view");
+		log.info("{}", response.getBody());
+		Assertions.assertTrue(response.getStatusCode() == HttpStatus.OK, "Should find the root view");
 	}
 	
 
@@ -63,7 +70,7 @@ public class SproutWebSecurityConfigurationTest {
 		ResponseEntity<String> result = rest.getForEntity(url, String.class);
 		
 		log.info("{}", result.getBody());
-		Assertions.assertTrue(result.getStatusCode() == HttpStatus.OK, "Should find the login view");
+		Assertions.assertEquals(HttpStatus.OK, result.getStatusCode(), "Should find the login view");
 	}
 	
 	@Test

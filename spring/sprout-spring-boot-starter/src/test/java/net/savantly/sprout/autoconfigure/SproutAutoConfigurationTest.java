@@ -59,13 +59,6 @@ public class SproutAutoConfigurationTest {
 		mvc.perform(get("/admin/test.js")).andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType("application/javascript"));
 	}
 	
-	@Test
-	public void loadAdminAngularRoute() throws Exception {
-		mvc.perform(get("/admin/app-menu"))
-			.andExpect(status().isOk())
-			.andExpect(MockMvcResultMatchers.view().name("admin/index"));
-	}
-	
 	@Configuration
 	@EnableAutoConfiguration
 	@Import(SproutAutoConfiguration.class)

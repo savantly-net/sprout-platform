@@ -17,12 +17,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;
 import org.springframework.hateoas.Link;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -33,7 +33,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.savantly.sprout.EmbeddedSproutServer;
 import net.savantly.sprout.core.content.contentItem.ContentItem;
 import net.savantly.sprout.core.content.contentItem.ContentItemRepository;
 import net.savantly.sprout.core.content.contentType.ContentTypeFixture;
@@ -44,7 +43,8 @@ import net.savantly.sprout.core.content.webPageLayout.WebPageLayout;
 import net.savantly.sprout.core.content.webPageLayout.WebPageLayoutFixture;
 import net.savantly.sprout.core.content.webPageLayout.WebPageLayoutRepository;
 
-@SpringBootTest(classes= {EmbeddedSproutServer.class}, webEnvironment=WebEnvironment.RANDOM_PORT)
+@SpringBootTest
+@WebAppConfiguration
 public class WebPageRestRepositoryTest {
 
 	private static final Logger log = LoggerFactory.getLogger(WebPageRestRepositoryTest.class);
@@ -94,9 +94,7 @@ public class WebPageRestRepositoryTest {
 		
 		// Add ContentItem to webPageContent
 		addContentItemToWebPageContent(webPageContent);	
-		
-		/** Broken in unit tests ???
-		
+
 		// assert there is 1 WebPageContent
 		makeWebPageAssertions(webPage, 1);
 		
@@ -104,7 +102,6 @@ public class WebPageRestRepositoryTest {
 		removeWebPageContents(webPage);
 		// and assert it is gone
 		makeWebPageAssertions(webPage, 0);
-		**/
 	}
 	
 	
@@ -128,11 +125,12 @@ public class WebPageRestRepositoryTest {
 	private MvcResult addContentItemToWebPageContent(JsonNode webPageContent) throws Exception {
 		Link contentItemLink = entityLinks.linkToItemResource(contentItem, item->item.getId());
 		String path = webPageContent.get("_links").get("contentItems").get("href").asText();
-		MvcResult results = putUriListToCollectionResource(path, contentItemLink.getHref());
+		MvcResult results = putUriListToCollectionResource(cleanUrl(path), contentItemLink.getHref());
 		return results;
 	}
 
 	private MvcResult putUriListToCollectionResource(String path, String href) throws Exception {
+		path = cleanUrl(path);
 		href = href.replace("http://localhost", "");
 		log.info("putting uri list: {} \nto collection: {}", href, path);
 		MvcResult mvcResult = mvc.perform(
@@ -145,7 +143,7 @@ public class WebPageRestRepositoryTest {
 
 	private JsonNode createWebPageContent(String webPageId) throws Exception {
 		Map<String, Object> webPageContent = new HashMap<>();
-		webPageContent.put("webPage", entityLinks.linkToItemResource(WebPage.class, webPageId).getHref());
+		webPageContent.put("webPage", cleanUrl(entityLinks.linkToItemResource(WebPage.class, webPageId).getHref()));
 		webPageContent.put("placeHolderId", "leftSide");
 		String bodyString = mapper.writeValueAsString(webPageContent);
 		
@@ -162,7 +160,7 @@ public class WebPageRestRepositoryTest {
 		Map<String, Object> bodyMap = new HashMap<>();
 		bodyMap.put("id", webPageId);
 		bodyMap.put("name", exampleName);
-		bodyMap.put("webPageLayout", layoutLink.getHref());
+		bodyMap.put("webPageLayout", cleanUrl(layoutLink.getHref()));
 		
 		String bodyString = mapper.writeValueAsString(bodyMap);
 		log.info("bodyString: {}", bodyString);
@@ -174,6 +172,7 @@ public class WebPageRestRepositoryTest {
 
 
 	private JsonNode createEntity(String path, String body) throws Exception {
+		path = cleanUrl(path);
 		MvcResult mvcResult = mvc.perform(
 				post(path)
 				.contentType(MediaType.APPLICATION_JSON)
@@ -185,6 +184,7 @@ public class WebPageRestRepositoryTest {
 	
 
 	private JsonNode getEntity(String path) throws Exception {
+		path = cleanUrl(path);
 		log.info("getting entity:{}", path);
 		MvcResult mvcResult = mvc.perform(
 				get(path))
@@ -195,9 +195,14 @@ public class WebPageRestRepositoryTest {
 	}
 	
 	private MvcResult deleteEntity(String path) throws Exception {
+		path = cleanUrl(path);
 		MvcResult mvcResult = mvc.perform(
 				delete(path)).andExpect(status().is2xxSuccessful()).andReturn();
 		return mvcResult;
+	}
+
+	private String cleanUrl(String path) {
+		return path.replaceAll("\\{.*\\}", "");
 	}
 
 	@Configuration
