@@ -35,7 +35,7 @@ dependencies {
 		"org.zalando:problem-spring-web:${problem_version}",
 		"io.jsonwebtoken:jjwt-api:${json_web_token_version}"
 		
-	clientUI group: 'net.savantly.sprout', name: 'web-ui', version: '1.4.0-RC3', ext: 'zip', classifier: 'resources'
+//	clientUI group: 'net.savantly.sprout', name: 'web-ui', version: '1.4.0-RC3', ext: 'zip', classifier: 'resources'
 	
 		
 	runtimeOnly "io.jsonwebtoken:jjwt-impl:${json_web_token_version}",
@@ -66,10 +66,10 @@ task copyClientUI(type: Copy) {
     from configurations.clientUI
     into "$buildDir/test-classes/client"
 }
-compileJava.dependsOn(copyClientUI)
+//compileJava.dependsOn(copyClientUI)
 
 task copyAdminUI(type: Copy) {
     from configurations.adminUI
     into "$buildDir/test-classes/admin"
 }
-compileJava.dependsOn(copyAdminUI)
+//compileJava.dependsOn(copyAdminUI)

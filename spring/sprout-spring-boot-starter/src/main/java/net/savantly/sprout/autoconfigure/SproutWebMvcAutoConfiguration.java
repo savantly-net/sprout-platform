@@ -40,7 +40,7 @@ import net.savantly.sprout.core.domain.tenant.TenantRepository;
 import net.savantly.sprout.module.PluginConfiguration;
 import net.savantly.sprout.settings.AppSettingRepository;
 import net.savantly.sprout.settings.UISettings;
-import net.savantly.sprout.starter.SproutMvcConfiguration;
+import net.savantly.sprout.starter.SproutWebMvcConfigurer;
 import net.savantly.sprout.tenancy.TenantInterceptor;
 
 @Configuration
@@ -59,8 +59,8 @@ public class SproutWebMvcAutoConfiguration implements InitializingBean {
 	}
 
 	@Bean
-	public SproutMvcConfiguration sproutMvcAutoConfigurationAdapter() {
-		return new SproutMvcConfiguration();
+	public SproutWebMvcConfigurer sproutWebMvcConfigurer() {
+		return new SproutWebMvcConfigurer();
 	}
 	
 	@Bean
@@ -86,6 +86,16 @@ public class SproutWebMvcAutoConfiguration implements InitializingBean {
 	@Bean
 	public ProvisioningController provisioningController() {
 		return new ProvisioningController();
+	}
+	
+	@Bean
+	public ContentItemRestController contentItemRestController(ContentItemRenderingChain renderer) {
+		return new ContentItemRestController(renderer);
+	}
+	
+	@Bean
+	public WebPageRestController webPageRestController(WebPageRenderer renderer, WebPageRepository repository) {
+		return new WebPageRestController(renderer, repository);
 	}
 	
 	// Also intercepts FreeMarker properties to ensure required paths are included
@@ -119,15 +129,6 @@ public class SproutWebMvcAutoConfiguration implements InitializingBean {
 		return new ContentItemFreemarkerRenderer(loader);
 	}
 	
-	@Bean
-	public ContentItemRestController contentItemRestController(ContentItemRenderingChain renderer) {
-		return new ContentItemRestController(renderer);
-	}
-	
-	@Bean
-	public WebPageRestController webPageRestController(WebPageRenderer renderer, WebPageRepository repository) {
-		return new WebPageRestController(renderer, repository);
-	}
 	
 	@Bean
 	public WebPageRenderer webPageRenderer(ContentItemRenderingChain contentItemRenderer, WebPageLayoutRepository webPageLayoutRepository) throws IOException, TemplateException {
