@@ -32,7 +32,7 @@ before_script:
   - "export PATH=$PATH:/usr/lib/chromium-browser/"
   - "export CI=true"
   
-script: mvn clean install
+script: ./gradlew build
 addons:
   ssh_known_hosts:
     - repo.maven.org
