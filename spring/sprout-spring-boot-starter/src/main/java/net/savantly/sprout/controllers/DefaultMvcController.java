@@ -23,4 +23,9 @@ public class DefaultMvcController {
 	public String admin() throws IOException {
 		return "admin/index";
 	}
+	
+	@GetMapping({"/error*"})
+	public String error() throws IOException {
+		return "error";
+	}
 }

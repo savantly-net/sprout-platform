@@ -14,10 +14,16 @@ sourceCompatibility = '1.8'
 
 apply from: "${rootProject.projectDir}/gradle/sonar.gradle"
 
+bootRun {
+  jvmArgs=["-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=18080"]
+}
+
 dependencies {
 	implementation project(':spring:sprout-spring-boot-starter')
 	implementation 'com.h2database:h2'
-		
+	
+	
+	runtimeOnly project(':web:sprout-admin')
 	runtimeOnly "io.jsonwebtoken:jjwt-impl:${json_web_token_version}",
 		"io.jsonwebtoken:jjwt-jackson:${json_web_token_version}"
 

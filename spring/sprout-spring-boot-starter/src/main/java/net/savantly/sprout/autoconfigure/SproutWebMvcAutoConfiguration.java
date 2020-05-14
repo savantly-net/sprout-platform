@@ -101,20 +101,27 @@ public class SproutWebMvcAutoConfiguration implements InitializingBean {
 	// Also intercepts FreeMarker properties to ensure required paths are included
     @Bean("freeMarkerViewResolver")
     public ViewResolver viewResolver(FreeMarkerProperties freeMarkerProps) {
-		final String path1 = "classpath:/META-INF/templates";
-		final String path2 = "classpath:/templates";
+
+        FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
+        resolver.setSuffix(".html");
+        
 		List<String> pathsToAdd = new ArrayList<String>();
-		pathsToAdd.add(path1);
-		pathsToAdd.add(path2);
+		pathsToAdd.add("classpath:/META-INF/templates");
+		pathsToAdd.add("classpath:/templates");
+		pathsToAdd.add("classpath:/static/");
+		pathsToAdd.add("classpath:/public/");
+		pathsToAdd.add("classpath:/resources/");
+		pathsToAdd.add("classpath:/META-INF/static/");
+		pathsToAdd.add("classpath:/META-INF/public/");
+		pathsToAdd.add("classpath:/META-INF/resources/");
 		String[] paths = freeMarkerProps.getTemplateLoaderPath();
 		pathsToAdd.addAll(Arrays.stream(paths).collect(Collectors.toList()));
 		
 		freeMarkerProps.setTemplateLoaderPath(pathsToAdd.toArray(new String[pathsToAdd.size()]));
 		freeMarkerProps.setCheckTemplateLocation(false);
 		freeMarkerProps.setSuffix(".html");
-		
-        FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
-        resolver.setSuffix(".html");
+		freeMarkerProps.applyToMvcViewResolver(resolver);
+        
         return resolver;
     }
     

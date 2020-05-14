@@ -24,7 +24,6 @@ configurations {
 
 dependencies {
 	api project(':sprout-core')
-	adminUI project(':web:sprout-admin')
 	
 	api 'org.freemarker:freemarker',
 		'org.springframework.boot:spring-boot-starter-web',

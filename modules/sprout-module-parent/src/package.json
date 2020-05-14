@@ -1,8 +1,0 @@
-{
-  "name": "${project.artifactId}",
-  "license": "Apache-2.0",
-  "version": "${project.version}",
-  "scripts": { },
-  "dependencies": {"sprout-web-ui": "${project.version}"},
-  "devDependencies": {}
-}
