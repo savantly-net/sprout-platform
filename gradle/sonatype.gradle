@@ -1,4 +1,5 @@
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
+ext.doSign = project.hasProperty('doSign') ? project.doSign : false
 ext.ossrhUsername = project.hasProperty('ossrhUsername') ? project.ossrhUsername : ''
 ext.ossrhPassword = project.hasProperty('ossrhPassword') ? project.ossrhPassword : ''
 
@@ -16,7 +17,7 @@ artifacts {
 }
 
 signing {
-	required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") }
+	required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") && doSign }
     useGpgCmd()
     sign configurations.archives
 }
