@@ -1,7 +1,7 @@
 {
 	"name": "@savantly/sprout-web-ui",
 	"license": "Apache-2.0",
-	"version": "1.5.0-SNAPSHOT",
+	"version": "2.0.0-SNAPSHOT",
 	"scripts": {
 		"clean": "rimraf doc dist",
 		"clean-install": "npm run clean && npm install",
@@ -85,7 +85,7 @@
 		"karma-remap-istanbul": "0.2.1",
 		"karma-sourcemap-loader": "^0.3.7",
 		"karma-webpack": "2.0.2",
-		"node-sass": "^4.5.0",
+		"node-sass": "^4.7.2",
 		"null-loader": "0.1.1",
 		"postcss-loader": "^1.1.0",
 		"protractor": "^5.1.2",

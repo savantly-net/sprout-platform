@@ -22,8 +22,9 @@ dependencies {
 	implementation project(':spring:sprout-spring-boot-starter')
 	implementation 'com.h2database:h2'
 	
-	
 	runtimeOnly project(':web:sprout-admin')
+	runtimeOnly project(':web:sprout-web-ui')
+	
 	runtimeOnly "io.jsonwebtoken:jjwt-impl:${json_web_token_version}",
 		"io.jsonwebtoken:jjwt-jackson:${json_web_token_version}"
 
