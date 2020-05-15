@@ -32,7 +32,7 @@ before_script:
   - "export PATH=$PATH:/usr/lib/chromium-browser/"
   - "export CI=true"
   
-script: ./gradlew build
+script: ./gradlew build -Psigning.gnupg.keyName=none
 addons:
   ssh_known_hosts:
     - repo.maven.org
