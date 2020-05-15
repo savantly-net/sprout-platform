@@ -46,7 +46,7 @@ task copyIndex(type: Copy) {
 }
 task packageNpmApp(type: Zip) {
     dependsOn copyIndex
-    baseName 'sprout-admin'
+    baseName 'sprout-ui'
     extension 'jar'
     destinationDir file("${projectDir}/target/")
     from("${projectDir}/build/classes/") {
