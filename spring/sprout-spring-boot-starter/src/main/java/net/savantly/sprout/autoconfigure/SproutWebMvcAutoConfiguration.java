@@ -106,8 +106,8 @@ public class SproutWebMvcAutoConfiguration implements InitializingBean {
         resolver.setSuffix(".html");
         
 		List<String> pathsToAdd = new ArrayList<String>();
-		pathsToAdd.add("classpath:/META-INF/templates");
 		pathsToAdd.add("classpath:/templates");
+		pathsToAdd.add("classpath:/META-INF/templates");
 		pathsToAdd.add("classpath:/static/");
 		pathsToAdd.add("classpath:/public/");
 		pathsToAdd.add("classpath:/resources/");
