@@ -3,11 +3,11 @@ package net.savantly.sprout.starter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 import org.hibernate.boot.MetadataSources;
@@ -96,11 +96,13 @@ public class SchemaConfiguration implements InitializingBean {
 			metadata.addAnnotatedClass(clazz);
 		}
         
+        long date = Instant.now().toEpochMilli();
+        
         SchemaExport schemaExport = new SchemaExport();
         schemaExport.setHaltOnError(false);
         schemaExport.setFormat(true);
         schemaExport.setDelimiter(";");
-        schemaExport.setOutputFile("db-schema.sql");
+        schemaExport.setOutputFile(String.format("db.%s.%s.sql", schema, date));
         EnumSet<TargetType> targetTypes = EnumSet.of(TargetType.SCRIPT, TargetType.DATABASE);
 		schemaExport.execute(targetTypes, Action.CREATE, metadata.buildMetadata());
 	}
