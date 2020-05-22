@@ -29,7 +29,7 @@ export class AppSettingsService extends RestRepositoryService<AppSetting> {
   }
 
   constructor(http: HttpClient) {
-    super(http, '/api/appSettings');
+    super(http, '/api/repo/appSettings');
   }
 
 }

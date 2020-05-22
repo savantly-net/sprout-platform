@@ -24,6 +24,7 @@ dependencies {
 	
 	runtimeOnly project(':web:sprout-admin')
 	runtimeOnly project(':web:sprout-web-ui')
+	runtimeOnly project(':modules:content-module')
 	
 	runtimeOnly "io.jsonwebtoken:jjwt-impl:${json_web_token_version}",
 		"io.jsonwebtoken:jjwt-jackson:${json_web_token_version}"

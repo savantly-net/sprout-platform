@@ -78,6 +78,7 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
           name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles = new HashSet<>();
 
+    @Transient
     private String clearTextPassword;
 
     // ~ Constructors
@@ -295,7 +296,6 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
     public void setClearTextPassword(String password) {
         this.clearTextPassword = password;
     }
-    @Transient
     public String getClearTextPassword() {
         return this.clearTextPassword;
     }

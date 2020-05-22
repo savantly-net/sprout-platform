@@ -45,7 +45,7 @@ export class UserService extends RestRepositoryService<User> {
   }
 
   constructor(http: HttpClient) {
-    super(http, '/api/users');
+    super(http, '/api/repo/users');
   }
 
 }

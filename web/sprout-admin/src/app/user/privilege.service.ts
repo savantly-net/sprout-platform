@@ -10,7 +10,7 @@ export class Privilege extends HalResponse {
 export class PrivilegeService extends RestRepositoryService<Privilege>  {
 
   constructor(http: HttpClient) {
-    super(http, '/api/privileges');
+    super(http, '/api/repo/privileges');
   }
 
 }

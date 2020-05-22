@@ -13,7 +13,7 @@ export class Role {
 
 @Injectable()
 export class RoleService {
-  baseRepositoryPath = '/api/roles';
+  baseRepositoryPath = '/api/repo/roles';
 
   findAll(options?: any): Observable<any> {
     return this.http.get(this.baseRepositoryPath, options);

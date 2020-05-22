@@ -3,6 +3,9 @@ package net.savantly.sprout.module;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Collections;
+import java.util.Map;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +18,6 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -28,16 +30,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.savantly.sprout.autoconfigure.SproutAutoConfiguration;
 import net.savantly.sprout.controllers.PluginsController;
+import net.savantly.sprout.core.module.ConfigurableSproutModule;
 import net.savantly.sprout.core.module.SimpleSproutModuleExecutionResponse;
 import net.savantly.sprout.core.module.SproutModule;
-import net.savantly.sprout.core.module.SproutModuleAdapter;
 import net.savantly.sprout.core.module.SproutModuleConfiguration;
 import net.savantly.sprout.core.module.SproutModuleExecutionResponse;
 import net.savantly.sprout.module.PluginConfigurationTest.TestContext.ExampleController;
-import net.savantly.sprout.starter.SchemaConfiguration;
 
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
-@TestPropertySource(locations="classpath:test.properties")
 public class PluginConfigurationTest {
 
 	private static final Logger log = LoggerFactory.getLogger(PluginConfigurationTest.class);
@@ -47,8 +47,6 @@ public class PluginConfigurationTest {
 	WebApplicationContext ctx;
 	@Autowired
 	ObjectMapper mapper;
-	@Autowired
-	SchemaConfiguration schemaConfig;
 	
 	private MockMvc mvc;
 
@@ -79,7 +77,7 @@ public class PluginConfigurationTest {
 	
 	@Test
 	public void testPluginController() throws Exception {
-		MvcResult result = mvc.perform(get("/rest/plugins")).andExpect(status().isOk()).andReturn();
+		MvcResult result = mvc.perform(get("/api/plugins")).andExpect(status().isOk()).andReturn();
 		String content = result.getResponse().getContentAsString();
 		log.info(content);
 		JsonNode jsonNode = mapper.readTree(content);
@@ -88,14 +86,14 @@ public class PluginConfigurationTest {
 	
 	@Test
 	public void testExampleModule() throws Exception {
-		MvcResult result = mvc.perform(get("/rest/modules/example/")).andExpect(status().isOk()).andReturn();
+		MvcResult result = mvc.perform(get("/api/modules/example/")).andExpect(status().isOk()).andReturn();
 		String content = result.getResponse().getContentAsString();
 		Assertions.assertEquals("example-response", content);
 	}
 
 	@Test
 	public void testPluginControllerForExampleModuleUserConfig() throws Exception {
-		MvcResult result = mvc.perform(get("/rest/plugins/"+EXAMPLE_MODULE_KEY+"/user-config")).andExpect(status().isOk()).andReturn();
+		MvcResult result = mvc.perform(get("/api/plugins/"+EXAMPLE_MODULE_KEY+"/user-config")).andExpect(status().isOk()).andReturn();
 		String content = result.getResponse().getContentAsString();
 		Assertions.assertEquals("{}", content);
 	}
@@ -112,7 +110,7 @@ public class PluginConfigurationTest {
 		}
 		
 		@RestController
-		@RequestMapping("/rest/modules/example")
+		@RequestMapping("/api/modules/example")
 		class ExampleController {
 			@RequestMapping("/")
 			public String index() {
@@ -121,16 +119,11 @@ public class PluginConfigurationTest {
 		}
 		
 		@SproutModuleConfiguration("example-module")
-		class ExampleModule extends SproutModuleAdapter {
+		class ExampleModule implements ConfigurableSproutModule {
 			
 			@Override
 			public String getName() {
 				return "example";
-			}
-
-			@Override
-			public String getWelcomeUrl() {
-				return "rest/modules/example/";
 			}
 
 			@Override
@@ -150,9 +143,32 @@ public class PluginConfigurationTest {
 
 			@Override
 			public String getDescription() {
-				// TODO Auto-generated method stub
-				return null;
+				return "example module";
 			}
+
+			@Override
+			public String getKey() {
+				return "example-module";
+			}
+
+			@Override
+			public void setBeanName(String name) {}
+
+			@Override
+			public Map<String, Object> getUserConfiguration() {
+				return Collections.EMPTY_MAP;
+			}
+
+			@Override
+			public void saveUserConfiguration(Map<String, String> configuration) {}
+
+			@Override
+			public Map<String, Object> getAdminConfiguration() {
+				return Collections.EMPTY_MAP;
+			}
+
+			@Override
+			public void saveAdminConfiguration(Map<String, String> configuration) {}
 
 		};
 	}

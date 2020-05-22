@@ -21,7 +21,7 @@ export class ServerPluginExecutionResponse {
 export class ServerPluginsService {
 
   getPlugins() {
-    return this.http.get('/rest/plugins');
+    return this.http.get('/api/plugins');
   }
 
   renderPlugin(plugin: ServerPlugin): Observable<any> {
@@ -31,11 +31,11 @@ export class ServerPluginsService {
   }
 
   installPlugin(plugin: ServerPlugin): Observable<ServerPluginExecutionResponse> {
-    return this.http.post('/rest/plugins/install', {key: plugin.key})as Observable<ServerPluginExecutionResponse>;
+    return this.http.post('/api/plugins/install', {key: plugin.key})as Observable<ServerPluginExecutionResponse>;
   }
 
   uninstallPlugin(plugin: ServerPlugin): Observable<ServerPluginExecutionResponse>  {
-    return this.http.post('/rest/plugins/uninstall', {key: plugin.key})as Observable<ServerPluginExecutionResponse>;
+    return this.http.post('/api/plugins/uninstall', {key: plugin.key})as Observable<ServerPluginExecutionResponse>;
   }
 
   constructor(private http: HttpClient) {}

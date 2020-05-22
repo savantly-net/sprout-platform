@@ -10,10 +10,8 @@ import javax.persistence.Table;
 import net.savantly.sprout.core.domain.PersistedDomainObject;
 
 @Entity
-@Table(name="TENANT", schema=TenantEntity.TENANT_SCHEMA)
-public class TenantEntity extends PersistedDomainObject implements Tenant{
-
-	public final static String TENANT_SCHEMA = "sprout";
+@Table(name="TENANT")
+public class TenantEntity extends PersistedDomainObject implements Tenant {
 	
 	@ElementCollection
 	private Set<String> aliases = new HashSet<String>();

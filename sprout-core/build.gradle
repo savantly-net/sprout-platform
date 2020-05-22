@@ -30,7 +30,8 @@ dependencies {
 		'net.savantly:spring-fixtures:1.0.0-RELEASE'
 
 	compileOnly 'org.projectlombok:lombok',
-		'javax.interceptor:javax.interceptor-api:1.2'
+		'javax.interceptor:javax.interceptor-api:1.2',
+		'javax.validation:validation-api:2.0.1.Final'
     annotationProcessor 'org.projectlombok:lombok',
         'org.springframework.boot:spring-boot-configuration-processor'
         

@@ -3,12 +3,10 @@ package net.savantly.sprout.tenancy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.savantly.sprout.starter.SchemaConfiguration;
-
 public class TenantContext {
-	private static String DEFAULT_TENANT_ID = SchemaConfiguration.DEFAULT_SCHEMA;
+	private final static String DEFAULT_TENANT_ID = "sprout";
     private static Logger logger = LoggerFactory.getLogger(TenantContext.class);
-    private static ThreadLocal<String> currentTenant = ThreadLocal.withInitial(() -> {return SchemaConfiguration.DEFAULT_SCHEMA; });
+    private static ThreadLocal<String> currentTenant = ThreadLocal.withInitial(() -> {return DEFAULT_TENANT_ID; });
 
     public static void setCurrentTenant(String tenant) {
     	if (tenant == null) {

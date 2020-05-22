@@ -27,11 +27,11 @@ export class ContentTypesService extends RestRepositoryService<ContentType> {
   }
 
   getFieldTypes(): Observable<any> {
-    return this.http.get('/rest/client/fieldTypes');
+    return this.http.get('/api/client/fieldTypes');
   }
 
   constructor(http: HttpClient) {
-    super(http, '/api/contentTypes');
+    super(http, '/api/repo/contentTypes');
   }
 
 }

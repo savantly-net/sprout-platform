@@ -29,7 +29,7 @@ export class ContentItemService extends RestRepositoryService<ContentItem>  {
   }
 
   constructor(http: HttpClient) {
-    super(http, '/api/contentItems');
+    super(http, '/api/repo/contentItems');
   }
 
 }

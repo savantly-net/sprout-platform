@@ -1,5 +1,6 @@
 package net.savantly.sprout.controllers;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -21,13 +22,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import net.savantly.sprout.core.module.ConfigurableSproutModule;
 import net.savantly.sprout.core.module.SproutModule;
 import net.savantly.sprout.core.module.SproutModuleExecutionResponse;
 import net.savantly.sprout.core.module.registration.SproutModuleRegistration;
 import net.savantly.sprout.core.module.registration.SproutModuleRegistrationRepository;
 
 @RestController
-@RequestMapping("/rest/plugins")
+@RequestMapping("/api/plugins")
 public class PluginsController {
 	
 	private final static Logger log = LoggerFactory.getLogger(PluginsController.class);
@@ -95,16 +97,24 @@ public class PluginsController {
 	}
 	
 	@RequestMapping("/{name}/user-config")
-	public Map<String, String> getSproutModuleUserConfig(@PathVariable("name") String name){
+	public Map<String, Object> getSproutModuleUserConfig(@PathVariable("name") String name){
 		Assert.isTrue(this.context.containsBean(name), "plugin module not found: " + name);
-		SproutModule bean = this.context.getBean(name, SproutModule.class);
-		return bean.getUserConfiguration();
+		if (this.context.containsBeanDefinition(name)) {
+			ConfigurableSproutModule bean = this.context.getBean(name, ConfigurableSproutModule.class);
+			return bean.getUserConfiguration();
+		} else {
+			return Collections.EMPTY_MAP;
+		}
 	}
 
 	@RequestMapping("/{name}/admin-config")
-	public Map<String, String> getSproutModuleAdminConfig(@PathVariable("name") String name){
+	public Map<String, Object> getSproutModuleAdminConfig(@PathVariable("name") String name){
 		Assert.isTrue(this.context.containsBean(name), "plugin module not found: " + name);
-		SproutModule bean = this.context.getBean(name, SproutModule.class);
-		return bean.getAdminConfiguration();
+		if (this.context.containsBeanDefinition(name)) {
+			ConfigurableSproutModule bean = this.context.getBean(name, ConfigurableSproutModule.class);
+			return bean.getAdminConfiguration();
+		} else {
+			return Collections.EMPTY_MAP;
+		}
 	}
 }

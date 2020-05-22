@@ -21,7 +21,7 @@ export class AppMenu extends HalResponse {
 export class AppMenuService  extends RestRepositoryService<AppMenu> {
 
   getRootMenus(): Observable<AppMenu> {
-    return this.http.get('/api/menus/search/findRootMenus?projection=inlineMenuItems') as Observable<AppMenu>;
+    return this.http.get('/api/repo/menus/search/findRootMenus?projection=inlineMenuItems') as Observable<AppMenu>;
   }
 
   addToItemList(parentItem: AppMenu, item: AppMenu): Observable<AppMenu> {
@@ -41,15 +41,15 @@ export class AppMenuService  extends RestRepositoryService<AppMenu> {
   }
 
   removeChild(parentItem: AppMenu, item: AppMenu) {
-    return this.http.delete('/api/menus/' + parentItem.id + '/items/' + item.id);
+    return this.http.delete('/api/repo/menus/' + parentItem.id + '/items/' + item.id);
   }
 
   getChildrenByItemId(itemId: string): Observable<HalResponse> {
-    return this.http.get('/api/menus/' + itemId + 'items')as Observable<HalResponse>;
+    return this.http.get('/api/repo/menus/' + itemId + 'items')as Observable<HalResponse>;
   }
 
   constructor(http: HttpClient) {
-    super(http, '/api/menus');
+    super(http, '/api/repo/menus');
   }
 
 }

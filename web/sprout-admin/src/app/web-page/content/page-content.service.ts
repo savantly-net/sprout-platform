@@ -18,7 +18,7 @@ export class PageContentService extends RestRepositoryService<PageContent> {
   }
 
   constructor(http: HttpClient) {
-    super(http, '/api/webPageContents');
+    super(http, '/api/repo/webPageContents');
   }
 
 }

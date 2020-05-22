@@ -14,7 +14,7 @@ export class TenantService extends RestRepositoryService<Tenant> {
   }
 
   constructor(http: HttpClient) {
-    super(http, '/api/tenants');
+    super(http, '/api/repo/tenants');
   }
 
 }

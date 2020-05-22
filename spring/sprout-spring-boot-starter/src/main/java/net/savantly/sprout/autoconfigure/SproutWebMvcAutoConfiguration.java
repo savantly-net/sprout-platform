@@ -1,6 +1,5 @@
 package net.savantly.sprout.autoconfigure;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,22 +19,6 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.handler.MappedInterceptor;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
-import freemarker.template.TemplateException;
-import net.savantly.sprout.content.contentItem.ContentItemFreemarkerRenderer;
-import net.savantly.sprout.content.contentItem.ContentItemRenderer;
-import net.savantly.sprout.content.contentItem.ContentItemRenderingChain;
-import net.savantly.sprout.content.contentItem.ContentItemRestController;
-import net.savantly.sprout.content.contentType.ContentTypeTemplateLoader;
-import net.savantly.sprout.content.webPage.WebPageRenderer;
-import net.savantly.sprout.content.webPage.WebPageRestController;
-import net.savantly.sprout.content.webPageLayout.WebPageLayoutTemplateLoader;
-import net.savantly.sprout.controllers.ClientController;
-import net.savantly.sprout.controllers.DefaultMvcController;
-import net.savantly.sprout.controllers.LoginController;
-import net.savantly.sprout.controllers.ProvisioningController;
-import net.savantly.sprout.core.content.contentTemplate.ContentTemplateRepository;
-import net.savantly.sprout.core.content.webPage.WebPageRepository;
-import net.savantly.sprout.core.content.webPageLayout.WebPageLayoutRepository;
 import net.savantly.sprout.core.domain.tenant.TenantRepository;
 import net.savantly.sprout.module.PluginConfiguration;
 import net.savantly.sprout.settings.AppSettingRepository;
@@ -44,8 +27,8 @@ import net.savantly.sprout.starter.SproutWebMvcConfigurer;
 import net.savantly.sprout.tenancy.TenantInterceptor;
 
 @Configuration
-@AutoConfigureBefore(WebMvcAutoConfiguration.class)
-@Import(PluginConfiguration.class)
+@AutoConfigureBefore({WebMvcAutoConfiguration.class, SproutSecurityAutoConfiguration.class})
+@Import({PluginConfiguration.class, SproutWebMvcConfigurer.class})
 public class SproutWebMvcAutoConfiguration implements InitializingBean {
 	
 	private static final Logger log = LoggerFactory.getLogger(SproutWebMvcAutoConfiguration.class);
@@ -57,17 +40,13 @@ public class SproutWebMvcAutoConfiguration implements InitializingBean {
 	public UISettings uiSettings(AppSettingRepository appSettings) {
 		return new UISettings(appSettings);
 	}
-
-	@Bean
-	public SproutWebMvcConfigurer sproutWebMvcConfigurer() {
-		return new SproutWebMvcConfigurer();
-	}
 	
 	@Bean
 	public MappedInterceptor myMappedInterceptor() {
 	    return new MappedInterceptor(new String[]{"/**"}, new TenantInterceptor(tenants));
 	}
 	
+	/*
 	@Bean
 	public DefaultMvcController defaultMvcController() {
 		return new DefaultMvcController();
@@ -97,6 +76,7 @@ public class SproutWebMvcAutoConfiguration implements InitializingBean {
 	public WebPageRestController webPageRestController(WebPageRenderer renderer, WebPageRepository repository) {
 		return new WebPageRestController(renderer, repository);
 	}
+	*/
 	
 	// Also intercepts FreeMarker properties to ensure required paths are included
     @Bean("freeMarkerViewResolver")
@@ -108,11 +88,11 @@ public class SproutWebMvcAutoConfiguration implements InitializingBean {
 		List<String> pathsToAdd = new ArrayList<String>();
 		pathsToAdd.add("classpath:/templates");
 		pathsToAdd.add("classpath:/META-INF/templates");
-		pathsToAdd.add("classpath:/static/");
 		pathsToAdd.add("classpath:/public/");
+		pathsToAdd.add("classpath:/static/");
 		pathsToAdd.add("classpath:/resources/");
-		pathsToAdd.add("classpath:/META-INF/static/");
 		pathsToAdd.add("classpath:/META-INF/public/");
+		pathsToAdd.add("classpath:/META-INF/static/");
 		pathsToAdd.add("classpath:/META-INF/resources/");
 		String[] paths = freeMarkerProps.getTemplateLoaderPath();
 		pathsToAdd.addAll(Arrays.stream(paths).collect(Collectors.toList()));
@@ -124,24 +104,7 @@ public class SproutWebMvcAutoConfiguration implements InitializingBean {
         
         return resolver;
     }
-    
-    @Bean
-    public ContentItemRenderingChain contentItemRenderingChain() {
-    	return new ContentItemRenderingChain();
-    }
-		
-	@Bean
-	public ContentItemRenderer defaultContentItemRenderer(ContentTemplateRepository repository) throws IOException, TemplateException {
-		ContentTypeTemplateLoader loader = new ContentTypeTemplateLoader(repository);
-		return new ContentItemFreemarkerRenderer(loader);
-	}
-	
-	
-	@Bean
-	public WebPageRenderer webPageRenderer(ContentItemRenderingChain contentItemRenderer, WebPageLayoutRepository webPageLayoutRepository) throws IOException, TemplateException {
-		WebPageLayoutTemplateLoader loader = new WebPageLayoutTemplateLoader(webPageLayoutRepository);
-		return new WebPageRenderer(loader, contentItemRenderer);
-	}
+
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
@@ -159,5 +122,5 @@ public class SproutWebMvcAutoConfiguration implements InitializingBean {
 	public static ProgressBeanPostProcessor progressBeanPostProcessor() {
 		return new ProgressBeanPostProcessor();
 	}*/
-
+	
 }

@@ -17,7 +17,7 @@ export class ContentField extends HalResponse {
 export class ContentFieldService extends RestRepositoryService<ContentField> {
 
   constructor(http: HttpClient) {
-    super(http, '/api/contentFields');
+    super(http, '/api/repo/contentFields');
 
   }
 
