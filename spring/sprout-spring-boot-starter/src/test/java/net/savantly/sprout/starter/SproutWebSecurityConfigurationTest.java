@@ -20,7 +20,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.context.support.WithAnonymousUser;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
@@ -30,7 +29,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
-@TestPropertySource(locations="classpath:test.properties")
 @IntegrationTest
 public class SproutWebSecurityConfigurationTest {
 
@@ -57,10 +55,9 @@ public class SproutWebSecurityConfigurationTest {
 		RequestEntity request = RequestEntity.get(new URI(url)).accept(MediaType.TEXT_HTML).build();
 		ResponseEntity<String> response = rest.exchange(request, String.class);
 		
-		log.info("{}", response.getBody());
-		Assertions.assertTrue(response.getStatusCode() == HttpStatus.OK, "Should find the root view");
+		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(),"Should find the root view");
+		Assertions.assertTrue("The Root Index Page".contentEquals(response.getBody()));
 	}
-	
 
 	@Test
 	@WithAnonymousUser
@@ -87,20 +84,21 @@ public class SproutWebSecurityConfigurationTest {
 
 		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
 
-		ResponseEntity<String> result = rest.postForEntity(url, request, String.class);
+		ResponseEntity<String> response = rest.postForEntity(url, request, String.class);
 		
-		Assertions.assertTrue(result.getStatusCode() == HttpStatus.FOUND, "Should login successfully and be redirected");
+		Assertions.assertEquals(HttpStatus.FOUND, response.getStatusCode(),"Should login successfully and be redirected");
 	}
 	
 	@Test
 	@WithAnonymousUser
-	public void loadAdminPage() throws Exception {
-		String url = "/admin/asdasdasd";
+	public void loadAdminPageUnauthorized() throws Exception {
+		String url = "/admin";
 		
-		ResponseEntity<String> result = rest.getForEntity(url, String.class);
+		ResponseEntity<String> response = rest.getForEntity(url, String.class);
 		
-		log.info("{}", result.getBody());
-		Assertions.assertTrue(result.getStatusCode() == HttpStatus.OK, "Should be redirected for authentication");
+		log.info("{}", response.getBody());
+		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(), "Should be redirected for authentication");
+		Assertions.assertTrue(response.getBody().contains("Sprout Sign-in"));
 	}
 	
 	@Configuration

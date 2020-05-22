@@ -17,11 +17,6 @@ sourceCompatibility = '1.8'
 apply from: "${rootProject.projectDir}/gradle/sonar.gradle"
 apply from: "${rootProject.projectDir}/gradle/sonatype.gradle"
 
-configurations {
-	clientUI
-	adminUI
-}
-
 dependencies {
 	api project(':sprout-core')
 	
@@ -29,14 +24,15 @@ dependencies {
 		'org.springframework.boot:spring-boot-starter-web',
 		'org.springframework.boot:spring-boot-starter-security',
 		'org.springframework.boot:spring-boot-starter-oauth2-resource-server',
+		'org.springframework.boot:spring-boot-starter-data-rest',
 		'org.springframework:spring-context-support',
 		'io.reactivex:rxjava',
 		"org.zalando:problem-spring-web:${problem_version}",
-		"io.jsonwebtoken:jjwt-api:${json_web_token_version}"
-		
-//	clientUI group: 'net.savantly.sprout', name: 'web-ui', version: '1.4.0-RC3', ext: 'zip', classifier: 'resources'
-	
-		
+		"io.jsonwebtoken:jjwt-api:${json_web_token_version}",
+		"org.springdoc:springdoc-openapi-ui:${springdoc_version}",
+		"org.springdoc:springdoc-openapi-data-rest:${springdoc_version}",
+		"org.springdoc:springdoc-openapi-security:${springdoc_version}"
+			
 	runtimeOnly "io.jsonwebtoken:jjwt-impl:${json_web_token_version}",
 		"io.jsonwebtoken:jjwt-jackson:${json_web_token_version}"
 
@@ -61,15 +57,3 @@ dependencyManagement {
 		mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
 	}
 }
-
-task copyClientUI(type: Copy) {
-    from configurations.clientUI
-    into "$buildDir/test-classes/client"
-}
-//compileJava.dependsOn(copyClientUI)
-
-task copyAdminUI(type: Copy) {
-    from configurations.adminUI
-    into "$buildDir/test-classes/admin"
-}
-//compileJava.dependsOn(copyAdminUI)

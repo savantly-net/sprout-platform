@@ -11,7 +11,7 @@ export class EmailAddress extends HalResponse {
 export class EmailService extends RestRepositoryService<EmailAddress> {
 
   constructor(http: HttpClient) {
-    super(http, '/api/emailAddresses');
+    super(http, '/api/repo/emailAddresses');
   }
 
 }

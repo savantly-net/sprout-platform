@@ -15,7 +15,7 @@ export class Layout extends HalResponse {
 export class LayoutService extends RestRepositoryService<Layout> {
 
   constructor(http: HttpClient) {
-    super(http, '/api/webPageLayouts');
+    super(http, '/api/repo/webPageLayouts');
   }
 
 }

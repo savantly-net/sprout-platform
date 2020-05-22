@@ -83,7 +83,7 @@ export class PageService extends RestRepositoryService<Page> {
   }
 
   constructor(http: HttpClient, private pageContentService: PageContentService) {
-    super(http, '/api/webPages');
+    super(http, '/api/repo/webPages');
   }
 
 }

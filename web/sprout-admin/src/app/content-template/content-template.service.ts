@@ -17,7 +17,7 @@ export class ContentTemplate extends HalResponse {
 export class ContentTemplateService extends RestRepositoryService<ContentTemplate> {
 
   constructor(http: HttpClient) {
-    super(http, '/api/contentTemplates');
+    super(http, '/api/repo/contentTemplates');
   }
 
 }
