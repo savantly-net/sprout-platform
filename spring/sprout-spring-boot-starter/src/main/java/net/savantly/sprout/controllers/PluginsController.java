@@ -1,19 +1,15 @@
 package net.savantly.sprout.controllers;
 
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.Optional;
-
-import javax.annotation.PostConstruct;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,99 +18,108 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import net.savantly.sprout.core.module.ConfigurableSproutModule;
+import lombok.RequiredArgsConstructor;
+import net.savantly.sprout.controllers.exception.UnknownSproutModule;
 import net.savantly.sprout.core.module.SproutModule;
 import net.savantly.sprout.core.module.SproutModuleExecutionResponse;
+import net.savantly.sprout.core.module.SproutWebModule;
 import net.savantly.sprout.core.module.registration.SproutModuleRegistration;
 import net.savantly.sprout.core.module.registration.SproutModuleRegistrationRepository;
+import net.savantly.sprout.core.module.web.NavigationItem;
+import net.savantly.sprout.core.module.web.UIRoute;
+import net.savantly.sprout.model.AdminUserInterfaceModel;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/plugins")
 public class PluginsController {
 	
 	private final static Logger log = LoggerFactory.getLogger(PluginsController.class);
 
-	private ApplicationContext context;
+	private final SproutModuleRegistrationRepository registrationRepository;
+	private final ObjectMapper mapper;
+	private final List<SproutModule> sproutModules;
 	
-	@Autowired
-	private SproutModuleRegistrationRepository registrationRepository;
-	@Autowired
-	private ObjectMapper mapper;
-	
-	public PluginsController(ApplicationContext context) {
-		this.context = context;
-	}
-	
-	@PostConstruct
-	public void post() {
+	@GetMapping({"", "/"})
+	public HashMap<String, Object> getSproutModules(){
+		HashMap<String, Object> response = new HashMap<>();
+		
+		AdminUserInterfaceModel clientConfig = new AdminUserInterfaceModel()
+				.setNavigationItems(getNavigationItems())
+				.setRoutes(getUIRoutes())
+				.setScripts(getScriptResources());
+		response.put("clientConfig", clientConfig);
 
-	}
-	
-	@RequestMapping({"", "/"})
-	public HashMap<String, JsonNode> getSproutModules(){
-		HashMap<String, JsonNode> plugins = new HashMap<String, JsonNode>();
-		this.context.getBeansOfType(SproutModule.class).entrySet().stream().forEach((m) -> {
+		HashMap<String, Object> pluginDetails = new HashMap<>();
+		this.sproutModules.stream().forEach((m) -> {
 			ObjectWriter moduleWriter = mapper.writerFor(SproutModule.class);
 			try {
-				String stringValue = moduleWriter.writeValueAsString(m.getValue());
+				String stringValue = moduleWriter.writeValueAsString(m);
 				JsonNode json = mapper.readTree(stringValue);
 				Optional<SproutModuleRegistration> registration = registrationRepository.findById(m.getKey());
 				if (registration.isPresent()) {
 					((ObjectNode)json).putPOJO("installed", registration.get().isInstalled());
 				}
-				plugins.put(m.getKey(), json);
+				pluginDetails.put(m.getKey(), json);
 			} catch (Exception e) {
 				log.error("Failed to serialize bean: {}", e);
 			}
 		});
-		return plugins;
+		response.put("plugins", pluginDetails);
+		return response;
+	}
+
+	@GetMapping("/{name}")
+	public String getSproutModuleUserConfig(@PathVariable String name){
+		SproutModule bean = getModuleByName(name);
+		if (SproutWebModule.class.isAssignableFrom(bean.getClass())) {
+			return ((SproutWebModule)bean).getAdminPanelMarkup();
+		} else {
+			return String.format("<h1>%s</h1>", name);
+		}
 	}
 	
-	@RequestMapping("/install")
-	public SproutModuleExecutionResponse installModule(@RequestBody Map<String, String> request) {
-		String key = request.get("key");
-		Assert.notNull(key, "A module key was not provided");
-		SproutModule bean = this.context.getBean(key, SproutModule.class);
+	@PostMapping("/{name}/install")
+	public SproutModuleExecutionResponse installModule(@PathVariable String name) {
+		SproutModule bean = getModuleByName(name);
 		SproutModuleExecutionResponse result = bean.install();
-		markRegistrationInstallStatus(key, result.getSucceeded());
+		markRegistrationInstallStatus(name, result.getSucceeded());
+		return result;
+	}
+
+	@PostMapping("/{name}/uninstall")
+	public SproutModuleExecutionResponse uninstallModule(@PathVariable String name) {
+		SproutModule bean = getModuleByName(name);
+		SproutModuleExecutionResponse result = bean.uninstall();
+		markRegistrationInstallStatus(name, false);
 		return result;
 	}
 	
+	private List<NavigationItem> getNavigationItems(){
+		return sproutModules.stream()
+				.filter(m -> SproutWebModule.class.isAssignableFrom(m.getClass()))
+				.flatMap(m -> ((SproutWebModule)m).getNavigationItems().stream()).collect(Collectors.toList());
+	}
+
+	private List<UIRoute> getUIRoutes(){
+		return sproutModules.stream()
+				.filter(m -> SproutWebModule.class.isAssignableFrom(m.getClass()))
+				.flatMap(m -> ((SproutWebModule)m).getUIRoutes().stream()).collect(Collectors.toList());
+	}
+	
+	private List<String> getScriptResources(){
+		return sproutModules.stream()
+				.filter(m -> SproutWebModule.class.isAssignableFrom(m.getClass()))
+				.flatMap(m -> ((SproutWebModule)m).getScriptResources().stream()).collect(Collectors.toList());
+	}
+	
+	private SproutModule getModuleByName(String name) {
+		return sproutModules.stream().filter(m->m.getKey().contentEquals(name)).findFirst().orElseThrow(()->new UnknownSproutModule("SproutModule not found: " + name));
+	}
+
 	private void markRegistrationInstallStatus(String key, boolean b) {
 		SproutModuleRegistration registration = registrationRepository.findById(key).orElseThrow(RuntimeException::new);
 		registration.setInstalled(b);
 		registrationRepository.save(registration);
-	}
-
-	@RequestMapping("/uninstall")
-	public SproutModuleExecutionResponse uninstallModule(@RequestBody Map<String, String> request) {
-		String key = request.get("key");
-		Assert.notNull(key, "A module key was not provided");
-		SproutModule bean = this.context.getBean(key, SproutModule.class);
-		SproutModuleExecutionResponse result = bean.uninstall();
-		markRegistrationInstallStatus(key, false);
-		return result;
-	}
-	
-	@RequestMapping("/{name}/user-config")
-	public Map<String, Object> getSproutModuleUserConfig(@PathVariable("name") String name){
-		Assert.isTrue(this.context.containsBean(name), "plugin module not found: " + name);
-		if (this.context.containsBeanDefinition(name)) {
-			ConfigurableSproutModule bean = this.context.getBean(name, ConfigurableSproutModule.class);
-			return bean.getUserConfiguration();
-		} else {
-			return Collections.EMPTY_MAP;
-		}
-	}
-
-	@RequestMapping("/{name}/admin-config")
-	public Map<String, Object> getSproutModuleAdminConfig(@PathVariable("name") String name){
-		Assert.isTrue(this.context.containsBean(name), "plugin module not found: " + name);
-		if (this.context.containsBeanDefinition(name)) {
-			ConfigurableSproutModule bean = this.context.getBean(name, ConfigurableSproutModule.class);
-			return bean.getAdminConfiguration();
-		} else {
-			return Collections.EMPTY_MAP;
-		}
 	}
 }

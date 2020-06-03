@@ -39,7 +39,7 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
  	public void configure(WebSecurity web) throws Exception {
  		web.ignoring()
  			.antMatchers(HttpMethod.OPTIONS, "/**")
- 			.antMatchers("/", "/*.js", "/js/**", "/*.html", "/css/**", "/img/**",  "/favicon.ico*", "**/favicon.ico*", "/login", "/login/", "/swagger-ui/**");
+ 			.antMatchers("/", "/**.*", "/login", "/login/", "/swagger-ui/**");
  		web.debug(true);
  	}
 
@@ -51,7 +51,7 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
         	.frameOptions().disable()
         .and()
             .authorizeRequests()
-            .antMatchers("/", "/js/**", "/css/**", "/index", "/rest/**", "/api/**", "/ui", "/ui/**", "/login", "/login/", "/error", "/swagger-ui/**").permitAll()
+            .antMatchers("/**").permitAll()
             .antMatchers("/admin", "/admin/**").authenticated()
         .and()
             .formLogin()

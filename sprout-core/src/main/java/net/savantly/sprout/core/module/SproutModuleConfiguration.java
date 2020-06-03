@@ -13,6 +13,4 @@ import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguratio
 @AutoConfigureBefore(WebMvcAutoConfiguration.class)
 public @interface SproutModuleConfiguration {
 
-	String value();
-	boolean enabled() default true;
 }

@@ -39,12 +39,17 @@ import net.savantly.sprout.module.content.model.webPageLayout.WebPageLayoutFixtu
 import net.savantly.sprout.module.content.model.webPageLayout.WebPageLayoutRepository;
 import net.savantly.sprout.module.content.model.webPageLayout.WebPageLayoutTemplateLoader;
 
-@SproutModuleConfiguration(value = "sproutContentModule")
+@SproutModuleConfiguration
 public class SproutContentModuleConfiguration {
 
 	@Bean
-	public ContentController contentController(ContentItemRenderingChain itemRenderer, WebPageRenderer pageRenderer, WebPageRepository pageRepository) {
-		return new ContentController(itemRenderer, pageRenderer, pageRepository);
+	public ContentApi contentApi(ContentItemRenderingChain itemRenderer, WebPageRenderer pageRenderer, WebPageRepository pageRepository) {
+		return new ContentApi(itemRenderer, pageRenderer, pageRepository);
+	}
+	
+	@Bean
+	public ContentController contentController() {
+		return new ContentController();
 	}
 	
 	@Bean

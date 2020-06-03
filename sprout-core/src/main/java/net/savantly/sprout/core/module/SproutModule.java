@@ -1,14 +1,16 @@
 package net.savantly.sprout.core.module;
 
-import org.springframework.beans.factory.BeanNameAware;
-
-public interface SproutModule extends BeanNameAware {
+public interface SproutModule {
 
 	String getKey();
 	String getName();
 	String getVersion();
 	String getDescription();
 	
-	SproutModuleExecutionResponse install();
-	SproutModuleExecutionResponse uninstall();
+	default SproutModuleExecutionResponse install() {
+		return new SimpleSproutModuleExecutionResponse(true, 0, "nothing to install");
+	}
+	default SproutModuleExecutionResponse uninstall() {
+		return new SimpleSproutModuleExecutionResponse(true, 0, "nothing to uninstall");
+	}
 }

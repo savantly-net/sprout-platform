@@ -1,0 +1,6 @@
+/bin/
+/node_modules/
+/dist/
+/.settings/
+/.classpath
+/.project

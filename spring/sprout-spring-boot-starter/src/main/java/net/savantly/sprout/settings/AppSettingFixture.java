@@ -8,12 +8,9 @@ import net.savantly.spring.fixture.Fixture;
 public class AppSettingFixture extends AbstractBaseFixture<AppSetting, AppSettingRepository> {
 
 	private AppSettingRepository repository;
-
-	private String keywords = "sprout, spring, cms";
 	private String siteBanner = "./img/sprout.png";
 	private String siteDescription = "A Sprout CMS Application";
 	private String siteName = "Sprout";
-	private String empty = "";
 	
 	
 
@@ -24,14 +21,10 @@ public class AppSettingFixture extends AbstractBaseFixture<AppSetting, AppSettin
 
 	@Override
 	public void addEntities(List<AppSetting> entityList) {
-		ensure(SettingName.KEYWORDS, keywords);
-		ensure(SettingName.PREVIEW_IMAGE, empty);
-		ensure(SettingName.SHOW_BANNER, "true");
-		ensure(SettingName.SITE_BANNER, siteBanner);
-		ensure(SettingName.SITE_DESCRIPTION, siteDescription);
-		ensure(SettingName.SITE_NAME, siteName);
-		ensure(SettingName.SITE_TITLE, siteName);
-		ensure(SettingName.SITE_URL, empty);
+		ensure(SettingName.ADMIN_SITE_BANNER, siteBanner);
+		ensure(SettingName.ADMIN_SITE_DESCRIPTION, siteDescription);
+		ensure(SettingName.ADMIN_SITE_NAME, siteName);
+		ensure(SettingName.ADMIN_SITE_TITLE, siteName);
 	}
 
 	private void ensure(SettingName name, String value) {

@@ -1,0 +1,16 @@
+configurations {
+	sproutPlugin
+}
+
+task extractSproutPluginUIs(type: Copy) {
+    print "FILE=" + configurations.sproutPlugin.singleFile
+    from zipTree(configurations.sproutPlugin.singleFile) {
+        eachFile { fcd ->
+            fcd.relativePath = new RelativePath(true, fcd.relativePath.segments.drop(1))  
+        }
+        includeEmptyDirs = false  
+    }
+    into "${buildDir}/ui"
+}
+
+assemble.dependsOn extractSproutPluginUIs
