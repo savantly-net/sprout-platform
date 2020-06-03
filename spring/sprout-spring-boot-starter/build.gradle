@@ -8,6 +8,7 @@ plugins {
  	id 'jacoco'
  	id 'org.sonarqube'
 	id "org.owasp.dependencycheck" version "5.3.1"
+	id 'org.asciidoctor.convert' version '1.5.6'
 }
 
 archivesBaseName = name
@@ -26,6 +27,7 @@ dependencies {
 		'org.springframework.boot:spring-boot-starter-oauth2-resource-server',
 		'org.springframework.boot:spring-boot-starter-data-rest',
 		'org.springframework:spring-context-support',
+		'org.springframework.boot:spring-boot-starter-actuator',
 		'io.reactivex:rxjava',
 		"org.zalando:problem-spring-web:${problem_version}",
 		"io.jsonwebtoken:jjwt-api:${json_web_token_version}",
@@ -45,7 +47,8 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	testImplementation 'org.springframework.security:spring-security-test',
-		'com.h2database:h2'
+		'com.h2database:h2',
+		'org.springframework.restdocs:spring-restdocs-mockmvc'
 }
 
 test {

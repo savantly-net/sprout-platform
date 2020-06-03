@@ -46,4 +46,4 @@ const routes: Routes = [
   { path: 'user-editor', component: UserEditorComponent, pathMatch: 'full' }
 ];
 
-export const routing = RouterModule.forRoot(routes);
+export const routing = RouterModule.forRoot(routes, {useHash: true});

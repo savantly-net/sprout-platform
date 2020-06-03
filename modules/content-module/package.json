@@ -1,0 +1,22 @@
+{
+  "name": "content-module",
+  "version": "1.0.0",
+  "description": "Content Management Module for the Sprout Platform",
+  "main": "build/resources/main/public/content/index.min.js",
+  "scripts": {
+    "build": "rollup -c -o build/resources/main/public/content/index.min.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jeremy Branham <jeremy@savantly.net>",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-react": "^7.9.4",
+    "@rollup/plugin-babel": "^5.0.2",
+    "react": "^16.13.1",
+    "rollup": "^2.10.9"
+  },
+  "dependencies": {
+    "react-formio": "^4.3.0"
+  }
+}

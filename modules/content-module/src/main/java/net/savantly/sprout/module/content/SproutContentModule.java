@@ -5,29 +5,22 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import net.savantly.sprout.core.configuration.SproutConfiguration;
-import net.savantly.sprout.core.module.SproutModule;
-import net.savantly.sprout.core.module.SproutModuleConfiguration;
+import net.savantly.sprout.core.module.SimpleSproutModuleExecutionResponse;
 import net.savantly.sprout.core.module.SproutModuleExecutionResponse;
+import net.savantly.sprout.core.module.SproutWebModule;
 
 @EntityScan
 @Configuration(SproutContentModule.BEAN_NAME)
 @EnableJpaRepositories
-@SproutModuleConfiguration("SproutContentModule")
 @Import(SproutContentModuleConfiguration.class)
-public class SproutContentModule implements SproutModule {
+public class SproutContentModule implements SproutWebModule {
 	
 	protected static final String BEAN_NAME = "contentModule";
-	private String beanName;
-
-	@Override
-	public void setBeanName(String name) {
-		this.beanName = name;
-	}
+	public static final String version = "0.0.1";
 
 	@Override
 	public String getKey() {
-		return "sprout-content-module";
+		return BEAN_NAME;
 	}
 
 	@Override
@@ -37,7 +30,7 @@ public class SproutContentModule implements SproutModule {
 
 	@Override
 	public String getVersion() {
-		return String.format("%s", SproutConfiguration.serialVersionUID);
+		return version;
 	}
 
 	@Override
@@ -48,13 +41,18 @@ public class SproutContentModule implements SproutModule {
 	@Override
 	public SproutModuleExecutionResponse install() {
 		// nothing to install
-		return null;
+		return new SimpleSproutModuleExecutionResponse(true, 0, "nothing to install");
 	}
 
 	@Override
 	public SproutModuleExecutionResponse uninstall() {
 		// nothing to uninstall
-		return null;
+		return new SimpleSproutModuleExecutionResponse(true, 0, "nothing to uninstall");
+	}
+
+	@Override
+	public String getAdminPanelMarkup() {
+		return "<iframe src=\"/admin/content\" width=\"100%\" height=\"500px\"></iframe>";
 	}
 
 }

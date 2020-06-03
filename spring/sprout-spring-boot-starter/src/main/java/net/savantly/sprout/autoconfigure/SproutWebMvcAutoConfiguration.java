@@ -21,8 +21,6 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 import net.savantly.sprout.core.domain.tenant.TenantRepository;
 import net.savantly.sprout.module.PluginConfiguration;
-import net.savantly.sprout.settings.AppSettingRepository;
-import net.savantly.sprout.settings.UISettings;
 import net.savantly.sprout.starter.SproutWebMvcConfigurer;
 import net.savantly.sprout.tenancy.TenantInterceptor;
 
@@ -35,11 +33,6 @@ public class SproutWebMvcAutoConfiguration implements InitializingBean {
 	
 	@Autowired
 	TenantRepository tenants;
-
-	@Bean
-	public UISettings uiSettings(AppSettingRepository appSettings) {
-		return new UISettings(appSettings);
-	}
 	
 	@Bean
 	public MappedInterceptor myMappedInterceptor() {
@@ -58,8 +51,8 @@ public class SproutWebMvcAutoConfiguration implements InitializingBean {
 	}
 	
 	@Bean
-	public ClientController clientController(AppSettingRepository settingsRepository) {
-		return new ClientController(settingsRepository);
+	public SettingsController clientController(AppSettingRepository settingsRepository) {
+		return new SettingsController(settingsRepository);
 	}
 	
 	@Bean

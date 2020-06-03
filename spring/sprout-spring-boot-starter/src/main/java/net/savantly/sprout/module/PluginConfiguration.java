@@ -27,12 +27,6 @@ public class PluginConfiguration implements ApplicationContextAware, Initializin
 	@Autowired
 	private SproutModuleRegistrationRepository registrationRepository;
 	
-	/*
-	@Bean
-	public PluginsController pluginsController(WebApplicationContext context) {
-		return new PluginsController(context);
-	}
-	*/
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = (WebApplicationContext)applicationContext;

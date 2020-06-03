@@ -13,7 +13,13 @@
 				<button mat-fab [disabled]="item.installed" (click)="installPlugin(item)">
 					<mat-icon matListIcon>check</mat-icon>
 				</button>
+				<button mat-fab [routerLink]="[{id: item.key}]">
+					<mat-icon>settings</mat-icon>
+				</button>
 			</mat-card-actions>
 		</mat-card>
+	</div>
+	<div *ngIf="pluginDetail">
+		<div [innerHTML]="pluginDetail"></div>
 	</div>
 </div>

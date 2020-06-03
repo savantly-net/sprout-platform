@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class DefaultMvcController {
@@ -13,7 +15,7 @@ public class DefaultMvcController {
 		return "index";
 	}
 
-	@GetMapping({"/admin", "/admin/"})
+	@RequestMapping(path = {"/admin", "/admin/**"}, method = RequestMethod.GET)
 	public String admin() throws IOException {
 		return "admin/index";
 	}

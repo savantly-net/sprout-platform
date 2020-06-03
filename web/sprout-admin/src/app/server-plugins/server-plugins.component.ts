@@ -13,6 +13,7 @@ import { Observable } from 'rxjs/Observable';
 export class ServerPluginsComponent implements OnInit {
 
   plugins: ServerPlugin[];
+  pluginDetail: string;
 
   installPlugin(plugin: ServerPlugin) {
     this.pluginService.installPlugin(plugin).subscribe(response => {
@@ -50,12 +51,21 @@ export class ServerPluginsComponent implements OnInit {
     });
   }
 
+  renderPlugin(id: string) {
+	this.pluginService.renderPlugin(id).subscribe(data => {
+		this.pluginDetail = data;
+	});
+  }
+
   constructor(
+    private route: ActivatedRoute,
     private pluginService: ServerPluginsService,
     private snackBar: MatSnackBar) {
     this.refreshPluginList();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+	this.route.params.subscribe( params => this.renderPlugin(params['id']) );
+  }
 
 }

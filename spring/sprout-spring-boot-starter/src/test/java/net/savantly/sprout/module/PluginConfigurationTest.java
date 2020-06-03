@@ -3,9 +3,6 @@ package net.savantly.sprout.module;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Collections;
-import java.util.Map;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,11 +27,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.savantly.sprout.autoconfigure.SproutAutoConfiguration;
 import net.savantly.sprout.controllers.PluginsController;
-import net.savantly.sprout.core.module.ConfigurableSproutModule;
 import net.savantly.sprout.core.module.SimpleSproutModuleExecutionResponse;
 import net.savantly.sprout.core.module.SproutModule;
 import net.savantly.sprout.core.module.SproutModuleConfiguration;
 import net.savantly.sprout.core.module.SproutModuleExecutionResponse;
+import net.savantly.sprout.core.module.SproutWebModule;
 import net.savantly.sprout.module.PluginConfigurationTest.TestContext.ExampleController;
 
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
@@ -85,17 +82,17 @@ public class PluginConfigurationTest {
 	}
 	
 	@Test
-	public void testExampleModule() throws Exception {
+	public void testExampleModuleCustomController() throws Exception {
 		MvcResult result = mvc.perform(get("/api/modules/example/")).andExpect(status().isOk()).andReturn();
 		String content = result.getResponse().getContentAsString();
 		Assertions.assertEquals("example-response", content);
 	}
 
 	@Test
-	public void testPluginControllerForExampleModuleUserConfig() throws Exception {
-		MvcResult result = mvc.perform(get("/api/plugins/"+EXAMPLE_MODULE_KEY+"/user-config")).andExpect(status().isOk()).andReturn();
+	public void testPluginControllerForExampleModuleAdminMarkup() throws Exception {
+		MvcResult result = mvc.perform(get("/api/plugins/"+EXAMPLE_MODULE_KEY)).andExpect(status().isOk()).andReturn();
 		String content = result.getResponse().getContentAsString();
-		Assertions.assertEquals("{}", content);
+		Assertions.assertEquals("test", content);
 	}
 	
 	
@@ -118,8 +115,8 @@ public class PluginConfigurationTest {
 			}
 		}
 		
-		@SproutModuleConfiguration("example-module")
-		class ExampleModule implements ConfigurableSproutModule {
+		@SproutModuleConfiguration
+		class ExampleModule implements SproutWebModule {
 			
 			@Override
 			public String getName() {
@@ -152,23 +149,9 @@ public class PluginConfigurationTest {
 			}
 
 			@Override
-			public void setBeanName(String name) {}
-
-			@Override
-			public Map<String, Object> getUserConfiguration() {
-				return Collections.EMPTY_MAP;
+			public String getAdminPanelMarkup() {
+				return "test";
 			}
-
-			@Override
-			public void saveUserConfiguration(Map<String, String> configuration) {}
-
-			@Override
-			public Map<String, Object> getAdminConfiguration() {
-				return Collections.EMPTY_MAP;
-			}
-
-			@Override
-			public void saveAdminConfiguration(Map<String, String> configuration) {}
 
 		};
 	}

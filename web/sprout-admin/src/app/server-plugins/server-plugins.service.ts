@@ -6,7 +6,6 @@ export class ServerPlugin {
   name: String;
   description: String;
   key: string;
-  welcomeUrl: string;
   version: string;
   installed: boolean;
 }
@@ -24,10 +23,10 @@ export class ServerPluginsService {
     return this.http.get('/api/plugins');
   }
 
-  renderPlugin(plugin: ServerPlugin): Observable<any> {
+  renderPlugin(key: string): Observable<any> {
     const headers = new HttpHeaders({'Accept': 'text/html'});
     const options = {headers: headers, responseType: 'text' as 'text'};
-    return this.http.get(plugin.welcomeUrl, options);
+    return this.http.get('/api/plugins/' + key, options);
   }
 
   installPlugin(plugin: ServerPlugin): Observable<ServerPluginExecutionResponse> {
