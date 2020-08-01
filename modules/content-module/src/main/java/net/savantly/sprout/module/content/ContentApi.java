@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,7 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
 import net.savantly.sprout.module.content.model.contentItem.ContentItem;
 import net.savantly.sprout.module.content.model.contentItem.ContentItemRenderingChain;
+import net.savantly.sprout.module.content.model.contentItem.ContentItemRepository;
 import net.savantly.sprout.module.content.model.fieldType.FieldType;
 import net.savantly.sprout.module.content.model.webPage.WebPage;
 import net.savantly.sprout.module.content.model.webPage.WebPageRenderer;
@@ -39,16 +41,18 @@ public class ContentApi {
 
 	private final ObjectMapper mapper;
 	private final ContentItemRenderingChain itemRenderer;
-	private WebPageRenderer pageRenderer;
-	private WebPageRepository pageRepository;
+	private final WebPageRenderer pageRenderer;
+	private final WebPageRepository pageRepository;
+	private final ContentItemRepository contentItemRepository;
 	
 	
-	public ContentApi(ContentItemRenderingChain itemRenderer, WebPageRenderer pageRenderer, WebPageRepository repository) {
+	public ContentApi(ContentItemRenderingChain itemRenderer, WebPageRenderer pageRenderer, WebPageRepository repository, ContentItemRepository contentItemRepository) {
 		this.mapper = new ObjectMapper();
 		this.mapper.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
 		this.itemRenderer = itemRenderer;
 		this.pageRepository = repository;
 		this.pageRenderer = pageRenderer;
+		this.contentItemRepository = contentItemRepository;
 	}
 	
 	@RequestMapping({"/fieldTypes"})
@@ -61,16 +65,17 @@ public class ContentApi {
 	}
 	
 	@RequestMapping(value="/item/{id}", method=RequestMethod.GET)
-	public ResponseEntity<String> getContent(@PathVariable("id") ContentItem item) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
+	public ResponseEntity<String> getContent(@PathVariable("id") String id) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
 		StringWriter writer = new StringWriter();
+		ContentItem item = this.contentItemRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("id: " + id));
 		itemRenderer.renderContentItem(item, writer);
 		ResponseEntity<String> response = new ResponseEntity<String>(writer.toString(), HttpStatus.OK);
 		return response;
 	}
 	
 	@RequestMapping(value="/page/{id}", method=RequestMethod.GET)
-	public ResponseEntity<String> getPage(@PathVariable("id") WebPage item) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
-		Assert.notNull(item, "WebPage was not found");
+	public ResponseEntity<String> getPage(@PathVariable("id") String id) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
+		WebPage item = this.pageRepository.findById(id).orElseThrow(()->new EntityNotFoundException("id: " + id));
 		String renderedView = pageRenderer.render(item);
 		ResponseEntity<String> response = new ResponseEntity<String>(renderedView, HttpStatus.OK);
 		return response;
