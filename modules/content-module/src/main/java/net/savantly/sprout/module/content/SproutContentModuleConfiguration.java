@@ -43,8 +43,9 @@ import net.savantly.sprout.module.content.model.webPageLayout.WebPageLayoutTempl
 public class SproutContentModuleConfiguration {
 
 	@Bean
-	public ContentApi contentApi(ContentItemRenderingChain itemRenderer, WebPageRenderer pageRenderer, WebPageRepository pageRepository) {
-		return new ContentApi(itemRenderer, pageRenderer, pageRepository);
+	public ContentApi contentApi(ContentItemRenderingChain itemRenderer, WebPageRenderer pageRenderer, 
+			WebPageRepository pageRepository, ContentItemRepository contentItemRepository) {
+		return new ContentApi(itemRenderer, pageRenderer, pageRepository, contentItemRepository);
 	}
 	
 	@Bean
