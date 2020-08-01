@@ -23,7 +23,7 @@ dependencies {
 	implementation 'com.h2database:h2'
 	
 	runtimeOnly project(':web:admin')
-	runtimeOnly project(':web:sprout-web-ui')
+	//runtimeOnly project(':web:sprout-web-ui')
 	runtimeOnly project(':modules:content-module')
 	runtimeOnly project(':modules:openTok-module')
 	runtimeOnly project(':modules:example-react-module')
