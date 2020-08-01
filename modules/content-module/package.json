@@ -4,19 +4,40 @@
   "description": "Content Management Module for the Sprout Platform",
   "main": "build/resources/main/public/content/index.min.js",
   "scripts": {
-    "build": "rollup -c -o build/resources/main/public/content/index.min.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --config webpack.dev.js --open --hot",
+    "transpile": "babel src/main/browser -d build/resources/main/public/plugins/content --copy-files",
+    "build": "webpack --config webpack.prod.js"
   },
   "author": "Jeremy Branham <jeremy@savantly.net>",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.9.6",
-    "@babel/preset-react": "^7.9.4",
-    "@rollup/plugin-babel": "^5.0.2",
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/preset-react": "^7.10.1",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^0.28.11",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^3.2.0",
     "react": "^16.13.1",
-    "rollup": "^2.10.9"
+    "react-dom": "^16.13.1",
+    "sass": "^1.26.7",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^0.20.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "react-formio": "^4.3.0"
+    "bootstrap": "^4.5.0",
+    "bootswatch": "^4.5.0",
+    "connected-react-router": "^6.8.0",
+    "font-awesome": "^4.7.0",
+    "history": "^4.10.1",
+    "react-formio": "^4.3.0",
+    "react-redux": "^7.2.0",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "redux-thunk": "^2.3.0"
   }
 }
