@@ -78,7 +78,7 @@ public class PluginConfigurationTest {
 		String content = result.getResponse().getContentAsString();
 		log.info(content);
 		JsonNode jsonNode = mapper.readTree(content);
-		Assertions.assertTrue(jsonNode.has(EXAMPLE_MODULE_KEY), "the example module should be in the payload: " + content);
+		Assertions.assertTrue(jsonNode.at("/plugins").has(EXAMPLE_MODULE_KEY), "the example module should be in the payload: " + content);
 	}
 	
 	@Test
@@ -101,7 +101,7 @@ public class PluginConfigurationTest {
 	@EnableAutoConfiguration
 	static class TestContext{
 		
-		@Bean(EXAMPLE_MODULE_KEY)
+		@Bean
 		public SproutModule exampleSproutModule() {
 			return new ExampleModule();
 		}
@@ -145,7 +145,7 @@ public class PluginConfigurationTest {
 
 			@Override
 			public String getKey() {
-				return "example-module";
+				return EXAMPLE_MODULE_KEY;
 			}
 
 			@Override
