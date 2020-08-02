@@ -1,6 +1,15 @@
+plugins {
+    id 'maven-publish'
+    id 'signing'
+}
+
+
+ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
+
 allprojects {
 	group = 'net.savantly.sprout'
     version = '2.0.0-SNAPSHOT'
+
     repositories {
 	    mavenCentral()
         gradlePluginPortal()
@@ -23,3 +32,58 @@ allprojects {
 	  }
 	}
 }
+
+/*
+subprojects {
+
+	plugins.withType(JavaPlugin) {
+		java {
+		    withJavadocJar()
+		    withSourcesJar()
+		}
+		
+		signing {
+			required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") }
+		    useGpgCmd()
+		}
+		
+		publishing {
+		    publications {
+		        mavenJava(MavenPublication) {
+		            pom {
+		                description = "${description}"
+				        name = "${project.name}"
+				        url = 'https://github.com/savantly-net/sprout-platform'
+				        organization {
+				            name = 'net.savantly'
+				            url = 'https://github.com/savantly-net/'
+				        }
+				        issueManagement {
+				            system = 'GitHub'
+				            url = 'https://github.com/savantly-net/sprout-platform/issues'
+				        }
+				        licenses {
+				            license {
+				                name = 'Apache License 2.0'
+				                url = 'https://github.com/savantly-net/sprout-platform/blob/master/LICENSE'
+				                distribution = 'repo'
+				            }
+				        }
+				        scm {
+				            url = 'https://github.com/savantly-net/sprout-platform'
+				            connection = 'scm:git:git://github.com/savantly-net/sprout-platform.git'
+				            developerConnection = 'scm:git:ssh://git@github.com:savantly-net/sprout-platform.git'
+				        }
+				        developers {
+				            developer {
+				                name = 'Jeremy Branham'
+				            }
+				        }
+		            }
+		        }
+		    }
+		}
+  	}
+	
+}
+*/
