@@ -62,18 +62,18 @@ public class SproutWebSecurityConfigurationTest {
 	@Test
 	@WithAnonymousUser
 	public void loadLoginPage() throws Exception {
-		String url = "/login";
+		String url = "/api/login";
 		
 		ResponseEntity<String> result = rest.getForEntity(url, String.class);
 		
 		log.info("{}", result.getBody());
-		Assertions.assertEquals(HttpStatus.OK, result.getStatusCode(), "Should find the login view");
+		Assertions.assertEquals(HttpStatus.OK, result.getStatusCode(), "Should return ok");
 	}
 	
 	@Test
 	@WithAnonymousUser
 	public void doLogin() throws Exception {
-		String url = "/login";
+		String url = "/api/login";
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -86,7 +86,7 @@ public class SproutWebSecurityConfigurationTest {
 
 		ResponseEntity<String> response = rest.postForEntity(url, request, String.class);
 		
-		Assertions.assertEquals(HttpStatus.FOUND, response.getStatusCode(),"Should login successfully and be redirected");
+		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(),"Should login successfully and be redirected");
 	}
 	
 	@Test

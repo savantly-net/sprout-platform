@@ -78,7 +78,7 @@ public class PluginConfigurationTest {
 		String content = result.getResponse().getContentAsString();
 		log.info(content);
 		JsonNode jsonNode = mapper.readTree(content);
-		Assertions.assertTrue(jsonNode.at("/plugins").has(EXAMPLE_MODULE_KEY), "the example module should be in the payload: " + content);
+		Assertions.assertTrue(jsonNode.at("/plugins/0").has("key"), "the example module should be in the payload: " + content);
 	}
 	
 	@Test
