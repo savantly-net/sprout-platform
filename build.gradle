@@ -3,12 +3,12 @@ plugins {
     id 'signing'
 }
 
-
-ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
-
 allprojects {
 	group = 'net.savantly.sprout'
     version = '2.0.0-SNAPSHOT'
+    
+    
+	ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
     repositories {
 	    mavenCentral()

@@ -1,3 +1,9 @@
+buildscript {
+    dependencies {
+        classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
+    }
+}
+
 plugins {
 	id 'org.springframework.boot' apply false
 	id 'io.spring.dependency-management'
@@ -11,9 +17,10 @@ plugins {
 }
 
 archivesBaseName = name
-description = "Test library for a Sprout Module"
+description = "OpenTok/Vonage REST APIs module for Spring Platform"
 sourceCompatibility = '1.8'
 
+apply plugin: 'com.moowork.node' // gradle-node-plugin
 apply from: '../../gradle/sonar.gradle'
 apply from: '../../gradle/sonatype.gradle'
 
@@ -22,21 +29,22 @@ repositories {
 }
 
 dependencies {
-	api project(':sprout-spring-boot-starter')
-	api 'com.h2database:h2'
-	api 'org.springframework.boot:spring-boot-starter-web',
-		'org.springframework.boot:spring-boot-starter-security',
-		'org.springframework.security:spring-security-test'
-	api('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
+	api project(':sprout-core')
+	api 'org.freemarker:freemarker',
+		'com.tokbox:opentok-server-sdk:4.3.2'
 
 	compileOnly 'org.projectlombok:lombok',
 		'javax.interceptor:javax.interceptor-api:1.2',
 		'javax.validation:validation-api:2.0.1.Final'
     annotationProcessor 'org.projectlombok:lombok',
         'org.springframework.boot:spring-boot-configuration-processor'
-
+    
+    testImplementation project(':sprout-module-test')
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testImplementation 'org.springframework.security:spring-security-test',
+		'com.h2database:h2'
 }
 
 test {
