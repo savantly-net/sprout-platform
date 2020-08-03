@@ -3,15 +3,15 @@
 .auth {
 	height: 100%;
 	.login-half-bg {
-		background: url("../../../images/auth/login-bg.jpg");
+		background: url("/src/assets/images/auth/login-bg.jpg");
 		background-size: cover;
 	}
 	.register-half-bg {
-		background: url("../../../images/auth/register-bg.jpg");
+		background: url("/src/assets/images/auth/register-bg.jpg");
 		background-size: cover;
 	}
 	&.lock-full-bg {
-		background: url("../../../images/auth/lockscreen-bg.jpg");
+		background: url("/src/assets/images/auth/lockscreen-bg.jpg");
 		background-size: cover;
 	}
 	.lock-profile-img {

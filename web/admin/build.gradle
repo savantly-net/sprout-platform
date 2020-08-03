@@ -1,9 +1,12 @@
 plugins {
 	id "com.github.node-gradle.node" version "2.2.0"
+	id 'signing'
+	id 'maven'
 }
 
-apply plugin: 'base'
+//apply plugin: 'base'
 
+apply from: "${rootProject.projectDir}/gradle/sonatype-resource.gradle"
 
 node {
     /* gradle-node-plugin configuration
@@ -38,7 +41,7 @@ task copyIndex(type: Copy) {
 }
 task packageNpmApp(type: Zip) {
     dependsOn copyIndex
-    baseName 'web-admin'
+    baseName 'sprout-admin'
     extension 'jar'
     destinationDir file("${projectDir}/target/")
     from("${projectDir}/dist/classes/") {
@@ -60,9 +63,11 @@ artifacts {
 }
 
 assemble.dependsOn packageNpmApp
+uploadArchives.dependsOn build
 
 clean {
     delete packageNpmApp.archivePath
     delete 'dist'
     delete 'build'
+    delete 'target'
 }

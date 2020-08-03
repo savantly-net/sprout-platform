@@ -1,0 +1,63 @@
+ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
+ext.doSign = project.hasProperty('doSign') ? project.doSign : false
+ext.ossrhUsername = project.hasProperty('ossrhUsername') ? project.ossrhUsername : ''
+ext.ossrhPassword = project.hasProperty('ossrhPassword') ? project.ossrhPassword : ''
+
+signing {
+	required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") && doSign }
+    useGpgCmd()
+    sign configurations.archives
+}
+
+
+// Build, sign, and upload
+uploadArchives {
+    repositories {
+        mavenDeployer {
+
+            // Sign POM
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            // Destination
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            // Add required metadata to POM
+            pom.project {
+                name project.name
+                packaging 'jar'
+                description project.description
+                url 'https://github.com/savantly-net/sprout-platform'
+
+                scm {
+                    connection 'scm:git:ssh://github.com/savantly-net/sprout-platform.git'
+                    developerConnection 'scm:git:ssh://github.com/savantly-net/sprout-platform.git'
+                    url 'https://github.com/savantly-net/sprout-platform/tree/master'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        name 'Jeremy Branham'
+                        email 'Jeremy@Savantly.net'
+                        organization {
+                        	name 'savantly.net'
+                        	url 'http://savantly.net'
+                        }
+                        organizationUrl 'https://github.com/savantly-net/'
+                    }
+                }
+            }
+        }
+    }
+}

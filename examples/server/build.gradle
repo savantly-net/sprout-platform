@@ -1,0 +1,56 @@
+plugins {
+	id 'org.springframework.boot'
+	id 'io.spring.dependency-management'
+	id 'java'
+	id 'maven'
+ 	id 'jacoco'
+ 	id 'org.sonarqube'
+	id "org.owasp.dependencycheck" version "5.3.1"
+}
+
+archivesBaseName = name
+description = "A preconfigured Sprout Server Application"
+sourceCompatibility = '1.8'
+
+apply from: "${rootProject.projectDir}/gradle/sonar.gradle"
+
+bootRun {
+  jvmArgs=["-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=18080"]
+}
+
+task uploadArchives {
+ // Don't publish the example server
+}
+
+dependencies {
+	implementation project(':sprout-spring-boot-starter')
+	implementation 'com.h2database:h2'
+	
+	runtimeOnly project(':sprout-admin')
+	//runtimeOnly project(':web:sprout-web-ui')
+	runtimeOnly project(':sprout-modules-content')
+	runtimeOnly project(':sprout-modules-openTok')
+	runtimeOnly project(':sprout-modules-react-example')
+	
+	runtimeOnly "io.jsonwebtoken:jjwt-impl:${json_web_token_version}",
+		"io.jsonwebtoken:jjwt-jackson:${json_web_token_version}"
+
+	compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok',
+        'org.springframework.boot:spring-boot-configuration-processor'
+        
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
+
+dependencyManagement {
+	imports {
+		mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+	}
+}
+
