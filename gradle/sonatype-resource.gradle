@@ -12,6 +12,7 @@ signing {
 
 // Build, sign, and upload
 uploadArchives {
+	dependsOn build
     repositories {
         mavenDeployer {
 

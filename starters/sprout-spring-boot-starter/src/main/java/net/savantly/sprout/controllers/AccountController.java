@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,18 +36,17 @@ public class AccountController {
 	
 
 	@GetMapping(value = "/api/account")
-	public ResponseEntity account() {
+	public ResponseEntity<UserDto> account() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (Objects.isNull(auth)) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		} else {
-			return ResponseEntity.ok(new UserDto().setName(auth.getName()).setRoles(auth.getAuthorities().stream()
-					.map((g)-> g.getAuthority()).collect(Collectors.toSet())));
+			return ResponseEntity.ok(toDto(auth));
 		}
 	}
 
 	@PostMapping(value = "/api/login")
-	public ResponseEntity<Authentication> login(HttpServletRequest request, HttpServletResponse response,
+	public ResponseEntity<UserDto> login(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam("username") String username, @RequestParam("password") String password)
 			throws ServletException {
 		
@@ -63,7 +61,7 @@ public class AccountController {
 
 		this.securityContextRepository.saveContext(securityContext, holder.getRequest(), holder.getResponse());
 
-		return ResponseEntity.ok(result);
+		return ResponseEntity.ok(toDto(result));
 	}
 
 	@GetMapping(value = "/api/login")
@@ -75,5 +73,10 @@ public class AccountController {
 	public String logout(HttpServletRequest request) throws ServletException {
 		request.logout();
 		return "redirect:/";
+	}
+
+	private UserDto toDto(Authentication auth) {
+		return new UserDto().setName(auth.getName()).setRoles(auth.getAuthorities().stream()
+				.map((g)-> g.getAuthority()).collect(Collectors.toSet()));
 	}
 }
