@@ -38,8 +38,7 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 	@Override
  	public void configure(WebSecurity web) throws Exception {
  		web.ignoring()
- 			.antMatchers(HttpMethod.OPTIONS, "/**")
- 			.antMatchers("/", "/**.*", "/login", "/login/", "/swagger-ui/**");
+ 			.antMatchers("/", "/**.*", "/swagger-ui/**");
  		web.debug(true);
  	}
 
@@ -54,15 +53,12 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
             .antMatchers("/**").permitAll()
             .antMatchers("/admin", "/admin/**").authenticated()
         .and()
-            .formLogin()
-            	.loginPage("/login")
-                .permitAll()
-        .and()
             .logout()
             	.logoutSuccessHandler(logoutSuccessHandler())
                 .permitAll()
         .and()
             .csrf().disable()
+            .cors().and()
         	.httpBasic()
         .and()
         	.exceptionHandling()

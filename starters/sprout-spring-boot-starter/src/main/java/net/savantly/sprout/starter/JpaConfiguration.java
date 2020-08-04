@@ -24,17 +24,21 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 import lombok.AllArgsConstructor;
+import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
 import net.savantly.sprout.core.domain.tenant.TenantSupport;
 import net.savantly.sprout.tenancy.TenantContext;
 
 @Configuration("sproutJpaConfiguration")
 @AutoConfigureAfter(HibernateJpaAutoConfiguration.class)
-@EnableConfigurationProperties(JpaProperties.class)
+@EnableConfigurationProperties({JpaProperties.class})
 @EnableJpaRepositories(basePackages = {"net.savantly.sprout.core", "net.savantly.sprout.settings"})
 @AllArgsConstructor
 public class JpaConfiguration {
+	
+	private final String basePackagesToScan = "net.savantly.sprout.**";
 
 	private final Logger log = LoggerFactory.getLogger(JpaConfiguration.class);
+	private final SproutConfigurationProperties sproutProperties;
 	{
 		// System.setProperty("spring.jpa.hibernate.ddl-auto", "create-drop");
 		// System.setProperty("spring.jpa.hibernate.naming.physical-strategy",
@@ -49,7 +53,11 @@ public class JpaConfiguration {
 		Map<String, Object> jpaProperties = new HashMap<>(properties.getProperties());
 		jpaProperties.put("hibernate.session_factory.interceptor", hibernateInterceptor());
 		jpaProperties.put("hibernate.ddl-auto", "create-drop");
-		return factory.dataSource(dataSource).packages("net.savantly.sprout.**").properties(jpaProperties).build();
+		if (!sproutProperties.getJpa().getPackagesToScan().contains(basePackagesToScan)) {
+			sproutProperties.getJpa().getPackagesToScan().add(basePackagesToScan);
+		}
+		String[] packagesToScan = sproutProperties.getJpa().getPackagesToScan().toArray(new String[sproutProperties.getJpa().getPackagesToScan().size()]);
+		return factory.dataSource(dataSource).packages(packagesToScan).properties(jpaProperties).build();
 	}
 
 	@Bean

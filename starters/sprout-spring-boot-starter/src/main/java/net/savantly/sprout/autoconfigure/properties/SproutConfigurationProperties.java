@@ -1,5 +1,9 @@
 package net.savantly.sprout.autoconfigure.properties;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import lombok.Getter;
@@ -11,6 +15,8 @@ import lombok.Setter;
 public class SproutConfigurationProperties {
 	
 	private Security security = new Security();
+	private Jpa jpa = new Jpa();
+	private Cors cors = new Cors();
 	
 	@Getter
 	@Setter
@@ -36,5 +42,20 @@ public class SproutConfigurationProperties {
     			+ "DgwYjBlM2Y5ZTE5NDY2MDZkMGE5Y2Y5MmVlOTY";
     	private long tokenValidityInSeconds = 86400;
         private long tokenValidityInSecondsForRememberMe = 2592000;
+	}
+	
+	@Getter
+	@Setter
+	public static class Jpa {
+		private List<String> packagesToScan = new ArrayList<>();
+	}
+	
+	@Getter
+	@Setter
+	public static class Cors {
+		private boolean allowCredentials = true;
+		private String[] allowedMethods = Arrays.asList("GET", "OPTIONS", "PUT", "POST", "DELETE").toArray(new String[0]);
+		private String[] allowedHeaders = Arrays.asList("*").toArray(new String[0]);
+		private String[] allowedOrigins = Arrays.asList("*").toArray(new String[0]);
 	}
 }

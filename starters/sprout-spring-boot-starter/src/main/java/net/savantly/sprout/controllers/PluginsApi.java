@@ -33,9 +33,9 @@ import net.savantly.sprout.model.AdminUserInterfaceModel;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/plugins")
-public class PluginsController {
+public class PluginsApi {
 	
-	private final static Logger log = LoggerFactory.getLogger(PluginsController.class);
+	private final static Logger log = LoggerFactory.getLogger(PluginsApi.class);
 
 	private final SproutModuleRegistrationRepository registrationRepository;
 	private final ObjectMapper mapper;

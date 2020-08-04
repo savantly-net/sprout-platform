@@ -32,6 +32,9 @@ dependencies {
 	runtimeOnly project(':sprout-modules-openTok')
 	runtimeOnly project(':sprout-modules-react-example')
 	
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	
 	runtimeOnly "io.jsonwebtoken:jjwt-impl:${json_web_token_version}",
 		"io.jsonwebtoken:jjwt-jackson:${json_web_token_version}"
 

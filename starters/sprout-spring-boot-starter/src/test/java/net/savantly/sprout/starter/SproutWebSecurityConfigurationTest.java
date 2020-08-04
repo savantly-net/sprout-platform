@@ -76,17 +76,15 @@ public class SproutWebSecurityConfigurationTest {
 		String url = "/api/login";
 		
 		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+		headers.setContentType(MediaType.APPLICATION_JSON);
 
-		MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
-		map.add("username", "admin");
-		map.add("password", "password");
+		String body = "{\"username\": \"admin\", \"password\":\"password\"}";
 
-		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
+		HttpEntity<String> request = new HttpEntity<String>(body, headers);
 
 		ResponseEntity<String> response = rest.postForEntity(url, request, String.class);
 		
-		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(),"Should login successfully and be redirected");
+		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(),"Should login successfully");
 	}
 	
 	@Test

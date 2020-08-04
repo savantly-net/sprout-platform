@@ -11,7 +11,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -55,7 +55,7 @@ public class ContentApi {
 		this.contentItemRepository = contentItemRepository;
 	}
 	
-	@RequestMapping({"/fieldTypes"})
+	@GetMapping({"/fieldTypes"})
 	public String fieldTypes() throws JsonProcessingException {
 		List<JsonNode> fieldTypes = new ArrayList<>();
 		Arrays.stream(FieldType.values()).forEach((ft) -> {
