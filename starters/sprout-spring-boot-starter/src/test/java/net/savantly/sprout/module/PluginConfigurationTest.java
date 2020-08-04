@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.savantly.sprout.autoconfigure.SproutAutoConfiguration;
-import net.savantly.sprout.controllers.PluginsController;
+import net.savantly.sprout.controllers.PluginsApi;
 import net.savantly.sprout.core.module.SimpleSproutModuleExecutionResponse;
 import net.savantly.sprout.core.module.SproutModule;
 import net.savantly.sprout.core.module.SproutModuleConfiguration;
@@ -62,7 +62,7 @@ public class PluginConfigurationTest {
 	
 	@Test
 	public void confirmPluginControllerBeanExists() {
-		PluginsController bean = ctx.getBean(PluginsController.class);
+		PluginsApi bean = ctx.getBean(PluginsApi.class);
 		Assertions.assertNotNull(bean);
 	}
 	

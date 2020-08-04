@@ -20,13 +20,14 @@ import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.savantly.sprout.model.user.UserDto;
+import net.savantly.sprout.model.user.UsernameAndPassword;
 
 @RestController
-public class AccountController {
+public class AccountApi {
 	HttpSessionRequestCache cache = new HttpSessionRequestCache();
 
 	@Autowired
@@ -47,13 +48,13 @@ public class AccountController {
 
 	@PostMapping(value = "/api/login")
 	public ResponseEntity<UserDto> login(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam("username") String username, @RequestParam("password") String password)
+			@RequestBody UsernameAndPassword authRequest)
 			throws ServletException {
 		
 		cache.saveRequest(request, response);
 		
 		Authentication result = this.authenticationManager
-				.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+				.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 
 		HttpRequestResponseHolder holder = new  HttpRequestResponseHolder(request, response);
 		SecurityContext securityContext = securityContextRepository.loadContext(holder);

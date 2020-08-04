@@ -16,6 +16,7 @@ import org.springframework.format.support.FormattingConversionService;
 import org.springframework.util.PathMatcher;
 import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.servlet.HandlerMapping;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.handler.AbstractHandlerMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.resource.ResourceUrlProvider;
 import org.springframework.web.util.UrlPathHelper;
 
 import lombok.RequiredArgsConstructor;
+import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
 import net.savantly.sprout.controllers.argument.TenantIdArgumentResolver;
 import net.savantly.sprout.core.domain.tenant.TenantRepository;
 
@@ -42,6 +44,8 @@ public class SproutWebMvcConfigurer extends  WebMvcConfigurationSupport {
 			"classpath:/META-INF/public/", 
 			"classpath:/META-INF/static/", 
 			"classpath:/META-INF/resources/").toArray(new String[0]);
+	
+	private final SproutConfigurationProperties sproutConfiguration;
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -74,6 +78,17 @@ public class SproutWebMvcConfigurer extends  WebMvcConfigurationSupport {
 		((AbstractHandlerMapping)mapping).setOrder(-1);
 		return mapping;
 	}
+	
+	@Override
+	protected void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/**")
+			.allowCredentials(sproutConfiguration.getCors().isAllowCredentials())
+			.allowedHeaders(sproutConfiguration.getCors().getAllowedHeaders())
+			.allowedMethods(sproutConfiguration.getCors().getAllowedMethods())
+			.allowedOrigins(sproutConfiguration.getCors().getAllowedOrigins());
+		super.addCorsMappings(registry);
+	}
+
 	
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
