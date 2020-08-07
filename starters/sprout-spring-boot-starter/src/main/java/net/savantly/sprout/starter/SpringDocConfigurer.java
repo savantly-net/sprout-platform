@@ -9,6 +9,7 @@ import org.springframework.web.method.HandlerMethod;
 
 import io.swagger.v3.oas.models.Operation;
 import net.savantly.sprout.controllers.CrudController;
+import net.savantly.sprout.rest.openapi.SproutOpenApiCustomizer;
 
 @Configuration
 public class SpringDocConfigurer {
@@ -20,11 +21,21 @@ public class SpringDocConfigurer {
 			public Operation customize(Operation operation, HandlerMethod handlerMethod) {
 				Class<?> superClazz = handlerMethod.getBeanType().getSuperclass();
 				if (Objects.nonNull(superClazz) && superClazz.isAssignableFrom(CrudController.class)) {
-					// TODO: get the prefix from an annotation if set
-					String beanName = handlerMethod.getBeanType().getSimpleName();
-					operation.setOperationId(String.format("%s_%s", beanName, handlerMethod.getMethod().getName()));
+					String prefix = handlerMethod.getBeanType().getSimpleName();
+					SproutOpenApiCustomizer annotation = handlerMethod.getBeanType().getAnnotation(SproutOpenApiCustomizer.class);
+					if (Objects.nonNull(annotation) && Objects.nonNull(annotation.operationIdPrefix())) {
+						prefix = annotation.operationIdPrefix();
+					}
+					operation.setOperationId(String.format("%s%s", prefix, capitalizeFirst(handlerMethod.getMethod().getName())));
 				}
 				return operation;
+			}
+
+			private String capitalizeFirst(String str) {
+				String firstChar = str.substring(0, 1).toUpperCase();
+				if (str.length() > 1) {
+					return String.format("%s%s", firstChar, str.substring(1));
+				} else return firstChar;
 			}
 		};
 		return c;

@@ -33,7 +33,9 @@ dependencies {
 		"io.jsonwebtoken:jjwt-api:${json_web_token_version}",
 		"org.springdoc:springdoc-openapi-ui:${springdoc_version}",
 		"org.springdoc:springdoc-openapi-data-rest:${springdoc_version}",
-		"org.springdoc:springdoc-openapi-security:${springdoc_version}"
+		"org.springdoc:springdoc-openapi-security:${springdoc_version}",
+		"com.fasterxml.jackson.datatype:jackson-datatype-hibernate5",
+		"com.fasterxml.jackson.module:jackson-module-afterburner"
 			
 	runtimeOnly "io.jsonwebtoken:jjwt-impl:${json_web_token_version}",
 		"io.jsonwebtoken:jjwt-jackson:${json_web_token_version}"

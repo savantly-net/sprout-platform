@@ -20,8 +20,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.context.support.WithAnonymousUser;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -57,17 +55,6 @@ public class SproutWebSecurityConfigurationTest {
 		
 		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(),"Should find the root view");
 		Assertions.assertTrue("The Root Index Page".contentEquals(response.getBody()));
-	}
-
-	@Test
-	@WithAnonymousUser
-	public void loadLoginPage() throws Exception {
-		String url = "/api/login";
-		
-		ResponseEntity<String> result = rest.getForEntity(url, String.class);
-		
-		log.info("{}", result.getBody());
-		Assertions.assertEquals(HttpStatus.OK, result.getStatusCode(), "Should return ok");
 	}
 	
 	@Test

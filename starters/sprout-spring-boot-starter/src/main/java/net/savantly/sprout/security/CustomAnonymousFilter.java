@@ -22,7 +22,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.util.Assert;
 import org.springframework.web.filter.GenericFilterBean;
 
-import net.savantly.sprout.core.domain.user.UserFixture;
+import net.savantly.sprout.core.configuration.SecurityConstants;
 
 public class CustomAnonymousFilter extends GenericFilterBean implements InitializingBean {
 
@@ -30,7 +30,7 @@ public class CustomAnonymousFilter extends GenericFilterBean implements Initiali
 	private UserDetailsService userDetailsService;
 	private AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource = new WebAuthenticationDetailsSource();
 	private String key = ANONYMOUS_ROLE;
-	private String principal = UserFixture.ANONYMOUS_USER;
+	private String principal = SecurityConstants.ANONYMOUS_USER_ID;
 
 	public CustomAnonymousFilter(UserDetailsService userDetailsService) {
 		this.userDetailsService = userDetailsService;
@@ -78,7 +78,7 @@ public class CustomAnonymousFilter extends GenericFilterBean implements Initiali
 	}
 
 	public List<GrantedAuthority> getAuthorities() {
-		UserDetails user = this.userDetailsService.loadUserByUsername(UserFixture.ANONYMOUS_USER);
+		UserDetails user = this.userDetailsService.loadUserByUsername(SecurityConstants.ANONYMOUS_USER_ID);
 		return user.getAuthorities().stream().collect(Collectors.toList());
 	}
 }

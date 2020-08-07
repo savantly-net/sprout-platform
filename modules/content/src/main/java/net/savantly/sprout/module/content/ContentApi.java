@@ -56,7 +56,7 @@ public class ContentApi {
 	}
 	
 	@GetMapping({"/fieldTypes"})
-	public String fieldTypes() throws JsonProcessingException {
+	public String getContentFieldTypes() throws JsonProcessingException {
 		List<JsonNode> fieldTypes = new ArrayList<>();
 		Arrays.stream(FieldType.values()).forEach((ft) -> {
 			fieldTypes.add(ft.toJsonNode());
@@ -65,7 +65,7 @@ public class ContentApi {
 	}
 	
 	@RequestMapping(value="/item/{id}", method=RequestMethod.GET)
-	public ResponseEntity<String> getContent(@PathVariable("id") String id) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
+	public ResponseEntity<String> getRenderedContentItem(@PathVariable("id") String id) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
 		StringWriter writer = new StringWriter();
 		ContentItem item = this.contentItemRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("id: " + id));
 		itemRenderer.renderContentItem(item, writer);
@@ -74,7 +74,7 @@ public class ContentApi {
 	}
 	
 	@RequestMapping(value="/page/{id}", method=RequestMethod.GET)
-	public ResponseEntity<String> getPage(@PathVariable("id") String id) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
+	public ResponseEntity<String> getRenderedWebPage(@PathVariable("id") String id) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
 		WebPage item = this.pageRepository.findById(id).orElseThrow(()->new EntityNotFoundException("id: " + id));
 		String renderedView = pageRenderer.render(item);
 		ResponseEntity<String> response = new ResponseEntity<String>(renderedView, HttpStatus.OK);
@@ -82,7 +82,7 @@ public class ContentApi {
 	}
 	
 	@RequestMapping(value="/home", method=RequestMethod.GET)
-	public ResponseEntity<String> getHomePage() throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
+	public ResponseEntity<String> getRenderedHomeWebPage() throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
 		WebPage item = pageRepository.findHomePage();
 		if(item == null) {
 			return new ResponseEntity<String>("No Home page", HttpStatus.NOT_FOUND);
