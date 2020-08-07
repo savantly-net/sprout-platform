@@ -37,7 +37,7 @@ public class AccountApi {
 	
 
 	@GetMapping(value = "/api/account")
-	public ResponseEntity<UserDto> account() {
+	public ResponseEntity<UserDto> getAccountInfo() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (Objects.isNull(auth)) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -63,11 +63,6 @@ public class AccountApi {
 		this.securityContextRepository.saveContext(securityContext, holder.getRequest(), holder.getResponse());
 
 		return ResponseEntity.ok(toDto(result));
-	}
-
-	@GetMapping(value = "/api/login")
-	public String login() {
-		return "login";
 	}
 
 	@GetMapping("/api/logout")

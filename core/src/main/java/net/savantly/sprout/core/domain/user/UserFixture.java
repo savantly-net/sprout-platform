@@ -2,6 +2,7 @@ package net.savantly.sprout.core.domain.user;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import net.savantly.spring.fixture.AbstractBaseFixture;
 import net.savantly.spring.fixture.Fixture;
 import net.savantly.spring.fixture.util.RandomGenerator;
+import net.savantly.sprout.core.configuration.SecurityConstants;
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
 import net.savantly.sprout.core.domain.emailAddress.EmailAddressFixture;
 import net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepository;
@@ -19,10 +21,6 @@ import net.savantly.sprout.core.security.role.RoleFixture;
 import net.savantly.sprout.core.security.role.RoleRepository;
 
 public class UserFixture extends AbstractBaseFixture<SproutUserEntity, UserRepository>{
-
-	public static final String ANONYMOUS_USER = "anonymousUser";
-	public static final String SYSTEM_USER = "systemUser";
-	public static final String ADMIN_USER = "adminUser";
 	
     PasswordEncoder encoder;
     private EmailAddressRepository emailAddressRepository;
@@ -58,14 +56,15 @@ public class UserFixture extends AbstractBaseFixture<SproutUserEntity, UserRepos
     }
     
     private void addSystemUser(List<SproutUserEntity> entityList) {
-        String username = SYSTEM_USER;
-        SproutUserEntity userDetails = this.repository.findOneByUsername(username);
+        String username = SecurityConstants.SYSTEM_USER_ID;
+        Optional<SproutUserEntity> optUserDetails = this.repository.findById(username);
         
-        if(userDetails != null) return;
+        if(optUserDetails.isPresent()) return;
         
         Set<Role> authorities = new HashSet<Role>(1);
         authorities.add(getRole(RoleFixture.ADMIN_ROLE));
-        userDetails = new SproutUserEntity(username, RandomGenerator.getRandomAlphaNumericString(25) , username, username, authorities);
+        SproutUserEntity userDetails = new SproutUserEntity(username, RandomGenerator.getRandomAlphaNumericString(25) , username, username, authorities);
+        userDetails.setId(username);
         userDetails.setDisplayName("SYSTEM");
         
         EmailAddress emailAddress =  getEmailAddress(EmailAddressFixture.SYSTEM_EMAIL);
@@ -74,15 +73,16 @@ public class UserFixture extends AbstractBaseFixture<SproutUserEntity, UserRepos
     }
     
     private void addAnonymousUser(List<SproutUserEntity> entityList) {
-        String username = ANONYMOUS_USER;
-        SproutUserEntity userDetails = this.repository.findOneByUsername(username);
+        String username = SecurityConstants.ANONYMOUS_USER_ID;
+        Optional<SproutUserEntity> optUserDetails = this.repository.findById(username);
         
-        if(userDetails != null) return;
+        if(optUserDetails.isPresent()) return;
         
         Set<Role> authorities = new HashSet<Role>(1);
         authorities.add(getRole(RoleFixture.ANONYMOUS_ROLE));
-        userDetails = new SproutUserEntity(username, RandomGenerator.getRandomAlphaNumericString(25) , username, username, authorities);
-        userDetails.setDisplayName(ANONYMOUS_USER);
+        SproutUserEntity userDetails = new SproutUserEntity(username, RandomGenerator.getRandomAlphaNumericString(25) , username, username, authorities);
+        userDetails.setId(username);
+        userDetails.setDisplayName(SecurityConstants.ANONYMOUS_USER_ID);
         
         EmailAddress emailAddress =  getEmailAddress(EmailAddressFixture.ANONYMOUS_EMAIL);
         userDetails.setPrimaryEmailAddress(emailAddress);
@@ -91,13 +91,14 @@ public class UserFixture extends AbstractBaseFixture<SproutUserEntity, UserRepos
 
     private void addAdminUser(List<SproutUserEntity> entityList) {
         String username = "admin";
-        SproutUserEntity userDetails = this.repository.findOneByUsername(username);
+        Optional<SproutUserEntity> optUserDetails = this.repository.findById(SecurityConstants.ADMIN_USER_ID);
         
-        if(userDetails != null) return;
+        if(optUserDetails.isPresent()) return;
         
         Set<Role> authorities = new HashSet<Role>(1);
         authorities.add(getRole(RoleFixture.ADMIN_ROLE));
-        userDetails = new SproutUserEntity(username, password , "Admin", "User", authorities);
+        SproutUserEntity userDetails = new SproutUserEntity(username, password , "Admin", "User", authorities);
+        userDetails.setId(SecurityConstants.ADMIN_USER_ID);
         userDetails.setDisplayName("Admin User");
         userDetails.setPassword(encoder.encode(password));
         

@@ -41,7 +41,7 @@ public class PluginsApi {
 	private final ObjectMapper mapper;
 	private final List<SproutModule> sproutModules;
 	
-	@GetMapping({"", "/"})
+	@GetMapping("")
 	public HashMap<String, Object> getSproutModules(){
 		HashMap<String, Object> response = new HashMap<>();
 		

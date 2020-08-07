@@ -21,13 +21,19 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 import net.savantly.sprout.core.domain.tenant.TenantRepository;
 import net.savantly.sprout.module.PluginConfiguration;
+import net.savantly.sprout.starter.DateTimeFormatConfiguration;
 import net.savantly.sprout.starter.SpringDocConfigurer;
 import net.savantly.sprout.starter.SproutWebMvcConfigurer;
 import net.savantly.sprout.tenancy.TenantInterceptor;
 
 @Configuration
 @AutoConfigureBefore({WebMvcAutoConfiguration.class, SproutSecurityAutoConfiguration.class})
-@Import({PluginConfiguration.class, SproutWebMvcConfigurer.class, SpringDocConfigurer.class})
+@Import({
+	PluginConfiguration.class, 
+	SproutWebMvcConfigurer.class, 
+	SpringDocConfigurer.class,
+	DateTimeFormatConfiguration.class
+})
 public class SproutWebMvcAutoConfiguration implements InitializingBean {
 	
 	private static final Logger log = LoggerFactory.getLogger(SproutWebMvcAutoConfiguration.class);
