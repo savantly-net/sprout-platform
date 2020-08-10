@@ -1,36 +1,57 @@
-package net.savantly.sprout.starter;
+package net.savantly.sprout.starter.jackson;
 
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
-
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.zalando.problem.ProblemModule;
 import org.zalando.problem.violations.ConstraintViolationProblemModule;
 
-@Configuration
-public class JacksonConfiguration {
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
 
+@Configuration
+@ConditionalOnMissingBean(value = JacksonConfiguration.class)
+public class DefaultJacksonConfiguration implements JacksonConfiguration {
+	
+	@Bean
+	public ObjectMapper objectMapper() {
+		ObjectMapper mapper = new ObjectMapper();
+		configureObjectMapper(mapper);
+		return mapper;
+	}
+
+	protected ObjectMapper configureObjectMapper(ObjectMapper mapper) {
+		mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+		mapper.registerModules(
+				jdk8Module(),
+				javaTimeModule(),
+				hibernate5Module(),
+				afterburnerModule(),
+				problemModule(),
+				constraintViolationProblemModule()
+				);
+		return mapper;
+	}
+	
     /**
      * Support for Java date and time API.
      * @return the corresponding Jackson module.
      */
-    @Bean
     public JavaTimeModule javaTimeModule() {
         return new JavaTimeModule();
     }
 
-    @Bean
-    public Jdk8Module jdk8TimeModule() {
+    public Jdk8Module jdk8Module() {
         return new Jdk8Module();
     }
 
     /*
      * Support for Hibernate types in Jackson.
      */
-    @Bean
     public Hibernate5Module hibernate5Module() {
         return new Hibernate5Module();
     }
@@ -38,7 +59,6 @@ public class JacksonConfiguration {
     /*
      * Jackson Afterburner module to speed up serialization/deserialization.
      */
-    @Bean
     public AfterburnerModule afterburnerModule() {
         return new AfterburnerModule();
     }
@@ -46,7 +66,6 @@ public class JacksonConfiguration {
     /*
      * Module for serialization/deserialization of RFC7807 Problem.
      */
-    @Bean
     ProblemModule problemModule() {
         return new ProblemModule();
     }
@@ -54,8 +73,8 @@ public class JacksonConfiguration {
     /*
      * Module for serialization/deserialization of ConstraintViolationProblem.
      */
-    @Bean
     ConstraintViolationProblemModule constraintViolationProblemModule() {
         return new ConstraintViolationProblemModule();
     }
+
 }
