@@ -52,10 +52,10 @@ public class SproutWebMvcConfigurer extends  WebMvcConfigurationSupport {
 
 		// TODO: Why do we need to do this? 
 		// We shouldn't need to explicitly add the subfoder and version number to the resource location path
-		registry.addResourceHandler("/swagger-ui/**")
-				.addResourceLocations(CLASSPATH_RESOURCE_LOCATION + DEFAULT_WEB_JARS_PREFIX_URL + DEFAULT_PATH_SEPARATOR + "swagger-ui/3.25.1/")
-				.resourceChain(false)
-				.addTransformer(swaggerIndexTransformer);
+		//registry.addResourceHandler("/swagger-ui/**")
+		//		.addResourceLocations(CLASSPATH_RESOURCE_LOCATION + DEFAULT_WEB_JARS_PREFIX_URL + DEFAULT_PATH_SEPARATOR + "swagger-ui/3.25.1/")
+		//		.resourceChain(false)
+		//		.addTransformer(swaggerIndexTransformer);
 		
 		registry.addResourceHandler("/"+staticFilePattern, "/**/"+staticFilePattern)
 			.addResourceLocations(resourceLocations);

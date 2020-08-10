@@ -17,6 +17,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        ddl-auto: create-drop
 
 management:
   endpoints:
@@ -26,6 +27,3 @@ management:
 logging:
   level:
     org.springframework.web: INFO
-
-springdoc:
-  swagger-ui.path: /swagger

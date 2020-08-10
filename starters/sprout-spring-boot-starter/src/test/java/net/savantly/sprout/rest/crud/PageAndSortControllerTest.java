@@ -1,6 +1,7 @@
-package net.savantly.sprout.controllers;
+package net.savantly.sprout.rest.crud;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Assertions;
@@ -30,9 +31,9 @@ import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 @IntegrationTest
-public class CrudControllerTest {
+public class PageAndSortControllerTest {
 
-	private static final Logger log = LoggerFactory.getLogger(CrudControllerTest.class);
+	private static final Logger log = LoggerFactory.getLogger(PageAndSortControllerTest.class);
 	
 	@Autowired
 	WebApplicationContext ctx;
@@ -53,7 +54,7 @@ public class CrudControllerTest {
 		String content = result.getResponse().getContentAsString();
 		log.info(content);
 		JsonNode jsonNode = mapper.readTree(content);
-		Assertions.assertTrue(jsonNode.isArray());
+		Assertions.assertTrue(jsonNode.has("content"));
 	}
 	
 	@Test
@@ -68,6 +69,8 @@ public class CrudControllerTest {
 		log.info(content);
 		JsonNode jsonNode = mapper.readTree(content);
 		Assertions.assertTrue(jsonNode.has("name"));
+		
+		testGetAll();
 	}
 
 	@Configuration
@@ -80,12 +83,16 @@ public class CrudControllerTest {
 		}
 		
 		@RequestMapping("/api/example")
-		static class ExampleCrudController extends CrudController<Organization, String, OrganizationRepository> {
+		static class ExampleCrudController extends PageAndSortProjectionController<Organization, CompanyName, String, OrganizationRepository> {
 
 			public ExampleCrudController(OrganizationRepository repository) {
-				super(repository);
+				super(repository, CompanyName.class);
 			}
 			
 		}
+	}
+	
+	interface CompanyName {
+		public String getName();
 	}
 }
