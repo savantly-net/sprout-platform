@@ -17,6 +17,7 @@ public class SproutConfigurationProperties {
 	private Security security = new Security();
 	private Jpa jpa = new Jpa();
 	private Cors cors = new Cors();
+	private Mvc mvc = new Mvc();
 	
 	@Getter
 	@Setter
@@ -57,5 +58,17 @@ public class SproutConfigurationProperties {
 		private String[] allowedMethods = Arrays.asList("GET", "OPTIONS", "PUT", "POST", "DELETE").toArray(new String[0]);
 		private String[] allowedHeaders = Arrays.asList("*").toArray(new String[0]);
 		private String[] allowedOrigins = Arrays.asList("*").toArray(new String[0]);
+	}
+	
+	@Getter
+	@Setter
+	public static class Mvc {
+		private List<StaticResourceMap> staticResources = new ArrayList<>();
+	}
+	@Getter
+	@Setter
+	public static class StaticResourceMap {
+		private List<String> patterns = new ArrayList<>();
+		private List<String> locations = new ArrayList<>();
 	}
 }

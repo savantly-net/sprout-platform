@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 
+import lombok.RequiredArgsConstructor;
+import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
 import net.savantly.sprout.core.domain.menu.Menu;
 import net.savantly.sprout.core.domain.oauth.OAuthAccount;
@@ -34,7 +36,10 @@ public class SproutRepositoryRestAutoConfiguration {
 
 	@Configuration
 	@AutoConfigureBefore(SproutWebMvcAutoConfiguration.class)
+	@RequiredArgsConstructor
 	static class SproutRepositoryRestConfigurer implements RepositoryRestConfigurer {
+		
+		private final SproutConfigurationProperties sproutConfiguration;
 
 		@Override
 		public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
@@ -42,7 +47,14 @@ public class SproutRepositoryRestAutoConfiguration {
 			config.setReturnBodyForPutAndPost(true);
 			config.setBasePath("/api/repo");
 			config.exposeIdsFor(ENTITIES);
+			
+			config.getCorsRegistry().addMapping("/**")
+				.allowCredentials(sproutConfiguration.getCors().isAllowCredentials())
+				.allowedHeaders(sproutConfiguration.getCors().getAllowedHeaders())
+				.allowedMethods(sproutConfiguration.getCors().getAllowedMethods())
+				.allowedOrigins(sproutConfiguration.getCors().getAllowedOrigins());
 		}
+		
 	}
 
 }

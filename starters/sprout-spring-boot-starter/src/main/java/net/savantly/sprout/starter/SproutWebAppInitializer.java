@@ -2,6 +2,8 @@ package net.savantly.sprout.starter;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import net.savantly.sprout.starter.mvc.SproutWebMvcConfigurer;
+
 public class SproutWebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	   @Override
