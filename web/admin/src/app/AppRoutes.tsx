@@ -43,7 +43,7 @@ class AppRoutes extends Component<RouteListProps>{
 
           <Route path="/errors/500" component={ Error500 } />
           <Route path="/errors/404" component={ Error404 } />
-          <Redirect to="/errors/404" />
+          {/*<Redirect to="/errors/404" />*/}
         </Switch>
       </Suspense>
     );

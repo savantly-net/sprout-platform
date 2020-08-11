@@ -14,7 +14,7 @@ import { getProfile } from './state/reducers/application-profile';
 import { AUTHORITIES } from "./config/constants";
 import ErrorBoundary from './components/error/error-boundary';
 
-const baseHref = document.querySelector('base')?.getAttribute('href')?.replace(/\/$/, '') || '/';
+const baseHref =  '/admin';
 
 export interface IAppProps extends StateProps, DispatchProps {}
 

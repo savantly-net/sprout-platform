@@ -77,7 +77,7 @@ public class SproutWebSecurityConfigurationTest {
 	@Test
 	@WithAnonymousUser
 	public void loadAdminPageUnauthorized() throws Exception {
-		String url = "/admin";
+		String url = "/admin/";
 		
 		ResponseEntity<String> response = rest.getForEntity(url, String.class);
 		
@@ -85,6 +85,15 @@ public class SproutWebSecurityConfigurationTest {
 		// TODO: should this redirect or throw 401?
 		//Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(), "Should be redirected for authentication");
 		Assertions.assertTrue(response.getBody().contains("The Admin Page"));
+	}
+	
+	@Test
+	@WithAnonymousUser
+	public void loadAdminRedirect() throws Exception {
+		String url = "/admin";
+		
+		ResponseEntity<String> response = rest.getForEntity(url, String.class);
+		Assertions.assertEquals(HttpStatus.PERMANENT_REDIRECT, response.getStatusCode(), "Should be redirected with trailing slash");
 	}
 	
 	@Configuration

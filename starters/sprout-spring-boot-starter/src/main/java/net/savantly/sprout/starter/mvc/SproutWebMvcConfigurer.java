@@ -7,7 +7,10 @@ import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguratio
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import lombok.RequiredArgsConstructor;
@@ -42,6 +45,13 @@ public class SproutWebMvcConfigurer implements WebMvcConfigurer {
 	public void addFormatters(FormatterRegistry registry) {
 		log.info("adding TenantIdArgumentResolver to the FormatterRegistry");
 		registry.addConverter(new TenantIdArgumentResolver(tenantRepo));
+	}
+	
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addRedirectViewController("/admin", "/admin/")
+	      .setKeepQueryParams(true)
+	      .setStatusCode(HttpStatus.PERMANENT_REDIRECT);
 	}
 
 }
