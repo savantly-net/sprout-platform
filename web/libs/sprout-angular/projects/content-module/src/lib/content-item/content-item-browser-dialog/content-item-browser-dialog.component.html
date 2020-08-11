@@ -1,0 +1,14 @@
+<div class="container">
+	<div class="form-group">
+		<input class="form-control" [(ngModel)]="filterText" maxlength="255" placeholder="Enter a search term">
+	</div>
+	
+	<div *ngIf="items">
+		<div *ngFor="let item of items | filter : 'name' : filterText">
+			<div class="d-flex justify-content-between flex-wrap">
+				<span>{{item.name}}</span>
+				<button class="btn" (click)="select(item)" color="accent"><span>done</span></button>
+			</div>
+		</div>
+	</div>
+</div>
