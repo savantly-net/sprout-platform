@@ -42,22 +42,7 @@ public class SproutAutoConfigurationTest {
 	public void testInitialization(){
 		ctx.getBean(SproutAutoConfiguration.class);
 	}
-	
-	
-	@Test
-	public void loadIndexPage() throws Exception {
-		mvc.perform(get("/")).andExpect(status().isOk());
-	}
-	
-	@Test
-	public void loadAdminIndexPage() throws Exception {
-		mvc.perform(get("/admin")).andExpect(status().isOk());
-	}
-	
-	@Test
-	public void loadAdminStaticFile() throws Exception {
-		mvc.perform(get("/admin/test.js")).andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType("application/javascript"));
-	}
+
 	
 	@Configuration
 	@EnableAutoConfiguration

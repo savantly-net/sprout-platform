@@ -24,6 +24,7 @@
     "compass-mixins": "^0.12.10",
     "dompurify": "^2.0.12",
     "font-awesome": "^4.7.0",
+    "history": "^5.0.0",
     "http-proxy-middleware": "^1.0.5",
     "namor": "^1.1.3",
     "node-sass": "^4.12.0",
