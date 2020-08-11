@@ -1,0 +1,25 @@
+<div class="card" *ngIf="fieldControl">
+	<!-- The repeated field template -->
+	<div class="card-body" [ngSwitch]="fieldControl.value?.fieldType">
+		<div *ngSwitchCase="'text'">
+			<div>
+				<label>{{fieldControl.value.displayName}}</label>
+				<textarea rows="1" class="form-control" maxlength="3000" [(ngModel)]="fieldControl.value.value"></textarea>
+				<span class="form-text text-muted" align="end">{{fieldControl.value.value?.length || 0}}/3000</span>
+			</div>
+		</div>
+		<div *ngSwitchCase="'markup'">
+			<ckeditor [(ngModel)]="fieldControl.value.value" [ngModelOptions]="{standalone: true}"></ckeditor>
+		</div>
+		<div *ngSwitchCase="'markdown'">
+			<md-editor name="markdownContent" [(ngModel)]="fieldControl.value.value" [height]="'200px'" [mode]="markdownMode" [required]="fieldControl.value.required"></md-editor>
+		</div>
+		<div *ngSwitchCase="'json'" class="jsoneditor">
+			<sv-json-editor [(ngModel)]="fieldControl.value.value"></sv-json-editor>
+		</div>
+		<div *ngSwitchDefault>
+			<b>Field type: {{fieldControl.value?.fieldType}} has no editor yet =(</b>
+		</div>
+	</div>
+    <!-- End of the repeated field template -->
+</div>

@@ -1,0 +1,6 @@
+div.jsoneditor, 
+div.jsoneditor > sv-json-editor > div,
+div.jsoneditor-outer,
+div.jsoneditor div.ace_editor.ace-tm {
+	min-height: 300px;
+}
