@@ -23,7 +23,7 @@ import net.savantly.sprout.core.domain.tenant.TenantRepository;
 import net.savantly.sprout.module.PluginConfiguration;
 import net.savantly.sprout.starter.DateTimeFormatConfiguration;
 import net.savantly.sprout.starter.SpringDocConfigurer;
-import net.savantly.sprout.starter.SproutWebMvcConfigurer;
+import net.savantly.sprout.starter.mvc.SproutWebMvcConfigurer;
 import net.savantly.sprout.tenancy.TenantInterceptor;
 
 @Configuration

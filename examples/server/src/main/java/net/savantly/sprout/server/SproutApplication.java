@@ -11,7 +11,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
 @SpringBootApplication
-@EnableSpringDataWebSupport
 @EnableJpaRepositories({"net.savantly.sprout.server.domain"})
 public class SproutApplication {
 
