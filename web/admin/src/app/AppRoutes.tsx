@@ -1,5 +1,5 @@
 import React, { Component,Suspense, lazy } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addRoute, IRoute, RouteItemsState } from './state/reducers/routes';
 import { IRootState } from './state/reducers/';

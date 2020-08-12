@@ -104,7 +104,7 @@ export const getSession: () => void = () => async (dispatch:Function, getState:F
     payload: axios.get('api/account'),
   });
 
-  const { account } = getState().authentication;
+  //const { account } = getState().authentication;
 };
 
 export const login: (username: string, password: string, rememberMe?: boolean) => void = (username, password, rememberMe = false) => async (

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { IRootState } from '../state/reducers';
 import { connect } from 'react-redux';
 import { SidebarItemsState, ISidebarItem } from '../state/reducers/sidebar';
