@@ -11,6 +11,9 @@ The HAL connectivity is provided by - https://github.com/lagoshny/ngx-hal-client
 Or all peer dependencies -  
 `npm i @angular/cdk @angular/common @angular/flex-layout @angular/material @lagoshny/ngx-hal-client @savantly/ngx-jsoneditor ng2-ckeditor ngx-markdown-editor rxjs`
 
+Add ckeditor module to your index.html -  
+`<script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>`
+
 Provide a configuration for the Spring Data Rest endpoint.  
 
 ```

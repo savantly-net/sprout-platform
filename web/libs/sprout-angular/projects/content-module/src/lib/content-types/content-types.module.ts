@@ -14,11 +14,11 @@ import { RouterModule } from '@angular/router';
     ContentFieldModule,
     RouterModule.forChild([
       {
-        path: 'content-types',
+        path: 'content-type',
         component: ContentTypesComponent
       },
       {
-        path: 'content-types-editor',
+        path: 'content-type-editor',
         component: ContentTypesEditorComponent
       }
     ])

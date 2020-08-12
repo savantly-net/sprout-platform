@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="http://savantly.net">Sprout NG Playground</a>
+    <button class="navbar-toggler" type="button" class="navbar-toggler" (click)="isMenuCollapsed = !isMenuCollapsed">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
+      <ul ngbNav #nav="ngbNav">
+        <li ngbNavItem ngbDropdown >
+            <a class="btn" id="contentModuleMenu" ngbDropdownToggle>Content Module</a>
+            <div ngbDropdownMenu aria-labelledby="contentModuleMenu">
+                <button ngbDropdownItem routerLink='/content-type'>Content Types</button>
+                <button ngbDropdownItem routerLink='/content-template'>Content Templates</button>
+                <button ngbDropdownItem routerLink='/content-item'>Content Items</button>
+            </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+<router-outlet></router-outlet>

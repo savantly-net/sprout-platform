@@ -3,6 +3,7 @@ import { ContentTypesService, ContentType } from '../content-types.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { findIdOfResourceSelfLink } from '../../standard/util/find-id-of-resource';
 
 @Component({
   selector: 'app-content-types-editor',
@@ -31,11 +32,13 @@ export class ContentTypesEditorComponent implements OnInit {
     return halModel;
   }
 
-  save(model) {
+  save(model: ContentType) {
     const halModel = this.prepareSave(model);
     this.service.create(halModel).subscribe(data => {
+      console.log('saved content-type:', data);
       this.messageEmitter.emit({msg: 'Saved', code: 200});
-      this.router.navigate(['content-types-editor', {id: (data as unknown as ContentType).id}]);
+      const contentType = (data as unknown as ContentType);
+      this.router.navigate(['content-type-editor', {name: contentType.name}]);
     }, err => {
       if (err.statusText === 'Conflict') {
         this.messageEmitter.emit({msg: 'The template name must be unique', code: 400, err});
@@ -43,7 +46,7 @@ export class ContentTypesEditorComponent implements OnInit {
     });
   }
 
-  delete(model) {
+  delete(model: ContentType) {
     this.service.delete(model).subscribe(data => {
       this.router.navigate(['content-types']);
     }, err => {
@@ -52,9 +55,9 @@ export class ContentTypesEditorComponent implements OnInit {
     });
   }
 
-  loadItem(id: string) {
-    if (id) {
-      this.service.findById(id).subscribe((response: any) => {
+  loadItem(name: string) {
+    if (name) {
+      this.service.findByName(name).subscribe((response: ContentType) => {
         this.rForm.patchValue(response);
         this.service.findContentFields(response).subscribe(data => {
           this.setContentFields(data);
