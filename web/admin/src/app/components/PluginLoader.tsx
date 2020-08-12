@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import axios from 'axios';
 import { IRootState } from '../state/reducers';
 import { addRoute, IRoute } from "../state/reducers/routes";
-import sideBarState, { ISidebarItem, addSidebarItem } from "../state/reducers/sidebar";
+import { ISidebarItem, addSidebarItem } from "../state/reducers/sidebar";
 import { getPlugins, getPluginPanelMarkup, UIRoute } from "../../api/server-plugin-service";
 import HtmlPanel from './HtmlPanel';
 import { IPlugin, PluginItemsState, addPlugin } from '../state/reducers/plugins';
@@ -72,6 +72,7 @@ class PluginLoader extends Component<PluginLoaderProps> {
         }).then(response => {
             console.log('eval\'ing script: ' + scriptLocation);
             try {
+                // tslint:disable-next-line
                 eval(response.data);
             } catch (error) {
                 console.error(error);
@@ -98,6 +99,7 @@ class PluginLoader extends Component<PluginLoaderProps> {
             try {
                 this.props.addRoute({
                     path: item.path,
+                    // tslint:disable-next-line
                     component: eval(item.jsComponentClass).default
                 });
             } catch (error) {

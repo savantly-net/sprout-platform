@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import PluginCard from './PluginCard'
 import { IRootState } from '../state/reducers'
-import { IPlugin, PluginItemsState } from '../state/reducers/plugins'
+import { PluginItemsState } from '../state/reducers/plugins'
 
 export interface PluginListComponentProps extends StateProps, DispatchProps {
     plugins: PluginItemsState

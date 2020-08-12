@@ -15,7 +15,8 @@ export default class HtmlPanel extends Component<HtmlPanelProps> {
     componentDidMount(){
         console.log('scripts:');
         console.log(this.scripts);
-        this.scripts.map(s => {
+        this.scripts.forEach(s => {
+            // tslint:disable-next-line
             eval(s);
         })
     }
@@ -25,7 +26,7 @@ export default class HtmlPanel extends Component<HtmlPanelProps> {
         DOMPurify.removed.forEach(r => {
             console.log('removed tag:');
             console.log(r.element);
-            if(r.element.tagName == 'SCRIPT') {
+            if(r.element.tagName === 'SCRIPT') {
                 this.scripts.push(r.element['text']);
             }
         });

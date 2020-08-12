@@ -1,5 +1,3 @@
-import { SUCCESS } from './action-type.util';
-
 export const ACTION_TYPES = {
   ADD_ITEM: 'scripts/ADD_ITEM',
 };
