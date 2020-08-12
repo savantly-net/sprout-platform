@@ -5,10 +5,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
+import javax.persistence.Version;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.domain.Persistable;
 import org.springframework.util.ClassUtils;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @MappedSuperclass
 public abstract class PersistedDomainObject extends AbstractAuditableDomainObject<String> implements Persistable<String> {
@@ -18,6 +22,10 @@ public abstract class PersistedDomainObject extends AbstractAuditableDomainObjec
     @GenericGenerator(name = "UseExistingOrGenerateIdGenerator", strategy = "net.savantly.sprout.core.domain.UseExistingOrGenerateIdGenerator")
     @Column(columnDefinition = "CHAR(36)")
     protected String id;
+	
+	@Version
+	@Getter @Setter
+	private Long version;
 	
     public String getId() {
         return id;
