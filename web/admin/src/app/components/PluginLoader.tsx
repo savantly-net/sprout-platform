@@ -72,7 +72,7 @@ class PluginLoader extends Component<PluginLoaderProps> {
         }).then(response => {
             console.log('eval\'ing script: ' + scriptLocation);
             try {
-                // tslint:disable-next-line
+                // eslint-disable-next-line
                 eval(response.data);
             } catch (error) {
                 console.error(error);
@@ -99,7 +99,7 @@ class PluginLoader extends Component<PluginLoaderProps> {
             try {
                 this.props.addRoute({
                     path: item.path,
-                    // tslint:disable-next-line
+                    // eslint-disable-next-line
                     component: eval(item.jsComponentClass).default
                 });
             } catch (error) {
