@@ -12,7 +12,7 @@ public class PathPatternRegExTest {
 	public void test() {
 
 		String p1 = "/admin/{path:[^.]+}";
-		String p2 = "/admin/{path:([^.]*}";
+		String p2 = "/admin/{path:[^.]*}";
 
 		PathPatternParser parser = new PathPatternParser();
 		PathPattern pattern1 = parser.parse(p1);
