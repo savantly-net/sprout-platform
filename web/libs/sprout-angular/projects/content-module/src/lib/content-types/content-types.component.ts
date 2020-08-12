@@ -14,11 +14,11 @@ export class ContentTypesComponent implements OnInit {
   items: ContentType[];
 
   addItem(): void {
-    this.router.navigate(['content-types-editor']);
+    this.router.navigate(['content-type-editor']);
   }
 
   editItem(item: ContentType): void {
-    this.router.navigate(['content-types-editor', {id: item.id}]);
+    this.router.navigate(['content-type-editor', {id: item.id}]);
   }
 
   deleteItem(item: ContentType): void {

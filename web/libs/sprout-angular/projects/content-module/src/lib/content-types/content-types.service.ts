@@ -27,12 +27,12 @@ export class ContentTypesService extends RestService<ContentType> {
   }
 
   getFieldTypes() {
-    return this.http.get(this.extService.getRootUri() + '/api/content/fieldTypes');
+    return this.http.get(this.extService.getRootUri() + '/../content/fieldTypes');
   }
 
-  findById(id: string): Observable<ContentType> {
-    const options: any = {params: [{key: 'id', value: id}]};
-    return this.searchSingle('findById', options);
+  findByName(name: string): Observable<ContentType> {
+    const options: any = {params: [{key: 'name', value: name}]};
+    return this.searchSingle('findByName', options);
   }
 
   constructor(private http: HttpClient, injector: Injector, private extService: ExternalService) {
