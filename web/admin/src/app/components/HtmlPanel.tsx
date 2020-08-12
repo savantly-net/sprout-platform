@@ -16,7 +16,7 @@ export default class HtmlPanel extends Component<HtmlPanelProps> {
         console.log('scripts:');
         console.log(this.scripts);
         this.scripts.forEach(s => {
-            // tslint:disable-next-line
+            // eslint-disable-next-line
             eval(s);
         })
     }

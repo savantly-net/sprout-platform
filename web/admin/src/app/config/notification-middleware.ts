@@ -22,12 +22,12 @@ export default () => (next: Function) => (action: any) => {
       } else if (response && response.action && response.action.payload && response.action.payload.headers) {
         const headers = response.action.payload.headers;
         let alert: string | null = null;
-        let alertParams: string | null = null;
+        //let alertParams: string | null = null;
         Object.entries<string>(headers).forEach(([k, v]) => {
           if (k.toLowerCase().endsWith('app-alert')) {
             alert = v;
           } else if (k.toLowerCase().endsWith('app-params')) {
-            alertParams = decodeURIComponent(v.replace(/\+/g, ' '));
+            //alertParams = decodeURIComponent(v.replace(/\+/g, ' '));
           }
         });
         if (alert) {
