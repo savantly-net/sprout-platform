@@ -25,7 +25,7 @@ public class ContentType extends PersistedDomainObject{
 	@JsonIgnoreProperties("contentType")
 	@OneToMany(mappedBy="contentType", orphanRemoval=true, cascade= {CascadeType.ALL}, fetch=FetchType.EAGER)
 	private Set<ContentField> fields = new HashSet<>();
-	private boolean requiresTemplate = true;
+	private boolean requiresTemplate = false;
 	
 	private boolean updateable;
 	private String icon;

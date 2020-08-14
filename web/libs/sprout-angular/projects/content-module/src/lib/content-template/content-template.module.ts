@@ -27,6 +27,7 @@ import { RouterModule } from '@angular/router';
     ])
   ],
   declarations: [ContentTemplateComponent, ContentTemplateEditorComponent],
+  exports: [ContentTemplateComponent, ContentTemplateEditorComponent],
   providers: []
 })
 export class ContentTemplateModule { }

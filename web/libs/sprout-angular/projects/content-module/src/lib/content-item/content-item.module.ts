@@ -1,14 +1,14 @@
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { FieldTypeModule } from '../field-type/field-type.module';
 import { StandardModule } from '../standard/standard.module';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ContentItemComponent } from './content-item.component';
-import { ContentItemService } from './content-item.service';
-import { ContentItemEditorComponent } from './content-item-editor/content-item-editor.component';
-import { HttpClientModule } from '@angular/common/http';
 import { ContentItemBrowserDialogComponent, ContentItemBrowserDialogContent } from './content-item-browser-dialog/content-item-browser-dialog.component';
-import { RouterModule } from '@angular/router';
+import { ContentItemEditorEmbeddedComponent } from './content-item-editor-embedded/content-item-editor-embedded.component';
+import { ContentItemEditorComponent } from './content-item-editor/content-item-editor.component';
+import { ContentItemComponent } from './content-item.component';
 
 @NgModule({
   imports: [
@@ -28,8 +28,17 @@ import { RouterModule } from '@angular/router';
       }
     ])
   ],
-  exports: [FieldTypeModule],
-  declarations: [ContentItemComponent, ContentItemEditorComponent, ContentItemBrowserDialogComponent, ContentItemBrowserDialogContent],
+  exports: [FieldTypeModule,
+    ContentItemComponent, 
+    ContentItemEditorComponent, 
+    ContentItemEditorEmbeddedComponent, 
+    ContentItemBrowserDialogComponent, 
+    ContentItemBrowserDialogContent],
+  declarations: [ContentItemComponent, 
+    ContentItemEditorComponent, 
+    ContentItemEditorEmbeddedComponent, 
+    ContentItemBrowserDialogComponent, 
+    ContentItemBrowserDialogContent],
   providers: [],
   entryComponents: [ContentItemBrowserDialogComponent]
 })

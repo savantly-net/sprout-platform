@@ -6,55 +6,63 @@
 			<button class="btn btn-outline-secondary" routerLink='/content-type'><span>X</span></button>
 		</div>
 		<div class="card-body">
-			<form [formGroup]="rForm" class="d-flex flex-column m1"  >
+			<form [formGroup]="rForm" class="d-flex flex-column m-1"  >
 				
 				<div class="form-group">
-					<label>Max 255 characters</label>
+					<label>Name</label>
 					<input class="form-control" formControlName="name" maxlength="255" placeholder="Enter a name">
 					<span class="form-text text-muted" align="end">{{rForm.controls['name'].value?.length || 0}}/255</span>
 				</div>
 			
 				<div class="form-group">
-					<label>Max 255 characters</label>
+					<label>Description</label>
 					<input class="form-control" formControlName="description" maxlength="255" placeholder="Enter a description">
 					<span class="form-text text-muted" align="end">{{rForm.controls['description'].value?.length || 0}}/255</span>
 				</div>
 				
-				<div *ngIf="!rForm.value.new" class="d-flex flex-column m1" >
-					<div class="d-flex"  >
-						<label>Requires a template</label>
-						<input type="checkbox" class="form-check-input" formControlName="requiresTemplate">
+				<div *ngIf="!rForm.value.new" class="d-flex flex-column m-1" >
+					<div class="d-flex form-check">
+						<input type="checkbox" class="form-check-input" id="requiresTemplate" formControlName="requiresTemplate">
+						<label for="requiresTemplate">Requires a template</label>
 					</div>
 					<div class="d-flex">
 						<h3>Fields</h3>
-						<button class="form-control" (click)="this.addField()"><span>add</span></button>
+						<span class="m-auto"></span>
+						<button class="btn btn-outline-primary" (click)="this.addField()"><span><b>+</b></span></button>
 					</div>
-					<div formArrayName="fields" class="well">
-						<div class="card" *ngFor="let field of fields.controls, trackBy:trackById; let i=index" [formGroupName]="i" >
+					<div formArrayName="fields">
+						<div class="m-2" *ngFor="let field of fields.controls, trackBy:trackById; let i=index" [formGroupName]="i" >
 							<!-- The repeated field template -->
-							<div class="card-body">
-								<div class="row" class="d-flex flex-sm-column"  >
-									<button class="btn" (click)="removeFieldControl(i)"><span>delete</span></button>
-									<span ></span>
-									<div class="form-group">
-									    <input type="checkbox" class="form-check-input" formControlName="required" value="Required">
-									</div>
-								</div>
-								<div class="row" class="d-flex flex-column">
-									<div  class="form-group" class="form-group">
-										<label>Display Name</label>
-									    <input class="form-control" class="form-control" formControlName="displayName">
-									</div>
-									<div class="form-group" class="form-group">
-										<label>Name</label>
-									    <input class="form-control" class="form-control" formControlName="name">
-									    <span class="form-text text-muted" align="end">case sensitive; no special characters</span>
-									</div>
-									<div class="form-group">
-										<label>Type of value</label>
+							<hr/>
+							<div class="flex-column d-flex">
+								<div class="form-inline mb-1">
+									<div class="input-group mr-1">
+										<div class="input-group-prepend">
+											<div class="input-group-text">Type of value</div>
+										</div>
 										<select class="form-control" formControlName="fieldType" >
 											<option *ngFor="let value of this.fieldTypes" [value]="value.name">{{value.name}}</option>
 										</select>
+									</div>
+									<div class="input-group mr-1">
+										<div class="input-group-prepend">
+											<div class="input-group-text">Required</div>
+										</div>
+										<select class="form-control" formControlName="required" >
+											<option value="true">yes</option>
+											<option value="false">no</option>
+										</select>
+									</div>
+									<div class="ml-auto d-flex justify-content-end">
+										<a class="btn btn-outline-danger" (click)="removeFieldControl(i)"><span><b>Delete Field</b></span></a>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<div class="input-group-text">Display Name</div>
+										</div>
+										<input class="form-control" class="form-control" formControlName="displayName">
 									</div>
 								</div>
 							</div>
@@ -68,9 +76,10 @@
 			</form>
 		</div>
 		<div class="card-footer d-flex justify-content-around flex-wrap">
-			<button  class="btn btn-danger" [disabled]="rForm.value.new" (click)="this.delete(rForm.value)"><span>DELETE</span></button>
-			
-			<button  type="submit" class="btn btn-primary" [disabled]="!rForm.valid" (click)="save(rForm.value)"><span>SAVE</span></button>
+			<button  class="btn btn-danger" [hidden]="rForm.value.new" (click)="this.delete(rForm.value)"><span>DELETE</span></button>
+			<button  class="btn btn-secondary" [hidden]="!rForm.value.new" (click)="this.close()"><span>DELETE</span></button>
+			<div class="btn-group" role="group">
+				<button class="btn btn-primary" [disabled]="!rForm.valid" (click)="save(rForm.value)">SAVE</button>
 		</div>
 	</div>
 </div>

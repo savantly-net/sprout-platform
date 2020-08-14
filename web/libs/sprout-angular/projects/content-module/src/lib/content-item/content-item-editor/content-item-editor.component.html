@@ -41,7 +41,7 @@
 					</div>
 					<div formArrayName="fieldValues" class="well">
 						<div *ngFor="let field of fieldValues.controls; let i=index" [formGroupName]="i" >
-							<app-field-type [fieldControl]="field"></app-field-type>
+							<sprout-field-type [fieldControl]="field"></sprout-field-type>
 						</div>
 					</div>
 				</div>

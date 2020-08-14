@@ -8,7 +8,7 @@ class ContentItemBrowserDialogResult {
 }
 
 @Component({
-  selector: 'app-content-item-browser-dialog',
+  selector: 'sprout-content-item-browser-dialog',
   templateUrl: './content-item-browser-dialog.component.html',
   styleUrls: ['./content-item-browser-dialog.component.css']
 })
@@ -31,7 +31,7 @@ export class ContentItemBrowserDialogContent{
 }
 
 @Component({
-  selector: 'app-content-item-browser-dialog-component',
+  selector: 'sprout-content-item-browser-dialog-component',
   template: `<p>empty</p>`
 })
 export class ContentItemBrowserDialogComponent {

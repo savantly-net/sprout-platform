@@ -17,7 +17,6 @@
     ],
     "paths": {
       "@savantly/ngx-sprout-content": [
-        "dist/content-module/content-module",
         "dist/content-module"
       ]
     }

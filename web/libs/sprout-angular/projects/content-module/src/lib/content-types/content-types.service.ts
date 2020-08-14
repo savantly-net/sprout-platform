@@ -9,10 +9,15 @@ export class ContentType extends Resource {
   id: string;
   name: string;
   description?: string;
-  updateable: boolean;
+  updateable: boolean = true;
   fields: ContentField[];
   icon?: string;
   requiresTemplate: boolean;
+  version: number;
+
+  getContentFields = (): Observable<ContentField[]> => {
+    return this.getRelationArray(ContentField, 'fields') as Observable<ContentField[]>;
+  };
 }
 
 @Injectable({providedIn: 'root'})
@@ -23,7 +28,13 @@ export class ContentTypesService extends RestService<ContentType> {
   }
 
   deleteContentField(contentType: ContentType, field: ContentField): Observable<any> {
-    return contentType.deleteRelation('fields', field);
+    const objProps = Object.getOwnPropertyNames(contentType);
+    if(objProps.includes('deleteRelation')){
+      return contentType.deleteRelation('fields', field);
+    } else {
+      console.warn('contentType didnt have deleteRelation symbol:', contentType, objProps);
+      return Object.assign(new ContentType(), contentType).deleteRelation('fields', field);
+    }
   }
 
   getFieldTypes() {
