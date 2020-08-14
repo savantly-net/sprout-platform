@@ -23,7 +23,7 @@ import { RouterModule } from '@angular/router';
       }
     ])
   ],
-  exports: [],
+  exports: [ContentTypesComponent, ContentTypesEditorComponent],
   declarations: [ContentTypesComponent, ContentTypesEditorComponent],
   providers: []
 })

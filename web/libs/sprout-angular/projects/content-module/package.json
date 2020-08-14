@@ -1,6 +1,6 @@
 {
   "name": "@savantly/ngx-sprout-content",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "private": false,
   "peerDependencies": {
     "@angular/common": "^10.0.6",

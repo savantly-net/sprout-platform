@@ -1,5 +1,6 @@
 import { Resource, RestService } from '@lagoshny/ngx-hal-client';
 import { Injectable, Injector } from '@angular/core';
+import { ContentType } from '../content-types';
 
 
 export class ContentField extends Resource {
@@ -9,7 +10,7 @@ export class ContentField extends Resource {
   sortOrder: number;
   fieldType: string;
   required: boolean;
-  contentType: any;
+  contentType: ContentType;
 }
 
 @Injectable({providedIn: 'root'})

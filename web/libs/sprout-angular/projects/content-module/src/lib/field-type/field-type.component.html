@@ -1,21 +1,21 @@
-<div class="card" *ngIf="fieldControl">
+<div *ngIf="fieldControl">
 	<!-- The repeated field template -->
-	<div class="card-body" [ngSwitch]="fieldControl.value?.fieldType">
+	<div [ngSwitch]="fieldControl.value?.fieldType">
+		<label>{{fieldControl.value.displayName}}</label>
 		<div *ngSwitchCase="'text'">
 			<div>
-				<label>{{fieldControl.value.displayName}}</label>
-				<textarea rows="1" class="form-control" maxlength="3000" [(ngModel)]="fieldControl.value.value"></textarea>
+				<textarea rows="1" class="form-control" maxlength="3000" [(ngModel)]="fieldControl.value.value" (change)="onChange($event)" ></textarea>
 				<span class="form-text text-muted" align="end">{{fieldControl.value.value?.length || 0}}/3000</span>
 			</div>
 		</div>
 		<div *ngSwitchCase="'markup'">
-			<ckeditor [(ngModel)]="fieldControl.value.value" [ngModelOptions]="{standalone: true}"></ckeditor>
+			<ckeditor [(ngModel)]="fieldControl.value.value" [ngModelOptions]="{standalone: true}" (change)="onChange($event)" ></ckeditor>
 		</div>
 		<div *ngSwitchCase="'markdown'">
-			<md-editor name="markdownContent" [(ngModel)]="fieldControl.value.value" [height]="'200px'" [mode]="markdownMode" [required]="fieldControl.value.required"></md-editor>
+			<md-editor name="markdownContent" [(ngModel)]="fieldControl.value.value" (change)="onChange($event)" [height]="'200px'" [mode]="markdownMode" [required]="fieldControl.value.required"></md-editor>
 		</div>
 		<div *ngSwitchCase="'json'" class="jsoneditor">
-			<sv-json-editor [(ngModel)]="fieldControl.value.value"></sv-json-editor>
+			<sv-json-editor [(ngModel)]="fieldControl.value.value" (change)="onChange($event)" ></sv-json-editor>
 		</div>
 		<div *ngSwitchDefault>
 			<b>Field type: {{fieldControl.value?.fieldType}} has no editor yet =(</b>

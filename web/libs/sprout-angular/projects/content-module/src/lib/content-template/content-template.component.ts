@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-content-template',
+  selector: 'sprout-content-template',
   templateUrl: './content-template.component.html',
   styleUrls: ['./content-template.component.css']
 })

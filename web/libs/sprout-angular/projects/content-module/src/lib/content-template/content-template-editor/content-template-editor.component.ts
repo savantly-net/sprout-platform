@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-content-template-editor',
+  selector: 'sprout-content-template-editor',
   templateUrl: './content-template-editor.component.html',
   styleUrls: ['./content-template-editor.component.css']
 })

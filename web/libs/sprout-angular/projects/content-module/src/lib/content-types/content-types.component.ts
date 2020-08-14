@@ -3,7 +3,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-content-types',
+  selector: 'sprout-content-types',
   templateUrl: './content-types.component.html',
   styleUrls: ['./content-types.component.css']
 })
