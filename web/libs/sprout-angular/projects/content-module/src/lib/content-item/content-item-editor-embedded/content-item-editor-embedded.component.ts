@@ -18,9 +18,9 @@ export class ContentItemEditorEmbeddedComponent {
   _initialized: boolean = false;
   value: ContentItem;
 
-  @Input('showName') showName = true;
-  @Input('showDescription') showDescription = true;
-  @Input('showTemplate') showTemplate = true;
+  @Input('hideName') hideName: boolean;
+  @Input('hideDescription') hideDescription: boolean;
+  @Input('hideTemplate') hideTemplate: boolean;
 
   @Input('contentItem') 
   set contentItem(contentItem: ContentItem) {
