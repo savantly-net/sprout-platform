@@ -1,11 +1,12 @@
 import { ContentField, ContentFieldService } from '../../content-field/content-field.service';
 import { ContentTypesService, ContentType } from '../content-types.service';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ContentChildren } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, forkJoin, of } from 'rxjs';
 import { pipe } from 'rxjs';
 import { never } from 'rxjs';
+import { AbstractContentFieldEditorComponent } from '../../content-field/';
 
 @Component({
   selector: 'sprout-content-types-editor',
@@ -13,6 +14,8 @@ import { never } from 'rxjs';
   styleUrls: ['./content-types-editor.component.css']
 })
 export class ContentTypesEditorComponent implements OnInit {
+
+  //@ContentChildren('widget') fieldComponents: AbstractContentFieldEditorComponent[];
 
   @Output("messageEvent") 
   messageEmitter = new EventEmitter<{msg: string, code: number, err?: any}>();
@@ -96,8 +99,7 @@ export class ContentTypesEditorComponent implements OnInit {
 
   setContentFields(contentFields: ContentField[]) {
     contentFields.map(contentField => {
-      const fieldControlGroup = this.fb.group(contentField);
-      this.fields.push(fieldControlGroup);
+      this.addField(contentField);
     });
   }
 
@@ -109,15 +111,16 @@ export class ContentTypesEditorComponent implements OnInit {
     return this.rForm.get('fields') as FormArray;
   }
 
-  addField(): void {
-    const field = new ContentField();
-    field.name = 'body';
-    field.displayName = 'Body field';
-    field.fieldType = 'text';
-    field.contentType = this.contentType;
-    field.required = false;
-    const fieldControlGroup = this.fb.group(field);
-    this.fields.push(fieldControlGroup);
+  addField(contentField?: ContentField): void {
+    if (!contentField) {
+      contentField = new ContentField();
+      contentField.name = 'body';
+      contentField.displayName = 'Body field';
+      contentField.fieldType = 'text';
+      contentField.required = false;
+    }
+    const fieldControl = this.fb.control(contentField);
+    this.fields.push(fieldControl);
   }
 
   saveField(field: ContentField): Observable<ContentField | Observable<never>> {
@@ -137,12 +140,7 @@ export class ContentTypesEditorComponent implements OnInit {
   }
 
   removeFieldControl(index: number): void {
-    this.service.deleteContentField(this.contentType, this.fields.at(index).value).subscribe(data => {
-      this.fields.removeAt(index);
-    }, err => {
-      this.messageEmitter.emit({msg: 'Error while removing field', code: 500, err});
-      console.error(err);
-    });
+    this.fields.removeAt(index);
   }
 
   trackById(index: number, item: {id: string}) {
