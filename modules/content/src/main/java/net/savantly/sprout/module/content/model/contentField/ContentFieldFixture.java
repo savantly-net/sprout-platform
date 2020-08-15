@@ -5,14 +5,14 @@ import java.util.List;
 import net.savantly.spring.fixture.AbstractBaseFixture;
 import net.savantly.spring.fixture.Fixture;
 
-public class ContentFieldFixture extends AbstractBaseFixture<ContentField, ContentFieldRepository>{
+public class ContentFieldFixture extends AbstractBaseFixture<ContentFieldImpl, ContentFieldRepository>{
 
 	public ContentFieldFixture(ContentFieldRepository repository) {
 		super(repository);
 	}
 
 	@Override
-	public void addEntities(List<ContentField> entityList) {
+	public void addEntities(List<ContentFieldImpl> entityList) {
 		// TODO Auto-generated method stub
 		
 	}

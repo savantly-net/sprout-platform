@@ -26,7 +26,7 @@ import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
-import net.savantly.sprout.module.content.model.contentItem.ContentItem;
+import net.savantly.sprout.module.content.model.contentItem.ContentItemImpl;
 import net.savantly.sprout.module.content.model.contentItem.ContentItemRenderingChain;
 import net.savantly.sprout.module.content.model.contentItem.ContentItemRepository;
 import net.savantly.sprout.module.content.model.fieldType.FieldType;
@@ -67,7 +67,7 @@ public class ContentApi {
 	@RequestMapping(value="/item/{id}", method=RequestMethod.GET)
 	public ResponseEntity<String> getRenderedContentItem(@PathVariable("id") String id) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
 		StringWriter writer = new StringWriter();
-		ContentItem item = this.contentItemRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("id: " + id));
+		ContentItemImpl item = this.contentItemRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("id: " + id));
 		itemRenderer.renderContentItem(item, writer);
 		ResponseEntity<String> response = new ResponseEntity<String>(writer.toString(), HttpStatus.OK);
 		return response;

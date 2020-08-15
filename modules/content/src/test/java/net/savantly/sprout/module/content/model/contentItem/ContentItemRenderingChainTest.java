@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
@@ -26,7 +25,7 @@ import net.savantly.sprout.module.content.model.contentField.ContentField;
 import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplate;
 import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplateFixture;
 import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplateRepository;
-import net.savantly.sprout.module.content.model.contentType.ContentType;
+import net.savantly.sprout.module.content.model.contentType.ContentTypeImpl;
 import net.savantly.sprout.module.content.model.contentType.ContentTypeFixture;
 import net.savantly.sprout.module.content.model.contentType.ContentTypeRepository;
 import net.savantly.sprout.modules.test.ModuleTestApplication;
@@ -55,15 +54,15 @@ public class ContentItemRenderingChainTest {
 	@Test
 	public void testContentItemRenderer() throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
 		
-		ContentType contentType = ctRepository.findByName(ContentTypeFixture.defaultContentTypeName);
-		ContentItem contentItem = new ContentItem();
+		ContentTypeImpl contentType = ctRepository.findByName(ContentTypeFixture.defaultContentTypeName);
+		ContentItemImpl contentItem = new ContentItemImpl();
 		contentItem.setContentType(contentType);
 		contentItem.setTemplate(contentTemplate);
 		
 		Set<ContentField> fields = contentType.getFields();
 		
 		for (ContentField contentField : fields) {
-			contentItem.getFieldValues().put(contentField, "test");
+			contentItem.getFieldValues().put(contentField.getId(), "test");
 		}
 	
 		StringWriter writer = new StringWriter();

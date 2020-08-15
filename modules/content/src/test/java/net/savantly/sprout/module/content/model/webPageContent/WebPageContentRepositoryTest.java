@@ -12,25 +12,20 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import net.savantly.sprout.module.content.model.contentField.ContentField;
+import net.savantly.sprout.module.content.model.contentField.ContentFieldImpl;
 import net.savantly.sprout.module.content.model.contentField.ContentFieldRepository;
-import net.savantly.sprout.module.content.model.contentItem.ContentItem;
+import net.savantly.sprout.module.content.model.contentItem.ContentItemImpl;
 import net.savantly.sprout.module.content.model.contentItem.ContentItemRepository;
 import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplateFixture;
-import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplateRepository;
 import net.savantly.sprout.module.content.model.contentType.ContentTypeFixture;
-import net.savantly.sprout.module.content.model.contentType.ContentTypeRepository;
 import net.savantly.sprout.module.content.model.fieldType.FieldType;
 import net.savantly.sprout.module.content.model.webPage.WebPage;
 import net.savantly.sprout.module.content.model.webPage.WebPageFixture;
 import net.savantly.sprout.module.content.model.webPage.WebPageRepository;
 import net.savantly.sprout.module.content.model.webPageLayout.WebPageLayoutFixture;
-import net.savantly.sprout.module.content.model.webPageLayout.WebPageLayoutRepository;
 
 @SpringBootTest
 @WebAppConfiguration
@@ -54,7 +49,7 @@ public class WebPageContentRepositoryTest {
 	@Autowired
 	ContentFieldRepository cfRepository;
 	
-	ContentItem item = new ContentItem();
+	ContentItemImpl item = new ContentItemImpl();
 	
 	@BeforeEach
 	public void before() {
@@ -63,18 +58,18 @@ public class WebPageContentRepositoryTest {
 		contentTemplateFixture.install();
 		contentTypeFixture.install();
 		
-		ContentField cf = new ContentField();
+		ContentFieldImpl cf = new ContentFieldImpl();
 		cf.setName("test");
 		cf.setFieldType(FieldType.text);
 		
-		ContentField cfSaved = cfRepository.save(cf);
+		ContentFieldImpl cfSaved = cfRepository.save(cf);
 		
 		item.setContentType(contentTypeFixture.getRandomEntity());
 		item.setTemplate(contentTemplateFixture.getRandomEntity());
 		
-		Map<ContentField, String> fieldValues = new HashMap<>();
-		fieldValues.put(cfSaved, "test");
-		item.setFieldValues(fieldValues );
+		Map<String, String> fieldValues = new HashMap<>();
+		fieldValues.put(cfSaved.getId(), "test");
+		item.setFieldValues(fieldValues);
 		
 		ciRepository.save(item);
 	}
@@ -87,7 +82,7 @@ public class WebPageContentRepositoryTest {
 		webPageRepository.save(page);
 		WebPageContent webPageContent = new WebPageContent();
 		
-		List<ContentItem> cItems = new ArrayList<>();
+		List<ContentItemImpl> cItems = new ArrayList<>();
 		cItems.add(item);
 		
 		webPageContent.setContentItems(cItems );

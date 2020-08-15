@@ -4,13 +4,13 @@ import java.util.Set;
 
 import org.springframework.data.rest.core.config.Projection;
 
-import net.savantly.sprout.module.content.model.contentItem.ContentItem;
+import net.savantly.sprout.module.content.model.contentItem.ContentItemImpl;
 
 @Projection(name="fullWebPageContent", types= {WebPageContent.class})
 public interface FullWebPageContent {
 	String getId();
 	String getPlaceHolderId();
 	boolean isNew();
-	Set<ContentItem> getContentItems();
+	Set<ContentItemImpl> getContentItems();
 	
 }

@@ -5,6 +5,6 @@ import java.io.StringWriter;
 public interface ContentItemRenderer {
 
 	int getPriority();
-	boolean render(ContentItem item, StringWriter writer);
+	boolean render(ContentItemImpl item, StringWriter writer);
 
 }

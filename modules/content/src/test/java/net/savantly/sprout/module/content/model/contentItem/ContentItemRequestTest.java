@@ -23,10 +23,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import net.savantly.sprout.module.content.model.contentField.ContentField;
+import net.savantly.sprout.module.content.model.contentField.ContentFieldImpl;
 import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplate;
 import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplateFixture;
 import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplateRepository;
-import net.savantly.sprout.module.content.model.contentType.ContentType;
+import net.savantly.sprout.module.content.model.contentType.ContentTypeImpl;
 import net.savantly.sprout.module.content.model.contentType.ContentTypeRepository;
 import net.savantly.sprout.module.content.model.fieldType.FieldType;
 
@@ -51,7 +52,7 @@ public class ContentItemRequestTest {
 	WebApplicationContext ctx;
 	
 	private MockMvc mvc;
-	private ContentItem savedContentItem;
+	private ContentItemImpl savedContentItem;
 	
 	@BeforeEach
 	public void setup() {
@@ -63,30 +64,29 @@ public class ContentItemRequestTest {
 		
 		ContentTemplate template = cTemplateRepository.findByName(ContentTemplateFixture.defaultContentTemplateName);
 		
-		ContentType ct = ctRepository.findByName(defaultContentTypeName);
+		ContentTypeImpl ct = ctRepository.findByName(defaultContentTypeName);
 		if ( ct == null) {
-			ContentField cf = new ContentField();
+			ContentFieldImpl cf = new ContentFieldImpl();
 			cf.setName("body");
 			cf.setDisplayName("Body");
 			cf.setRequired(true);
 			cf.setFieldType(FieldType.text);
 			cf.setSortOrder(0);
 			
-			ct = new ContentType();
+			ct = new ContentTypeImpl();
 			ct.setName(defaultContentTypeName);
 			ct.setDescription(defaultContentTypeName);
 			ct.getFields().add(cf);
 			ct.setUpdateable(false);
 			
-			cf.setContentType(ct);
 			ctRepository.save(ct);
 		}
 		
 		
 		
-		ContentItem contentItem = ciRepository.findByName(contentItemName);
+		ContentItemImpl contentItem = ciRepository.findByName(contentItemName);
 		if(contentItem == null ) {
-			contentItem = new ContentItem();
+			contentItem = new ContentItemImpl();
 			contentItem.setContentType(ct);
 			contentItem.setName(contentItemName);
 			contentItem.setTemplate(template);
@@ -94,7 +94,7 @@ public class ContentItemRequestTest {
 			Set<ContentField> fields = ct.getFields();
 			
 			for (ContentField contentField : fields) {
-				contentItem.getFieldValues().put(contentField, "test");
+				contentItem.getFieldValues().put(contentField.getId(), "test");
 			}	
 		}
 

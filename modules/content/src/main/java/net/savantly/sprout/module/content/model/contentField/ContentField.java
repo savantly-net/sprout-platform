@@ -1,76 +1,14 @@
 package net.savantly.sprout.module.content.model.contentField;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import net.savantly.sprout.core.domain.PersistedDomainObject;
-import net.savantly.sprout.module.content.model.contentType.ContentType;
 import net.savantly.sprout.module.content.model.fieldType.FieldType;
 
-@Entity
-@Table(name="CONTENT_FIELD")
-public class ContentField extends PersistedDomainObject{
+public interface ContentField {
 	
-	private String name;
-	private FieldType fieldType;
-	private boolean required;
-	private int sortOrder;
-	private String displayName;
-	@ManyToOne
-	private ContentType contentType;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public FieldType getFieldType() {
-		return fieldType;
-	}
-
-	public void setFieldType(FieldType fieldType) {
-		this.fieldType = fieldType;
-	}
-
-	public boolean isRequired() {
-		return required;
-	}
-
-	public void setRequired(boolean required) {
-		this.required = required;
-	}
-
-	public int getSortOrder() {
-		return sortOrder;
-	}
-
-	public void setSortOrder(int order) {
-		this.sortOrder = order;
-	}
-
-	public String getDisplayName() {
-		return displayName;
-	}
-
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
-	}
-
-	public ContentType getContentType() {
-		return contentType;
-	}
-
-	public void setContentType(ContentType contentType) {
-		this.contentType = contentType;
-	}
-	
-	@Override
-	public String toString() {
-		return getId();
-	}
+	String getId();
+	String getName();
+	FieldType getFieldType();
+	boolean isRequired();
+	int getSortOrder();
+	String getDisplayName();
 
 }

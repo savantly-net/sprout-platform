@@ -24,7 +24,7 @@ public class ContentFieldTest {
 	
 	@Test
 	public void testContentField() {
-		ContentField item = new ContentField();
+		ContentFieldImpl item = new ContentFieldImpl();
 		item.setName("test");
 		item.setFieldType(FieldType.text);
 		

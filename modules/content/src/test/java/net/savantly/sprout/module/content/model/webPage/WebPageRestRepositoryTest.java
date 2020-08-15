@@ -33,7 +33,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.savantly.sprout.module.content.model.contentItem.ContentItem;
+import net.savantly.sprout.module.content.model.contentItem.ContentItemImpl;
 import net.savantly.sprout.module.content.model.contentItem.ContentItemRepository;
 import net.savantly.sprout.module.content.model.contentType.ContentTypeFixture;
 import net.savantly.sprout.module.content.model.contentType.ContentTypeRepository;
@@ -66,7 +66,7 @@ public class WebPageRestRepositoryTest {
 	MockHttpServletRequest request = new MockHttpServletRequest();
 	
 	private MockMvc mvc;
-	private ContentItem contentItem;
+	private ContentItemImpl contentItem;
 
 	@BeforeEach
 	public void setup() {
@@ -80,7 +80,7 @@ public class WebPageRestRepositoryTest {
 	@Test
 	public void testRestApi() throws Exception {
 
-		ContentItem contentItem = new ContentItem();
+		ContentItemImpl contentItem = new ContentItemImpl();
 		contentItem.setContentType(ctRepository.findByName(ContentTypeFixture.defaultContentTypeName));
 		this.contentItem = ciRepository.save(contentItem);
 		
@@ -90,7 +90,7 @@ public class WebPageRestRepositoryTest {
 		// Add webPageContent item
 		JsonNode webPageContent = createWebPageContent(webPageId);
 		
-		// Add ContentItem to webPageContent
+		// Add ContentItemImpl to webPageContent
 		addContentItemToWebPageContent(webPageContent);	
 
 		// assert there is 1 WebPageContent

@@ -7,8 +7,8 @@ import java.util.Set;
 import net.savantly.sprout.core.domain.PersistedDomainObjectRepository;
 
 @RepositoryRestResource(path="contentItems", collectionResourceRel="contentItems")
-public interface ContentItemRepository extends PersistedDomainObjectRepository<ContentItem> {
+public interface ContentItemRepository extends PersistedDomainObjectRepository<ContentItemImpl> {
 
-	public Set<ContentItem> findAllByContentType_id(@Param("contentTypeId") String contentTypeId);
-	ContentItem findByName(@Param("name") String name);
+	public Set<ContentItemImpl> findAllByContentType_id(@Param("contentTypeId") String contentTypeId);
+	ContentItemImpl findByName(@Param("name") String name);
 }

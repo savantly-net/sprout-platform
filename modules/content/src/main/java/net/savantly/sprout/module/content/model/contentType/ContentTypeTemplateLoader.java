@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import freemarker.cache.TemplateLoader;
 import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplate;
+import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplateImpl;
 import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplateRepository;
 
 public class ContentTypeTemplateLoader implements TemplateLoader {
@@ -41,11 +42,11 @@ public class ContentTypeTemplateLoader implements TemplateLoader {
 	@Override
 	public Object findTemplateSource(String id) throws IOException {
 
-		Optional<ContentTemplate> ct = repository.findById(id);
+		Optional<ContentTemplateImpl> ct = repository.findById(id);
 		if (ct.isPresent()) {
 			return ct.get();
 		} else {
-			log.warn("ContentTemplate: {} \tDoes not exist", id);
+			log.warn("ContentTemplateImpl: {} \tDoes not exist", id);
 			return null;
 		}
 	}
@@ -60,8 +61,8 @@ public class ContentTypeTemplateLoader implements TemplateLoader {
 	 */
 	@Override
 	public long getLastModified(Object templateSource) {
-		ContentTemplate template = (ContentTemplate) templateSource;
-		Optional<ContentTemplate> ct = repository.findById(template.getId());
+		ContentTemplateImpl template = (ContentTemplateImpl) templateSource;
+		Optional<ContentTemplateImpl> ct = repository.findById(template.getId());
 		if (ct.isPresent()) {
 			if(ct.get().getLastModifiedDate().isPresent()) {
 				return ct.get().getLastModifiedDate().get().toEpochSecond(ZoneOffset.UTC);
@@ -69,7 +70,7 @@ public class ContentTypeTemplateLoader implements TemplateLoader {
 				return Long.MAX_VALUE;
 			}
 		} else {
-			log.warn("ContentTemplate: {} \tDoes not exist", template);
+			log.warn("ContentTemplateImpl: {} \tDoes not exist", template);
 			return Long.MAX_VALUE;
 		}
 	}

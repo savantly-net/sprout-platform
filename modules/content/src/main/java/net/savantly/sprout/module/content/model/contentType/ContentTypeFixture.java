@@ -7,11 +7,11 @@ import javax.transaction.Transactional;
 
 import net.savantly.spring.fixture.AbstractBaseFixture;
 import net.savantly.spring.fixture.Fixture;
-import net.savantly.sprout.module.content.model.contentField.ContentField;
+import net.savantly.sprout.module.content.model.contentField.ContentFieldImpl;
 import net.savantly.sprout.module.content.model.fieldType.FieldType;
 
 @Transactional
-public class ContentTypeFixture extends AbstractBaseFixture<ContentType, ContentTypeRepository>{
+public class ContentTypeFixture extends AbstractBaseFixture<ContentTypeImpl, ContentTypeRepository>{
 
 	private ContentTypeRepository repository;
 	public static final String defaultContentTypeName = "Default Content Type";
@@ -26,28 +26,26 @@ public class ContentTypeFixture extends AbstractBaseFixture<ContentType, Content
 	}
 
 	@Override
-	public void addEntities(List<ContentType> entities) {
-		ContentType defaultContentType = repository.findByName(defaultContentTypeName);
+	public void addEntities(List<ContentTypeImpl> entities) {
+		ContentTypeImpl defaultContentType = repository.findByName(defaultContentTypeName);
 		if(null == defaultContentType) {
 			entities.add(defaultContentType());
 		}
 	}
 
-	private ContentType defaultContentType() {
-		ContentField cf = new ContentField();
+	private ContentTypeImpl defaultContentType() {
+		ContentFieldImpl cf = new ContentFieldImpl();
 		cf.setName("body");
 		cf.setDisplayName("Body");
 		cf.setRequired(true);
 		cf.setFieldType(FieldType.markup);
 		cf.setSortOrder(0);
 
-		ContentType ct = new ContentType();
+		ContentTypeImpl ct = new ContentTypeImpl();
 		ct.setName(defaultContentTypeName);
 		ct.setDescription(defaultContentTypeName);
 		ct.getFields().add(cf);
 		ct.setUpdateable(false);
-		
-		cf.setContentType(ct);
 		
 		return ct;
 	}

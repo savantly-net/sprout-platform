@@ -18,11 +18,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.savantly.sprout.module.content.model.contentField.ContentField;
+import net.savantly.sprout.module.content.model.contentField.ContentFieldImpl;
 import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplate;
 import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplateFixture;
 import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplateRepository;
-import net.savantly.sprout.module.content.model.contentType.ContentType;
 import net.savantly.sprout.module.content.model.contentType.ContentTypeFixture;
+import net.savantly.sprout.module.content.model.contentType.ContentTypeImpl;
 import net.savantly.sprout.module.content.model.contentType.ContentTypeRepository;
 import net.savantly.sprout.module.content.model.fieldType.FieldType;
 
@@ -44,12 +45,12 @@ public class ContentItemTest {
 	ObjectMapper mapper;
 
 	ContentTemplate	contentTemplate;
-	ContentType contentType;
+	ContentTypeImpl contentType;
 	
 	@BeforeEach
 	public void before() {
 		
-		ContentField cf = new ContentField();
+		ContentFieldImpl cf = new ContentFieldImpl();
 		cf.setName("body");
 		cf.setDisplayName("Body");
 		cf.setRequired(true);
@@ -58,28 +59,26 @@ public class ContentItemTest {
 		
 		contentTemplate = contentTemplateRepository.findByName(ContentTemplateFixture.defaultContentTemplateName);
 		
-		ContentType ct = new ContentType();
+		ContentTypeImpl ct = new ContentTypeImpl();
 		ct.setName(defaultContentTypeName);
 		ct.setDescription(defaultContentTypeName);
 		ct.getFields().add(cf);
 		ct.setUpdateable(false);
-		
-		cf.setContentType(ct);
 		
 		contentType = contentTypeRepository.save(ct);
 	}
 	
 	@Test
 	public void testContentType() throws JsonProcessingException {
-		ContentType contentType = contentTypeRepository.findByName(ContentTypeFixture.defaultContentTypeName);
-		ContentItem contentItem = new ContentItem();
+		ContentTypeImpl contentType = contentTypeRepository.findByName(ContentTypeFixture.defaultContentTypeName);
+		ContentItemImpl contentItem = new ContentItemImpl();
 		contentItem.setContentType(contentType);
 		contentItem.setTemplate(contentTemplate);
 		
 		Set<ContentField> fields = contentType.getFields();
 		
 		for (ContentField contentField : fields) {
-			contentItem.getFieldValues().put(contentField, "test");
+			contentItem.getFieldValues().put(contentField.getId(), "test");
 		}
 		
 		String json = mapper.writeValueAsString(contentItem);

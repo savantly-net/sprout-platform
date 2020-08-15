@@ -5,7 +5,7 @@ import java.util.List;
 import net.savantly.spring.fixture.AbstractBaseFixture;
 import net.savantly.spring.fixture.Fixture;
 
-public class ContentTemplateFixture extends AbstractBaseFixture<ContentTemplate, ContentTemplateRepository> {
+public class ContentTemplateFixture extends AbstractBaseFixture<ContentTemplateImpl, ContentTemplateRepository> {
 
 	public static final String defaultContentTemplateName = "Default Content Template";
 
@@ -22,10 +22,10 @@ public class ContentTemplateFixture extends AbstractBaseFixture<ContentTemplate,
 	}
 
 	@Override
-	public void addEntities(List<ContentTemplate> entities) {
-		ContentTemplate defaultContentTemplate = repository.findByName(defaultContentTemplateName);
+	public void addEntities(List<ContentTemplateImpl> entities) {
+		ContentTemplateImpl defaultContentTemplate = repository.findByName(defaultContentTemplateName);
 		if (null == defaultContentTemplate) {
-			defaultContentTemplate = new ContentTemplate();
+			defaultContentTemplate = new ContentTemplateImpl();
 			defaultContentTemplate.setName(defaultContentTemplateName);
 			defaultContentTemplate.setDescription(defaultContentTemplateName);
 			defaultContentTemplate.setContent("${body}");
