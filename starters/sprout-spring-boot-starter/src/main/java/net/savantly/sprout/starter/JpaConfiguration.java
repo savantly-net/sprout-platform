@@ -52,7 +52,7 @@ public class JpaConfiguration {
 		properties.setShowSql(true);
 		Map<String, Object> jpaProperties = new HashMap<>(properties.getProperties());
 		jpaProperties.put("hibernate.session_factory.interceptor", hibernateInterceptor());
-		jpaProperties.put("hibernate.ddl-auto", "create-drop");
+		//jpaProperties.put("hibernate.ddl-auto", "create-drop");
 		if (!sproutProperties.getJpa().getPackagesToScan().contains(basePackagesToScan)) {
 			sproutProperties.getJpa().getPackagesToScan().add(basePackagesToScan);
 		}

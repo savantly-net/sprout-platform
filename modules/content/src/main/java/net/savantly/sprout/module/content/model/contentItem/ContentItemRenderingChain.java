@@ -29,7 +29,7 @@ public class ContentItemRenderingChain implements InitializingBean {
 				.collect(Collectors.toList()));
 	}
 	
-	public void renderContentItem(ContentItem content, StringWriter writer) {
+	public void renderContentItem(ContentItemImpl content, StringWriter writer) {
 		for (ContentItemRenderer contentItemRenderer : getRenderersInPriority()) {
 			if(contentItemRenderer.render(content, writer)) {
 				return;

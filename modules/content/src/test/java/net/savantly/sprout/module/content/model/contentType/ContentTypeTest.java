@@ -36,11 +36,11 @@ public class ContentTypeTest {
 	
 	@Test
 	public void testContentType() {
-		ContentType contentType = new ContentType();
+		ContentTypeImpl contentType = new ContentTypeImpl();
 		contentType.setName("test");
 		
 		// +1
-		ContentType saved = repository.save(contentType);
+		ContentTypeImpl saved = repository.save(contentType);
 		int expectedSize = 1 + contentTypeFixture.getEntityList().size();
 		
 		Assertions.assertEquals(contentType.getName(), saved.getName(), "content name should match");

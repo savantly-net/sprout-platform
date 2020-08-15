@@ -4,7 +4,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import net.savantly.sprout.core.domain.PersistedDomainObjectRepository;
 
-@RepositoryRestResource
-public interface ContentFieldRepository extends PersistedDomainObjectRepository<ContentField>{
+@RepositoryRestResource(path="contentFields", collectionResourceRel = "contentFields")
+public interface ContentFieldRepository extends PersistedDomainObjectRepository<ContentFieldImpl>{
 
 }

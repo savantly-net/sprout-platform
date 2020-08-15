@@ -5,8 +5,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import net.savantly.sprout.core.domain.PersistedDomainObjectRepository;
 
-@RepositoryRestResource(path="contentTypes")
-public interface ContentTypeRepository extends PersistedDomainObjectRepository<ContentType> {
+@RepositoryRestResource(path="contentTypes", collectionResourceRel = "contentTypes")
+public interface ContentTypeRepository extends PersistedDomainObjectRepository<ContentTypeImpl> {
 
-	ContentType findByName(@Param("name") String name);
+	ContentTypeImpl findByName(@Param("name") String name);
 }

@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,10 +21,11 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import net.savantly.spring.fixture.Fixture;
 import net.savantly.sprout.module.content.SproutContentModule;
 import net.savantly.sprout.module.content.model.contentField.ContentField;
+import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplateImpl;
 import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplate;
 import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplateFixture;
 import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplateRepository;
-import net.savantly.sprout.module.content.model.contentType.ContentType;
+import net.savantly.sprout.module.content.model.contentType.ContentTypeImpl;
 import net.savantly.sprout.module.content.model.contentType.ContentTypeFixture;
 import net.savantly.sprout.module.content.model.contentType.ContentTypeRepository;
 import net.savantly.sprout.modules.test.ModuleTestApplication;
@@ -47,10 +47,10 @@ public class ContentItemRendererTest {
 	private ContentTemplateRepository templateRepository;
 	@Autowired
 	@Qualifier("contentTypeFixture")
-	private Fixture<ContentType> contentTypeFixture;
+	private Fixture<ContentTypeImpl> contentTypeFixture;
 	@Autowired
 	@Qualifier("contentTemplateFixture")
-	private Fixture<ContentTemplate> templateFixture;
+	private Fixture<ContentTemplateImpl> templateFixture;
 	
 	ContentTemplate	contentTemplate;
 	
@@ -65,15 +65,15 @@ public class ContentItemRendererTest {
 	@Test
 	public void testBogusRenderer() {
 		
-		ContentType contentType = ctRepository.findByName(ContentTypeFixture.defaultContentTypeName);
-		ContentItem contentItem = new ContentItem();
+		ContentTypeImpl contentType = ctRepository.findByName(ContentTypeFixture.defaultContentTypeName);
+		ContentItemImpl contentItem = new ContentItemImpl();
 		contentItem.setContentType(contentType);
 		contentItem.setTemplate(contentTemplate);
 		
 		Set<ContentField> fields = contentType.getFields();
 		
 		for (ContentField contentField : fields) {
-			contentItem.getFieldValues().put(contentField, "test");
+			contentItem.getFieldValues().put(contentField.getId(), "test");
 		}
 	
 		StringWriter writer = new StringWriter();
@@ -84,18 +84,18 @@ public class ContentItemRendererTest {
 	@Test
 	public void testPickyRenderer() {
 		
-		ContentType contentType = new ContentType();
+		ContentTypeImpl contentType = new ContentTypeImpl();
 		contentType.setId(PICKY);
 		contentType.setName(PICKY);
 		
-		ContentItem contentItem = new ContentItem();
+		ContentItemImpl contentItem = new ContentItemImpl();
 		contentItem.setContentType(contentType);
 		contentItem.setTemplate(contentTemplate);
 		
 		Set<ContentField> fields = contentType.getFields();
 		
 		for (ContentField contentField : fields) {
-			contentItem.getFieldValues().put(contentField, "test");
+			contentItem.getFieldValues().put(contentField.getId(), "test");
 		}
 	
 		StringWriter writer = new StringWriter();
@@ -112,7 +112,7 @@ public class ContentItemRendererTest {
 			return new ContentItemRenderer() {
 				
 				@Override
-				public boolean render(ContentItem item, StringWriter writer) {
+				public boolean render(ContentItemImpl item, StringWriter writer) {
 					writer.write(BOGUS);
 					return true;
 				}
@@ -129,7 +129,7 @@ public class ContentItemRendererTest {
 			return new ContentItemRenderer() {
 				
 				@Override
-				public boolean render(ContentItem item, StringWriter writer) {
+				public boolean render(ContentItemImpl item, StringWriter writer) {
 					// I dont render anyting
 					return false;
 				}
@@ -146,7 +146,7 @@ public class ContentItemRendererTest {
 			return new ContentItemRenderer() {
 				
 				@Override
-				public boolean render(ContentItem item, StringWriter writer) {
+				public boolean render(ContentItemImpl item, StringWriter writer) {
 					if (item.getContentType().getId() == PICKY) {
 						writer.write(PICKY);
 						return true;

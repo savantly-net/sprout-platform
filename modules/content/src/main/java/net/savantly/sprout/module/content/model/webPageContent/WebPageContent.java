@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import net.savantly.sprout.core.domain.PersistedDomainObject;
-import net.savantly.sprout.module.content.model.contentItem.ContentItem;
+import net.savantly.sprout.module.content.model.contentItem.ContentItemImpl;
 import net.savantly.sprout.module.content.model.webPage.WebPage;
 
 @Entity
@@ -32,7 +32,7 @@ public class WebPageContent extends PersistedDomainObject {
 	@Column(name=PLACEHOLDER_ID)
 	private String placeHolderId;
 	@ManyToMany(fetch=FetchType.EAGER)
-	private List<ContentItem> contentItems = new ArrayList<>();
+	private List<ContentItemImpl> contentItems = new ArrayList<>();
 	
 	public WebPage getWebPage() {
 		return webPage;
@@ -47,10 +47,10 @@ public class WebPageContent extends PersistedDomainObject {
 	public void setPlaceHolderId(String placeHolderId) {
 		this.placeHolderId = placeHolderId;
 	}
-	public List<ContentItem> getContentItems() {
+	public List<ContentItemImpl> getContentItems() {
 		return contentItems;
 	}
-	public void setContentItems(List<ContentItem> contentItems) {
+	public void setContentItems(List<ContentItemImpl> contentItems) {
 		this.contentItems = contentItems;
 	}
 }

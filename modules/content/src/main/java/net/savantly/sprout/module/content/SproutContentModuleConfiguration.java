@@ -13,19 +13,19 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import freemarker.template.TemplateException;
 import net.savantly.sprout.core.module.SproutModuleConfiguration;
-import net.savantly.sprout.module.content.model.contentField.ContentField;
+import net.savantly.sprout.module.content.model.contentField.ContentFieldImpl;
 import net.savantly.sprout.module.content.model.contentField.ContentFieldKeyDeserializer;
 import net.savantly.sprout.module.content.model.contentField.ContentFieldRepository;
-import net.savantly.sprout.module.content.model.contentItem.ContentItem;
+import net.savantly.sprout.module.content.model.contentItem.ContentItemImpl;
 import net.savantly.sprout.module.content.model.contentItem.ContentItemFreemarkerRenderer;
 import net.savantly.sprout.module.content.model.contentItem.ContentItemKeyDeserializer;
 import net.savantly.sprout.module.content.model.contentItem.ContentItemRenderer;
 import net.savantly.sprout.module.content.model.contentItem.ContentItemRenderingChain;
 import net.savantly.sprout.module.content.model.contentItem.ContentItemRepository;
-import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplate;
+import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplateImpl;
 import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplateFixture;
 import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplateRepository;
-import net.savantly.sprout.module.content.model.contentType.ContentType;
+import net.savantly.sprout.module.content.model.contentType.ContentTypeImpl;
 import net.savantly.sprout.module.content.model.contentType.ContentTypeFixture;
 import net.savantly.sprout.module.content.model.contentType.ContentTypeRepository;
 import net.savantly.sprout.module.content.model.contentType.ContentTypeTemplateLoader;
@@ -99,8 +99,8 @@ public class SproutContentModuleConfiguration {
 		public void customize(Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder) {
 			
 			SimpleModule customModule = new SimpleModule();
-			customModule.addKeyDeserializer(ContentField.class, new ContentFieldKeyDeserializer(contentFieldrepository));
-			customModule.addKeyDeserializer(ContentItem.class, new ContentItemKeyDeserializer(contentItemRepository));
+			customModule.addKeyDeserializer(ContentFieldImpl.class, new ContentFieldKeyDeserializer(contentFieldrepository));
+			customModule.addKeyDeserializer(ContentItemImpl.class, new ContentItemKeyDeserializer(contentItemRepository));
 			
 			jacksonObjectMapperBuilder.modulesToInstall(customModule);
 		}
@@ -113,9 +113,9 @@ public class SproutContentModuleConfiguration {
     }
 		
 	@Bean
-	public ContentItemRenderer defaultContentItemRenderer(ContentTemplateRepository repository) throws IOException, TemplateException {
+	public ContentItemRenderer defaultContentItemRenderer(ContentTemplateRepository repository, ContentFieldRepository contentFieldRepository) throws IOException, TemplateException {
 		ContentTypeTemplateLoader loader = new ContentTypeTemplateLoader(repository);
-		return new ContentItemFreemarkerRenderer(loader);
+		return new ContentItemFreemarkerRenderer(loader, contentFieldRepository);
 	}
 	
 	
@@ -131,10 +131,10 @@ public class SproutContentModuleConfiguration {
 		@Override
 		public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
 			config.exposeIdsFor(
-				ContentTemplate.class, 
-				ContentType.class, 
-				ContentItem.class, 
-				ContentField.class,
+				ContentTemplateImpl.class, 
+				ContentTypeImpl.class, 
+				ContentItemImpl.class, 
+				ContentFieldImpl.class,
 				WebPage.class, 
 				WebPageLayout.class,
 				WebPageContent.class);
