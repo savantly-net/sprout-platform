@@ -11,7 +11,6 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     FormsModule, ReactiveFormsModule,
-    ContentFieldModule,
     RouterModule.forChild([
       {
         path: 'content-type',
@@ -21,7 +20,8 @@ import { RouterModule } from '@angular/router';
         path: 'content-type-editor',
         component: ContentTypesEditorComponent
       }
-    ])
+    ]),
+    ContentFieldModule
   ],
   exports: [ContentTypesComponent, ContentTypesEditorComponent],
   declarations: [ContentTypesComponent, ContentTypesEditorComponent],

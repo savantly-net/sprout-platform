@@ -38,7 +38,7 @@ export class ContentTypesService extends RestService<ContentType> {
   }
 
   getFieldTypes() {
-    return this.http.get(this.extService.getRootUri() + '/../content/fieldTypes');
+    return this.http.get<Array<any>>(this.extService.getRootUri() + '/../content/fieldTypes');
   }
 
   findByName(name: string): Observable<ContentType> {

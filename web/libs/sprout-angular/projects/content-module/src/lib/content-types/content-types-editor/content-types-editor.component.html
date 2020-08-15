@@ -31,41 +31,11 @@
 						<button class="btn btn-outline-primary" (click)="this.addField()"><span><b>+</b></span></button>
 					</div>
 					<div formArrayName="fields">
-						<div class="m-2" *ngFor="let field of fields.controls, trackBy:trackById; let i=index" [formGroupName]="i" >
+						<div class="m-2">
 							<!-- The repeated field template -->
 							<hr/>
-							<div class="flex-column d-flex">
-								<div class="form-inline mb-1">
-									<div class="input-group mr-1">
-										<div class="input-group-prepend">
-											<div class="input-group-text">Type of value</div>
-										</div>
-										<select class="form-control" formControlName="fieldType" >
-											<option *ngFor="let value of this.fieldTypes" [value]="value.name">{{value.name}}</option>
-										</select>
-									</div>
-									<div class="input-group mr-1">
-										<div class="input-group-prepend">
-											<div class="input-group-text">Required</div>
-										</div>
-										<select class="form-control" formControlName="required" >
-											<option value="true">yes</option>
-											<option value="false">no</option>
-										</select>
-									</div>
-									<div class="ml-auto d-flex justify-content-end">
-										<a class="btn btn-outline-danger" (click)="removeFieldControl(i)"><span><b>Delete Field</b></span></a>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<div class="input-group-text">Display Name</div>
-										</div>
-										<input class="form-control" class="form-control" formControlName="displayName">
-									</div>
-								</div>
-							</div>
+							<sprout-content-field-editor *ngFor="let field of fields.controls, trackBy:trackById; let i=index" [formControlName]="i" 
+								[fieldTypes]="fieldTypes"></sprout-content-field-editor>
 							
 						    <!-- End of the repeated field template -->
 						</div>

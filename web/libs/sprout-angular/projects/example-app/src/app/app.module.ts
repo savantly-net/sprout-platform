@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxHalClientModule } from '@lagoshny/ngx-hal-client';
-import { SproutContentModule, ContentItemModule } from '@savantly/ngx-sprout-content';
+import { SproutContentModule } from '@savantly/ngx-sprout-content';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
