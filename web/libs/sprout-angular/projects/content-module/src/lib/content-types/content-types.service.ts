@@ -18,6 +18,9 @@ export class ContentType extends Resource {
   getContentFields = (): Observable<ContentField[]> => {
     return this.getRelationArray(ContentField, 'fields') as Observable<ContentField[]>;
   };
+  updateFieldsWithUriList = (fieldUris: string[]): Observable<any> => {
+    return this.patchRelation('fields', JSON.stringify(fieldUris));
+  }
 }
 
 @Injectable({providedIn: 'root'})

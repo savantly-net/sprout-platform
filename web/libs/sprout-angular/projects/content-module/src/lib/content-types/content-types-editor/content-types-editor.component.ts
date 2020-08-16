@@ -24,23 +24,16 @@ export class ContentTypesEditorComponent implements OnInit {
 
   prepareSave(model: ContentType): Promise<ContentType> {
     const halModel = Object.assign(new ContentType(), model);
+    console.log('preparing to save: ', halModel);
 
     // first save fields
     const fieldsToSave = halModel.fields.map((field: ContentField) => {
-      return this.saveField(field).toPromise()
+     return this.saveField(field).toPromise()
     });
-    return new Promise(resolve => {Promise.all(fieldsToSave).then(()=>{
-      /* the HAL library should handle converting relations to urls rather 
-      * than the entity objects. so we can probably dump this.
-      halModel.fields = [];
-      if (model.fields) {
-        model.fields.map(field => {
-          console.log(field);
-          halModel.fields.push(field._links.self.href as any);
-        });
-      }
+    return new Promise(resolve => {Promise.all(fieldsToSave).then((savedFields: ContentField[])=>{
+      // the saved fields have an ID now, so the Hal library will convert then entities to hrefs
+      halModel.fields = savedFields;
       console.log('halModel:', halModel);
-      */
       resolve(halModel);
     })});
   }
@@ -55,13 +48,13 @@ export class ContentTypesEditorComponent implements OnInit {
       }
       saveObservable.subscribe(data => {
         console.log('saved content-type:', data);
-        this.messageEmitter.emit({msg: 'Saved', code: 200});
         const contentType = (data as unknown as ContentType);
-        if(close){
-          this.close();
-        } else {
-          this.router.navigate(['content-type-editor', {id: contentType.id}]);
-        }
+        this.messageEmitter.emit({msg: 'Saved', code: 200});
+          if(close){
+            this.close();
+          } else {
+            this.router.navigate(['content-type-editor', {id: contentType.id}]);
+          }
       }, err => {
         if (err.statusText === 'Conflict') {
           this.messageEmitter.emit({msg: 'The template name must be unique', code: 409, err});
