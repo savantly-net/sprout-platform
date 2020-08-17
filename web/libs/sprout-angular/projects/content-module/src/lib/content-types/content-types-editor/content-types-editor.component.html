@@ -30,15 +30,16 @@
 						<span class="m-auto"></span>
 						<button class="btn btn-outline-primary" (click)="this.addField()"><span><b>+</b></span></button>
 					</div>
-					<div formArrayName="fields">
-						<div class="m-2">
+					<div formArrayName="fieldFormItems">
+						<div class="m-2" *ngFor="let field of fieldFormItems.controls, trackBy:trackById; let i=index" [formGroup]="field" >
 							<!-- The repeated field template -->
 							<hr/>
 							<sprout-content-field-editor 
-								*ngFor="let field of fields.controls, trackBy:trackById; let i=index" [formControlName]="i" 
-								[fieldTypes]="fieldTypes"
-								(onDelete)="removeFieldControl(i)"></sprout-content-field-editor>
-							
+								formControlName="contentField" 
+								[fieldTypes]="fieldTypes"></sprout-content-field-editor>
+								<div class="ml-auto d-flex justify-content-end">
+									<a class="btn btn-outline-danger" (click)="removeFieldControl(i)"><span><b>Delete Field</b></span></a>
+								</div>
 						    <!-- End of the repeated field template -->
 						</div>
 					</div>

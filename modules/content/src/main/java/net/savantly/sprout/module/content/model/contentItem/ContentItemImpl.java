@@ -15,6 +15,7 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import net.savantly.sprout.core.domain.PersistedDomainObject;
 import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplate;
 import net.savantly.sprout.module.content.model.contentTemplate.ContentTemplateImpl;
@@ -22,6 +23,7 @@ import net.savantly.sprout.module.content.model.contentType.ContentType;
 import net.savantly.sprout.module.content.model.contentType.ContentTypeImpl;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name="CONTENT_ITEM")
 public class ContentItemImpl extends PersistedDomainObject implements TemplatedContentItem {

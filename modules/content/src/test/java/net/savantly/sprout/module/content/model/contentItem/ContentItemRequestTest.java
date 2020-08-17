@@ -3,6 +3,7 @@ package net.savantly.sprout.module.content.model.contentItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -91,7 +92,7 @@ public class ContentItemRequestTest {
 			contentItem.setName(contentItemName);
 			contentItem.setTemplate(template);
 			
-			Set<ContentField> fields = ct.getFields();
+			List<ContentField> fields = ct.getFields();
 			
 			for (ContentField contentField : fields) {
 				contentItem.getFieldValues().put(contentField.getId(), "test");

@@ -2,6 +2,7 @@ package net.savantly.sprout.module.content.model.contentItem;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -59,7 +60,7 @@ public class ContentItemRenderingChainTest {
 		contentItem.setContentType(contentType);
 		contentItem.setTemplate(contentTemplate);
 		
-		Set<ContentField> fields = contentType.getFields();
+		List<ContentField> fields = contentType.getFields();
 		
 		for (ContentField contentField : fields) {
 			contentItem.getFieldValues().put(contentField.getId(), "test");

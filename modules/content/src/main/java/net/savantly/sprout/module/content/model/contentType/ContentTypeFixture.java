@@ -15,6 +15,7 @@ public class ContentTypeFixture extends AbstractBaseFixture<ContentTypeImpl, Con
 
 	private ContentTypeRepository repository;
 	public static final String defaultContentTypeName = "Default Content Type";
+	public static final String defalutContentTypeId = "DEFAULT_CONTENT_TYPE";
 
 	public ContentTypeFixture(ContentTypeRepository repository) {
 		super(repository);
@@ -42,6 +43,7 @@ public class ContentTypeFixture extends AbstractBaseFixture<ContentTypeImpl, Con
 		cf.setSortOrder(0);
 
 		ContentTypeImpl ct = new ContentTypeImpl();
+		ct.setId(defalutContentTypeId);
 		ct.setName(defaultContentTypeName);
 		ct.setDescription(defaultContentTypeName);
 		ct.getFields().add(cf);
