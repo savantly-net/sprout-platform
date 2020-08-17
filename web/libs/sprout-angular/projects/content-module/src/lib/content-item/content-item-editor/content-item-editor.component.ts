@@ -126,20 +126,18 @@ export class ContentItemEditorComponent implements OnInit {
       this.service.searchSingle('findById', searchOptions).subscribe((contentItem: any) => {
         this.service.getContentType(contentItem).subscribe((contentType: ContentType)=> {
           contentItem.contentType = contentType;
-          this.getContentTypeFields(contentType, (contentFields) => {
-            if (!contentType.requiresTemplate) {
-              this.createFormFromExisting(contentItem, contentFields);
-            } else {
-              const obs = this.service.getContentTemplate(contentItem);
-              obs.pipe((o: Observable<ContentTemplate>) => { 
-                  this.createFormFromExisting(contentItem, contentFields); 
-                  return o;
-                })
-                .subscribe(contentTemplate => {
-                contentItem.template = contentTemplate;
-              }, err => { this.messageEmitter.emit({msg: 'Please set Content Template', code: 400, err}); console.error(err); });
-            }
-          });
+          if (!contentType.requiresTemplate) {
+            this.createFormFromExisting(contentItem, contentType.fields);
+          } else {
+            const obs = this.service.getContentTemplate(contentItem);
+            obs.pipe((o: Observable<ContentTemplate>) => { 
+                this.createFormFromExisting(contentItem, contentType.fields); 
+                return o;
+              })
+              .subscribe(contentTemplate => {
+              contentItem.template = contentTemplate;
+            }, err => { this.messageEmitter.emit({msg: 'Please set Content Template', code: 400, err}); console.error(err); });
+          }
         }, err => {
           this.messageEmitter.emit({msg: 'Could not retrieve Content Type', code: 500, err});
           console.error(err);
@@ -170,16 +168,6 @@ export class ContentItemEditorComponent implements OnInit {
     const ctrl = this.rForm.get('contentType') as FormControl;
     ctrl.disable();
     return ctrl;
-  }
-
-  getContentTypeFields(contentType: ContentType, callback): void {
-    this.contentTypeService.findContentFields(contentType).subscribe(data => {
-      const fields = data;
-      callback(fields);
-    }, err => {
-      this.messageEmitter.emit({msg: 'Could not retrieve Content Type Fields', code: 500, err});
-      console.error(err);
-    });
   }
 
   createEmptyForm() {

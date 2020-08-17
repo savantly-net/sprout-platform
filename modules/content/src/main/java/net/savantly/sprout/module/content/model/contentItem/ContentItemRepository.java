@@ -6,7 +6,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import java.util.Set;
 import net.savantly.sprout.core.domain.PersistedDomainObjectRepository;
 
-@RepositoryRestResource(path="contentItems", collectionResourceRel="contentItems")
+@RepositoryRestResource(path="contentItems", collectionResourceRel="contentItems", itemResourceRel = "contentItem")
 public interface ContentItemRepository extends PersistedDomainObjectRepository<ContentItemImpl> {
 
 	public Set<ContentItemImpl> findAllByContentType_id(@Param("contentTypeId") String contentTypeId);

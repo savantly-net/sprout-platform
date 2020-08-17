@@ -5,7 +5,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import net.savantly.sprout.core.domain.PersistedDomainObjectRepository;
 
-@RepositoryRestResource
+@RepositoryRestResource(collectionResourceRel = "webPageLayouts", itemResourceRel = "webPageLayout", path = "webPagesLayouts")
 public interface WebPageLayoutRepository extends PersistedDomainObjectRepository<WebPageLayout> {
 
 	WebPageLayout findOneByName(@Param("name") String name);

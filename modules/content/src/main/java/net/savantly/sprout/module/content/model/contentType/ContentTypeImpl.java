@@ -1,14 +1,16 @@
 package net.savantly.sprout.module.content.model.contentType;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,8 +28,10 @@ public class ContentTypeImpl extends PersistedDomainObject implements ContentTyp
 	private String name;
 	private String description;
 	
-	@OneToMany(targetEntity = ContentFieldImpl.class, orphanRemoval=true, cascade= {CascadeType.ALL}, fetch=FetchType.EAGER)
-	private Set<ContentField> fields = new HashSet<>();
+	@JsonDeserialize(contentAs = ContentFieldImpl.class)
+	@OneToMany(targetEntity = ContentFieldImpl.class, orphanRemoval=true, cascade= {CascadeType.ALL})
+	@JoinColumn(name = "content_type_id")
+	private List<ContentField> fields = new ArrayList<>();
 	private boolean requiresTemplate = false;
 	
 	private boolean updateable;

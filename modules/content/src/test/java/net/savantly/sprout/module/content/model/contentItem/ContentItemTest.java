@@ -1,5 +1,6 @@
 package net.savantly.sprout.module.content.model.contentItem;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -75,7 +76,7 @@ public class ContentItemTest {
 		contentItem.setContentType(contentType);
 		contentItem.setTemplate(contentTemplate);
 		
-		Set<ContentField> fields = contentType.getFields();
+		List<ContentField> fields = contentType.getFields();
 		
 		for (ContentField contentField : fields) {
 			contentItem.getFieldValues().put(contentField.getId(), "test");

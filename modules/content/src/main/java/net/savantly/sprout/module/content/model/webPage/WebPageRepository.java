@@ -6,7 +6,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import net.savantly.sprout.core.domain.PersistedDomainObjectRepository;
 
-@RepositoryRestResource
+@RepositoryRestResource(collectionResourceRel = "webPages", itemResourceRel = "webPage", path = "webPages")
 public interface WebPageRepository extends PersistedDomainObjectRepository<WebPage>{
 
 	WebPage findOneByName(@Param("name") String name);

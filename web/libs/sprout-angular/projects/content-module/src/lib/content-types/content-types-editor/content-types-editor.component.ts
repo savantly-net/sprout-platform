@@ -1,12 +1,10 @@
-import { ContentField, ContentFieldService } from '../../content-field/content-field.service';
-import { ContentTypesService, ContentType } from '../content-types.service';
-import { Component, OnInit, Output, EventEmitter, ContentChildren } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, forkJoin, of } from 'rxjs';
-import { pipe } from 'rxjs';
-import { never } from 'rxjs';
-import { AbstractContentFieldEditorComponent } from '../../content-field/';
+import { Observable } from 'rxjs';
+import { ContentField } from '../../content-field/content-field.service';
+import { uuid } from '../../standard';
+import { ContentType, ContentTypesService } from '../content-types.service';
 
 @Component({
   selector: 'sprout-content-types-editor',
@@ -14,53 +12,37 @@ import { AbstractContentFieldEditorComponent } from '../../content-field/';
   styleUrls: ['./content-types-editor.component.css']
 })
 export class ContentTypesEditorComponent implements OnInit {
-
-  //@ContentChildren('widget') fieldComponents: AbstractContentFieldEditorComponent[];
-
+  
   @Output("messageEvent") 
   messageEmitter = new EventEmitter<{msg: string, code: number, err?: any}>();
   fieldTypes: any[];
   rForm: FormGroup;
 
-  prepareSave(model: ContentType): Promise<ContentType> {
-    const halModel = Object.assign(new ContentType(), model);
-    console.log('preparing to save: ', halModel);
-
-    // first save fields
-    const fieldsToSave = halModel.fields.map((field: ContentField) => {
-     return this.saveField(field).toPromise()
-    });
-    return new Promise(resolve => {Promise.all(fieldsToSave).then((savedFields: ContentField[])=>{
-      // the saved fields have an ID now, so the Hal library will convert then entities to hrefs
-      halModel.fields = savedFields;
-      console.log('halModel:', halModel);
-      resolve(halModel);
-    })});
-  }
-
   save(model: ContentType, close?: boolean) {
-    this.prepareSave(model).then(halModel => {
-      let saveObservable: Observable<ContentType | Observable<never>>;
-      if (model.id) {
-        saveObservable = this.service.update(halModel);
+    const contentType = Object.assign({}, model);
+    contentType.fields = [];
+    for (const obj in this.fieldFormItems.value) {
+      if (Object.prototype.hasOwnProperty.call(this.fieldFormItems.value, obj)) {
+        contentType.fields.push(this.fieldFormItems.value[obj].contentField);
+      }
+    }
+    
+    let saveObservable: Observable<ContentType | Observable<never>>;
+      if (contentType.id) {
+        saveObservable = this.service.update(contentType);
       } else {
-        saveObservable = this.service.create(halModel);
+        saveObservable = this.service.create(contentType);
       }
       saveObservable.subscribe(data => {
         console.log('saved content-type:', data);
-        const contentType = (data as unknown as ContentType);
-        this.messageEmitter.emit({msg: 'Saved', code: 200});
-          if(close){
-            this.close();
-          } else {
-            this.router.navigate(['content-type-editor', {id: contentType.id}]);
-          }
+        this.rForm.patchValue(data);
       }, err => {
         if (err.statusText === 'Conflict') {
           this.messageEmitter.emit({msg: 'The template name must be unique', code: 409, err});
+        } else {
+          this.messageEmitter.emit({msg: 'Something went wrong', code: 500, err});
         }
       });
-    });
   }
 
   close() {
@@ -77,20 +59,18 @@ export class ContentTypesEditorComponent implements OnInit {
   }
 
   loadItem(id: string) {
+    console.log('loading item:', id);
     if (id) {
       this.service.get(id).subscribe((response: ContentType) => {
         this.rForm.patchValue(response);
-        this.rForm.patchValue({'new': false})
-        this.service.findContentFields(response).subscribe(data => {
-          this.setContentFields(data);
-        }, err => {
-          console.error('could not get contentFields for the contentType');
-        });
+        this.rForm.patchValue({'new': false});
+        this.setContentFields(response.fields);
       });
     }
   }
 
   setContentFields(contentFields: ContentField[]) {
+    this.fieldFormItems.clear();
     contentFields.map(contentField => {
       this.addField(contentField);
     });
@@ -100,31 +80,21 @@ export class ContentTypesEditorComponent implements OnInit {
     return Object.assign(new ContentType(), this.rForm.value);
   }
 
-  get fields(): FormArray {
-    return this.rForm.get('fields') as FormArray;
+  get fieldFormItems(): FormArray {
+    return this.rForm.get('fieldFormItems') as FormArray;
   }
 
   addField(contentField?: ContentField): void {
     if (!contentField) {
       contentField = new ContentField();
-      contentField.name = 'body';
+      contentField.name = uuid();
       contentField.displayName = 'Body field';
       contentField.fieldType = 'text';
       contentField.required = false;
+      contentField.sortOrder = 0;
     }
-    const fieldControl = this.fb.control(contentField);
-    this.fields.push(fieldControl);
-  }
-
-  saveField(field: ContentField): Observable<ContentField | Observable<never>> {
-    let observable: Observable<ContentField | Observable<never>>;
-    if (field.id) {
-      observable = this.contentFieldService.update(field);
-    } else {
-      field.name = this.cleanFieldName(field);
-      observable = this.contentFieldService.create(field);
-    }
-    return observable;
+    const fieldGroup = this.fb.group({'contentField': this.fb.control(contentField)});
+    this.fieldFormItems.push(fieldGroup);
   }
 
   cleanFieldName(field: ContentField): string {
@@ -133,7 +103,8 @@ export class ContentTypesEditorComponent implements OnInit {
   }
 
   removeFieldControl(index: number): void {
-    this.fields.removeAt(index);
+    console.log('removing control:', index);
+    this.fieldFormItems.removeAt(index);
   }
 
   trackById(index: number, item: {id: string}) {
@@ -148,8 +119,7 @@ export class ContentTypesEditorComponent implements OnInit {
     public router: Router,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private service: ContentTypesService,
-    private contentFieldService: ContentFieldService) {
+    private service: ContentTypesService) {
 
     this.service.getFieldTypes().subscribe((fieldTypes: any[]) => {
       this.fieldTypes = fieldTypes;
@@ -160,7 +130,7 @@ export class ContentTypesEditorComponent implements OnInit {
       'name' : ['MyContentType', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(255)])],
       'description': ['A new content type =]'],
       'requiresTemplate': [false],
-      'fields': fb.array([]),
+      'fieldFormItems': fb.array([]),
       'new': [true],
       'createdDate': [null],
       'createdBy': [null],
