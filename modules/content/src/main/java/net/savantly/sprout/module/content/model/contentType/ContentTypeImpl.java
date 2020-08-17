@@ -29,7 +29,7 @@ public class ContentTypeImpl extends PersistedDomainObject implements ContentTyp
 	private String description;
 	
 	@JsonDeserialize(contentAs = ContentFieldImpl.class)
-	@OneToMany(targetEntity = ContentFieldImpl.class, orphanRemoval=true, cascade= {CascadeType.ALL})
+	@OneToMany(targetEntity = ContentFieldImpl.class, cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name = "content_type_id")
 	private List<ContentField> fields = new ArrayList<>();
 	private boolean requiresTemplate = false;
