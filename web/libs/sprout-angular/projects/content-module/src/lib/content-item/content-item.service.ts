@@ -11,7 +11,7 @@ export class ContentItem extends Resource {
   description?: string;
   fieldValues: any = {};
   template: any;
-  contentType: any;
+  contentType: ContentType;
 
   getContentType = (): Observable<ContentType> => {
     return this.getRelation(ContentType, 'contentType') as Observable<ContentType>;
