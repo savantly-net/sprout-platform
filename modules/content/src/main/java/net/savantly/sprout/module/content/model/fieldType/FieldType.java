@@ -6,11 +6,20 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public enum FieldType {
 
-	text(),
-	markup(),
-	markdown(),
-	email("[\\w-]+@([\\w-]+\\.)+[\\w-]+"),
-	json();
+	TEXT(),
+	TEXT_LINE(),
+	DATE(),
+	TIME(),
+	DATE_TIME(),
+	CHECKBOX(),
+	CHOICE(),
+	INTEGER(),
+	DECIMAL(),
+	MONEY(),
+	MARKUP(),
+	MARKDOWN(),
+	EMAIL("[\\w-]+@([\\w-]+\\.)+[\\w-]+"),
+	JSON();
 	
 	private String validator;
 	

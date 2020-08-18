@@ -55,7 +55,7 @@ public class ContentItemTest {
 		cf.setName("body");
 		cf.setDisplayName("Body");
 		cf.setRequired(true);
-		cf.setFieldType(FieldType.text);
+		cf.setFieldType(FieldType.TEXT);
 		cf.setSortOrder(0);
 		
 		contentTemplate = contentTemplateRepository.findByName(ContentTemplateFixture.defaultContentTemplateName);

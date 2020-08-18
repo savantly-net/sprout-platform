@@ -71,7 +71,7 @@ public class ContentItemRequestTest {
 			cf.setName("body");
 			cf.setDisplayName("Body");
 			cf.setRequired(true);
-			cf.setFieldType(FieldType.text);
+			cf.setFieldType(FieldType.TEXT);
 			cf.setSortOrder(0);
 			
 			ct = new ContentTypeImpl();

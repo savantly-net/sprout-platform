@@ -39,7 +39,7 @@ public class ContentTypeFixture extends AbstractBaseFixture<ContentTypeImpl, Con
 		cf.setName("body");
 		cf.setDisplayName("Body");
 		cf.setRequired(true);
-		cf.setFieldType(FieldType.markup);
+		cf.setFieldType(FieldType.MARKUP);
 		cf.setSortOrder(0);
 
 		ContentTypeImpl ct = new ContentTypeImpl();
