@@ -5,7 +5,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -24,7 +23,6 @@ public class ContentTemplateImpl extends PersistedDomainObject implements Conten
 	@Column(unique=true)
 	private String name;
 	private String description;
-	@Lob
 	private String content;
 	@OneToMany(targetEntity = ContentItemImpl.class)
 	private Set<ContentItem> contentItems = new HashSet<ContentItem>();
