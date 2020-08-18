@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Lob;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
@@ -24,7 +23,6 @@ public class WebPageLayout extends PersistedDomainObject {
 	@CollectionTable(name = "WEB_PAGE_LAYOUT_PLACEHOLDER")
 	@OrderColumn(name = "index_id")
 	private Set<String> placeHolders = new HashSet<>();
-	@Lob
 	private String template;
 	private boolean showHeader = true;
 	private boolean showFooter = true;

@@ -7,6 +7,8 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 
@@ -24,7 +26,10 @@ import net.savantly.sprout.module.content.model.fieldType.FieldType;
 public class ContentFieldImpl extends PersistedDomainObject implements ContentField{
 	
 	private String name;
+	
+	@Enumerated(EnumType.STRING)
 	private FieldType fieldType;
+	
 	private boolean required;
 	private int sortOrder;
 	private String displayName;
