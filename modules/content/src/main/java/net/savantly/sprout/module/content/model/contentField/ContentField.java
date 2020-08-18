@@ -1,10 +1,9 @@
 package net.savantly.sprout.module.content.model.contentField;
 
-import java.util.Map;
-
+import net.savantly.sprout.core.domain.metadata.MetaDataContainer;
 import net.savantly.sprout.module.content.model.fieldType.FieldType;
 
-public interface ContentField {
+public interface ContentField extends MetaDataContainer<String> {
 	
 	String getName();
 	String getId();
@@ -12,6 +11,5 @@ public interface ContentField {
 	boolean isRequired();
 	int getSortOrder();
 	String getDisplayName();
-	Map<String, String> getMetaData();
 
 }

@@ -133,7 +133,7 @@ public class WebPageRestRepositoryTest {
 		log.info("putting uri list: {} \nto collection: {}", href, path);
 		MvcResult mvcResult = mvc.perform(
 				put(path)
-				.contentType("text/uri-list")
+				.contentType("TEXT/uri-list")
 				.content(href)).andExpect(
 						status().isNoContent()).andReturn();
 		return mvcResult;

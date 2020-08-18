@@ -60,7 +60,7 @@ public class WebPageContentRepositoryTest {
 		
 		ContentFieldImpl cf = new ContentFieldImpl();
 		cf.setName("test");
-		cf.setFieldType(FieldType.text);
+		cf.setFieldType(FieldType.TEXT);
 		
 		ContentFieldImpl cfSaved = cfRepository.save(cf);
 		

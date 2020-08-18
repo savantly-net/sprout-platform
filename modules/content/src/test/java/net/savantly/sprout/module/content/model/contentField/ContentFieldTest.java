@@ -26,7 +26,7 @@ public class ContentFieldTest {
 	public void testContentField() {
 		ContentFieldImpl item = new ContentFieldImpl();
 		item.setName("test");
-		item.setFieldType(FieldType.text);
+		item.setFieldType(FieldType.TEXT);
 		
 		ContentField saved = repository.save(item);
 		Assertions.assertEquals(item.getName(), saved.getName(), "name should match");
