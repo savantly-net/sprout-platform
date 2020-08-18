@@ -77,9 +77,7 @@ export class ContentItemEditorEmbeddedComponent {
   loadContentItem(contentItem: ContentItem) {
     if (contentItem) {
       if (contentItem.contentType) {
-        contentItem.contentType.getContentFields().subscribe(contentFields => {
-          this.createFormFromExisting(contentItem, contentFields);
-        });
+        this.createFormFromExisting(contentItem, contentItem.contentType.fields);
       } else {
         const msg = 'Embedded editor requires a contentType to be set';
         this.messageEmitter.emit({msg, code: 400});
