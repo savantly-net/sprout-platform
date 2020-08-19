@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { FieldTypeModule } from '../field-type/field-type.module';
 import { StandardModule } from '../standard/standard.module';
 import { ContentItemBrowserDialogComponent, ContentItemBrowserDialogContent } from './content-item-browser-dialog/content-item-browser-dialog.component';
-import { ContentItemEditorEmbeddedComponent } from './content-item-editor-embedded/content-item-editor-embedded.component';
 import { ContentItemEditorComponent } from './content-item-editor/content-item-editor.component';
 import { ContentItemComponent } from './content-item.component';
 
@@ -30,13 +29,11 @@ import { ContentItemComponent } from './content-item.component';
   ],
   exports: [FieldTypeModule,
     ContentItemComponent, 
-    ContentItemEditorComponent, 
-    ContentItemEditorEmbeddedComponent, 
+    ContentItemEditorComponent,
     ContentItemBrowserDialogComponent, 
     ContentItemBrowserDialogContent],
   declarations: [ContentItemComponent, 
-    ContentItemEditorComponent, 
-    ContentItemEditorEmbeddedComponent, 
+    ContentItemEditorComponent,
     ContentItemBrowserDialogComponent, 
     ContentItemBrowserDialogContent],
   providers: [],

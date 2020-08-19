@@ -4,3 +4,7 @@ div.jsoneditor-outer,
 div.jsoneditor div.ace_editor.ace-tm {
 	min-height: 300px;
 }
+
+md-editor, ckeditor {
+	width: 100%;
+}

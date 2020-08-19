@@ -1,3 +1,12 @@
-<sprout-content-item-editor-embedded [(contentItem)]="contentItem"></sprout-content-item-editor-embedded>
+<h1>Hiding Controls</h1>
+<sprout-content-item-editor [(contentItem)]="contentItem"
+    hideFooter="true" hideHeader="true" hideName="true" hideDescription="true" hideContentType="true">
+</sprout-content-item-editor>
 
-<button (click)="save()">save</button>
+<h1>Intercepting</h1>
+<sprout-content-item-editor [(contentItem)]="contentItem"
+    [beforeSave]="beforeSave" [beforeDelete]="beforeDelete" [beforeClose]="beforeClose">
+
+</sprout-content-item-editor>
+
+<button class="btn-primary" (click)="save()">save</button>

@@ -9,10 +9,14 @@ The HAL connectivity is provided by - https://github.com/lagoshny/ngx-hal-client
 `npm install @savantly/ngx-sprout-content`  
 
 Or all peer dependencies -  
-`npm i @angular/cdk @angular/common @angular/flex-layout @angular/material @lagoshny/ngx-hal-client @savantly/ngx-jsoneditor ng2-ckeditor ngx-markdown-editor rxjs`
+`npm i @savantly/ngx-jsoneditor @angular/cdk @angular/common @angular/flex-layout @angular/material @lagoshny/ngx-hal-client ng2-ckeditor ngx-markdown-editor rxjs`
 
-Add ckeditor module to your index.html -  
-`<script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>`
+Add ckeditor and marked modules to your index.html -  
+`<script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>  
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>`
+
+The Markdown Editor requires FontAwesome to be available -  
+`<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">`
 
 Provide a configuration for the Spring Data Rest endpoint.  
 

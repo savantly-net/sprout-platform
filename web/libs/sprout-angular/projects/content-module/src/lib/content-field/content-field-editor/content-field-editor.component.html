@@ -26,4 +26,10 @@
             <input class="form-control" class="form-control" [(ngModel)]="value.displayName" (change)="notifyValueChange()">
         </div>
     </div>
+    <div *ngIf="value.fieldType == 'CHOICE'" class="form-group">
+        <div class="input-group">
+            <div class="input-group-text">Choices [one per line]</div>
+            <textarea class="form-control" class="form-control" [(ngModel)]="value.metaData.choices" (change)="notifyValueChange()"></textarea>
+        </div>
+    </div>
 </div>

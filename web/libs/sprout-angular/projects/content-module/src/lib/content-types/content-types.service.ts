@@ -10,10 +10,11 @@ export class ContentType extends Resource {
   name: string;
   description?: string;
   updateable: boolean = true;
-  fields: ContentField[];
+  fields: ContentField[] = [];
   icon?: string;
   requiresTemplate: boolean;
   version: number;
+  metaData: any = {};
 }
 
 @Injectable({providedIn: 'root'})

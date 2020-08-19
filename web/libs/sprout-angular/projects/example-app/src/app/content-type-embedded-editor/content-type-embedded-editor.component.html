@@ -1,0 +1,18 @@
+<div>
+    <h1>Hidden fields with custom body fields</h1>
+    <sprout-content-type-editor [(ngModel)]="contentType" [beforeSave]="beforeSave"
+        hideHeader="true" hideFooter="true" hideName="true" hideDescription="true">
+        <div *sproutContentTypeEditorBodyField>
+            <!-- A custom metadata editor -->
+            <div class="form-group">
+                <label>Custom Metadata</label>
+                <input class="form-control" [(ngModel)]="contentType.metaData.tag" maxlength="255" placeholder="Enter a description">
+                <span class="form-text text-muted" align="end">This is injected in the model's metaData object</span>
+            </div>
+        </div>
+    </sprout-content-type-editor>
+
+    <h1>Intercepted events</h1>
+    <sprout-content-type-editor [(ngModel)]="contentType"
+        [beforeSave]="beforeSave" [beforeDelete]="beforeDelete" [beforeClose]="beforeClose"></sprout-content-type-editor>
+</div>

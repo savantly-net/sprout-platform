@@ -5,6 +5,7 @@ import { FieldTypeComponent } from './field-type.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { LMarkdownEditorModule } from 'ngx-markdown-editor';
 import { JsonEditorModule } from '@savantly/ngx-jsoneditor';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -12,9 +13,14 @@ import { JsonEditorModule } from '@savantly/ngx-jsoneditor';
     FormsModule, ReactiveFormsModule,
     CKEditorModule,
     LMarkdownEditorModule,
-    JsonEditorModule
+    JsonEditorModule,
+    NgbDatepickerModule
   ],
-  exports: [ FieldTypeComponent ],
+  exports: [ FieldTypeComponent, 
+    CKEditorModule,
+    LMarkdownEditorModule,
+    JsonEditorModule,
+    NgbDatepickerModule ],
   declarations: [ FieldTypeComponent ]
 })
 export class FieldTypeModule {}
