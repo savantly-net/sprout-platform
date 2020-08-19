@@ -23,6 +23,12 @@ export class FieldTypeComponent {
   }
   fieldControlChange: EventEmitter<FormControl> = new EventEmitter<FormControl>();
 
+  get choices() {
+    if (this.fieldControl.value?.metaData?.choices) {
+      return this.fieldControl.value.metaData.choices.split('\n');
+    } else return [];
+  }
+
   onChange(event) {
     this.fieldControlChange.emit(this._fieldControl.value);
     this._fieldControl.patchValue(this._fieldControl.value); // force the control to emit a change

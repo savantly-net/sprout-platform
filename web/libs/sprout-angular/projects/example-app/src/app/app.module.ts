@@ -11,12 +11,15 @@ import { ExternalConfigurationService } from '../environments/external-configura
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { ContentItemEmbeddedEditorComponent } from './content-item-embedded-editor/content-item-embedded-editor.component';
+import { ContentTypeEmbeddedEditorComponent } from './content-type-embedded-editor/content-type-embedded-editor.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ContentItemEmbeddedEditorComponent
+    ContentItemEmbeddedEditorComponent,
+    ContentTypeEmbeddedEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -25,6 +28,8 @@ import { ContentItemEmbeddedEditorComponent } from './content-item-embedded-edit
     NgbModule,
     HttpClientModule,
     NgxHalClientModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
     SproutContentModule
   ],
   providers: [{provide: 'ExternalConfigurationService', useClass: ExternalConfigurationService}],

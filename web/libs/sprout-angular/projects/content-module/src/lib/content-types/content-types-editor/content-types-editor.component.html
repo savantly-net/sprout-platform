@@ -1,27 +1,31 @@
 <div class="container p-2">
 	<div class="card">
-		<div class="card-body d-flex">
+		<div *ngIf="!hideHeader" class="card-body d-flex">
 			<h3>Content Type Editor</h3>
 			<span class="m-auto"></span>
-			<button class="btn btn-outline-secondary" routerLink='/content-type'><span>X</span></button>
+			<button class="btn btn-outline-secondary" (click)="close()"><span>X</span></button>
 		</div>
 		<div class="card-body">
 			<form [formGroup]="rForm" class="d-flex flex-column m-1"  >
 				
-				<div class="form-group">
+				<div *ngIf="!hideName" class="form-group">
 					<label>Name</label>
 					<input class="form-control" formControlName="name" maxlength="255" placeholder="Enter a name">
 					<span class="form-text text-muted" align="end">{{rForm.controls['name'].value?.length || 0}}/255</span>
 				</div>
 			
-				<div class="form-group">
+				<div *ngIf="!hideDescription" class="form-group">
 					<label>Description</label>
 					<input class="form-control" formControlName="description" maxlength="255" placeholder="Enter a description">
 					<span class="form-text text-muted" align="end">{{rForm.controls['description'].value?.length || 0}}/255</span>
 				</div>
+
+				<div *ngFor="let bodyField of bodyFields">
+					<ng-template [ngTemplateOutlet]="bodyField.template"></ng-template>
+				</div>
 				
-				<div *ngIf="!rForm.value.new" class="d-flex flex-column m-1" >
-					<div class="d-flex form-check">
+				<div class="d-flex flex-column m-1" >
+					<div *ngIf="!hideTemplate" class="d-flex form-check">
 						<input type="checkbox" class="form-check-input" id="requiresTemplate" formControlName="requiresTemplate">
 						<label for="requiresTemplate">Requires a template</label>
 					</div>
@@ -48,11 +52,11 @@
 			
 			</form>
 		</div>
-		<div class="card-footer d-flex justify-content-around flex-wrap">
+		<div *ngIf="!hideFooter" class="card-footer d-flex justify-content-around flex-wrap">
 			<button  class="btn btn-danger" [hidden]="rForm.value.new" (click)="this.delete(rForm.value)"><span>DELETE</span></button>
 			<button  class="btn btn-secondary" [hidden]="!rForm.value.new" (click)="this.close()"><span>DELETE</span></button>
 			<div class="btn-group" role="group">
-				<button class="btn btn-primary" [disabled]="!rForm.valid" (click)="save(rForm.value)">SAVE</button>
+				<button class="btn btn-primary" [disabled]="!rForm.valid" (click)="save()">SAVE</button>
 		</div>
 	</div>
 </div>

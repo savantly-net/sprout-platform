@@ -1,6 +1,4 @@
-import { Resource, RestService, EmbeddedResource } from '@lagoshny/ngx-hal-client';
-import { Injectable, Injector } from '@angular/core';
-import { ContentType } from '../content-types';
+import { EmbeddedResource } from '@lagoshny/ngx-hal-client';
 
 
 export class ContentField extends EmbeddedResource {
@@ -10,5 +8,5 @@ export class ContentField extends EmbeddedResource {
   sortOrder: number;
   fieldType: string;
   required: boolean;
-  contentType: ContentType;
+  metaData: any = {};
 }

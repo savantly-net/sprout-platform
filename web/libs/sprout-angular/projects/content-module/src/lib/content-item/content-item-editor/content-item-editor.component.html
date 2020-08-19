@@ -1,58 +1,54 @@
-<div *ngIf="rForm" class="content" class="d-flex justify-content-between flex-wrap" >
-	<div class="card">
-		<div class="card-body" class="d-flex flex-sm-column">
-			<div class="card-title">Content Item Editor</div>
-			<span ></span>
-			<button class="btn" (click)="router.navigate(['content-item'])"><span>close</span></button>
-		</div>
-		<div class="card-body">
-			<form [formGroup]="rForm" class="d-flex flex-column m1">
-				
-				<div class="form-group">
-					<label>Max 255 characters</label>
-					<input class="form-control" formControlName="name" maxlength="255" placeholder="Enter a name">
-					<span class="form-text text-muted" align="end">{{rForm.controls['name'].value?.length || 0}}/255</span>
-				</div>
+<div *ngIf="rForm" class="content-item-editor">
+	<div *ngIf="!hideHeader" class="d-flex flex-row justify-content-between">
+		<div><h3>Content Item Editor</h3></div>
+		<div></div>
+		<button class="btn btn-secondary-outline" (click)="close()"><span><b>X</b></span></button>
+	</div>
+	<div>
+		<form [formGroup]="rForm" class="d-flex flex-column m1">
 			
-				<div class="form-group">
-					<label>Max 255 characters</label>
-					<input class="form-control" formControlName="description" maxlength="255" placeholder="Enter a description">
-					<span class="form-text text-muted" align="end">{{rForm.controls['description'].value?.length || 0}}/255</span>
-				</div>
-				
-				<div class="form-group">
-					<label>The content type determines the fields; cannot change once set</label>
-					<select class="form-control" formControlName="contentType" [compareWith]="idCompare">
-						<option *ngFor="let ct of this.contentTypes; trackBy: trackById" [value]="ct">{{ct.name}}</option>
+			<div class="form-group" *ngIf="!hideName">
+				<label>Name (unique)</label>
+				<input class="form-control" formControlName="name" maxlength="255" placeholder="Enter a name">
+				<span class="form-text text-muted" align="end">{{rForm.controls['name'].value?.length || 0}}/255</span>
+			</div>
+		
+			<div class="form-group" *ngIf="!hideDescription">
+				<label>Description</label>
+				<input class="form-control" formControlName="description" maxlength="255" placeholder="Enter a description">
+				<span class="form-text text-muted" align="end">{{rForm.controls['description'].value?.length || 0}}/255</span>
+			</div>
+			
+			<div class="form-group" *ngIf="!hideContentType && contentTypes">
+				<label>The content type determines the fields; cannot change once set</label>
+				<select class="form-control" formControlName="contentType" >
+					<option *ngFor="let ct of this.contentTypes" [ngValue]="ct">{{ct.name}}</option>
+				</select>
+			</div>
+			
+			
+			<div *ngIf="rForm.value.contentType">
+				<div *ngIf="rForm.value.contentType.requiresTemplate" class="form-group">
+				<label>The template that will render this content</label>
+					<select class="form-control" formControlName="template" [compareWith]="idCompare" >
+						<option *ngFor="let ct of this.templates | async, trackBy: trackById" [value]="ct">{{ct.name}}</option>
 					</select>
 				</div>
-				
-				
-				<div *ngIf="!rForm.value.new">
-					<div *ngIf="currentContentType.value.requiresTemplate" class="form-group">
-					<label>The template that will render this content</label>
-						<select class="form-control" formControlName="template" [compareWith]="idCompare" >
-							<option *ngFor="let ct of this.templates | async, trackBy: trackById" [value]="ct">{{ct.name}}</option>
-						</select>
-					</div>
-				
-					<div class="d-flex"  >
-						<h3>Fields</h3>
-					</div>
-					<div formArrayName="fieldValues" class="well">
-						<div *ngFor="let field of fieldValues.controls; let i=index" [formGroupName]="i" >
-							<sprout-field-type [fieldControl]="field"></sprout-field-type>
-						</div>
+			
+				<hr/>
+				<div *ngIf="fieldsFormArray" formArrayName="fieldsFormArray" class="well">
+					<div *ngFor="let field of fieldsFormArray.controls; let i=index" [formGroupName]="i" >
+						<sprout-field-type [fieldControl]="field"></sprout-field-type>
 					</div>
 				</div>
-				<br/>
-			
-			</form>
-		</div>
-		<div class="d-flex justify-content-between flex-wrap">
-			<button  class="warn" [disabled]="rForm.value.new" (click)="this.delete(rForm.value)"><span>delete</span></button>
-			
-			<button  type="submit" class="primary" [disabled]="!rForm.valid" (click)="save(rForm.value)"><span>save</span></button>
-		</div>
+			</div>
+			<br/>
+		
+		</form>
+	</div>
+	<div *ngIf="!hideFooter" class="d-flex justify-content-between flex-wrap">
+		<button  class="btn btn-warn" [disabled]="rForm.value.new" (click)="this.delete(rForm.value)"><span>delete</span></button>
+		
+		<button  type="submit" class="btn btn-primary" [disabled]="!rForm.valid" (click)="save()"><span>save</span></button>
 	</div>
 </div>

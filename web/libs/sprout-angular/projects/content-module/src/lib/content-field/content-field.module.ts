@@ -1,10 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ContentFieldComponent } from './content-field.component';
-import { ContentFieldEditorComponent } from './content-field-editor/content-field-editor.component';
-import { AbstractContentFieldEditorComponent } from './content-field-editor/abstract-content-field.component';
-import { StandardModule } from '../standard';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AbstractContentFieldEditorComponent } from './content-field-editor/abstract-content-field.component';
+import { ContentFieldEditorComponent } from './content-field-editor/content-field-editor.component';
 
 
 @NgModule({
@@ -12,8 +10,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     FormsModule
   ],
-  exports: [ContentFieldComponent, ContentFieldEditorComponent, AbstractContentFieldEditorComponent],
-  declarations: [ContentFieldComponent, ContentFieldEditorComponent, AbstractContentFieldEditorComponent],
+  exports: [ContentFieldEditorComponent, AbstractContentFieldEditorComponent],
+  declarations: [ContentFieldEditorComponent, AbstractContentFieldEditorComponent],
   providers: []
 })
 export class ContentFieldModule { }

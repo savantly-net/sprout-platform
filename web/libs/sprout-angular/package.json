@@ -27,6 +27,7 @@
     "@savantly/ngx-jsoneditor": "^1.2.9",
     "bootstrap": "^4.5.0",
     "jsoneditor": "^9.0.3",
+    "moment": "^2.27.0",
     "ng2-ckeditor": "^1.2.9",
     "ngx-markdown-editor": "^3.2.4",
     "rxjs": "^6.5.5",
