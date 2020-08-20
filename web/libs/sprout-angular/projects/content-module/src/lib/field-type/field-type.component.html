@@ -11,16 +11,18 @@
 	</ng-template>
 
 	<!-- The repeated field template -->
-	<div [ngSwitch]="fieldControl.value?.fieldType" class="input-group">
+	<div [ngSwitch]="fieldControl.value?.fieldType">
 		<ng-template [ngSwitchCase]="'TEXT'">
 			<ng-container *ngTemplateOutlet="regularLabel"></ng-container>
-			<textarea rows="1" class="form-control" maxlength="3000" [(ngModel)]="fieldControl.value.value" (change)="onChange($event)" ></textarea>
+			<textarea rows="3" class="form-control" maxlength="3000" [(ngModel)]="fieldControl.value.value" (change)="onChange($event)" ></textarea>
 			<span class="form-text text-muted" align="end">{{fieldControl.value.value?.length || 0}}/3000</span>
 		</ng-template>
 		<ng-template [ngSwitchCase]="'TEXT_LINE'">
-			<ng-container *ngTemplateOutlet="prependLabel"></ng-container>
-			<input type="text" class="form-control" [(ngModel)]="fieldControl.value.value" [ngModelOptions]="{standalone: true}" (change)="onChange($event)" >
-		</ng-template>
+			<div  class="input-group">
+				<ng-container *ngTemplateOutlet="prependLabel"></ng-container>
+				<input type="text" class="form-control" [(ngModel)]="fieldControl.value.value" [ngModelOptions]="{standalone: true}" (change)="onChange($event)" >	
+			</div>
+			</ng-template>
 		<ng-template [ngSwitchCase]="'DATE'">
 			<ng-container *ngTemplateOutlet="regularLabel"></ng-container>
 			<div class="m-auto">
@@ -28,12 +30,16 @@
 			</div>
 		</ng-template>
 		<ng-template [ngSwitchCase]="'TIME'">
-			<ng-container *ngTemplateOutlet="prependLabel"></ng-container>
-			<input type="time" class="form-control" [(ngModel)]="fieldControl.value.value" [ngModelOptions]="{standalone: true}" (change)="onChange($event)" >
+			<div  class="input-group">
+				<ng-container *ngTemplateOutlet="prependLabel"></ng-container>
+				<input type="time" class="form-control" [(ngModel)]="fieldControl.value.value" [ngModelOptions]="{standalone: true}" (change)="onChange($event)" >
+			</div>
 		</ng-template>
 		<ng-template [ngSwitchCase]="'DATE_TIME'">
-			<ng-container *ngTemplateOutlet="prependLabel"></ng-container>
-			<input type="datetime" class="form-control" [(ngModel)]="fieldControl.value.value" [ngModelOptions]="{standalone: true}" (change)="onChange($event)" >
+			<div  class="input-group">
+				<ng-container *ngTemplateOutlet="prependLabel"></ng-container>
+				<input type="datetime-local" class="form-control" [(ngModel)]="fieldControl.value.value" [ngModelOptions]="{standalone: true}" (change)="onChange($event)" >
+			</div>
 		</ng-template>
 		<ng-template [ngSwitchCase]="'CHECKBOX'">
 			<div class="form-check">
@@ -42,22 +48,30 @@
 			</div>
 		</ng-template>
 		<ng-template [ngSwitchCase]="'CHOICE'" class="form-group">
-			<ng-container *ngTemplateOutlet="prependLabel"></ng-container>
-			<select class="form-control" [(ngModel)]="fieldControl.value.value">
-				<option *ngFor="let choice of choices" [value]="choice">{{choice}}</option>
-			</select>
+			<div  class="input-group">
+				<ng-container *ngTemplateOutlet="prependLabel"></ng-container>
+				<select class="form-control" [(ngModel)]="fieldControl.value.value">
+					<option *ngFor="let choice of choices" [value]="choice">{{choice}}</option>
+				</select>
+			</div>
 		</ng-template>
 		<ng-template [ngSwitchCase]="'INTEGER'">
-			<ng-container *ngTemplateOutlet="prependLabel"></ng-container>
-			<input type="number" class="form-control" step="1" pattern="^\d*$" [(ngModel)]="fieldControl.value.value" [ngModelOptions]="{standalone: true}" (change)="onChange($event)" >
+			<div  class="input-group">
+				<ng-container *ngTemplateOutlet="prependLabel"></ng-container>
+				<input type="number" class="form-control" step="1" pattern="^\d*$" [(ngModel)]="fieldControl.value.value" [ngModelOptions]="{standalone: true}" (change)="onChange($event)" >
+			</div>
 		</ng-template>
 		<ng-template [ngSwitchCase]="'DECIMAL'">
-			<ng-container *ngTemplateOutlet="prependLabel"></ng-container>
-			<input type="number" class="form-control" step="any" pattern="^\d*(\.\d*)?$" [(ngModel)]="fieldControl.value.value" [ngModelOptions]="{standalone: true}" (change)="onChange($event)" >
+			<div  class="input-group">
+				<ng-container *ngTemplateOutlet="prependLabel"></ng-container>
+				<input type="number" class="form-control" step="any" pattern="^\d*(\.\d*)?$" [(ngModel)]="fieldControl.value.value" [ngModelOptions]="{standalone: true}" (change)="onChange($event)" >
+			</div>
 		</ng-template>
 		<ng-template [ngSwitchCase]="'MONEY'">
-			<ng-container *ngTemplateOutlet="prependLabel"></ng-container>
-			<input class="form-control" [(ngModel)]="fieldControl.value.value" [ngModelOptions]="{standalone: true}" (change)="onChange($event)">
+			<div  class="input-group">
+				<ng-container *ngTemplateOutlet="prependLabel"></ng-container>
+				<input class="form-control" [(ngModel)]="fieldControl.value.value" [ngModelOptions]="{standalone: true}" (change)="onChange($event)">
+			</div>
 		</ng-template>
 		<ng-template [ngSwitchCase]="'MARKUP'">
 			<ng-container *ngTemplateOutlet="regularLabel"></ng-container>
@@ -68,8 +82,10 @@
 			<md-editor name="markdownContent" [(ngModel)]="fieldControl.value.value" (change)="onChange($event)" [height]="'200px'" [mode]="markdownMode" [required]="fieldControl.value.required"></md-editor>
 		</ng-template>
 		<ng-template [ngSwitchCase]="'EMAIL'">
-			<ng-container *ngTemplateOutlet="prependLabel"></ng-container>
-			<input type="email" class="form-control" [(ngModel)]="fieldControl.value.value" [ngModelOptions]="{standalone: true}" (change)="onChange($event)">
+			<div  class="input-group">
+				<ng-container *ngTemplateOutlet="prependLabel"></ng-container>
+				<input type="email" class="form-control" [(ngModel)]="fieldControl.value.value" [ngModelOptions]="{standalone: true}" (change)="onChange($event)">
+			</div>
 		</ng-template>
 		<ng-template [ngSwitchCase]="'JSON'" class="jsoneditor">
 			<ng-container *ngTemplateOutlet="regularLabel"></ng-container>

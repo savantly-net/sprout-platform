@@ -8,6 +8,7 @@ import { StandardModule } from '../standard/standard.module';
 import { ContentItemBrowserDialogComponent, ContentItemBrowserDialogContent } from './content-item-browser-dialog/content-item-browser-dialog.component';
 import { ContentItemEditorComponent } from './content-item-editor/content-item-editor.component';
 import { ContentItemComponent } from './content-item.component';
+import { contentItemRoutes } from './content-item.route';
 
 @NgModule({
   imports: [
@@ -16,16 +17,7 @@ import { ContentItemComponent } from './content-item.component';
     HttpClientModule,
     StandardModule,
     FieldTypeModule,
-    RouterModule.forChild([
-      {
-        path: 'content-item',
-        component: ContentItemComponent
-      },
-      {
-        path: 'content-item-editor',
-        component: ContentItemEditorComponent
-      }
-    ])
+    RouterModule.forChild(contentItemRoutes)
   ],
   exports: [FieldTypeModule,
     ContentItemComponent, 

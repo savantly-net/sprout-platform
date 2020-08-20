@@ -1,8 +1,8 @@
-import { Resource, RestService } from '@lagoshny/ngx-hal-client';
 import { Injectable, Injector } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Resource, RestService } from '@lagoshny/ngx-hal-client';
+import { Observable, of } from 'rxjs';
+import { map } from "rxjs/operators";
 import { ContentTemplate } from '../content-template/content-template.service';
-import { Observable } from 'rxjs';
 import { ContentType } from '../content-types/content-types.service';
 
 export class ContentItem extends Resource {
@@ -11,16 +11,39 @@ export class ContentItem extends Resource {
   description?: string;
   fieldValues: any = {};
   template: any;
-  contentType: ContentType;
+  contentType: ContentType = null;
 
-  getContentType = (): Observable<ContentType> => {
-    return this.getRelation(ContentType, 'contentType') as Observable<ContentType>;
+  hasContentType(): boolean {
+    return (this.contentType !== null || this._links?.contentType !== null);
+  }
+
+  getContentType(): Observable<ContentType> {
+    if(this.contentType) {
+      return of(this.contentType);
+    } else {
+      return this.getRelation(ContentType, 'contentType').pipe(map(ct => {
+        this.contentType = ct as ContentType;
+        return ct;
+      })) as Observable<ContentType>;
+    }
   };
+
+  hasContentTemplate(): boolean {
+    return (this.template !== null || this._links?.template !== null);
+  }
 
   getContentTemplate = (): Observable<ContentTemplate> => {
-    return this.getRelation(ContentTemplate, 'contentTemplate') as Observable<ContentTemplate>;
+    if(this.template) {
+      return of(this.template);
+    } else {
+      return this.getRelation(ContentTemplate, 'contentTemplate').pipe(map(ct => {
+        this.template = ct as ContentTemplate;
+        return ct;
+      })) as Observable<ContentTemplate>;
+    }
   };
 }
+
 
 @Injectable({providedIn: 'root'})
 export class ContentItemService extends RestService<ContentItem>  {

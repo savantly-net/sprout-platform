@@ -1,10 +1,10 @@
 <h1>Hiding Controls</h1>
-<sprout-content-item-editor [(contentItem)]="contentItem"
+<sprout-content-item-editor [(ngModel)]="contentItem"
     hideFooter="true" hideHeader="true" hideName="true" hideDescription="true" hideContentType="true">
 </sprout-content-item-editor>
 
 <h1>Intercepting</h1>
-<sprout-content-item-editor [(contentItem)]="contentItem"
+<sprout-content-item-editor [(ngModel)]="contentItem2"
     [beforeSave]="beforeSave" [beforeDelete]="beforeDelete" [beforeClose]="beforeClose">
 
 </sprout-content-item-editor>

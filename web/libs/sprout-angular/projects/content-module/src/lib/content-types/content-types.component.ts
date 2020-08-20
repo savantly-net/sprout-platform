@@ -14,20 +14,22 @@ export class ContentTypesComponent implements OnInit {
   items: ContentType[];
 
   addItem(): void {
-    this.router.navigate(['content-type-editor']);
+    this.router.navigate(['content-type', 'new']);
   }
 
   editItem(item: ContentType): void {
-    this.router.navigate(['content-type-editor', {id: item.id}]);
+    this.router.navigate(['content-type', item.id, 'edit']);
   }
 
   deleteItem(item: ContentType): void {
-    this.contentTypes.delete(item).subscribe(data => {
-      this.getItems();
-    }, err => {
-      this.messageEmitter.emit({msg: 'Could not delete item', code: 500, err});
-      console.error(err);
-    });
+    if(confirm('Are you sure?')) {
+      this.contentTypes.delete(item).subscribe(data => {
+        this.getItems();
+      }, err => {
+        this.messageEmitter.emit({msg: 'Could not delete item', code: 500, err});
+        console.error(err);
+      });
+    }
   }
 
   getItems(): void {

@@ -12,19 +12,21 @@ export class ContentItemComponent implements OnInit {
   items: ContentItem[];
 
   addItem(): void {
-    this.router.navigate(['content-item-editor']);
+    this.router.navigate(['content-item', 'new']);
   }
 
   editItem(item: ContentItem): void {
-    this.router.navigate(['content-item-editor', {id: item.id}]);
+    this.router.navigate(['content-item', item.id, 'edit']);
   }
 
   deleteItem(item: ContentItem): void {
-    this.service.delete(item).subscribe(data => {
-      this.getContentItems();
-    }, err => {
-      console.error('Failed to delete content item');
-    });
+    if(confirm('Are you sure?')){
+      this.service.delete(item).subscribe(data => {
+        this.getContentItems();
+      }, err => {
+        console.error('Failed to delete content item');
+      });
+    }
   }
 
   getContentItems(): void {
