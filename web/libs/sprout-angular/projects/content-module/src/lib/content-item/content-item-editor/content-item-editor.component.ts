@@ -1,21 +1,32 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, forwardRef, Injector, Input, KeyValueDiffers, OnInit, Output } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { ContentField } from '../../content-field/content-field.service';
 import { ContentTemplate, ContentTemplateService } from '../../content-template/content-template.service';
 import { ContentType, ContentTypesService } from '../../content-types/content-types.service';
+import { AbstractNgModelComponent } from '../../standard';
 import { ContentItem, ContentItemService } from '../content-item.service';
+import { Observable } from 'rxjs';
+import { forkJoin } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'sprout-content-item-editor',
   templateUrl: './content-item-editor.component.html',
-  styleUrls: ['./content-item-editor.component.css']
+  styleUrls: ['./content-item-editor.component.css'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ContentItemEditorComponent),
+      multi: true
+    }
+  ]
 })
-export class ContentItemEditorComponent implements OnInit {
+export class ContentItemEditorComponent extends AbstractNgModelComponent<ContentItem> implements OnInit {
   rForm: FormGroup;
   _initialized: boolean = false;
-  value: ContentItem = new ContentItem();
+  differ: any;
 
   @Input('hideHeader') hideHeader: boolean;
   @Input('hideFooter') hideFooter: boolean;
@@ -30,7 +41,7 @@ export class ContentItemEditorComponent implements OnInit {
   }
 
   @Input('afterSave') afterSave: (model: ContentItem) => void = (model: ContentItem) => {
-    this.router.navigate(['content-item-editor', {id: model.id}]);
+    this.router.navigate(['content-item', model.id, 'edit']);
   }
 
   /** Provide an interception before the close is executed. Return true if already handled */
@@ -47,20 +58,6 @@ export class ContentItemEditorComponent implements OnInit {
     return false;
   }
 
-  @Input('contentItem') 
-  set contentItem(contentItem: ContentItem) {
-    console.log('SETting contentItem in embedded editor');
-    this.value = contentItem;
-    if(!this._initialized){
-      this.loadContentItem(contentItem);
-    } else {
-      this.patchValues(contentItem);
-    }
-  }
-  get contentItem(){
-    console.log('GETting contentItem in embedded editor');
-    return this.value;
-  }
   @Output('contentItemChange')
   contentItemChange: EventEmitter<ContentItem> = new EventEmitter<ContentItem>();
 
@@ -69,7 +66,7 @@ export class ContentItemEditorComponent implements OnInit {
 
   _templates: BehaviorSubject<ContentTemplate[]> = new BehaviorSubject<ContentTemplate[]>([]);
   templates: Promise<ContentTemplate[]> = this._templates.toPromise();
-  contentTypes: ContentType[];
+  contentTypes: BehaviorSubject<ContentType[]> = new BehaviorSubject<ContentType[]>([]);;
 
   getFieldValuesFromFieldControls(): any {
     const fieldValues = {};
@@ -93,29 +90,38 @@ export class ContentItemEditorComponent implements OnInit {
 
   loadContentTypes(): void {
     this.contentTypeService.getAll().subscribe(data => {
-      this.contentTypes = data
+      this.contentTypes.next(data);
     }, err => {
        this.messageEmitter.emit({msg: 'The Content Types could not be retrieved', code:500, err});
     });
   }
 
-  loadContentItem(contentItem: ContentItem) {
-    if (contentItem) {
-      this.patchValues(contentItem);
-    } 
-    // Listen to form changes 
-    this.rForm.valueChanges.subscribe(change => {
-      Object.assign(this.value, change);
-      this.value.fieldValues = this.getFieldValuesFromFieldControls();
-      this.contentItemChange.emit(this.value);
-      return change;
-    });
-    this.currentContentType.valueChanges.subscribe((contentType: ContentType) => {
-      setTimeout(()=>{
-        this.setFormFields(this.contentItem.contentType.fields, this.contentItem);
+  loadContentItem() {
+    const observableLoader: Observable<any>[] = [];
+    if(this.value.hasContentType()) {
+      observableLoader.push(this.value.getContentType());
+    }
+    if(this.value.hasContentTemplate()) {
+      observableLoader.push(this.value.getContentTemplate())
+    }
+    forkJoin(observableLoader).subscribe(()=>{
+      this.patchValues(this.value);
+      this.applyFormFields();
+      // Listen to form changes 
+      console.log('subscribing to value changes');
+      this.rForm.valueChanges.subscribe(change => {
+        Object.assign(this.value, change);
+        this.value.fieldValues = this.getFieldValuesFromFieldControls();
+        this.contentItemChange.emit(this.value);
+        return change;
       });
-      
-    });
+      this.currentContentType.valueChanges.subscribe((contentType: ContentType) => {
+        setTimeout(()=>{
+          this.applyFormFields();
+        });
+        
+      });
+    })
   }
 
   get fieldsFormArray(): FormArray {
@@ -130,15 +136,17 @@ export class ContentItemEditorComponent implements OnInit {
     return this.rForm.get('contentType') as FormControl;
   }
 
-  setFormFields(contentFields: ContentField[], contentItem: ContentItem) {
-    this.fieldsFormArray.clear();
-    contentFields.forEach(item => {
-      this.addFormFieldItem(item, contentItem);
-    });
+  applyFormFields() {
+    if(this.value.contentType){
+      this.fieldsFormArray.clear();
+      this.value.contentType.fields.forEach(item => {
+        this.addFormFieldItem(item);
+      });
+    }
   }
 
-  addFormFieldItem(contentField: ContentField, contentItem: ContentItem){
-    contentField['value'] = [contentItem.fieldValues[contentField.id]];
+  addFormFieldItem(contentField: ContentField){
+    contentField['value'] = [this.value.fieldValues[contentField.id]];
     const formField = this.fb.control(contentField, {updateOn: "blur"});
     this.fieldsFormArray.push(formField);
   }
@@ -155,7 +163,7 @@ export class ContentItemEditorComponent implements OnInit {
   }
 
   idCompare(o1: any, o2: any) {
-    return o1.id === o2.id;
+    return o1?.id === o2?.id;
   }
   
   save() {
@@ -163,8 +171,14 @@ export class ContentItemEditorComponent implements OnInit {
       return;
     }
     const halModel = this.value;
-    this.service.create(halModel).subscribe(data => {
-      if (this.currentTemplate.value.id != null) {
+    let saveObservable;
+    if (halModel.id) {
+      saveObservable = this.service.update(halModel);
+    } else {
+      saveObservable = this.service.create(halModel);
+    }
+    saveObservable.subscribe(data => {
+      if (this.currentTemplate?.value?.id != null) {
         if (Object.getOwnPropertyNames(data).includes('subscribe')) {
           return;
         }
@@ -188,19 +202,21 @@ export class ContentItemEditorComponent implements OnInit {
 
   delete(model: ContentItem) {
     if(this.beforeDelete(model)) {
-      this.service.delete(model).subscribe(data => {
-        if(!this.afterDelete(model)){
-          this.router.navigate(['content-item']);
-        }
-      }, err => {
-        this.messageEmitter.emit({msg: 'Problem encountered while deleting', code: 500, err});
-        console.error(err);
-      });
+      if(confirm('Are you sure?')){
+        this.service.delete(model).subscribe(data => {
+          if(!this.afterDelete(model)){
+            this.router.navigate(['content-item']);
+          }
+        }, err => {
+          this.messageEmitter.emit({msg: 'Problem encountered while deleting', code: 500, err});
+          console.error(err);
+        });
+      }
     }
   }
 
   close() {
-    if(!this.beforeClose(this.contentItem)){
+    if(!this.beforeClose(this.value)){
       this.router.navigate(['content-item']);
     }
   }
@@ -221,17 +237,28 @@ export class ContentItemEditorComponent implements OnInit {
   constructor(
     public router: Router,
     private fb: FormBuilder,
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private contentTemplateService: ContentTemplateService,
+    private contentItemService: ContentItemService,
     private service: ContentItemService,
-    private contentTypeService: ContentTypesService) {
+    private contentTypeService: ContentTypesService,
+    keyDiffers: KeyValueDiffers,
+    injector: Injector) {
+      super(injector);
+    
+    this.differ = keyDiffers.find([]).create();
     this.loadContentTemplates();
     this.loadContentTypes();
     this.rForm = this.fb.group(this.emptyFormDefinition);
   }
 
   ngOnInit() {
-    this.route.params.subscribe( params => this.loadContentItem(params['id']) );
+    console.log('init');
+    this.activatedRoute.data.subscribe(({ contentItem }) => {
+      if(contentItem){
+        this.value = contentItem;
+      } 
+      this.loadContentItem();
+    });
   }
-
 }

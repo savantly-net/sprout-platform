@@ -6,6 +6,7 @@ import { ContentTemplateComponent } from './content-template.component';
 import { ContentTemplateEditorComponent } from './content-template-editor/content-template-editor.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { RouterModule } from '@angular/router';
+import { routes } from './content-template.route';
 
 
 @NgModule({
@@ -15,16 +16,7 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     FormsModule,
     CKEditorModule,
-    RouterModule.forChild([
-      {
-        path: 'content-template',
-        component: ContentTemplateComponent
-      },
-      {
-        path: 'content-template-editor',
-        component: ContentTemplateEditorComponent
-      }
-    ])
+    RouterModule.forChild(routes)
   ],
   declarations: [ContentTemplateComponent, ContentTemplateEditorComponent],
   exports: [ContentTemplateComponent, ContentTemplateEditorComponent],

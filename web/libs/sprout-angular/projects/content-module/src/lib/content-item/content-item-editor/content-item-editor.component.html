@@ -1,34 +1,34 @@
-<div *ngIf="rForm" class="content-item-editor">
+<div *ngIf="value" class="content-item-editor">
 	<div *ngIf="!hideHeader" class="d-flex flex-row justify-content-between">
 		<div><h3>Content Item Editor</h3></div>
 		<div></div>
-		<button class="btn btn-secondary-outline" (click)="close()"><span><b>X</b></span></button>
+		<button class="btn btn-outline-secondary" (click)="close()"><span><b>X</b></span></button>
 	</div>
 	<div>
 		<form [formGroup]="rForm" class="d-flex flex-column m1">
 			
-			<div class="form-group" *ngIf="!hideName">
+			<div class="form-group" [hidden]="hideName">
 				<label>Name (unique)</label>
 				<input class="form-control" formControlName="name" maxlength="255" placeholder="Enter a name">
 				<span class="form-text text-muted" align="end">{{rForm.controls['name'].value?.length || 0}}/255</span>
 			</div>
 		
-			<div class="form-group" *ngIf="!hideDescription">
+			<div class="form-group" [hidden]="hideDescription">
 				<label>Description</label>
 				<input class="form-control" formControlName="description" maxlength="255" placeholder="Enter a description">
 				<span class="form-text text-muted" align="end">{{rForm.controls['description'].value?.length || 0}}/255</span>
 			</div>
 			
-			<div class="form-group" *ngIf="!hideContentType && contentTypes">
-				<label>The content type determines the fields; cannot change once set</label>
-				<select class="form-control" formControlName="contentType" >
-					<option *ngFor="let ct of this.contentTypes" [ngValue]="ct">{{ct.name}}</option>
+			<div class="form-group" *ngIf="contentTypes" [hidden]="hideContentType">
+				<label>The content type determines the fields; changing a saved item will destroy current field data</label>
+				<select class="form-control" formControlName="contentType" [compareWith]="idCompare">
+					<option *ngFor="let ct of this.contentTypes | async, trackBy: trackById" [ngValue]="ct">{{ct.name}}</option>
 				</select>
 			</div>
 			
 			
-			<div *ngIf="rForm.value.contentType">
-				<div *ngIf="rForm.value.contentType.requiresTemplate" class="form-group">
+			<div *ngIf="value.contentType">
+				<div *ngIf="value.contentType.requiresTemplate" class="form-group">
 				<label>The template that will render this content</label>
 					<select class="form-control" formControlName="template" [compareWith]="idCompare" >
 						<option *ngFor="let ct of this.templates | async, trackBy: trackById" [value]="ct">{{ct.name}}</option>

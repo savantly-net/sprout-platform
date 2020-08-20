@@ -11,19 +11,21 @@ export class ContentTemplateComponent implements OnInit {
   items: ContentTemplate[];
 
   addItem(): void {
-    this.router.navigate(['content-template-editor']);
+    this.router.navigate(['content-template', 'new']);
   }
 
   editItem(item: ContentTemplate): void {
-    this.router.navigate(['content-template-editor', {id: item.id}]);
+    this.router.navigate(['content-template', item.id, 'edit']);
   }
 
   deleteItem(item: ContentTemplate): void {
-    this.contentTemplateService.delete(item).subscribe(data => {
-      this.getContentTemplates();
-    }, err => {
-      console.error('Failed to delete contentTemplate');
-    });
+    if(confirm('Are you sure?')){
+      this.contentTemplateService.delete(item).subscribe(data => {
+        this.getContentTemplates();
+      }, err => {
+        console.error('Failed to delete contentTemplate');
+      });
+    }
   }
 
   getContentTemplates(): void {

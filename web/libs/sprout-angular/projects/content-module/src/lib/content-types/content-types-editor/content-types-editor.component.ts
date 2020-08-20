@@ -1,9 +1,9 @@
-import { Component, EventEmitter, OnInit, Output, Input, forwardRef, Injector, Directive, ContentChildren, QueryList, ChangeDetectionStrategy, AfterViewInit, AfterContentInit, TemplateRef } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, Directive, EventEmitter, forwardRef, Injector, Input, OnInit, Output, QueryList, TemplateRef } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ContentField } from '../../content-field/content-field.service';
-import { uuid, AbstractNgModelComponent } from '../../standard';
+import { AbstractNgModelComponent, uuid } from '../../standard';
 import { ContentType, ContentTypesService } from '../content-types.service';
 
 @Directive({
@@ -42,7 +42,7 @@ export class ContentTypesEditorComponent extends AbstractNgModelComponent<Conten
   }
 
   @Input('afterSave') afterSave: (model: ContentType) => void = (model: ContentType) => {
-    this.router.navigate(['content-item-editor', {id: model.id}]);
+    this.router.navigate(['content-type', model.id, 'edit']);
   }
 
   /** Provide an interception before the close is executed. Return true if already handled */
@@ -102,23 +102,15 @@ export class ContentTypesEditorComponent extends AbstractNgModelComponent<Conten
     if(this.beforeDelete(model)) {
       return;
     }
-    this.service.delete(model).subscribe(data => {
-      if(this.afterDelete(model)) {
-        return;
-      }
-      this.close();
-    }, err => {
-      this.messageEmitter.emit({msg: 'Error while deleting the item', code: 500, err});
-      console.error(err);
-    });
-  }
-
-  loadItem(id: string) {
-    console.log('loading item:', id);
-    if (id) {
-      this.service.get(id).subscribe((response: ContentType) => {
-        this.value = response;
-        this.loadValue();
+    if(confirm('Are you sure')) {
+      this.service.delete(model).subscribe(data => {
+        if(this.afterDelete(model)) {
+          return;
+        }
+        this.close();
+      }, err => {
+        this.messageEmitter.emit({msg: 'Error while deleting the item', code: 500, err});
+        console.error(err);
       });
     }
   }
@@ -200,7 +192,7 @@ export class ContentTypesEditorComponent extends AbstractNgModelComponent<Conten
   constructor(
     public router: Router,
     private fb: FormBuilder,
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private service: ContentTypesService,
     injector: Injector) {
 
@@ -211,12 +203,11 @@ export class ContentTypesEditorComponent extends AbstractNgModelComponent<Conten
     }, (err) => { console.log('failed to retrieve Field Types'); } );
 
     this.rForm = fb.group({
-      'id' : [''],
+      'id' : [null],
       'name' : ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(255)])],
       'description': [''],
       'requiresTemplate': [false],
       'fieldFormItems': fb.array([]),
-      'new': [true],
       'createdDate': [null],
       'createdBy': [null],
       'modifiedDate': [null],
@@ -231,16 +222,16 @@ export class ContentTypesEditorComponent extends AbstractNgModelComponent<Conten
   }
 
   ngOnInit() {
-    this.route.params.subscribe( params => {
-      if (params['id']){
-        this.loadItem(params['id']);
-      } else {
-        // no id passed, so check if the value was set by form control
-        setTimeout(()=>{
+    this.activatedRoute.data.subscribe(({ contentType }) => {
+      if(contentType){
+        this.value = contentType;
+        console.log('loaded item from route: ', contentType)
           this.loadValue();
-        },300)
+      } else {
+        console.log('loaded item from value: ', this.value)
+          this.loadValue()
       }
-     });
+    });
   }
 
   ngAfterViewInit() {
