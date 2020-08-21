@@ -1,15 +1,12 @@
-import { Component, EventEmitter, forwardRef, Injector, Input, KeyValueDiffers, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Injector, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { ContentField } from '../../content-field/content-field.service';
 import { ContentTemplate, ContentTemplateService } from '../../content-template/content-template.service';
 import { ContentType, ContentTypesService } from '../../content-types/content-types.service';
 import { AbstractNgModelComponent } from '../../standard';
 import { ContentItem, ContentItemService } from '../content-item.service';
-import { Observable } from 'rxjs';
-import { forkJoin } from 'rxjs';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'sprout-content-item-editor',
@@ -25,8 +22,8 @@ import { Location } from '@angular/common';
 })
 export class ContentItemEditorComponent extends AbstractNgModelComponent<ContentItem> implements OnInit {
   rForm: FormGroup;
-  _initialized: boolean = false;
   differ: any;
+  _oldValue: ContentItem;
 
   @Input('hideHeader') hideHeader: boolean;
   @Input('hideFooter') hideFooter: boolean;
@@ -58,11 +55,21 @@ export class ContentItemEditorComponent extends AbstractNgModelComponent<Content
     return false;
   }
 
-  @Output('contentItemChange')
-  contentItemChange: EventEmitter<ContentItem> = new EventEmitter<ContentItem>();
-
   @Output("messageEvent") 
   messageEmitter = new EventEmitter<{msg: string, code: number, err?: any}>();
+
+  @Input()
+  set value(value: ContentItem) {
+    this._value = value;
+    if(value){
+      console.log('loading item from value: ', value)
+      this.loadContentItem()
+    }
+    this.notifyValueChange();
+  }
+  get value(){
+    return this._value;
+  }
 
   _templates: BehaviorSubject<ContentTemplate[]> = new BehaviorSubject<ContentTemplate[]>([]);
   templates: Promise<ContentTemplate[]> = this._templates.toPromise();
@@ -98,21 +105,21 @@ export class ContentItemEditorComponent extends AbstractNgModelComponent<Content
 
   loadContentItem() {
     const observableLoader: Observable<any>[] = [];
-    if(this.value.hasContentType()) {
-      observableLoader.push(this.value.getContentType());
+    if(this._value.hasContentType()) {
+      observableLoader.push(this._value.getContentType());
     }
-    if(this.value.hasContentTemplate()) {
-      observableLoader.push(this.value.getContentTemplate())
+    if(this._value.hasContentTemplate()) {
+      observableLoader.push(this._value.getContentTemplate())
     }
     forkJoin(observableLoader).subscribe(()=>{
-      this.patchValues(this.value);
+      this.patchValues(this._value);
       this.applyFormFields();
       // Listen to form changes 
       console.log('subscribing to value changes');
       this.rForm.valueChanges.subscribe(change => {
-        Object.assign(this.value, change);
-        this.value.fieldValues = this.getFieldValuesFromFieldControls();
-        this.contentItemChange.emit(this.value);
+        Object.assign(this._value, change);
+        this._value.fieldValues = this.getFieldValuesFromFieldControls();
+        this.notifyValueChange();
         return change;
       });
       this.currentContentType.valueChanges.subscribe((contentType: ContentType) => {
@@ -121,6 +128,7 @@ export class ContentItemEditorComponent extends AbstractNgModelComponent<Content
         });
         
       });
+      this.notifyValueChange();
     })
   }
 
@@ -137,25 +145,22 @@ export class ContentItemEditorComponent extends AbstractNgModelComponent<Content
   }
 
   applyFormFields() {
-    if(this.value.contentType){
+    if(this._value.contentType){
       this.fieldsFormArray.clear();
-      this.value.contentType.fields.forEach(item => {
+      this._value.contentType.fields.forEach(item => {
         this.addFormFieldItem(item);
       });
     }
   }
 
   addFormFieldItem(contentField: ContentField){
-    contentField['value'] = [this.value.fieldValues[contentField.id]];
+    contentField['value'] = [this._value.fieldValues[contentField.id]];
     const formField = this.fb.control(contentField, {updateOn: "blur"});
     this.fieldsFormArray.push(formField);
   }
 
   patchValues(contentItem) {
-    //const valueMap = Object.assign({}, contentItem.fieldValues);
-    //delete contentItem.fieldValues;
     this.rForm.patchValue(contentItem);
-    //this.currentContentType.patchValue(contentItem.contentType);
   }
 
   trackById(index: number, item: {id: any}) {
@@ -167,10 +172,10 @@ export class ContentItemEditorComponent extends AbstractNgModelComponent<Content
   }
   
   save() {
-    if(this.beforeSave(this.value)) {
+    if(this.beforeSave(this._value)) {
       return;
     }
-    const halModel = this.value;
+    const halModel = this._value;
     let saveObservable;
     if (halModel.id) {
       saveObservable = this.service.update(halModel);
@@ -216,7 +221,7 @@ export class ContentItemEditorComponent extends AbstractNgModelComponent<Content
   }
 
   close() {
-    if(!this.beforeClose(this.value)){
+    if(!this.beforeClose(this._value)){
       this.router.navigate(['content-item']);
     }
   }
@@ -242,11 +247,9 @@ export class ContentItemEditorComponent extends AbstractNgModelComponent<Content
     private contentItemService: ContentItemService,
     private service: ContentItemService,
     private contentTypeService: ContentTypesService,
-    keyDiffers: KeyValueDiffers,
     injector: Injector) {
       super(injector);
     
-    this.differ = keyDiffers.find([]).create();
     this.loadContentTemplates();
     this.loadContentTypes();
     this.rForm = this.fb.group(this.emptyFormDefinition);
@@ -254,11 +257,14 @@ export class ContentItemEditorComponent extends AbstractNgModelComponent<Content
 
   ngOnInit() {
     console.log('init');
+    console.log(this._value);
     this.activatedRoute.data.subscribe(({ contentItem }) => {
+      console.log('activated route');
+      console.log(this._value);
       if(contentItem){
+        // trigger loading by value setter
         this.value = contentItem;
-      } 
-      this.loadContentItem();
+      }
     });
   }
 }
