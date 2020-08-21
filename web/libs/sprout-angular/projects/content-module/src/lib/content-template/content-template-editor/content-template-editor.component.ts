@@ -50,6 +50,17 @@ export class ContentTemplateEditorComponent extends AbstractNgModelComponent<Con
   @Output("messageEvent") 
   messageEmitter = new EventEmitter<{msg: string, code: number, err?: any}>();
 
+  @Input()
+  set value(value: ContentTemplate) {
+    this._value = value;
+    console.log('loading item from value: ', value)
+    this.loadItem()
+    this.notifyValueChange();
+  } 
+  get value(){
+    return this._value;
+  }
+
   rForm: FormGroup;
 
   close(){
@@ -58,12 +69,12 @@ export class ContentTemplateEditorComponent extends AbstractNgModelComponent<Con
   }
 
   save() {
-    if(this.beforeSave(this.value)) { return; }
+    if(this.beforeSave(this._value)) { return; }
     let observableSave: Observable<ContentTemplate | Observable<never>>;
-    if(this.value.id) {
-      observableSave = this.service.update(this.value);
+    if(this._value.id) {
+      observableSave = this.service.update(this._value);
     } else {
-      observableSave = this.service.create(this.value);
+      observableSave = this.service.create(this._value);
     }
     observableSave.subscribe(data => {
       this.afterSave(data as ContentTemplate)
@@ -73,10 +84,10 @@ export class ContentTemplateEditorComponent extends AbstractNgModelComponent<Con
   }
 
   delete() {
-    if(this.beforeDelete(this.value)) { return; }
+    if(this.beforeDelete(this._value)) { return; }
     if(confirm('Are you sure?')) {
-      this.service.delete(this.value).subscribe(data => {
-        this.afterDelete(this.value);
+      this.service.delete(this._value).subscribe(data => {
+        this.afterDelete(this._value);
       }, err => {
         console.error(err);
       });
@@ -84,7 +95,7 @@ export class ContentTemplateEditorComponent extends AbstractNgModelComponent<Con
   }
 
   loadItem() {
-    this.rForm.patchValue(this.value);
+    this.rForm.patchValue(this._value);
   }
 
   constructor(
@@ -106,16 +117,16 @@ export class ContentTemplateEditorComponent extends AbstractNgModelComponent<Con
     });
     this.rForm.valueChanges.subscribe(change => {
       this.notifyValueChange();
-      Object.assign(this.value, change);
+      Object.assign(this._value, change);
     })
   }
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ contentTemplate }) => {
       if(contentTemplate){
+        // trigger loading by value setter
         this.value = contentTemplate;
       }
-      this.loadItem();
     });
   }
 

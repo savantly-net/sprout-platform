@@ -10,7 +10,7 @@ import { ResourcePage } from '@lagoshny/ngx-hal-client';
 })
 export class ContentItemEmbeddedEditorComponent implements OnInit {
 
-  contentItem = new ContentItem();
+  contentItem: ContentItem;
   contentItem2 = new ContentItem();
 
   beforeSave(model: ContentItem) {

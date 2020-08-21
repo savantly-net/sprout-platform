@@ -48,8 +48,11 @@ export class AbstractNgModelComponent<T = any> implements ControlValueAccessor {
    * @param value The checked value
    */
   writeValue(value: T): void {
-    this._value = value;
-    setTimeout(() => this.cdRef.detectChanges(), 0);
+    this.value = value;
+    setTimeout(() => {
+      this.notifyValueChange();
+      this.cdRef.detectChanges();
+    }, 100);
   }
 
   /**

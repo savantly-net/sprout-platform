@@ -62,14 +62,25 @@ export class ContentTypesEditorComponent extends AbstractNgModelComponent<Conten
   @Output("messageEvent") 
   messageEmitter = new EventEmitter<{msg: string, code: number, err?: any}>();
 
+  @Input()
+  set value(value: ContentType) {
+    this._value = value;
+    console.log('loading item from value: ', value)
+    this.loadValue()
+    this.notifyValueChange();
+  }
+  get value(){
+    return this._value;
+  }
+
   fieldTypes: any[];
   rForm: FormGroup;
   _initialFields: ContentField[] = [];
-  _initialized: boolean = false;
+  _isLoading: boolean = false;
 
   save() {
-    if(!this.beforeSave(this.value)){
-      const contentType = Object.assign({}, this.value);
+    if(!this.beforeSave(this._value)){
+      const contentType = Object.assign({}, this._value);
     
       let saveObservable: Observable<ContentType | Observable<never>>;
         if (contentType.id) {
@@ -92,7 +103,7 @@ export class ContentTypesEditorComponent extends AbstractNgModelComponent<Conten
   }
 
   close() {
-    if(this.beforeClose(this.value)){
+    if(this.beforeClose(this._value)){
       return;
     }
     this.router.navigate(['content-type']);
@@ -116,11 +127,12 @@ export class ContentTypesEditorComponent extends AbstractNgModelComponent<Conten
   }
 
   loadValue() {
-    if (this.value) {
-      this._initialFields = this.value.fields;
-      this.patchValue(this.value);
+    if (this._value) {
+      this._isLoading = true;
+      this._initialFields = this._value.fields;
+      this.patchValue(this._value);
       this.setContentFields(this._initialFields);
-      this._initialized = true;
+      this._isLoading = false;
       this.updateValueWithFormModel(this.rForm.value);
     }
   }
@@ -177,12 +189,12 @@ export class ContentTypesEditorComponent extends AbstractNgModelComponent<Conten
   }
 
   updateValueWithFormModel(val) {
-    if(this._initialized) {
-      Object.assign(this.value, val);
-      this.value.fields = [];
+    if(!this._isLoading) {
+      Object.assign(this._value, val);
+      this._value.fields = [];
       for (const obj in this.fieldFormItems.value) {
         if (Object.prototype.hasOwnProperty.call(this.fieldFormItems.value, obj)) {
-          this.value.fields.push(this.fieldFormItems.value[obj].contentField);
+          this._value.fields.push(this.fieldFormItems.value[obj].contentField);
         }
       }
       this.notifyValueChange();
@@ -224,12 +236,9 @@ export class ContentTypesEditorComponent extends AbstractNgModelComponent<Conten
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ contentType }) => {
       if(contentType){
+        // trigger the load because of value setter
         this.value = contentType;
         console.log('loaded item from route: ', contentType)
-          this.loadValue();
-      } else {
-        console.log('loaded item from value: ', this.value)
-          this.loadValue()
       }
     });
   }
