@@ -50,7 +50,7 @@
 		<ng-template [ngSwitchCase]="'CHOICE'" class="form-group">
 			<div  class="input-group">
 				<ng-container *ngTemplateOutlet="prependLabel"></ng-container>
-				<select class="form-control" [(ngModel)]="fieldControl.value.value">
+				<select class="form-control" [(ngModel)]="fieldControl.value.value" (change)="onChange($event)">
 					<option *ngFor="let choice of choices" [value]="choice">{{choice}}</option>
 				</select>
 			</div>
