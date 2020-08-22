@@ -50,7 +50,6 @@ export class AbstractNgModelComponent<T = any> implements ControlValueAccessor {
   writeValue(value: T): void {
     this.value = value;
     setTimeout(() => {
-      this.notifyValueChange();
       this.cdRef.detectChanges();
     }, 100);
   }

@@ -154,7 +154,7 @@ export class ContentItemEditorComponent extends AbstractNgModelComponent<Content
   }
 
   addFormFieldItem(contentField: ContentField){
-    contentField['value'] = [this._value.fieldValues[contentField.id]];
+    contentField['value'] = this._value.fieldValues[contentField.id];
     const formField = this.fb.control(contentField, {updateOn: "blur"});
     this.fieldsFormArray.push(formField);
   }
