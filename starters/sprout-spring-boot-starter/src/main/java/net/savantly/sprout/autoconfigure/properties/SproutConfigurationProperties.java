@@ -55,7 +55,7 @@ public class SproutConfigurationProperties {
 	@Setter
 	public static class Cors {
 		private boolean allowCredentials = true;
-		private String[] allowedMethods = Arrays.asList("GET", "OPTIONS", "PUT", "POST", "DELETE").toArray(new String[0]);
+		private String[] allowedMethods = Arrays.asList("GET", "OPTIONS", "PUT", "POST", "PATCH", "DELETE").toArray(new String[0]);
 		private String[] allowedHeaders = Arrays.asList("*").toArray(new String[0]);
 		private String[] allowedOrigins = Arrays.asList("*").toArray(new String[0]);
 	}
