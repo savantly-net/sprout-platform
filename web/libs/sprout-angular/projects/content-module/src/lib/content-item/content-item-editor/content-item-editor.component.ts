@@ -25,6 +25,7 @@ export class ContentItemEditorComponent extends AbstractNgModelComponent<Content
   differ: any;
   _oldValue: ContentItem;
 
+  @Input('readOnly') readOnly: boolean;
   @Input('hideHeader') hideHeader: boolean;
   @Input('hideFooter') hideFooter: boolean;
   @Input('hideName') hideName: boolean;

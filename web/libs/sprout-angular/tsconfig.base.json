@@ -19,6 +19,12 @@
       "@savantly/ngx-sprout-content": [
         "dist/content-module"
       ],
+      "@savantly/ngx-sprout-security": [
+        "dist/security"
+      ],
+      "@savantly/ngx-sprout-core": [
+        "dist/core"
+      ],
       "rxjs": [
         "node_modules/rxjs"
       ],

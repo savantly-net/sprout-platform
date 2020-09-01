@@ -16,6 +16,13 @@
                 <button ngbDropdownItem routerLink='/test/content-type-embedded'>Content Type Embedded Editor</button>
             </div>
         </li>
+        <li ngbNavItem ngbDropdown >
+            <a class="btn" id="securityMenu" ngbDropdownToggle>Security</a>
+            <div ngbDropdownMenu aria-labelledby="securityMenu">
+                <button ngbDropdownItem routerLink='test/security/user-list'>User List</button>
+                <button ngbDropdownItem routerLink='test/security/user-edit'>User Edit</button>
+            </div>
+        </li>
       </ul>
     </div>
   </nav>

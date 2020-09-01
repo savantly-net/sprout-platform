@@ -18,6 +18,18 @@
     },
     {
       "path": "./projects/example-app/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/security/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/security/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/core/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/core/tsconfig.spec.json"
     }
 ]
 }
