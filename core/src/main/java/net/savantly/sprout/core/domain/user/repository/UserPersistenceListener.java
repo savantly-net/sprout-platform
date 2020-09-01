@@ -2,6 +2,8 @@ package net.savantly.sprout.core.domain.user.repository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
+import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.event.AbstractRepositoryEventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -17,11 +19,13 @@ public class UserPersistenceListener  extends AbstractRepositoryEventListener<Sp
     }
     
     @Override
+    @HandleBeforeSave
     protected void onBeforeSave(SproutUserEntity entity) {
         ensurePasswordIsEncrypted(entity);
     }
     
     @Override
+    @HandleBeforeCreate
     protected void onBeforeCreate(SproutUserEntity entity) {
         entity.setEnabled(true);
         ensurePasswordIsEncrypted(entity);
@@ -29,7 +33,6 @@ public class UserPersistenceListener  extends AbstractRepositoryEventListener<Sp
     
     private void ensurePasswordIsEncrypted(SproutUserEntity entity) {
         if(entity.hasNewPassword()){
-            log.debug("encoding unencrypted password: {}", entity.getClearTextPassword());
             entity.setPassword(encoder.encode(entity.getClearTextPassword()));
             entity.setClearTextPassword(null);
         }

@@ -31,6 +31,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import net.savantly.sprout.core.domain.PersistedDomainObject;
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
@@ -78,6 +79,8 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
           name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles = new HashSet<>();
 
+
+	@JsonDeserialize
     @Transient
     private String clearTextPassword;
 

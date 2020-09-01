@@ -15,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.HttpRequestResponseHolder;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.savantly.sprout.core.domain.user.repository.UserRepository;
+import net.savantly.sprout.core.security.role.RoleRepository;
 import net.savantly.sprout.model.user.UserDto;
 import net.savantly.sprout.model.user.UsernameAndPassword;
 
@@ -34,6 +37,12 @@ public class AccountApi {
 	AuthenticationManager authenticationManager;
 	@Autowired
 	SecurityContextRepository securityContextRepository;
+	@Autowired
+	UserRepository users;
+	@Autowired
+	RoleRepository roles;
+	@Autowired
+    PasswordEncoder encoder;
 	
 
 	@GetMapping(value = "/api/account")

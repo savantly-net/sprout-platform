@@ -8,11 +8,13 @@ import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
 import net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepository;
+import net.savantly.sprout.core.domain.user.repository.UserPersistenceListener;
 import net.savantly.sprout.core.domain.user.repository.UserRepository;
 import net.savantly.sprout.core.security.SproutAuditorAware;
 import net.savantly.sprout.core.security.SproutPasswordEncoder;
@@ -53,6 +55,11 @@ public class SproutSecurityAutoConfiguration {
 	@Bean
 	public SproutPasswordEncoder sproutPasswordEncoder() {
 		return new SproutPasswordEncoder();
+	}
+	
+	@Bean
+	public UserPersistenceListener userPersistenceListener(PasswordEncoder pwEncoder) {
+		return new UserPersistenceListener(pwEncoder);
 	}
 
 	@Bean
