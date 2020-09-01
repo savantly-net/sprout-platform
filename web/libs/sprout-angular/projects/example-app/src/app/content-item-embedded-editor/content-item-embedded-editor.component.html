@@ -5,6 +5,13 @@
     </sprout-content-item-editor>
 </div>
 
+<h1>Readonly Controls</h1>
+<div>
+    <sprout-content-item-editor [(ngModel)]="contentItem" readOnly="true"
+        hideFooter="true" hideHeader="true" hideName="true" hideDescription="true" hideContentType="true">
+    </sprout-content-item-editor>
+</div>
+
 <h1>Intercepting</h1>
 <sprout-content-item-editor [(ngModel)]="contentItem2"
     [beforeSave]="beforeSave" [beforeDelete]="beforeDelete" [beforeClose]="beforeClose">

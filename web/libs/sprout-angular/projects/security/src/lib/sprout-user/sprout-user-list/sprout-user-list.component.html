@@ -1,0 +1,25 @@
+<div class="table-responsive" *ngIf="usersPage">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th><span>ID</span></th>
+                <th><span>Date</span></th>
+                <th><span>Username</span></th>
+                <th><span>First Name</span></th>
+                <th><span>Last Name</span></th>
+                <th><span>Email Address</span></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of usersPage.resources ;trackBy: trackId">
+                <td>{{user.id}}</td>
+                <td>{{user.createdDate}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.firstName}}</td>
+                <td>{{user.lastName}}</td>
+                <td>{{emailAddress}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

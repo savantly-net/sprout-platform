@@ -13,13 +13,16 @@ import { HomeComponent } from './home/home.component';
 import { ContentItemEmbeddedEditorComponent } from './content-item-embedded-editor/content-item-embedded-editor.component';
 import { ContentTypeEmbeddedEditorComponent } from './content-type-embedded-editor/content-type-embedded-editor.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SproutSecurityModule } from "@savantly/ngx-sprout-security";
+import { UserEditComponent } from './security/user-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ContentItemEmbeddedEditorComponent,
-    ContentTypeEmbeddedEditorComponent
+    ContentTypeEmbeddedEditorComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NgxHalClientModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    SproutContentModule
+    SproutContentModule,
+    SproutSecurityModule
   ],
   providers: [{provide: 'ExternalConfigurationService', useClass: ExternalConfigurationService}],
   bootstrap: [AppComponent]

@@ -14,6 +14,7 @@ export class FieldTypeComponent {
   _fieldControl: FormControl;
   markdownMode = 'editor';
 
+  @Input('readOnly') readOnly: boolean;
   @Input()
   set fieldControl(val) {
     this._fieldControl = val;

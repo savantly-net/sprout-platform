@@ -9,19 +9,19 @@
 			
 			<div class="form-group" [hidden]="hideName">
 				<label>Name (unique)</label>
-				<input class="form-control" formControlName="name" maxlength="255" placeholder="Enter a name">
+				<input class="form-control" formControlName="name" maxlength="255" placeholder="Enter a name" [disabled]="readOnly">
 				<span class="form-text text-muted" align="end">{{rForm.controls['name'].value?.length || 0}}/255</span>
 			</div>
 		
 			<div class="form-group" [hidden]="hideDescription">
 				<label>Description</label>
-				<input class="form-control" formControlName="description" maxlength="255" placeholder="Enter a description">
+				<input class="form-control" formControlName="description" maxlength="255" placeholder="Enter a description" [disabled]="readOnly">
 				<span class="form-text text-muted" align="end">{{rForm.controls['description'].value?.length || 0}}/255</span>
 			</div>
 			
 			<div class="form-group" *ngIf="contentTypes" [hidden]="hideContentType">
 				<label>The content type determines the fields; changing a saved item will destroy current field data</label>
-				<select class="form-control" formControlName="contentType" [compareWith]="idCompare">
+				<select class="form-control" formControlName="contentType" [compareWith]="idCompare" [disabled]="readOnly">
 					<option *ngFor="let ct of this.contentTypes | async, trackBy: trackById" [ngValue]="ct">{{ct.name}}</option>
 				</select>
 			</div>
@@ -30,7 +30,7 @@
 			<div *ngIf="rForm.value.contentType">
 				<div *ngIf="rForm.value.contentType.requiresTemplate" class="form-group">
 					<label>The template that will render this content</label>
-					<select class="form-control" formControlName="template" [compareWith]="idCompare" >
+					<select class="form-control" formControlName="template" [compareWith]="idCompare"  [disabled]="readOnly">
 						<option *ngFor="let ct of this.templates | async, trackBy: trackById" [value]="ct">{{ct.name}}</option>
 					</select>
 				</div>
@@ -38,7 +38,7 @@
 				<hr/>
 				<div *ngIf="fieldsFormArray" formArrayName="fieldsFormArray" class="well">
 					<div *ngFor="let field of fieldsFormArray.controls; let i=index" [formGroupName]="i" >
-						<sprout-field-type [fieldControl]="field"></sprout-field-type>
+						<sprout-field-type [fieldControl]="field" [readOnly]="readOnly"></sprout-field-type>
 					</div>
 				</div>
 			</div>
