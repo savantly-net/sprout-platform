@@ -9,7 +9,11 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "publish:content-module": "ng build content-module --prod && npm publish ./dist/content-module && npm run version:content-module",
-    "version:content-module": "cd projects/content-module && npm version patch"
+    "version:content-module": "cd projects/content-module && npm version patch",
+    "publish:security": "ng build security --prod && npm publish ./dist/security && npm run version:security",
+    "version:security": "cd projects/security && npm version patch",
+    "publish:core": "ng build core --prod && npm publish ./dist/core && npm run version:core",
+    "version:core": "cd projects/core && npm version patch"
   },
   "private": false,
   "dependencies": {

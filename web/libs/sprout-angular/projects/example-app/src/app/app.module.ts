@@ -8,13 +8,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ExternalConfigurationService } from '../environments/external-configuration.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { ContentItemEmbeddedEditorComponent } from './content-item-embedded-editor/content-item-embedded-editor.component';
 import { ContentTypeEmbeddedEditorComponent } from './content-type-embedded-editor/content-type-embedded-editor.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SproutSecurityModule } from "@savantly/ngx-sprout-security";
 import { UserEditComponent } from './security/user-edit.component';
+import { AuthCookiesInterceptor } from "./auth-cookies.interceptor";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,12 @@ import { UserEditComponent } from './security/user-edit.component';
     SproutContentModule,
     SproutSecurityModule
   ],
-  providers: [{provide: 'ExternalConfigurationService', useClass: ExternalConfigurationService}],
+  providers: [{provide: 'ExternalConfigurationService', useClass: ExternalConfigurationService},
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthCookiesInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

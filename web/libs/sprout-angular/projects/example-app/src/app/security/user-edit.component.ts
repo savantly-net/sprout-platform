@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ContentItem, ContentTypesService, ContentType, ContentItemService } from '@savantly/ngx-sprout-content';
-import { BehaviorSubject } from 'rxjs';
-import { ResourcePage } from '@lagoshny/ngx-hal-client';
-import { SproutUser } from "@savantly/ngx-sprout-security";
+import { UserResource } from "@savantly/ngx-sprout-security";
 
 @Component({
   selector: 'app-security-user-editor',
@@ -11,6 +8,6 @@ import { SproutUser } from "@savantly/ngx-sprout-security";
 })
 export class UserEditComponent {
 
-    user = new SproutUser();
+    user = new UserResource();
   
 }

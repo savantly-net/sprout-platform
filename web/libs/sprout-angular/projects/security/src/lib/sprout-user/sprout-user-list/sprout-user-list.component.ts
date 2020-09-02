@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { SproutUserService, SproutUser } from '../sprout-user.service';
+import { SproutUserService } from '../sprout-user.service';
 import { ResourcePage } from '@lagoshny/ngx-hal-client';
+import { UserResource } from '../sprout-user.resource';
 
 @Component({
   selector: 'lib-sprout-user-list',
@@ -9,7 +10,7 @@ import { ResourcePage } from '@lagoshny/ngx-hal-client';
 })
 export class SproutUserListComponent implements OnInit {
 
-  usersPage: ResourcePage<SproutUser>;
+  usersPage: ResourcePage<UserResource>;
 
   constructor(protected userService: SproutUserService) { 
     this.userService.getAllPage().subscribe(users => {
