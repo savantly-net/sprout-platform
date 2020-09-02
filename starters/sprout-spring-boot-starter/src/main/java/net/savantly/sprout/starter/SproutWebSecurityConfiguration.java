@@ -65,6 +65,7 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
             .accessDeniedHandler(problemSupport)
         	//.accessDeniedPage("/errors/403")
         .and()
+        	// adds a default role for anonymous users
         	.addFilterBefore(anonymousFilter , BasicAuthenticationFilter.class)
             .apply(securityConfigurerAdapter())
         ;
