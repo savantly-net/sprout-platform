@@ -1,6 +1,7 @@
 {
   "name": "@savantly/ngx-sprout-security",
-  "version": "0.0.1",
+  "version": "0.0.5",
+  "private": false,
   "peerDependencies": {
     "@angular/common": "^10.0.6",
     "@angular/core": "^10.0.6",
@@ -8,5 +9,8 @@
   },
   "dependencies": {
     "tslib": "^2.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
