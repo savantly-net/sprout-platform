@@ -1,5 +1,42 @@
-<div>${timestamp?time!}</div>
-<div>${status!}</div>
-<div>${error!}</div>
-<div>${message!}</div>
-<div>${path!}</div>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <title>Sprout Server Error</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="css/page.css">
+    </head>
+    <body class="d-flex flex-column justify-content-between">
+        <div>
+       		<div class="logo mb-4">
+            	<img alt="Logo" src="images/logo.png" />
+            	<div><h3>BY</h3></div>
+            	<img alt="Savantly" src="images/savantly.png" />
+            </div>
+            <div class="card-deck m-auto col-lg-8">
+			  <div class="card">
+			    <div class="card-body">
+		      		<h5>Unfortunately an error occured</h5>
+	           		<div>
+	           			<div>${timestamp?time!}</div>
+						<div>${status!}</div>
+						<div>${error!}</div>
+						<div>${message!}</div>
+						<div>${path!}</div>
+	           		</div>
+			    </div>
+			  </div>
+			</div>
+        </div>
+        <footer class="footer">
+        <div class="container-fluid">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright &copy; 2020 <a href="https://savantly.net" target="_blank" rel="noopener noreferrer">Savantly</a>. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="fa fa-heart text-danger"></i></span>
+          </div>
+        </div>
+      </footer>
+    </body>
+</html>
+
