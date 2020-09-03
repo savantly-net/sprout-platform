@@ -1,0 +1,14 @@
+body {
+    background-color: #FAFAFA;
+    font-family: Verdana, Helvetica, Arial, serif;
+    height: 100vh;
+}
+
+.logo {
+	text-align: center;
+}
+
+.logo img {
+	max-width: 500px;
+	min-width: 100px;
+}
