@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 
+import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
 import net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepository;
 import net.savantly.sprout.core.domain.user.repository.UserPersistenceListener;
 import net.savantly.sprout.core.domain.user.repository.UserRepository;
@@ -28,7 +29,9 @@ import net.savantly.sprout.starter.security.jwt.JWTAutoConfiguration;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@Import({SecurityProblemSupport.class, JWTAutoConfiguration.class})
+@Import({
+	SecurityProblemSupport.class, 
+	JWTAutoConfiguration.class})
 public class SproutSecurityAutoConfiguration {
 
 	@Bean
@@ -38,8 +41,9 @@ public class SproutSecurityAutoConfiguration {
 
 	@Bean
 	public SproutWebSecurityConfiguration sproutWebSecurityConfiguration(
-			UserDetailsService userDetailsService, SecurityProblemSupport problemSupport, List<SecurityCustomizer> securityCustomizers) {
-		return new SproutWebSecurityConfiguration(
+			UserDetailsService userDetailsService, SecurityProblemSupport problemSupport, List<SecurityCustomizer> securityCustomizers, 
+			SproutConfigurationProperties sproutConfig) {
+		return new SproutWebSecurityConfiguration(sproutConfig,
 				getAnonymousFilter(userDetailsService), problemSupport, securityCustomizers);
 	}
 

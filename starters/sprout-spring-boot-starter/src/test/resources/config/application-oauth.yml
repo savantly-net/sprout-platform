@@ -5,9 +5,6 @@ logging:
 spring:
   security:
     oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: https://savantly.mocklab.io/.well-known/jwks.json
       client:
         provider:
           mocklab:

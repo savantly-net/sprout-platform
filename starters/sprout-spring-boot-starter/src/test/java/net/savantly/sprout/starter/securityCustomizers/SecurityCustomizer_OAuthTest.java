@@ -1,11 +1,8 @@
-package net.savantly.sprout.starter;
+package net.savantly.sprout.starter.securityCustomizers;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.Instant;
-import java.util.Arrays;
-import java.util.Date;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -23,29 +20,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.JwtException;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.InvalidKeyException;
-import io.jsonwebtoken.security.SignatureException;
+import net.savantly.sprout.starter.security.SecurityCustomizer;
 import net.savantly.sprout.test.IntegrationTest;
 
-@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT,
+	properties = {"spring.security.oauth2.resourceserver.jwt.jwk-set-uri=https://savantly.mocklab.io/.well-known/jwks.json"})
 @IntegrationTest
 @ActiveProfiles("oauth")
-public class SproutWebSecurityConfiguration_JWT_test {
+public class SecurityCustomizer_OAuthTest {
 
-	private static final Logger log = LoggerFactory.getLogger(SproutWebSecurityConfiguration_JWT_test.class);
+	private static final Logger log = LoggerFactory.getLogger(SecurityCustomizer_OAuthTest.class);
 
 	@Autowired
 	WebApplicationContext ctx;
@@ -55,8 +46,6 @@ public class SproutWebSecurityConfiguration_JWT_test {
 	@Autowired
 	TestRestTemplate rest;
 
-	private static String secret = "jhghfhddhgjkhfrsdzsxhfgfkjhlgyjdgsedxdszesgfdfjkyh";
-
 	
 	@BeforeAll
 	public static void beforeClass() {
@@ -64,7 +53,7 @@ public class SproutWebSecurityConfiguration_JWT_test {
 	}
 	
 	@Test
-	public void loadSecurePage() throws Exception {
+	public void useBearer() throws Exception {
 		String url = "/admin/";
 		
 		RequestEntity request = RequestEntity.get(new URI(url))
@@ -76,12 +65,18 @@ public class SproutWebSecurityConfiguration_JWT_test {
 		Assertions.assertTrue("The Admin Page".contentEquals(response.getBody()));
 	}
 	
+	@Test
+	public void redirectToLogin() throws Exception {
+		String url = "/admin/";
+		
+		RequestEntity request = RequestEntity.get(new URI(url))
+				.accept(MediaType.TEXT_HTML).build();
+		ResponseEntity<String> response = rest.exchange(request, String.class);
+		
+		Assertions.assertEquals(HttpStatus.FOUND, response.getStatusCode(),"Should be redirected for login");
+	}
+	
 	private String getBearerToken() throws InvalidKeyException, UnsupportedEncodingException, URISyntaxException {
-		RequestEntity loginRequest = RequestEntity.post(new URI("https://savantly.mocklab.io/login")).build();
-		ResponseEntity<String> loginResponse = rest.exchange(loginRequest, String.class);
-		
-		
-		
 		return "eyJraWQiOiJOa05nNkljRHI0bGc1cDUyS2pyZGlzZVJEQjFPYnoiL"
 				+ "CJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJudWx"
 				+ "sIiwic3ViIjoiYm5Wc2JBPT0iLCJpc3MiOiJodHRwOi8vcW0xM2"
@@ -99,5 +94,16 @@ public class SproutWebSecurityConfiguration_JWT_test {
 	@Configuration
 	@EnableAutoConfiguration
 	static class TestContext {
+		
+		@Bean
+		public SecurityCustomizer OauthCustomization() {
+			return new SecurityCustomizer() {
+				
+				@Override
+				public void configure(HttpSecurity http) throws Exception {
+					http.oauth2Client().and().oauth2Login();
+				}
+			};
+		}
 	}
 }

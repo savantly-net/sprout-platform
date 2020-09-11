@@ -27,7 +27,7 @@ public class JWTAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean({JWTConfigurer.class})
 	@Conditional(AnyJwkUriConfigured.class)
-	public JWTConfigurer oidcJwtConfigurer() {
+	public JWTConfigurer oauthJwtConfigurer() {
 		return new JWTConfigurer() {
 			@Override
 			public void configure(HttpSecurity builder) throws Exception {
