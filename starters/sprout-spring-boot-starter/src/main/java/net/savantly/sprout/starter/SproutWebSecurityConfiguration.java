@@ -16,17 +16,20 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 
+import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
 import net.savantly.sprout.starter.security.SecurityCustomizer;
 
 @EnableWebSecurity
 public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
+	private final SproutConfigurationProperties configProps;
     private final SecurityProblemSupport problemSupport;
-	private Filter anonymousFilter;
+	private final Filter anonymousFilter;
 	private final List<SecurityCustomizer> securityCustomizers;
 	
-	public SproutWebSecurityConfiguration(Filter anonymousFilter, SecurityProblemSupport problemSupport, List<SecurityCustomizer> securityCustomizers) {
+	public SproutWebSecurityConfiguration(SproutConfigurationProperties configProps, Filter anonymousFilter, SecurityProblemSupport problemSupport, List<SecurityCustomizer> securityCustomizers) {
 		super();
+		this.configProps = configProps;
         this.anonymousFilter = anonymousFilter;
         this.problemSupport = problemSupport;
         this.securityCustomizers = securityCustomizers;
@@ -62,6 +65,7 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
             .accessDeniedHandler(problemSupport)
         	//.accessDeniedPage("/errors/403")
         .and()
+        	.anonymous().authorities(configProps.getSecurity().getAnonymousAuthorities().toArray(new String[0]))
         //.oauth2ResourceServer().jwt().and().and()
         	// adds a default role for anonymous users
         	//.addFilterBefore(anonymousFilter , BasicAuthenticationFilter.class)

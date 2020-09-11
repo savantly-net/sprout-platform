@@ -10,12 +10,6 @@ public class AnyJwkUriConfigured extends AnyNestedCondition {
 	}
 	
 	@ConditionalOnProperty(prefix = "spring", name = "security.oauth2.resourceserver.jwt.jwk-set-uri")
-    static class OnResourceServerJwkUri {
-    }
-	
-	@ConditionalOnProperty(prefix = "spring", name = "security.oauth2.client.provider.oidc.issuer-uri")
-	static class OnOidcIssuerUri {
-		
-	}
+    static class OnResourceServerJwkUri {}
 
 }

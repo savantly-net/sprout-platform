@@ -23,19 +23,20 @@ public class SproutConfigurationProperties {
 	@Setter
 	public static class Security {
 		private Authentication authentication = new Authentication();
+		private List<String> anonymousAuthorities = Arrays.asList("ANONYMOUS");
     }
 
 	@Getter
 	@Setter
 	public static class Authentication {
 		private Jwt jwt = new Jwt();
-		private Oidc oidc = new Oidc();
+		private OAuth oauth = new OAuth();
 	}
 	
 	@Getter
 	@Setter
 	/** NOT USED YET **/
-	public static class Oidc {
+	public static class OAuth {
 		private String issuerUri;
 	}
 	
