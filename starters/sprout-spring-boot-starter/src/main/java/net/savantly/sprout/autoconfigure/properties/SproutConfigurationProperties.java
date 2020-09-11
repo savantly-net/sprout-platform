@@ -29,6 +29,14 @@ public class SproutConfigurationProperties {
 	@Setter
 	public static class Authentication {
 		private Jwt jwt = new Jwt();
+		private Oidc oidc = new Oidc();
+	}
+	
+	@Getter
+	@Setter
+	/** NOT USED YET **/
+	public static class Oidc {
+		private String issuerUri;
 	}
 	
 	/*
@@ -43,6 +51,8 @@ public class SproutConfigurationProperties {
     			+ "DgwYjBlM2Y5ZTE5NDY2MDZkMGE5Y2Y5MmVlOTY";
     	private long tokenValidityInSeconds = 86400;
         private long tokenValidityInSecondsForRememberMe = 2592000;
+        /** NOT USED YET **/
+        private String jwkSetUri;
 	}
 	
 	@Getter

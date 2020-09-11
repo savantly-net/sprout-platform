@@ -1,4 +1,4 @@
-package net.savantly.sprout.security;
+package net.savantly.sprout.starter.security;
 
 import java.io.IOException;
 import java.util.List;
