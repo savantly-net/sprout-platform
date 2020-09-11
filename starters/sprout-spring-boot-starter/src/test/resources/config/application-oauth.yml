@@ -1,0 +1,27 @@
+logging:
+  level:
+    org.springframework.web.client.RestTemplate: DEBUG
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://savantly.mocklab.io/.well-known/jwks.json
+      client:
+        provider:
+          mocklab:
+            authorization-uri: https://savantly.mocklab.io/oauth/authorize
+            token-uri: https://savantly.mocklab.io/oauth/token
+            user-info-uri: https://savantly.mocklab.io/userinfo
+            user-name-attribute: sub
+            jwk-set-uri: https://savantly.mocklab.io/.well-known/jwks.json
+
+        registration:
+          mocklab:
+            provider: mocklab
+            authorization-grant-type: authorization_code
+            scope: openid, profile, email
+            redirect-uri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
+            clientId: mocklab_oidc
+            clientSecret: whatever

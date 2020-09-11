@@ -1,5 +1,7 @@
 package net.savantly.sprout.autoconfigure;
 
+import java.util.List;
+
 import javax.servlet.Filter;
 
 import org.springframework.context.annotation.Bean;
@@ -12,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 
-import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
 import net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepository;
 import net.savantly.sprout.core.domain.user.repository.UserPersistenceListener;
 import net.savantly.sprout.core.domain.user.repository.UserRepository;
@@ -20,13 +21,14 @@ import net.savantly.sprout.core.security.SproutAuditorAware;
 import net.savantly.sprout.core.security.SproutPasswordEncoder;
 import net.savantly.sprout.core.security.SproutUserDetailsService;
 import net.savantly.sprout.core.security.SproutUserDetailsServiceImpl;
-import net.savantly.sprout.security.CustomAnonymousFilter;
-import net.savantly.sprout.security.TokenProvider;
 import net.savantly.sprout.starter.SproutWebSecurityConfiguration;
+import net.savantly.sprout.starter.security.CustomAnonymousFilter;
+import net.savantly.sprout.starter.security.SecurityCustomizer;
+import net.savantly.sprout.starter.security.jwt.JWTAutoConfiguration;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@Import(SecurityProblemSupport.class)
+@Import({SecurityProblemSupport.class, JWTAutoConfiguration.class})
 public class SproutSecurityAutoConfiguration {
 
 	@Bean
@@ -36,9 +38,9 @@ public class SproutSecurityAutoConfiguration {
 
 	@Bean
 	public SproutWebSecurityConfiguration sproutWebSecurityConfiguration(
-			UserDetailsService userDetailsService, TokenProvider tokenProvider, SecurityProblemSupport problemSupport) {
+			UserDetailsService userDetailsService, SecurityProblemSupport problemSupport, List<SecurityCustomizer> securityCustomizers) {
 		return new SproutWebSecurityConfiguration(
-				getAnonymousFilter(userDetailsService), tokenProvider, problemSupport);
+				getAnonymousFilter(userDetailsService), problemSupport, securityCustomizers);
 	}
 
 	@Bean
@@ -65,11 +67,6 @@ public class SproutSecurityAutoConfiguration {
 	@Bean
 	public SproutAuditorAware sproutAuditorAware() {
 		return new SproutAuditorAware();
-	}
-	
-	@Bean
-	public TokenProvider tokenProvider(SproutConfigurationProperties sproutProperties) {
-		return new TokenProvider(sproutProperties);
 	}
 
 	private Filter getAnonymousFilter(UserDetailsService userDetailsService) {

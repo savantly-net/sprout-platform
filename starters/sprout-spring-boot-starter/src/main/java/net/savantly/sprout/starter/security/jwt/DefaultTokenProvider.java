@@ -1,4 +1,4 @@
-package net.savantly.sprout.security;
+package net.savantly.sprout.starter.security.jwt;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
@@ -15,7 +15,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import io.jsonwebtoken.Claims;
@@ -26,10 +25,9 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
 
-@Component
-public class TokenProvider implements InitializingBean {
+public class DefaultTokenProvider implements TokenProvider, InitializingBean {
 
-    private final Logger log = LoggerFactory.getLogger(TokenProvider.class);
+    private final Logger log = LoggerFactory.getLogger(DefaultTokenProvider.class);
 
     private static final String AUTHORITIES_KEY = "auth";
 
@@ -41,7 +39,7 @@ public class TokenProvider implements InitializingBean {
 
     private final SproutConfigurationProperties sproutProperties;
 
-    public TokenProvider(SproutConfigurationProperties sproutProperties) {
+    public DefaultTokenProvider(SproutConfigurationProperties sproutProperties) {
         this.sproutProperties = sproutProperties;
     }
 
