@@ -1,4 +1,4 @@
-package net.savantly.sprout.tenancy;
+package net.savantly.sprout.starter.tenancy;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,6 +8,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import net.savantly.sprout.core.domain.tenant.Tenant;
 import net.savantly.sprout.core.domain.tenant.TenantRepository;
+import net.savantly.sprout.core.tenancy.TenantContext;
 
 public class TenantInterceptor extends HandlerInterceptorAdapter {
 	

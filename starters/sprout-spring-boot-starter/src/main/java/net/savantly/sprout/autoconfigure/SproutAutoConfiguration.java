@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import net.savantly.sprout.starter.JpaConfiguration;
 import net.savantly.sprout.starter.SproutAuditConfiguration;
+import net.savantly.sprout.starter.tenancy.TenancyConfiguration;
 
 
 @Configuration
@@ -16,7 +17,8 @@ import net.savantly.sprout.starter.SproutAuditConfiguration;
 @EnableTransactionManagement
 @Import({
 	JpaConfiguration.class,
-	SproutAuditConfiguration.class
+	SproutAuditConfiguration.class,
+	TenancyConfiguration.class
 })
 @EnableAspectJAutoProxy
 @ConfigurationPropertiesScan

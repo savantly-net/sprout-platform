@@ -26,7 +26,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import lombok.AllArgsConstructor;
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
 import net.savantly.sprout.core.domain.tenant.TenantSupport;
-import net.savantly.sprout.tenancy.TenantContext;
+import net.savantly.sprout.core.tenancy.TenantContext;
 
 @Configuration("sproutJpaConfiguration")
 @AutoConfigureAfter(HibernateJpaAutoConfiguration.class)
@@ -63,13 +63,15 @@ public class JpaConfiguration {
 	@Bean
 	public EmptyInterceptor hibernateInterceptor() {
 		return new EmptyInterceptor() {
+			
+			
 
 			@Override
 			public boolean onSave(Object entity, Serializable id, Object[] state, String[] propertyNames,
 					Type[] types) {
 				if (entity instanceof TenantSupport) {
-					log.debug("[save] Updating the entity " + id + " with util information: "
-							+ TenantContext.getCurrentTenant());
+					final String tenantId = TenantContext.getCurrentTenant();
+					log.debug("[save] Updating the entity " + id + " with tenant information: " + tenantId);
 					((TenantSupport) entity).setTenantId(TenantContext.getCurrentTenant());
 				}
 				return false;
@@ -78,9 +80,9 @@ public class JpaConfiguration {
 			@Override
 			public void onDelete(Object entity, Serializable id, Object[] state, String[] propertyNames, Type[] types) {
 				if (entity instanceof TenantSupport) {
-					log.debug("[delete] Updating the entity " + id + " with util information: "
-							+ TenantContext.getCurrentTenant());
-					((TenantSupport) entity).setTenantId(TenantContext.getCurrentTenant());
+					final String tenantId = TenantContext.getCurrentTenant();
+					log.debug("[delete] Updating the entity " + id + " with tenant information: " + tenantId);
+					((TenantSupport) entity).setTenantId(tenantId);
 				}
 			}
 
@@ -88,9 +90,9 @@ public class JpaConfiguration {
 			public boolean onFlushDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState,
 					String[] propertyNames, Type[] types) {
 				if (entity instanceof TenantSupport) {
-					log.debug("[flush-dirty] Updating the entity " + id + " with util information: "
-							+ TenantContext.getCurrentTenant());
-					((TenantSupport) entity).setTenantId(TenantContext.getCurrentTenant());
+					final String tenantId = TenantContext.getCurrentTenant();
+					log.debug("[flush-dirty] Updating the entity " + id + " with tenant information: " + tenantId);
+					((TenantSupport) entity).setTenantId(tenantId);
 				}
 				return false;
 			}

@@ -1,4 +1,4 @@
-package net.savantly.sprout.tenancy;
+package net.savantly.sprout.starter.tenancy;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
