@@ -27,12 +27,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.util.Assert;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.savantly.sprout.core.domain.PersistedDomainObject;
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
 import net.savantly.sprout.core.domain.oauth.OAuthAccount;
@@ -41,6 +42,7 @@ import net.savantly.sprout.core.security.MD5Util;
 import net.savantly.sprout.core.security.privilege.Privilege;
 import net.savantly.sprout.core.security.role.Role;
 
+@Getter @Setter
 @Entity
 public class SproutUserEntity extends PersistedDomainObject implements CredentialsContainer, SproutUser {
 
@@ -49,15 +51,25 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
     // ~ Instance fields
     // ================================================================================================
 
-    @JsonProperty(access = Access.WRITE_ONLY)
+    @JsonIgnore
 	@Column(length=60)
     private String password;
+    @JsonIgnore
+    public String getPassword() {
+    	return this.password;
+    }
+    @JsonProperty
+    public String setPassword(String password) {
+    	this.password = password;
+    	return password;
+    }
+    
 	@Column(unique = true)
     private String username;
+
+	@Size(min = 1)
     private String displayName;
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
-    @CollectionTable(name="APP_USER_EMAIL_ADDRESS")
-    private Set<EmailAddress> emailAddresses = new HashSet<>();
+	
     private boolean hidePrimaryEmailAddress;
     private String firstName;
     private String lastName;
@@ -65,11 +77,22 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
     private boolean accountNonLocked = true;
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
+    private String phoneNumber;
+    
 	@ManyToOne(fetch=FetchType.EAGER)
     private Organization organization;
-    private String phoneNumber;
+	
+    
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
     private Set<OAuthAccount> oAuthAccounts = new HashSet<>();
+	public Set<OAuthAccount> getOAuthAccounts() {
+		return this.oAuthAccounts;
+	}
+
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
+    @CollectionTable(name="APP_USER_EMAIL_ADDRESS")
+    private Set<EmailAddress> emailAddresses = new HashSet<>();
+	
 	@ManyToMany(targetEntity=Role.class, fetch=FetchType.EAGER)
     @JoinTable( 
         name = "users_roles", 
@@ -181,10 +204,9 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
 
 
 
-    // **********************************
-    // GETTERS/SETTERS
-    //
-    // **********************************
+    // ************************
+    // Rich domain methods
+    // ************************
 
     @Transient
     @Override
@@ -198,60 +220,7 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
         		}
         	});
         });
-        return privileges;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    @Override
-	@Size(min = 1)
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
-    @Override
-	public boolean isEnabled() {
-        return enabled;
-    }
-
-    @Override
-	public boolean isAccountNonExpired() {
-        return accountNonExpired;
-    }
-
-    @Override
-	public boolean isAccountNonLocked() {
-        return accountNonLocked;
-    }
-
-    @Override
-	public boolean isCredentialsNonExpired() {
-        return credentialsNonExpired;
-    }
-
-    @Override
-    public Set<EmailAddress> getEmailAddresses() {
-        return emailAddresses;
-    }
-
-    protected void setEmailAddresses(Set<EmailAddress> emailAddresses) {
-        this.emailAddresses = emailAddresses;
+        return sortAuthorities(privileges);
     }
 
     @Transient
@@ -268,60 +237,6 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
     }
 
     @Override
-	public boolean isHidePrimaryEmailAddress() {
-        return hidePrimaryEmailAddress;
-    }
-
-    public void setHidePrimaryEmailAddress(boolean hidePrimaryEmailAddress) {
-        this.hidePrimaryEmailAddress = hidePrimaryEmailAddress;
-    }
-
-    public void setAccountNonExpired(boolean accountNonExpired) {
-        this.accountNonExpired = accountNonExpired;
-    }
-
-    public void setAccountNonLocked(boolean accountNonLocked) {
-        this.accountNonLocked = accountNonLocked;
-    }
-
-    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
-        this.credentialsNonExpired = credentialsNonExpired;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setClearTextPassword(String password) {
-        this.clearTextPassword = password;
-    }
-    public String getClearTextPassword() {
-        return this.clearTextPassword;
-    }
-
-    @Override
-	public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    @Override
-	public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    @Override
 	@Transient
     public String getGravatarUrl() {
     	String address = "me@example.com";
@@ -331,9 +246,6 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
         return String.format("https://www.gravatar.com/avatar/%s?s=200&d=identicon", MD5Util.md5Hex(address));
     }
 
-    // ************************
-    // Rich domain methods
-    // ************************
 
     /**
      * Add an email address to associate to the user.
@@ -357,15 +269,6 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
         }
     }
 
-    @Override
-    public Organization getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(Organization memberOf) {
-        this.organization = memberOf;
-    }
-
     public void clearEmailAddresses() {
         this.emailAddresses.clear();
     }
@@ -382,36 +285,10 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
         return (this.clearTextPassword != null);
     }
 
-	@Override
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	@Override
-	public Set<OAuthAccount> getoAuthAccounts() {
-		return oAuthAccounts;
-	}
-
-	public void setoAuthAccounts(Set<OAuthAccount> oAuthAccounts) {
-		this.oAuthAccounts = oAuthAccounts;
-	}
-
 	public void addOAuthAccount(OAuthAccount oauthAccount) {
 		this.oAuthAccounts.add(oauthAccount);
 	}
 
-    @JsonIgnoreProperties("users")
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
 	
     /**
      * Returns {@code true} if the supplied object is a {@code User} instance with the

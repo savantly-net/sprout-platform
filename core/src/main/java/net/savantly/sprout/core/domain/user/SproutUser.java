@@ -35,7 +35,7 @@ public interface SproutUser extends UserDetails {
 
 	String getPhoneNumber();
 
-	Set<OAuthAccount> getoAuthAccounts();
+	Set<OAuthAccount> getOAuthAccounts();
 	
 	Set<Role> getRoles();
 	
@@ -88,7 +88,7 @@ public interface SproutUser extends UserDetails {
 			}
 			
 			@Override
-			public Set<OAuthAccount> getoAuthAccounts() {
+			public Set<OAuthAccount> getOAuthAccounts() {
 				return new HashSet<>();
 			}
 			

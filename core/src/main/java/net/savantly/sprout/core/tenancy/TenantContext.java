@@ -1,4 +1,4 @@
-package net.savantly.sprout.tenancy;
+package net.savantly.sprout.core.tenancy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

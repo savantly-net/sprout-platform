@@ -24,7 +24,7 @@ import net.savantly.sprout.module.PluginConfiguration;
 import net.savantly.sprout.starter.DateTimeFormatConfiguration;
 import net.savantly.sprout.starter.SpringDocConfigurer;
 import net.savantly.sprout.starter.mvc.SproutWebMvcConfigurer;
-import net.savantly.sprout.tenancy.TenantInterceptor;
+import net.savantly.sprout.starter.tenancy.TenantInterceptor;
 
 @Configuration
 @AutoConfigureBefore({WebMvcAutoConfiguration.class, SproutSecurityAutoConfiguration.class})
