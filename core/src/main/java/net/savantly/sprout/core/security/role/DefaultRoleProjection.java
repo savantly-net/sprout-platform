@@ -10,6 +10,7 @@ import net.savantly.sprout.core.security.privilege.Privilege;
 public interface DefaultRoleProjection {
 
 	String getId();
+	String getName();
 	Set<Privilege> getPrivileges();
 
 }

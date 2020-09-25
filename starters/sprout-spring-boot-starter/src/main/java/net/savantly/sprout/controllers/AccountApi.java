@@ -81,7 +81,7 @@ public class AccountApi {
 	}
 
 	private UserDto toDto(Authentication auth) {
-		return new UserDto().setName(auth.getName()).setRoles(auth.getAuthorities().stream()
+		return new UserDto().setName(auth.getName()).setAuthorities(auth.getAuthorities().stream()
 				.map((g)-> g.getAuthority()).collect(Collectors.toSet()));
 	}
 }

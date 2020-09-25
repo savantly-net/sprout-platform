@@ -20,14 +20,20 @@ public class PrivilegeFixture extends AbstractBaseFixture<Privilege, PrivilegeRe
     @Override
     public void addEntities(List<Privilege> entityList) {
         if(!repository.findById(GENERAL_READ).isPresent()){
-            entityList.add(new Privilege(GENERAL_READ));
+            entityList.add(create(GENERAL_READ));
         }
         if(!repository.findById(GENERAL_ADMIN).isPresent()){
-            entityList.add(new Privilege(GENERAL_ADMIN));
+            entityList.add(create(GENERAL_ADMIN));
         }
     }
 
-    @Override
+    private Privilege create(String name) {
+    	Privilege priv = new Privilege().setName(name);
+    	priv.setId(name);
+    	return priv;
+	}
+
+	@Override
     public void addDependencies(List<Fixture<?>> dependencies) {
     
     }

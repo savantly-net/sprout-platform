@@ -13,15 +13,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.SmartFactoryBean;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import lombok.AllArgsConstructor;
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
@@ -31,9 +35,13 @@ import net.savantly.sprout.core.tenancy.TenantContext;
 @Configuration("sproutJpaConfiguration")
 @AutoConfigureAfter(HibernateJpaAutoConfiguration.class)
 @EnableConfigurationProperties({JpaProperties.class})
-@EnableJpaRepositories(basePackages = {"net.savantly.sprout.core", "net.savantly.sprout.settings"})
+@EnableJpaRepositories(basePackages = {"net.savantly.sprout.core", "net.savantly.sprout.uiProperties"})
+@EntityScan
+@EnableTransactionManagement(mode = AdviceMode.ASPECTJ)
 @AllArgsConstructor
 public class JpaConfiguration {
+	
+	public static final String ENTITY_MANAGER_FACTORY_BEAN = "sproutEntityManagerFactory";
 	
 	private final String basePackagesToScan = "net.savantly.sprout.**";
 
@@ -45,13 +53,14 @@ public class JpaConfiguration {
 		// SchemaConfiguration.NAMING_STRATEGY);
 	}
 
-	@Bean
+	@ConditionalOnMissingBean(name = "entityManagerFactory")
+	@Bean(name = {ENTITY_MANAGER_FACTORY_BEAN, "entityManagerFactory"})
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder factory,
 			DataSource dataSource, JpaProperties properties) {
 		log.info(String.format("Creating LocalContainerEntityManagerFactoryBean with properties: %s", properties));
 		properties.setShowSql(true);
 		Map<String, Object> jpaProperties = new HashMap<>(properties.getProperties());
-		jpaProperties.put("hibernate.session_factory.interceptor", hibernateInterceptor());
+		//jpaProperties.put("hibernate.session_factory.interceptor", hibernateInterceptor());
 		//jpaProperties.put("hibernate.ddl-auto", "create-drop");
 		if (!sproutProperties.getJpa().getPackagesToScan().contains(basePackagesToScan)) {
 			sproutProperties.getJpa().getPackagesToScan().add(basePackagesToScan);
@@ -60,7 +69,7 @@ public class JpaConfiguration {
 		return factory.dataSource(dataSource).packages(packagesToScan).properties(jpaProperties).build();
 	}
 
-	@Bean
+	
 	public EmptyInterceptor hibernateInterceptor() {
 		return new EmptyInterceptor() {
 			

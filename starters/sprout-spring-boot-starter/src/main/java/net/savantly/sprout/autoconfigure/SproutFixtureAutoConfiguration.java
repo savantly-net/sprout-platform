@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,8 +27,8 @@ import net.savantly.sprout.core.security.privilege.PrivilegeRepository;
 import net.savantly.sprout.core.security.role.Role;
 import net.savantly.sprout.core.security.role.RoleFixture;
 import net.savantly.sprout.core.security.role.RoleRepository;
-import net.savantly.sprout.settings.AppSettingFixture;
-import net.savantly.sprout.settings.AppSettingRepository;
+import net.savantly.sprout.uiProperties.UIPropertyFixture;
+import net.savantly.sprout.uiProperties.UIPropertyRepository;
 
 @Configuration
 @AutoConfigureAfter(JpaRepositoriesAutoConfiguration.class)
@@ -41,8 +40,8 @@ public class SproutFixtureAutoConfiguration {
 	ApplicationContext ctx;
     
 	@Bean 
-	public AppSettingFixture appSettingFixture(AppSettingRepository repository) {
-		return new AppSettingFixture(repository);
+	public UIPropertyFixture appSettingFixture(UIPropertyRepository repository) {
+		return new UIPropertyFixture(repository);
 	}
 	
 	@Bean
@@ -73,7 +72,6 @@ public class SproutFixtureAutoConfiguration {
 	}
 	
     @PostConstruct
-    @Transactional
     public void installFixtures() {
     	FakeContext fakeContext = new FakeContext();
         fakeContext.create();
