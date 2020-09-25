@@ -26,7 +26,6 @@ const precommitRunner: TaskRunner<PrecommitOptions> = async () => {
   );
 
   const testFiles = status.files.filter(file => file.path.match(/^[a-zA-Z0-9\_\-\/]+(\.test.(ts|tsx))$/g));
-  const goTestFiles = status.files.filter(file => file.path.match(/^[a-zA-Z0-9\_\-\/]+(\_test.go)$/g));
   const affectedNodeVersionFiles = status.files
     .filter(file => nodeVersionFiles.indexOf(file.path) !== -1)
     .map(f => f.path);
@@ -43,10 +42,6 @@ const precommitRunner: TaskRunner<PrecommitOptions> = async () => {
 
   if (testFiles.length) {
     gruntTasks.push('no-only-tests');
-  }
-
-  if (goTestFiles.length) {
-    gruntTasks.push('no-focus-convey-tests');
   }
 
   if (gruntTasks.length > 0) {
