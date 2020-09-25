@@ -51,6 +51,7 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
         .and()
             .authorizeRequests()
             .antMatchers("/api/login").permitAll()
+            .antMatchers(configProps.getSecurity().getPublicPaths().toArray(new String[0])).permitAll()
             .antMatchers("/api/repo/**").authenticated()
             .antMatchers("/admin", "/admin/**").authenticated()
         .and()

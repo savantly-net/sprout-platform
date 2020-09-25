@@ -1,18 +1,23 @@
 package net.savantly.sprout.core.security.role;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import net.savantly.sprout.core.domain.PersistedDomainObjectRepository;
+import net.savantly.sprout.core.tenancy.TenantedJpaRepository;
 
 @Repository
 @RepositoryRestResource(excerptProjection=DefaultRoleProjection.class)
-public interface RoleRepository extends PersistedDomainObjectRepository<Role>{
+public interface RoleRepository extends TenantedJpaRepository<Role, String>{
+	
+	List<Role> findByName(String name);
+
+	@Query("SELECT r FROM Role r WHERE r.name = :name")
+	List<DefaultRoleProjection> includePrivilegesByName(@Param("name") String name);
 
 	@Query("SELECT r FROM Role r WHERE r.id = :id")
-	DefaultRoleProjection includePrivileges(@Param("id") String id);
+	DefaultRoleProjection includePrivilegesById(@Param("id") String id);
 }

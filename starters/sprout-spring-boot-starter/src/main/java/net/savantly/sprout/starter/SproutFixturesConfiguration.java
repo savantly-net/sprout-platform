@@ -15,8 +15,8 @@ import net.savantly.sprout.core.security.privilege.PrivilegeRepository;
 import net.savantly.sprout.core.security.role.Role;
 import net.savantly.sprout.core.security.role.RoleFixture;
 import net.savantly.sprout.core.security.role.RoleRepository;
-import net.savantly.sprout.settings.AppSettingFixture;
-import net.savantly.sprout.settings.AppSettingRepository;
+import net.savantly.sprout.uiProperties.UIPropertyFixture;
+import net.savantly.sprout.uiProperties.UIPropertyRepository;
 
 @Configuration
 public class SproutFixturesConfiguration {
@@ -26,8 +26,8 @@ public class SproutFixturesConfiguration {
 	}
 
 	@Bean
-	protected AppSettingFixture appSettingFixture(AppSettingRepository repository) {
-		return new AppSettingFixture(repository);
+	protected UIPropertyFixture appSettingFixture(UIPropertyRepository repository) {
+		return new UIPropertyFixture(repository);
 	}
 
 	@Bean

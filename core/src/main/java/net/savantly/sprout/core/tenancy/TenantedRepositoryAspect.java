@@ -1,9 +1,9 @@
 package net.savantly.sprout.core.tenancy;
 
-import java.util.Arrays;
+import java.util.Objects;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -11,16 +11,16 @@ import org.aspectj.lang.annotation.Before;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.savantly.sprout.core.domain.tenant.TenantSupport;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.EntityManagerFactoryUtils;
 
 @Aspect
 public class TenantedRepositoryAspect {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-	@PersistenceContext
-	private EntityManager entityManager;
+	@Autowired
+	private EntityManagerFactory entityManagerFactory;
 
 	/** Intercept all the calls to a TenantedJpaRepository
 	 * 
@@ -29,21 +29,22 @@ public class TenantedRepositoryAspect {
 	 */
 	@Before("execution(* net.savantly.sprout.core.tenancy.TenantedJpaRepository+.*(..))")
 	public void beforeExecution(JoinPoint pjp) throws Throwable {
-		updateTenantSupportedArguments(pjp);
+
+		EntityManager entityManager = EntityManagerFactoryUtils.getTransactionalEntityManager(entityManagerFactory);
+		if (Objects.isNull(entityManager)) {
+			if(log.isDebugEnabled()) {
+				log.debug("no transactional entity manager available. creating new entity manager from factory");
+			}
+			entityManager = this.entityManagerFactory.createEntityManager();
+		}
+		
+		if(log.isDebugEnabled()) {
+			log.debug("enabling tenantFilter with parameter: " + TenantContext.getCurrentTenant());
+		}
+		
 		org.hibernate.Filter filter = entityManager.unwrap(Session.class).enableFilter("tenantFilter");
 		filter.setParameter("tenantId", TenantContext.getCurrentTenant());
 		filter.validate();
 	}
 
-	/**
-	 * Check each argument to the method, and set the tenantId if it's supported
-	 * @param pjp
-	 */
-	private void updateTenantSupportedArguments(JoinPoint pjp) {
-		Arrays.stream(pjp.getArgs()).forEach(a -> {
-			if (TenantSupport.class.isAssignableFrom(a.getClass())) {
-				((TenantSupport)a).setTenantId(TenantContext.getCurrentTenant());
-			}
-		});
-	}
 }

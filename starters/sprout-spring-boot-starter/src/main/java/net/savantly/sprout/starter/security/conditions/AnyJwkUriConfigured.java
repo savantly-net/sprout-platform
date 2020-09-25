@@ -12,4 +12,6 @@ public class AnyJwkUriConfigured extends AnyNestedCondition {
 	@ConditionalOnProperty(prefix = "spring", name = "security.oauth2.resourceserver.jwt.jwk-set-uri")
     static class OnResourceServerJwkUri {}
 
+	@ConditionalOnProperty(prefix = "sprout", name = "security.authentication.jwt.jwk-set-uri")
+    static class OnSproutServerJwkUri {}
 }

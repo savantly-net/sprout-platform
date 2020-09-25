@@ -13,6 +13,6 @@ public class UserDto {
 	private String name;
 	
 	@Getter @Setter
-	private Set<String> roles;
+	private Set<String> authorities;
 
 }

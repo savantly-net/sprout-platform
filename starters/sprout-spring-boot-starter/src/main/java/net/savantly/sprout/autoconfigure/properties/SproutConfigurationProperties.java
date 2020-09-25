@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.savantly.sprout.uiProperties.UIProperty;
 
 @Getter
 @Setter
@@ -19,11 +20,17 @@ public class SproutConfigurationProperties {
 	private Cors cors = new Cors();
 	private Mvc mvc = new Mvc();
 	
+	/**
+	 * Additional UI properties that should be created for the default tenant
+	 */
+	private List<UIProperty> uiProperties = new ArrayList<>(); 
+	
 	@Getter
 	@Setter
 	public static class Security {
 		private Authentication authentication = new Authentication();
 		private List<String> anonymousAuthorities = Arrays.asList("ANONYMOUS");
+		private List<String> publicPaths = Arrays.asList();
     }
 
 	@Getter
@@ -52,8 +59,8 @@ public class SproutConfigurationProperties {
     			+ "DgwYjBlM2Y5ZTE5NDY2MDZkMGE5Y2Y5MmVlOTY";
     	private long tokenValidityInSeconds = 86400;
         private long tokenValidityInSecondsForRememberMe = 2592000;
-        /** NOT USED YET **/
         private String jwkSetUri;
+        private String groupsClaim = "groups";
 	}
 	
 	@Getter

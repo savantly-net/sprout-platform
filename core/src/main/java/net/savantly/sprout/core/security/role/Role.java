@@ -12,12 +12,19 @@ import javax.persistence.ManyToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import net.savantly.sprout.core.domain.PersistedDomainObject;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import net.savantly.sprout.core.domain.user.SproutUserEntity;
 import net.savantly.sprout.core.security.privilege.Privilege;
+import net.savantly.sprout.core.tenancy.TenantedPersistedDomainObject;
 
+@Getter @Setter
 @Entity
-public class Role extends PersistedDomainObject  {
+@Accessors(chain = true)
+public class Role extends TenantedPersistedDomainObject  {
+	
+	private String name;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "roles")
@@ -31,26 +38,5 @@ public class Role extends PersistedDomainObject  {
           name = "privilege_id"))
     @JsonIgnoreProperties("roles")
     private Set<Privilege> privileges = new HashSet<>();
-    
-    public Role() {	}
 
-    public Role(String string) {
-		this.id = string;
-	}
-
-	public Set<SproutUserEntity> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Set<SproutUserEntity> users) {
-		this.users = users;
-	}
-
-	public Set<Privilege> getPrivileges() {
-		return privileges;
-	}
-
-	public void setPrivileges(Set<Privilege> privileges) {
-		this.privileges = privileges;
-	}   
 }

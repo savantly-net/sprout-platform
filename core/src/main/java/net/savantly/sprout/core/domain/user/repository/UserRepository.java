@@ -11,7 +11,7 @@ import net.savantly.sprout.core.domain.user.SproutUserEntity;
 
 @Repository
 @RepositoryRestResource(path="users", collectionResourceRel="users")
-public interface UserRepository extends PagingAndSortingRepository<SproutUserEntity, String>, UserRepositoryCustom {
+public interface UserRepository extends PagingAndSortingRepository<SproutUserEntity, String> {
 
 	ProfileProjection findProfileFirstByUsername(String username);
 	ProfileProjection findProfileById(String id);
