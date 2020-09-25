@@ -1,0 +1,30 @@
+{
+  "name": "@savantly/sprout-api",
+  "version": "0.0.1",
+  "description": "Core API for Sprout React applications",
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "main": "dist/index.js",
+  "homepage": "https://github.com/savantly/sprout-platform#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/savantly/sprout-platform.git"
+  },
+  "author": "Jeremy Branham <jeremy@savantly.net> (https://github.com/jdbranham)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/savantly/sprout-platform/issues",
+    "email": "bugs@savantly.net"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.49"
+  },
+  "peerDependencies": {},
+  "dependencies": {
+    "react": "^16.13.1"
+  },
+  "engines": {
+    "node": ">=12 <13"
+  }
+}
