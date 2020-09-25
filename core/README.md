@@ -45,7 +45,8 @@ A domain entity may implement the [TenantSupport](./src/main/java/net/savantly/s
 A domain entity may extend the `TenantedPersistedDomainObject` abstract class for easier configuration of tenant aware entities.  
 This class implements the required tenancy filter.  
 The tenancy filter can be definined on entities that don't extend this class, but the repository should still be a `TenantedJpaRepository`.  
-The entity also needs to implement `TenantSupport`. 
+The entity also needs to implement `TenantSupport`, and should implement the `@PrePersist` hook to make sure the tenantId is set before saving.
+
 
 ## TenantedJpaRepository
 Only `TenantedJpaRepository` are considered for tenancy filtering. Use this as the repository interface for any entity that should be filtered.  

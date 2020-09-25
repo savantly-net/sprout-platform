@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "dist",
+    "module": "commonjs",
+    "outDir": "dist",
+    "rootDirs": ["."],
+    "typeRoots": ["node_modules/@types"]
+  },
+  "exclude": ["dist", "node_modules"],
+  "extends": "@savantly/sprout-tsconfig/base.json",
+  "include": ["src"]
+}
