@@ -11,6 +11,7 @@ import { precommitTask } from './tasks/precommit';
 import { templateTask } from './tasks/template';
 import { toolkitBuildTask } from './tasks/toolkit.build';
 import { execTask } from './utils/execTask';
+import { buildPackageTask } from './tasks/package.build';
 
 export const run = (includeInternalScripts = false) => {
   if (includeInternalScripts) {
@@ -21,6 +22,16 @@ export const run = (includeInternalScripts = false) => {
       .description('Executes checks')
       .action(async cmd => {
         await execTask(precommitTask)({});
+      });
+
+    program
+      .command('package:build')
+      .option('-s, --scope <packages>', 'packages=[api]')
+      .description('Builds @grafana/* package to packages/grafana-*/dist')
+      .action(async cmd => {
+        await execTask(buildPackageTask)({
+          scope: cmd.scope,
+        });
       });
 
     program

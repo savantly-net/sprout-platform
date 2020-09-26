@@ -1,0 +1,48 @@
+{
+  "name": "@savantly/sprout-runtime",
+  "version": "0.0.1",
+  "description": "Runtime API for Sprout React applications",
+  "scripts": {
+    "build": "sprout-toolkit package:build --scope=runtime",
+    "bundle": "rollup -c rollup.config.ts",
+    "clean": "rimraf ./dist ./compiled"
+  },
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "homepage": "https://github.com/savantly/sprout-platform#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/savantly/sprout-platform.git"
+  },
+  "author": "Jeremy Branham <jeremy@savantly.net> (https://github.com/jdbranham)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/savantly/sprout-platform/issues",
+    "email": "bugs@savantly.net"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "@types/lodash": "^4.14.161",
+    "@types/react": "^16.9.49",
+    "rollup": "2.0.6",
+    "rollup-plugin-sourcemaps": "^0.6.2",
+    "rollup-plugin-terser": "^7.0.2"
+  },
+  "peerDependencies": {},
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
+    "@types/react-hot-loader": "^4.1.1",
+    "eventemitter3": "^4.0.7",
+    "lodash": "^4.17.20",
+    "marked": "^1.1.1",
+    "react": "^16.13.1",
+    "react-app-rewired": "^2.1.6",
+    "react-hot-loader": "^4.13.0",
+    "systemjs": "^6.6.1"
+  },
+  "engines": {
+    "node": ">=12 <13"
+  }
+}
