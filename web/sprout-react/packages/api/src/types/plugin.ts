@@ -8,7 +8,8 @@ export enum PluginState {
 }
 
 export enum PluginType {
-  component = 'component'
+  panel = 'panel',
+  app = 'app'
 }
 
 export enum PluginSignatureStatus {
@@ -59,7 +60,9 @@ export interface PluginDependencies {
 }
 
 export enum PluginIncludeType {
-  component = 'component'
+  component = 'component',
+  page = 'page',
+  dashboard = 'dashboard'
 }
 
 export interface PluginInclude {

@@ -120,7 +120,7 @@ const buildTaskRunner: TaskRunner<PackageBuildOptions> = async ({ scope }) => {
 
   const scopes = scope.split(',').map(s => {
     return async () => {
-      cwd = path.resolve(__dirname, `../../../../grafana-${s}`);
+      cwd = path.resolve(__dirname, `../../../../${s}`);
       // Lerna executes this in package's dir context, but for testing purposes I want to be able to run from root:
       // sprout-toolkit package:build --scope=<package>
       process.chdir(cwd);
