@@ -524,6 +524,16 @@ export class DashboardModel {
     return rowPanels;
   }
 
+  on<T>(event: AppEvent<T>, callback: (payload?: T) => void) {
+    this.events.on(event, callback);
+  }
+
+  off<T>(event: AppEvent<T>, callback?: (payload?: T) => void) {
+    if(callback) {
+      this.events.off(event, callback);
+    }
+  }
+
   autoFitPanels(viewHeight: number, kioskMode?: UrlQueryValue) {
     const currentGridHeight = Math.max(
       ...this.panels.map(panel => {

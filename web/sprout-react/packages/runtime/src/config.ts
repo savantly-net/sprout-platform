@@ -3,10 +3,11 @@ import {
   BuildInfo,
   SproutConfig,
   LicenseInfo,
-  PanelPluginMeta
+  PanelPluginMeta, GrafanaTheme
 } from '@savantly/sprout-api';
 
 export class SproutBootConfig implements SproutConfig {
+  theme!: GrafanaTheme;
   panels: { [key: string]: PanelPluginMeta } = {};
   minRefreshInterval = '';
   appUrl = '';

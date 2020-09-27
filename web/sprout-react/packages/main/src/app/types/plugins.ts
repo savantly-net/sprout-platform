@@ -26,7 +26,7 @@ export interface PluginsState {
   hasFetched: boolean;
   dashboards: PluginDashboard[];
   isLoadingPluginDashboards: boolean;
-  pages: PanelPluginsIndex;
+  panels: PanelPluginsIndex;
 }
 
 export interface VariableQueryProps {

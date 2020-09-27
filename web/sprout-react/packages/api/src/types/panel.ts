@@ -5,8 +5,21 @@ import { Registry } from '../utils/Registry';
 import { OptionsEditorItem } from './OptionsUIRegistryBuilder';
 import { FieldConfigSource } from './fieldOverrides';
 import { StandardEditorProps } from '../field/standardFieldConfigEditorRegistry';
+import { ErrorInfo } from 'react';
 
 export type InterpolateFunction = (value: string, scopedVars?: ScopedVars, format?: string | Function) => string;
+
+export interface DataQueryError {
+  data?: {
+    message?: string;
+    error?: string;
+  };
+  message?: string;
+  status?: string;
+  statusText?: string;
+  refId?: string;
+  type?: any;
+}
 
 export interface PanelPluginMeta extends PluginMeta {
   /** Indicates that panel does not issue queries */
@@ -20,6 +33,7 @@ export interface PanelPluginMeta extends PluginMeta {
 export interface PanelData {
   /** State of the data (loading, done, error, streaming) */
   state: LoadingState;
+  error?: DataQueryError;
 }
 
 export interface PanelProps<T = any> {
@@ -42,7 +56,7 @@ export interface PanelProps<T = any> {
   /** Current height of the panel */
   height: number;
   /** Template variables interpolation function */
-  replaceVariables: InterpolateFunction;
+  replaceVariables?: InterpolateFunction;
   /** @internal */
   renderCounter: number;
   /** Panel title */

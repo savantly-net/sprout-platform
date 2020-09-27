@@ -1,4 +1,4 @@
-import { PanelPlugin } from '@grafana/data';
+import { PanelPlugin } from '@savantly/sprout-api';
 import { DashboardModel } from '../features/dashboard/state/DashboardModel';
 
 export interface DashboardDTO {

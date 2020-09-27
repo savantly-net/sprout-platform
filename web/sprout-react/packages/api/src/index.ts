@@ -1,3 +1,4 @@
+export * from './field';
 export * from './types';
 export * from './text/markdown';
 export * from './utils';

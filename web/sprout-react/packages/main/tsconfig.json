@@ -20,7 +20,6 @@
     "jsx": "react",
     "typeRoots": [ "src/types", "./node_modules/@types"],
   },
-  "extends": "./tsconfig.base.json",
   "include": [
     "src"
   ]

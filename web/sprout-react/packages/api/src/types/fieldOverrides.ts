@@ -69,8 +69,6 @@ export interface FieldConfigEditorConfig<TOptions, TSettings = any, TValue = any
 
 export interface FieldConfigPropertyItem<TOptions = any, TValue = any, TSettings extends {} = any>
   extends OptionsEditorItem<TOptions, TSettings, FieldConfigEditorProps<TValue, TSettings>, TValue> {
-  // An editor that can be filled in with context info (template variables etc)
-  override: ComponentType<FieldOverrideEditorProps<TValue, TSettings>>;
 
   /** true for plugin field config properties */
   isCustom?: boolean;

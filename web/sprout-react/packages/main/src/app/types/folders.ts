@@ -1,0 +1,27 @@
+
+export interface FolderDTO {
+  id: number;
+  uid: string;
+  title: string;
+  url: string;
+  version: number;
+  canSave: boolean;
+  canEdit: boolean;
+  canAdmin: boolean;
+}
+
+export interface FolderState {
+  id: number;
+  uid: string;
+  title: string;
+  url: string;
+  canSave: boolean;
+  hasChanged: boolean;
+  version: number;
+}
+
+export interface FolderInfo {
+  id: number;
+  title: string;
+  url: string;
+}
