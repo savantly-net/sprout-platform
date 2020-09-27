@@ -3,7 +3,7 @@ import { catchError, filter, map, mergeMap, retryWhen, share, takeUntil, tap, th
 import { fromFetch } from 'rxjs/fetch';
 import { v4 as uuidv4 } from 'uuid';
 import { BackendSrv as BackendService, BackendSrvRequest, FetchResponse, FetchError } from '@savantly/sprout-runtime';
-import { AppEvents, DataQueryErrorType } from '@grafana/data';
+import { AppEvents } from '@savantly/sprout-api';
 
 import appEvents from '../app_events';
 import config, { getConfig } from '../config';
@@ -311,7 +311,7 @@ export class BackendSrv implements BackendService {
         // when a request is cancelled by takeUntil it will complete without emitting anything so we use throwIfEmpty to identify this case
         // in throwIfEmpty we'll then throw an cancelled error and then we'll return the correct result in the catchError or rethrow
         throwIfEmpty(() => ({
-          type: DataQueryErrorType.Cancelled,
+          type: 'cancelled',
           cancelled: true,
           data: null,
           status: this.HTTP_REQUEST_CANCELED,

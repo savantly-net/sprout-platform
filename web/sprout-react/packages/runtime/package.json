@@ -30,8 +30,7 @@
     "rollup-plugin-sourcemaps": "^0.6.2",
     "rollup-plugin-terser": "^7.0.2"
   },
-  "peerDependencies": {},
-  "dependencies": {
+  "peerDependencies": {
     "@reduxjs/toolkit": "^1.4.0",
     "@types/react-hot-loader": "^4.1.1",
     "eventemitter3": "^4.0.7",
@@ -40,7 +39,8 @@
     "react": "^16.13.1",
     "react-app-rewired": "^2.1.6",
     "react-hot-loader": "^4.13.0",
-    "systemjs": "^6.6.1"
+    "systemjs": "^6.6.1"},
+  "dependencies": {
   },
   "engines": {
     "node": ">=12 <13"

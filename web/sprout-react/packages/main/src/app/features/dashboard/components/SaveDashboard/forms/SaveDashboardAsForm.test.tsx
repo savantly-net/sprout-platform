@@ -1,10 +1,10 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { SaveDashboardAsForm } from './SaveDashboardAsForm';
-import { DashboardModel } from 'app/features/dashboard/state';
+import { DashboardModel } from '../../../state';
 import { act } from 'react-dom/test-utils';
 
-jest.mock('@grafana/runtime', () => ({
+jest.mock('@savantly/sprout-runtime', () => ({
   getBackendSrv: () => ({ get: jest.fn().mockResolvedValue([]), search: jest.fn().mockResolvedValue([]) }),
 }));
 

@@ -7,7 +7,7 @@ import { appEvents } from '../../../../core/app_events';
 // Components
 import { DashNavButton } from './DashNavButton';
 import { Icon, ModalsController } from '@grafana/ui';
-import { textUtil } from '@grafana/data';
+import { textUtil } from '@savantly/sprout-api';
 import { BackButton } from '../../../../core/components/BackButton/BackButton';
 // State
 import { updateLocation } from '../../../../core/actions';

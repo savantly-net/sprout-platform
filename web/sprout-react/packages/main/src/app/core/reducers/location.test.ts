@@ -1,4 +1,4 @@
-import { reducerTester } from '../../../test/core/redux/reducerTester';
+import { reducerTester } from '../../../../test/core/redux/reducerTester';
 import { initialState, locationReducer, updateLocation } from './location';
 import { LocationState } from '../../types';
 

@@ -143,10 +143,6 @@ export class PanelChrome extends PureComponent<Props, State> {
     this.props.panel.updateOptions(options);
   };
 
-  onFieldConfigChange = (config: FieldConfigSource) => {
-    this.props.panel.updateFieldConfig(config);
-  };
-
   onPanelError = (message: string) => {
     if (this.state.errorMessage !== message) {
       this.setState({ errorMessage: message });
@@ -187,13 +183,11 @@ export class PanelChrome extends PureComponent<Props, State> {
             data={data}
             title={panel.title}
             options={panelOptions}
-            fieldConfig={panel.fieldConfig}
             transparent={panel.transparent}
             width={panelWidth}
             height={innerPanelHeight}
             renderCounter={renderCounter}
             onOptionsChange={this.onOptionsChange}
-            onFieldConfigChange={this.onFieldConfigChange}
           />
         </div>
       </>

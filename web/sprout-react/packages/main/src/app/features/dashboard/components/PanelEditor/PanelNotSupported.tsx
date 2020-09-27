@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Button, VerticalGroup } from '@grafana/ui';
 
-import { Layout } from '@grafana/ui/src/components/Layout/Layout';
+import { Layout } from '@grafana/ui/components/Layout/Layout';
 import { PanelEditorTabId } from './types';
 import { updateLocation } from '../../../../core/actions';
 

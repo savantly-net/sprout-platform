@@ -2,7 +2,7 @@ import { updateLocation } from '../../../core/actions';
 import { store } from '../../../store/store';
 import { getLocationSrv } from '@savantly/sprout-runtime';
 import { PanelMenuItem } from '@grafana/data';
-import { copyPanel, duplicatePanel, removePanel, sharePanel } from './panel';
+import { copyPanel, duplicatePanel, removePanel } from './panel';
 import { PanelModel } from '../state/PanelModel';
 import { DashboardModel } from '../state/DashboardModel';
 import { contextSrv } from '../../../core/services/context_srv';
@@ -34,11 +34,6 @@ export function getPanelMenu(
         partial: true,
       })
     );
-  };
-
-  const onSharePanel = (event: React.MouseEvent<any>) => {
-    event.preventDefault();
-    sharePanel(dashboard, panel);
   };
 
   const onInspectPanel = (tab?: string) => {
@@ -89,13 +84,6 @@ export function getPanelMenu(
       shortcut: 'e',
     });
   }
-
-  menu.push({
-    text: 'Share',
-    iconClassName: 'share-alt',
-    onClick: onSharePanel,
-    shortcut: 'p s',
-  });
 
   const inspectMenu: PanelMenuItem[] = [];
 

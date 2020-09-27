@@ -1,6 +1,6 @@
 import { ComponentType } from 'react';
 import { RegistryItem, Registry } from '../utils/Registry';
-import { NumberFieldConfigSettings, SelectFieldConfigSettings, StringFieldConfigSettings } from '../fields/processors';
+import { NumberFieldConfigSettings, SelectFieldConfigSettings, StringFieldConfigSettings } from '../field/processors';
 
 /**
  * Option editor registry item

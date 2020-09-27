@@ -92,11 +92,10 @@ describe('getPanelMenu', () => {
       const getExtendedMenu = () => [{ text: 'Toggle legend', shortcut: 'p l', click: jest.fn() }];
       const ctrl: any = { getExtendedMenu };
       const scope: any = { $$childHead: { ctrl } };
-      const angularComponent: any = { getScope: () => scope };
       const panel = new PanelModel({ isViewing: true });
       const dashboard = new DashboardModel({});
 
-      const menuItems = getPanelMenu(dashboard, panel, angularComponent);
+      const menuItems = getPanelMenu(dashboard, panel);
       expect(menuItems).toMatchInlineSnapshot(`
         Array [
           Object {

@@ -1,8 +1,6 @@
 import React from 'react';
 import { Button, ButtonVariant, ModalsController, FullWidthButtonContainer } from '@grafana/ui';
-import { DashboardModel } from 'app/features/dashboard/state';
-import { connectWithProvider } from 'app/core/utils/connectWithReduxStore';
-import { provideModalsContext } from 'app/routes/ReactContainer';
+import { DashboardModel } from '../../state';
 import { SaveDashboardAsModal } from './SaveDashboardAsModal';
 import { SaveDashboardModalProxy } from './SaveDashboardModalProxy';
 
@@ -72,8 +70,3 @@ export const SaveDashboardAsButton: React.FC<SaveDashboardButtonProps & { varian
     </ModalsController>
   );
 };
-
-// TODO: this is an ugly solution for the save button to have access to Redux and Modals controller
-// When we migrate dashboard settings to Angular it won't be necessary.
-export const SaveDashboardButtonConnected = connectWithProvider(provideModalsContext(SaveDashboardButton));
-export const SaveDashboardAsButtonConnected = connectWithProvider(provideModalsContext(SaveDashboardAsButton));

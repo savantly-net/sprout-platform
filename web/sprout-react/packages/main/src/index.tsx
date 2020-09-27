@@ -11,8 +11,8 @@ import initStore from './app/config/store';
 import * as serviceWorker from './serviceWorker';
 
 
-window.React = React;
-window.ReactDOM = ReactDOM;
+//window.React = React;
+//window.ReactDOM = ReactDOM;
 
 const devTools = process.env.NODE_ENV === 'development' ? <DevTools /> : null;
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { SaveProvisionedDashboard } from './SaveProvisionedDashboard';
 import { SaveDashboardAsModal } from './SaveDashboardAsModal';
 import { SaveDashboardModalProps } from './types';
 import { SaveDashboardModal } from './SaveDashboardModal';
@@ -18,7 +17,6 @@ export const SaveDashboardModalProxy: React.FC<SaveDashboardModalProps> = ({ das
   return (
     <>
       {isChanged && !isProvisioned && <SaveDashboardModal {...modalProps} />}
-      {isProvisioned && <SaveProvisionedDashboard {...modalProps} />}
       {isNew && <SaveDashboardAsModal {...modalProps} isNew />}
     </>
   );

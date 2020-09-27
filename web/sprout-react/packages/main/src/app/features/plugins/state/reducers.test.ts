@@ -1,4 +1,4 @@
-import { reducerTester } from '../../../../test/core/redux/reducerTester';
+import { reducerTester } from '../../../../../test/core/redux/reducerTester';
 import { PluginsState } from '../../../types';
 import {
   initialState,
@@ -8,7 +8,7 @@ import {
   pluginsReducer,
   setPluginsSearchQuery,
 } from './reducers';
-import { PluginMetaInfo, PluginType } from '@grafana/data';
+import { PluginMetaInfo, PluginType } from '@savantly/sprout-api';
 
 describe('pluginsReducer', () => {
   describe('when pluginsLoaded is dispatched', () => {

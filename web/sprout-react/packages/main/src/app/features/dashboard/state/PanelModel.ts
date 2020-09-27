@@ -1,7 +1,6 @@
 // Types
 import {
     eventFactory,
-    FieldConfigSource,
     PanelEvents,
     PanelPlugin,
     ScopedVars
@@ -103,7 +102,6 @@ export class PanelModel {
   options: {
     [key: string]: any;
   } = {};
-  fieldConfig!: FieldConfigSource;
 
   description?: string;
   transparent: boolean = false;
@@ -140,11 +138,6 @@ export class PanelModel {
   updateOptions(options: object) {
     this.options = options;
 
-    this.render();
-  }
-
-  updateFieldConfig(config: FieldConfigSource) {
-    this.fieldConfig = config;
     this.render();
   }
 
@@ -224,13 +217,9 @@ export class PanelModel {
     Object.keys(prevOptions).map(property => {
       (this as any)[property] = prevOptions[property];
     });
-    this.fieldConfig = applyFieldConfigDefaults(this.fieldConfig, this.plugin!.fieldConfigDefaults);
   }
 
   private applyPluginOptionDefaults(plugin: PanelPlugin) {
-    if (plugin.angularConfigCtrl) {
-      return;
-    }
     this.options = _.mergeWith({}, plugin.defaults, this.options || {}, (objValue: any, srcValue: any): any => {
       if (_.isArray(srcValue)) {
         return srcValue;
@@ -321,23 +310,6 @@ export class PanelModel {
     return this.editSourceId ?? this.id;
   }
 }
-
-function applyFieldConfigDefaults(fieldConfig: FieldConfigSource, defaults: FieldConfigSource): FieldConfigSource {
-    const result: FieldConfigSource = {
-      defaults: _.mergeWith(
-        {},
-        defaults.defaults,
-        fieldConfig ? fieldConfig.defaults : {},
-        (objValue: any, srcValue: any): any => {
-          if (_.isArray(srcValue)) {
-            return srcValue;
-          }
-        }
-      )
-    };
-  
-    return result;
-  }
 
 function getPluginVersion(plugin: PanelPlugin): string {
   return plugin && plugin.meta.info.version ? plugin.meta.info.version : config.buildInfo.version;

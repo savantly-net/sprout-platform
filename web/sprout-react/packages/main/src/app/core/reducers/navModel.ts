@@ -1,7 +1,7 @@
 import { AnyAction, createAction } from '@reduxjs/toolkit';
-import { NavIndex, NavModel, NavModelItem } from '@grafana/data';
+import { NavIndex, NavModel, NavModelItem } from '@savantly/sprout-api';
 
-import config from 'app/core/config';
+import config from '../../core/config';
 
 export function buildInitialState(): NavIndex {
   const navIndex: NavIndex = {};

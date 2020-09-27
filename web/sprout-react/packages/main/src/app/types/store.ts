@@ -1,6 +1,6 @@
 import { ThunkAction, ThunkDispatch as GenericThunkDispatch } from 'redux-thunk';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { NavIndex } from '@grafana/data';
+import { NavIndex } from '@savantly/sprout-api';
 
 import { LocationState } from './location';
 import { AppNotificationsState } from './appNotifications';

@@ -1,11 +1,9 @@
+import { StandardEditorProps } from '../field/standardFieldConfigEditorRegistry';
+import { Registry } from '../utils/Registry';
+import { LoadingState } from './data';
+import { OptionsEditorItem } from './OptionsUIRegistryBuilder';
 import { PluginMeta } from './plugin';
 import { ScopedVars } from './ScopedVars';
-import { LoadingState } from './data';
-import { Registry } from '../utils/Registry';
-import { OptionsEditorItem } from './OptionsUIRegistryBuilder';
-import { FieldConfigSource } from './fieldOverrides';
-import { StandardEditorProps } from '../field/standardFieldConfigEditorRegistry';
-import { ErrorInfo } from 'react';
 
 export type InterpolateFunction = (value: string, scopedVars?: ScopedVars, format?: string | Function) => string;
 
@@ -45,10 +43,6 @@ export interface PanelProps<T = any> {
   options: T;
   /** Panel options change handler */
   onOptionsChange: (options: T) => void;
-  /** Field options configuration */
-  fieldConfig: FieldConfigSource;
-  /** Field config change handler */
-  onFieldConfigChange: (config: FieldConfigSource) => void;
   /** Indicates whether or not panel should be rendered transparent */
   transparent: boolean;
   /** Current width of the panel */
@@ -81,8 +75,6 @@ export interface PanelModel<TOptions = any> {
   id: number;
   /** Panel options */
   options: TOptions;
-  /** Field options configuration */
-  fieldConfig: FieldConfigSource;
   /** Version of the panel plugin */
   pluginVersion?: string;
   scopedVars?: ScopedVars;

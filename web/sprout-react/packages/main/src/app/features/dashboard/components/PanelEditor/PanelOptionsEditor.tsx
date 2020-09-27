@@ -1,22 +1,16 @@
 import React, { useMemo } from 'react';
 import {
-  DataFrame,
-  InterpolateFunction,
   PanelOptionsEditorItem,
   PanelPlugin,
-  StandardEditorContext,
-  VariableSuggestionsScope,
-} from '@grafana/data';
+  StandardEditorContext
+} from '@savantly/sprout-api';
 import { get as lodashGet, set as lodashSet } from 'lodash';
 import { Field, Label } from '@grafana/ui';
 import groupBy from 'lodash/groupBy';
 import { OptionsGroup } from './OptionsGroup';
-import { getPanelOptionsVariableSuggestions } from 'app/features/panel/panellinks/link_srv';
 
 interface PanelOptionsEditorProps<TOptions> {
   plugin: PanelPlugin;
-  data?: DataFrame[];
-  replaceVariables: InterpolateFunction;
   options: TOptions;
   onChange: (options: TOptions) => void;
 }
@@ -24,9 +18,7 @@ interface PanelOptionsEditorProps<TOptions> {
 export const PanelOptionsEditor: React.FC<PanelOptionsEditorProps<any>> = ({
   plugin,
   options,
-  onChange,
-  data,
-  replaceVariables,
+  onChange
 }) => {
   const optionEditors = useMemo<Record<string, PanelOptionsEditorItem[]>>(() => {
     return groupBy(plugin.optionEditors.list(), i => {
@@ -40,12 +32,7 @@ export const PanelOptionsEditor: React.FC<PanelOptionsEditorProps<any>> = ({
   };
 
   const context: StandardEditorContext<any> = {
-    data: data || [],
-    replaceVariables,
-    options,
-    getSuggestions: (scope?: VariableSuggestionsScope) => {
-      return getPanelOptionsVariableSuggestions(plugin, data);
-    },
+    options
   };
 
   return (

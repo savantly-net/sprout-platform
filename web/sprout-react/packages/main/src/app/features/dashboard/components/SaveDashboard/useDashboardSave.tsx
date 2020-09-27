@@ -3,11 +3,11 @@ import useAsyncFn from 'react-use/lib/useAsyncFn';
 import { AppEvents, locationUtil } from '@grafana/data';
 import { useDispatch, useSelector } from 'react-redux';
 import { SaveDashboardOptions } from './types';
-import { CoreEvents, StoreState } from 'app/types';
-import appEvents from 'app/core/app_events';
-import { updateLocation } from 'app/core/reducers/location';
-import { DashboardModel } from 'app/features/dashboard/state';
-import { saveDashboard as saveDashboardApiCall } from 'app/features/manage-dashboards/state/actions';
+import { CoreEvents, StoreState } from '../../../../types';
+import appEvents from '../../../../core/app_events';
+import { updateLocation } from '../../../../core/reducers/location';
+import { DashboardModel } from '../../state';
+import { saveDashboard as saveDashboardApiCall } from '../../../manage-dashboards/state/actions';
 
 const saveDashboard = async (saveModel: any, options: SaveDashboardOptions, dashboard: DashboardModel) => {
   let folderId = options.folderId;
