@@ -157,10 +157,6 @@ class PluginPage extends PureComponent<Props, State> {
         if (active.id === PAGE_ID_DASHBOARDS) {
           return <PluginDashboards plugin={plugin.meta} />;
         }
-
-        if (active.id === PAGE_ID_CONFIG_CTRL && plugin.angularConfigCtrl) {
-          return <AppConfigCtrlWrapper app={plugin as AppPlugin} />;
-        }
       }
     }
 
@@ -353,17 +349,6 @@ function getPluginTabsNav(
   if (isAdmin) {
     // Only show Config/Pages for app
     if (meta.type === PluginType.app) {
-      // Legacy App Config
-      if (plugin.angularConfigCtrl) {
-        pages.push({
-          text: 'Config',
-          icon: 'gicon gicon-cog',
-          url: `${appSubUrl}${path}?page=${PAGE_ID_CONFIG_CTRL}`,
-          id: PAGE_ID_CONFIG_CTRL,
-        });
-        defaultPage = PAGE_ID_CONFIG_CTRL;
-      }
-
       if (plugin.configPages) {
         for (const page of plugin.configPages) {
           pages.push({

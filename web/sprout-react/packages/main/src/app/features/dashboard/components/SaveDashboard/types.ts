@@ -1,4 +1,4 @@
-import { CloneOptions, DashboardModel } from 'app/features/dashboard/state/DashboardModel';
+import { CloneOptions, DashboardModel } from '../../state/DashboardModel';
 
 export interface SaveDashboardOptions extends CloneOptions {
   folderId?: number;

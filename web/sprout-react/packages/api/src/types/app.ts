@@ -49,25 +49,6 @@ export class AppPlugin<T = KeyValue> extends SproutPlugin<AppPluginMeta<T>> {
     this.rootNav = rootNav;
     return this;
   }
-
-  setComponentsFromLegacyExports(pluginExports: any) {
-    if (pluginExports.ConfigCtrl) {
-      this.angularConfigCtrl = pluginExports.ConfigCtrl;
-    }
-
-    if (this.meta && this.meta.includes) {
-      for (const include of this.meta.includes) {
-        if (include.type === include.component) {
-          const exp = pluginExports[include.component];
-
-          if (!exp) {
-            console.warn('App Page uses unknown component: ', include.component, this.meta);
-            continue;
-          }
-        }
-      }
-    }
-  }
 }
 
 /**

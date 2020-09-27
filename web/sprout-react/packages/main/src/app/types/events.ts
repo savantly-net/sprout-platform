@@ -1,4 +1,5 @@
 import { eventFactory } from '@savantly/sprout-api';
+import { DashboardModel } from '../features/dashboard/state';
 
 /**
  * Event Payloads
@@ -100,7 +101,7 @@ export const dashScroll = eventFactory<DashScrollPayload>('dash-scroll');
 export const dashLinksUpdated = eventFactory('dash-links-updated');
 export const saveDashboard = eventFactory<SaveDashboardPayload>('save-dashboard');
 export const dashboardFetchStart = eventFactory('dashboard-fetch-start');
-//export const dashboardSaved = eventFactory<DashboardModel>('dashboard-saved');
+export const dashboardSaved = eventFactory<DashboardModel>('dashboard-saved');
 export const removePanel = eventFactory<number>('remove-panel');
 
 export const searchQuery = eventFactory('search-query');

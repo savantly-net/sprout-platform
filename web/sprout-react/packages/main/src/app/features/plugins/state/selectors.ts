@@ -1,4 +1,4 @@
-import { PluginsState } from 'app/types/plugins';
+import { PluginsState } from '../../../types/plugins';
 
 export const getPlugins = (state: PluginsState) => {
   const regex = new RegExp(state.searchQuery, 'i');

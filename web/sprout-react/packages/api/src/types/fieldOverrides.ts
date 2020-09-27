@@ -1,4 +1,3 @@
-import { ComponentType } from 'react';
 import { StandardEditorProps } from '../field';
 import { FieldConfig } from '../types';
 import { OptionsEditorItem } from './OptionsUIRegistryBuilder';

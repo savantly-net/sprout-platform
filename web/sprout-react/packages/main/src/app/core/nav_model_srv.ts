@@ -1,6 +1,6 @@
 import config from './config';
 import _ from 'lodash';
-import { NavModel } from '@grafana/data';
+import { NavModel } from '@savantly/sprout-api';
 
 export class NavModelSrv {
   navItems: any;

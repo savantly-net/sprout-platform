@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import { Action, createAction } from '@reduxjs/toolkit';
-import { LocationUpdate } from '@grafana/runtime';
+import { LocationUpdate } from '@savantly/sprout-runtime';
 
-import { LocationState } from 'app/types';
-import { urlUtil } from '@grafana/data';
+import { LocationState } from '../../types';
+import { urlUtil } from '@savantly/sprout-api';
 
 export const initialState: LocationState = {
   url: '',

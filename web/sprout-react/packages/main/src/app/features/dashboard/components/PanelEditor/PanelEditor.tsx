@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
-import { FieldConfigSource, GrafanaTheme, PanelPlugin } from '@grafana/data';
+import { GrafanaTheme, PanelPlugin } from '@savantly/sprout-api';
 import { Button, HorizontalGroup, Icon, RadioButtonGroup, stylesFactory } from '@grafana/ui';
 import { css, cx } from 'emotion';
-import config from 'app/core/config';
+import config from '../../../../core/config';
 import AutoSizer from 'react-virtualized-auto-sizer';
 
 import { PanelModel } from '../../state/PanelModel';
@@ -16,21 +16,17 @@ import { updateLocation } from '../../../../core/reducers/location';
 import { Unsubscribable } from 'rxjs';
 import { DisplayMode, displayModes, PanelEditorTab } from './types';
 import { PanelEditorTabs } from './PanelEditorTabs';
-import { DashNavTimeControls } from '../DashNav/DashNavTimeControls';
-import { CoreEvents, LocationState } from 'app/types';
+import { CoreEvents, LocationState } from '../../../../types';
 import { calculatePanelSize } from './utils';
 import { initPanelEditor, panelEditorCleanUp, updatePanelEditorUIState } from './state/actions';
 import { PanelEditorUIState, setDiscardChanges } from './state/reducers';
 import { getPanelEditorTabs } from './state/selectors';
 import { getPanelStateById } from '../../state/selectors';
 import { OptionsPaneContent } from './OptionsPaneContent';
-import { updateTimeZoneForSession } from 'app/features/profile/state/reducers';
-import { DashNavButton } from 'app/features/dashboard/components/DashNav/DashNavButton';
-import { VariableModel } from 'app/features/variables/types';
-import { getVariables } from 'app/features/variables/state/selectors';
-import { SubMenuItems } from 'app/features/dashboard/components/SubMenu/SubMenuItems';
-import { BackButton } from 'app/core/components/BackButton/BackButton';
-import { appEvents } from 'app/core/core';
+import { DashNavButton } from '../DashNav/DashNavButton';
+import { SubMenuItems } from '../SubMenu/SubMenuItems';
+import { BackButton } from '../../../../core/components/BackButton/BackButton';
+import { appEvents } from '../../../../core/app_events';
 import { SaveDashboardModalProxy } from '../SaveDashboard/SaveDashboardModalProxy';
 import { selectors } from '@grafana/e2e-selectors';
 
@@ -46,7 +42,6 @@ interface ConnectedProps {
   initDone: boolean;
   tabs: PanelEditorTab[];
   uiState: PanelEditorUIState;
-  variables: VariableModel[];
 }
 
 interface DispatchProps {
@@ -55,13 +50,11 @@ interface DispatchProps {
   panelEditorCleanUp: typeof panelEditorCleanUp;
   setDiscardChanges: typeof setDiscardChanges;
   updatePanelEditorUIState: typeof updatePanelEditorUIState;
-  updateTimeZoneForSession: typeof updateTimeZoneForSession;
 }
 
 type Props = OwnProps & ConnectedProps & DispatchProps;
 
 export class PanelEditorUnconnected extends PureComponent<Props> {
-  querySubscription: Unsubscribable;
 
   componentDidMount() {
     this.props.initPanelEditor(this.props.sourcePanel, this.props.dashboard);
@@ -91,24 +84,17 @@ export class PanelEditorUnconnected extends PureComponent<Props> {
   };
 
   onSaveDashboard = () => {
+    // TODO:
+    /*
     appEvents.emit(CoreEvents.showModalReact, {
       component: SaveDashboardModalProxy,
       props: { dashboard: this.props.dashboard },
     });
+    */
   };
 
   onChangeTab = (tab: PanelEditorTab) => {
     this.props.updateLocation({ query: { tab: tab.id }, partial: true });
-  };
-
-  onFieldConfigChange = (config: FieldConfigSource) => {
-    console.log(config);
-    const { panel } = this.props;
-
-    panel.updateFieldConfig({
-      ...config,
-    });
-    this.forceUpdate();
   };
 
   onPanelOptionsChanged = (options: any) => {
@@ -142,7 +128,7 @@ export class PanelEditorUnconnected extends PureComponent<Props> {
     document.body.style.cursor = 'row-resize';
   };
 
-  onDiplayModeChange = (mode: DisplayMode) => {
+  onDiplayModeChange = (mode?: DisplayMode) => {
     const { updatePanelEditorUIState } = this.props;
     updatePanelEditorUIState({
       mode: mode,
@@ -208,34 +194,14 @@ export class PanelEditorUnconnected extends PureComponent<Props> {
     );
   }
 
-  renderTemplateVariables(styles: EditorStyles) {
-    const { variables } = this.props;
-
-    if (!variables.length) {
-      return null;
-    }
-
-    return (
-      <div className={styles.variablesWrapper}>
-        <SubMenuItems variables={variables} />
-      </div>
-    );
-  }
-
   renderPanelToolbar(styles: EditorStyles) {
-    const { dashboard, location, uiState, variables, updateTimeZoneForSession } = this.props;
+    const { dashboard, location, uiState } = this.props;
     return (
       <div className={styles.panelToolbar}>
-        <HorizontalGroup justify={variables.length > 0 ? 'space-between' : 'flex-end'} align="flex-start">
-          {this.renderTemplateVariables(styles)}
+        <HorizontalGroup justify={'flex-end'} align="flex-start">
 
           <HorizontalGroup>
             <RadioButtonGroup value={uiState.mode} options={displayModes} onChange={this.onDiplayModeChange} />
-            <DashNavTimeControls
-              dashboard={dashboard}
-              location={location}
-              onChangeTimeZone={updateTimeZoneForSession}
-            />
             {!uiState.isPanelOptionsVisible && (
               <DashNavButton
                 onClick={this.onTogglePanelOptions}
@@ -302,7 +268,6 @@ export class PanelEditorUnconnected extends PureComponent<Props> {
         panel={panel}
         width={uiState.rightPaneSize as number}
         onClose={this.onTogglePanelOptions}
-        onFieldConfigsChange={this.onFieldConfigChange}
         onPanelOptionsChanged={this.onPanelOptionsChanged}
         onPanelConfigChange={this.onPanelConfigChanged}
       />
@@ -358,8 +323,7 @@ const mapStateToProps: MapStateToProps<ConnectedProps, OwnProps, StoreState> = (
     panel,
     initDone: state.panelEditor.initDone,
     tabs: getPanelEditorTabs(state.location, plugin),
-    uiState: state.panelEditor.ui,
-    variables: getVariables(state),
+    uiState: state.panelEditor.ui
   };
 };
 
@@ -368,11 +332,10 @@ const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = {
   initPanelEditor,
   panelEditorCleanUp,
   setDiscardChanges,
-  updatePanelEditorUIState,
-  updateTimeZoneForSession,
+  updatePanelEditorUIState
 };
 
-export const PanelEditor = connect(mapStateToProps, mapDispatchToProps)(PanelEditorUnconnected);
+export const PanelEditor = connect(mapStateToProps, mapDispatchToProps)(PanelEditorUnconnected as any);
 
 enum Pane {
   Right,

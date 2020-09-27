@@ -6,7 +6,6 @@ import { CustomScrollbar, Icon, Input, Select, stylesFactory, Tab, TabContent, T
 import { css } from 'emotion';
 import { PanelOptionsTab } from './PanelOptionsTab';
 import { DashNavButton } from '..//DashNav/DashNavButton';
-import { usePanelLatestData } from './usePanelLatestData';
 import { selectors } from '@grafana/e2e-selectors';
 
 interface Props {
@@ -123,12 +122,6 @@ export const TabsBarContent: React.FC<{
   // Show the appropriate tabs
   let tabs = tabSelections;
   let active = tabs.find(v => v.value === activeTab)!;
-
-  // If no field configs hide Fields & Override tab
-  if (plugin.fieldConfigRegistry.isEmpty()) {
-    active = tabSelections[0];
-    tabs = [active];
-  }
 
   return (
     <>
