@@ -1,4 +1,5 @@
 export * from './app';
+export * from './appEvents';
 export * as AppEvents from './appEvents';
 export * from './config';
 export * from './data';
@@ -14,3 +15,4 @@ export * from './plugin';
 export * from './select';
 export * from './ScopedVars';
 export * from './utils';
+export * from './theme';

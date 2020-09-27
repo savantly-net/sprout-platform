@@ -33,6 +33,8 @@
   },
   "peerDependencies": {},
   "dependencies": {
+    "@types/jest": "^26.0.14",
+    "jest": "^26.4.2",
     "react": "^16.13.1"
   },
   "engines": {

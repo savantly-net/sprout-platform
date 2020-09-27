@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { config } from '../../config';
+import config from '../../config';
 import { Icon, IconName } from '@grafana/ui';
 
 export interface FooterLink {

@@ -1,8 +1,6 @@
 import set from 'lodash/set';
 import { ComponentClass, ComponentType } from 'react';
-import { FieldConfigOptionsRegistry, standardFieldConfigEditorRegistry } from '../field';
 import {
-    FieldConfigProperty, FieldConfigSource,
     PanelEditorProps,
     PanelMigrationHandler,
     PanelOptionEditorsRegistry,
@@ -10,80 +8,12 @@ import {
     PanelProps,
     PanelTypeChangedHandler, SproutPlugin
 } from '../types';
-import { FieldConfigEditorBuilder, PanelOptionsEditorBuilder } from '../utils/OptionsUIBuilders';
+import { PanelOptionsEditorBuilder } from '../utils/OptionsUIBuilders';
   
-  export interface SetFieldConfigOptionsArgs<TFieldConfigOptions = any> {
-    /**
-     * Array of standard field config properties
-     *
-     * @example
-     * ```typescript
-     * {
-     *   standardOptions: [FieldConfigProperty.Min, FieldConfigProperty.Max, FieldConfigProperty.Unit]
-     * }
-     * ```
-     */
-    standardOptions?: FieldConfigProperty[];
-  
-    /**
-     * Object specifying standard option properties default values
-     *
-     * @example
-     * ```typescript
-     * {
-     *   standardOptionsDefaults: {
-     *     [FieldConfigProperty.Min]: 20,
-     *     [FieldConfigProperty.Max]: 100
-     *   }
-     * }
-     * ```
-     */
-    standardOptionsDefaults?: Partial<Record<FieldConfigProperty, any>>;
-  
-    /**
-     * Function that allows custom field config properties definition.
-     *
-     * @param builder
-     *
-     * @example
-     * ```typescript
-     * useCustomConfig: builder => {
-     *   builder
-     *    .addNumberInput({
-     *      id: 'shapeBorderWidth',
-     *      name: 'Border width',
-     *      description: 'Border width of the shape',
-     *      settings: {
-     *        min: 1,
-     *        max: 5,
-     *      },
-     *    })
-     *    .addSelect({
-     *      id: 'displayMode',
-     *      name: 'Display mode',
-     *      description: 'How the shape shout be rendered'
-     *      settings: {
-     *      options: [{value: 'fill', label: 'Fill' }, {value: 'transparent', label: 'Transparent }]
-     *    },
-     *  })
-     * }
-     * ```
-     */
-    useCustomConfig?: (builder: FieldConfigEditorBuilder<TFieldConfigOptions>) => void;
-  }
-  
-  export class PanelPlugin<TOptions = any, TFieldConfigOptions extends object = any> extends SproutPlugin<
+  export class PanelPlugin<TOptions = any> extends SproutPlugin<
     PanelPluginMeta
   > {
     private _defaults?: TOptions;
-    private _fieldConfigDefaults: FieldConfigSource<TFieldConfigOptions> = {
-      defaults: {},
-    };
-  
-    private _fieldConfigRegistry?: FieldConfigOptionsRegistry;
-    private _initConfigRegistry = () => {
-      return new FieldConfigOptionsRegistry();
-    };
   
     private _optionEditors?: PanelOptionEditorsRegistry;
     private registerOptionEditors?: (builder: PanelOptionsEditorBuilder<TOptions>) => void;
@@ -97,6 +27,10 @@ import { FieldConfigEditorBuilder, PanelOptionsEditorBuilder } from '../utils/Op
     constructor(panel: ComponentType<PanelProps<TOptions>> | null) {
       super();
       this.panel = panel;
+    }
+
+    set defaults(defaults: any) {
+      this._defaults = defaults;
     }
   
     get defaults() {
@@ -115,30 +49,7 @@ import { FieldConfigEditorBuilder, PanelOptionsEditorBuilder } from '../utils/Op
       }
       return result;
     }
-  
-    get fieldConfigDefaults(): FieldConfigSource<TFieldConfigOptions> {
-      const configDefaults = this._fieldConfigDefaults.defaults;
-      configDefaults.custom = {} as TFieldConfigOptions;
-  
-      for (const option of this.fieldConfigRegistry.list()) {
-        set(configDefaults, option.id, option.defaultValue);
-      }
-  
-      return {
-        defaults: {
-          ...configDefaults,
-        }
-      };
-    }
 
-    get fieldConfigRegistry() {
-      if (!this._fieldConfigRegistry) {
-        this._fieldConfigRegistry = this._initConfigRegistry();
-      }
-  
-      return this._fieldConfigRegistry;
-    }
-  
     get optionEditors(): PanelOptionEditorsRegistry {
       if (!this._optionEditors) {
         const builder = new PanelOptionsEditorBuilder<TOptions>();
@@ -216,107 +127,5 @@ import { FieldConfigEditorBuilder, PanelOptionsEditorBuilder } from '../utils/Op
       this.registerOptionEditors = builder;
       return this;
     }
-  
-    /**
-     * Allows specifying which standard field config options panel should use and defining default values
-     *
-     * @example
-     * ```typescript
-     *
-     * import { ShapePanel } from './ShapePanel';
-     *
-     * interface ShapePanelOptions {}
-     *
-     * // when plugin should use all standard options
-     * export const plugin = new PanelPlugin<ShapePanelOptions>(ShapePanel)
-     *  .useFieldConfig();
-     *
-     * // when plugin should only display specific standard options
-     * // note, that options will be displayed in the order they are provided
-     * export const plugin = new PanelPlugin<ShapePanelOptions>(ShapePanel)
-     *  .useFieldConfig({
-     *    standardOptions: [FieldConfigProperty.Min, FieldConfigProperty.Max]
-     *   });
-     *
-     * // when standard option's default value needs to be provided
-     * export const plugin = new PanelPlugin<ShapePanelOptions>(ShapePanel)
-     *  .useFieldConfig({
-     *    standardOptions: [FieldConfigProperty.Min, FieldConfigProperty.Max],
-     *    standardOptionsDefaults: {
-     *      [FieldConfigProperty.Min]: 20,
-     *      [FieldConfigProperty.Max]: 100
-     *    }
-     *  });
-     *
-     * // when custom field config options needs to be provided
-     * export const plugin = new PanelPlugin<ShapePanelOptions>(ShapePanel)
-     *  .useFieldConfig({
-     *    useCustomConfig: builder => {
-     *      builder
-     *       .addNumberInput({
-     *         id: 'shapeBorderWidth',
-     *         name: 'Border width',
-     *         description: 'Border width of the shape',
-     *         settings: {
-     *           min: 1,
-     *           max: 5,
-     *         },
-     *       })
-     *       .addSelect({
-     *         id: 'displayMode',
-     *         name: 'Display mode',
-     *         description: 'How the shape shout be rendered'
-     *         settings: {
-     *         options: [{value: 'fill', label: 'Fill' }, {value: 'transparent', label: 'Transparent }]
-     *       },
-     *     })
-     *   },
-     *  });
-     *
-     * ```
-     *
-     * @public
-     */
-    useFieldConfig(config?: SetFieldConfigOptionsArgs<TFieldConfigOptions>) {
-      // builder is applied lazily when custom field configs are accessed
-      this._initConfigRegistry = () => {
-        const registry = new FieldConfigOptionsRegistry();
-  
-        // Add custom options
-        if (config && config.useCustomConfig) {
-          const builder = new FieldConfigEditorBuilder<TFieldConfigOptions>();
-          config.useCustomConfig(builder);
-  
-          for (const customProp of builder.getRegistry().list()) {
-            customProp.isCustom = true;
-            customProp.category = [`${this.meta.name} options`].concat(customProp.category || []);
-            // need to do something to make the custom items not conflict with standard ones
-            // problem is id (registry index) is used as property path
-            // so sort of need a property path on the FieldPropertyEditorItem
-            customProp.id = 'custom.' + customProp.id;
-            registry.register(customProp);
-          }
-        }
-  
-        if (config && config.standardOptions) {
-          for (const standardOption of config.standardOptions) {
-            const standardEditor = standardFieldConfigEditorRegistry.get(standardOption);
-            registry.register({
-              ...standardEditor,
-              defaultValue:
-                (config.standardOptionsDefaults && config.standardOptionsDefaults[standardOption]) ||
-                standardEditor.defaultValue,
-            });
-          }
-        } else {
-          for (const fieldConfigProp of standardFieldConfigEditorRegistry.list()) {
-            registry.register(fieldConfigProp);
-          }
-        }
-  
-        return registry;
-      };
-  
-      return this;
-    }
+
   }

@@ -89,12 +89,12 @@ export function importAppPlugin(meta: PluginMeta): Promise<AppPlugin> {
   });
 }
 
-import { getPagePluginNotFound, getPagePluginLoadError } from './PagePluginError';
+import { getPanelPluginNotFound, getPanelPluginLoadError } from './PanelPluginError';
 
-interface PageCache {
+interface PanelCache {
   [key: string]: Promise<PanelPlugin>;
 }
-const panelCache: PageCache = {};
+const panelCache: PanelCache = {};
 
 export function importPanelPlugin(id: string): Promise<PanelPlugin> {
   const loaded = panelCache[id];
@@ -104,6 +104,7 @@ export function importPanelPlugin(id: string): Promise<PanelPlugin> {
   }
 
   // TODO ********* 
+  // Get panel meta information from API
   const meta: PanelPluginMeta = {
       baseUrl: '',
       id: '',
@@ -121,11 +122,12 @@ export function importPanelPlugin(id: string): Promise<PanelPlugin> {
       },
       module: '',
       name: '',
-      type: PluginType.panel
+      type: PluginType.panel,
+      sort: 0
   }; 
 
   if (!meta) {
-    return Promise.resolve(getPagePluginNotFound(id));
+    return Promise.resolve(getPanelPluginNotFound(id));
   }
 
   panelCache[id] = importPluginModule(meta.module)
@@ -142,7 +144,7 @@ export function importPanelPlugin(id: string): Promise<PanelPlugin> {
     .catch(err => {
       // TODO, maybe a different error plugin
       console.warn('Error loading panel plugin: ' + id, err);
-      return getPagePluginLoadError(meta, err);
+      return getPanelPluginLoadError(meta, err);
     });
 
   return panelCache[id];

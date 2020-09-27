@@ -5,10 +5,14 @@ import { NavIndex } from '@grafana/data';
 import { LocationState } from './location';
 import { AppNotificationsState } from './appNotifications';
 import { PluginsState } from './plugins';
+import { DashboardState } from '.';
+import { PanelEditorState } from '../features/dashboard/components/PanelEditor/state/reducers';
 
 export interface StoreState {
   navIndex: NavIndex;
   location: LocationState;
+  dashboard: DashboardState;
+  panelEditor: PanelEditorState;
   appNotifications: AppNotificationsState;
   plugins: PluginsState;
 }
