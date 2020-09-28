@@ -42,7 +42,8 @@
     "react": "^16.13.1",
     "react-app-rewired": "^2.1.6",
     "react-hot-loader": "^4.13.0",
-    "systemjs": "^6.6.1"},
+    "systemjs": "^6.6.1"
+  },
   "dependencies": {
   },
   "engines": {
