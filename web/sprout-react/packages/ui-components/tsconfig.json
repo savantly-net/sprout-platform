@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": "node_modules/@types",
+    "declarationDir": "dist",
+    "outDir": "compiled",
+    "paths": {
+      "@grafana/slate-react": ["slate-react"],
+      "@savantly/sprout-ui": ["."]
+    },
+    "rootDirs": [".", "stories"],
+    "typeRoots": ["node_modules/@types"]
+  },
+  "exclude": ["dist", "node_modules"],
+  "extends": "@savantly/sprout-tsconfig",
+  "include": ["src/**/*.ts*", "../../public/app/types/sanitize-url.d.ts", "../../public/app/types/svg.d.ts"]
+}

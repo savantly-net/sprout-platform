@@ -1,0 +1,2 @@
+export var renderGeneratedFileBanner = function (themeFile, templateFile) { return "/***\n * !!! THIS FILE WAS GENERATED AUTOMATICALLY !!!\n *\n * Do not modify this file!\n * - Edit " + themeFile + " to regenerate\n * - Edit " + templateFile + " to update template\n *\n * !!! THIS FILE WAS GENERATED AUTOMATICALLY !!!\n */\n"; };
+//# sourceMappingURL=generatedFileBanner.js.map
