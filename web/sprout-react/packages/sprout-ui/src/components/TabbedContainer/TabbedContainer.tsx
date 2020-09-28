@@ -3,7 +3,12 @@ import { css } from 'emotion';
 
 import { SelectableValue, GrafanaTheme } from '@savantly/sprout-api';
 import { stylesFactory, useTheme } from '../../themes';
-import { IconName, TabsBar, Tab, IconButton, CustomScrollbar, TabContent } from '../..';
+import { IconName } from '../../types/icon';
+import { TabsBar } from '../Tabs/TabsBar';
+import { Tab } from '../Tabs/Tab';
+import { IconButton } from '../IconButton/IconButton';
+import { CustomScrollbar } from '../CustomScrollbar/CustomScrollbar';
+import { TabContent } from '../Tabs/TabContent';
 
 export interface TabConfig {
   label: string;

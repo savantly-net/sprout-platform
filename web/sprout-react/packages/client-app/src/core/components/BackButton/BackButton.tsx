@@ -15,7 +15,7 @@ export const BackButton: React.FC<Props> = ({ surface, onClick }) => {
       size="xxl"
       surface={surface}
       aria-label={selectors.components.BackButton.backArrow}
-      onClick={onClick}
+      onClick={(e) => onClick ? onClick(e as any): {}}
     />
   );
 };

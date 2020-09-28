@@ -25,6 +25,17 @@ interface SavePackageOptions {
   pkg: {};
 }
 
+const isUIPackage = (pkg: any) => {
+  const _isUiPkg = pkg.name.endsWith('ui');
+  if(_isUiPkg){
+    console.log(chalk.green(`${pkg.name} is a UI package`));
+  } else {
+    console.log(chalk.yellow(`${pkg.name} not a UI package`));
+  }
+  
+ return _isUiPkg
+}
+
 // @ts-ignore
 export const savePackage = useSpinner<SavePackageOptions>(
   'Updating package.json',
@@ -52,7 +63,7 @@ const preparePackage = async (pkg: any) => {
 
   // Below we are adding cross-dependencies to Grafana's packages
   // with the version being published
-  if (name.endsWith('sprout-ui')) {
+  if (name.endsWith('/sprout-ui')) {
     deps['@savantly/sprout-api'] = version;
   } else if (name.endsWith('/sprout-runtime')) {
     deps['@savantly/sprout-api'] = version;
@@ -75,13 +86,18 @@ const moveFiles = () => {
   return useSpinner<void>(`Moving ${files.join(', ')} files`, async () => {
     const promises = files.map(file => {
       return new Promise((resolve, reject) => {
-        fs.copyFile(`${cwd}/${file}`, `${distDir}/${file}`, err => {
-          if (err) {
-            reject(err);
-            return;
-          }
+        if (fs.existsSync(`${cwd}/${file}`)) {
+          fs.copyFile(`${cwd}/${file}`, `${distDir}/${file}`, err => {
+            if (err) {
+              reject(err);
+              return;
+            }
+            resolve();
+          });
+        } else {
+          console.log(chalk.yellow(`warning: ${cwd}/${file} doesn't exist`));
           resolve();
-        });
+        }
       });
     });
 
@@ -90,8 +106,7 @@ const moveFiles = () => {
 };
 
 const moveStaticFiles = async (pkg: any, cwd: string) => {
-  if (pkg.name.endsWith('ui')) {
-    console.log('moving static files for package: ' + pkg.name);
+  if (isUIPackage(pkg)) {
     const staticFiles = await globby(resolvePath(process.cwd(), 'src/**/*.+(png|svg|gif|jpg)'));
     return useSpinner<void>(`Moving static files`, async () => {
       const promises = staticFiles.map(file => {

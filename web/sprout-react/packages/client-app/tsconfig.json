@@ -20,7 +20,7 @@
     "jsx": "react"
   },
   "include": [
-    "src", "../api"
+    "src", "../api/dist/index.d.ts", "../sprout-ui/dist/index.d.ts"
   ],
   "exclude": [
     "node_modules", "**/node_modules"

@@ -151,7 +151,7 @@ const AddPanelWidgetHandle: React.FC<AddPanelWidgetHandleProps> = ({ onCancel })
   const styles = getAddPanelWigetHandleStyles(theme);
   return (
     <div className={cx(styles.handle, 'grid-drag-handle')}>
-      <IconButton name="times" onClick={onCancel} surface="header" className="add-panel-widget__close" />
+      <IconButton name="times" onClick={(e) => onCancel(e as any)} surface="header" className="add-panel-widget__close" />
     </div>
   );
 };

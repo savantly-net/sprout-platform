@@ -3,6 +3,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import image from '@rollup/plugin-image';
 // import sourceMaps from 'rollup-plugin-sourcemaps';
 import { terser } from 'rollup-plugin-terser';
+import ignore from "rollup-plugin-ignore"
 
 const pkg = require('./package.json');
 
@@ -13,16 +14,17 @@ const buildCjsPackage = ({ env }) => {
     input: `compiled/index.js`,
     output: [
       {
-        dir: 'dist',
+        //dir: 'dist',
+        //chunkName: `[name].${env}.js`,
+        file: `dist/index.${env}.js`,
         name: libraryName,
         format: 'cjs',
         sourcemap: true,
         strict: false,
         exports: 'named',
-        chunkFileNames: `[name].${env}.js`,
         globals: {
           react: 'React',
-          'prop-types': 'PropTypes',
+          'prop-types': 'PropTypes'
         },
       },
     ],
@@ -43,7 +45,7 @@ const buildCjsPackage = ({ env }) => {
         // When 'rollup-plugin-commonjs' fails to properly convert the CommonJS modules to ES6 one has to manually name the exports
         // https://github.com/rollup/rollup-plugin-commonjs#custom-named-exports
         namedExports: {
-          '../../node_modules/lodash/lodash.js': [
+          'node_modules/lodash/lodash.js': [
             'flatten',
             'find',
             'upperFirst',
@@ -82,12 +84,18 @@ const buildCjsPackage = ({ env }) => {
             'useAbsoluteLayout',
             'useFilters',
           ],
-          '../../node_modules/react-is/index.js': ['isValidElementType', 'isContextConsumer'],
+          '../../node_modules/react-is/index.js': ['isValidElementType', 'isContextConsumer', 'isMemo'],
         },
       }),
-      resolve(),
-      // sourceMaps(),
+      resolve({
+        browser: false,
+        customResolveOptions: {
+            moduleDirectory: 'node_modules',
+        }
+      }),
+      //sourceMaps(),
       image(),
+      ignore(['indexof']),
       env === 'production' && terser(),
     ],
   };

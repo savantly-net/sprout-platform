@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Button, VerticalGroup } from '@savantly/sprout-ui';
 
-import { Layout } from '@savantly/sprout-ui/components/Layout/Layout';
+import { Layout } from '@savantly/sprout-ui';
 import { PanelEditorTabId } from './types';
 import { updateLocation } from '../../../../core/actions';
 
