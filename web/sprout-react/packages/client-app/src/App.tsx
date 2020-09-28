@@ -1,3 +1,4 @@
+import { getTheme, ThemeContext } from "@grafana/ui";
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
@@ -15,9 +16,9 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Page navModel={navModel}>
-        <div className="App">
-          <header className="App-header">
+      <ThemeContext.Provider value={getTheme("dark")}>
+        <Page navModel={navModel}>
+          <header>
             <img src={logo} className="App-logo" alt="logo" />
             <p>
               Edit <code>src/App.tsx</code> and save to reload.
@@ -31,8 +32,8 @@ function App() {
               Learn React
             </a>
           </header>
-        </div>
-      </Page>
+        </Page>
+      </ThemeContext.Provider>
     </BrowserRouter>
   );
 }

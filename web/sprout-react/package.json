@@ -7,7 +7,8 @@
   "repository": "github:savantly/sprout-platform",
   "scripts": {
     "install": "npx lerna bootstrap",
-    "clean": "npx lerna run clean && rm -rf node_modules",
+    "clean": "npx lerna run clean ",
+    "clean:hard": "rm -rf ./packages/api/node_modules && rm -rf ./packages/runtime/node_modules && rm -rf ./packages/client-app/node_modules && rm -rf ./node_modules",
     "build": "yarn packages:build",
     "packages:build": "lerna run clean && lerna run build",
     "packages:prepare": "lerna version --no-push --no-git-tag-version --force-publish --exact",

@@ -8849,15 +8849,6 @@ get-window@^1.1.1:
   dependencies:
     get-document "1"
 
-get-yarn-workspaces@^1.0.0:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/get-yarn-workspaces/-/get-yarn-workspaces-1.0.2.tgz#81591bdb392f1c6bac09cdc8491a6d275781aa44"
-  integrity sha512-Auel048Uclfgr74oNXKZWH30UgKDZXQdfUfgD9iWXdoUGJpeWg9lSuX/FZkQ6RB3KnBfAaf70xQXfwOjiE9rPw==
-  dependencies:
-    find-root "^1.1.0"
-    flatten "^1.0.2"
-    glob "^7.1.2"
-
 getpass@^0.1.1:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/getpass/-/getpass-0.1.7.tgz#5eff8e3e684d569ae4cb2b1282604e8ba62149fa"
@@ -14820,13 +14811,6 @@ react-app-polyfill@^1.0.6:
     raf "^3.4.1"
     regenerator-runtime "^0.13.3"
     whatwg-fetch "^3.0.0"
-
-react-app-rewire-yarn-workspaces@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/react-app-rewire-yarn-workspaces/-/react-app-rewire-yarn-workspaces-1.0.3.tgz#6b4c243ff93d8070b8b180e30e309992232acfa9"
-  integrity sha512-51XoM5/MTKny0HmCW635IHfYlbbYdyYH4bZtY3eTs7OQH/5CAGLpfECuyc5xSLhNqqUtIBnDK7kbPxaQL6YLBw==
-  dependencies:
-    get-yarn-workspaces "^1.0.0"
 
 react-app-rewired@^2.1.6:
   version "2.1.6"
