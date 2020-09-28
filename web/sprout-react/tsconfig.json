@@ -5,6 +5,7 @@
     "outDir": "packages/client-app/dist",
     "paths": {
       "@grafana/slate-react": ["../node_modules/@types/slate-react"],
+      "app": ["packages/client-app/src"],
       "sass": ["sass/"]
     },
     "rootDirs": ["packages/client-app/"],
@@ -14,5 +15,6 @@
   },
   "extends": "@savantly/sprout-tsconfig/base.json",
   "include": [
+    "packages/client-app/src/**/*.ts*",
   ]
 }

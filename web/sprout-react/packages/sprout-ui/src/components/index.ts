@@ -112,7 +112,7 @@ export { default as resetSelectStyles } from './Select/resetSelectStyles';
 export * from './Select/Select';
 export { ButtonSelect } from './Select/ButtonSelect';
 
-export { HorizontalGroup, VerticalGroup, Container } from './Layout/Layout';
+export { HorizontalGroup, VerticalGroup, Container, Layout, ContainerProps, LayoutProps } from './Layout/Layout';
 export { Badge, BadgeColor, BadgeProps } from './Badge/Badge';
 export { RadioButtonGroup } from './Forms/RadioButtonGroup/RadioButtonGroup';
 

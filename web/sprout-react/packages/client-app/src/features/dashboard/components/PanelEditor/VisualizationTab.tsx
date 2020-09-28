@@ -1,5 +1,5 @@
 import { Icon, Input, stylesFactory, useTheme } from '@savantly/sprout-ui';
-import { Field } from '@savantly/sprout-ui/components/Forms/Field';
+import { Field } from '@savantly/sprout-ui';
 import { GrafanaTheme, PanelPlugin, PanelPluginMeta } from '@savantly/sprout-api';
 import { css } from 'emotion';
 import React, { useCallback, useState } from 'react';
