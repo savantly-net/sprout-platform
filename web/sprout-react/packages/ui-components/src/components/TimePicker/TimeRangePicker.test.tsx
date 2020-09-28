@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { UnthemedTimeRangePicker } from './TimeRangePicker';
-import { dateTime, TimeRange } from '@grafana/data';
+import { dateTime, TimeRange } from '@savantly/sprout-api';
 import dark from '../../themes/dark';
 
 const from = '2019-12-17T07:48:27.433Z';

@@ -2,7 +2,7 @@ import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 import { NamedColorsPalette } from './NamedColorsPalette';
 import { ColorSwatch } from './NamedColorsGroup';
-import { getColorDefinitionByName, GrafanaThemeType } from '@grafana/data';
+import { getColorDefinitionByName, GrafanaThemeType } from '@savantly/sprout-api';
 import { getTheme } from '../../themes';
 
 describe('NamedColorsPalette', () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { LinkTarget } from '@grafana/data';
+import { LinkTarget } from '@savantly/sprout-api';
 export interface ContextMenuItem {
     label: string;
     target?: LinkTarget;

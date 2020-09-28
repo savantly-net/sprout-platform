@@ -1,6 +1,6 @@
 import React from 'react';
 import { InfoBox, InfoBoxProps } from './InfoBox';
-import { FeatureState, GrafanaTheme } from '@grafana/data';
+import { FeatureState, GrafanaTheme } from '@savantly/sprout-api';
 import { stylesFactory, useTheme } from '../../themes';
 import { Badge, BadgeProps } from '../Badge/Badge';
 import { css } from 'emotion';

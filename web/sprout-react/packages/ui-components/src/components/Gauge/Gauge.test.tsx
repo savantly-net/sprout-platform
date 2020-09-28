@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import { Gauge, Props } from './Gauge';
 import { getTheme } from '../../themes';
-import { ThresholdsMode, FieldConfig } from '@grafana/data';
+import { ThresholdsMode, FieldConfig } from '@savantly/sprout-api';
 
 jest.mock('jquery', () => ({
   plot: jest.fn(),

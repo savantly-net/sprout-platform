@@ -1,4 +1,4 @@
-import { GrafanaThemeType } from '@grafana/data';
+import { GrafanaThemeType } from '@savantly/sprout-api';
 import { selectThemeVariant } from './selectThemeVariant';
 import { mockTheme } from './index';
 

@@ -16,7 +16,7 @@ import { css, cx } from 'emotion';
 import { SlatePrism } from '../../slate-plugins';
 import { SCHEMA } from '../../utils/slate';
 import { stylesFactory } from '../../themes';
-import { GrafanaTheme, VariableSuggestion, VariableOrigin, DataLinkBuiltInVars } from '@grafana/data';
+import { GrafanaTheme, VariableSuggestion, VariableOrigin, DataLinkBuiltInVars } from '@savantly/sprout-api';
 
 const modulo = (a: number, n: number) => a - n * Math.floor(a / n);
 

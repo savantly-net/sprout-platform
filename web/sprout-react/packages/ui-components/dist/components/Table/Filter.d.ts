@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Field } from '@grafana/data';
+import { Field } from '@savantly/sprout-api';
 import { TableStyles } from './styles';
 interface Props {
     column: any;

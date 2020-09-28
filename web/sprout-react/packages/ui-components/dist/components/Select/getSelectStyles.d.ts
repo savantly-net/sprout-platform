@@ -1,4 +1,4 @@
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 export declare const getSelectStyles: (theme: GrafanaTheme) => {
     menu: string;
     option: string;

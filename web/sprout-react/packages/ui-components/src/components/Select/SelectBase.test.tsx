@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 import { SelectBase } from './SelectBase';
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 import { MultiValueContainer } from './MultiValue';
 
 const onChangeHandler = () => jest.fn();

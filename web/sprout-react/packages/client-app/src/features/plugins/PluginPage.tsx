@@ -1,5 +1,5 @@
 // Libraries
-import { Alert, Tooltip } from '@grafana/ui';
+import { Alert, Tooltip } from '@savantly/sprout-ui';
 // Types
 import {
   NavModel,

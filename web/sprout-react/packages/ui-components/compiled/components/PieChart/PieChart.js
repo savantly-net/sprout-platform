@@ -2,7 +2,7 @@ import { __extends } from "tslib";
 import React, { PureComponent } from 'react';
 import { select, pie, arc, event } from 'd3';
 import sum from 'lodash/sum';
-import { GrafanaThemeType, formattedValueToString } from '@grafana/data';
+import { GrafanaThemeType, formattedValueToString } from '@savantly/sprout-api';
 import { colors as grafana_colors } from '../../utils/index';
 export var PieChartType;
 (function (PieChartType) {

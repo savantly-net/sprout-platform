@@ -7,7 +7,7 @@ import {
   getColorFromHexRgbOrName,
   GrafanaThemeType,
   Field,
-} from '@grafana/data';
+} from '@savantly/sprout-api';
 import { getMultiSeriesGraphHoverInfo, findHoverIndexFromData, graphTimeFormat } from './utils';
 
 const mockResult = (

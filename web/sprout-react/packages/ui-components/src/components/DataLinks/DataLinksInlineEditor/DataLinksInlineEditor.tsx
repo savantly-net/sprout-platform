@@ -1,4 +1,4 @@
-import { DataFrame, DataLink, GrafanaTheme, VariableSuggestion } from '@grafana/data';
+import { DataFrame, DataLink, GrafanaTheme, VariableSuggestion } from '@savantly/sprout-api';
 import React, { useState } from 'react';
 import { css } from 'emotion';
 import { Button } from '../../Button/Button';

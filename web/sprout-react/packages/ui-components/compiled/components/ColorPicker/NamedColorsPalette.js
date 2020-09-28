@@ -1,5 +1,5 @@
 import React from 'react';
-import { getNamedColorPalette } from '@grafana/data';
+import { getNamedColorPalette } from '@savantly/sprout-api';
 import NamedColorsGroup from './NamedColorsGroup';
 export var NamedColorsPalette = function (_a) {
     var color = _a.color, onChange = _a.onChange, theme = _a.theme;

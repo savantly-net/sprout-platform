@@ -18,7 +18,7 @@ export interface State {
     typeaheadIndex: number | null;
 }
 export declare class Typeahead extends React.PureComponent<Props, State> {
-    static contextType: React.Context<import("@grafana/data").GrafanaTheme>;
+    static contextType: React.Context<import("@savantly/sprout-api").GrafanaTheme>;
     context: React.ContextType<typeof ThemeContext>;
     listRef: React.RefObject<any>;
     state: State;

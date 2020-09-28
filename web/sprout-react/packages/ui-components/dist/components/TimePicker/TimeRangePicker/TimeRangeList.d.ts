@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
-import { TimeOption, TimeZone } from '@grafana/data';
-import { TimeRange } from '@grafana/data';
+import { TimeOption, TimeZone } from '@savantly/sprout-api';
+import { TimeRange } from '@savantly/sprout-api';
 interface Props {
     title?: string;
     options: TimeOption[];

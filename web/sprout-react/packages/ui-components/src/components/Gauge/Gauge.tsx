@@ -8,7 +8,7 @@ import {
   ThresholdsMode,
   getActiveThreshold,
   Threshold,
-} from '@grafana/data';
+} from '@savantly/sprout-api';
 import { Themeable } from '../../types';
 import { selectThemeVariant } from '../../themes';
 

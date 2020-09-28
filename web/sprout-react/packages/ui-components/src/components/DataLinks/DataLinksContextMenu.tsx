@@ -1,6 +1,6 @@
 import React from 'react';
 import { WithContextMenu } from '../ContextMenu/WithContextMenu';
-import { LinkModel } from '@grafana/data';
+import { LinkModel } from '@savantly/sprout-api';
 import { linkModelToContextMenuItems } from '../../utils/dataLinks';
 import { css } from 'emotion';
 

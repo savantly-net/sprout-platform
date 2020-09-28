@@ -1,5 +1,5 @@
 import React from 'react';
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 interface CascaderProps {
     /** The separator between levels in the search */
     separator?: string;

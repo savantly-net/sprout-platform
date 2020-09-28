@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { css } from 'emotion';
-import { TimeOption, TimeZone } from '@grafana/data';
-import { TimeRange } from '@grafana/data';
+import { TimeOption, TimeZone } from '@savantly/sprout-api';
+import { TimeRange } from '@savantly/sprout-api';
 import { TimePickerTitle } from './TimePickerTitle';
 import { TimeRangeOption } from './TimeRangeOption';
 import { mapOptionToTimeRange } from './mapper';

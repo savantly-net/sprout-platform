@@ -1,4 +1,4 @@
-import { TimeOption, TimeRange, TimeZone } from '@grafana/data';
+import { TimeOption, TimeRange, TimeZone } from '@savantly/sprout-api';
 import React from 'react';
 interface Props {
     value: TimeRange;

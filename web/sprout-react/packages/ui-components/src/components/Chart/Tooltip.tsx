@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from 'emotion';
 import { Portal } from '../Portal/Portal';
-import { Dimensions, TimeZone } from '@grafana/data';
+import { Dimensions, TimeZone } from '@savantly/sprout-api';
 import { FlotPosition } from '../Graph/types';
 import { TooltipContainer } from './TooltipContainer';
 

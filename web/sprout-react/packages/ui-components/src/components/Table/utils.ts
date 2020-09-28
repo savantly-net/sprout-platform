@@ -8,7 +8,7 @@ import {
   formattedValueToString,
   getFieldDisplayName,
   SelectableValue,
-} from '@grafana/data';
+} from '@savantly/sprout-api';
 
 import { DefaultCell } from './DefaultCell';
 import { BarGaugeCell } from './BarGaugeCell';

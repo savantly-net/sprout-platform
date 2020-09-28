@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { TimeZone } from '@grafana/data';
+import { TimeZone } from '@savantly/sprout-api';
 interface Props {
     timeZone?: TimeZone;
     timestamp?: number;

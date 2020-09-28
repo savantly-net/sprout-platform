@@ -1,7 +1,7 @@
 import { __assign, __makeTemplateObject } from "tslib";
 import React from 'react';
 import { css, cx } from 'emotion';
-import { getTimeZoneInfo } from '@grafana/data';
+import { getTimeZoneInfo } from '@savantly/sprout-api';
 import { useTheme } from '../../../themes/ThemeContext';
 import { stylesFactory } from '../../../themes/stylesFactory';
 import { Icon } from '../../Icon/Icon';

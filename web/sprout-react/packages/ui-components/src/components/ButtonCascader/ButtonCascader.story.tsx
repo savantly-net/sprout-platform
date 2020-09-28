@@ -1,7 +1,7 @@
 import React from 'react';
 import { withKnobs, text, boolean, object, select } from '@storybook/addon-knobs';
 import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
-import { ButtonCascader } from '@grafana/ui';
+import { ButtonCascader } from '@savantly/sprout-ui';
 
 export default {
   title: 'Forms/Cascader/ButtonCascader',

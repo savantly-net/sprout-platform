@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataFrame, CSVConfig } from '@grafana/data';
+import { DataFrame, CSVConfig } from '@savantly/sprout-api';
 interface Props {
     config?: CSVConfig;
     text: string;

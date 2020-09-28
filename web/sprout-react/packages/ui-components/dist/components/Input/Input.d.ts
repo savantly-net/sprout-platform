@@ -1,5 +1,5 @@
 import React, { HTMLProps, ReactNode } from 'react';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 export interface Props extends Omit<HTMLProps<HTMLInputElement>, 'prefix' | 'size'> {
     /** Sets the width to a multiple of 8px. Should only be used with inline forms. Setting width of the container is preferred in other cases.*/
     width?: number;

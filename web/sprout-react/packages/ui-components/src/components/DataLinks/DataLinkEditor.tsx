@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useContext } from 'react';
-import { VariableSuggestion, GrafanaTheme, DataLink } from '@grafana/data';
+import { VariableSuggestion, GrafanaTheme, DataLink } from '@savantly/sprout-api';
 import { Switch } from '../Switch/Switch';
 import { css } from 'emotion';
 import { ThemeContext, stylesFactory } from '../../themes/index';

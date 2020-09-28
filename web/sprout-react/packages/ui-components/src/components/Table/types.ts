@@ -1,5 +1,5 @@
 import { CellProps } from 'react-table';
-import { Field } from '@grafana/data';
+import { Field } from '@savantly/sprout-api';
 import { TableStyles } from './styles';
 import { CSSProperties, FC } from 'react';
 

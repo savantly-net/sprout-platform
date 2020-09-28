@@ -1,6 +1,6 @@
 import darkTheme from './dark';
 import lightTheme from './light';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 
 let themeMock: ((name?: string) => GrafanaTheme) | null;
 

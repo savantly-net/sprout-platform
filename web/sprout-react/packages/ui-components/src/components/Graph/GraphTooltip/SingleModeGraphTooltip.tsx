@@ -5,7 +5,7 @@ import {
   formattedValueToString,
   getDisplayProcessor,
   getFieldDisplayName,
-} from '@grafana/data';
+} from '@savantly/sprout-api';
 import { SeriesTable } from './SeriesTable';
 import { GraphTooltipContentProps } from './types';
 

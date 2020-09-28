@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { cx } from 'emotion';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { withTheme } from '../../themes/ThemeContext';
 import { getSelectStyles } from './getSelectStyles';
 

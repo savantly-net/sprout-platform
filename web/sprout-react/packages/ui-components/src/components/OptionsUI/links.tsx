@@ -4,7 +4,7 @@ import {
   DataLinksFieldConfigSettings,
   FieldConfigEditorProps,
   VariableSuggestionsScope,
-} from '@grafana/data';
+} from '@savantly/sprout-api';
 import { DataLinksInlineEditor } from '../DataLinks/DataLinksInlineEditor/DataLinksInlineEditor';
 
 export const DataLinksValueEditor: React.FC<FieldConfigEditorProps<DataLink[], DataLinksFieldConfigSettings>> = ({

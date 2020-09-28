@@ -1,5 +1,5 @@
 import React from 'react';
-import { Color, getNamedColorPalette } from '@grafana/data';
+import { Color, getNamedColorPalette } from '@savantly/sprout-api';
 import { Themeable } from '../../types/index';
 import NamedColorsGroup from './NamedColorsGroup';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldConfigEditorProps, ReducerID } from '@grafana/data';
+import { FieldConfigEditorProps, ReducerID } from '@savantly/sprout-api';
 import { StatsPicker } from '../StatsPicker/StatsPicker';
 
 export const StatsPickerEditor: React.FC<FieldConfigEditorProps<string[], any>> = ({ value, onChange }) => {

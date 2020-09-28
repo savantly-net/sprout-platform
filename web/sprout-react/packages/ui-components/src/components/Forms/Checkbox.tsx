@@ -1,5 +1,5 @@
 import React, { HTMLProps, useCallback } from 'react';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { getLabelStyles } from './Label';
 import { useTheme, stylesFactory } from '../../themes';
 import { css, cx } from 'emotion';

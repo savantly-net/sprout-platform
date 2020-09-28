@@ -1,4 +1,4 @@
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import React from 'react';
 import { Themeable } from '../types/theme';
 export declare const memoizedStyleCreators: WeakMap<object, any>;

@@ -1,7 +1,7 @@
 import { __extends } from "tslib";
 import React, { PureComponent } from 'react';
 import { Cascader } from '../Cascader/Cascader';
-import { getValueFormats } from '@grafana/data';
+import { getValueFormats } from '@savantly/sprout-api';
 function formatCreateLabel(input) {
     return "Custom unit: " + input;
 }

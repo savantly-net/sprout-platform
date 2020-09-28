@@ -1,5 +1,5 @@
 import React from 'react';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { css } from 'emotion';
 import { selectThemeVariant, stylesFactory, useTheme } from '../../themes';
 import { Label } from '../Forms/Label';

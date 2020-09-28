@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { MultiModeGraphTooltip } from './MultiModeGraphTooltip';
-import { createDimension, ArrayVector, FieldType } from '@grafana/data';
+import { createDimension, ArrayVector, FieldType } from '@savantly/sprout-api';
 import { GraphDimensions } from './types';
 import { ActiveDimensions } from '../../Chart/Tooltip';
 

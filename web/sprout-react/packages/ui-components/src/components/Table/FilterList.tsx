@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useMemo, useState } from 'react';
 import { FixedSizeList as List } from 'react-window';
 import { css } from 'emotion';
-import { GrafanaTheme, SelectableValue } from '@grafana/data';
+import { GrafanaTheme, SelectableValue } from '@savantly/sprout-api';
 
 import { stylesFactory, useTheme } from '../../themes';
 import { Checkbox, Input, Label, VerticalGroup } from '..';

@@ -1,5 +1,5 @@
 import React, { FC, FormEvent, useCallback, useState } from 'react';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { css, cx } from 'emotion';
 import { getFormStyles, Icon } from '../index';
 import { stylesFactory, useTheme } from '../../themes';

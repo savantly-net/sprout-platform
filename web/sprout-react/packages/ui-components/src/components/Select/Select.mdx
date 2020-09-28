@@ -43,7 +43,7 @@ const options = [
 Creatable option is used when you want to be able to add a custom value to the list of options. `allowCustomValue` needs to be true and you must handle the value creation with `onCreateOption`.
 
 ```jsx
-import { Select } from "@grafana/ui";
+import { Select } from "@savantly/sprout-ui";
 
 const SelectComponent = () => {
   const [value, setValue] = useState<SelectableValue<number>>();
@@ -67,7 +67,7 @@ Like regular Select, but handles fetching options asynchronously. Use the `loadO
 
 ```jsx
 
-import { AsyncSelect } from '@grafana/ui';
+import { AsyncSelect } from '@savantly/sprout-ui';
 
 const basicSelectAsync = () => {
   const [value, setValue] = useState<SelectableValue<string>>();
@@ -103,7 +103,7 @@ const loadAsyncOptions = () => {
 Possible to Select multiple values at the same time.
 
 ```tsx
-import { MultiSelect } from "@grafana/ui";
+import { MultiSelect } from "@savantly/sprout-ui";
 
 const multiSelect = () => {
   const [value, setValue] = useState<Array<SelectableValue<string>>>([]);

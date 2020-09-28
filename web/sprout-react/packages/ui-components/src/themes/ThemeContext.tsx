@@ -1,4 +1,4 @@
-import { GrafanaTheme, GrafanaThemeType } from '@grafana/data';
+import { GrafanaTheme, GrafanaThemeType } from '@savantly/sprout-api';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import React, { useContext, useEffect } from 'react';
 import { Themeable } from '../types/theme';

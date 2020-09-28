@@ -1,5 +1,5 @@
 import React, { FormEvent } from 'react';
-import { DateTime, TimeZone } from '@grafana/data';
+import { DateTime, TimeZone } from '@savantly/sprout-api';
 interface Props {
     isOpen: boolean;
     from: DateTime;

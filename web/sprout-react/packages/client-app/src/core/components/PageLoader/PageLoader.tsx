@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { LoadingPlaceholder } from '@grafana/ui';
+import { LoadingPlaceholder } from '@savantly/sprout-ui';
 
 interface Props {
   pageName?: string;

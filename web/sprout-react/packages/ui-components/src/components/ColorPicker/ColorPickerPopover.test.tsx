@@ -4,7 +4,7 @@ import { ColorPickerPopover } from './ColorPickerPopover';
 import { ColorSwatch } from './NamedColorsGroup';
 import flatten from 'lodash/flatten';
 import { getTheme } from '../../themes';
-import { GrafanaThemeType, getColorDefinitionByName, getNamedColorPalette } from '@grafana/data';
+import { GrafanaThemeType, getColorDefinitionByName, getNamedColorPalette } from '@savantly/sprout-api';
 
 const allColors = flatten(Array.from(getNamedColorPalette().values()));
 

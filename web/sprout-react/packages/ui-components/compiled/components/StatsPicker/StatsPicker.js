@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import isArray from 'lodash/isArray';
 import difference from 'lodash/difference';
 import { Select } from '../Select/Select';
-import { fieldReducers } from '@grafana/data';
+import { fieldReducers } from '@savantly/sprout-api';
 var StatsPicker = /** @class */ (function (_super) {
     __extends(StatsPicker, _super);
     function StatsPicker() {

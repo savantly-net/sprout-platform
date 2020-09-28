@@ -1,9 +1,9 @@
 import React, { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
-import { Button, VerticalGroup } from '@grafana/ui';
+import { Button, VerticalGroup } from '@savantly/sprout-ui';
 
-import { Layout } from '@grafana/ui/components/Layout/Layout';
+import { Layout } from '@savantly/sprout-ui/components/Layout/Layout';
 import { PanelEditorTabId } from './types';
 import { updateLocation } from '../../../../core/actions';
 

@@ -1,4 +1,4 @@
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 import { kebabCase } from 'lodash';
 
 export const generateOptions = (desc = false) => {

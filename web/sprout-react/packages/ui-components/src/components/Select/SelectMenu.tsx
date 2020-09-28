@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from '../../themes/ThemeContext';
 import { getSelectStyles } from './getSelectStyles';
 import { cx } from 'emotion';
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 import { Icon } from '../Icon/Icon';
 import { CustomScrollbar } from '../CustomScrollbar/CustomScrollbar';
 

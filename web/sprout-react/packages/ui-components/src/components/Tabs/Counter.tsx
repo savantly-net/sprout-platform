@@ -1,7 +1,7 @@
 import React, { FC, useContext } from 'react';
 import { css } from 'emotion';
 import { stylesFactory, ThemeContext } from '../../themes';
-import { GrafanaTheme, locale } from '@grafana/data';
+import { GrafanaTheme, locale } from '@savantly/sprout-api';
 
 const getStyles = stylesFactory((theme: GrafanaTheme) => {
   return {

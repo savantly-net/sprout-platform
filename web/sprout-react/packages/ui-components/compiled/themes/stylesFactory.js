@@ -1,5 +1,5 @@
 import memoizeOne from 'memoize-one';
-// import { KeyValue } from '@grafana/data';
+// import { KeyValue } from '@savantly/sprout-api';
 /**
  *  Creates memoized version of styles creator
  * @param stylesCreator function accepting dependencies based on which styles are created

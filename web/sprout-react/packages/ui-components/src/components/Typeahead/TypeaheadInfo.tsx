@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { css, cx } from 'emotion';
 
 import { CompletionItem, selectThemeVariant, ThemeContext } from '../..';
-import { GrafanaTheme, renderMarkdown, textUtil } from '@grafana/data';
+import { GrafanaTheme, renderMarkdown, textUtil } from '@savantly/sprout-api';
 
 const getStyles = (theme: GrafanaTheme, height: number, visible: boolean) => {
   return {

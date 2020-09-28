@@ -1,6 +1,6 @@
 import { __assign, __values } from "tslib";
 import React, { memo, useCallback, useMemo } from 'react';
-import { getFieldDisplayName } from '@grafana/data';
+import { getFieldDisplayName } from '@savantly/sprout-api';
 import { useAbsoluteLayout, useFilters, useResizeColumns, useSortBy, useTable, } from 'react-table';
 import { FixedSizeList } from 'react-window';
 import { getColumns } from './utils';

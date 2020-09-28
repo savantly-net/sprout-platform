@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { TimePickerContentWithScreenSize } from './TimePickerContent';
-import { dateTime, TimeRange } from '@grafana/data';
+import { dateTime, TimeRange } from '@savantly/sprout-api';
 
 describe('TimePickerContent', () => {
   it('renders correctly in full screen', () => {

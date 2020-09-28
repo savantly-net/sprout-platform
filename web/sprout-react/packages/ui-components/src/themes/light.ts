@@ -1,5 +1,5 @@
 import defaultTheme, { commonColorsPalette } from './default';
-import { GrafanaThemeType, GrafanaTheme } from '@grafana/data';
+import { GrafanaThemeType, GrafanaTheme } from '@savantly/sprout-api';
 
 const basicColors = {
   ...commonColorsPalette,

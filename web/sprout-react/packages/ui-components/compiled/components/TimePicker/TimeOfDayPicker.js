@@ -2,7 +2,7 @@ import { __makeTemplateObject } from "tslib";
 import React from 'react';
 import RcTimePicker from 'rc-time-picker';
 import { css, cx } from 'emotion';
-import { dateTime, dateTimeAsMoment } from '@grafana/data';
+import { dateTime, dateTimeAsMoment } from '@savantly/sprout-api';
 import { useTheme, Icon } from '../../index';
 import { stylesFactory } from '../../themes';
 import { inputSizes } from '../Forms/commonStyles';

@@ -1,6 +1,6 @@
 import React from 'react';
 import debounce from 'lodash/debounce';
-import { DataFrame, CSVConfig, readCSV } from '@grafana/data';
+import { DataFrame, CSVConfig, readCSV } from '@savantly/sprout-api';
 import { Icon } from '../Icon/Icon';
 
 interface Props {

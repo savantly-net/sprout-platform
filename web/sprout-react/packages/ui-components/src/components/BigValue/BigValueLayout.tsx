@@ -4,7 +4,7 @@ import tinycolor from 'tinycolor2';
 import { Chart, Geom } from 'bizcharts';
 
 // Utils
-import { getColorFromHexRgbOrName, formattedValueToString, DisplayValue } from '@grafana/data';
+import { getColorFromHexRgbOrName, formattedValueToString, DisplayValue } from '@savantly/sprout-api';
 import { calculateFontSize } from '../../utils/measureText';
 
 // Types

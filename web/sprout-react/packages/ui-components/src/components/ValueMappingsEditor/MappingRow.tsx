@@ -3,7 +3,7 @@ import { HorizontalGroup } from '../Layout/Layout';
 import { IconButton, Label, RadioButtonGroup } from '../index';
 import { Field } from '../Forms/Field';
 import { Input } from '../Input/Input';
-import { MappingType, RangeMap, SelectableValue, ValueMap, ValueMapping } from '@grafana/data';
+import { MappingType, RangeMap, SelectableValue, ValueMap, ValueMapping } from '@savantly/sprout-api';
 
 export interface Props {
   valueMapping: ValueMapping;

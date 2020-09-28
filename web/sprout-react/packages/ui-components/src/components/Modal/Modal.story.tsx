@@ -3,7 +3,7 @@ import { oneLineTrim } from 'common-tags';
 import { text, boolean } from '@storybook/addon-knobs';
 import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
 import { UseState } from '../../utils/storybook/UseState';
-import { Modal, Icon, TabContent, ModalTabsHeader } from '@grafana/ui';
+import { Modal, Icon, TabContent, ModalTabsHeader } from '@savantly/sprout-ui';
 import mdx from './Modal.mdx';
 
 const getKnobs = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Graph } from '@grafana/ui';
+import { Graph } from '@savantly/sprout-ui';
 import Chart from '../Chart';
-import { dateTime, ArrayVector, FieldType, GraphSeriesXY, FieldColorMode } from '@grafana/data';
+import { dateTime, ArrayVector, FieldType, GraphSeriesXY, FieldColorMode } from '@savantly/sprout-api';
 import { select } from '@storybook/addon-knobs';
 import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
 import { TooltipContentProps } from '../Chart/Tooltip';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldConfigEditorProps, SelectFieldConfigSettings, SelectableValue } from '@grafana/data';
+import { FieldConfigEditorProps, SelectFieldConfigSettings, SelectableValue } from '@savantly/sprout-api';
 import { Select } from '../Select/Select';
 
 interface State<T> {

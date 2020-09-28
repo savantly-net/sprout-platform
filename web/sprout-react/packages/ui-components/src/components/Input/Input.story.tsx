@@ -3,8 +3,8 @@ import { boolean, text, select, number } from '@storybook/addon-knobs';
 import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
 import mdx from './Input.mdx';
 import { getAvailableIcons, IconName } from '../../types';
-import { KeyValue } from '@grafana/data';
-import { Field, Icon, Button, Input } from '@grafana/ui';
+import { KeyValue } from '@savantly/sprout-api';
+import { Field, Icon, Button, Input } from '@savantly/sprout-ui';
 
 export default {
   title: 'Forms/Input',

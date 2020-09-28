@@ -1,4 +1,4 @@
-import { dateTime } from '@grafana/data';
+import { dateTime } from '@savantly/sprout-api';
 
 import { inputToValue } from './TimePickerCalendar';
 

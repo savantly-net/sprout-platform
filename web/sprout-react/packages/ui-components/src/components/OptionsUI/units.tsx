@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FieldConfigEditorProps, UnitFieldConfigSettings } from '@grafana/data';
+import { FieldConfigEditorProps, UnitFieldConfigSettings } from '@savantly/sprout-api';
 import { UnitPicker } from '../UnitPicker/UnitPicker';
 
 export const UnitValueEditor: React.FC<FieldConfigEditorProps<string, UnitFieldConfigSettings>> = ({

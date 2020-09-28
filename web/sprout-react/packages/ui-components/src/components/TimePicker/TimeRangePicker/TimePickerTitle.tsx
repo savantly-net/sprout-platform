@@ -1,6 +1,6 @@
 import React, { memo, PropsWithChildren } from 'react';
 import { css } from 'emotion';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { useTheme, stylesFactory } from '../../../themes';
 
 const getStyle = stylesFactory((theme: GrafanaTheme) => {

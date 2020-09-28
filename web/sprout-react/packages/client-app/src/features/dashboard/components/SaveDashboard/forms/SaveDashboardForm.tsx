@@ -1,5 +1,5 @@
 import { selectors } from '@grafana/e2e-selectors';
-import { Button, Form, HorizontalGroup, TextArea } from '@grafana/ui';
+import { Button, Form, HorizontalGroup, TextArea } from '@savantly/sprout-ui';
 import React from 'react';
 import { SaveDashboardFormProps } from '../types';
 

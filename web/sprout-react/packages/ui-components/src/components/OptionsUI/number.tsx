@@ -4,7 +4,7 @@ import {
   toIntegerOrUndefined,
   toFloatOrUndefined,
   NumberFieldConfigSettings,
-} from '@grafana/data';
+} from '@savantly/sprout-api';
 import { Input } from '../Input/Input';
 
 export const NumberValueEditor: React.FC<FieldConfigEditorProps<number, NumberFieldConfigSettings>> = ({

@@ -4,7 +4,7 @@ import omit from 'lodash/omit';
 import { PopoverController } from '../Tooltip/PopoverController';
 import { Popover } from '../Tooltip/Popover';
 import { ColorPickerPopover } from './ColorPickerPopover';
-import { getColorFromHexRgbOrName } from '@grafana/data';
+import { getColorFromHexRgbOrName } from '@savantly/sprout-api';
 import { SeriesColorPickerPopover } from './SeriesColorPickerPopover';
 import { withTheme } from '../../themes/ThemeContext';
 import { ColorPickerTrigger } from './ColorPickerTrigger';

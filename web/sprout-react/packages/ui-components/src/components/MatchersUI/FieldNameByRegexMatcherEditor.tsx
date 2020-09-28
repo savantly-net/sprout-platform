@@ -1,6 +1,6 @@
 import React, { memo, useCallback } from 'react';
 import { MatcherUIProps, FieldMatcherUIRegistryItem } from './types';
-import { FieldMatcherID, fieldMatchers } from '@grafana/data';
+import { FieldMatcherID, fieldMatchers } from '@savantly/sprout-api';
 import { Input } from '../Input/Input';
 
 export const FieldNameByRegexMatcherEditor = memo<MatcherUIProps<string>>(props => {

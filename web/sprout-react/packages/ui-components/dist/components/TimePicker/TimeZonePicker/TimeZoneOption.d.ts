@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 interface Props {
     isFocused: boolean;
     isSelected: boolean;

@@ -1,6 +1,6 @@
 import { __assign } from "tslib";
 import React from 'react';
-import { formattedValueToString } from '@grafana/data';
+import { formattedValueToString } from '@savantly/sprout-api';
 import { TableCellDisplayMode } from './types';
 import tinycolor from 'tinycolor2';
 import { FilterActions } from './FilterActions';

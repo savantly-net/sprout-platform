@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { css, cx } from 'emotion';
-import { GrafanaTheme, TimeZone, dateTimeFormat } from '@grafana/data';
+import { GrafanaTheme, TimeZone, dateTimeFormat } from '@savantly/sprout-api';
 import { useTheme, stylesFactory } from '../../../themes';
 import isString from 'lodash/isString';
 

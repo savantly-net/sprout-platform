@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { LogRowModel, Field, LinkModel } from '@grafana/data';
+import { LogRowModel, Field, LinkModel } from '@savantly/sprout-api';
 
 import { Themeable } from '../../types/theme';
 import { withTheme } from '../../themes/index';

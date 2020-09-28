@@ -1,5 +1,5 @@
 import React from 'react';
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 import { SelectCommonProps, MultiSelectCommonProps, SelectAsyncProps } from './types';
 import { SelectBase } from './SelectBase';
 

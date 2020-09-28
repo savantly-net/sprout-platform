@@ -1,4 +1,4 @@
-import { Field, Input, Switch, TextArea } from '@grafana/ui';
+import { Field, Input, Switch, TextArea } from '@savantly/sprout-ui';
 import { PanelData, PanelPlugin } from '@savantly/sprout-api';
 import React, { FC, useCallback, useRef } from 'react';
 import { DashboardModel, PanelModel } from '../../state';

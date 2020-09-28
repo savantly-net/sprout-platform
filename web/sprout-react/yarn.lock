@@ -1506,9 +1506,9 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
-"@grafana/data@7.2.0":
+"@savantly/sprout-api@7.2.0":
   version "7.2.0"
-  resolved "https://registry.yarnpkg.com/@grafana/data/-/data-7.2.0.tgz#29ae47a1c8a331d12fa269ef900922ade829c0aa"
+  resolved "https://registry.yarnpkg.com/@savantly/sprout-api/-/data-7.2.0.tgz#29ae47a1c8a331d12fa269ef900922ade829c0aa"
   integrity sha512-m0QlXY8EIVE+RHeb4dUazqMB/VQy8gJWOioyizudGOXlH/C8hTk+Z/BeHEc8mbHGvINmmtcj7BPhPSUFP9jTdQ==
   dependencies:
     "@braintree/sanitize-url" "4.0.0"
@@ -1572,7 +1572,7 @@
   integrity sha512-rVdHla4JACEkOo1Zxa9+MUbYAEeJ5P392QSRHpWeKiLQk9d6Poct0pw9pdKERbft0Y7n+q1Tqm32/jEwfqEMUw==
   dependencies:
     "@emotion/core" "^10.0.27"
-    "@grafana/data" "7.2.0"
+    "@savantly/sprout-api" "7.2.0"
     "@grafana/e2e-selectors" "7.2.0"
     "@grafana/slate-react" "0.22.9-grafana"
     "@grafana/tsconfig" "^1.0.0-rc1"

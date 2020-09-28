@@ -1,6 +1,6 @@
 import React from 'react';
 import { select, text, boolean } from '@storybook/addon-knobs';
-import { Button, ButtonVariant } from '@grafana/ui';
+import { Button, ButtonVariant } from '@savantly/sprout-ui';
 import { withCenteredStory, withHorizontallyCenteredStory } from '../../utils/storybook/withCenteredStory';
 import { getIconKnob } from '../../utils/storybook/knobs';
 import mdx from './Button.mdx';

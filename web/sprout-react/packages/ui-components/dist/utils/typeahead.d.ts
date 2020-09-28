@@ -1,5 +1,5 @@
 import { CompletionItemGroup, CompletionItem } from '../types/completion';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 export declare const flattenGroupItems: (groupedItems: CompletionItemGroup[]) => CompletionItem[];
 export declare const calculateLongestLabel: (allItems: CompletionItem[]) => string;
 export declare const calculateListSizes: (theme: GrafanaTheme, allItems: CompletionItem[], longestLabel: string) => {

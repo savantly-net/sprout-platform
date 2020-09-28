@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Modal, stylesFactory } from '@grafana/ui';
+import { Modal, stylesFactory } from '@savantly/sprout-ui';
 import { css } from 'emotion';
 
 import { OnRowOptionsUpdate, RowOptionsForm } from './RowOptionsForm';

@@ -7,7 +7,7 @@ import {
   ThresholdsMode,
   SelectableValue,
   GrafanaTheme,
-} from '@grafana/data';
+} from '@savantly/sprout-api';
 import { colors } from '../../utils';
 import { ThemeContext } from '../../themes/ThemeContext';
 import { Input } from '../Input/Input';

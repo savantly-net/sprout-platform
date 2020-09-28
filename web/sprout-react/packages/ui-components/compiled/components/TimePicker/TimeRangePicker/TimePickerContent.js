@@ -1,5 +1,5 @@
 import { __assign, __makeTemplateObject, __read } from "tslib";
-import { isDateTime } from '@grafana/data';
+import { isDateTime } from '@savantly/sprout-api';
 import { css, cx } from 'emotion';
 import React, { memo, useState } from 'react';
 import { useMedia } from 'react-use';

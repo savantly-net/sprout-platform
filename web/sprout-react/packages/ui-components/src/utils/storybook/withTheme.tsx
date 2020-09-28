@@ -1,7 +1,7 @@
 import React from 'react';
 import { ThemeContext } from '../../themes/ThemeContext';
 import { getTheme } from '../../themes/index';
-import { GrafanaThemeType } from '@grafana/data';
+import { GrafanaThemeType } from '@savantly/sprout-api';
 import { RenderFunction } from '../../types';
 import { useDarkMode } from 'storybook-dark-mode';
 

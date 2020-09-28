@@ -1,5 +1,5 @@
 import { text, select, number, color } from '@storybook/addon-knobs';
-import { BigValue, BigValueColorMode, BigValueGraphMode, BigValueTextMode } from '@grafana/ui';
+import { BigValue, BigValueColorMode, BigValueGraphMode, BigValueTextMode } from '@savantly/sprout-ui';
 import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
 import { renderComponentWithTheme } from '../../utils/storybook/withTheme';
 

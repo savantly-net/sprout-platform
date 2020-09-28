@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 import { SelectCommonProps, MultiSelectCommonProps, SelectAsyncProps } from './types';
 export declare function Select<T>(props: SelectCommonProps<T>): JSX.Element;
 export declare function MultiSelect<T>(props: MultiSelectCommonProps<T>): JSX.Element;

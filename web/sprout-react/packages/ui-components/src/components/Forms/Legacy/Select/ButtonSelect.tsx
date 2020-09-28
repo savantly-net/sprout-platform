@@ -3,7 +3,7 @@ import Select from './Select';
 import { PopoverContent } from '../../../Tooltip/Tooltip';
 import { Icon } from '../../../Icon/Icon';
 import { IconName } from '../../../../types';
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 
 interface ButtonComponentProps {
   label: ReactElement | string | undefined;

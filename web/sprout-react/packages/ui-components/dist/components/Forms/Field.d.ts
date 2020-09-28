@@ -1,5 +1,5 @@
 import React from 'react';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 export interface FieldProps {
     /** Form input element, i.e Input or Switch */
     children: React.ReactElement;

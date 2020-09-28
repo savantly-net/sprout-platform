@@ -4,7 +4,7 @@ import React from 'react';
 import tinycolor from 'tinycolor2';
 import { Chart, Geom } from 'bizcharts';
 // Utils
-import { getColorFromHexRgbOrName, formattedValueToString } from '@grafana/data';
+import { getColorFromHexRgbOrName, formattedValueToString } from '@savantly/sprout-api';
 import { calculateFontSize } from '../../utils/measureText';
 // Types
 import { BigValueColorMode, BigValueJustifyMode, BigValueTextMode } from './BigValue';

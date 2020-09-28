@@ -1,5 +1,5 @@
 import React from 'react';
-import { TimeOption } from '@grafana/data';
+import { TimeOption } from '@savantly/sprout-api';
 interface Props {
     value: TimeOption;
     selected?: boolean;

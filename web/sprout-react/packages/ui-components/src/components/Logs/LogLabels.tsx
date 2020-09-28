@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { css, cx } from 'emotion';
-import { Labels } from '@grafana/data';
+import { Labels } from '@savantly/sprout-api';
 
 import { stylesFactory } from '../../themes';
 import { Themeable } from '../../types/theme';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { selectThemeVariant } from '../../themes/selectThemeVariant';
 import { withTheme } from '../../themes/ThemeContext';
 

@@ -9,7 +9,7 @@ import { stylesFactory, useTheme } from '../../themes';
 import { SlideOutTransition } from '../transitions/SlideOutTransition';
 import { FadeTransition } from '../transitions/FadeTransition';
 import { Spinner } from '../Spinner/Spinner';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 
 const getStyles = stylesFactory((theme: GrafanaTheme) => {
   const singleValue = css`

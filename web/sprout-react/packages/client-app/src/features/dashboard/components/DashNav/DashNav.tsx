@@ -1,5 +1,5 @@
 // Libaries
-import { Icon, ModalsController } from '@grafana/ui';
+import { Icon, ModalsController } from '@savantly/sprout-ui';
 import { textUtil } from '@savantly/sprout-api';
 import { css } from 'emotion';
 import React, { FC, PureComponent, ReactNode } from 'react';

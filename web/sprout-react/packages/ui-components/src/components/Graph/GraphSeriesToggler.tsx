@@ -1,5 +1,5 @@
 import React from 'react';
-import { GraphSeriesXY } from '@grafana/data';
+import { GraphSeriesXY } from '@savantly/sprout-api';
 import difference from 'lodash/difference';
 import isEqual from 'lodash/isEqual';
 

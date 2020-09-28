@@ -4,7 +4,7 @@ import React, { PureComponent, ReactNode } from 'react';
 
 // Types
 import { AppNotificationSeverity } from '../../types';
-import { Alert } from '@grafana/ui';
+import { Alert } from '@savantly/sprout-ui';
 import { PanelProps, PanelPlugin, PluginType, PanelPluginMeta } from '@savantly/sprout-api';
 
 interface Props {

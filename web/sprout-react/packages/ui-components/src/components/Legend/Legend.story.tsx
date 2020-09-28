@@ -1,6 +1,6 @@
 import React from 'react';
 import { generateLegendItems } from './Legend';
-import { LegendList, LegendPlacement, LegendItem, LegendTable } from '@grafana/ui';
+import { LegendList, LegendPlacement, LegendItem, LegendTable } from '@savantly/sprout-ui';
 import { number, select, text } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { GraphLegendListItem, GraphLegendTableRow, GraphLegendItemProps } from '../Graph/GraphLegendItem';

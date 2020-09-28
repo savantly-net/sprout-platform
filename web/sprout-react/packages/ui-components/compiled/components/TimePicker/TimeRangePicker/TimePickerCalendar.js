@@ -2,7 +2,7 @@ import { __assign, __makeTemplateObject, __read } from "tslib";
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { css } from 'emotion';
 import Calendar from 'react-calendar/dist/entry.nostyle';
-import { dateTime, dateTimeParse } from '@grafana/data';
+import { dateTime, dateTimeParse } from '@savantly/sprout-api';
 import { stylesFactory, useTheme } from '../../../themes';
 import { TimePickerTitle } from './TimePickerTitle';
 import { Button } from '../../Button';

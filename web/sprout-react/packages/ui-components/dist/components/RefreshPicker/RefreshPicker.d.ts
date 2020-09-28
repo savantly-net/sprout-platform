@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { SelectableValue } from '@grafana/data';
-import { GrafanaTheme } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
+import { GrafanaTheme } from '@savantly/sprout-api';
 export declare const defaultIntervals: string[];
 export interface Props {
     intervals?: string[];

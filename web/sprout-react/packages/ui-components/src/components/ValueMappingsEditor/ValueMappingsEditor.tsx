@@ -1,5 +1,5 @@
 import React from 'react';
-import { MappingType, ValueMapping } from '@grafana/data';
+import { MappingType, ValueMapping } from '@savantly/sprout-api';
 import { Button } from '../Button/Button';
 import { MappingRow } from './MappingRow';
 

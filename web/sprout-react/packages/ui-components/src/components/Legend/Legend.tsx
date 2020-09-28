@@ -1,4 +1,4 @@
-import { DisplayValue } from '@grafana/data';
+import { DisplayValue } from '@savantly/sprout-api';
 
 import { LegendList } from './LegendList';
 import { LegendTable } from './LegendTable';

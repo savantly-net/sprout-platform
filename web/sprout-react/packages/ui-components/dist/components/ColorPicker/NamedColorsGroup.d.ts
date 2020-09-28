@@ -1,7 +1,7 @@
 /// <reference types="@emotion/core" />
 import React, { FunctionComponent } from 'react';
 import { Themeable } from '../../types';
-import { ColorDefinition } from '@grafana/data';
+import { ColorDefinition } from '@savantly/sprout-api';
 import { Color } from 'csstype';
 declare type ColorChangeHandler = (color: ColorDefinition) => void;
 export declare enum ColorSwatchVariant {

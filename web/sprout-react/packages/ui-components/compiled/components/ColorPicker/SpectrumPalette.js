@@ -5,7 +5,7 @@ import { Saturation, Hue, Alpha } from 'react-color/lib/components/common';
 import tinycolor from 'tinycolor2';
 import ColorInput from './ColorInput';
 import SpectrumPalettePointer from './SpectrumPalettePointer';
-import { getColorFromHexRgbOrName } from '@grafana/data';
+import { getColorFromHexRgbOrName } from '@savantly/sprout-api';
 var renderPointer = function (theme) { return function (props) { return (React.createElement(SpectrumPalettePointer, __assign({}, props, { theme: theme }))); }; };
 // @ts-ignore
 var SpectrumPicker = CustomPicker(function (_a) {

@@ -1,5 +1,5 @@
 import { selectThemeVariant, ThemeContext } from '../../index';
-import { GrafanaTheme, VariableSuggestion } from '@grafana/data';
+import { GrafanaTheme, VariableSuggestion } from '@savantly/sprout-api';
 import { css, cx } from 'emotion';
 import _ from 'lodash';
 import React, { useRef, useContext, useMemo } from 'react';

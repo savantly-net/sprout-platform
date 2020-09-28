@@ -1,5 +1,5 @@
 import React from 'react';
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 interface SelectMenuProps {
     maxHeight: number;
     innerRef: React.Ref<any>;

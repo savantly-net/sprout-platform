@@ -3,7 +3,7 @@ import { create } from '@storybook/theming/create';
 import lightTheme from '../src/themes/light';
 import darkTheme from '../src/themes/dark';
 import ThemeCommons from '../src/themes/default';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 
 const createTheme = (theme: GrafanaTheme) => {
   return create({

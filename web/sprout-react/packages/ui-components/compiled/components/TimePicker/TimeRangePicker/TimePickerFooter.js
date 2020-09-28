@@ -1,7 +1,7 @@
 import { __makeTemplateObject, __read } from "tslib";
 import React, { useState, useCallback } from 'react';
 import { css, cx } from 'emotion';
-import { getTimeZoneInfo } from '@grafana/data';
+import { getTimeZoneInfo } from '@savantly/sprout-api';
 import { stylesFactory, useTheme } from '../../../themes';
 import { TimeZoneTitle } from '../TimeZonePicker/TimeZoneTitle';
 import { TimeZoneDescription } from '../TimeZonePicker/TimeZoneDescription';

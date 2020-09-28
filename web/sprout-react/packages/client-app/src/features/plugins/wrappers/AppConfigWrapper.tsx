@@ -1,5 +1,5 @@
 // Libraries
-import { Button } from '@grafana/ui';
+import { Button } from '@savantly/sprout-ui';
 import { AppPlugin, AppRootProps, KeyValue, PluginMeta } from '@savantly/sprout-api';
 import { getBackendSrv } from '@savantly/sprout-runtime';
 import { css } from 'emotion';

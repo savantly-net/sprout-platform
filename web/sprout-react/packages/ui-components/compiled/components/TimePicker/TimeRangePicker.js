@@ -11,8 +11,8 @@ import { ClickOutsideWrapper } from '../ClickOutsideWrapper/ClickOutsideWrapper'
 import { stylesFactory } from '../../themes/stylesFactory';
 import { withTheme, useTheme } from '../../themes/ThemeContext';
 // Types
-import { isDateTime, rangeUtil, dateTimeFormat, timeZoneFormatUserFriendly } from '@grafana/data';
-import { dateMath } from '@grafana/data';
+import { isDateTime, rangeUtil, dateTimeFormat, timeZoneFormatUserFriendly } from '@savantly/sprout-api';
+import { dateMath } from '@savantly/sprout-api';
 import { otherOptions, quickOptions } from './rangeOptions';
 var getStyles = stylesFactory(function (theme) {
     return {

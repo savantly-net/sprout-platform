@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { number } from '@storybook/addon-knobs';
 import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
-import { Pagination } from '@grafana/ui';
+import { Pagination } from '@savantly/sprout-ui';
 import mdx from './Pagination.mdx';
 
 export const WithPages = () => {

@@ -1,6 +1,6 @@
 import { __assign, __rest } from "tslib";
 import React from 'react';
-import { getColorForTheme } from '@grafana/data';
+import { getColorForTheme } from '@savantly/sprout-api';
 import upperFirst from 'lodash/upperFirst';
 import find from 'lodash/find';
 import { selectThemeVariant } from '../../themes/selectThemeVariant';

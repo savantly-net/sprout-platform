@@ -2,7 +2,7 @@
 import React, { useMemo } from 'react';
 import _ from 'lodash';
 import { LocationUpdate } from '@savantly/sprout-runtime';
-import { Button, HorizontalGroup, IconButton, stylesFactory, useTheme } from '@grafana/ui';
+import { Button, HorizontalGroup, IconButton, stylesFactory, useTheme } from '@savantly/sprout-ui';
 import { selectors } from '@grafana/e2e-selectors';
 import { connect, MapDispatchToProps } from 'react-redux';
 // Utils

@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useMemo } from 'react';
 import { css } from 'emotion';
-import { GrafanaTheme, TimeZoneInfo } from '@grafana/data';
+import { GrafanaTheme, TimeZoneInfo } from '@savantly/sprout-api';
 import { useTheme, stylesFactory } from '../../../themes';
 
 interface Props {

@@ -1,7 +1,7 @@
 import { __assign, __makeTemplateObject, __rest } from "tslib";
 import React from 'react';
 import { css, cx } from 'emotion';
-import { toPascalCase } from '@grafana/data';
+import { toPascalCase } from '@savantly/sprout-api';
 import { stylesFactory } from '../../themes/stylesFactory';
 import { useTheme } from '../../themes/ThemeContext';
 //@ts-ignore

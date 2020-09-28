@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { stylesFactory, useTheme } from '../../themes';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { css, cx } from 'emotion';
 
 export interface Props {

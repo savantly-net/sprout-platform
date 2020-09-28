@@ -1,4 +1,4 @@
-import { Button, Field, Form, HorizontalGroup, Input } from '@grafana/ui';
+import { Button, Field, Form, HorizontalGroup, Input } from '@savantly/sprout-ui';
 import React from 'react';
 import { DashboardModel } from '../../../state';
 import { SaveDashboardFormProps } from '../types';

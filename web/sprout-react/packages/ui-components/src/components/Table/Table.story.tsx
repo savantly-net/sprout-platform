@@ -1,6 +1,6 @@
 import React from 'react';
 import { merge } from 'lodash';
-import { Table } from '@grafana/ui';
+import { Table } from '@savantly/sprout-ui';
 import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
 import { number } from '@storybook/addon-knobs';
 import { useTheme } from '../../themes';
@@ -14,7 +14,7 @@ import {
   ThresholdsConfig,
   ThresholdsMode,
   FieldConfig,
-} from '@grafana/data';
+} from '@savantly/sprout-api';
 
 export default {
   title: 'Visualizations/Table',

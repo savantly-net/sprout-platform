@@ -1,7 +1,7 @@
 import React from 'react';
 import { InlineList } from '../List/InlineList';
 import { css } from 'emotion';
-import { DisplayValue, formattedValueToString } from '@grafana/data';
+import { DisplayValue, formattedValueToString } from '@savantly/sprout-api';
 import capitalize from 'lodash/capitalize';
 
 const LegendItemStat: React.FunctionComponent<{ stat: DisplayValue }> = ({ stat }) => {

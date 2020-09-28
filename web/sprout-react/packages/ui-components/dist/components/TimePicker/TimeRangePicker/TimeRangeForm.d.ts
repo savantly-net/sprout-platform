@@ -1,5 +1,5 @@
 import React from 'react';
-import { TimeZone, TimeRange } from '@grafana/data';
+import { TimeZone, TimeRange } from '@savantly/sprout-api';
 interface Props {
     isFullscreen: boolean;
     value: TimeRange;

@@ -1,6 +1,6 @@
 import React, { memo, useMemo, useCallback } from 'react';
 import { MatcherUIProps, FieldMatcherUIRegistryItem } from './types';
-import { FieldMatcherID, fieldMatchers, getFieldDisplayName, SelectableValue, DataFrame } from '@grafana/data';
+import { FieldMatcherID, fieldMatchers, getFieldDisplayName, SelectableValue, DataFrame } from '@savantly/sprout-api';
 import { Select } from '../Select/Select';
 
 export const FieldNameMatcherEditor = memo<MatcherUIProps<string>>(props => {

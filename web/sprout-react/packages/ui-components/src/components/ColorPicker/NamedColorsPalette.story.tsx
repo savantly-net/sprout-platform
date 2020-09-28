@@ -1,6 +1,6 @@
 import React from 'react';
 import { NamedColorsPalette } from './NamedColorsPalette';
-import { getColorName, getColorDefinitionByName } from '@grafana/data';
+import { getColorName, getColorDefinitionByName } from '@savantly/sprout-api';
 import { select } from '@storybook/addon-knobs';
 import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
 import { renderComponentWithTheme } from '../../utils/storybook/withTheme';
