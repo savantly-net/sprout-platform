@@ -33,8 +33,10 @@
     "emotion": "^10.0.27",
     "marked": "^1.1.1",
     "memoize-one": "^5.1.1",
+    "react": "^16.13.1",
     "react-app-rewired": "^2.1.6",
     "react-bootstrap": "^1.3.0",
+    "react-dom": "^16.13.1",
     "react-grid-layout": "^1.1.1",
     "react-hot-loader": "^4.13.0",
     "react-redux": "^7.2.1",
@@ -54,8 +56,7 @@
     "typescript": "~3.8.0"
   },
   "peerDependencies": {
-    "react-dom": "^16.13.1",
-    "react": "^16.13.1"
+
   },
   "scripts": {
     "start": "react-app-rewired start",

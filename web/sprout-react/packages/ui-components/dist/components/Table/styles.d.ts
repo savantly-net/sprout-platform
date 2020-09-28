@@ -1,0 +1,23 @@
+import { GrafanaTheme } from '@grafana/data';
+export declare const getTableStyles: (theme: GrafanaTheme) => {
+    theme: GrafanaTheme;
+    cellHeight: number;
+    buildCellContainerStyle: (color?: string | undefined, background?: string | undefined) => string;
+    cellPadding: number;
+    cellHeightInner: number;
+    rowHeight: number;
+    table: string;
+    thead: string;
+    headerCell: string;
+    headerCellLabel: string;
+    cellContainer: string;
+    cellText: string;
+    cellLink: string;
+    headerFilter: string;
+    row: string;
+    imageCell: string;
+    resizeHandle: string;
+    filterWrapper: string;
+    filterItem: string;
+};
+export declare type TableStyles = ReturnType<typeof getTableStyles>;

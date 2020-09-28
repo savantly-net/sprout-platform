@@ -1,22 +1,18 @@
 {
-    "compilerOptions": {
-      "composite": true,
-      "declaration": true,
-      "declarationMap": true,
-      "forceConsistentCasingInFileNames": true,
-      "module": "esnext",
-      "jsx": "react",
-      "moduleResolution": "node",
-      "noErrorTruncation": true,
-      "noImplicitReturns": true,
-      "noUnusedLocals": false,
-      "noUnusedParameters": false,
-      "pretty": true,
-      "preserveSymlinks": true,
-      "sourceMap": true,
-      "strict": true,
-      "target": "es5",
-      "resolveJsonModule": true,
-      "allowSyntheticDefaultImports": true
-    }
-  }
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": "packages/client-app/",
+    "outDir": "packages/client-app/dist",
+    "paths": {
+      "@grafana/slate-react": ["../node_modules/@types/slate-react"],
+      "sass": ["sass/"]
+    },
+    "rootDirs": ["packages/client-app/"],
+    "typeRoots": ["node_modules/@types", "packages/client-app/src/types"],
+    "allowJs": true,
+    "strictNullChecks": true
+  },
+  "extends": "@savantly/sprout-tsconfig/base.json",
+  "include": [
+  ]
+}
