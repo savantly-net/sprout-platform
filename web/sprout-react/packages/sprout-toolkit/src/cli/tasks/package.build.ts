@@ -52,12 +52,12 @@ const preparePackage = async (pkg: any) => {
 
   // Below we are adding cross-dependencies to Grafana's packages
   // with the version being published
-  if (name.endsWith('/ui')) {
+  if (name.endsWith('sprout-ui')) {
     deps['@savantly/sprout-api'] = version;
-  } else if (name.endsWith('/runtime')) {
+  } else if (name.endsWith('/sprout-runtime')) {
     deps['@savantly/sprout-api'] = version;
     deps['@savantly/sprout-ui'] = version;
-  } else if (name.endsWith('/toolkit')) {
+  } else if (name.endsWith('/sprout-toolkit')) {
     deps['@savantly/sprout-api'] = version;
     deps['@savantly/sprout-ui'] = version;
   }
@@ -90,7 +90,8 @@ const moveFiles = () => {
 };
 
 const moveStaticFiles = async (pkg: any, cwd: string) => {
-  if (pkg.name.endsWith('/ui')) {
+  if (pkg.name.endsWith('ui')) {
+    console.log('moving static files for package: ' + pkg.name);
     const staticFiles = await globby(resolvePath(process.cwd(), 'src/**/*.+(png|svg|gif|jpg)'));
     return useSpinner<void>(`Moving static files`, async () => {
       const promises = staticFiles.map(file => {

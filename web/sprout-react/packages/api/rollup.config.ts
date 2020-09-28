@@ -4,6 +4,8 @@ import sourceMaps from 'rollup-plugin-sourcemaps';
 import json from '@rollup/plugin-json';
 import { terser } from 'rollup-plugin-terser';
 
+console.log('using rollupconfig');
+
 const pkg = require('./package.json');
 
 const libraryName = pkg.name;
@@ -21,11 +23,9 @@ const buildCjsPackage = ({ env }) => {
         globals: {},
       },
     ],
-    external: ['lodash', 'rxjs', 'react'], // Use Lodash, rxjs & arrow from sprout
+    external: ['lodash', 'rxjs', 'apache-arrow'], // Use Lodash, rxjs & arrow from grafana
     plugins: [
-      json({
-        include: ['../../node_modules/moment-timezone/data/packed/latest.json'],
-      }),
+      json(), // TODO: include: ['../../node_modules/moment-timezone/data/packed/latest.json'],
       commonjs({
         include: /node_modules/,
         namedExports: {

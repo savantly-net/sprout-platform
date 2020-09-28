@@ -25,8 +25,8 @@ export class SelectValueEditor<T> extends React.PureComponent<Props<T>, State<T>
     if (old !== now) {
       this.updateOptions();
     } else if (now?.getOptions) {
-      const old = oldProps.context?.data;
-      const now = this.props.context?.data;
+      const old = oldProps.context?.options;
+      const now = this.props.context?.options;
       if (old !== now) {
         this.updateOptions();
       }

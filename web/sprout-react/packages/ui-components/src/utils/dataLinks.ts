@@ -1,5 +1,12 @@
 import { ContextMenuItem } from '../components/ContextMenu/ContextMenu';
-import { LinkModel } from '@savantly/sprout-api';
+
+export interface LinkModel {
+  title: string;
+  target?: string;
+  icon?: string;
+  href?: string;
+  onClick?: (event?: React.SyntheticEvent<HTMLElement>) => void;
+}
 
 /**
  * Delays creating links until we need to open the ContextMenu

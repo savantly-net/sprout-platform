@@ -7,11 +7,10 @@ import { stylesFactory } from '../../themes/stylesFactory';
 import { Portal, List } from '../index';
 import { Icon } from '../Icon/Icon';
 import { IconName } from '../../types';
-import { LinkTarget } from '@savantly/sprout-api';
 
 export interface ContextMenuItem {
   label: string;
-  target?: LinkTarget;
+  target?: string;
   icon?: string;
   url?: string;
   onClick?: (event?: React.SyntheticEvent<HTMLElement>) => void;

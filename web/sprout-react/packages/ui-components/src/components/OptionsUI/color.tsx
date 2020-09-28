@@ -22,7 +22,7 @@ export const ColorValueEditor: React.FC<FieldConfigEditorProps<FieldColor, Color
   const theme = getTheme();
   const styles = getStyles(theme);
 
-  const color = value?.fixedColor || item.defaultValue?.fixedColor;
+  const color = value?.fixedColor;
 
   const onValueChange = useCallback(
     color => {
