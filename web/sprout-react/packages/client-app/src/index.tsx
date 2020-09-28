@@ -1,12 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import ErrorBoundary from './core/components/error/error-boundary';
+import { configureStore } from './store/configureStore';
+
+const store = configureStore();
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ErrorBoundary>
+      <Provider store={store}>
+        <div>
+          <App />
+        </div>
+      </Provider>
+    </ErrorBoundary>
+    
   </React.StrictMode>,
   document.getElementById('root')
 );

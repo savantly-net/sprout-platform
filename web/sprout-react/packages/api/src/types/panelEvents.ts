@@ -18,3 +18,15 @@ export const panelSizeChanged = eventFactory('panel-size-changed');
 export const panelTeardown = eventFactory('panel-teardown');
 export const render = eventFactory<any>('render');
 export const viewModeChanged = eventFactory('view-mode-changed');
+
+export default {
+  refresh,
+  componentDidMount,
+  editModeInitialized,
+  panelChangeView,
+  panelInitialized,
+  panelSizeChanged,
+  panelTeardown,
+  render,
+  viewModeChanged
+}
