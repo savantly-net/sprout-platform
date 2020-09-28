@@ -1,4 +1,4 @@
-import { formattedValueToString, getDisplayProcessor, getFieldDisplayName, dateTimeFormat, systemDateFormats, } from '@grafana/data';
+import { formattedValueToString, getDisplayProcessor, getFieldDisplayName, dateTimeFormat, systemDateFormats, } from '@savantly/sprout-api';
 /**
  * Returns index of the closest datapoint BEFORE hover position
  *

@@ -1,5 +1,5 @@
 import React from 'react';
-import { getValueFromDimension, getColumnFromDimension, formattedValueToString, getDisplayProcessor, getFieldDisplayName, } from '@grafana/data';
+import { getValueFromDimension, getColumnFromDimension, formattedValueToString, getDisplayProcessor, getFieldDisplayName, } from '@savantly/sprout-api';
 import { SeriesTable } from './SeriesTable';
 export var SingleModeGraphTooltip = function (_a) {
     var _b;

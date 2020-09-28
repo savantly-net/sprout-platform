@@ -1,5 +1,5 @@
 import { __assign, __read, __spread } from "tslib";
-import { getParser } from '@grafana/data';
+import { getParser } from '@savantly/sprout-api';
 import memoizeOne from 'memoize-one';
 import { MAX_CHARACTERS } from './LogRowMessage';
 var memoizedGetParser = memoizeOne(getParser);

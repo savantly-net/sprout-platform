@@ -1,4 +1,4 @@
-import { DataFrame, DataLink, VariableSuggestion } from '@grafana/data';
+import { DataFrame, DataLink, VariableSuggestion } from '@savantly/sprout-api';
 import { FC } from 'react';
 interface DataLinkEditorModalContentProps {
     link: DataLink;

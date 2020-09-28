@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { DisplayValue, FieldConfig, Threshold } from '@grafana/data';
+import { DisplayValue, FieldConfig, Threshold } from '@savantly/sprout-api';
 import { Themeable } from '../../types';
 export interface Props extends Themeable {
     height: number;

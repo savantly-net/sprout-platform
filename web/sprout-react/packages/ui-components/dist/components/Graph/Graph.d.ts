@@ -1,6 +1,6 @@
 /// <reference types="jquery" />
 import React, { PureComponent } from 'react';
-import { TimeRange, GraphSeriesXY, TimeZone } from '@grafana/data';
+import { TimeRange, GraphSeriesXY, TimeZone } from '@savantly/sprout-api';
 import { FlotPosition, FlotItem } from './types';
 import { TooltipProps } from '../Chart/Tooltip';
 export interface GraphProps {
@@ -46,14 +46,14 @@ export declare class Graph extends PureComponent<GraphProps, GraphState> {
             to: number;
         };
     }) => void;
-    onPlotHover: (event: JQueryEventObject, pos: FlotPosition, item?: FlotItem<GraphSeriesXY> | undefined) => void;
-    onPlotClick: (event: JQueryEventObject, contextPos: FlotPosition, item?: FlotItem<GraphSeriesXY> | undefined) => void;
+    onPlotHover: (event: JQueryEventObject, pos: FlotPosition, item?: FlotItem<any> | undefined) => void;
+    onPlotClick: (event: JQueryEventObject, contextPos: FlotPosition, item?: FlotItem<any> | undefined) => void;
     getYAxes(series: GraphSeriesXY[]): {
         show: boolean;
-        index: number;
+        index: any;
         position: string;
-        min: number | null | undefined;
-        tickDecimals: number | null | undefined;
+        min: any;
+        tickDecimals: any;
     }[] | {
         show: boolean;
         min: number;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field, LinkModel, LogLabelStatsModel } from '@grafana/data';
+import { Field, LinkModel, LogLabelStatsModel } from '@savantly/sprout-api';
 import { Themeable } from '../../types/theme';
 export interface Props extends Themeable {
     parsedValue: string;

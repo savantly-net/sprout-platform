@@ -1,5 +1,5 @@
 import React from 'react';
-import { LogLabelStatsModel } from '@grafana/data';
+import { LogLabelStatsModel } from '@savantly/sprout-api';
 import { Themeable } from '../../types/theme';
 interface Props extends Themeable {
     stats: LogLabelStatsModel[];

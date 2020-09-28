@@ -1,5 +1,5 @@
 import React from 'react';
-import { GrafanaThemeType } from '@grafana/data';
+import { GrafanaThemeType } from '@savantly/sprout-api';
 import { RenderFunction } from '../../types';
 declare type SassThemeChangeHandler = (theme: GrafanaThemeType) => void;
 export declare const renderComponentWithTheme: (component: React.ComponentType<any>, props: any) => JSX.Element;

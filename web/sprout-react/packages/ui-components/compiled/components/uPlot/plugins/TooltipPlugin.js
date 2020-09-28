@@ -4,7 +4,7 @@ import { Portal } from '../../Portal/Portal';
 import { usePlotContext, usePlotData } from '../context';
 import { CursorPlugin } from './CursorPlugin';
 import { SeriesTable } from '../../Graph/GraphTooltip/SeriesTable';
-import { FieldType, formattedValueToString, getDisplayProcessor, getFieldDisplayName } from '@grafana/data';
+import { FieldType, formattedValueToString, getDisplayProcessor, getFieldDisplayName } from '@savantly/sprout-api';
 import { TooltipContainer } from '../../Chart/TooltipContainer';
 export var TooltipPlugin = function (_a) {
     var _b = _a.mode, mode = _b === void 0 ? 'single' : _b, timeZone = _a.timeZone;

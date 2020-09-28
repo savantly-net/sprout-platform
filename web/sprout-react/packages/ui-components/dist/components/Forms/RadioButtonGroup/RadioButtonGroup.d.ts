@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 import { RadioButtonSize } from './RadioButton';
 interface RadioButtonGroupProps<T> {
     value?: T;

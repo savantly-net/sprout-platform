@@ -1,5 +1,5 @@
 import React, { HTMLProps } from 'react';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 export interface CheckboxProps extends Omit<HTMLProps<HTMLInputElement>, 'value'> {
     label?: string;
     description?: string;

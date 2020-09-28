@@ -1,11 +1,11 @@
-import { GraphSeriesValue, Field } from '@grafana/data';
+import { GraphSeriesValue, Field } from '@savantly/sprout-api';
 /**
  * Returns index of the closest datapoint BEFORE hover position
  *
  * @param posX
  * @param series
  */
-export declare const findHoverIndexFromData: (xAxisDimension: Field, xPos: number) => number;
+export declare const findHoverIndexFromData: (xAxisDimension: any, xPos: number) => number;
 interface MultiSeriesHoverInfo {
     value: string;
     time: string;
@@ -20,10 +20,10 @@ interface MultiSeriesHoverInfo {
  * @param seriesList list of series visible on the Graph
  * @param pos mouse cursor position, based on jQuery.flot position
  */
-export declare const getMultiSeriesGraphHoverInfo: (yAxisDimensions: Field[], xAxisDimensions: Field[], xAxisPosition: number, timeZone?: string | undefined) => {
+export declare const getMultiSeriesGraphHoverInfo: (yAxisDimensions: Field[], xAxisDimensions: Field[], xAxisPosition: number, timeZone?: any) => {
     results: MultiSeriesHoverInfo[];
-    time?: number | null | undefined;
+    time?: any;
 };
-export declare const graphTickFormatter: (epoch: number, axis: any) => string;
+export declare const graphTickFormatter: (epoch: number, axis: any) => any;
 export declare const graphTimeFormat: (ticks: number | null, min: number | null, max: number | null) => string;
 export {};

@@ -1,5 +1,5 @@
 import { PureComponent } from 'react';
-import { DataSourceSettings } from '@grafana/data';
+import { DataSourceSettings } from '@savantly/sprout-api';
 export interface CustomHeader {
     id: string;
     name: string;

@@ -1,7 +1,7 @@
 import { __makeTemplateObject, __read } from "tslib";
 import React, { useState } from 'react';
 import { css, cx } from 'emotion';
-import { dateTime, dateMath } from '@grafana/data';
+import { dateTime, dateMath } from '@savantly/sprout-api';
 import { useStyles } from '../../themes/ThemeContext';
 import { ClickOutsideWrapper } from '../ClickOutsideWrapper/ClickOutsideWrapper';
 import { Icon } from '../Icon/Icon';

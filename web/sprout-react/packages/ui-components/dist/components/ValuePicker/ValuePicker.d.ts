@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { IconName } from '../../types';
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 import { ButtonVariant } from '../Button';
 import { ComponentSize } from '../../types/size';
 interface ValuePickerProps<T> {

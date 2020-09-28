@@ -1,7 +1,7 @@
 import { __extends } from "tslib";
 import React, { PureComponent } from 'react';
 import $ from 'jquery';
-import { getColorFromHexRgbOrName, formattedValueToString, ThresholdsMode, getActiveThreshold, } from '@grafana/data';
+import { getColorFromHexRgbOrName, formattedValueToString, ThresholdsMode, getActiveThreshold, } from '@savantly/sprout-api';
 import { selectThemeVariant } from '../../themes';
 var FONT_SCALE = 1;
 var Gauge = /** @class */ (function (_super) {

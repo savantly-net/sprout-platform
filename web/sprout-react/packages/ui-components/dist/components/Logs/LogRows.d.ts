@@ -1,5 +1,5 @@
 import React from 'react';
-import { TimeZone, LogsDedupStrategy, LogRowModel, Field, LinkModel, LogsSortOrder } from '@grafana/data';
+import { TimeZone, LogsDedupStrategy, LogRowModel, Field, LinkModel, LogsSortOrder } from '@savantly/sprout-api';
 import { Themeable } from '../../types/theme';
 import { RowContextOptions } from './LogRowContextProvider';
 export declare const PREVIEW_LIMIT = 100;

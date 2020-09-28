@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { TimeRange, TimeZone } from '@grafana/data';
+import { TimeRange, TimeZone } from '@savantly/sprout-api';
 export declare const defaultTimeRange: TimeRange;
 export interface Props {
     value: TimeRange;

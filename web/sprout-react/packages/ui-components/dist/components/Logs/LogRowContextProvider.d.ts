@@ -1,6 +1,6 @@
-import { LogRowModel, LogsSortOrder } from '@grafana/data';
+import { LogRowModel, LogsSortOrder } from '@savantly/sprout-api';
 import React from 'react';
-import { DataQueryResponse } from '@grafana/data';
+import { DataQueryResponse } from '@savantly/sprout-api';
 export interface RowContextOptions {
     direction?: 'BACKWARD' | 'FORWARD';
     limit?: number;
@@ -29,7 +29,7 @@ interface LogRowContextProviderProps {
         limit: number;
     }) => JSX.Element;
 }
-export declare const getRowContexts: (getRowContext: (row: LogRowModel, options?: RowContextOptions | undefined) => Promise<DataQueryResponse>, row: LogRowModel, limit: number, logsSortOrder?: LogsSortOrder | null | undefined) => Promise<{
+export declare const getRowContexts: (getRowContext: (row: any, options?: RowContextOptions | undefined) => Promise<DataQueryResponse>, row: any, limit: number, logsSortOrder?: LogsSortOrder | null) => Promise<{
     data: any[][];
     errors: string[];
 }>;

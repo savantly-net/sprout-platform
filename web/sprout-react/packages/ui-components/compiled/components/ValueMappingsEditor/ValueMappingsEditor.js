@@ -1,6 +1,6 @@
 import { __assign, __read, __spread } from "tslib";
 import React from 'react';
-import { MappingType } from '@grafana/data';
+import { MappingType } from '@savantly/sprout-api';
 import { Button } from '../Button/Button';
 import { MappingRow } from './MappingRow';
 export var ValueMappingsEditor = function (_a) {

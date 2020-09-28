@@ -1,6 +1,6 @@
 import { __assign, __extends } from "tslib";
 import React, { PureComponent } from 'react';
-import { VizOrientation } from '@grafana/data';
+import { VizOrientation } from '@savantly/sprout-api';
 import { calculateGridDimensions } from '../../utils/squares';
 var VizRepeater = /** @class */ (function (_super) {
     __extends(VizRepeater, _super);

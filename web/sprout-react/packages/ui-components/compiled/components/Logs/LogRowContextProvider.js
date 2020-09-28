@@ -1,5 +1,5 @@
 import { __awaiter, __generator, __read } from "tslib";
-import { toDataFrame, FieldCache, LogsSortOrder } from '@grafana/data';
+import { toDataFrame, FieldCache, LogsSortOrder } from '@savantly/sprout-api';
 import { useState, useEffect } from 'react';
 import useAsync from 'react-use/lib/useAsync';
 export var getRowContexts = function (getRowContext, row, limit, logsSortOrder) { return __awaiter(void 0, void 0, void 0, function () {

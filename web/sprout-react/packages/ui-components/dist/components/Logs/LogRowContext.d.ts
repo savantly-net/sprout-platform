@@ -1,5 +1,5 @@
 import React from 'react';
-import { LogRowModel } from '@grafana/data';
+import { LogRowModel } from '@savantly/sprout-api';
 import { LogRowContextRows, LogRowContextQueryErrors, HasMoreContextRows } from './LogRowContextProvider';
 interface LogRowContextProps {
     row: LogRowModel;

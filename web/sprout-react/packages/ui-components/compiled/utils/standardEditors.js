@@ -1,6 +1,6 @@
 import { __assign } from "tslib";
 import React from 'react';
-import { dataLinksOverrideProcessor, FieldType, numberOverrideProcessor, standardEditorsRegistry, stringOverrideProcessor, thresholdsOverrideProcessor, valueMappingsOverrideProcessor, ThresholdsMode, } from '@grafana/data';
+import { dataLinksOverrideProcessor, FieldType, numberOverrideProcessor, standardEditorsRegistry, stringOverrideProcessor, thresholdsOverrideProcessor, valueMappingsOverrideProcessor, ThresholdsMode, } from '@savantly/sprout-api';
 import { Switch } from '../components/Switch/Switch';
 import { NumberValueEditor, RadioButtonGroup, StringValueEditor, StringArrayEditor, SelectValueEditor, TimeZonePicker, } from '../components';
 import { ValueMappingsValueEditor } from '../components/OptionsUI/mappings';

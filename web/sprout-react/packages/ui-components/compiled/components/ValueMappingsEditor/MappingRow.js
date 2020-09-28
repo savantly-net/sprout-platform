@@ -4,7 +4,7 @@ import { HorizontalGroup } from '../Layout/Layout';
 import { IconButton, Label, RadioButtonGroup } from '../index';
 import { Field } from '../Forms/Field';
 import { Input } from '../Input/Input';
-import { MappingType } from '@grafana/data';
+import { MappingType } from '@savantly/sprout-api';
 var MAPPING_OPTIONS = [
     { value: MappingType.ValueToText, label: 'Value' },
     { value: MappingType.RangeToText, label: 'Range' },

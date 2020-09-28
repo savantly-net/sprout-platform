@@ -1,5 +1,5 @@
 import { PureComponent, ChangeEvent } from 'react';
-import { Threshold, ThresholdsConfig, ThresholdsMode } from '@grafana/data';
+import { Threshold, ThresholdsConfig } from '@savantly/sprout-api';
 export interface Props {
     thresholds: ThresholdsConfig;
     onChange: (thresholds: ThresholdsConfig) => void;
@@ -15,7 +15,7 @@ export declare class ThresholdsEditor extends PureComponent<Props, State> {
     onChangeThresholdColor: (threshold: ThresholdWithKey, color: string) => void;
     onBlur: () => void;
     onChange: () => void;
-    onModeChanged: (value?: ThresholdsMode | undefined) => void;
+    onModeChanged: (value?: any) => void;
     renderInput(threshold: ThresholdWithKey, styles: ThresholdStyles): JSX.Element;
     render(): JSX.Element;
 }

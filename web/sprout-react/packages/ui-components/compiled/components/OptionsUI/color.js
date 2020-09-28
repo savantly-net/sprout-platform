@@ -1,6 +1,6 @@
 import { __assign, __makeTemplateObject } from "tslib";
 import React, { useCallback } from 'react';
-import { getColorFromHexRgbOrName, } from '@grafana/data';
+import { getColorFromHexRgbOrName, } from '@savantly/sprout-api';
 import { ColorPicker } from '../ColorPicker/ColorPicker';
 import { getTheme, stylesFactory } from '../../themes';
 import { Icon } from '../Icon/Icon';

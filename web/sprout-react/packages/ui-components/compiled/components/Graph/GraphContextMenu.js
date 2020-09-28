@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { ContextMenu } from '../ContextMenu/ContextMenu';
 import { ThemeContext } from '../../themes';
 import { SeriesIcon } from '../Legend/SeriesIcon';
-import { getValueFromDimension, getDisplayProcessor, formattedValueToString, dateTimeFormat, } from '@grafana/data';
+import { getValueFromDimension, getDisplayProcessor, formattedValueToString, dateTimeFormat, } from '@savantly/sprout-api';
 import { css } from 'emotion';
 export var GraphContextMenu = function (_a) {
     var getContextMenuSource = _a.getContextMenuSource, timeZone = _a.timeZone, items = _a.items, dimensions = _a.dimensions, contextDimensions = _a.contextDimensions, otherProps = __rest(_a, ["getContextMenuSource", "timeZone", "items", "dimensions", "contextDimensions"]);

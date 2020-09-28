@@ -1,8 +1,8 @@
 /// <reference types="react" />
-import { DisplayValue } from '@grafana/data';
+import { DisplayValue } from '@savantly/sprout-api';
 import { LegendList } from './LegendList';
 import { LegendTable } from './LegendTable';
-export declare const generateLegendItems: (numberOfSeries: number, statsToDisplay?: DisplayValue[] | undefined) => LegendItem[];
+export declare const generateLegendItems: (numberOfSeries: number, statsToDisplay?: any[] | undefined) => LegendItem[];
 export declare enum LegendDisplayMode {
     List = "list",
     Table = "table"

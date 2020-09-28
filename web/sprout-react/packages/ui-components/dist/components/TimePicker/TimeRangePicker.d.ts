@@ -19,7 +19,7 @@ export interface State {
 }
 export declare class UnthemedTimeRangePicker extends PureComponent<Props, State> {
     state: State;
-    onChange: (timeRange: TimeRange) => void;
+    onChange: (timeRange: any) => void;
     onOpen: (event: FormEvent<HTMLButtonElement>) => void;
     onClose: () => void;
     render(): JSX.Element;

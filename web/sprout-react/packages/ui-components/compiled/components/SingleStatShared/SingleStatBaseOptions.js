@@ -1,7 +1,7 @@
 import { __assign, __read, __rest, __spread, __values } from "tslib";
 import cloneDeep from 'lodash/cloneDeep';
 import omit from 'lodash/omit';
-import { fieldReducers, sortThresholds, ReducerID, MappingType, VizOrientation, ThresholdsMode, validateFieldConfig, FieldColorMode, } from '@grafana/data';
+import { fieldReducers, sortThresholds, ReducerID, MappingType, VizOrientation, ThresholdsMode, validateFieldConfig, FieldColorMode, } from '@savantly/sprout-api';
 var optionsToKeep = ['reduceOptions', 'orientation'];
 export function sharedSingleStatPanelChangedHandler(panel, prevPluginId, prevOptions) {
     var e_1, _a;

@@ -1,4 +1,4 @@
-import { VariableSuggestion } from '@grafana/data';
+import { VariableSuggestion } from '@savantly/sprout-api';
 import React from 'react';
 interface DataLinkSuggestionsProps {
     suggestions: VariableSuggestion[];

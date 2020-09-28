@@ -1,16 +1,16 @@
 /// <reference types="lodash" />
-import { DataFrame, GrafanaTheme, RawTimeRange, TimeRange } from '@savantly/sprout-api';
+import { GrafanaTheme, RawTimeRange } from '@savantly/sprout-api';
 import uPlot from 'uplot';
 import { PlotPlugin, PlotProps } from './types';
 export declare const timeFormatToTemplate: (f: string) => string;
 export declare function rangeToMinMax(timeRange: RawTimeRange): [number, number];
-export declare const buildSeriesConfig: (data: DataFrame, timeRange: TimeRange, theme: GrafanaTheme) => {
+export declare const buildSeriesConfig: (data: any, timeRange: any, theme: GrafanaTheme) => {
     series: uPlot.Series[];
     scales: Record<string, uPlot.Scale>;
     axes: uPlot.Axis[];
 };
-export declare const buildPlotConfig: (props: PlotProps, data: DataFrame, plugins: Record<string, PlotPlugin>, theme: GrafanaTheme) => uPlot.Options;
-export declare const preparePlotData: (data: DataFrame) => uPlot.AlignedData;
+export declare const buildPlotConfig: (props: PlotProps, data: any, plugins: Record<string, PlotPlugin>, theme: GrafanaTheme) => uPlot.Options;
+export declare const preparePlotData: (data: any) => uPlot.AlignedData;
 /**
  * Based on two config objects indicates whether or not uPlot needs reinitialisation
  * This COULD be done based on data frames, but keeping it this way for now as a simplification

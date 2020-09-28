@@ -2,7 +2,7 @@ import { __makeTemplateObject } from "tslib";
 import React from 'react';
 import { InlineList } from '../List/InlineList';
 import { css } from 'emotion';
-import { formattedValueToString } from '@grafana/data';
+import { formattedValueToString } from '@savantly/sprout-api';
 import capitalize from 'lodash/capitalize';
 var LegendItemStat = function (_a) {
     var stat = _a.stat;

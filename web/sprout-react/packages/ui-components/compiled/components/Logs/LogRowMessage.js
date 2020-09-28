@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import _ from 'lodash';
 import tinycolor from 'tinycolor2';
 import { css, cx } from 'emotion';
-import { findHighlightChunksInText } from '@grafana/data';
+import { findHighlightChunksInText } from '@savantly/sprout-api';
 // @ts-ignore
 import Highlighter from 'react-highlight-words';
 import { selectThemeVariant } from '../../index';

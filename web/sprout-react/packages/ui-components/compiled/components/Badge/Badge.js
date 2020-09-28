@@ -4,7 +4,7 @@ import { Icon } from '../Icon/Icon';
 import { useTheme } from '../../themes/ThemeContext';
 import { stylesFactory } from '../../themes/stylesFactory';
 import { Tooltip } from '../Tooltip/Tooltip';
-import { getColorFromHexRgbOrName } from '@grafana/data';
+import { getColorFromHexRgbOrName } from '@savantly/sprout-api';
 import tinycolor from 'tinycolor2';
 import { css } from 'emotion';
 import { HorizontalGroup } from '..';
