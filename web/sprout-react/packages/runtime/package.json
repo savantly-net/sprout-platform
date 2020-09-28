@@ -7,8 +7,9 @@
     "bundle": "rollup -c rollup.config.ts",
     "clean": "rimraf ./dist ./compiled"
   },
-  "main": "src/index.ts",
-  "types": "src/index.ts",
+  "main": "dist/index.js",
+  "esnext": "dist/index.js",
+  "types": "dist/index.d.ts",
   "homepage": "https://github.com/savantly/sprout-platform#readme",
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
+    "@savantly/sprout-api": "0.0.1",
     "@types/lodash": "^4.14.161",
     "@types/react": "^16.9.49",
     "rollup": "2.0.6",
@@ -32,6 +34,7 @@
   },
   "peerDependencies": {
     "@reduxjs/toolkit": "^1.4.0",
+    "@savantly/sprout-api": "0.0.1",
     "@types/react-hot-loader": "^4.1.1",
     "eventemitter3": "^4.0.7",
     "lodash": "^4.17.20",

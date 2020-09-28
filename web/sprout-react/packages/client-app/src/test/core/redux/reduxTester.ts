@@ -2,8 +2,8 @@ import { Dispatch, Middleware, MiddlewareAPI } from 'redux';
 import thunk, { ThunkMiddleware } from 'redux-thunk';
 import { AnyAction, configureStore, EnhancedStore, Reducer, getDefaultMiddleware } from '@reduxjs/toolkit';
 
-import { StoreState } from '../../../app/types';
-import { setStore } from '../../../app/store/store';
+import { StoreState } from '../../../types';
+import { setStore } from '../../../store/store';
 
 export interface ReduxTesterGiven<State> {
   givenRootReducer: (rootReducer: Reducer<State>) => ReduxTesterWhen<State>;

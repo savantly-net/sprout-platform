@@ -1,4 +1,4 @@
-import { SemVersion, isVersionGtOrEq } from '../../../src/app/core/utils/version';
+import { SemVersion, isVersionGtOrEq } from '../../../core/utils/version';
 
 describe('SemVersion', () => {
   let version = '1.0.0-alpha.1';

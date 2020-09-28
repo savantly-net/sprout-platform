@@ -5,7 +5,6 @@ import System from 'systemjs/dist/system.js';
  * Option to specify a plugin css that should be applied for the dark
  * and the light theme.
  *
- * @public
  */
 export interface PluginCssOptions {
   light: string;

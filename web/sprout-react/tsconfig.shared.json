@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+      "composite": true,
+      "declaration": true,
+      "declarationMap": true,
+      "forceConsistentCasingInFileNames": true,
+      "module": "esnext",
+      "jsx": "react",
+      "moduleResolution": "node",
+      "noErrorTruncation": true,
+      "noImplicitReturns": true,
+      "noUnusedLocals": false,
+      "noUnusedParameters": false,
+      "pretty": true,
+      "preserveSymlinks": true,
+      "sourceMap": true,
+      "strict": true,
+      "target": "es5",
+      "resolveJsonModule": true,
+      "allowSyntheticDefaultImports": true
+    }
+  }

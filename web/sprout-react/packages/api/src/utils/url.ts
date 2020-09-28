@@ -6,7 +6,6 @@
 /**
  * Type to represent the value of a single query variable.
  *
- * @public
  */
 export type UrlQueryValue = string | number | boolean | string[] | number[] | boolean[] | undefined | null;
 
