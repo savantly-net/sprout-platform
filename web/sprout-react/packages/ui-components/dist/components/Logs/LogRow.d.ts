@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field, LinkModel, LogRowModel, LogsSortOrder, TimeZone, DataQueryResponse } from '@grafana/data';
+import { Field, LinkModel, LogRowModel, LogsSortOrder, TimeZone, DataQueryResponse } from '@savantly/sprout-api';
 import { RowContextOptions } from './LogRowContextProvider';
 import { Themeable } from '../../types/theme';
 interface Props extends Themeable {

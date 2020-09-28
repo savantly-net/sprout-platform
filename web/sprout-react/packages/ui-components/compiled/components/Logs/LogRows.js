@@ -1,7 +1,7 @@
 import { __extends } from "tslib";
 import React, { PureComponent } from 'react';
 import memoizeOne from 'memoize-one';
-import { LogsDedupStrategy, sortLogRows } from '@grafana/data';
+import { LogsDedupStrategy, sortLogRows } from '@savantly/sprout-api';
 import { withTheme } from '../../themes/index';
 import { getLogRowStyles } from './getLogRowStyles';
 //Components

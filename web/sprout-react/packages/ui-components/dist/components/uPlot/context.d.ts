@@ -42,5 +42,5 @@ interface PlotDataAPI {
 }
 export declare const usePlotData: () => PlotDataAPI;
 export declare const usePlotCanvas: () => PlotCanvasContextType | null;
-export declare const buildPlotContext: (registerPlugin: any, canvasRef: any, data: DataFrame, u?: uPlot | undefined) => PlotContextType | null;
+export declare const buildPlotContext: (registerPlugin: any, canvasRef: any, data: any, u?: uPlot | undefined) => PlotContextType | null;
 export {};

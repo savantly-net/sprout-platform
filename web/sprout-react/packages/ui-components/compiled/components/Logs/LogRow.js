@@ -1,6 +1,6 @@
 import { __extends, __makeTemplateObject } from "tslib";
 import React, { PureComponent } from 'react';
-import { dateTimeFormat, } from '@grafana/data';
+import { dateTimeFormat, } from '@savantly/sprout-api';
 import { Icon } from '../Icon/Icon';
 import { cx, css } from 'emotion';
 import { LogRowContextProvider, } from './LogRowContextProvider';

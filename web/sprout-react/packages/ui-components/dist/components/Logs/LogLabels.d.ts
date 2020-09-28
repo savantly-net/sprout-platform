@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Labels } from '@grafana/data';
+import { Labels } from '@savantly/sprout-api';
 import { Themeable } from '../../types/theme';
 interface Props extends Themeable {
     labels: Labels;

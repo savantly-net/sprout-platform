@@ -1,5 +1,5 @@
 import React from 'react';
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 export interface Props<T> {
     value?: SelectableValue<T>;
     options: Array<SelectableValue<T>>;

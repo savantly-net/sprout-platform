@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { DataFrame, DataLink, VariableSuggestion } from '@grafana/data';
+import { DataFrame, DataLink, VariableSuggestion } from '@savantly/sprout-api';
 interface DataLinksListItemProps {
     index: number;
     link: DataLink;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { LinkModel } from '@grafana/data';
+import { LinkModel } from '@savantly/sprout-api';
 interface DataLinksContextMenuProps {
     children: (props: DataLinksContextMenuApi) => JSX.Element;
     links: () => LinkModel[];

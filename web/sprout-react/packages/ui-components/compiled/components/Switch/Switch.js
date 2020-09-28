@@ -2,7 +2,7 @@ import { __assign, __makeTemplateObject, __rest } from "tslib";
 import React, { useRef } from 'react';
 import { css, cx } from 'emotion';
 import uniqueId from 'lodash/uniqueId';
-import { deprecationWarning } from '@grafana/data';
+import { deprecationWarning } from '@savantly/sprout-api';
 import { stylesFactory, useTheme } from '../../themes';
 import { focusCss } from '../../themes/mixins';
 export var getSwitchStyles = stylesFactory(function (theme) {

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { PluginState } from '@grafana/data';
+import { PluginState } from '@savantly/sprout-api';
 export interface Props {
     state?: PluginState;
     text?: string;

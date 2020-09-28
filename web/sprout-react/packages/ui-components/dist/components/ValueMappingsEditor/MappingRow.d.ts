@@ -1,5 +1,5 @@
 import React from 'react';
-import { ValueMapping } from '@grafana/data';
+import { ValueMapping } from '@savantly/sprout-api';
 export interface Props {
     valueMapping: ValueMapping;
     onUpdate: (value: ValueMapping) => void;

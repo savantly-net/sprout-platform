@@ -1,4 +1,4 @@
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { ButtonVariant } from '../Button';
 import { ComponentSize } from '../../types/size';
 export declare const getFormStyles: (theme: GrafanaTheme, options: {

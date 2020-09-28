@@ -4,7 +4,7 @@ import $ from 'jquery';
 import React, { PureComponent } from 'react';
 import uniqBy from 'lodash/uniqBy';
 // Types
-import { createDimension } from '@grafana/data';
+import { createDimension } from '@savantly/sprout-api';
 import { Tooltip } from '../Chart/Tooltip';
 import { GraphTooltip } from './GraphTooltip/GraphTooltip';
 import { GraphContextMenu } from './GraphContextMenu';

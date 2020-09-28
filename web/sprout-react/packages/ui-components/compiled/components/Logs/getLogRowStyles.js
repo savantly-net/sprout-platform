@@ -1,6 +1,6 @@
 import { __makeTemplateObject } from "tslib";
 import { css } from 'emotion';
-import { LogLevel } from '@grafana/data';
+import { LogLevel } from '@savantly/sprout-api';
 import { selectThemeVariant } from '../../themes/selectThemeVariant';
 import { stylesFactory } from '../../themes';
 export var getLogRowStyles = stylesFactory(function (theme, logLevel) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ContextMenuProps } from '../ContextMenu/ContextMenu';
 import { GraphDimensions } from './GraphTooltip/types';
-import { FlotDataPoint, Dimensions, TimeZone } from '@grafana/data';
+import { FlotDataPoint, Dimensions, TimeZone } from '@savantly/sprout-api';
 export declare type ContextDimensions<T extends Dimensions = any> = {
     [key in keyof T]: [number, number | undefined] | null;
 };

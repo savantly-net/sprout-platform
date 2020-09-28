@@ -1,5 +1,5 @@
 import React, { memo, useCallback } from 'react';
-import { FieldMatcherID, fieldMatchers } from '@grafana/data';
+import { FieldMatcherID, fieldMatchers } from '@savantly/sprout-api';
 import { Input } from '../Input/Input';
 export var FieldNameByRegexMatcherEditor = memo(function (props) {
     var options = props.options;

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { toIntegerOrUndefined, toFloatOrUndefined, } from '@grafana/data';
+import { toIntegerOrUndefined, toFloatOrUndefined, } from '@savantly/sprout-api';
 import { Input } from '../Input/Input';
 export var NumberValueEditor = function (_a) {
     var value = _a.value, onChange = _a.onChange, item = _a.item;

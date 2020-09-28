@@ -6,5 +6,5 @@ interface Props {
     className?: string;
 }
 export declare const TimeZoneOffset: React.FC<PropsWithChildren<Props>>;
-export declare const formatUtcOffset: (timestamp: number, timeZone: TimeZone) => string;
+export declare const formatUtcOffset: (timestamp: number, timeZone: any) => string;
 export {};

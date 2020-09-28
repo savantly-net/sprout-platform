@@ -1,6 +1,6 @@
 import { __extends } from "tslib";
 import React from 'react';
-import { ThresholdsMode } from '@grafana/data';
+import { ThresholdsMode } from '@savantly/sprout-api';
 import { ThresholdsEditor } from '../ThresholdsEditorNew/ThresholdsEditor';
 var ThresholdsValueEditor = /** @class */ (function (_super) {
     __extends(ThresholdsValueEditor, _super);

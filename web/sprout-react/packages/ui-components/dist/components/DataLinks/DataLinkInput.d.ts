@@ -1,5 +1,5 @@
 import React from 'react';
-import { VariableSuggestion } from '@grafana/data';
+import { VariableSuggestion } from '@savantly/sprout-api';
 interface DataLinkInputProps {
     value: string;
     onChange: (url: string, callback?: () => void) => void;

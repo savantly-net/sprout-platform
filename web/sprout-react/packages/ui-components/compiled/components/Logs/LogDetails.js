@@ -2,7 +2,7 @@ import { __extends, __makeTemplateObject } from "tslib";
 import React, { PureComponent } from 'react';
 import memoizeOne from 'memoize-one';
 import { css, cx } from 'emotion';
-import { calculateFieldStats, calculateLogsLabelStats, calculateStats, getParser, } from '@grafana/data';
+import { calculateFieldStats, calculateLogsLabelStats, calculateStats, getParser, } from '@savantly/sprout-api';
 import { withTheme } from '../../themes/index';
 import { getLogRowStyles } from './getLogRowStyles';
 import { stylesFactory } from '../../themes/stylesFactory';

@@ -1,4 +1,4 @@
-import { Threshold, ValueMapping, VizOrientation, PanelModel, ReduceDataOptions } from '@grafana/data';
+import { Threshold, ValueMapping, VizOrientation, PanelModel, ReduceDataOptions } from '@savantly/sprout-api';
 export interface SingleStatBaseOptions {
     reduceOptions: ReduceDataOptions;
     orientation: VizOrientation;

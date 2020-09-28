@@ -5,7 +5,7 @@ import { LegendSeriesIcon } from '../Legend/LegendSeriesIcon';
 import { LegendStatsList } from '../Legend/LegendStatsList';
 import { ThemeContext } from '../../themes/ThemeContext';
 import { stylesFactory } from '../../themes';
-import { formattedValueToString } from '@grafana/data';
+import { formattedValueToString } from '@savantly/sprout-api';
 export var GraphLegendListItem = function (_a) {
     var item = _a.item, onSeriesColorChange = _a.onSeriesColorChange, onToggleAxis = _a.onToggleAxis, onLabelClick = _a.onLabelClick;
     var theme = useContext(ThemeContext);

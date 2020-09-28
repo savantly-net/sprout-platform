@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, TimeZone } from '@grafana/data';
+import { Dimensions, TimeZone } from '@savantly/sprout-api';
 import { FlotPosition } from '../Graph/types';
 export declare type TooltipMode = 'single' | 'multi' | 'none';
 export declare type ActiveDimensions<T extends Dimensions = any> = {

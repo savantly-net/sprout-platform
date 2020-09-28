@@ -1,7 +1,7 @@
 import { __assign, __makeTemplateObject, __rest } from "tslib";
 import React from 'react';
 import { InfoBox } from './InfoBox';
-import { FeatureState } from '@grafana/data';
+import { FeatureState } from '@savantly/sprout-api';
 import { stylesFactory, useTheme } from '../../themes';
 import { Badge } from '../Badge/Badge';
 import { css } from 'emotion';

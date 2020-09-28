@@ -1,6 +1,5 @@
-import { LogLevel } from '@grafana/data';
-import { GrafanaTheme } from '@grafana/data';
-export declare const getLogRowStyles: (theme: GrafanaTheme, logLevel?: LogLevel | undefined) => {
+import { GrafanaTheme } from '@savantly/sprout-api';
+export declare const getLogRowStyles: (theme: GrafanaTheme, logLevel?: any) => {
     logsRowMatchHighLight: string;
     logsRowMatchHighLightPreview: string;
     logsRowsTable: string;

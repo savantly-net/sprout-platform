@@ -1,5 +1,5 @@
 import React, { HTMLProps } from 'react';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 export interface SwitchProps extends Omit<HTMLProps<HTMLInputElement>, 'value'> {
     value?: boolean;
 }

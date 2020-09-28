@@ -14,7 +14,7 @@ import { css, cx } from 'emotion';
 import { SlatePrism } from '../../slate-plugins';
 import { SCHEMA } from '../../utils/slate';
 import { stylesFactory } from '../../themes';
-import { VariableOrigin, DataLinkBuiltInVars } from '@grafana/data';
+import { VariableOrigin, DataLinkBuiltInVars } from '@savantly/sprout-api';
 var modulo = function (a, n) { return a - n * Math.floor(a / n); };
 var plugins = [
     SlatePrism({

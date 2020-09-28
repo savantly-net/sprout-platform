@@ -1,7 +1,7 @@
 import React from 'react';
 import { GraphLegend, LegendDisplayMode } from '../..';
 import { usePlotData } from '../context';
-import { FieldType, getColorFromHexRgbOrName, getFieldDisplayName } from '@grafana/data';
+import { FieldType, getColorFromHexRgbOrName, getFieldDisplayName } from '@savantly/sprout-api';
 import { colors } from '../../../utils';
 export var LegendPlugin = function (_a) {
     var _b;

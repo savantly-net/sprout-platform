@@ -1,7 +1,7 @@
 import { __assign, __extends, __makeTemplateObject, __read, __rest, __spread } from "tslib";
 import React, { PureComponent } from 'react';
 import { css } from 'emotion';
-import { sortThresholds, ThresholdsMode, } from '@grafana/data';
+import { sortThresholds, ThresholdsMode, } from '@savantly/sprout-api';
 import { colors } from '../../utils';
 import { ThemeContext } from '../../themes/ThemeContext';
 import { Input } from '../Input/Input';

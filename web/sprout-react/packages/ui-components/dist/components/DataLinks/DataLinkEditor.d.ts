@@ -1,5 +1,5 @@
 import React from 'react';
-import { VariableSuggestion, DataLink } from '@grafana/data';
+import { VariableSuggestion, DataLink } from '@savantly/sprout-api';
 interface DataLinkEditorProps {
     index: number;
     isLast: boolean;

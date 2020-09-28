@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 export interface LabelProps extends React.HTMLAttributes<HTMLLegendElement> {
     children: string | ReactNode;
     description?: string;

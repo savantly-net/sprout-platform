@@ -1,5 +1,5 @@
 import { PureComponent } from 'react';
-import { VizOrientation } from '@grafana/data';
+import { VizOrientation } from '@savantly/sprout-api';
 interface Props<V, D> {
     /**
      * Optionally precalculate dimensions to support consistent behavior between repeated

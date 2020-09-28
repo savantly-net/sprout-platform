@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldConfigEditorProps, StringFieldConfigSettings } from '@grafana/data';
+import { FieldConfigEditorProps, StringFieldConfigSettings } from '@savantly/sprout-api';
 declare type Props = FieldConfigEditorProps<string[], StringFieldConfigSettings>;
 interface State {
     showAdd: boolean;

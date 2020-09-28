@@ -1,5 +1,5 @@
 import React from 'react';
-import { GraphSeriesXY } from '@grafana/data';
+import { GraphSeriesXY } from '@savantly/sprout-api';
 export interface GraphSeriesTogglerAPI {
     onSeriesToggle: (label: string, event: React.MouseEvent<HTMLElement>) => void;
     toggledSeries: GraphSeriesXY[];

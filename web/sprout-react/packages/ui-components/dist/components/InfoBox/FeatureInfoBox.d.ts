@@ -1,6 +1,6 @@
 import React from 'react';
 import { InfoBoxProps } from './InfoBox';
-import { FeatureState } from '@grafana/data';
+import { FeatureState } from '@savantly/sprout-api';
 interface FeatureInfoBoxProps extends Omit<InfoBoxProps, 'branded' | 'title' | 'urlTitle'> {
     title: string;
     featureState?: FeatureState;

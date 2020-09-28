@@ -2,7 +2,7 @@ import { __assign } from "tslib";
 import React from 'react';
 import { ThemeContext } from '../../themes/ThemeContext';
 import { getTheme } from '../../themes/index';
-import { GrafanaThemeType } from '@grafana/data';
+import { GrafanaThemeType } from '@savantly/sprout-api';
 import { useDarkMode } from 'storybook-dark-mode';
 var ThemeableStory = function (_a) {
     var children = _a.children, handleSassThemeChange = _a.handleSassThemeChange;

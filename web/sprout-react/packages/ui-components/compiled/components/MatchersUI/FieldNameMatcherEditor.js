@@ -1,6 +1,6 @@
 import { __values } from "tslib";
 import React, { memo, useMemo, useCallback } from 'react';
-import { FieldMatcherID, fieldMatchers, getFieldDisplayName } from '@grafana/data';
+import { FieldMatcherID, fieldMatchers, getFieldDisplayName } from '@savantly/sprout-api';
 import { Select } from '../Select/Select';
 export var FieldNameMatcherEditor = memo(function (props) {
     var data = props.data, options = props.options;

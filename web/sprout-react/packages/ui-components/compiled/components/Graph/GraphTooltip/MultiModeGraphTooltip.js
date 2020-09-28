@@ -1,7 +1,7 @@
 import React from 'react';
 import { SeriesTable } from './SeriesTable';
 import { getMultiSeriesGraphHoverInfo } from '../utils';
-import { getValueFromDimension } from '@grafana/data';
+import { getValueFromDimension } from '@savantly/sprout-api';
 export var MultiModeGraphTooltip = function (_a) {
     var dimensions = _a.dimensions, activeDimensions = _a.activeDimensions, pos = _a.pos, timeZone = _a.timeZone;
     var activeSeriesIndex = null;

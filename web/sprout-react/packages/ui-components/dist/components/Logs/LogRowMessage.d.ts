@@ -1,5 +1,5 @@
 import React from 'react';
-import { LogRowModel } from '@grafana/data';
+import { LogRowModel } from '@savantly/sprout-api';
 import { LogRowContextQueryErrors, HasMoreContextRows, LogRowContextRows } from './LogRowContextProvider';
 import { Themeable } from '../../types/theme';
 export declare const MAX_CHARACTERS = 100000;

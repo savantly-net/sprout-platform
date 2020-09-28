@@ -1,4 +1,4 @@
-import { DataSourceSettings } from '@grafana/data';
+import { DataSourceSettings } from '@savantly/sprout-api';
 export interface HttpSettingsBaseProps {
     /** The configuration object of the data source */
     dataSourceConfig: DataSourceSettings<any, any>;

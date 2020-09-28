@@ -1,3 +1,2 @@
-import { TimeOption, TimeRange } from '@savantly/sprout-api';
-export declare const mapOptionToTimeRange: (option: TimeOption, timeZone?: string | undefined) => TimeRange;
-export declare const mapRangeToTimeOption: (range: TimeRange, timeZone?: string | undefined) => TimeOption;
+export declare const mapOptionToTimeRange: (option: any, timeZone?: any) => any;
+export declare const mapRangeToTimeOption: (range: any, timeZone?: any) => any;

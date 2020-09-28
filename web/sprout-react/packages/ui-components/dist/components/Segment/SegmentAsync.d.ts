@@ -1,5 +1,5 @@
 import React from 'react';
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 import { SegmentProps } from '.';
 export interface SegmentAsyncProps<T> extends SegmentProps<T> {
     value?: T | SelectableValue<T>;
