@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldConfigEditorProps, StringFieldConfigSettings, GrafanaTheme } from '@grafana/data';
+import { FieldConfigEditorProps, StringFieldConfigSettings, GrafanaTheme } from '@savantly/sprout-api';
 import { Input } from '../Input/Input';
 import { Icon } from '../Icon/Icon';
 import { stylesFactory, getTheme } from '../../themes';

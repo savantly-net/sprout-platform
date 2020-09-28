@@ -3,7 +3,7 @@ import { Portal } from '../../Portal/Portal';
 import { usePlotContext, usePlotData } from '../context';
 import { CursorPlugin } from './CursorPlugin';
 import { SeriesTable, SeriesTableRowProps } from '../../Graph/GraphTooltip/SeriesTable';
-import { FieldType, formattedValueToString, getDisplayProcessor, getFieldDisplayName, TimeZone } from '@grafana/data';
+import { FieldType, formattedValueToString, getDisplayProcessor, getFieldDisplayName, TimeZone } from '@savantly/sprout-api';
 import { TooltipContainer } from '../../Chart/TooltipContainer';
 import { TooltipMode } from '../../Chart/Tooltip';
 

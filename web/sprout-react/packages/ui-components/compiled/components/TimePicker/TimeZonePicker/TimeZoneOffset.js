@@ -1,7 +1,7 @@
 import { __makeTemplateObject } from "tslib";
 import React from 'react';
 import { css, cx } from 'emotion';
-import { dateTimeFormat } from '@grafana/data';
+import { dateTimeFormat } from '@savantly/sprout-api';
 import { useTheme, stylesFactory } from '../../../themes';
 import isString from 'lodash/isString';
 export var TimeZoneOffset = function (props) {

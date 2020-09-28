@@ -2,7 +2,7 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
 import { ThresholdsEditor } from './ThresholdsEditor';
-import { ThresholdsMode, ThresholdsConfig } from '@grafana/data';
+import { ThresholdsMode, ThresholdsConfig } from '@savantly/sprout-api';
 
 const thresholds: ThresholdsConfig = {
   mode: ThresholdsMode.Absolute,

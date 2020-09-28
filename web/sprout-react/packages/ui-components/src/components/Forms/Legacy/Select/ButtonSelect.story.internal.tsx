@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 import { withKnobs, object, text } from '@storybook/addon-knobs';
 import { withCenteredStory } from '../../../../utils/storybook/withCenteredStory';
 import { UseState } from '../../../../utils/storybook/UseState';
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 import { ButtonSelect } from './ButtonSelect';
 
 export default {

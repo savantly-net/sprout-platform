@@ -1,4 +1,4 @@
-import { ArrayVector, Field, FieldType, MutableDataFrame, SelectableValue } from '@grafana/data';
+import { ArrayVector, Field, FieldType, MutableDataFrame, SelectableValue } from '@savantly/sprout-api';
 import {
   calculateUniqueFieldValues,
   filterByValue,

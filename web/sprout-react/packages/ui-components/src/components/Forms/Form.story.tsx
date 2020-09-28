@@ -17,7 +17,7 @@ import {
   InputControl,
   TextArea,
   RadioButtonGroup,
-} from '@grafana/ui';
+} from '@savantly/sprout-ui';
 
 export default {
   title: 'Forms/Example forms',

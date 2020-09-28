@@ -2,7 +2,7 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
 import { UseState } from '../../utils/storybook/UseState';
-import { RefreshPicker } from '@grafana/ui';
+import { RefreshPicker } from '@savantly/sprout-ui';
 
 export default {
   title: 'Pickers and Editors/RefreshPicker',

@@ -1,6 +1,6 @@
 import React, { FC, HTMLProps } from 'react';
 import { css, cx } from 'emotion';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { stylesFactory, useTheme } from '../../themes';
 import { Legend } from './Legend';
 

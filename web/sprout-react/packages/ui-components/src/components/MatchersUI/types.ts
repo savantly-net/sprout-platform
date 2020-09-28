@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataFrame, RegistryItem, FieldMatcherInfo } from '@grafana/data';
+import { DataFrame, RegistryItem, FieldMatcherInfo } from '@savantly/sprout-api';
 
 export interface FieldMatcherUIRegistryItem<TOptions> extends RegistryItem {
   component: React.ComponentType<MatcherUIProps<TOptions>>;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { LogDetailsRow, Props } from './LogDetailsRow';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { mount } from 'enzyme';
 import { LogLabelStats } from './LogLabelStats';
 

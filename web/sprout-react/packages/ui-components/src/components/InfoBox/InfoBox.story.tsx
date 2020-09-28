@@ -1,7 +1,7 @@
 import React from 'react';
 import { number } from '@storybook/addon-knobs';
-import { InfoBox, FeatureInfoBox } from '@grafana/ui';
-import { FeatureState } from '@grafana/data';
+import { InfoBox, FeatureInfoBox } from '@savantly/sprout-ui';
+import { FeatureState } from '@savantly/sprout-api';
 
 export default {
   title: 'Layout/InfoBox',

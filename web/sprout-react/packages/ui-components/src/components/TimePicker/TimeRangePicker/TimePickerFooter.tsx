@@ -1,6 +1,6 @@
 import React, { FC, useState, useCallback } from 'react';
 import { css, cx } from 'emotion';
-import { TimeZone, GrafanaTheme, getTimeZoneInfo } from '@grafana/data';
+import { TimeZone, GrafanaTheme, getTimeZoneInfo } from '@savantly/sprout-api';
 import { stylesFactory, useTheme } from '../../../themes';
 import { TimeZoneTitle } from '../TimeZonePicker/TimeZoneTitle';
 import { TimeZoneDescription } from '../TimeZonePicker/TimeZoneDescription';

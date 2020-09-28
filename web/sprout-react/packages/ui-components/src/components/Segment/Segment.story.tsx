@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { action } from '@storybook/addon-actions';
-import { Segment, Icon } from '@grafana/ui';
+import { Segment, Icon } from '@savantly/sprout-ui';
 
 const AddButton = (
   <a className="gf-form-label query-part">

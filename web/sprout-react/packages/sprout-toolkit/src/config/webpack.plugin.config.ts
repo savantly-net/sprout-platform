@@ -177,9 +177,9 @@ const getBaseWebpackConfig: WebpackConfigurationGetter = async options => {
       'rxjs',
       'd3',
       'angular',
-      '@grafana/ui',
+      '@savantly/sprout-ui',
       '@grafana/runtime',
-      '@grafana/data',
+      '@savantly/sprout-api',
       'monaco-editor',
       'react-monaco-editor',
       // @ts-ignore

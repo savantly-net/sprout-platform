@@ -4,7 +4,7 @@ import { Modal } from '../Modal/Modal';
 import { IconName } from '../../types/icon';
 import { Button } from '../Button';
 import { stylesFactory, ThemeContext } from '../../themes';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { HorizontalGroup } from '..';
 
 export interface Props {

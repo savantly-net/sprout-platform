@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { DateTime } from '@grafana/data';
+import { DateTime } from '@savantly/sprout-api';
 import { FormInputSize } from '../Forms/types';
 export interface Props {
     onChange: (value: DateTime) => void;

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ThresholdsConfig, ThresholdsMode, VizOrientation } from '@grafana/data';
+import { ThresholdsConfig, ThresholdsMode, VizOrientation } from '@savantly/sprout-api';
 import { BarGauge, BarGaugeDisplayMode } from '../BarGauge/BarGauge';
 import { TableCellProps, TableCellDisplayMode } from './types';
 

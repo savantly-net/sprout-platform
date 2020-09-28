@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { css } from 'emotion';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { GroupProps } from 'react-select';
 import { stylesFactory, withTheme, selectThemeVariant } from '../../themes';
 import { Themeable } from '../../types';

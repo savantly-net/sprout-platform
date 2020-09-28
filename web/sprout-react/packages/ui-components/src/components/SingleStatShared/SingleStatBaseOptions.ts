@@ -16,7 +16,7 @@ import {
   ThresholdsConfig,
   validateFieldConfig,
   FieldColorMode,
-} from '@grafana/data';
+} from '@savantly/sprout-api';
 
 export interface SingleStatBaseOptions {
   reduceOptions: ReduceDataOptions;

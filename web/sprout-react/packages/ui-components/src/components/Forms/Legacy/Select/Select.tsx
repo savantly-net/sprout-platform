@@ -25,7 +25,7 @@ import resetSelectStyles from '../../../Select/resetSelectStyles';
 import { CustomScrollbar } from '../../../CustomScrollbar/CustomScrollbar';
 import { PopoverContent } from '../../../Tooltip/Tooltip';
 import { Tooltip } from '../../../Tooltip/Tooltip';
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 
 /**
  * Changes in new selects:

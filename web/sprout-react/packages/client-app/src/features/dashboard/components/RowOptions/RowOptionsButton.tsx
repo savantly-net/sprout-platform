@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Icon, ModalsController } from '@grafana/ui';
+import { Icon, ModalsController } from '@savantly/sprout-ui';
 
 import { RowOptionsModal } from './RowOptionsModal';
 import { OnRowOptionsUpdate } from './RowOptionsForm';

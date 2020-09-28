@@ -2,7 +2,7 @@ import { __makeTemplateObject } from "tslib";
 import React, { useContext } from 'react';
 import { css, cx } from 'emotion';
 import { selectThemeVariant, ThemeContext } from '../..';
-import { renderMarkdown, textUtil } from '@grafana/data';
+import { renderMarkdown, textUtil } from '@savantly/sprout-api';
 var getStyles = function (theme, height, visible) {
     return {
         typeaheadItem: css(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n      label: type-ahead-item;\n      z-index: 11;\n      padding: ", " ", " ", " ", ";\n      border-radius: ", ";\n      border: ", ";\n      overflow-y: scroll;\n      overflow-x: hidden;\n      outline: none;\n      background: ", ";\n      color: ", ";\n      box-shadow: ", ";\n      visibility: ", ";\n      width: 250px;\n      height: ", "px;\n      position: relative;\n      word-break: break-word;\n    "], ["\n      label: type-ahead-item;\n      z-index: 11;\n      padding: ", " ", " ", " ", ";\n      border-radius: ", ";\n      border: ",

@@ -4,7 +4,7 @@ import { selectThemeVariant } from '../../themes/selectThemeVariant';
 import { css } from 'emotion';
 import { useTheme } from '../../themes/ThemeContext';
 import useWindowSize from 'react-use/lib/useWindowSize';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 
 interface TooltipContainerProps {
   position: { x: number; y: number };

@@ -1,5 +1,5 @@
 import { sharedSingleStatMigrationHandler, sharedSingleStatPanelChangedHandler } from './SingleStatBaseOptions';
-import { PanelModel } from '@grafana/data';
+import { PanelModel } from '@savantly/sprout-api';
 
 describe('sharedSingleStatMigrationHandler', () => {
   it('from old valueOptions model without pluginVersion', () => {

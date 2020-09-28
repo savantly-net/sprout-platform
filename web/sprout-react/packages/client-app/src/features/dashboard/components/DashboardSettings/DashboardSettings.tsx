@@ -5,7 +5,7 @@ import React, { PureComponent } from 'react';
 import { DashboardModel } from '../../state/DashboardModel';
 import { BackButton } from '../../../../core/components/BackButton/BackButton';
 import { updateLocation } from '../../../../core/actions';
-import { CustomScrollbar } from '@grafana/ui';
+import { CustomScrollbar } from '@savantly/sprout-ui';
 
 export interface Props {
   dashboard: DashboardModel;

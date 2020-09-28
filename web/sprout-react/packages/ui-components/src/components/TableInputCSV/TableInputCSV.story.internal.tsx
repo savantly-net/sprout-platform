@@ -2,7 +2,7 @@ import React from 'react';
 
 import TableInputCSV from './TableInputCSV';
 import { action } from '@storybook/addon-actions';
-import { DataFrame } from '@grafana/data';
+import { DataFrame } from '@savantly/sprout-api';
 import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
 
 export default {

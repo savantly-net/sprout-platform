@@ -1,4 +1,4 @@
-import { getTheme, ThemeContext } from "@grafana/ui";
+import { getTheme, ThemeContext } from "@savantly/sprout-ui";
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";

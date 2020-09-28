@@ -1,4 +1,4 @@
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 import React from 'react';
 export declare type SelectValue<T> = T | SelectableValue<T> | T[] | Array<SelectableValue<T>>;
 export declare type InputActionMeta = {

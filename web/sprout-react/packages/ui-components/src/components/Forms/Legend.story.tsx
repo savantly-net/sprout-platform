@@ -1,7 +1,7 @@
 import React from 'react';
 import { text } from '@storybook/addon-knobs';
 
-import { Legend } from '@grafana/ui';
+import { Legend } from '@savantly/sprout-ui';
 import mdx from './Legend.mdx';
 
 const getKnobs = () => {

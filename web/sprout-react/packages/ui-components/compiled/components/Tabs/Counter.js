@@ -2,7 +2,7 @@ import { __makeTemplateObject } from "tslib";
 import React, { useContext } from 'react';
 import { css } from 'emotion';
 import { stylesFactory, ThemeContext } from '../../themes';
-import { locale } from '@grafana/data';
+import { locale } from '@savantly/sprout-api';
 var getStyles = stylesFactory(function (theme) {
     return {
         counter: css(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n      label: counter;\n      margin-left: ", ";\n      border-radius: ", ";\n      background-color: ", ";\n      padding: ", " ", ";\n      color: ", ";\n      font-weight: ", ";\n      font-size: ", ";\n    "], ["\n      label: counter;\n      margin-left: ", ";\n      border-radius: ", ";\n      background-color: ", ";\n      padding: ", " ", ";\n      color: ", ";\n      font-weight: ", ";\n      font-size: ", ";\n    "])), theme.spacing.sm, theme.spacing.lg, theme.colors.bg2, theme.spacing.xxs, theme.spacing.sm, theme.colors.textWeak, theme.typography.weight.semibold, theme.typography.size.sm),

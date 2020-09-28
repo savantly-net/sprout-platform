@@ -1,5 +1,5 @@
 import { PureComponent } from 'react';
-import { DisplayValue, GrafanaThemeType } from '@grafana/data';
+import { DisplayValue, GrafanaThemeType } from '@savantly/sprout-api';
 import { Themeable } from '../../index';
 export declare enum PieChartType {
     PIE = "pie",

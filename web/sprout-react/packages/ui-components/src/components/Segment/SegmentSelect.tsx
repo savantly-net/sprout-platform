@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { css, cx } from 'emotion';
 import useClickAway from 'react-use/lib/useClickAway';
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 import { Select } from '../Forms/Legacy/Select/Select';
 
 export interface Props<T> {

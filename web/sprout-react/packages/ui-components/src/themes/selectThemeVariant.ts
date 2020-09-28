@@ -1,4 +1,4 @@
-import { GrafanaThemeType } from '@grafana/data';
+import { GrafanaThemeType } from '@savantly/sprout-api';
 
 type VariantDescriptor = { [key in GrafanaThemeType]: string | number };
 

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { css, cx } from 'emotion';
-import { DataFrame, DataLink, GrafanaTheme, VariableSuggestion } from '@grafana/data';
+import { DataFrame, DataLink, GrafanaTheme, VariableSuggestion } from '@savantly/sprout-api';
 import { stylesFactory, useTheme } from '../../../themes';
 import { HorizontalGroup, VerticalGroup } from '../../Layout/Layout';
 import { IconButton } from '../../IconButton/IconButton';

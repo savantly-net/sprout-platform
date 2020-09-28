@@ -1,4 +1,4 @@
-import { Registry } from '@grafana/data';
+import { Registry } from '@savantly/sprout-api';
 import { FieldMatcherUIRegistryItem } from './types';
 import { fieldNameMatcherItem } from './FieldNameMatcherEditor';
 import { fieldNameByRegexMatcherItem } from './FieldNameByRegexMatcherEditor';

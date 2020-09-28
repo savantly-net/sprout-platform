@@ -4,7 +4,7 @@ import { stylesFactory, useTheme } from '../../themes';
 import { IconName } from '../../types/icon';
 import { Icon } from '../Icon/Icon';
 import { ComponentSize } from '../../types/size';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 
 const getStyles = stylesFactory((theme: GrafanaTheme) => ({
   content: css`

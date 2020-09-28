@@ -1,5 +1,5 @@
 import { css, cx } from 'emotion';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { styleMixins, stylesFactory } from '../../themes';
 import { getScrollbarWidth } from '../../utils';
 

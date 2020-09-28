@@ -1,5 +1,5 @@
 import { selectors } from '@grafana/e2e-selectors';
-import { CustomScrollbar, Icon, Input, Select, stylesFactory, Tab, TabContent, TabsBar, useTheme } from '@grafana/ui';
+import { CustomScrollbar, Icon, Input, Select, stylesFactory, Tab, TabContent, TabsBar, useTheme } from '@savantly/sprout-ui';
 import { GrafanaTheme, PanelPlugin, SelectableValue } from '@savantly/sprout-api';
 import { css } from 'emotion';
 import React, { CSSProperties, useState } from 'react';

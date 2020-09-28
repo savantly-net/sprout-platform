@@ -5,7 +5,7 @@ import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
 import { GraphWithLegend, GraphWithLegendProps } from './GraphWithLegend';
 
 import { LegendPlacement, LegendDisplayMode } from '../Legend/Legend';
-import { GraphSeriesXY, FieldType, ArrayVector, dateTime, FieldColorMode } from '@grafana/data';
+import { GraphSeriesXY, FieldType, ArrayVector, dateTime, FieldColorMode } from '@savantly/sprout-api';
 
 export default {
   title: 'Visualizations/Graph',

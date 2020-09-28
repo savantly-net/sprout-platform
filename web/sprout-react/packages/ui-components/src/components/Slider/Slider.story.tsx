@@ -1,5 +1,5 @@
 import React from 'react';
-import { Slider } from '@grafana/ui';
+import { Slider } from '@savantly/sprout-ui';
 import { select, number, boolean } from '@storybook/addon-knobs';
 
 export default {

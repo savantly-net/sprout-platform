@@ -1,5 +1,5 @@
 import { __assign } from "tslib";
-import { GrafanaThemeType } from '@grafana/data';
+import { GrafanaThemeType } from '@savantly/sprout-api';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import React, { useContext, useEffect } from 'react';
 import { getTheme } from './getTheme';

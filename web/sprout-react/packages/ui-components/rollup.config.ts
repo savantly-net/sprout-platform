@@ -29,7 +29,7 @@ const buildCjsPackage = ({ env }) => {
     external: [
       'react',
       'react-dom',
-      '@grafana/data',
+      '@savantly/sprout-api',
       '@grafana/e2e-selectors',
       'moment',
       'monaco-editor', // Monaco should not be used directly

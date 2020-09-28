@@ -4,7 +4,7 @@ import { PopoverContentProps } from '../Tooltip/Tooltip';
 import SpectrumPalette from './SpectrumPalette';
 import { Themeable } from '../../types/theme';
 import { warnAboutColorPickerPropsDeprecation } from './warnAboutColorPickerPropsDeprecation';
-import { GrafanaThemeType, getColorName, getColorFromHexRgbOrName } from '@grafana/data';
+import { GrafanaThemeType, getColorName, getColorFromHexRgbOrName } from '@savantly/sprout-api';
 
 export type ColorPickerChangeHandler = (color: string) => void;
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { css } from 'emotion';
 
-import { SelectableValue, GrafanaTheme } from '@grafana/data';
+import { SelectableValue, GrafanaTheme } from '@savantly/sprout-api';
 import { stylesFactory, useTheme } from '../../themes';
 import { IconName, TabsBar, Tab, IconButton, CustomScrollbar, TabContent } from '../..';
 

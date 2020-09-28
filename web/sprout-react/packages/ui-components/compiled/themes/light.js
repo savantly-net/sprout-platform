@@ -1,6 +1,6 @@
 import { __assign } from "tslib";
 import defaultTheme, { commonColorsPalette } from './default';
-import { GrafanaThemeType } from '@grafana/data';
+import { GrafanaThemeType } from '@savantly/sprout-api';
 var basicColors = __assign(__assign({}, commonColorsPalette), { black: '#000000', white: '#ffffff', dark1: '#1e2028', dark2: '#41444b', dark3: '#303133', dark4: '#35373f', dark5: '#41444b', dark6: '#41444b', dark7: '#41444b', dark8: '#2f2f32', dark9: '#343436', dark10: '#424345', gray1: '#52545c', gray2: '#767980', gray3: '#acb6bf', gray4: '#c7d0d9', gray5: '#dde4ed', gray6: '#e9edf2', gray7: '#f7f8fa', redBase: '#e02f44', redShade: '#c4162a', greenBase: '#3eb15b', greenShade: '#369b4f', red: '#d44939', yellow: '#ff851b', purple: '#9954bb', orange: '#ff7941', orangeDark: '#ed5700' });
 var backgrounds = {
     bg1: basicColors.white,

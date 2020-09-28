@@ -5,7 +5,7 @@ import {
   GrafanaTheme,
   getColorFromHexRgbOrName,
   FieldColor,
-} from '@grafana/data';
+} from '@savantly/sprout-api';
 import { ColorPicker } from '../ColorPicker/ColorPicker';
 import { getTheme, stylesFactory } from '../../themes';
 import { Icon } from '../Icon/Icon';

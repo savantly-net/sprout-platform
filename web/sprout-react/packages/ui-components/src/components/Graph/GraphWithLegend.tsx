@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { css } from 'emotion';
-import { GraphSeriesValue } from '@grafana/data';
+import { GraphSeriesValue } from '@savantly/sprout-api';
 
 import { Graph, GraphProps } from './Graph';
 import { LegendRenderOptions, LegendItem, LegendDisplayMode } from '../Legend/Legend';

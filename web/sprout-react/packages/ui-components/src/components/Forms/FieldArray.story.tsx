@@ -1,7 +1,7 @@
 import React from 'react';
 import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
 import { withStoryContainer } from '../../utils/storybook/withStoryContainer';
-import { Form, Input, Button, HorizontalGroup } from '@grafana/ui';
+import { Form, Input, Button, HorizontalGroup } from '@savantly/sprout-ui';
 import { FieldArray } from './FieldArray';
 import mdx from './FieldArray.mdx';
 

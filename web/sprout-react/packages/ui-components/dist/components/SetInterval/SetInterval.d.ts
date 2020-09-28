@@ -1,5 +1,5 @@
 import { PureComponent } from 'react';
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 export declare function getIntervalFromString(strInterval: string): SelectableValue<number>;
 interface Props {
     func: () => any;

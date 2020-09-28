@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme, stylesFactory } from '../../themes';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { css, cx } from 'emotion';
 import { Icon } from '../Icon/Icon';
 import tinycolor from 'tinycolor2';

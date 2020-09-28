@@ -1,6 +1,6 @@
 import React from 'react';
 import { css, cx } from 'emotion';
-import { GrafanaTheme, toPascalCase } from '@grafana/data';
+import { GrafanaTheme, toPascalCase } from '@savantly/sprout-api';
 import { stylesFactory } from '../../themes/stylesFactory';
 import { useTheme } from '../../themes/ThemeContext';
 import { IconName, IconType, IconSize } from '../../types/icon';

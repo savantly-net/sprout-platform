@@ -6,7 +6,7 @@ import tinycolor from 'tinycolor2';
 import ColorInput from './ColorInput';
 import { Themeable } from '../../types';
 import SpectrumPalettePointer, { SpectrumPalettePointerProps } from './SpectrumPalettePointer';
-import { GrafanaTheme, getColorFromHexRgbOrName } from '@grafana/data';
+import { GrafanaTheme, getColorFromHexRgbOrName } from '@savantly/sprout-api';
 
 export interface SpectrumPaletteProps extends Themeable {
   color: string;

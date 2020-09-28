@@ -2,7 +2,7 @@ import React from 'react';
 import { Label } from './Label';
 import { stylesFactory, useTheme } from '../../themes';
 import { css, cx } from 'emotion';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { FieldValidationMessage } from './FieldValidationMessage';
 
 export interface FieldProps {

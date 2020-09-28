@@ -1,7 +1,7 @@
 import React from 'react';
 import { GraphCustomFieldConfig, GraphLegend, LegendDisplayMode, LegendItem } from '../..';
 import { usePlotData } from '../context';
-import { FieldType, getColorFromHexRgbOrName, getFieldDisplayName } from '@grafana/data';
+import { FieldType, getColorFromHexRgbOrName, getFieldDisplayName } from '@savantly/sprout-api';
 import { colors } from '../../../utils';
 
 export type LegendPlacement = 'top' | 'bottom' | 'left' | 'right';

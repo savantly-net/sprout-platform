@@ -1,4 +1,4 @@
-import { deprecationWarning } from '@grafana/data';
+import { deprecationWarning } from '@savantly/sprout-api';
 import { ColorPickerProps } from './ColorPickerPopover';
 
 export const warnAboutColorPickerPropsDeprecation = (componentName: string, props: ColorPickerProps) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { GrafanaTheme, PanelPluginMeta, PluginState } from '@savantly/sprout-api';
-import { Badge, BadgeProps, styleMixins, stylesFactory, useTheme } from '@grafana/ui';
+import { Badge, BadgeProps, styleMixins, stylesFactory, useTheme } from '@savantly/sprout-ui';
 import { css, cx } from 'emotion';
 import { selectors } from '@grafana/e2e-selectors';
 

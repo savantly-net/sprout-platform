@@ -1,9 +1,9 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
-import { dateTime, TimeFragment } from '@grafana/data';
+import { dateTime, TimeFragment } from '@savantly/sprout-api';
 import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
 import { UseState } from '../../utils/storybook/UseState';
-import { TimeRangeInput } from '@grafana/ui';
+import { TimeRangeInput } from '@savantly/sprout-ui';
 import mdx from './TimeRangeInput.mdx';
 
 export default {

@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import { ValueMappingsEditor, Props } from './ValueMappingsEditor';
-import { MappingType } from '@grafana/data';
+import { MappingType } from '@savantly/sprout-api';
 
 const setup = (spy?: any, propOverrides?: object) => {
   const props: Props = {

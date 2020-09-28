@@ -6,7 +6,7 @@ import { <%= name %> } from './<%= name %>';
 ### Usage
 
 \`\`\`jsx
-import { <%= name %> } from '@grafana/ui';
+import { <%= name %> } from '@savantly/sprout-ui';
 
 <<%= name %> />
 \`\`\`

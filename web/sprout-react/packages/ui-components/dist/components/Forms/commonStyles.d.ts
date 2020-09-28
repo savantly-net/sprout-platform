@@ -1,4 +1,4 @@
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { StyleProps } from '../Button';
 export declare const getFocusStyle: (theme: GrafanaTheme) => string;
 export declare const sharedInputStyle: (theme: GrafanaTheme, invalid?: boolean) => string;

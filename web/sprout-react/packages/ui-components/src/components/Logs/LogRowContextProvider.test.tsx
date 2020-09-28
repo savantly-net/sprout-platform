@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldType, LogRowModel, MutableDataFrame, Labels, LogLevel, DataQueryResponse } from '@grafana/data';
+import { FieldType, LogRowModel, MutableDataFrame, Labels, LogLevel, DataQueryResponse } from '@savantly/sprout-api';
 import { getRowContexts, LogRowContextProvider } from './LogRowContextProvider';
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';

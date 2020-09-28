@@ -1,5 +1,5 @@
 import React from 'react';
-import { PluginState } from '@grafana/data';
+import { PluginState } from '@savantly/sprout-api';
 import { AlphaNotice } from './AlphaNotice';
 import { withCenteredStory, withHorizontallyCenteredStory } from '../../utils/storybook/withCenteredStory';
 import mdx from './AlphaNotice.mdx';

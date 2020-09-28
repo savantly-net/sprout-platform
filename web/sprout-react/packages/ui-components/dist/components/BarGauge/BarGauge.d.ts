@@ -1,6 +1,6 @@
 import React, { PureComponent, CSSProperties, ReactNode } from 'react';
-import { TimeSeriesValue, DisplayValue, DisplayValueAlignmentFactors, DisplayProcessor, FieldConfig } from '@grafana/data';
-import { VizOrientation } from '@grafana/data';
+import { TimeSeriesValue, DisplayValue, DisplayValueAlignmentFactors, DisplayProcessor, FieldConfig } from '@savantly/sprout-api';
+import { VizOrientation } from '@savantly/sprout-api';
 import { Themeable } from '../../types';
 export interface Props extends Themeable {
     height: number;

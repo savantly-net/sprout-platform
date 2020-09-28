@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { GrafanaThemeType } from '@grafana/data';
+import { GrafanaThemeType } from '@savantly/sprout-api';
 declare type VariantDescriptor = {
     [key in GrafanaThemeType]: string | number;
 };

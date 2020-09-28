@@ -19,7 +19,7 @@ import {
   ThresholdsMode,
   TimeZone,
   FieldColor,
-} from '@grafana/data';
+} from '@savantly/sprout-api';
 
 import { Switch } from '../components/Switch/Switch';
 import {

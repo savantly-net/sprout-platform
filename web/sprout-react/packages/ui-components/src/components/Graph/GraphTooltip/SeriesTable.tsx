@@ -1,6 +1,6 @@
 import React from 'react';
 import { stylesFactory } from '../../../themes/stylesFactory';
-import { GrafanaTheme, GraphSeriesValue } from '@grafana/data';
+import { GrafanaTheme, GraphSeriesValue } from '@savantly/sprout-api';
 import { css, cx } from 'emotion';
 import { SeriesIcon } from '../../Legend/SeriesIcon';
 import { useTheme } from '../../../themes';

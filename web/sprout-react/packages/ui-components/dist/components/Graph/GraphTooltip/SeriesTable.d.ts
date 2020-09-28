@@ -1,5 +1,5 @@
 import React from 'react';
-import { GraphSeriesValue } from '@grafana/data';
+import { GraphSeriesValue } from '@savantly/sprout-api';
 export interface SeriesTableRowProps {
     color?: string;
     label?: string;

@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { Color } from '@grafana/data';
+import { Color } from '@savantly/sprout-api';
 import { Themeable } from '../../types/index';
 export interface NamedColorsPaletteProps extends Themeable {
     color?: Color;

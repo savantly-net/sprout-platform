@@ -1,7 +1,7 @@
 import React from 'react';
 import { cx } from 'emotion';
 import _ from 'lodash';
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 import { SegmentSelect, useExpandableLabel, SegmentProps } from '.';
 
 export interface SegmentSyncProps<T> extends SegmentProps<T> {

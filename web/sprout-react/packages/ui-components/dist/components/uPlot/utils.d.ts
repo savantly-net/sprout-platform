@@ -1,5 +1,5 @@
 /// <reference types="lodash" />
-import { DataFrame, GrafanaTheme, RawTimeRange, TimeRange } from '@grafana/data';
+import { DataFrame, GrafanaTheme, RawTimeRange, TimeRange } from '@savantly/sprout-api';
 import uPlot from 'uplot';
 import { PlotPlugin, PlotProps } from './types';
 export declare const timeFormatToTemplate: (f: string) => string;

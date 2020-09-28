@@ -1,4 +1,4 @@
-import { PanelMenuItem } from '@grafana/data';
+import { PanelMenuItem } from '@savantly/sprout-api';
 import { getLocationSrv } from '@savantly/sprout-runtime';
 import { updateLocation } from '../../../core/actions';
 import { store } from '../../../store/store';

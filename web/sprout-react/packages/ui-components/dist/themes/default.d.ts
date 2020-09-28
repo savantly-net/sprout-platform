@@ -1,4 +1,4 @@
-import { GrafanaThemeCommons } from '@grafana/data';
+import { GrafanaThemeCommons } from '@savantly/sprout-api';
 export declare const commonColorsPalette: {
     gray98: string;
     gray97: string;

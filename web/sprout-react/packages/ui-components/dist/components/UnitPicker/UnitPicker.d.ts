@@ -1,5 +1,5 @@
 import { PureComponent } from 'react';
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 interface Props {
     onChange: (item?: string) => void;
     value?: string;

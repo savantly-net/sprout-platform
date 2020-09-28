@@ -1,6 +1,6 @@
 import { Column, Row } from 'react-table';
 import { ContentPosition } from 'csstype';
-import { DataFrame, Field, SelectableValue } from '@grafana/data';
+import { DataFrame, Field, SelectableValue } from '@savantly/sprout-api';
 export declare function getTextAlign(field?: Field): ContentPosition;
 export declare function getColumns(data: DataFrame, availableWidth: number, columnMinWidth: number): Column[];
 export declare function filterByValue(rows: Row[], id: string, filterValues?: SelectableValue[]): Row<{}>[];

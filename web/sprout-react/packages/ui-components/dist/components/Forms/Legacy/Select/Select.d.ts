@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { SelectCommonProps, SelectAsyncProps } from '../../../Select/types';
 import { PopoverContent } from '../../../Tooltip/Tooltip';
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 /**
  * Changes in new selects:
  * - noOptionsMessage & loadingMessage is of string type

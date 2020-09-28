@@ -1,7 +1,7 @@
 import React, { FC, HTMLAttributes, ReactNode } from 'react';
 import { stylesFactory, useTheme } from '../../themes';
 import { css, cx } from 'emotion';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;

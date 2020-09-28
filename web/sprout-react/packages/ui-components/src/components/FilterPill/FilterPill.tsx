@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { stylesFactory, ThemeContext } from '../../themes';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { css } from 'emotion';
 import { IconButton } from '../IconButton/IconButton';
 import { IconName } from '../../types';

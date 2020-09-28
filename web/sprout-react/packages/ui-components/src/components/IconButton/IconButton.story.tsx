@@ -1,9 +1,9 @@
 import React from 'react';
 import { css } from 'emotion';
-import { IconButton } from '@grafana/ui';
+import { IconButton } from '@savantly/sprout-ui';
 import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
 import { useTheme } from '../../themes/ThemeContext';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { IconSize, IconName } from '../../types';
 
 export default {

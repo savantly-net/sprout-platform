@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Cell } from 'react-table';
-import { Field } from '@grafana/data';
+import { Field } from '@savantly/sprout-api';
 import { TableFilterActionCallback } from './types';
 import { TableStyles } from './styles';
 export interface Props {

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { DataFrame } from '@grafana/data';
+import { DataFrame } from '@savantly/sprout-api';
 import { TableColumnResizeActionCallback, TableFilterActionCallback, TableSortByActionCallback, TableSortByFieldState } from './types';
 export interface Props {
     ariaLabel?: string;

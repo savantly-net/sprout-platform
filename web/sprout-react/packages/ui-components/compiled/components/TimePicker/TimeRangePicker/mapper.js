@@ -1,4 +1,4 @@
-import { rangeUtil, dateTimeFormat } from '@grafana/data';
+import { rangeUtil, dateTimeFormat } from '@savantly/sprout-api';
 export var mapOptionToTimeRange = function (option, timeZone) {
     return rangeUtil.convertRawToRange({ from: option.from, to: option.to }, timeZone);
 };

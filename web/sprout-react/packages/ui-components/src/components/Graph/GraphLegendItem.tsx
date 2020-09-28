@@ -6,7 +6,7 @@ import { SeriesColorChangeHandler } from './GraphWithLegend';
 import { LegendStatsList } from '../Legend/LegendStatsList';
 import { ThemeContext } from '../../themes/ThemeContext';
 import { stylesFactory } from '../../themes';
-import { GrafanaTheme, formattedValueToString } from '@grafana/data';
+import { GrafanaTheme, formattedValueToString } from '@savantly/sprout-api';
 
 export interface GraphLegendItemProps {
   key?: React.Key;

@@ -12,18 +12,18 @@ import {
   DisplayProcessor,
   FieldConfig,
   FieldColorMode,
-} from '@grafana/data';
+} from '@savantly/sprout-api';
 import { selectors } from '@grafana/e2e-selectors';
 
 // Components
 import { FormattedValueDisplay } from '../FormattedValueDisplay/FormattedValueDisplay';
 
 // Utils
-import { getColorFromHexRgbOrName } from '@grafana/data';
+import { getColorFromHexRgbOrName } from '@savantly/sprout-api';
 import { measureText, calculateFontSize } from '../../utils/measureText';
 
 // Types
-import { VizOrientation } from '@grafana/data';
+import { VizOrientation } from '@savantly/sprout-api';
 import { Themeable } from '../../types';
 
 const MIN_VALUE_HEIGHT = 18;

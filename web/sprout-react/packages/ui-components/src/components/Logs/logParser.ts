@@ -1,4 +1,4 @@
-import { Field, getParser, LinkModel, LogRowModel } from '@grafana/data';
+import { Field, getParser, LinkModel, LogRowModel } from '@savantly/sprout-api';
 import memoizeOne from 'memoize-one';
 
 import { MAX_CHARACTERS } from './LogRowMessage';

@@ -3,7 +3,7 @@ import { css } from 'emotion';
 import { getTagColorsFromName } from '../../utils';
 import { stylesFactory, useTheme } from '../../themes';
 import { Icon } from '../Icon/Icon';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 
 interface Props {
   name: string;

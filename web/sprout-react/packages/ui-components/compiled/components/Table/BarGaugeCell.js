@@ -1,6 +1,6 @@
 import { __assign } from "tslib";
 import React from 'react';
-import { ThresholdsMode, VizOrientation } from '@grafana/data';
+import { ThresholdsMode, VizOrientation } from '@savantly/sprout-api';
 import { BarGauge, BarGaugeDisplayMode } from '../BarGauge/BarGauge';
 import { TableCellDisplayMode } from './types';
 var defaultScale = {

@@ -1,5 +1,5 @@
 import React, { PureComponent, FormEvent } from 'react';
-import { TimeRange, TimeZone } from '@grafana/data';
+import { TimeRange, TimeZone } from '@savantly/sprout-api';
 import { Themeable } from '../../types';
 export interface Props extends Themeable {
     hideText?: boolean;

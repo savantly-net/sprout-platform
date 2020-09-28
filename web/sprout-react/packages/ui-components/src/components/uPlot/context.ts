@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from 'react';
 import uPlot from 'uplot';
 import { PlotPlugin } from './types';
-import { DataFrame, Field, FieldConfig } from '@grafana/data';
+import { DataFrame, Field, FieldConfig } from '@savantly/sprout-api';
 
 interface PlotCanvasContextType {
   // canvas size css pxs

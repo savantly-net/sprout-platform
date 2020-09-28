@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { renderGeneratedFileBanner } from '../utils/generatedFileBanner';
 import { styleMixins } from '.';
 

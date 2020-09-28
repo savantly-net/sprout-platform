@@ -1,7 +1,7 @@
 import React, { FC, useContext } from 'react';
 import { css, cx } from 'emotion';
 import { ThemeContext } from '../../index';
-import { PluginState } from '@grafana/data';
+import { PluginState } from '@savantly/sprout-api';
 import { Icon } from '../Icon/Icon';
 
 export interface Props {

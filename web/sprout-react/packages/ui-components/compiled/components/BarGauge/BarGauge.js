@@ -3,15 +3,15 @@ import { __extends } from "tslib";
 import React, { PureComponent } from 'react';
 import tinycolor from 'tinycolor2';
 import * as d3 from 'd3-scale-chromatic';
-import { formattedValueToString, ThresholdsMode, FieldColorMode, } from '@grafana/data';
+import { formattedValueToString, ThresholdsMode, FieldColorMode, } from '@savantly/sprout-api';
 import { selectors } from '@grafana/e2e-selectors';
 // Components
 import { FormattedValueDisplay } from '../FormattedValueDisplay/FormattedValueDisplay';
 // Utils
-import { getColorFromHexRgbOrName } from '@grafana/data';
+import { getColorFromHexRgbOrName } from '@savantly/sprout-api';
 import { measureText, calculateFontSize } from '../../utils/measureText';
 // Types
-import { VizOrientation } from '@grafana/data';
+import { VizOrientation } from '@savantly/sprout-api';
 var MIN_VALUE_HEIGHT = 18;
 var MAX_VALUE_HEIGHT = 50;
 var MIN_VALUE_WIDTH = 50;

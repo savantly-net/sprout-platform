@@ -1,7 +1,7 @@
 import { __extends } from "tslib";
 import React from 'react';
 import debounce from 'lodash/debounce';
-import { readCSV } from '@grafana/data';
+import { readCSV } from '@savantly/sprout-api';
 import { Icon } from '../Icon/Icon';
 /**
  * Expects the container div to have size set and will fill it 100%

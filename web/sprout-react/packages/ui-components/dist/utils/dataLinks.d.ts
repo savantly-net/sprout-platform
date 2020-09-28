@@ -1,5 +1,5 @@
 import { ContextMenuItem } from '../components/ContextMenu/ContextMenu';
-import { LinkModel } from '@grafana/data';
+import { LinkModel } from '@savantly/sprout-api';
 /**
  * Delays creating links until we need to open the ContextMenu
  */

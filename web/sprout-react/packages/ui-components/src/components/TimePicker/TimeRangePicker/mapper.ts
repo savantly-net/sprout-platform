@@ -1,4 +1,4 @@
-import { TimeOption, TimeRange, TimeZone, rangeUtil, dateTimeFormat } from '@grafana/data';
+import { TimeOption, TimeRange, TimeZone, rangeUtil, dateTimeFormat } from '@savantly/sprout-api';
 
 export const mapOptionToTimeRange = (option: TimeOption, timeZone?: TimeZone): TimeRange => {
   return rangeUtil.convertRawToRange({ from: option.from, to: option.to }, timeZone);

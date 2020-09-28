@@ -1,5 +1,5 @@
 import { css } from 'emotion';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { stylesFactory } from '../../themes';
 
 export const getModalStyles = stylesFactory((theme: GrafanaTheme) => {

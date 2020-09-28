@@ -16,7 +16,7 @@ import {
   RawTimeRange,
   systemDateFormats,
   TimeRange,
-} from '@grafana/data';
+} from '@savantly/sprout-api';
 import { colors } from '../../utils';
 import uPlot from 'uplot';
 import { GraphCustomFieldConfig, PlotPlugin, PlotProps } from './types';

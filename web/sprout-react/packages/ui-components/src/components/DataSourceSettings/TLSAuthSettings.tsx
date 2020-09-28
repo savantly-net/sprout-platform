@@ -1,5 +1,5 @@
 import React from 'react';
-import { KeyValue } from '@grafana/data';
+import { KeyValue } from '@savantly/sprout-api';
 import { css, cx } from 'emotion';
 import { Tooltip } from '../Tooltip/Tooltip';
 import { Icon } from '../Icon/Icon';

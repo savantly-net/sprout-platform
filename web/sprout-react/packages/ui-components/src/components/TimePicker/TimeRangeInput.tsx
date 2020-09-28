@@ -1,6 +1,6 @@
 import React, { FC, FormEvent, MouseEvent, useState } from 'react';
 import { css, cx } from 'emotion';
-import { dateTime, GrafanaTheme, TimeRange, TimeZone, dateMath } from '@grafana/data';
+import { dateTime, GrafanaTheme, TimeRange, TimeZone, dateMath } from '@savantly/sprout-api';
 import { useStyles } from '../../themes/ThemeContext';
 import { ClickOutsideWrapper } from '../ClickOutsideWrapper/ClickOutsideWrapper';
 import { Icon } from '../Icon/Icon';

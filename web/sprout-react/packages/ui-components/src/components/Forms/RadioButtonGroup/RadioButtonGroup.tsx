@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 import { css } from 'emotion';
 import uniqueId from 'lodash/uniqueId';
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 import { RadioButtonSize, RadioButton } from './RadioButton';
 import { Icon } from '../../Icon/Icon';
 

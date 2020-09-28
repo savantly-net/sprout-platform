@@ -1,6 +1,6 @@
 // Libraries
 import { selectors } from '@grafana/e2e-selectors';
-import { ErrorBoundary } from '@grafana/ui';
+import { ErrorBoundary } from '@savantly/sprout-ui';
 import {
   LoadingState,
   PanelData, PanelEvents,

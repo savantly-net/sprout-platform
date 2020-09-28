@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { FieldConfigEditorProps, StringFieldConfigSettings } from '@grafana/data';
+import { FieldConfigEditorProps, StringFieldConfigSettings } from '@savantly/sprout-api';
 import { Input } from '../Input/Input';
 import { TextArea } from '../TextArea/TextArea';
 

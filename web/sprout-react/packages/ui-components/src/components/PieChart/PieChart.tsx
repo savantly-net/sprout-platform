@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { select, pie, arc, event } from 'd3';
 import sum from 'lodash/sum';
-import { DisplayValue, GrafanaThemeType, formattedValueToString } from '@grafana/data';
+import { DisplayValue, GrafanaThemeType, formattedValueToString } from '@savantly/sprout-api';
 import { Themeable } from '../../index';
 import { colors as grafana_colors } from '../../utils/index';
 

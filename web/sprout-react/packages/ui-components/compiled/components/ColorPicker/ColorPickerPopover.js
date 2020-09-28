@@ -3,7 +3,7 @@ import React from 'react';
 import { NamedColorsPalette } from './NamedColorsPalette';
 import SpectrumPalette from './SpectrumPalette';
 import { warnAboutColorPickerPropsDeprecation } from './warnAboutColorPickerPropsDeprecation';
-import { GrafanaThemeType, getColorName, getColorFromHexRgbOrName } from '@grafana/data';
+import { GrafanaThemeType, getColorName, getColorFromHexRgbOrName } from '@savantly/sprout-api';
 var ColorPickerPopover = /** @class */ (function (_super) {
     __extends(ColorPickerPopover, _super);
     function ColorPickerPopover(props) {

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Button, ConfirmModal, HorizontalGroup, Modal, stylesFactory, useTheme } from '@grafana/ui';
-import { GrafanaTheme } from '@grafana/data';
+import { Button, ConfirmModal, HorizontalGroup, Modal, stylesFactory, useTheme } from '@savantly/sprout-ui';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { css } from 'emotion';
 import { DashboardModel } from '../../state';
 import { useDashboardSave } from './useDashboardSave';

@@ -1,6 +1,6 @@
 import { PureComponent, ReactElement } from 'react';
 import { PopoverContent } from '../../../Tooltip/Tooltip';
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 export interface Props<T> {
     className: string | undefined;
     options: Array<SelectableValue<T>>;

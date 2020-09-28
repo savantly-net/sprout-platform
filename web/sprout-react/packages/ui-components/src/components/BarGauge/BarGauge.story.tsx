@@ -1,6 +1,6 @@
 import { number, text } from '@storybook/addon-knobs';
-import { BarGauge, BarGaugeDisplayMode } from '@grafana/ui';
-import { VizOrientation, ThresholdsMode, Field, FieldType, getDisplayProcessor } from '@grafana/data';
+import { BarGauge, BarGaugeDisplayMode } from '@savantly/sprout-ui';
+import { VizOrientation, ThresholdsMode, Field, FieldType, getDisplayProcessor } from '@savantly/sprout-api';
 import { Props } from './BarGauge';
 import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
 import { renderComponentWithTheme } from '../../utils/storybook/withTheme';

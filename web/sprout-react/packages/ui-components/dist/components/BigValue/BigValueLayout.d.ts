@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import { DisplayValue } from '@grafana/data';
+import { DisplayValue } from '@savantly/sprout-api';
 import { Props, BigValueJustifyMode } from './BigValue';
 export declare abstract class BigValueLayout {
     private props;

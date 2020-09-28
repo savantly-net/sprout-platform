@@ -1,4 +1,4 @@
-import { GrafanaTheme, isDateTime, TimeOption, TimeRange, TimeZone } from '@grafana/data';
+import { GrafanaTheme, isDateTime, TimeOption, TimeRange, TimeZone } from '@savantly/sprout-api';
 import { css, cx } from 'emotion';
 import React, { memo, useState } from 'react';
 import { useMedia } from 'react-use';

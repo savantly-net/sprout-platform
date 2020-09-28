@@ -1,5 +1,5 @@
 import React from 'react';
-import { TimeZone } from '@grafana/data';
+import { TimeZone } from '@savantly/sprout-api';
 export interface Props {
     onChange: (timeZone: TimeZone | undefined) => void;
     value?: TimeZone;

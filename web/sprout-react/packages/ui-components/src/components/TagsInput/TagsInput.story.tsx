@@ -2,7 +2,7 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
 import { UseState } from '../../utils/storybook/UseState';
-import { TagsInput } from '@grafana/ui';
+import { TagsInput } from '@savantly/sprout-ui';
 
 const mockTags = ['Some', 'Tags', 'With', 'This', 'New', 'Component'];
 

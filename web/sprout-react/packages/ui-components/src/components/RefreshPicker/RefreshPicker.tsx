@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 import { css } from 'emotion';
 import { Tooltip } from '../Tooltip/Tooltip';
 import { Icon } from '../Icon/Icon';
 import { ButtonSelect } from '../Forms/Legacy/Select/ButtonSelect';
 import memoizeOne from 'memoize-one';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { withTheme } from '../../themes';
 
 export const defaultIntervals = ['5s', '10s', '30s', '1m', '5m', '15m', '30m', '1h', '2h', '1d'];

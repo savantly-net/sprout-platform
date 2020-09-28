@@ -1,8 +1,8 @@
-import { LogRowModel, toDataFrame, Field, FieldCache, LogsSortOrder } from '@grafana/data';
+import { LogRowModel, toDataFrame, Field, FieldCache, LogsSortOrder } from '@savantly/sprout-api';
 import React, { useState, useEffect } from 'react';
 import useAsync from 'react-use/lib/useAsync';
 
-import { DataQueryResponse, DataQueryError } from '@grafana/data';
+import { DataQueryResponse, DataQueryError } from '@savantly/sprout-api';
 
 export interface RowContextOptions {
   direction?: 'BACKWARD' | 'FORWARD';

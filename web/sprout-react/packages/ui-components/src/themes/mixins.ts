@@ -1,4 +1,4 @@
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import tinycolor from 'tinycolor2';
 
 export function cardChrome(theme: GrafanaTheme): string {

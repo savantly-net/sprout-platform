@@ -1,7 +1,7 @@
 import React, { HTMLProps, useRef } from 'react';
 import { css, cx } from 'emotion';
 import uniqueId from 'lodash/uniqueId';
-import { GrafanaTheme, deprecationWarning } from '@grafana/data';
+import { GrafanaTheme, deprecationWarning } from '@savantly/sprout-api';
 import { stylesFactory, useTheme } from '../../themes';
 import { focusCss } from '../../themes/mixins';
 

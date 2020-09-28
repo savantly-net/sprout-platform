@@ -1,6 +1,6 @@
 import { cleanValue, findSelectedValue } from './utils';
 import { SelectableOptGroup } from './types';
-import { SelectableValue } from '@grafana/data';
+import { SelectableValue } from '@savantly/sprout-api';
 
 const optGroup: SelectableOptGroup[] = [
   {

@@ -4,7 +4,7 @@ import tinycolor from 'tinycolor2';
 import { stylesFactory, ThemeContext } from '../../themes';
 import { IconName } from '../../types/icon';
 import { getFocusStyle, getPropertiesForButtonSize } from '../Forms/commonStyles';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { ButtonContent } from './ButtonContent';
 import { ComponentSize } from '../../types/size';
 

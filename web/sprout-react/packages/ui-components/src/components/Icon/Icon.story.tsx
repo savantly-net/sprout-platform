@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { css } from 'emotion';
 
-import { Input, Field, Icon } from '@grafana/ui';
+import { Input, Field, Icon } from '@savantly/sprout-ui';
 import { getAvailableIcons, IconName } from '../../types';
 import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
 import { useTheme, selectThemeVariant } from '../../themes';

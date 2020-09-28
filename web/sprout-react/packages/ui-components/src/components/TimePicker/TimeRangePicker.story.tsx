@@ -1,10 +1,10 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 
-import { TimeRangePicker } from '@grafana/ui';
+import { TimeRangePicker } from '@savantly/sprout-ui';
 import { UseState } from '../../utils/storybook/UseState';
 import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
-import { TimeFragment, dateTime } from '@grafana/data';
+import { TimeFragment, dateTime } from '@savantly/sprout-api';
 
 export default {
   title: 'Pickers and Editors/TimePickers/TimeRangePicker',

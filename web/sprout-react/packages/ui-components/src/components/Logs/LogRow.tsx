@@ -8,7 +8,7 @@ import {
   DataQueryResponse,
   GrafanaTheme,
   dateTimeFormat,
-} from '@grafana/data';
+} from '@savantly/sprout-api';
 import { Icon } from '../Icon/Icon';
 import { cx, css } from 'emotion';
 

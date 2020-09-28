@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { DisplayValue, GraphSeriesValue, DisplayValueAlignmentFactors } from '@grafana/data';
+import { DisplayValue, GraphSeriesValue, DisplayValueAlignmentFactors } from '@savantly/sprout-api';
 import { Themeable } from '../../types';
 export interface BigValueSparkline {
     data: GraphSeriesValue[][];

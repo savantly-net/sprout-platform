@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { css } from 'emotion';
-import { GrafanaTheme, TimeOption } from '@grafana/data';
+import { GrafanaTheme, TimeOption } from '@savantly/sprout-api';
 import { useTheme, stylesFactory, selectThemeVariant } from '../../../themes';
 import { Icon } from '../../Icon/Icon';
 

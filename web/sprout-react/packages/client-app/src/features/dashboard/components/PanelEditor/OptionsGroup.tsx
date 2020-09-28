@@ -2,7 +2,7 @@ import React, { FC, memo, ReactNode, useCallback, useEffect, useState } from 're
 import { css, cx } from 'emotion';
 import _ from 'lodash';
 import { GrafanaTheme } from '@savantly/sprout-api';
-import { Icon, stylesFactory, useTheme } from '@grafana/ui';
+import { Icon, stylesFactory, useTheme } from '@savantly/sprout-ui';
 import { PANEL_EDITOR_UI_STATE_STORAGE_KEY } from './state/reducers';
 import { useLocalStorage } from 'react-use';
 import { selectors } from '@grafana/e2e-selectors';

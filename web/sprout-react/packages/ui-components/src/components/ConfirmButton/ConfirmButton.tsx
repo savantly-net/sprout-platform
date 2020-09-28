@@ -1,7 +1,7 @@
 import React, { PureComponent, SyntheticEvent } from 'react';
 import { cx, css } from 'emotion';
 import { stylesFactory, withTheme } from '../../themes';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { Themeable } from '../../types';
 import { ComponentSize } from '../../types/size';
 import { Button, ButtonVariant } from '../Button';

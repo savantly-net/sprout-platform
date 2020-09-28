@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useMemo, useState } from 'react';
-import { Field, GrafanaTheme, SelectableValue } from '@grafana/data';
+import { Field, GrafanaTheme, SelectableValue } from '@savantly/sprout-api';
 import { css, cx } from 'emotion';
 
 import { TableStyles } from './styles';

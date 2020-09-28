@@ -1,5 +1,5 @@
 import React from 'react';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 export interface FieldValidationMessageProps {
     children: string;
     /** Override component style */

@@ -1,6 +1,6 @@
 import React, { ButtonHTMLAttributes } from 'react';
 import { IconName } from '../../types/icon';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { ComponentSize } from '../../types/size';
 export interface StyleProps {
     theme: GrafanaTheme;

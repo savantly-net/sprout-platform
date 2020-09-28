@@ -1,4 +1,4 @@
-import { Button, Field, Form, HorizontalGroup, Input } from '@grafana/ui';
+import { Button, Field, Form, HorizontalGroup, Input } from '@savantly/sprout-ui';
 import React, { FC } from 'react';
 
 export type OnRowOptionsUpdate = (title: string | null) => void;

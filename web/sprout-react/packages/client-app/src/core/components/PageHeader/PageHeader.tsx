@@ -1,6 +1,6 @@
 import React, { FormEvent } from 'react';
 import { css } from 'emotion';
-import { Tab, TabsBar, Icon, IconName } from '@grafana/ui';
+import { Tab, TabsBar, Icon, IconName } from '@savantly/sprout-ui';
 import appEvents from '../../app_events';
 import { NavModel, NavModelItem, NavModelBreadcrumb } from '@savantly/sprout-api';
 import { CoreEvents } from '../../../types';

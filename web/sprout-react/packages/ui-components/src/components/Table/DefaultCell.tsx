@@ -1,5 +1,5 @@
 import React, { FC, MouseEventHandler } from 'react';
-import { DisplayValue, Field, formattedValueToString, LinkModel } from '@grafana/data';
+import { DisplayValue, Field, formattedValueToString, LinkModel } from '@savantly/sprout-api';
 
 import { TableCellDisplayMode, TableCellProps } from './types';
 import tinycolor from 'tinycolor2';

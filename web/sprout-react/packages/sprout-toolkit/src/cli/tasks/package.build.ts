@@ -53,13 +53,13 @@ const preparePackage = async (pkg: any) => {
   // Below we are adding cross-dependencies to Grafana's packages
   // with the version being published
   if (name.endsWith('/ui')) {
-    deps['@grafana/data'] = version;
+    deps['@savantly/sprout-api'] = version;
   } else if (name.endsWith('/runtime')) {
-    deps['@grafana/data'] = version;
-    deps['@grafana/ui'] = version;
+    deps['@savantly/sprout-api'] = version;
+    deps['@savantly/sprout-ui'] = version;
   } else if (name.endsWith('/toolkit')) {
-    deps['@grafana/data'] = version;
-    deps['@grafana/ui'] = version;
+    deps['@savantly/sprout-api'] = version;
+    deps['@savantly/sprout-ui'] = version;
   }
 
   await savePackage({

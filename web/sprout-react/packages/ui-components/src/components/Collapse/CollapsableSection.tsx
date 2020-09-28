@@ -1,6 +1,6 @@
 import React, { FC, ReactNode, useState } from 'react';
 import { css, cx } from 'emotion';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { useStyles } from '../../themes';
 import { Icon } from '..';
 

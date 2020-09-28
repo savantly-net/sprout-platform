@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useMemo, useRef, useState } from 'react';
 import { css, cx } from 'emotion';
-import { Field, GrafanaTheme } from '@grafana/data';
+import { Field, GrafanaTheme } from '@savantly/sprout-api';
 
 import { TableStyles } from './styles';
 import { stylesFactory, useStyles } from '../../themes';

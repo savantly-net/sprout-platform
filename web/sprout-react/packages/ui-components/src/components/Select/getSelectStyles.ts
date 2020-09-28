@@ -1,6 +1,6 @@
 import { stylesFactory } from '../../themes/stylesFactory';
 import { css } from 'emotion';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 
 export const getSelectStyles = stylesFactory((theme: GrafanaTheme) => {
   const bgColor = theme.colors.formInputBg;

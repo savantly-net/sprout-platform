@@ -6,7 +6,7 @@ import { getTitleFromNavModel } from '../../selectors/navModel';
 import PageHeader from '../PageHeader/PageHeader';
 import { Footer } from '../Footer/Footer';
 import PageContents from './PageContents';
-import { CustomScrollbar } from '@grafana/ui';
+import { CustomScrollbar } from '@savantly/sprout-ui';
 import { NavModel } from '@savantly/sprout-api';
 import { isEqual } from 'lodash';
 import { Branding } from '../Branding/Branding';

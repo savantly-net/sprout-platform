@@ -2,12 +2,12 @@ import React, { useContext, useRef, useState, useLayoutEffect } from 'react';
 import { css, cx } from 'emotion';
 import useClickAway from 'react-use/lib/useClickAway';
 import { selectThemeVariant, ThemeContext } from '../../index';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { stylesFactory } from '../../themes/stylesFactory';
 import { Portal, List } from '../index';
 import { Icon } from '../Icon/Icon';
 import { IconName } from '../../types';
-import { LinkTarget } from '@grafana/data';
+import { LinkTarget } from '@savantly/sprout-api';
 
 export interface ContextMenuItem {
   label: string;

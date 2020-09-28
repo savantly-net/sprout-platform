@@ -3,7 +3,7 @@ import throttle from 'lodash/throttle';
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
 import tinycolor from 'tinycolor2';
-import { FieldType, formattedValueToString, getColorFromHexRgbOrName, getFieldDisplayName, getTimeField, getTimeZoneInfo, rangeUtil, systemDateFormats, } from '@grafana/data';
+import { FieldType, formattedValueToString, getColorFromHexRgbOrName, getFieldDisplayName, getTimeField, getTimeZoneInfo, rangeUtil, systemDateFormats, } from '@savantly/sprout-api';
 import { colors } from '../../utils';
 import uPlot from 'uplot';
 var defaultFormatter = function (v) { return (v == null ? '-' : v.toFixed(1)); };

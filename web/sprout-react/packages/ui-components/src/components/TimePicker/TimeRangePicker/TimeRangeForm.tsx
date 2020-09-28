@@ -9,7 +9,7 @@ import {
   dateTimeParse,
   rangeUtil,
   RawTimeRange,
-} from '@grafana/data';
+} from '@savantly/sprout-api';
 import { TimePickerCalendar } from './TimePickerCalendar';
 import { Field } from '../../Forms/Field';
 import { Input } from '../../Input/Input';

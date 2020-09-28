@@ -3,7 +3,7 @@ import { Range, createSliderWithTooltip } from 'rc-slider';
 import { cx, css } from 'emotion';
 import { Global, css as cssCore } from '@emotion/core';
 import { stylesFactory } from '../../themes';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import { useTheme } from '../../themes/ThemeContext';
 import { Orientation } from '../../types/orientation';
 

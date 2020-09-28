@@ -1,6 +1,6 @@
 import { __read, __values } from "tslib";
 import memoizeOne from 'memoize-one';
-import { FieldType, formattedValueToString, getFieldDisplayName, } from '@grafana/data';
+import { FieldType, formattedValueToString, getFieldDisplayName, } from '@savantly/sprout-api';
 import { DefaultCell } from './DefaultCell';
 import { BarGaugeCell } from './BarGaugeCell';
 import { TableCellDisplayMode } from './types';

@@ -11,7 +11,7 @@ import {
   Dimensions,
   dateTimeFormat,
   TimeZone,
-} from '@grafana/data';
+} from '@savantly/sprout-api';
 import { css } from 'emotion';
 
 export type ContextDimensions<T extends Dimensions = any> = { [key in keyof T]: [number, number | undefined] | null };

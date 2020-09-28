@@ -10,7 +10,7 @@ import {
   LinkModel,
   LogRowModel,
   GrafanaTheme,
-} from '@grafana/data';
+} from '@savantly/sprout-api';
 
 import { Themeable } from '../../types/theme';
 import { withTheme } from '../../themes/index';

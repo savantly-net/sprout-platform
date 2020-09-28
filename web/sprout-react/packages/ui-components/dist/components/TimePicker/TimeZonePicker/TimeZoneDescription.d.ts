@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import { TimeZoneInfo } from '@grafana/data';
+import { TimeZoneInfo } from '@savantly/sprout-api';
 interface Props {
     info?: TimeZoneInfo;
 }

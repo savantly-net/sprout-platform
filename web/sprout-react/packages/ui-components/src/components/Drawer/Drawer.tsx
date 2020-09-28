@@ -1,5 +1,5 @@
 import React, { CSSProperties, FC, ReactNode, useState } from 'react';
-import { GrafanaTheme } from '@grafana/data';
+import { GrafanaTheme } from '@savantly/sprout-api';
 import RcDrawer from 'rc-drawer';
 import { css } from 'emotion';
 import { selectors } from '@grafana/e2e-selectors';

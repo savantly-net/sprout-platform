@@ -1,7 +1,7 @@
 import { __values } from "tslib";
 import React, { useMemo, useCallback } from 'react';
 import { toLower, isEmpty, isString } from 'lodash';
-import { getTimeZoneInfo, getTimeZoneGroups, InternalTimeZones, } from '@grafana/data';
+import { getTimeZoneInfo, getTimeZoneGroups, InternalTimeZones, } from '@savantly/sprout-api';
 import { Select } from '../Select/Select';
 import { CompactTimeZoneOption, WideTimeZoneOption } from './TimeZonePicker/TimeZoneOption';
 import { TimeZoneGroup } from './TimeZonePicker/TimeZoneGroup';

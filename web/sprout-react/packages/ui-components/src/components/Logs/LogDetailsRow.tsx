@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { css, cx } from 'emotion';
-import { Field, LinkModel, LogLabelStatsModel, GrafanaTheme } from '@grafana/data';
+import { Field, LinkModel, LogLabelStatsModel, GrafanaTheme } from '@savantly/sprout-api';
 
 import { Themeable } from '../../types/theme';
 import { withTheme } from '../../themes/index';

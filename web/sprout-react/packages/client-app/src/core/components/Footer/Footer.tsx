@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import config from '../../config';
-import { Icon, IconName } from '@grafana/ui';
+import { Icon, IconName } from '@savantly/sprout-ui';
 
 export interface FooterLink {
   text: string;

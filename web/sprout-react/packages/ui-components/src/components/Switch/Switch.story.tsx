@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { boolean } from '@storybook/addon-knobs';
 import { withCenteredStory, withHorizontallyCenteredStory } from '../../utils/storybook/withCenteredStory';
-import { Switch } from '@grafana/ui';
+import { Switch } from '@savantly/sprout-ui';
 import mdx from './Switch.mdx';
 
 export default {
