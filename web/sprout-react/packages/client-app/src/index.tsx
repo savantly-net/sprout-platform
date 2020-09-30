@@ -6,20 +6,29 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import ErrorBoundary from './core/components/error/error-boundary';
 import { configureStore } from './store/configureStore';
+import { LocationUpdate, setLocationSrv } from '@savantly/sprout-runtime';
+import { updateLocation } from './core/actions';
 
 const store = configureStore();
+setLocationSrv({
+  update: (opt: LocationUpdate) => {
+    store.dispatch(updateLocation(opt));
+  },
+});
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <ErrorBoundary>
       <Provider store={store}>
-        <div>
-          <App />
+        <div className="main-view">
+          <div className="scroll-canvas">
+            <App />
+          </div>
         </div>
       </Provider>
     </ErrorBoundary>
     
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById('root')
 );
 

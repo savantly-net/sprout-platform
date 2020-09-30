@@ -1,11 +1,12 @@
 import { AnyAction, createAction } from '@reduxjs/toolkit';
 import { NavIndex, NavModel, NavModelItem } from '@savantly/sprout-api';
+import { defaultNavTree } from '../../mocks/navTree';
 
-import config from '../../core/config';
+//import config from '../../core/config';
 
 export function buildInitialState(): NavIndex {
   const navIndex: NavIndex = {};
-  const rootNodes = config.bootData.navTree as NavModelItem[];
+  const rootNodes = defaultNavTree as NavModelItem[];
   buildNavIndex(navIndex, rootNodes);
   return navIndex;
 }

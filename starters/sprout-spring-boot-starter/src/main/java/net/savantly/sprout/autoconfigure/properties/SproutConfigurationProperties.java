@@ -15,6 +15,7 @@ import net.savantly.sprout.uiProperties.UIProperty;
 @ConfigurationProperties(prefix = "sprout")
 public class SproutConfigurationProperties {
 	
+	private Dashboards dashboards = new Dashboards();
 	private Security security = new Security();
 	private Jpa jpa = new Jpa();
 	private Cors cors = new Cors();
@@ -24,6 +25,11 @@ public class SproutConfigurationProperties {
 	 * Additional UI properties that should be created for the default tenant
 	 */
 	private List<UIProperty> uiProperties = new ArrayList<>(); 
+	
+	@Getter	@Setter
+	public static class Dashboards {
+		private String home = "classpath:/META-INF/dashboards/home.json";
+	}
 	
 	@Getter
 	@Setter

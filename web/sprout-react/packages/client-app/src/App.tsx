@@ -1,38 +1,43 @@
-import { getTheme, ThemeContext } from "@savantly/sprout-ui";
+import { standardEditorsRegistry } from "@savantly/sprout-api";
+import { config } from "@savantly/sprout-runtime";
+import { ErrorBoundaryAlert, getStandardOptionEditors, getTheme, ModalRoot, ModalsProvider, ThemeContext } from "@savantly/sprout-ui";
 import React from "react";
+import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
-import Page from "./core/components/Page/Page";
-import { useNavModel } from "./core/hooks/useNavModel";
+import './assets/stolen.css';
+import { ThemeProvider } from "./core/utils/ConfigProvider";
 import { initDevFeatures } from "./dev";
-import logo from "./logo.svg";
+import { builtInPluginMeta } from "./features/plugins/built_in_plugins";
+import AppRoutes from "./routes/AppRoutes";
+import { store } from "./store/store";
+
 
 function App() {
-  const navModel = useNavModel("home");
   if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
     console.log("enabling why-render");
     initDevFeatures();
   }
+  
+  document.body.classList.add('is-react');
+  config.panels = builtInPluginMeta;
+  standardEditorsRegistry.setInit(getStandardOptionEditors);
 
   return (
     <BrowserRouter>
       <ThemeContext.Provider value={getTheme("dark")}>
-        <Page navModel={navModel}>
-          <header>
-            <img src={logo} className="App-logo" alt="logo" />
-            <p>
-              Edit <code>src/App.tsx</code> and save to reload.
-            </p>
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
-          </header>
-        </Page>
+        <Provider store={store}>
+          <ErrorBoundaryAlert style="page">
+            <ThemeProvider>
+              <ModalsProvider>
+                <AppRoutes />
+                <ModalRoot />
+              </ModalsProvider>
+            </ThemeProvider>
+          </ErrorBoundaryAlert>
+        </Provider>
+
+        
       </ThemeContext.Provider>
     </BrowserRouter>
   );

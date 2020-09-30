@@ -1,6 +1,7 @@
 import * as sproutApi from '@savantly/sprout-api';
 import { AppPlugin, PanelPlugin, PanelPluginMeta, PluginMeta, PluginType } from '@savantly/sprout-api';
 import * as sproutRuntime from '@savantly/sprout-runtime';
+import { config } from '@savantly/sprout-runtime';
 import * as emotion from 'emotion';
 import _ from 'lodash';
 import moment from 'moment'; // eslint-disable-line no-restricted-imports
@@ -8,14 +9,11 @@ import react from 'react';
 import reactDom from 'react-dom';
 import * as reactRedux from 'react-redux';
 import * as redux from 'redux';
-// rxjs
 import * as rxjs from 'rxjs';
 import * as rxjsOperators from 'rxjs/operators';
+import builtInPluginIndex from './built_in_plugins';
 import { getPanelPluginLoadError, getPanelPluginNotFound } from './PanelPluginError';
 
-
-// TODO: use built-in plugins
-const builtInPlugins: any = {};
 
 // add cache busting
 const bust = `?_cache=${Date.now()}`;
@@ -66,7 +64,7 @@ exposeToPlugin('emotion', emotion);
 
 
 export async function importPluginModule(path: string): Promise<any> {
-  const builtIn = builtInPlugins[path];
+  const builtIn = builtInPluginIndex[path];
   if (builtIn) {
     // for handling dynamic imports
     if (typeof builtIn === 'function') {
@@ -100,28 +98,7 @@ export function importPanelPlugin(id: string): Promise<PanelPlugin> {
     return loaded;
   }
 
-  // TODO ********* 
-  // Get panel meta information from API
-  const meta: PanelPluginMeta = {
-      baseUrl: '',
-      id: '',
-      info: {
-          author: {name: 'me'},
-          description: 'test',
-          links: [],
-          logos: {
-              large: '',
-              small: ''
-          },
-          screenshots: [],
-          updated: '',
-          version: '0.0.1'
-      },
-      module: '',
-      name: '',
-      type: PluginType.panel,
-      sort: 0
-  }; 
+  const meta = config.panels[id];
 
   if (!meta) {
     return Promise.resolve(getPanelPluginNotFound(id));

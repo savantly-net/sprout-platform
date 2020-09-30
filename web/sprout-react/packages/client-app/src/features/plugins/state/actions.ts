@@ -1,8 +1,8 @@
-import { getBackendSrv } from '@savantly/sprout-runtime';
 import { PanelPlugin } from '@savantly/sprout-api';
+import { getBackendSrv } from '@savantly/sprout-runtime';
 import { ThunkResult } from '../../../types';
-import { pluginDashboardsLoad, pluginDashboardsLoaded, pluginsLoaded, panelPluginLoaded } from './reducers';
 import { importPanelPlugin } from '../plugin_loader';
+import { panelPluginLoaded, pluginsLoaded } from './reducers';
 
 export function loadPlugins(): ThunkResult<void> {
   return async dispatch => {
@@ -13,6 +13,7 @@ export function loadPlugins(): ThunkResult<void> {
 
 export function loadPanelPlugin(pluginId: string): ThunkResult<Promise<PanelPlugin>> {
   return async (dispatch, getStore) => {
+    console.log(getStore());
     let plugin = getStore().plugins.panels[pluginId];
 
     if (!plugin) {

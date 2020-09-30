@@ -21,7 +21,13 @@ const buildCjsPackage = ({ env }) => {
         globals: {},
       },
     ],
-    external: ['lodash', 'rxjs', 'react'], // Use Lodash, rxjs & arrow from sprout
+    external: [
+      'lodash', 
+      'rxjs', 
+      'react', 
+      '@savantly/sprout-ui', 
+      '@savantly/sprout-api'
+    ], 
     plugins: [
       json({
         include: ['../../node_modules/moment-timezone/data/packed/latest.json'],
@@ -42,7 +48,7 @@ const buildCjsPackage = ({ env }) => {
             'sortBy',
             'uniqueId',
             'zip',
-          ],
+          ]
         },
       }),
       resolve(),

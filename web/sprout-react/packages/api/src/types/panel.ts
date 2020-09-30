@@ -20,8 +20,6 @@ export interface DataQueryError {
 }
 
 export interface PanelPluginMeta extends PluginMeta {
-  /** Indicates that panel does not issue queries */
-  skipDataQuery?: boolean;
   /** Indicates that panel should not be available in visualisation picker */
   hideFromList?: boolean;
   /** Sort order */
@@ -66,8 +64,6 @@ export interface PanelEditorProps<T = any> {
     // callback can be used to run something right after update.
     callback?: () => void
   ) => void;
-  /** Result set of panel queries */
-  data?: PanelData;
 }
 
 export interface PanelModel<TOptions = any> {

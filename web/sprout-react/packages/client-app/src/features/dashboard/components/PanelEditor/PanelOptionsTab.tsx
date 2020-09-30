@@ -1,6 +1,6 @@
-import { Field, Input, Switch, TextArea } from '@savantly/sprout-ui';
 import { PanelData, PanelPlugin } from '@savantly/sprout-api';
-import React, { FC, useCallback, useRef } from 'react';
+import { Field, Input, Switch, TextArea } from '@savantly/sprout-ui';
+import React, { FC, useRef } from 'react';
 import { DashboardModel, PanelModel } from '../../state';
 import { OptionsGroup } from './OptionsGroup';
 import { PanelOptionsEditor } from './PanelOptionsEditor';
@@ -9,7 +9,6 @@ import { VisualizationTab } from './VisualizationTab';
 interface Props {
   panel: PanelModel;
   plugin: PanelPlugin;
-  data?: PanelData;
   dashboard: DashboardModel;
   onPanelConfigChange: (configKey: string, value: any) => void;
   onPanelOptionsChanged: (options: any) => void;
@@ -18,23 +17,11 @@ interface Props {
 export const PanelOptionsTab: FC<Props> = ({
   panel,
   plugin,
-  data,
-  dashboard,
   onPanelConfigChange,
   onPanelOptionsChanged,
 }) => {
   const visTabInputRef = useRef<HTMLInputElement>(null);
-  const onRepeatRowSelectChange = useCallback((value: string | null) => onPanelConfigChange('repeat', value), [
-    onPanelConfigChange,
-  ]);
   const elements: JSX.Element[] = [];
-
-  const directionOptions = [
-    { label: 'Horizontal', value: 'h' },
-    { label: 'Vertical', value: 'v' },
-  ];
-
-  const maxPerRowOptions = [2, 3, 4, 6, 8, 12].map(value => ({ label: value.toString(), value }));
 
   const focusVisPickerInput = (isExpanded: boolean) => {
     if (isExpanded && visTabInputRef.current) {
@@ -69,7 +56,7 @@ export const PanelOptionsTab: FC<Props> = ({
   if (plugin.editor && panel && !plugin.optionEditors) {
     elements.push(
       <OptionsGroup title="Options" id="legacy react editor" key="legacy react editor">
-        <plugin.editor data={data} options={panel.getOptions()} onOptionsChange={onPanelOptionsChanged} />
+        <plugin.editor options={panel.getOptions()} onOptionsChange={onPanelOptionsChanged} />
       </OptionsGroup>
     );
   }
