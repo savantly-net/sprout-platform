@@ -17,6 +17,7 @@ import { PANEL_BORDER } from '../../../core/constants';
 import { DashboardModel, PanelModel } from '../state';
 // Components
 import { PanelHeader } from './PanelHeader/PanelHeader';
+import { PanelRenderer } from './PanelRenderer';
 
 const DEFAULT_PLUGIN_ERROR = 'Error in plugin';
 
@@ -53,6 +54,10 @@ export class PanelChrome extends PureComponent<Props, State> {
         state: LoadingState.NotStarted
       },
     };
+  }
+  
+  static getDerivedStateFromError(error: Error) {
+    return {errorMessage: error.toString()}
   }
 
   componentDidMount() {
@@ -147,53 +152,12 @@ export class PanelChrome extends PureComponent<Props, State> {
   };
 
   shouldSignalRenderingCompleted(loadingState: LoadingState, pluginMeta: PanelPluginMeta) {
-    return loadingState === LoadingState.Done || pluginMeta.skipDataQuery;
-  }
-
-  renderPanel(width: number, height: number) {
-    const { panel, plugin } = this.props;
-    const { renderCounter, data, isFirstLoad } = this.state;
-    const { theme } = config;
-    const { state: loadingState } = data;
-
-    // do not render component until we have first data
-    if (isFirstLoad && (loadingState === LoadingState.Loading || loadingState === LoadingState.NotStarted)) {
-      return null;
-    }
-
-    const PanelComponent = plugin.panel!;
-    const headerHeight = this.hasOverlayHeader() ? 0 : theme.panelHeaderHeight;
-    const chromePadding = plugin.noPadding ? 0 : theme.panelPadding;
-    const panelWidth = width - chromePadding * 2 - PANEL_BORDER;
-    const innerPanelHeight = height - headerHeight - chromePadding * 2 - PANEL_BORDER;
-    const panelContentClassNames = classNames({
-      'panel-content': true,
-      'panel-content--no-padding': plugin.noPadding,
-    });
-    const panelOptions = panel.getOptions();
-
-    return (
-      <>
-        <div className={panelContentClassNames}>
-          <PanelComponent
-            id={panel.id}
-            data={data}
-            title={panel.title}
-            options={panelOptions}
-            transparent={panel.transparent}
-            width={panelWidth}
-            height={innerPanelHeight}
-            renderCounter={renderCounter}
-            onOptionsChange={this.onOptionsChange}
-          />
-        </div>
-      </>
-    );
+    return loadingState === LoadingState.Done || true; // just return because we're not integrating data queries right now
   }
 
   hasOverlayHeader() {
     const { panel } = this.props;
-    const { errorMessage, data } = this.state;
+    const { errorMessage } = this.state;
 
     // always show normal header if we have an error message
     if (errorMessage) {
@@ -232,8 +196,19 @@ export class PanelChrome extends PureComponent<Props, State> {
             if (error) {
               this.onPanelError(error.message || DEFAULT_PLUGIN_ERROR);
               return null;
+            } else {
+              return (
+              <PanelRenderer
+                panel={panel}
+                plugin={this.props.plugin}
+                data={data}
+                hasOverlayHeader={this.hasOverlayHeader()}
+                height={height}
+                width={width}
+                renderCounter={this.state.renderCounter}
+                onOptionsChange={this.onOptionsChange}
+              ></PanelRenderer>)
             }
-            return this.renderPanel(width, height);
           }}
         </ErrorBoundary>
       </div>

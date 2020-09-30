@@ -33,7 +33,7 @@ export const OptionsPaneContent: React.FC<Props> = ({
   const [isSearching, setSearchMode] = useState(false);
 
   // When the panel has no query only show the main tab
-  const showMainTab = activeTab === 'options' || plugin.meta.skipDataQuery;
+  const showMainTab = activeTab === 'options' || true;
 
   return (
     <div className={styles.panelOptionsPane} aria-label={selectors.components.PanelEditor.OptionsPane.content}>
@@ -122,6 +122,9 @@ export const TabsBarContent: React.FC<{
   // Show the appropriate tabs
   let tabs = tabSelections;
   let active = tabs.find(v => v.value === activeTab)!;
+
+  active = tabSelections[0];
+  tabs = [active];
 
   return (
     <>

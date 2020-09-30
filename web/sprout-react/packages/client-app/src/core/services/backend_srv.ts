@@ -14,6 +14,7 @@ import { parseInitFromOptions, parseUrlFromOptions } from '../utils/fetch';
 import { FetchQueue } from './FetchQueue';
 import { ResponseQueue } from './ResponseQueue';
 import { FetchQueueWorker } from './FetchQueueWorker';
+import { SERVER_API_URL } from "../../config/constants";
 
 const CANCEL_ALL_REQUESTS_REQUEST_ID = 'cancel_all_requests_request_id';
 
@@ -22,6 +23,14 @@ export interface BackendSrvDependencies {
   appEvents: Emitter;
   contextSrv: ContextSrv;
   logout: () => void;
+}
+
+const fixApiUrl = (url: string) => {
+  if (url.startsWith('/')) {
+    return `${SERVER_API_URL}${url}`;
+  } else {
+    return url;
+  }
 }
 
 export class BackendSrv implements BackendService {
@@ -326,23 +335,23 @@ export class BackendSrv implements BackendService {
   }
 
   async get<T = any>(url: string, params?: any, requestId?: string): Promise<T> {
-    return await this.request({ method: 'GET', url, params, requestId });
+    return await this.request({ method: 'GET', url: fixApiUrl(url), params, requestId });
   }
 
   async delete(url: string) {
-    return await this.request({ method: 'DELETE', url });
+    return await this.request({ method: 'DELETE', url: fixApiUrl(url) });
   }
 
   async post(url: string, data?: any) {
-    return await this.request({ method: 'POST', url, data });
+    return await this.request({ method: 'POST', url: fixApiUrl(url), data });
   }
 
   async patch(url: string, data: any) {
-    return await this.request({ method: 'PATCH', url, data });
+    return await this.request({ method: 'PATCH', url: fixApiUrl(url), data });
   }
 
   async put(url: string, data: any) {
-    return await this.request({ method: 'PUT', url, data });
+    return await this.request({ method: 'PUT', url: fixApiUrl(url), data });
   }
 
   withNoBackendCache(callback: any) {
@@ -353,19 +362,19 @@ export class BackendSrv implements BackendService {
   }
 
   loginPing() {
-    return this.request({ url: '/api/login/ping', method: 'GET', retry: 1 });
+    return this.request({ url: fixApiUrl('/api/login/ping'), method: 'GET', retry: 1 });
   }
 
   getDashboardBySlug(slug: string) {
-    return this.get(`/api/dashboards/db/${slug}`);
+    return this.get(fixApiUrl(`/api/dashboards/db/${slug}`));
   }
 
   getDashboardByUid(uid: string) {
-    return this.get(`/api/dashboards/uid/${uid}`);
+    return this.get(fixApiUrl(`/api/dashboards/uid/${uid}`));
   }
 
   getFolderByUid(uid: string) {
-    return this.get<FolderDTO>(`/api/folders/${uid}`);
+    return this.get<FolderDTO>(fixApiUrl(`/api/folders/${uid}`));
   }
 }
 

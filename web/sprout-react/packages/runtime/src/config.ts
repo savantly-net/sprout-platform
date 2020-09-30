@@ -1,13 +1,14 @@
 import merge from 'lodash/merge';
+import { getTheme } from '@savantly/sprout-ui';
 import {
   BuildInfo,
   SproutConfig,
   LicenseInfo,
-  PanelPluginMeta, GrafanaTheme
+  PanelPluginMeta, GrafanaTheme, GrafanaThemeType
 } from '@savantly/sprout-api';
 
 export class SproutBootConfig implements SproutConfig {
-  theme!: GrafanaTheme;
+  theme: GrafanaTheme;
   panels: { [key: string]: PanelPluginMeta } = {};
   minRefreshInterval = '';
   appUrl = '';
@@ -47,6 +48,7 @@ export class SproutBootConfig implements SproutConfig {
   http2Enabled = false;
 
   constructor(options: SproutBootConfig) {
+    this.theme = options.bootData.user.lightTheme ? getTheme(GrafanaThemeType.Light) : getTheme(GrafanaThemeType.Dark);
 
     const defaults = {
       datasources: {},

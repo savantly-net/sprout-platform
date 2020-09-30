@@ -20,22 +20,16 @@ interface PluginDetails {
   keywords: string;
 }
 
-type PluginType = 'panel-plugin' | 'datasource-plugin' | 'backend-datasource-plugin';
+type PluginType = 'panel-plugin';
 
 const PluginNames: Record<PluginType, string> = {
   'panel-plugin': 'Grafana Panel Plugin',
-  'datasource-plugin': 'Grafana Data Source Plugin',
-  'backend-datasource-plugin': 'Grafana Backend Datasource Plugin',
 };
 const RepositoriesPaths: Record<PluginType, string> = {
   'panel-plugin': 'https://github.com/grafana/simple-react-panel.git',
-  'datasource-plugin': 'https://github.com/grafana/simple-datasource.git',
-  'backend-datasource-plugin': 'https://github.com/grafana/simple-datasource-backend.git',
 };
 const TutorialPaths: Record<PluginType, string> = {
   'panel-plugin': 'https://grafana.com/tutorials/build-a-panel-plugin',
-  'datasource-plugin': 'https://grafana.com/tutorials/build-a-data-source-plugin',
-  'backend-datasource-plugin': 'TODO',
 };
 
 export const getGitUsername = async () => {
@@ -125,11 +119,6 @@ export const prepareJsonFiles = useSpinner<{ type: PluginType; pluginDetails: Pl
     pluginJson.name = pluginDetails.name;
     pluginJson.id = pluginId;
 
-    if (type === 'backend-datasource-plugin') {
-      pluginJson.backend = true;
-      pluginJson.executable = 'gpx_' + pluginDetails.name;
-    }
-
     pluginJson.info = {
       ...pluginJson.info,
       description: pluginDetails.description,
@@ -173,9 +162,7 @@ export const printGrafanaTutorialsDetails = (type: PluginType) => {
   console.log();
   console.log(chalk.bold.yellow(`Congrats! You have just created ${PluginNames[type]}.`));
   console.log();
-  if (type !== 'backend-datasource-plugin') {
-    console.log(`${PluginNames[type]} tutorial: ${TutorialPaths[type]}`);
-  }
+  console.log(`${PluginNames[type]} tutorial: ${TutorialPaths[type]}`);
   console.log(
     'Learn more about Grafana Plugins at https://grafana.com/docs/grafana/latest/plugins/developing/development/'
   );

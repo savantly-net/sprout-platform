@@ -85,21 +85,6 @@ export function getPanelMenu(
 
   const inspectMenu: PanelMenuItem[] = [];
 
-  // Only show these inspect actions for data plugins
-  if (panel.plugin && !panel.plugin.meta.skipDataQuery) {
-    inspectMenu.push({
-      text: 'Data',
-      onClick: (e: React.MouseEvent<any>) => onInspectPanel('data'),
-    });
-
-    if (dashboard.meta.canEdit) {
-      inspectMenu.push({
-        text: 'Query',
-        onClick: (e: React.MouseEvent<any>) => onInspectPanel('query'),
-      });
-    }
-  }
-
   inspectMenu.push({
     text: 'Panel JSON',
     onClick: (e: React.MouseEvent<any>) => onInspectPanel('json'),
