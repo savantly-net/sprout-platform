@@ -191,7 +191,7 @@ $iconContainerBackground: $black;
 $btn-divider-left: $dark-9;
 $btn-divider-right: $dark-3;
 
-$btn-drag-image: '../img/grab_dark.svg';
+$btn-drag-image: '../../img/grab_dark.svg';
 
 $navbar-btn-gicon-brightness: brightness(0.5);
 
@@ -304,7 +304,7 @@ $popover-code-bg: $popover-bg;
 $popover-code-boxshadow: $tooltipShadow;
 
 // images
-$checkboxImageUrl: '../img/checkbox.png';
+$checkboxImageUrl: '../../img/checkbox.png';
 
 // info box
 $info-box-border-color: $blue-base;

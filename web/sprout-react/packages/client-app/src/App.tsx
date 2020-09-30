@@ -5,7 +5,10 @@ import React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
+
 import './assets/stolen.css';
+//import './sass/grafana.dark.scss';
+
 import { ThemeProvider } from "./core/utils/ConfigProvider";
 import { initDevFeatures } from "./dev";
 import { builtInPluginMeta } from "./features/plugins/built_in_plugins";

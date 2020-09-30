@@ -11,14 +11,6 @@ import { DashboardRouteInfo, StoreState } from '../types';
 const importDashboardPage =
 SafeDynamicImport(import(/* webpackChunkName: "DashboardPage" */ '../features/dashboard/containers/DashboardPage'));
 
-const DashbooardPageWrapper = ({navIndex, children}: {navIndex: string, children: JSX.Element}) => {
-  const navModel = useNavModel("home");
-  return (
-    <div className="page-dashboard">
-      <Page navModel={navModel}>{children}</Page>
-    </div>
-  );
-}
 
 interface AppProps extends StateProps, DispatchProps {}
 class AppRoutes extends Component<AppProps> {
@@ -29,9 +21,7 @@ class AppRoutes extends Component<AppProps> {
       <Suspense fallback={<Spinner />}>
         <Switch>
           <Route exact path="/">
-            <DashbooardPageWrapper navIndex="/">
-              {importDashboardPage({routeInfo: DashboardRouteInfo.Home})}
-            </DashbooardPageWrapper>
+            {importDashboardPage({routeInfo: DashboardRouteInfo.Home})}
           </Route>
         </Switch>
       </Suspense>
