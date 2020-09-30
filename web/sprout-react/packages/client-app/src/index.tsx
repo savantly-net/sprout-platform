@@ -8,6 +8,7 @@ import ErrorBoundary from './core/components/error/error-boundary';
 import { configureStore } from './store/configureStore';
 import { LocationUpdate, setLocationSrv } from '@savantly/sprout-runtime';
 import { updateLocation } from './core/actions';
+import { SideMenu } from './core/components/sidemenu/SideMenu';
 
 const store = configureStore();
 setLocationSrv({
@@ -20,6 +21,7 @@ ReactDOM.render(
   <React.Fragment>
     <ErrorBoundary>
       <Provider store={store}>
+        <SideMenu></SideMenu>
         <div className="main-view">
           <div className="scroll-canvas">
             <App />
