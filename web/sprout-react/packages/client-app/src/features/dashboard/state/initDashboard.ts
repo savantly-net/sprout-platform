@@ -43,7 +43,7 @@ async function fetchDashboard(
 
 
         // disable some actions on the default home dashboard
-        dashDTO.meta.canSave = false;
+        dashDTO.meta.canSave = true;
         dashDTO.meta.canShare = false;
         dashDTO.meta.canStar = false;
         return dashDTO;
@@ -168,6 +168,7 @@ function getNewDashboardModelData(urlFolderId?: string): any {
       title: 'New dashboard',
       panels: [
         {
+          id: '0',
           type: 'add-panel',
           gridPos: { x: 0, y: 0, w: 12, h: 9 },
           title: 'Panel Title',

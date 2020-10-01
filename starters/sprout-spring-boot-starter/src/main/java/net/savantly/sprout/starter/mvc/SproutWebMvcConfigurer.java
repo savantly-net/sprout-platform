@@ -19,7 +19,7 @@ import net.savantly.sprout.controllers.argument.TenantIdArgumentResolver;
 import net.savantly.sprout.core.domain.tenant.TenantRepository;
 
 @Configuration
-@ComponentScan(basePackages = "net.savantly.sprout.controllers")
+@ComponentScan(basePackages = {"net.savantly.sprout.controllers", "net.savantly.sprout.domain"})
 @ImportAutoConfiguration({WebMvcAutoConfiguration.class})
 @RequiredArgsConstructor
 public class SproutWebMvcConfigurer implements WebMvcConfigurer {

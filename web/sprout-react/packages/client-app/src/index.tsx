@@ -1,14 +1,17 @@
+import { standardEditorsRegistry, UrlQueryValue } from '@savantly/sprout-api';
+import { config, getLocationSrv, LocationUpdate, setLocationSrv } from '@savantly/sprout-runtime';
+import { getStandardOptionEditors } from '@savantly/sprout-ui';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
-import ErrorBoundary from './core/components/error/error-boundary';
-import { configureStore } from './store/configureStore';
-import { LocationUpdate, setLocationSrv } from '@savantly/sprout-runtime';
 import { updateLocation } from './core/actions';
+import ErrorBoundary from './core/components/error/error-boundary';
 import { SideMenu } from './core/components/sidemenu/SideMenu';
+import { builtInPluginMeta } from './features/plugins/built_in_plugins';
+import './index.css';
+import * as serviceWorker from './serviceWorker';
+import { configureStore } from './store/configureStore';
 
 const store = configureStore();
 setLocationSrv({
@@ -17,6 +20,37 @@ setLocationSrv({
   },
 });
 
+
+const location = window.location;
+console.log(location);
+const urlParams = new URLSearchParams(location.search);
+const queryParams: Record<string, UrlQueryValue> = {};
+urlParams.forEach((value, key) => {
+  queryParams[key] = value;
+});
+
+getLocationSrv().update({
+  path: location.pathname,
+  query: queryParams
+});
+
+
+let theme = 'light';
+if(queryParams['dark']){
+  theme = 'dark';
+}
+
+// import stylesheet based on theme 
+if (theme == 'dark') {
+  require('./sass/grafana.dark.scss');
+} else {
+  require('./sass/grafana.light.scss');
+}
+
+document.body.classList.add('is-react');
+config.panels = builtInPluginMeta;
+standardEditorsRegistry.setInit(getStandardOptionEditors);
+
 ReactDOM.render(
   <React.Fragment>
     <ErrorBoundary>
@@ -24,7 +58,7 @@ ReactDOM.render(
         <SideMenu></SideMenu>
         <div className="main-view">
           <div className="scroll-canvas">
-            <App />
+            <App theme={theme}/>
           </div>
         </div>
       </Provider>

@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import net.savantly.sprout.uiProperties.UIProperty;
-import net.savantly.sprout.uiProperties.UIPropertyRepository;
+import net.savantly.sprout.domain.uiProperties.UIProperty;
+import net.savantly.sprout.domain.uiProperties.UIPropertyRepository;
 
 @RestController
 @RequestMapping("/api/ui-properties")

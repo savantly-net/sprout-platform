@@ -3,6 +3,7 @@ import { ApplicationState } from '../../types/application';
 
 export const initialState: ApplicationState = {
   logActions: false,
+  themeName: 'light'
 };
 
 const applicationSlice = createSlice({
@@ -10,8 +11,9 @@ const applicationSlice = createSlice({
   initialState,
   reducers: {
     toggleLogActions: state => ({ ...state, logActions: !state.logActions }),
+    switchTheme: state => ({...state})
   },
 });
 
-export const { toggleLogActions } = applicationSlice.actions;
+export const { toggleLogActions, switchTheme } = applicationSlice.actions;
 export const applicationReducer = applicationSlice.reducer;

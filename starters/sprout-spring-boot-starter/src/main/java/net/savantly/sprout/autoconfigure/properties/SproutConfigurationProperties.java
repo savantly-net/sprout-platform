@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.savantly.sprout.uiProperties.UIProperty;
+import net.savantly.sprout.domain.uiProperties.UIProperty;
 
 @Getter
 @Setter

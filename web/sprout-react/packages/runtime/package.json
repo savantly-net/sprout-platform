@@ -36,13 +36,11 @@
   "peerDependencies": {
     "@reduxjs/toolkit": "^1.4.0",
     "@savantly/sprout-api": "0.0.1",
-    "@types/react-hot-loader": "^4.1.1",
     "eventemitter3": "^4.0.7",
     "lodash": "^4.17.20",
     "marked": "^1.1.1",
     "react": "^16.13.1",
-    "react-app-rewired": "^2.1.6",
-    "react-hot-loader": "^4.13.0"
+    "react-app-rewired": "^2.1.6"
   },
   "dependencies": {
     "systemjs": "0.20.19",

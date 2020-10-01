@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
-
-import { connectWithStore } from '../../utils/connectWithReduxStore';
-import { StoreState } from '../../../types';
 import { Icon } from '@savantly/sprout-ui';
+import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { StoreState } from '../../../types';
 import { getForcedLoginUrl } from './utils';
 
-export const SignIn: FC<any> = ({ url }) => {
+export const SignIn = () => {
+  const url = useSelector((state: StoreState) => state.location.url);
   const forcedLoginUrl = getForcedLoginUrl(url);
 
   return (
@@ -25,9 +25,3 @@ export const SignIn: FC<any> = ({ url }) => {
     </div>
   );
 };
-
-const mapStateToProps = (state: StoreState) => ({
-  url: state.location.url,
-});
-
-export default connectWithStore(SignIn, mapStateToProps);

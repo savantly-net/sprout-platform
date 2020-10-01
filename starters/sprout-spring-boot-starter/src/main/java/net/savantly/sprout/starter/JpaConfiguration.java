@@ -35,7 +35,7 @@ import net.savantly.sprout.core.tenancy.TenantContext;
 @Configuration("sproutJpaConfiguration")
 @AutoConfigureAfter(HibernateJpaAutoConfiguration.class)
 @EnableConfigurationProperties({JpaProperties.class})
-@EnableJpaRepositories(basePackages = {"net.savantly.sprout.core", "net.savantly.sprout.uiProperties"})
+@EnableJpaRepositories(basePackages = {"net.savantly.sprout.core", "net.savantly.sprout.domain"})
 @EntityScan
 @EnableTransactionManagement(mode = AdviceMode.ASPECTJ)
 @AllArgsConstructor

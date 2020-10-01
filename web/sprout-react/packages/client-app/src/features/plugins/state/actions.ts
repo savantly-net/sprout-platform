@@ -13,7 +13,6 @@ export function loadPlugins(): ThunkResult<void> {
 
 export function loadPanelPlugin(pluginId: string): ThunkResult<Promise<PanelPlugin>> {
   return async (dispatch, getStore) => {
-    console.log(getStore());
     let plugin = getStore().plugins.panels[pluginId];
 
     if (!plugin) {

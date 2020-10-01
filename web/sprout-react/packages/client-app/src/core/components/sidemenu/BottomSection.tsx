@@ -1,12 +1,12 @@
 import React from 'react';
 import _ from 'lodash';
-import SignIn from './SignIn';
+import { SignIn } from './SignIn';
 import BottomNavLinks from './BottomNavLinks';
 import { contextSrv } from '../../../core/services/context_srv';
 import config from '../../config';
 import { NavModelItem } from '@savantly/sprout-api';
 
-export default function BottomSection() {
+const BottomSection = () => {
   const navTree: NavModelItem[] = _.cloneDeep(config.bootData.navTree);
   const bottomNav: NavModelItem[] = navTree.filter(item => item.hideFromMenu);
   const isSignedIn = contextSrv.isSignedIn;
@@ -28,3 +28,5 @@ export default function BottomSection() {
     </div>
   );
 }
+
+export default BottomSection;

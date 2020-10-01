@@ -30,7 +30,7 @@ export const SaveDashboardAsForm: React.FC<SaveDashboardFormProps & { isNew?: bo
   const defaultValues: SaveDashboardAsFormDTO = {
     title: `${dashboard.title} Copy`,
     $folder: {
-      id: dashboard.meta.folderId,
+      id: dashboard.meta.folderId || 0,
       title: dashboard.meta.folderTitle,
     },
     copyTags: false,
@@ -53,7 +53,7 @@ export const SaveDashboardAsForm: React.FC<SaveDashboardFormProps & { isNew?: bo
         const result = await onSubmit(
           clone,
           {
-            folderId: data.$folder.id,
+            folderId: data.$folder?.id || 0,
           },
           dashboard
         );

@@ -1,4 +1,4 @@
-package net.savantly.sprout.uiProperties;
+package net.savantly.sprout.domain.uiProperties;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
