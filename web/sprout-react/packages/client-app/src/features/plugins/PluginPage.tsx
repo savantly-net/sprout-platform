@@ -14,7 +14,6 @@ import {
 } from '@savantly/sprout-api';
 import find from 'lodash/find';
 import React, { PureComponent } from 'react';
-import { hot } from 'react-hot-loader';
 import { connect } from 'react-redux';
 import { appEvents } from '../../core/app_events';
 import Page from '../../core/components/Page/Page';
@@ -436,4 +435,4 @@ const mapStateToProps = (state: StoreState) => ({
   path: state.location.path,
 });
 
-export default hot(module)(connect(mapStateToProps)(PluginPage));
+export default (connect(mapStateToProps)(PluginPage));

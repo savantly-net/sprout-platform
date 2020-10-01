@@ -1,12 +1,11 @@
 import { selectors } from '@grafana/e2e-selectors';
-import { Button, HorizontalGroup, Icon, RadioButtonGroup, stylesFactory } from '@savantly/sprout-ui';
 import { GrafanaTheme, PanelPlugin } from '@savantly/sprout-api';
+import { Button, getTheme, HorizontalGroup, Icon, RadioButtonGroup, stylesFactory } from '@savantly/sprout-ui';
 import { css, cx } from 'emotion';
 import React, { PureComponent } from 'react';
 import { connect, MapDispatchToProps, MapStateToProps } from 'react-redux';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { BackButton } from '../../../../core/components/BackButton/BackButton';
-import config from '../../../../core/config';
 import { updateLocation } from '../../../../core/reducers/location';
 import { LocationState } from '../../../../types';
 import { StoreState } from '../../../../types/store';
@@ -38,6 +37,7 @@ interface ConnectedProps {
   initDone: boolean;
   tabs: PanelEditorTab[];
   uiState: PanelEditorUIState;
+  themeName: string;
 }
 
 interface DispatchProps {
@@ -292,7 +292,7 @@ export class PanelEditorUnconnected extends PureComponent<Props> {
 
   render() {
     const { initDone, uiState } = this.props;
-    const styles = getStyles(config.theme, this.props);
+    const styles = getStyles(getTheme(this.props.themeName), this.props);
 
     if (!initDone) {
       return null;
@@ -319,7 +319,8 @@ const mapStateToProps: MapStateToProps<ConnectedProps, OwnProps, StoreState> = (
     panel,
     initDone: state.panelEditor.initDone,
     tabs: getPanelEditorTabs(state.location, plugin),
-    uiState: state.panelEditor.ui
+    uiState: state.panelEditor.ui,
+    themeName: state.application.themeName
   };
 };
 

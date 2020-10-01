@@ -1,7 +1,6 @@
 const { override, babelInclude, addBundleVisualizer } = require('customize-cra')
 const path = require('path')
 
-
 console.log('overriding babelIncludes');
 
 module.exports = override(

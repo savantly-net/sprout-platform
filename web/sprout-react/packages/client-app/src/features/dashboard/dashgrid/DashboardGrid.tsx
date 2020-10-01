@@ -1,13 +1,12 @@
 // Libaries
 import React, { PureComponent } from 'react';
-import { hot } from 'react-hot-loader';
 import ReactGridLayout, { ItemCallback } from 'react-grid-layout';
 import classNames from 'classnames';
 // @ts-ignore
 import sizeMe from 'react-sizeme';
 
 // Components
-import { AddPanelWidget } from '../components/AppPanelWidget';
+import { AddPanelWidget } from '../components/AddPanelWidget';
 import { DashboardRow } from '../components/DashboardRow';
 
 // Types
@@ -298,4 +297,4 @@ export class DashboardGrid extends PureComponent<Props> {
   }
 }
 
-export default hot(module)(DashboardGrid);
+export default DashboardGrid;

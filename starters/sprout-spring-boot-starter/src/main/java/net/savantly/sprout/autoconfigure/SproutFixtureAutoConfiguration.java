@@ -27,8 +27,8 @@ import net.savantly.sprout.core.security.privilege.PrivilegeRepository;
 import net.savantly.sprout.core.security.role.Role;
 import net.savantly.sprout.core.security.role.RoleFixture;
 import net.savantly.sprout.core.security.role.RoleRepository;
-import net.savantly.sprout.uiProperties.UIPropertyFixture;
-import net.savantly.sprout.uiProperties.UIPropertyRepository;
+import net.savantly.sprout.domain.uiProperties.UIPropertyFixture;
+import net.savantly.sprout.domain.uiProperties.UIPropertyRepository;
 
 @Configuration
 @AutoConfigureAfter(JpaRepositoriesAutoConfiguration.class)

@@ -1,6 +1,5 @@
 // Libraries
 import React, { MouseEvent, PureComponent } from 'react';
-import { hot } from 'react-hot-loader';
 import { connect } from 'react-redux';
 // @ts-ignore
 import $ from 'jquery';
@@ -325,4 +324,4 @@ const mapDispatchToProps = {
   updateLocation
 };
 
-export default hot(module)(connect(mapStateToProps, mapDispatchToProps)(DashboardPage));
+export default (connect(mapStateToProps, mapDispatchToProps)(DashboardPage));
