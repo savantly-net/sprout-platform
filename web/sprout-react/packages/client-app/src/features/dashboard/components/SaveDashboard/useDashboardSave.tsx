@@ -18,7 +18,7 @@ const saveDashboard = async (saveModel: any, options: SaveDashboardOptions, dash
 };
 
 export const useDashboardSave = (dashboard: DashboardModel) => {
-  const location = useSelector((state: StoreState) => state.location);
+  const location = useSelector((state: StoreState) => state.router.location);
   const dispatch = useDispatch();
   const [state, onDashboardSave] = useAsyncFn(
     async (clone: any, options: SaveDashboardOptions, dashboard: DashboardModel) =>

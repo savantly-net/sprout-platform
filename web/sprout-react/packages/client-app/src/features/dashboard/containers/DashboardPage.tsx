@@ -1,5 +1,5 @@
 // Libraries
-import React, { MouseEvent, PureComponent } from 'react';
+import React, { Dispatch, MouseEvent, PureComponent } from 'react';
 import { connect } from 'react-redux';
 // @ts-ignore
 import $ from 'jquery';
@@ -15,8 +15,9 @@ import { DashboardSettings } from '../components/DashboardSettings';
 import { PanelEditor } from '../components/PanelEditor/PanelEditor';
 import { Alert, Button, CustomScrollbar, HorizontalGroup, Icon, VerticalGroup } from '@savantly/sprout-ui';
 // Redux
-import { initDashboard } from '../state/initDashboard';
+import { initDashboard, InitDashboardArgs } from '../state/initDashboard';
 import { notifyApp, updateLocation } from '../../../core/actions';
+import { getRouter } from "connected-react-router";
 // Types
 import {
   AppNotificationSeverity,
@@ -30,27 +31,38 @@ import { DashboardModel, PanelModel } from '../state';
 import { SubMenu } from '../components/SubMenu/SubMenu';
 import { cleanUpDashboardAndVariables } from '../state/actions';
 import { UrlQueryValue } from '@savantly/sprout-api';
+import { AnyAction, ThunkAction } from '@reduxjs/toolkit';
+import { ConnectedReduxProps } from '../../../routes/ConnectedReduxProps';
+import { withRouter } from 'react-router-dom';
 
-export interface Props {
+type OwnProps = {
   urlUid?: UrlQueryValue;
   editview?: UrlQueryValue;
   urlPanelId?: UrlQueryValue;
   urlFolderId?: UrlQueryValue;
   routeInfo: DashboardRouteInfo;
-  urlEditPanelId?: UrlQueryValue;
   urlViewPanelId?: UrlQueryValue;
-  initPhase: DashboardInitPhase;
-  isInitSlow: boolean;
-  dashboard: DashboardModel | null;
-  initError: DashboardInitError | null;
-  initDashboard: Function;
-  cleanUpDashboardAndVariables: Function;
-  notifyApp: typeof notifyApp;
-  updateLocation: typeof updateLocation;
-  isPanelEditorOpen?: boolean;
 }
 
-export interface State {
+type StateProps = {
+  dashboard: DashboardModel | null;
+  initPhase: DashboardInitPhase;
+  isInitSlow: boolean;
+  initError: DashboardInitError | null;
+  isPanelEditorOpen?: boolean;
+  urlEditPanelId: UrlQueryValue;
+}
+
+type DispatchProps = {
+  initDashboard: Function;
+  cleanUpDashboardAndVariables: typeof cleanUpDashboardAndVariables,
+  notifyApp: typeof notifyApp,
+  updateLocation: typeof updateLocation
+}
+
+type AllProps = OwnProps & StateProps & DispatchProps & ConnectedReduxProps;
+
+type OwnState = {
   editPanel: PanelModel | null;
   viewPanel: PanelModel | null;
   scrollTop: number;
@@ -59,14 +71,18 @@ export interface State {
   showLoadingState: boolean;
 }
 
-export class DashboardPage extends PureComponent<Props, State> {
-  state: State = {
-    editPanel: null,
-    viewPanel: null,
-    showLoadingState: false,
-    scrollTop: 0,
-    rememberScrollTop: 0,
-  };
+export class DashboardPage extends PureComponent<AllProps, OwnState> {
+  constructor(props: AllProps) {
+    super(props);
+    this.state = {
+      editPanel: null,
+      viewPanel: null,
+      showLoadingState: false,
+      scrollTop: 0,
+      rememberScrollTop: 0
+    };
+  }
+  
 
   async componentDidMount() {
     this.props.initDashboard({
@@ -82,8 +98,8 @@ export class DashboardPage extends PureComponent<Props, State> {
     this.setPanelFullscreenClass(false);
   }
 
-  componentDidUpdate(prevProps: Props) {
-    const { dashboard, urlEditPanelId, urlViewPanelId, urlUid } = this.props;
+  componentDidUpdate(prevProps: AllProps) {
+    const { dashboard, urlViewPanelId, urlUid, urlEditPanelId } = this.props;
     const { editPanel, viewPanel } = this.state;
 
     if (!dashboard) {
@@ -303,25 +319,22 @@ export class DashboardPage extends PureComponent<Props, State> {
   }
 }
 
-export const mapStateToProps = (state: StoreState) => ({
-  urlUid: state.location.routeParams.uid,
-  editview: state.location.query.editview,
-  urlPanelId: state.location.query.panelId,
-  urlFolderId: state.location.query.folderId,
-  urlEditPanelId: state.location.query.editPanel,
-  urlViewPanelId: state.location.query.viewPanel,
+const mapStateToProps = (state: StoreState): StateProps => ({
   initPhase: state.dashboard.initPhase,
   isInitSlow: state.dashboard.isInitSlow,
   initError: state.dashboard.initError,
   dashboard: state.dashboard.getModel() as DashboardModel,
   isPanelEditorOpen: state.panelEditor.isOpen,
+  urlEditPanelId: state.location.query.editPanel
 });
 
-const mapDispatchToProps = {
+
+const mapDispatchToProps: DispatchProps = {
   initDashboard,
   cleanUpDashboardAndVariables,
   notifyApp,
   updateLocation
 };
 
-export default (connect(mapStateToProps, mapDispatchToProps)(DashboardPage));
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DashboardPage as any));
