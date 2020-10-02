@@ -52,6 +52,7 @@ async function fetchDashboard(
 
         const dashDTO: DashboardDTO = await dashboardLoaderService.loadDashboard(args.urlUid);
 
+        /* TODO: Fix?
         if (args.fixUrl && dashDTO.meta.url) {
           // check if the current url is correct (might be old slug)
           const dashboardUrl = locationUtil.stripBaseFromUrl(dashDTO.meta.url);
@@ -63,6 +64,7 @@ async function fetchDashboard(
             return null;
           }
         }
+        */
         return dashDTO;
       }
       case DashboardRouteInfo.New: {
@@ -126,12 +128,6 @@ export function initDashboard(args: InitDashboardArgs): ThunkResult<void> {
       return;
     }
 
-    // add missing orgId query param
-    const storeState = getState();
-    if (!storeState.location.query.orgId) {
-      dispatch(updateLocation({ partial: true, replace: true }));
-    }
-
     // If dashboard is in a different init phase it means it cancelled during service init
     if (getState().dashboard.initPhase !== DashboardInitPhase.Services) {
       return;
@@ -141,10 +137,12 @@ export function initDashboard(args: InitDashboardArgs): ThunkResult<void> {
       dashboard.updateSubmenuVisibility();
 
       // handle auto fix experimental feature
+      /** TODO
       const queryParams = getState().location.query;
       if (queryParams.autofitpanels) {
         dashboard.autoFitPanels(window.innerHeight, queryParams.kiosk);
       }
+      */
 
     } catch (err) {
       dispatch(notifyApp(createErrorNotification('Dashboard init failed', err)));

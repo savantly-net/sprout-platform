@@ -9,7 +9,7 @@ import { connect, MapDispatchToProps } from 'react-redux';
 import config from '../../../../core/config';
 import store from '../../../../core/store';
 // Store
-import { updateLocation } from '../../../../core/actions';
+import { push } from "connected-react-router";
 import { addPanel } from '../../state/reducers';
 // Types
 import { DashboardModel, PanelModel } from '../../state';
@@ -27,7 +27,7 @@ export interface OwnProps {
 
 export interface DispatchProps {
   addPanel: typeof addPanel;
-  updateLocation: typeof updateLocation;
+  updateLocation: typeof push;
 }
 
 export type Props = OwnProps & DispatchProps;
@@ -139,7 +139,7 @@ export const AddPanelWidgetUnconnected: React.FC<Props> = ({ panel, dashboard, u
   );
 };
 
-const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = { addPanel, updateLocation };
+const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = { addPanel, updateLocation: push };
 
 export const AddPanelWidget = connect(null, mapDispatchToProps)(AddPanelWidgetUnconnected);
 

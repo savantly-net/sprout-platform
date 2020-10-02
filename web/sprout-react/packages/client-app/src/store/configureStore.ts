@@ -1,11 +1,16 @@
 import { configureStore as reduxConfigureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { routerMiddleware } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
 import { createLogger } from 'redux-logger';
 import { ThunkMiddleware } from 'redux-thunk';
-import { setStore } from './store';
-import { StoreState } from '../types/store';
 import { toggleLogActionsMiddleware } from '../core/middlewares/application';
-import { addReducer, createRootReducer } from '../core/reducers/root';
 import { buildInitialState } from '../core/reducers/navModel';
+import { addReducer, createRootReducer } from '../core/reducers/root';
+import { StoreState } from '../types/store';
+import { setStore } from './store';
+
+
+export const history = createBrowserHistory();
 
 export function addRootReducer(reducers: any) {
   // this is ok now because we add reducers before configureStore is called
@@ -30,8 +35,8 @@ export function configureStore() {
   } as any);
 
   const store = reduxConfigureStore<StoreState>({
-    reducer: createRootReducer(),
-    middleware: [...reduxDefaultMiddleware, ...middleware] as [ThunkMiddleware<StoreState>],
+    reducer: createRootReducer(history),
+    middleware: [...reduxDefaultMiddleware, ...middleware, routerMiddleware(history)] as [ThunkMiddleware<StoreState>],
     devTools: process.env.NODE_ENV !== 'production',
     preloadedState: {
       navIndex: buildInitialState(),

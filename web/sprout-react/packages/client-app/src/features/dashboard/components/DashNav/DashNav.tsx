@@ -262,7 +262,7 @@ class DashNav extends PureComponent<Props> {
 }
 
 const mapStateToProps = (state: StoreState) => ({
-  location: state.location,
+  location: state.router.location,
 });
 
 const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = {

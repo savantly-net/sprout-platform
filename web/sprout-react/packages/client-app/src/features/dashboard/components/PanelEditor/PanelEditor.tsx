@@ -314,11 +314,11 @@ const mapStateToProps: MapStateToProps<ConnectedProps, OwnProps, StoreState> = (
   const { plugin } = getPanelStateById(state.dashboard, panel.id);
 
   return {
-    location: state.location,
+    location: state.router.location,
     plugin: plugin,
     panel,
     initDone: state.panelEditor.initDone,
-    tabs: getPanelEditorTabs(state.location, plugin),
+    tabs: getPanelEditorTabs(state.router.location, plugin),
     uiState: state.panelEditor.ui,
     themeName: state.application.themeName
   };

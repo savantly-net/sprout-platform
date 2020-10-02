@@ -5,7 +5,9 @@ import { StoreState } from '../../../types';
 import { getForcedLoginUrl } from './utils';
 
 export const SignIn = () => {
-  const url = useSelector((state: StoreState) => state.location.url);
+  const url = useSelector((state: StoreState) => {
+    return state.router.location.pathname
+  });
   const forcedLoginUrl = getForcedLoginUrl(url);
 
   return (

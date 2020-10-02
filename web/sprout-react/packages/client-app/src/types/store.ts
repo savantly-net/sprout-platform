@@ -8,6 +8,7 @@ import { ApplicationState } from './application';
 import { AppNotificationsState } from './appNotifications';
 import { LocationState } from './location';
 import { PluginsState } from './plugins';
+import { RouterState } from 'connected-react-router';
 
 export interface StoreState {
   application: ApplicationState;
@@ -18,6 +19,7 @@ export interface StoreState {
   dashboard: DashboardState;
   panelEditor: PanelEditorState;
   plugins: PluginsState;
+  router: RouterState;
 }
 
 /*

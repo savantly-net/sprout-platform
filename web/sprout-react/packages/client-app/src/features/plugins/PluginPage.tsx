@@ -24,6 +24,7 @@ import { AppNotificationSeverity, CoreEvents, StoreState } from '../../types';
 import { PluginDashboards } from './PluginDashboards';
 import { getPluginSettings } from './PluginSettingsCache';
 import { importAppPlugin, importPanelPlugin } from './plugin_loader';
+import { ConnectedReduxProps } from '../../routes/ConnectedReduxProps';
 
 
 export function getLoadingNav(): NavModel {
@@ -59,9 +60,6 @@ export function loadPlugin(pluginId: string): Promise<SproutPlugin> {
 }
 
 interface Props {
-  pluginId: string;
-  query: UrlQueryMap;
-  path: string; // the URL path
 }
 
 interface State {
@@ -69,24 +67,30 @@ interface State {
   plugin?: SproutPlugin;
   nav: NavModel;
   defaultPage: string; // The first configured one or readme
+  pluginId: string;
+  query: UrlQueryMap;
+  path: string; // the URL path
 }
 
 const PAGE_ID_README = 'readme';
 const PAGE_ID_DASHBOARDS = 'dashboards';
 const PAGE_ID_CONFIG_CTRL = 'config';
 
-class PluginPage extends PureComponent<Props, State> {
-  constructor(props: Props) {
+class PluginPage extends PureComponent<Props & ConnectedReduxProps, State> {
+  constructor(props: Props & ConnectedReduxProps) {
     super(props);
     this.state = {
       loading: true,
       nav: getLoadingNav(),
       defaultPage: PAGE_ID_README,
+      pluginId: props.match.params.pluginId,
+      query: props.match.params.query,
+      path: props.match.path // the URL path
     };
   }
 
   async componentDidMount() {
-    const { pluginId, path, query } = this.props;
+    const { pluginId, path, query } = this.state;
     const { appSubUrl } = config;
 
     const plugin = await loadPlugin(pluginId);
@@ -109,6 +113,7 @@ class PluginPage extends PureComponent<Props, State> {
     });
   }
 
+  /* TODO
   componentDidUpdate(prevProps: Props) {
     const prevPage = prevProps.query.page as string;
     const page = this.props.query.page as string;
@@ -128,10 +133,10 @@ class PluginPage extends PureComponent<Props, State> {
       });
     }
   }
+  */
 
   renderBody() {
-    const { query } = this.props;
-    const { plugin, nav } = this.state;
+    const { plugin, nav, query } = this.state;
 
     if (!plugin) {
       return <Alert severity={AppNotificationSeverity.Error} title="Plugin Not Found" />;
@@ -430,9 +435,6 @@ function getPluginIcon(type: string) {
 }
 
 const mapStateToProps = (state: StoreState) => ({
-  pluginId: state.location.routeParams.pluginId as string,
-  query: state.location.query,
-  path: state.location.path,
 });
 
 export default (connect(mapStateToProps)(PluginPage));
