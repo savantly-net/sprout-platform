@@ -8,3 +8,5 @@ build
 .vscode/
 /sprout-platform.code-workspace
 /java_pid21158.hprof
+
+.DS_Store
