@@ -10,7 +10,8 @@ It's extendable with plugin-modules, and aims to be an alternative wherever Word
 
 If there is specific feature you'd like, or if you experience a bug, please open an issue [here](https://github.com/savantly-net/sprout-platform/issues)  
 
-Please consider donating or contact me for a development partnership or sponsorship.  
+Please consider contributing through [Patreon](https://www.patreon.com/savantly) or PRs  
+
 I believe the Open Source community needs an enterprise grade CMS that's flexible enough for any project starter.  
 Help me create that! 
 
@@ -24,11 +25,20 @@ Follow this project to stay informed.
 
 
 ### Quick Start  
-- Clone this project [use development branch]  
-- Run `./gradlew :server:bootRun` from the base directory of the project  
-- Open http://localhost:8080/admin to access the application administration  
+
+Use the docker images to start an example server + web app.  
+`docker-compose up`  
+
+### Development 
+- Clone this project 
+- Run `./gradlew :server:bootRun` from the base directory of the project to start the server 
+- Open http://localhost:8080/admin to access the backend application  
 
 You can override properties by modifying the `application.properties`    
-[See here for more info.](./src/main/resources/)  
+[See here for more info.](./starters/sprout-spring-boot-starter/src/main/resources/)  
+
+Read more about the [Sprout Starter](./starters/sprout-spring-boot-starter)
+
+
 
 Demo images coming soon.
