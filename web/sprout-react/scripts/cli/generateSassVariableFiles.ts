@@ -6,9 +6,9 @@ import { darkThemeVarsTemplate } from '../../packages/sprout-ui/src/themes/_vari
 import { lightThemeVarsTemplate } from '../../packages/sprout-ui/src/themes/_variables.light.scss.tmpl';
 import { commonThemeVarsTemplate } from '../../packages/sprout-ui/src/themes/_variables.scss.tmpl';
 
-const darkThemeVariablesPath = __dirname + '/../../packages/client-app/src/sass/_variables.dark.generated.scss';
-const lightThemeVariablesPath = __dirname + '/../../packages/client-app/src/sass/_variables.light.generated.scss';
-const defaultThemeVariablesPath = __dirname + '/../../packages/client-app/src/sass/_variables.generated.scss';
+const darkThemeVariablesPath = __dirname + '/../../packages/webapp/src/sass/_variables.dark.generated.scss';
+const lightThemeVariablesPath = __dirname + '/../../packages/webapp/src/sass/_variables.light.generated.scss';
+const defaultThemeVariablesPath = __dirname + '/../../packages/webapp/src/sass/_variables.generated.scss';
 
 const writeVariablesFile = async (path: string, data: string) => {
   return new Promise((resolve, reject) => {

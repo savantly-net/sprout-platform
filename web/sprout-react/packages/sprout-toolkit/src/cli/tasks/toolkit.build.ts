@@ -9,7 +9,7 @@ const path = require('path');
 let distDir: string, cwd: string;
 
 // @ts-ignore
-export const clean = useSpinner<void>('Cleaning', async () => await execa('npm', ['run', 'clean']));
+export const clean = useSpinner<void>('Cleaning', async () => await execa('yarn', ['clean']));
 
 // @ts-ignore
 const compile = useSpinner<void>('Compiling sources', async () => {

@@ -1,0 +1,16 @@
+version: "3"
+services:
+
+  server:
+    image: savantly/sprout-server
+    container_name: example_sprout_server
+    ports:
+      - 8080:8080
+
+  webapp:
+    image: savantly/sprout-webapp
+    container_name: example_sprout_webapp
+    ports:
+      - 3000:3000
+    environment: 
+      - SPROUT_API_URL=http://server:8080

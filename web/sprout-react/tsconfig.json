@@ -1,20 +1,20 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "baseUrl": "packages/client-app/",
-    "outDir": "packages/client-app/dist",
+    "baseUrl": "packages/webapp/",
+    "outDir": "packages/webapp/dist",
     "paths": {
       "@grafana/slate-react": ["../node_modules/@types/slate-react"],
-      "app": ["packages/client-app/src"],
+      "app": ["packages/webapp/src"],
       "sass": ["sass/"]
     },
-    "rootDirs": ["packages/client-app/"],
-    "typeRoots": ["node_modules/@types", "packages/client-app/src/types"],
+    "rootDirs": ["packages/webapp/"],
+    "typeRoots": ["node_modules/@types", "packages/webapp/src/types"],
     "allowJs": true,
     "strictNullChecks": true
   },
   "extends": "@savantly/sprout-tsconfig/base.json",
   "include": [
-    "packages/client-app/src/**/*.ts*",
+    "packages/webapp/src/**/*.ts*",
   ]
 }

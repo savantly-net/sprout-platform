@@ -20,7 +20,7 @@ include ':sprout-module-test'
 
 project(':sprout-core').projectDir = file('core')
 project(':sprout-spring-boot-starter').projectDir = file('starters/sprout-spring-boot-starter')
-project(':sprout-server').projectDir = file('examples/server')
+project(':sprout-server').projectDir = file('server')
 project(':sprout-admin').projectDir = file('web/admin')
 project(':sprout-modules-content').projectDir = file('modules/content')
 project(':sprout-modules-openTok').projectDir = file('modules/openTok')
