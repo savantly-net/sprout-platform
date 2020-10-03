@@ -37,7 +37,7 @@
 				"targets": [],
 				"options": {
 					"mode": "markdown",
-					"content": "# Title\n\nFor markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)\n         "
+					"content": "![Sprout by Savantly](https://raw.githubusercontent.com/savantly-net/sprout-platform/development/starters/sprout-spring-boot-starter/src/main/resources/META-INF/resources/images/logo.png)\n        "
 				},
 				"fieldConfig": {
 					"defaults": {
