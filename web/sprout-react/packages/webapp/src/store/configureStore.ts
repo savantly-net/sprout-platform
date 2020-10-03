@@ -36,7 +36,7 @@ export function configureStore() {
 
   const store = reduxConfigureStore<StoreState>({
     reducer: createRootReducer(history),
-    middleware: [...reduxDefaultMiddleware, ...middleware, routerMiddleware(history)] as [ThunkMiddleware<StoreState>],
+    middleware: [routerMiddleware(history), ...reduxDefaultMiddleware, ...middleware] as [ThunkMiddleware<StoreState>],
     devTools: process.env.NODE_ENV !== 'production',
     preloadedState: {
       navIndex: buildInitialState(),

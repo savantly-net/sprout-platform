@@ -28,8 +28,8 @@ const AppRoutes = ({history}: AllProps) => {
       <Suspense fallback={<Spinner />}>
         <Switch>
           <Route exact path="/" render={
-            (props) => {
-              return importDashboardPage({routeInfo: DashboardRouteInfo.Home, match: props.match})
+            (...props) => {
+              return importDashboardPage({routeInfo: DashboardRouteInfo.Home, ...props})
             }  
           }>
           

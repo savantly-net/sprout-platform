@@ -1,4 +1,4 @@
-import { standardEditorsRegistry, UrlQueryValue } from "@savantly/sprout-api";
+import { standardEditorsRegistry, UrlQueryValue, urlUtil } from "@savantly/sprout-api";
 import {
   config,
   getLocationSrv,
@@ -6,6 +6,7 @@ import {
   setLocationSrv,
 } from "@savantly/sprout-runtime";
 import { getStandardOptionEditors } from "@savantly/sprout-ui";
+import { replace } from "connected-react-router";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
@@ -33,11 +34,6 @@ const urlParams = new URLSearchParams(location.search);
 const queryParams: Record<string, UrlQueryValue> = {};
 urlParams.forEach((value, key) => {
   queryParams[key] = value;
-});
-
-getLocationSrv().update({
-  path: location.pathname,
-  query: queryParams
 });
 
 let theme = "light";

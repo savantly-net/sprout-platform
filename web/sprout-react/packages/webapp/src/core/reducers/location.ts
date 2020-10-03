@@ -4,6 +4,8 @@ import { LocationUpdate } from '@savantly/sprout-runtime';
 
 import { LocationState } from '../../types';
 import { urlUtil } from '@savantly/sprout-api';
+import { dispatch, store } from "../../store/store";
+import { push, replace as _replace } from 'connected-react-router';
 
 export const initialState: LocationState = {
   url: '',

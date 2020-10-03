@@ -14,6 +14,7 @@ import "./App.css";
 import { ThemeProvider } from "./core/utils/ConfigProvider";
 import { initDevFeatures } from "./dev";
 import AppRoutes from "./routes/AppRoutes";
+import LocationSync from "./routes/LocationSync";
 import { history } from "./store/configureStore";
 import { store } from "./store/store";
 
@@ -30,6 +31,7 @@ export const App = ({ theme }: { theme: string }) => {
       <Provider store={store}>
         <CRouter history={history}>
           <ErrorBoundaryAlert style="page">
+            <LocationSync/>
             <ThemeProvider>
               <ModalsProvider>
                 <AppRoutes history={history} />
