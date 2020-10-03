@@ -12,13 +12,13 @@ import globby from 'globby';
 let distDir: string, cwd: string;
 
 // @ts-ignore
-export const clean = useSpinner<void>('Cleaning', async () => await execa('npm', ['run', 'clean']));
+export const clean = useSpinner<void>('Cleaning', async () => await execa('yarn', ['clean']));
 
 // @ts-ignore
 const compile = useSpinner<void>('Compiling sources', () => execa('tsc', ['-p', './tsconfig.build.json']));
 
 // @ts-ignore
-const rollup = useSpinner<void>('Bundling', () => execa('npm', ['run', 'bundle']));
+const rollup = useSpinner<void>('Bundling', () => execa('yarn', ['bundle']));
 
 interface SavePackageOptions {
   path: string;

@@ -1,0 +1,29 @@
+#
+# Recommend use for static configuration that does not change between environments.
+#
+
+sprout:
+  jpa:
+    packages-to-scan:
+    - net.savantly.sprout.server.domain
+
+spring:
+  banner:
+    location: banner.txt
+  mvc:
+    log-request-details: true
+  jpa:
+    generate-ddl: true
+    properties:
+      hibernate:
+        format_sql: true
+        ddl-auto: create-drop
+
+management:
+  endpoints:
+    web:
+      exposure.include: "*"
+
+logging:
+  level:
+    org.springframework.web: INFO
