@@ -41,4 +41,4 @@ Read more about the [Sprout Starter](./starters/sprout-spring-boot-starter)
 
 
 
-Demo images coming soon.
+![Sprout Web App](./docs/img/default.png)
