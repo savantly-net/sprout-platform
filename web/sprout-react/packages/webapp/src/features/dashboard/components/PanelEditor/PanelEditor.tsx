@@ -1,13 +1,14 @@
 import { selectors } from '@grafana/e2e-selectors';
 import { GrafanaTheme, PanelPlugin } from '@savantly/sprout-api';
+import { getLocationSrv } from '@savantly/sprout-runtime';
 import { Button, getTheme, HorizontalGroup, Icon, RadioButtonGroup, stylesFactory } from '@savantly/sprout-ui';
 import { css, cx } from 'emotion';
 import React, { PureComponent } from 'react';
 import { connect, MapDispatchToProps, MapStateToProps } from 'react-redux';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { BackButton } from '../../../../core/components/BackButton/BackButton';
-import { updateLocation } from '../../../../core/reducers/location';
-import { LocationState } from '../../../../types';
+import { LocationUpdateService } from '../../../../core/services/locationSvc';
 import { StoreState } from '../../../../types/store';
 import { DashboardPanel } from '../../dashgrid/DashboardPanel';
 import { DashboardModel } from '../../state/DashboardModel';
@@ -28,10 +29,10 @@ const SplitPane = splitPane.default;
 interface OwnProps {
   dashboard: DashboardModel;
   sourcePanel: PanelModel;
+  locationService: LocationUpdateService
 }
 
 interface ConnectedProps {
-  location: LocationState;
   plugin?: PanelPlugin;
   panel: PanelModel;
   initDone: boolean;
@@ -41,14 +42,13 @@ interface ConnectedProps {
 }
 
 interface DispatchProps {
-  updateLocation: typeof updateLocation;
   initPanelEditor: typeof initPanelEditor;
   panelEditorCleanUp: typeof panelEditorCleanUp;
   setDiscardChanges: typeof setDiscardChanges;
   updatePanelEditorUIState: typeof updatePanelEditorUIState;
 }
 
-type Props = OwnProps & ConnectedProps & DispatchProps;
+type Props = OwnProps & ConnectedProps & RouteComponentProps & DispatchProps;
 
 export class PanelEditorUnconnected extends PureComponent<Props> {
 
@@ -61,22 +61,22 @@ export class PanelEditorUnconnected extends PureComponent<Props> {
   }
 
   onPanelExit = () => {
-    this.props.updateLocation({
+    this.props.locationService.update({
       query: { editPanel: null, tab: null },
       partial: true,
-    });
+    })
   };
 
   onDiscard = () => {
     this.props.setDiscardChanges(true);
-    this.props.updateLocation({
+    this.props.locationService.update({
       query: { editPanel: null, tab: null },
       partial: true,
-    });
+    })
   };
 
   onOpenDashboardSettings = () => {
-    this.props.updateLocation({ query: { editview: 'settings' }, partial: true });
+    this.props.locationService.update({ query: { editview: 'settings' }, partial: true });
   };
 
   onSaveDashboard = () => {
@@ -90,7 +90,7 @@ export class PanelEditorUnconnected extends PureComponent<Props> {
   };
 
   onChangeTab = (tab: PanelEditorTab) => {
-    this.props.updateLocation({ query: { tab: tab.id }, partial: true });
+    this.props.locationService.update({ query: { tab: tab.id }, partial: true });
   };
 
   onPanelOptionsChanged = (options: any) => {
@@ -156,6 +156,7 @@ export class PanelEditorUnconnected extends PureComponent<Props> {
                       isEditing={true}
                       isViewing={false}
                       isInView={true}
+                      locationService={this.props.locationService}
                     />
                   </div>
                 </div>
@@ -314,25 +315,23 @@ const mapStateToProps: MapStateToProps<ConnectedProps, OwnProps, StoreState> = (
   const { plugin } = getPanelStateById(state.dashboard, panel.id);
 
   return {
-    location: state.router.location,
     plugin: plugin,
     panel,
     initDone: state.panelEditor.initDone,
-    tabs: getPanelEditorTabs(state.router.location, plugin),
+    tabs: getPanelEditorTabs(plugin),
     uiState: state.panelEditor.ui,
     themeName: state.application.themeName
   };
 };
 
 const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = {
-  updateLocation,
   initPanelEditor,
   panelEditorCleanUp,
   setDiscardChanges,
   updatePanelEditorUIState
 };
 
-export const PanelEditor = connect(mapStateToProps, mapDispatchToProps)(PanelEditorUnconnected as any);
+export const PanelEditor = connect(mapStateToProps, mapDispatchToProps)(withRouter(PanelEditorUnconnected as any) as any);
 
 enum Pane {
   Right,

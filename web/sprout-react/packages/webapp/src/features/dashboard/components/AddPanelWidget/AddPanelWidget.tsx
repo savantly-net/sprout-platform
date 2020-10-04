@@ -1,7 +1,7 @@
 // Libraries
 import React, { useMemo } from 'react';
 import _ from 'lodash';
-import { LocationUpdate } from '@savantly/sprout-runtime';
+import { LocationUpdate, getLocationSrv } from '@savantly/sprout-runtime';
 import { Button, HorizontalGroup, IconButton, stylesFactory, useTheme } from '@savantly/sprout-ui';
 import { selectors } from '@grafana/e2e-selectors';
 import { connect, MapDispatchToProps } from 'react-redux';
@@ -9,7 +9,6 @@ import { connect, MapDispatchToProps } from 'react-redux';
 import config from '../../../../core/config';
 import store from '../../../../core/store';
 // Store
-import { push } from "connected-react-router";
 import { addPanel } from '../../state/reducers';
 // Types
 import { DashboardModel, PanelModel } from '../../state';
@@ -17,6 +16,7 @@ import { LS_PANEL_COPY_KEY } from '../../../../core/constants';
 import { css, cx, keyframes } from 'emotion';
 import { GrafanaTheme } from '@savantly/sprout-api';
 import tinycolor from 'tinycolor2';
+import { LocationUpdateService } from '../../../../core/services/locationSvc';
 
 export type PanelPluginInfo = { id: any; defaults: { gridPos: { w: any; h: any }; title: any } };
 
@@ -27,7 +27,7 @@ export interface OwnProps {
 
 export interface DispatchProps {
   addPanel: typeof addPanel;
-  updateLocation: typeof push;
+  updateLocation: LocationUpdateService;
 }
 
 export type Props = OwnProps & DispatchProps;
@@ -82,7 +82,7 @@ export const AddPanelWidgetUnconnected: React.FC<Props> = ({ panel, dashboard, u
       partial: true,
     };
 
-    updateLocation(location);
+    updateLocation.update(location);
   };
 
   const onPasteCopiedPanel = (panelPluginInfo: PanelPluginInfo) => {
@@ -139,7 +139,7 @@ export const AddPanelWidgetUnconnected: React.FC<Props> = ({ panel, dashboard, u
   );
 };
 
-const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = { addPanel, updateLocation: push };
+const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = { addPanel, updateLocation: getLocationSrv() };
 
 export const AddPanelWidget = connect(null, mapDispatchToProps)(AddPanelWidgetUnconnected);
 
@@ -151,7 +151,7 @@ const AddPanelWidgetHandle: React.FC<AddPanelWidgetHandleProps> = ({ onCancel })
   const styles = getAddPanelWigetHandleStyles(theme);
   return (
     <div className={cx(styles.handle, 'grid-drag-handle')}>
-      <IconButton name="times" onClick={(e) => onCancel(e as any)} surface="header" className="add-panel-widget__close" />
+      <IconButton name="times" onClick={(e:any) => onCancel(e as any)} surface="header" className="add-panel-widget__close" />
     </div>
   );
 };

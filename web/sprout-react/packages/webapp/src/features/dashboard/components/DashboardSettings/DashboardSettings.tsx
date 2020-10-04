@@ -4,18 +4,19 @@ import React, { PureComponent } from 'react';
 // Types
 import { DashboardModel } from '../../state/DashboardModel';
 import { BackButton } from '../../../../core/components/BackButton/BackButton';
-import { updateLocation } from '../../../../core/actions';
 import { CustomScrollbar } from '@savantly/sprout-ui';
+import { getLocationSrv } from '@savantly/sprout-runtime';
+import { LocationUpdateService } from '../../../../core/services/locationSvc';
 
 export interface Props {
   dashboard: DashboardModel;
-  updateLocation: typeof updateLocation;
+  locationService: LocationUpdateService;
 }
 
 export class DashboardSettings extends PureComponent<Props> {
 
   onClose = () => {
-    this.props.updateLocation({
+    this.props.locationService.update({
       query: { editview: null },
       partial: true,
     });

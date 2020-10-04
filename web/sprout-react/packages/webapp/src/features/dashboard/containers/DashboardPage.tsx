@@ -1,66 +1,49 @@
 // Libraries
-import React, { Dispatch, MouseEvent, PureComponent } from 'react';
-import { connect } from 'react-redux';
+import { UrlQueryValue, urlUtil } from '@savantly/sprout-api';
+import { getLocationSrv } from '@savantly/sprout-runtime';
+import { CustomScrollbar } from '@savantly/sprout-ui';
 // @ts-ignore
 import $ from 'jquery';
-
+import React, { Component, MouseEvent } from 'react';
+import { connect } from 'react-redux';
+import { notifyApp } from '../../../core/actions';
+import { Branding } from '../../../core/components/Branding/Branding';
+import LifecycleLogging, { LogFlags } from '../../../core/components/LifecycleLogging/LifecycleLogging';
 // Services & Utils
 import { createErrorNotification } from '../../../core/copy/appNotification';
-import { getMessageFromError } from '../../../core/utils/errors';
-import { Branding } from '../../../core/components/Branding/Branding';
-// Components
-import { DashboardGrid } from '../dashgrid/DashboardGrid';
-import { DashNav } from '../components/DashNav';
-import { DashboardSettings } from '../components/DashboardSettings';
-import { PanelEditor } from '../components/PanelEditor/PanelEditor';
-import { Alert, Button, CustomScrollbar, HorizontalGroup, Icon, VerticalGroup } from '@savantly/sprout-ui';
-// Redux
-import { initDashboard, InitDashboardArgs } from '../state/initDashboard';
-import { notifyApp, updateLocation } from '../../../core/actions';
-import { getRouter } from "connected-react-router";
+import { LocationUpdateService } from '../../../core/services/locationSvc';
 // Types
 import {
-  AppNotificationSeverity,
-  DashboardInitError,
-  DashboardInitPhase,
-  DashboardRouteInfo,
-  StoreState,
+  StoreState
 } from '../../../types';
-
-import { DashboardModel, PanelModel } from '../state';
+import { DashboardSettings } from '../components/DashboardSettings';
+import { DashNav } from '../components/DashNav';
+import { PanelEditor } from '../components/PanelEditor/PanelEditor';
 import { SubMenu } from '../components/SubMenu/SubMenu';
+// Components
+import { DashboardGrid } from '../dashgrid/DashboardGrid';
+import { DashboardModel, PanelModel } from '../state';
 import { cleanUpDashboardAndVariables } from '../state/actions';
-import { UrlQueryValue } from '@savantly/sprout-api';
-import { AnyAction, ThunkAction } from '@reduxjs/toolkit';
-import { ConnectedReduxProps } from '../../../routes/ConnectedReduxProps';
-import { withRouter } from 'react-router-dom';
 
-type OwnProps = {
-  urlUid?: UrlQueryValue;
-  editview?: UrlQueryValue;
-  urlPanelId?: UrlQueryValue;
-  urlFolderId?: UrlQueryValue;
-  routeInfo: DashboardRouteInfo;
-  urlViewPanelId?: UrlQueryValue;
-}
+
+
+type OwnProps = {}
 
 type StateProps = {
   dashboard: DashboardModel | null;
-  initPhase: DashboardInitPhase;
-  isInitSlow: boolean;
-  initError: DashboardInitError | null;
   isPanelEditorOpen?: boolean;
+  editview?: UrlQueryValue;
+  urlPanelId?: UrlQueryValue;
+  urlFolderId?: UrlQueryValue;
+  urlViewPanelId?: UrlQueryValue;
   urlEditPanelId: UrlQueryValue;
 }
 
 type DispatchProps = {
-  initDashboard: Function;
-  cleanUpDashboardAndVariables: typeof cleanUpDashboardAndVariables,
-  notifyApp: typeof notifyApp,
-  updateLocation: typeof updateLocation
+  notifyApp: typeof notifyApp
 }
 
-type AllProps = OwnProps & StateProps & DispatchProps & ConnectedReduxProps;
+type AllProps = OwnProps & StateProps & DispatchProps;
 
 type OwnState = {
   editPanel: PanelModel | null;
@@ -71,35 +54,39 @@ type OwnState = {
   showLoadingState: boolean;
 }
 
-export class DashboardPage extends PureComponent<AllProps, OwnState> {
+const logFlags: LogFlags = {
+  logType: 'object',
+  names: ["nextProps", "nextState", "prevProps", "prevState", "props"]
+}
+
+export class DashboardPage extends LifecycleLogging<AllProps, OwnState> {
+  locationUpdateService: LocationUpdateService = getLocationSrv();
+
   constructor(props: AllProps) {
-    super(props);
+    super(props, logFlags);
     this.state = {
       editPanel: null,
       viewPanel: null,
       showLoadingState: false,
       scrollTop: 0,
-      rememberScrollTop: 0
+      rememberScrollTop: 0,
     };
-  }
-  
-
-  async componentDidMount() {
-    this.props.initDashboard({
-      urlUid: this.props.urlUid ? this.props.urlUid as string : undefined,
-      urlFolderId: this.props.urlFolderId ? this.props.urlFolderId as string : undefined,
-      routeInfo: this.props.routeInfo,
-      fixUrl: true,
-    });
   }
 
   componentWillUnmount() {
-    this.props.cleanUpDashboardAndVariables();
     this.setPanelFullscreenClass(false);
   }
 
+  shouldComponentUpdate = (nextProps: AllProps, nextState: OwnState) => {
+    return true;
+    if(this.props != nextProps) {
+      return true;
+    }
+    return false;
+  }
+
   componentDidUpdate(prevProps: AllProps) {
-    const { dashboard, urlViewPanelId, urlUid, urlEditPanelId } = this.props;
+    const { dashboard, urlViewPanelId, urlEditPanelId } = this.props;
     const { editPanel, viewPanel } = this.state;
 
     if (!dashboard) {
@@ -109,12 +96,6 @@ export class DashboardPage extends PureComponent<AllProps, OwnState> {
     // if we just got dashboard update title
     if (!prevProps.dashboard) {
       document.title = dashboard.title + ' - ' + Branding.AppTitle;
-    }
-
-    // Due to the angular -> react url bridge we can ge an update here with new uid before the container unmounts
-    // Can remove this condition after we switch to react router
-    if (prevProps.urlUid !== urlUid) {
-      return;
     }
 
     // entering edit mode
@@ -169,7 +150,7 @@ export class DashboardPage extends PureComponent<AllProps, OwnState> {
       // Panel not found
       this.props.notifyApp(createErrorNotification(`Panel with id ${urlPanelId} not found`));
       // Clear url state
-      this.props.updateLocation({
+      this.locationUpdateService.update({
         query: {
           editPanel: null,
           viewPanel: null,
@@ -222,63 +203,18 @@ export class DashboardPage extends PureComponent<AllProps, OwnState> {
     this.setState({ updateScrollTop: 0 });
   };
 
-  cancelVariables = () => {
-    this.props.updateLocation({ path: '/' });
-  };
 
-  renderSlowInitState() {
-    return (
-      <div className="dashboard-loading">
-        <div className="dashboard-loading__text">
-          <VerticalGroup spacing="md">
-            <HorizontalGroup align="center" justify="center" spacing="xs">
-              <Icon name="fa fa-spinner" className="fa-spin" /> {this.props.initPhase}
-            </HorizontalGroup>{' '}
-            <HorizontalGroup align="center" justify="center">
-              <Button variant="secondary" size="md" icon="repeat" onClick={this.cancelVariables}>
-                Cancel loading dashboard
-              </Button>
-            </HorizontalGroup>
-          </VerticalGroup>
-        </div>
-      </div>
-    );
-  }
-
-  renderInitFailedState() {
-    const { initError } = this.props;
-
-    if (!initError) {
-      return null;
-    }
-
-    return (
-      <div className="dashboard-loading">
-        <Alert
-          severity={AppNotificationSeverity.Error}
-          title={initError.message}
-          children={getMessageFromError(initError.error)}
-        />
-      </div>
-    );
-  }
 
   render() {
     const {
       dashboard,
-      editview,
-      isInitSlow,
-      initError,
       isPanelEditorOpen,
-      updateLocation,
+      editview
     } = this.props;
 
     const { editPanel, viewPanel, scrollTop, updateScrollTop } = this.state;
 
     if (!dashboard) {
-      if (isInitSlow) {
-        return this.renderSlowInitState();
-      }
       return null;
     }
 
@@ -298,7 +234,6 @@ export class DashboardPage extends PureComponent<AllProps, OwnState> {
             className="custom-scrollbar--page"
           >
             <div className="dashboard-content">
-              {initError && this.renderInitFailedState()}
               {!editPanel && <SubMenu dashboard={dashboard} />}
 
               <DashboardGrid
@@ -307,34 +242,32 @@ export class DashboardPage extends PureComponent<AllProps, OwnState> {
                 editPanel={editPanel}
                 scrollTop={approximateScrollTop}
                 isPanelEditorOpen={isPanelEditorOpen}
+                locationService={this.locationUpdateService}
               />
             </div>
           </CustomScrollbar>
         </div>
 
-        {editPanel && <PanelEditor dashboard={dashboard} sourcePanel={editPanel} />}
-        {editview && <DashboardSettings dashboard={dashboard} updateLocation={updateLocation} />}
+        {editPanel && <PanelEditor dashboard={dashboard} sourcePanel={editPanel} locationService={this.locationUpdateService} />}
+        {editview && <DashboardSettings dashboard={dashboard} locationService={this.locationUpdateService} />}
       </div>
     );
   }
 }
 
 const mapStateToProps = (state: StoreState): StateProps => ({
-  initPhase: state.dashboard.initPhase,
-  isInitSlow: state.dashboard.isInitSlow,
-  initError: state.dashboard.initError,
   dashboard: state.dashboard.getModel() as DashboardModel,
   isPanelEditorOpen: state.panelEditor.isOpen,
+  urlPanelId: state.location.query.panel,
+  urlFolderId: state.location.query.folder,
+  urlViewPanelId: state.location.query.viewPanel,
   urlEditPanelId: state.location.query.editPanel
 });
 
 
 const mapDispatchToProps: DispatchProps = {
-  initDashboard,
-  cleanUpDashboardAndVariables,
-  notifyApp,
-  updateLocation
+  notifyApp
 };
 
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DashboardPage as any));
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage);

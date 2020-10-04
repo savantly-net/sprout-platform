@@ -23,12 +23,8 @@ export interface LocationUpdate {
   partial?: boolean;
 
   /**
-   * Used internally to sync the Redux state from Angular to make sure that the Redux location
-   * state is in sync when navigating using the Angular router.
-   *
-   * @remarks
-   * Do not change this unless you are the Angular router.
-   *
+   * Used to track state - does not update url.
+   * Use 'path' and 'query' to change locations
    * @internal
    */
   routeParams?: UrlQueryMap;

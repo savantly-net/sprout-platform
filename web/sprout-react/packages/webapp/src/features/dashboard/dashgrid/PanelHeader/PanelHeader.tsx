@@ -11,7 +11,8 @@ import { PanelHeaderMenu } from './PanelHeaderMenu';
 import { DashboardModel } from '../../state/DashboardModel';
 import { PanelModel } from '../../state/PanelModel';
 import { getPanelMenu } from '../../utils/getPanelMenu';
-import { updateLocation } from '../../../../core/actions';
+import { getLocationSrv, LocationSrv } from '@savantly/sprout-runtime';
+import { LocationUpdateService } from '../../../../core/services/locationSvc';
 
 export interface Props {
   panel: PanelModel;
@@ -23,7 +24,7 @@ export interface Props {
   isViewing: boolean;
   isEditing: boolean;
   data: PanelData;
-  updateLocation: typeof updateLocation;
+  updateLocationService: LocationUpdateService;
 }
 
 interface ClickCoordinates {
@@ -66,8 +67,8 @@ export class PanelHeader extends Component<Props, State> {
 
     event.stopPropagation();
 
-    const { dashboard, panel } = this.props;
-    const menuItems = getPanelMenu(dashboard, panel);
+    const { dashboard, panel, updateLocationService } = this.props;
+    const menuItems = getPanelMenu(updateLocationService, dashboard, panel);
 
     this.setState({
       panelMenuOpen: !this.state.panelMenuOpen,
@@ -92,11 +93,11 @@ export class PanelHeader extends Component<Props, State> {
   }
 
   openInspect = (e: React.SyntheticEvent, tab: string) => {
-    const { updateLocation, panel } = this.props;
+    const { updateLocationService, panel } = this.props;
 
     e.stopPropagation();
 
-    updateLocation({
+    updateLocationService.update({
       query: { inspect: panel.id, inspectTab: tab },
       partial: true,
     });

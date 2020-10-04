@@ -6,6 +6,5 @@ export * from './appNotifications';
 export * from './authentication';
 export * from './dashboard';
 export * from './folders';
-export * from './location';
 export * from './plugins';
 export * from './store';

@@ -1,10 +1,10 @@
 // Libraries
 import { PanelPlugin } from '@savantly/sprout-api';
+import { getLocationSrv } from '@savantly/sprout-runtime';
 import classNames from 'classnames';
 import React, { ComponentClass, PureComponent } from 'react';
 import { connect, MapDispatchToProps, MapStateToProps } from 'react-redux';
 import AutoSizer from 'react-virtualized-auto-sizer';
-import { updateLocation } from '../../../core/reducers/location';
 import { StoreState } from '../../../types';
 // Types
 import { DashboardModel, PanelModel } from '../state';
@@ -12,6 +12,7 @@ import { DashboardModel, PanelModel } from '../state';
 import { initDashboardPanel } from '../state/actions';
 // Components
 import { PanelChrome } from './PanelChrome';
+import { LocationUpdateService } from '../../../core/services/locationSvc';
 
 
 export interface OwnProps {
@@ -20,6 +21,7 @@ export interface OwnProps {
   isEditing: boolean;
   isViewing: boolean;
   isInView: boolean;
+  locationService: LocationUpdateService
 }
 
 export interface ConnectedProps {
@@ -28,7 +30,6 @@ export interface ConnectedProps {
 
 export interface DispatchProps {
   initDashboardPanel: typeof initDashboardPanel;
-  updateLocation: typeof updateLocation;
 }
 
 export type Props = OwnProps & ConnectedProps & DispatchProps;
@@ -67,7 +68,7 @@ export class DashboardPanelUnconnected extends PureComponent<Props, State> {
   };
 
   renderPanel(plugin: PanelPlugin) {
-    const { dashboard, panel, isViewing, isInView, isEditing, updateLocation } = this.props;
+    const { dashboard, panel, isViewing, isInView, isEditing } = this.props;
 
     return (
       <AutoSizer>
@@ -85,7 +86,7 @@ export class DashboardPanelUnconnected extends PureComponent<Props, State> {
               isInView={isInView}
               width={width}
               height={height}
-              updateLocation={updateLocation}
+              updateLocation={this.props.locationService}
             />
           );
         }}
@@ -131,6 +132,6 @@ const mapStateToProps: MapStateToProps<ConnectedProps, OwnProps, StoreState> = (
   };
 };
 
-const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = { initDashboardPanel, updateLocation };
+const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = { initDashboardPanel };
 
-export const DashboardPanel = connect(mapStateToProps, mapDispatchToProps)(DashboardPanelUnconnected as ComponentClass<any>);
+export const DashboardPanel = connect(mapStateToProps, mapDispatchToProps)(DashboardPanelUnconnected as any);

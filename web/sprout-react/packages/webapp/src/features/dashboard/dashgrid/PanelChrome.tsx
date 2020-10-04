@@ -9,7 +9,6 @@ import {
 } from '@savantly/sprout-api';
 import classNames from 'classnames';
 import React, { PureComponent } from 'react';
-import { updateLocation } from '../../../core/actions';
 // Utils & Services
 import config from '../../../core/config';
 import { PANEL_BORDER } from '../../../core/constants';
@@ -18,6 +17,8 @@ import { DashboardModel, PanelModel } from '../state';
 // Components
 import { PanelHeader } from './PanelHeader/PanelHeader';
 import { PanelRenderer } from './PanelRenderer';
+import { getLocationSrv } from '@savantly/sprout-runtime';
+import { LocationUpdateService } from '../../../core/services/locationSvc';
 
 const DEFAULT_PLUGIN_ERROR = 'Error in plugin';
 
@@ -30,7 +31,7 @@ export interface Props {
   isInView: boolean;
   width: number;
   height: number;
-  updateLocation: typeof updateLocation;
+  updateLocation: LocationUpdateService;
 }
 
 export interface State {
@@ -189,7 +190,7 @@ export class PanelChrome extends PureComponent<Props, State> {
           isEditing={isEditing}
           isViewing={isViewing}
           data={data}
-          updateLocation={updateLocation}
+          updateLocationService={updateLocation}
         />
         <ErrorBoundary>
           {({ error }) => {

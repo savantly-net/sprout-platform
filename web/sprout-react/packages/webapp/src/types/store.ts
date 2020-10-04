@@ -6,20 +6,18 @@ import { PanelEditorState } from '../features/dashboard/components/PanelEditor/s
 import { AuthenticationState } from '../state/reducers/authentication';
 import { ApplicationState } from './application';
 import { AppNotificationsState } from './appNotifications';
-import { LocationState } from './location';
 import { PluginsState } from './plugins';
-import { RouterState } from 'connected-react-router';
+import { LocationState } from './location';
 
 export interface StoreState {
   application: ApplicationState;
   appNotifications: AppNotificationsState;
   authentication: AuthenticationState;
   navIndex: NavIndex;
-  location: LocationState;
   dashboard: DashboardState;
   panelEditor: PanelEditorState;
   plugins: PluginsState;
-  router: RouterState;
+  location: LocationState;
 }
 
 /*

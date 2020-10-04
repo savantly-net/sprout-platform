@@ -1,37 +1,36 @@
 import { PanelMenuItem } from '@savantly/sprout-api';
-import { getLocationSrv } from '@savantly/sprout-runtime';
-import { updateLocation } from '../../../core/actions';
+import { getLocationSrv, LocationSrv } from '@savantly/sprout-runtime';
+import { LocationUpdateService } from '../../../core/services/locationSvc';
 import { store } from '../../../store/store';
 import { DashboardModel } from '../state/DashboardModel';
 import { PanelModel } from '../state/PanelModel';
 import { copyPanel, duplicatePanel, removePanel } from './panel';
 
+
 export function getPanelMenu(
+  locationSvc: LocationUpdateService,
   dashboard: DashboardModel,
   panel: PanelModel,
 ): PanelMenuItem[] {
+
   const onViewPanel = (event: React.MouseEvent<any>) => {
     event.preventDefault();
-    store.dispatch(
-      updateLocation({
-        query: {
-          viewPanel: panel.id,
-        },
-        partial: true,
-      })
-    );
+    locationSvc.update({
+      query: {
+        viewPanel: panel.id,
+      },
+      partial: true,
+    });
   };
 
   const onEditPanel = (event: React.MouseEvent<any>) => {
     event.preventDefault();
-    store.dispatch(
-      updateLocation({
-        query: {
-          editPanel: panel.id,
-        },
-        partial: true,
-      })
-    );
+    locationSvc.update({
+      query: {
+        editPanel: panel.id,
+      },
+      partial: true,
+    });
   };
 
   const onInspectPanel = (tab?: string) => {

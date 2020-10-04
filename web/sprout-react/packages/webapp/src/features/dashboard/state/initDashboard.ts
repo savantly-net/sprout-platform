@@ -3,7 +3,7 @@ import { createErrorNotification } from '../../../core/copy/appNotification';
 import { backendSrv } from '../../../core/services/backend_srv';
 import { dashboardLoaderService } from '../services/DashboardLoaderSrv';
 // Actions
-import { notifyApp, updateLocation } from '../../../core/actions';
+import { notifyApp } from '../../../core/actions';
 import {
   dashboardInitCompleted,
   dashboardInitFailed,

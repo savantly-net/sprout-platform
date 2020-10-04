@@ -5,17 +5,19 @@ import { Button, VerticalGroup } from '@savantly/sprout-ui';
 
 import { Layout } from '@savantly/sprout-ui';
 import { PanelEditorTabId } from './types';
-import { updateLocation } from '../../../../core/actions';
+import { getLocationSrv } from '@savantly/sprout-runtime';
 
 export interface Props {
   message: string;
   dispatch?: Dispatch;
 }
 
+const updateLocation = getLocationSrv().update;
+
 export const PanelNotSupported: FC<Props> = ({ message, dispatch: propsDispatch }) => {
   const dispatch = propsDispatch ? propsDispatch : useDispatch();
   const onBackToQueries = useCallback(() => {
-    dispatch(updateLocation({ query: { tab: PanelEditorTabId.Query }, partial: true }));
+    updateLocation({ query: { tab: PanelEditorTabId.Query }, partial: true })
   }, [dispatch]);
 
   return (

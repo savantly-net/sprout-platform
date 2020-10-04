@@ -33,7 +33,6 @@
     "@types/uuid": "^8.3.0",
     "@welldone-software/why-did-you-render": "^4.3.2",
     "classnames": "^2.2.6",
-    "connected-react-router": "^6.8.0",
     "customize-cra": "^1.0.0",
     "dangerously-set-html-content": "^1.0.8",
     "emotion": "^10.0.27",

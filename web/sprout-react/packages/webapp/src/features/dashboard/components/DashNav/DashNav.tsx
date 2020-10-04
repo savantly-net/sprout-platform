@@ -4,8 +4,6 @@ import { textUtil } from '@savantly/sprout-api';
 import { css } from 'emotion';
 import React, { FC, PureComponent, ReactNode } from 'react';
 import { connect, MapDispatchToProps } from 'react-redux';
-// State
-import { updateLocation } from '../../../../core/actions';
 // Utils & Services
 import { appEvents } from '../../../../core/app_events';
 import { BackButton } from '../../../../core/components/BackButton/BackButton';
@@ -15,6 +13,9 @@ import { DashboardModel } from '../../state';
 import { SaveDashboardModalProxy } from '../SaveDashboard/SaveDashboardModalProxy';
 // Components
 import { DashNavButton } from './DashNavButton';
+import { getLocationSrv } from '@savantly/sprout-runtime';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+
 
 export interface OwnProps {
   dashboard: DashboardModel;
@@ -22,9 +23,7 @@ export interface OwnProps {
   onAddPanel: () => void;
 }
 
-interface DispatchProps {
-  updateLocation: typeof updateLocation;
-}
+interface DispatchProps {}
 
 interface DashNavButtonModel {
   show: (props: Props) => boolean;
@@ -47,23 +46,24 @@ export interface StateProps {
   location: any;
 }
 
-type Props = StateProps & OwnProps & DispatchProps;
+type Props = StateProps & OwnProps & DispatchProps & RouteComponentProps;
 
 class DashNav extends PureComponent<Props> {
+  locationService = getLocationSrv();
 
   constructor(props: Props) {
     super(props);
   }
 
   onFolderNameClick = () => {
-    this.props.updateLocation({
+    this.locationService.update({
       query: { search: 'open', folder: 'current' },
       partial: true,
     });
   };
 
   onClose = () => {
-    this.props.updateLocation({
+    this.locationService.update({
       query: { viewPanel: null },
       partial: true,
     });
@@ -74,14 +74,14 @@ class DashNav extends PureComponent<Props> {
   };
 
   onOpenSettings = () => {
-    this.props.updateLocation({
+    this.locationService.update({
       query: { editview: 'settings' },
       partial: true,
     });
   };
 
   onDashboardNameClick = () => {
-    this.props.updateLocation({
+    this.locationService.update({
       query: { search: 'open' },
       partial: true,
     });
@@ -117,7 +117,7 @@ class DashNav extends PureComponent<Props> {
     if (canShare) {
       buttons.push(
         <ModalsController key="button-share">
-          {({ showModal, hideModal }) => (
+          {({ showModal, hideModal }: {showModal: Function, hideModal: Function}) => (
             <DashNavButton
               tooltip="Share dashboard"
               classSuffix="share"
@@ -198,7 +198,7 @@ class DashNav extends PureComponent<Props> {
       );
       buttons.push(
         <ModalsController key="button-save">
-          {({ showModal, hideModal }) => (
+          {({ showModal, hideModal }: {showModal: Function, hideModal: Function}) => (
             <DashNavButton
               tooltip="Save dashboard"
               classSuffix="save"
@@ -262,11 +262,8 @@ class DashNav extends PureComponent<Props> {
 }
 
 const mapStateToProps = (state: StoreState) => ({
-  location: state.router.location,
 });
 
-const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = {
-  updateLocation
-};
+const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashNav);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(DashNav));

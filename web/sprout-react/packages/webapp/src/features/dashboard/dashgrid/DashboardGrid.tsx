@@ -15,6 +15,7 @@ import { DashboardPanel } from './DashboardPanel';
 import { DashboardModel, PanelModel } from '../state';
 import { CoreEvents } from '../../../types';
 import { panelAdded, panelRemoved } from '../state/PanelModel';
+import { LocationUpdateService } from '../../../core/services/locationSvc';
 
 let lastGridWidth = 1200;
 let ignoreNextWidthChange = false;
@@ -98,6 +99,7 @@ export interface Props {
   viewPanel: PanelModel | null;
   scrollTop: number;
   isPanelEditorOpen?: boolean;
+  locationService: LocationUpdateService;
 }
 
 export class DashboardGrid extends PureComponent<Props> {
@@ -271,6 +273,7 @@ export class DashboardGrid extends PureComponent<Props> {
         isEditing={panel.isEditing}
         isViewing={panel.isViewing}
         isInView={panel.isInView}
+        locationService={this.props.locationService}
       />
     );
   }

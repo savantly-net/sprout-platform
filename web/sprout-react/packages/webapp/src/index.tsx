@@ -1,12 +1,11 @@
-import { standardEditorsRegistry, UrlQueryValue, urlUtil } from "@savantly/sprout-api";
+import { standardEditorsRegistry, UrlQueryValue } from "@savantly/sprout-api";
 import {
   config,
-  getLocationSrv,
-  LocationUpdate,
-  setLocationSrv,
+
+
+  setLocationSrv
 } from "@savantly/sprout-runtime";
 import { getStandardOptionEditors } from "@savantly/sprout-ui";
-import { replace } from "connected-react-router";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
@@ -14,19 +13,16 @@ import App from "./App";
 //import { updateLocation } from "./core/actions";
 import ErrorBoundary from "./core/components/error/error-boundary";
 import { SideMenu } from "./core/components/sidemenu/SideMenu";
-import { updateLocation } from "./core/reducers/location";
+import locationSvc from "./core/services/locationSvc";
 import { builtInPluginMeta } from "./features/plugins/built_in_plugins";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
-import { configureStore } from "./store/configureStore";
+import { configureStore, history } from "./store/configureStore";
 
 const store = configureStore();
+const locationService = locationSvc(history);
 
-setLocationSrv({
-  update: (opt: LocationUpdate) => {
-    store.dispatch(updateLocation(opt));
-  },
-});
+setLocationSrv(locationService);
 
 const location = window.location;
 console.log(location);

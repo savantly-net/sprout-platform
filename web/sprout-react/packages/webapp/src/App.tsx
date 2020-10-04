@@ -5,20 +5,18 @@ import {
   ModalsProvider,
   ThemeContext
 } from "@savantly/sprout-ui";
-import { ConnectedRouter } from 'connected-react-router';
 import React from "react";
 import { Provider } from "react-redux";
+import { BrowserRouter, Router } from "react-router-dom";
 import "./App.css";
 //import './assets/stolen.css';
 //import './sass/grafana.dark.scss';
 import { ThemeProvider } from "./core/utils/ConfigProvider";
 import { initDevFeatures } from "./dev";
 import AppRoutes from "./routes/AppRoutes";
-import LocationSync from "./routes/LocationSync";
 import { history } from "./store/configureStore";
 import { store } from "./store/store";
 
-const CRouter = ConnectedRouter as any;
 
 export const App = ({ theme }: { theme: string }) => {
   if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
@@ -29,9 +27,8 @@ export const App = ({ theme }: { theme: string }) => {
   return (
     <ThemeContext.Provider value={getTheme(theme)}>
       <Provider store={store}>
-        <CRouter history={history}>
+        <Router history={history}>
           <ErrorBoundaryAlert style="page">
-            <LocationSync/>
             <ThemeProvider>
               <ModalsProvider>
                 <AppRoutes history={history} />
@@ -39,7 +36,7 @@ export const App = ({ theme }: { theme: string }) => {
               </ModalsProvider>
             </ThemeProvider>
           </ErrorBoundaryAlert>
-        </CRouter>
+        </Router>
       </Provider>
     </ThemeContext.Provider>
   );

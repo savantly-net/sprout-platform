@@ -1,5 +1,4 @@
 import { configureStore as reduxConfigureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import { routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import { createLogger } from 'redux-logger';
 import { ThunkMiddleware } from 'redux-thunk';
@@ -35,8 +34,8 @@ export function configureStore() {
   } as any);
 
   const store = reduxConfigureStore<StoreState>({
-    reducer: createRootReducer(history),
-    middleware: [routerMiddleware(history), ...reduxDefaultMiddleware, ...middleware] as [ThunkMiddleware<StoreState>],
+    reducer: createRootReducer(),
+    middleware: [...reduxDefaultMiddleware, ...middleware] as [ThunkMiddleware<StoreState>],
     devTools: process.env.NODE_ENV !== 'production',
     preloadedState: {
       navIndex: buildInitialState(),
