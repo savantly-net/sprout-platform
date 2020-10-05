@@ -27,12 +27,12 @@ The development branch may be unstable until this is complete.
 Follow this project to stay informed.  
 
 
-### Quick Start  
+## Quick Start  
 
 Use the docker images to start an example server + web app.  
 `docker-compose up`  
 
-### Development 
+## Development 
 If you're a Java, React, or Grafana developer, you'll be familiar with the tooling. 
 
 The UI was bootstrapped using `create-react-app`  
@@ -60,18 +60,32 @@ The UI is in a `yarn` workspace project here [./web/sprout-react/packages/webapp
 The toolkit from Grafana has been used to setup the dependencies.  
 It doesn't support all the same features as Grafana, and the plugin bootstrapping is still progress.  
 
+## UI work
+
 The port from Grafana UI went like this - 
 - Copy the UI project into my workspace
 - Rip all the time-series related stuff out [woah!!!] =)
 - Rip all the Angular stuff out [oh man... so many red squiggly lines in my IDE]
 - Rip half my hair out
+- Rip out cool features that I don't have time to port right now =(
 - Monkey patch about 200 files
 - Rip the other half of my hair out
 - Connect the 'home' dashboard request to the server, and provide some mock data
 - Build some docker images. woohoo!
 
 
+## Examples
+
 ![Sprout Web App](./docs/img/default.png)
 
 
 ![Sprout Web App](./docs/img/panel_edit.png)
+
+## TODO
+This list is not comprehensive, but some high level tasks I'd like to tackle soon. 
+
+[ ] Add a code editor to the Standard Editors [port Monaco stuff from Grafana?]
+[ ] Add Authentication screens to UI
+[ ] Add lots of tests
+[ ] Add server hook for all the boot data the UI expects [in progress]
+
