@@ -8,7 +8,10 @@
 This project provides a headless CMS with a built-in admin UI for managing content types and items.  
 It's extendable with plugin-modules, and aims to be an alternative wherever Wordpress may be considered.  
 
-I got lots of inspiration [and code] from the Grafana UI + toolkit.  
+The platform has gone through several iterations - AngularJS, Angular 2/4/6, and now React.  
+I got lots of inspiration [and code] from the Grafana UI + toolkit for this latest iteration.  
+
+I'd love to get some input from the community!  
 
 If there is specific feature you'd like, or if you experience a bug, please open an issue [here](https://github.com/savantly-net/sprout-platform/issues)  
 
