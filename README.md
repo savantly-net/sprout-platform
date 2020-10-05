@@ -84,8 +84,8 @@ The port from Grafana UI went like this -
 ## TODO
 This list is not comprehensive, but some high level tasks I'd like to tackle soon. 
 
-[ ] Add a code editor to the Standard Editors [port Monaco stuff from Grafana?]
-[ ] Add Authentication screens to UI
-[ ] Add lots of tests
-[ ] Add server hook for all the boot data the UI expects [in progress]
+- [ ] Add a code editor to the Standard Editors [port Monaco stuff from Grafana?]
+- [ ] Add Authentication screens to UI
+- [ ] Add lots of tests
+- [ ] Add server hook for all the boot data the UI expects [in progress]
 
