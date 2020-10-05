@@ -1,7 +1,3 @@
-#
-# Recommend use for static configuration that does not change between environments.
-#
-
 sprout:
   jpa:
     packages-to-scan:
@@ -18,6 +14,9 @@ spring:
       hibernate:
         format_sql: true
         ddl-auto: create-drop
+  profiles:
+    active: local
+
 
 management:
   endpoints:

@@ -48,7 +48,27 @@ You can override properties by modifying the `application.properties`
 The backend server is developed as a `Spring Boot Starter` so it can be added to any Spring app to bootstrap with defaults.  
 It's not production ready yet, but should be by Q1 2021.  
 
+The built-in admin app was being re-done in React, but I may drop it in favor of a single UI with all the administration functions included.  
+The UI could then be packaged with the server app to run as a single Java deployment.  
+Although, with CORs configured, the UI can easily be deployed to a static site server with the server app on a cloud provider like Heroku or AWS.   
+
+The main backend code is located in the Sprout Starter project.  
 Read more about the [Sprout Starter](./starters/sprout-spring-boot-starter)
+
+The UI is in a `yarn` workspace project here [./web/sprout-react/packages/webapp](./web/sprout-react/packages/webapp)  
+
+The toolkit from Grafana has been used to setup the dependencies.  
+It doesn't support all the same features as Grafana, and the plugin bootstrapping is still progress.  
+
+The port from Grafana UI went like this - 
+- Copy the UI project into my workspace
+- Rip all the time-series related stuff out [woah!!!] =)
+- Rip all the Angular stuff out [oh man... so many red squiggly lines in my IDE]
+- Rip half my hair out
+- Monkey patch about 200 files
+- Rip the other half of my hair out
+- Connect the 'home' dashboard request to the server, and provide some mock data
+- Build some docker images. woohoo!
 
 
 ![Sprout Web App](./docs/img/default.png)
