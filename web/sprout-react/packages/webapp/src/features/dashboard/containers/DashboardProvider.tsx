@@ -10,6 +10,7 @@ import React, {
 } from "react";
 import { connect } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
+import { SafeDynamicImport } from "../../../core/components/DynamicImports/SafeDynamicImport";
 import { getMessageFromError } from "../../../core/utils/errors";
 import {
   AppNotificationSeverity,
@@ -21,6 +22,8 @@ import {
 import { DashboardModel } from "../state/DashboardModel";
 import { initDashboard } from "../state/initDashboard";
 import DashboardPage from "./DashboardPage";
+
+//const DashboardPage = SafeDynamicImport(import(/* webpackChunkName: "DashboardPage" */ './DashboardPage'));
 
 
 type OwnProps = {
@@ -56,6 +59,7 @@ const mapDispatchToProps: DispatchProps = {
 };
 
 const DashboardProvider = ({
+  routeInfo,
   initDashboard,
   initError,
   initPhase,
@@ -68,7 +72,7 @@ const DashboardProvider = ({
   useEffect(() => {
     initDashboard({
       fixUrl: false,
-      routeInfo: DashboardRouteInfo.Home,
+      routeInfo: routeInfo,
       urlUid: undefined, //this.props.urlUid ? this.props.urlUid as string : undefined,
       urlFolderId: undefined, // this.props.urlFolderId ? this.props.urlFolderId as string : undefined,
     });

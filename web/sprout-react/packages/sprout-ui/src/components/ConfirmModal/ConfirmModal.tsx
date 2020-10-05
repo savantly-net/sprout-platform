@@ -7,7 +7,7 @@ import { stylesFactory, ThemeContext } from '../../themes';
 import { GrafanaTheme } from '@savantly/sprout-api';
 import { HorizontalGroup } from '..';
 
-export interface Props {
+export interface ConfirmModalProps {
   /** Toggle modal's open/closed state */
   isOpen: boolean;
   /** Title for the modal header */
@@ -26,7 +26,7 @@ export interface Props {
   onDismiss(): void;
 }
 
-export const ConfirmModal: FC<Props> = ({
+export const ConfirmModal: FC<ConfirmModalProps> = ({
   isOpen,
   title,
   body,

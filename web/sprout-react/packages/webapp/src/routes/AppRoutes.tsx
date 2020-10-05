@@ -6,10 +6,9 @@ import { SafeDynamicImport } from '../core/components/DynamicImports/SafeDynamic
 import Spinner from '../core/components/Spinner/Spinner';
 import { DashboardPage } from '../features/dashboard/containers/DashboardPage';
 import DashboardProvider from '../features/dashboard/containers/DashboardProvider';
+import DashboardRoutes from '../features/dashboard/DashboardRoutes';
 import { DashboardRouteInfo, StoreState } from '../types';
 
-const importDashboardPage =
-SafeDynamicImport(import(/* webpackChunkName: "DashboardPage" */ '../features/dashboard/containers/DashboardPage'));
 
 type OwnProps = {
   history: any
@@ -25,22 +24,7 @@ const AppRoutes = ({history}: AllProps) => {
     return (
       <Suspense fallback={<Spinner />}>
         <Switch>
-          <Route exact path="/" render={
-            (props) => {
-              return <DashboardProvider {...props} />
-            }  
-          }>
-          
-          </Route>
-          <Route exact path="/d/:uid">
-            {importDashboardPage({routeInfo: DashboardRouteInfo.Normal})}
-          </Route>
-          <Route exact path="/d/:uid/:slug">
-            {importDashboardPage({routeInfo: DashboardRouteInfo.Normal})}
-          </Route>
-          <Route exact path="/dashboard/new">
-            {importDashboardPage({routeInfo: DashboardRouteInfo.New})}
-          </Route>
+          <DashboardRoutes />
         </Switch>
       </Suspense>
     );

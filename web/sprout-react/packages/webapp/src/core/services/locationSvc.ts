@@ -2,8 +2,14 @@ import { Action, createAction } from '@reduxjs/toolkit';
 import { urlUtil } from '@savantly/sprout-api';
 import { LocationUpdate } from '@savantly/sprout-runtime';
 import * as H from 'history';
+import $ from 'jquery';
 import _ from 'lodash';
+// @ts-ignore
+import Drop from 'tether-drop';
 import { store } from '../../store/store';
+import { CoreEvents } from '../../types';
+import appEvents from '../app_events';
+import { setViewModeBodyClass } from "../utils/viewMode";
 
 export type LocationUpdateService = {
   update: (payload: LocationUpdate) => void;
@@ -49,6 +55,29 @@ export const locationReducer = (state: typeof initialState = initialState, actio
 };
 
 
+
+const updateStyles = () => {
+
+  const body = $('body');
+  const queryParams = store.getState().location.query;
+
+  // clear body class sidemenu states
+  body.removeClass('sidemenu-open--xs');
+
+  $('#tooltip, .tooltip').remove();
+
+  // check for kiosk url param
+  setViewModeBodyClass(body, queryParams.kiosk);
+
+  // close all drops
+  for (const drop of Drop.drops) {
+    drop.destroy();
+  }
+
+  appEvents.emit(CoreEvents.hideDashSearch);
+}
+
+
 const _locationSvcInit  = (history: H.History): LocationUpdateService => ({
   update: (payload: LocationUpdate) =>  {
     const { path, routeParams, replace } = payload;
@@ -79,6 +108,7 @@ const _locationSvcInit  = (history: H.History): LocationUpdateService => ({
           })
       }
       store.dispatch(updateLocation(location));
+      updateStyles()
   }
 })
 

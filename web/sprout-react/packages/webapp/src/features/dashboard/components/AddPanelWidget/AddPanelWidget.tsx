@@ -27,7 +27,6 @@ export interface OwnProps {
 
 export interface DispatchProps {
   addPanel: typeof addPanel;
-  updateLocation: LocationUpdateService;
 }
 
 export type Props = OwnProps & DispatchProps;
@@ -55,8 +54,9 @@ const getCopiedPanelPlugins = () => {
   return _.sortBy(copiedPanels, 'sort');
 };
 
-export const AddPanelWidgetUnconnected: React.FC<Props> = ({ panel, dashboard, updateLocation, addPanel }) => {
+export const AddPanelWidgetUnconnected: React.FC<Props> = ({ panel, dashboard, addPanel }) => {
   const theme = useTheme();
+  const updateLocation = getLocationSrv();
 
   const onCancelAddPanel = (evt: any) => {
     evt.preventDefault();
@@ -139,7 +139,7 @@ export const AddPanelWidgetUnconnected: React.FC<Props> = ({ panel, dashboard, u
   );
 };
 
-const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = { addPanel, updateLocation: getLocationSrv() };
+const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = { addPanel };
 
 export const AddPanelWidget = connect(null, mapDispatchToProps)(AddPanelWidgetUnconnected);
 
