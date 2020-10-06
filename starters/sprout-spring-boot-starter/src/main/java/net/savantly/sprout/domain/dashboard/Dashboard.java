@@ -15,6 +15,7 @@ import javax.persistence.PrePersist;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.savantly.sprout.core.domain.versioning.StringVersionedId;
 import net.savantly.sprout.core.tenancy.TenantedVersionedDomainObject;
 import net.savantly.sprout.domain.dashboard.link.DashboardLink;
 import net.savantly.sprout.domain.dashboard.panel.Panel;
@@ -52,11 +53,14 @@ public class Dashboard extends TenantedVersionedDomainObject {
 	
 	@PrePersist
 	public void prePersist() {
-		if(Objects.isNull(this.getVersion())) {
-			this.setVersion(0L);
+		if(Objects.isNull(this.getId())) {
+			this.setId(new StringVersionedId());
 		}
-		if(Objects.isNull(this.getUid()) || this.getUid().isEmpty()) {
-			this.setUid(UUID.randomUUID().toString());
+		if(Objects.isNull(this.getId().getId())) {
+			this.getId().setId(UUID.randomUUID().toString());
+		}
+		if(Objects.isNull(this.getId().getVersion())) {
+			this.getId().setVersion(0L);
 		}
 	}
 	

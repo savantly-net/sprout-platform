@@ -1,14 +1,10 @@
 package net.savantly.sprout.core.domain.versioning;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import java.util.Objects;
+
+import javax.persistence.EmbeddedId;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.domain.Persistable;
 import org.springframework.util.ClassUtils;
@@ -20,25 +16,20 @@ import net.savantly.sprout.core.domain.AbstractAuditableDomainObject;
 
 @Accessors(chain = true)
 @MappedSuperclass
-@IdClass(LongVersionedId.class)
-@Table(uniqueConstraints = {
-	@UniqueConstraint(columnNames = {"UUID"})
-})
-public abstract class VersionedDomainObject extends AbstractAuditableDomainObject<Long> {
+public abstract class VersionedDomainObject extends AbstractAuditableDomainObject<StringVersionedId> {
 
-	@Id
+	@EmbeddedId
 	@Getter @Setter
-    @GeneratedValue
-	private Long id;
+	private StringVersionedId id;
 	
-	@Id
-	@Getter @Setter
-	private Long version;
-	
-	@NotBlank
-	@Getter @Setter
-    @Column(name = "uid", columnDefinition = "VARCHAR(36)")
-	private String uid;
+	@Transient
+	public String getUid() {
+		if(Objects.nonNull(id)) {
+			return String.format("%s_%s", this.id.getId(), this.id.getVersion());
+		} else {
+			return null;
+		}
+	}
 	
     /**
      * Must be {@link Transient} in order to ensure that no JPA provider complains because of a missing setter.

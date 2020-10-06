@@ -15,7 +15,7 @@ import net.savantly.sprout.domain.dashboard.panel.PanelDto;
 @EqualsAndHashCode(exclude = {"links", "panels", "tags"})
 public class DashboardDto {
 
-	private long id;
+	private String id;
 	private String uid;
 	private Long version;
 	private String title;

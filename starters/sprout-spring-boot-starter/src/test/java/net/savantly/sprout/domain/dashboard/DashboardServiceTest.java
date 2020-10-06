@@ -36,6 +36,30 @@ public class DashboardServiceTest {
 	Resource homeDashboardResource;
 	
 	@Test
+	public void testHome() throws IOException {
+		DashboardDtoWrapper home = this.service.getHomeDashboard();
+		DashboardDtoWrapper secondTime = this.service.getHomeDashboard();
+		
+		Assertions.assertEquals(home.getDashboard().getId(), secondTime.getDashboard().getId());
+
+		byte[] bytes = Files.readAllBytes(homeDashboardResource.getFile().toPath());
+		DashboardSaveRequest dto = mapper.readValue(bytes, DashboardSaveRequest.class);
+		
+		dto.getDashboard().setId(home.getDashboard().getId());
+		dto.getDashboard().setVersion(home.getDashboard().getVersion());
+
+		DashboardDtoWrapper savedDto = this.service.saveDashboard(dto);
+		
+		Assertions.assertEquals(home.getDashboard().getVersion()+1, savedDto.getDashboard().getVersion());
+
+		DashboardDtoWrapper thirdTime = this.service.getHomeDashboard();
+		Assertions.assertEquals(home.getDashboard().getId(), thirdTime.getDashboard().getId());
+		Assertions.assertEquals(savedDto.getDashboard().getVersion(), thirdTime.getDashboard().getVersion());
+		Assertions.assertEquals(savedDto.getDashboard().getUid(), thirdTime.getDashboard().getUid());
+		
+	}
+	
+	@Test
 	public void testGamut() throws IOException {
 		byte[] bytes = Files.readAllBytes(homeDashboardResource.getFile().toPath());
 		DashboardSaveRequest dto = mapper.readValue(bytes, DashboardSaveRequest.class);

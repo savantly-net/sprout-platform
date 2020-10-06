@@ -6,4 +6,5 @@ import org.springframework.data.repository.NoRepositoryBean;
 @NoRepositoryBean
 public interface VersionedDomainObjectRepository<T extends VersionedDomainObject> extends JpaRepository<T, VersionedId> {
 
+
 }

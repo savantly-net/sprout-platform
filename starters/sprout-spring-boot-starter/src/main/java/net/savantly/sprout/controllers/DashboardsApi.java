@@ -5,13 +5,12 @@ import java.util.Objects;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.websocket.server.PathParam;
 
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,16 +57,16 @@ public class DashboardsApi {
 	}
 	
 
-	@GetMapping({"/uid/:uid", "/uid/:uid/:slug"})
-	public DashboardDtoWrapper getDashboard(@PathParam("uid") String uuid) {
-		DashboardDtoWrapper saved = this.service.getByUid(uuid);
+	@GetMapping({"/uid/{uid}"})
+	public DashboardDtoWrapper getDashboard(@PathVariable("uid") String uid) {
+		DashboardDtoWrapper saved = this.service.getByUid(uid);
 		setMetaDashboardUrl(saved);
 		return saved;
 	}
 	
 	private void setMetaDashboardUrl(DashboardDtoWrapper dto) {
 
-		dto.getMeta().setUrl(servletContext.getContextPath() + "/api/dashboards/uuid/" + dto.getDashboard().getUid());
+		dto.getMeta().setUrl(servletContext.getContextPath() + "/api/dashboards/uid/" + dto.getDashboard().getUid());
 	}
 	
 

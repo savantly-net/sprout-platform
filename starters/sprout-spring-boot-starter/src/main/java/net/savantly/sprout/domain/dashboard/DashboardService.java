@@ -21,10 +21,13 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
+import net.savantly.sprout.core.domain.versioning.StringVersionedId;
+import net.savantly.sprout.core.domain.versioning.VersionedId;
 import net.savantly.sprout.domain.dashboard.panel.PanelService;
 import net.savantly.sprout.domain.uiProperties.UIProperty;
 import net.savantly.sprout.domain.uiProperties.UIPropertyRepository;
 import net.savantly.sprout.domain.uiProperties.WellKnownUIProp;
+import net.savantly.sprout.starter.versioning.VersionedObjectBackendIdConverter;
 
 @Service
 public class DashboardService {
@@ -44,25 +47,32 @@ public class DashboardService {
 	private SproutConfigurationProperties props;
 	@Autowired
 	private ObjectMapper mapper;
+	@Autowired
+	private VersionedObjectBackendIdConverter converter;
 	
 	public DashboardDtoWrapper saveDashboard(DashboardSaveRequest dto) {
-		Dashboard entity = this.repo.save(fromDto(dto));
+		Dashboard tempEntity = fromDto(dto);
+		if(this.repo.existsById(tempEntity.getId())) {
+			// bump the version
+			tempEntity.getId().setVersion(tempEntity.getId().getVersion()+1);
+		}
+		Dashboard entity = this.repo.save(tempEntity);
 		return toDto(entity);
 	}
 	
 	public DashboardDtoWrapper getByUid(String uid) {
-		Dashboard entity = this.repo.findOneByUid(uid);
+		Dashboard entity = this.repo.getOne((VersionedId) converter.fromRequestId(uid, Dashboard.class));
 		return toDto(entity);
 	}
-	
-	public DashboardDtoWrapper getLatestById(Long id) {
-		List<Dashboard> dashboardSearchResult = this.repo.findById(id);
+
+	public DashboardDtoWrapper getLatestById(String id) {
+		List<Dashboard> dashboardSearchResult = this.repo.findByIdId(id);
 		if(dashboardSearchResult.size() == 0) {
 			throw notFound(id);
 		} else if(dashboardSearchResult.size() == 1) {
 			return toDto(dashboardSearchResult.get(0));
 		} else {
-			Optional<Dashboard> entity = dashboardSearchResult.stream().max((d1, d2) -> d1.getVersion().compareTo(d2.getVersion()));
+			Optional<Dashboard> entity = dashboardSearchResult.stream().max((d1, d2) -> d1.getId().getVersion().compareTo(d2.getId().getVersion()));
 			return toDto(entity.get());
 		}
 	}
@@ -75,7 +85,7 @@ public class DashboardService {
 			return toDto(dashboard);
 		} else {
 			UIProperty prop = props.get(0);
-			return getLatestById(Long.parseLong(prop.getValue()));
+			return getLatestById(prop.getValue());
 		}
 	}
 	
@@ -91,16 +101,17 @@ public class DashboardService {
 				resource = getDefaultHomeDashboard();
 			}
 			Dashboard dashboard = toEntity(mapper.readValue(resource.getInputStream(), DashboardDto.class));
-			Long id = this.repo.saveAndFlush(dashboard).getId();
+			dashboard = this.repo.saveAndFlush(dashboard);
+			StringVersionedId id = dashboard.getId();
 			String name = WellKnownUIProp.HOME_DASHBOARD_ID.name();
 			if(this.propRepo.findByName(name).isEmpty()) {
 				UIProperty prop = new UIProperty();
 				prop.setName(name);
-				prop.setValue(id.toString());
+				prop.setValue(id.getId());
 				this.propRepo.save(prop);
 			} else {
 				UIProperty prop = this.propRepo.getOne(name);
-				prop.setValue(id.toString());
+				prop.setValue(id.getId());
 				this.propRepo.saveAndFlush(prop);
 			}
 			return dashboard;
@@ -130,8 +141,7 @@ public class DashboardService {
 			.setSchemaVersion(dto.getSchemaVersion())
 			.setTags(dto.getTags());
 
-		entity.setId(dto.getId())
-			.setVersion(dto.getVersion());
+		entity.setId(new StringVersionedId().setId(dto.getId()).setVersion(dto.getVersion()));
 		return entity;
 	}
 
@@ -151,9 +161,9 @@ public class DashboardService {
 				}).filter(p -> Objects.nonNull(p)).collect(Collectors.toList()))
 				.setSchemaVersion(entity.getSchemaVersion())
 				.setTags(entity.getTags())
-				.setId(entity.getId())
+				.setId(entity.getId().getId())
 				.setUid(entity.getUid())
-				.setVersion(entity.getVersion());
+				.setVersion(entity.getId().getVersion());
 			return new DashboardDtoWrapper()
 				.setDashboard(dto)
 				.setMeta(createMetaData(dto));
@@ -170,7 +180,7 @@ public class DashboardService {
 		return entity;
 	}
 
-	private RuntimeException notFound(Long id) {
+	private RuntimeException notFound(String id) {
 		return new EntityNotFoundException("dashboard with id: " + id + " not found");
 	}
 }

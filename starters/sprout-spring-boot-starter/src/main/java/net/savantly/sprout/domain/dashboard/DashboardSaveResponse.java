@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode
 public class DashboardSaveResponse {
 	
-	private long id;
+	private String id;
 	private String slug;
 	private String url;
 	private String status;
