@@ -68,6 +68,16 @@ Access the running application at the default port - http://localhost:8080/
 ![LandingPage](./documentation/images/landing.png)
 
 
+## UI Properties
+
+### Well known properties
+
+| Property Name | Description | Default Value |
+| --- | --- | --- |
+| `HOME_DASHBOARD_ID` | The ID of the dashboard that should be displayed as the 'home' screen | The first dashboard. Created by the system during startup. |
+
+
+
 ## Rest Starters 
 Provides abstract classes for fast Rest service creation - 
 - [CrudController](./src/main/java/net/savantly/sprout/rest/crud/CrudController.java)

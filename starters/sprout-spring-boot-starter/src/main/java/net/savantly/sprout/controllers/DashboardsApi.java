@@ -1,6 +1,7 @@
 package net.savantly.sprout.controllers;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -44,12 +45,10 @@ public class DashboardsApi {
 	}
 
 	@GetMapping("/home")
-	public ResponseEntity<Resource> getHome() throws IOException{
-		Resource resource = resourceLoader.getResource(props.getDashboards().getHome());
-
+	public ResponseEntity<DashboardDtoWrapper> getHome() throws IOException{
 	    return ResponseEntity.ok()
 	            .contentType(MediaType.APPLICATION_JSON)
-	            .body(resource);
+	            .body(service.getHomeDashboard());
 	}
 	
 	@PostMapping("/db")
@@ -59,9 +58,9 @@ public class DashboardsApi {
 	}
 	
 
-	@GetMapping("/uuid/:uuid")
-	public DashboardDtoWrapper saveDashboard(@PathParam("uuid") String uuid) {
-		DashboardDtoWrapper saved = this.service.getByUuid(uuid);
+	@GetMapping({"/uid/:uid", "/uid/:uid/:slug"})
+	public DashboardDtoWrapper getDashboard(@PathParam("uid") String uuid) {
+		DashboardDtoWrapper saved = this.service.getByUid(uuid);
 		setMetaDashboardUrl(saved);
 		return saved;
 	}
@@ -73,12 +72,22 @@ public class DashboardsApi {
 	
 
 	private DashboardSaveResponse toSaveResponse(DashboardDtoWrapper saved) {
+		String slug = createSlug(saved);
 		return new DashboardSaveResponse()
 			.setId(saved.getDashboard().getId())
-			.setSlug("need-a-slug")
+			.setSlug(slug)
 			.setStatus("saved")
 			.setUid(saved.getDashboard().getUid())
-			.setUrl(servletContext.getContextPath() + "/d/" + saved.getDashboard().getUid() + "/need-a-slug")
+			.setUrl(servletContext.getContextPath() + "/d/" + saved.getDashboard().getUid() + "/" + slug)
 			.setVersion(saved.getDashboard().getVersion());
+	}
+
+	private String createSlug(DashboardDtoWrapper dto) {
+		String title = dto.getDashboard().getTitle();
+		if (Objects.nonNull(title) && !title.isEmpty()) {
+			return title.replace(" ", "-").toLowerCase();
+		} else {
+			return "untitled";
+		}
 	}
 }

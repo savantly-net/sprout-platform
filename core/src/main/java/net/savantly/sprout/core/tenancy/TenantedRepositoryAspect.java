@@ -27,7 +27,7 @@ public class TenantedRepositoryAspect {
 	 * @param pjp
 	 * @throws Throwable
 	 */
-	@Before("execution(* net.savantly.sprout.core.tenancy.TenantedJpaRepository+.*(..))")
+	@Before("execution(* net.savantly.sprout.core.tenancy.*Repository+.*(..))")
 	public void beforeExecution(JoinPoint pjp) throws Throwable {
 
 		EntityManager entityManager = EntityManagerFactoryUtils.getTransactionalEntityManager(entityManagerFactory);

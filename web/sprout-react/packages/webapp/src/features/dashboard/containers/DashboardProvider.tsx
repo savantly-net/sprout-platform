@@ -1,3 +1,4 @@
+import { urlUtil } from "@savantly/sprout-api";
 import {
   Alert,
   Button,
@@ -5,12 +6,12 @@ import {
   Icon,
   VerticalGroup
 } from "@savantly/sprout-ui";
+import { Location } from "history";
 import React, {
   useEffect
 } from "react";
 import { connect } from "react-redux";
-import { RouteComponentProps } from "react-router-dom";
-import { SafeDynamicImport } from "../../../core/components/DynamicImports/SafeDynamicImport";
+import { match } from "react-router-dom";
 import { getMessageFromError } from "../../../core/utils/errors";
 import {
   AppNotificationSeverity,
@@ -37,11 +38,16 @@ type StateProps = {
   initError: DashboardInitError | null;
 };
 
+type ConnectedProps = {
+  match: match<any>;
+  location: Location<any>;
+}
+
 type DispatchProps = {
   initDashboard: Function;
 };
 
-type AllProps = OwnProps & StateProps & DispatchProps & RouteComponentProps;
+type AllProps = OwnProps & StateProps & DispatchProps & ConnectedProps;
 
 type OwnState = {
   showLoadingState: boolean;
@@ -65,15 +71,16 @@ const DashboardProvider = ({
   initPhase,
   isInitSlow,
   location,
-  history,
   match
 }: AllProps) => {
+
+  const queryParams = urlUtil.getUrlSearchParams();
 
   useEffect(() => {
     initDashboard({
       fixUrl: false,
       routeInfo: routeInfo,
-      urlUid: undefined, //this.props.urlUid ? this.props.urlUid as string : undefined,
+      urlUid: match.params['uid'], //this.props.urlUid ? this.props.urlUid as string : undefined,
       urlFolderId: undefined, // this.props.urlFolderId ? this.props.urlFolderId as string : undefined,
     });
   }, [location.pathname]);

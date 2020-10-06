@@ -10,8 +10,6 @@ import { saveDashboard as saveDashboardApiCall } from '../../../manage-dashboard
 import { getLocationSrv } from '@savantly/sprout-runtime';
 import { useLocation } from 'react-router-dom';
 
-const locationService = getLocationSrv();
-
 const saveDashboard = async (saveModel: any, options: SaveDashboardOptions, dashboard: DashboardModel) => {
   let folderId = options.folderId;
   if (folderId === undefined) {
@@ -21,6 +19,7 @@ const saveDashboard = async (saveModel: any, options: SaveDashboardOptions, dash
 };
 
 export const useDashboardSave = (dashboard: DashboardModel) => {
+  const locationService = getLocationSrv();
   const location = useLocation();
   const dispatch = useDispatch();
   const [state, onDashboardSave] = useAsyncFn(

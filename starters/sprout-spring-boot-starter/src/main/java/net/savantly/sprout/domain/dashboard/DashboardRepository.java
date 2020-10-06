@@ -2,7 +2,7 @@ package net.savantly.sprout.domain.dashboard;
 
 import java.util.List;
 
-import net.savantly.sprout.core.domain.versioning.TenantedVersionedDomainObjectRepository;
+import net.savantly.sprout.core.tenancy.TenantedVersionedDomainObjectRepository;
 
 public interface DashboardRepository extends TenantedVersionedDomainObjectRepository<Dashboard> {
 

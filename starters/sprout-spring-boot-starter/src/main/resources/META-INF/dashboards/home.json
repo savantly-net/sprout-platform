@@ -1,93 +1,26 @@
 {
-	"meta": {
-		"isHome": true,
-		"canSave": false,
-		"canEdit": true,
-		"canAdmin": false,
-		"canStar": false,
-		"slug": "",
-		"url": "",
-		"expires": "0001-01-01T00:00:00Z",
-		"created": "0001-01-01T00:00:00Z",
-		"updated": "0001-01-01T00:00:00Z",
-		"updatedBy": "",
-		"createdBy": "",
-		"version": 0,
-		"hasAcl": false,
-		"isFolder": false,
-		"folderId": 0,
-		"folderTitle": "General",
-		"folderUrl": "",
-		"provisioned": false,
-		"provisionedExternalId": ""
-	},
-	"dashboard": {
-		"links": [],
-		"panels": [
-			{
-				"type": "text",
-				"title": "Panel Title",
-				"gridPos": {
-					"x": 0,
-					"y": 0,
-					"w": 12,
-					"h": 9
-				},
-				"id": 2,
-				"targets": [],
-				"options": {
-					"mode": "markdown",
-					"content": "![Sprout by Savantly](https://raw.githubusercontent.com/savantly-net/sprout-platform/development/starters/sprout-spring-boot-starter/src/main/resources/META-INF/resources/images/logo.png)\n        "
-				},
-				"fieldConfig": {
-					"defaults": {
-						"custom": {}
-					},
-					"overrides": []
-				},
-				"pluginVersion": "7.1.0",
-				"timeFrom": null,
-				"timeShift": null,
-				"datasource": null
-			}
-		],
-		"schemaVersion": 22,
-		"tags": [],
-		"templating": {
-			"list": []
-		},
-		"time": {
-			"from": "now-6h",
-			"to": "now"
-		},
-		"timepicker": {
-			"hidden": true,
-			"refresh_intervals": [
-				"5s",
-				"10s",
-				"30s",
-				"1m",
-				"5m",
-				"15m",
-				"30m",
-				"1h",
-				"2h",
-				"1d"
-			],
-			"time_options": [
-				"5m",
-				"15m",
-				"1h",
-				"6h",
-				"12h",
-				"24h",
-				"2d",
-				"7d",
-				"30d"
-			],
-			"type": "timepicker"
-		},
-		"timezone": "browser",
-		"title": "Home"
-	}
+	"title": "Home",
+	"editable": true,
+	"tags": ["sprout", "home"],
+	"links": [],
+	"panels": [
+		{
+			"type": "text",
+			"title": "Sprout Home",
+			"gridPos": {
+				"x": 0,
+				"y": 0,
+				"w": 24,
+				"h": 10
+			},
+			"id": 1,
+			"options": {
+				"mode": "markdown",
+				"content": "![Sprout by Savantly](https://raw.githubusercontent.com/savantly-net/sprout-platform/development/starters/sprout-spring-boot-starter/src/main/resources/META-INF/resources/images/logo.png)\n        "
+			},
+			"pluginVersion": "7.1.0",
+			"transparent": false
+		}
+	],
+	"schemaVersion": 1
 }

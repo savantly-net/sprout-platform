@@ -15,7 +15,7 @@ import javax.persistence.PrePersist;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.savantly.sprout.core.domain.versioning.TenantedVersionedDomainObject;
+import net.savantly.sprout.core.tenancy.TenantedVersionedDomainObject;
 import net.savantly.sprout.domain.dashboard.link.DashboardLink;
 import net.savantly.sprout.domain.dashboard.panel.Panel;
 
@@ -27,6 +27,8 @@ public class Dashboard extends TenantedVersionedDomainObject {
 	private final static long serialVersionUID = 1L;
 	
 	private boolean editable;
+	
+	private String title;
 	
 	@ElementCollection(fetch=FetchType.EAGER)
 	@CollectionTable(name = "DASHBOARD_LINKS")

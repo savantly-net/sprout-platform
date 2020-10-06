@@ -18,6 +18,7 @@ public class DashboardDto {
 	private long id;
 	private String uid;
 	private Long version;
+	private String title;
 	private boolean editable;
 	private List<DashboardLink> links = new ArrayList<>();
 	private List<PanelDto> panels = new ArrayList<>();

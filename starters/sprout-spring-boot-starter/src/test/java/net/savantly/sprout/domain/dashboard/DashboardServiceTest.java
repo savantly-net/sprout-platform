@@ -41,7 +41,7 @@ public class DashboardServiceTest {
 		DashboardSaveRequest dto = mapper.readValue(bytes, DashboardSaveRequest.class);
 		DashboardDtoWrapper savedDto = this.service.saveDashboard(dto);
 		
-		DashboardDtoWrapper dtoByUuid = this.service.getByUuid(savedDto.getDashboard().getUid());
+		DashboardDtoWrapper dtoByUuid = this.service.getByUid(savedDto.getDashboard().getUid());
 		
 		DashboardDtoWrapper latestById = this.service.getLatestById(savedDto.getDashboard().getId());
 		

@@ -26,7 +26,7 @@ public abstract class TenantedPersistedDomainObject extends PersistedDomainObjec
 	}
 	
 	@PrePersist
-	public void prePersist() {
+	public void prePersist_tenantId() {
 		this.setTenantId(TenantContext.getCurrentTenant());
 	}
 }
