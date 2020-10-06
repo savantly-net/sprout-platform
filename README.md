@@ -32,6 +32,14 @@ Follow this project to stay informed.
 Use the docker images to start an example server + web app.  
 `docker-compose up`  
 
+## Examples
+
+![Sprout Web App](./docs/img/default.png)
+
+
+![Sprout Web App](./docs/img/panel_edit.png)
+
+
 ## Development 
 If you're a Java, React, or Grafana developer, you'll be familiar with the tooling. 
 
@@ -60,6 +68,15 @@ The UI is in a `yarn` workspace project here [./web/sprout-react/packages/webapp
 The toolkit from Grafana has been used to setup the dependencies.  
 It doesn't support all the same features as Grafana, and the plugin bootstrapping is still progress.  
 
+### Sub projects
+
+| Project 	| Description 	|
+|-	|-	|
+| [Sprout Starter](./starters/sprout-spring-boot-starter) | A Spring starter lib that encapsulates the Sprout Framework |
+| [Admin App](./web/admin) 	|  An admin app that is packaged inside the Sprout Starter jar. Use to administer the platform features, like tenancy or plugins	|
+| [Web App](./web/sprout-react) 	| An end-user app that interacts with the Sprout Server. 	|
+
+
 ## UI work
 
 The port from Grafana UI went like this - 
@@ -74,13 +91,6 @@ The port from Grafana UI went like this -
 - Build some docker images. woohoo!
 
 
-## Examples
-
-![Sprout Web App](./docs/img/default.png)
-
-
-![Sprout Web App](./docs/img/panel_edit.png)
-
 ## TODO
 This list is not comprehensive, but some high level tasks I'd like to tackle soon. 
 
@@ -88,4 +98,3 @@ This list is not comprehensive, but some high level tasks I'd like to tackle soo
 - [ ] Add Authentication screens to UI
 - [ ] Add lots of tests
 - [ ] Add server hook for all the boot data the UI expects [in progress]
-

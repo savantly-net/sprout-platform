@@ -22,5 +22,6 @@
 			"transparent": false
 		}
 	],
-	"schemaVersion": 1
+	"schemaVersion": 1,
+	"version": 1
 }
