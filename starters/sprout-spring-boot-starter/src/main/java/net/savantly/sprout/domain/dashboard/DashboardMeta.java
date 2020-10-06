@@ -20,7 +20,8 @@ public class DashboardMeta {
 	  private Long folderId = 0L;
 	  private Boolean canMakeEditable = true;
 	  private Boolean submenuEnabled = false;
-	  private Boolean provisioned = true;
+	  // provisioned by a plugin. this affects the save function on the UI
+	  private Boolean provisioned = false;
 	  private int focusPanelId;
 	  private Boolean isStarred = true;
 	  private Boolean showSettings = true;
