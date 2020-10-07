@@ -3,9 +3,11 @@ import _ from 'lodash';
 import TopSectionItem from './TopSectionItem';
 import config from '../../config';
 import { getLocationSrv } from '@savantly/sprout-runtime';
+import { useSelector } from 'react-redux';
+import { StoreState } from '../../../types';
 
 const TopSection: FC<any> = () => {
-  const navTree = _.cloneDeep(config.bootData.navTree);
+  const navTree = useSelector((state: StoreState) => state.navTree.items);
   const mainLinks = _.filter(navTree, item => !item.hideFromMenu);
   const searchLink = {
     text: 'Search',

@@ -8,12 +8,14 @@ import { ApplicationState } from './application';
 import { AppNotificationsState } from './appNotifications';
 import { PluginsState } from './plugins';
 import { LocationState } from './location';
+import { NavTreeState } from '../core/reducers/navTree';
 
 export interface StoreState {
   application: ApplicationState;
   appNotifications: AppNotificationsState;
   authentication: AuthenticationState;
   navIndex: NavIndex;
+  navTree: NavTreeState;
   dashboard: DashboardState;
   panelEditor: PanelEditorState;
   plugins: PluginsState;
