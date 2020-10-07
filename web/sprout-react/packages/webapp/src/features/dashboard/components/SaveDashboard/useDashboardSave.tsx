@@ -1,14 +1,13 @@
-import { useEffect } from 'react';
-import useAsyncFn from 'react-use/lib/useAsyncFn';
 import { AppEvents, locationUtil } from '@savantly/sprout-api';
-import { useDispatch, useSelector } from 'react-redux';
-import { SaveDashboardOptions } from './types';
-import { CoreEvents, StoreState } from '../../../../types';
-import appEvents from '../../../../core/app_events';
-import { DashboardModel } from '../../state';
-import { saveDashboard as saveDashboardApiCall } from '../../../manage-dashboards/state/actions';
 import { getLocationSrv } from '@savantly/sprout-runtime';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import useAsyncFn from 'react-use/lib/useAsyncFn';
+import appEvents from '../../../../core/app_events';
+import { CoreEvents } from '../../../../types';
+import { saveDashboard as saveDashboardApiCall } from '../../../manage-dashboards/state/actions';
+import { DashboardModel } from '../../state';
+import { SaveDashboardOptions } from './types';
 
 const saveDashboard = async (saveModel: any, options: SaveDashboardOptions, dashboard: DashboardModel) => {
   let folderId = options.folderId;
@@ -21,7 +20,6 @@ const saveDashboard = async (saveModel: any, options: SaveDashboardOptions, dash
 export const useDashboardSave = (dashboard: DashboardModel) => {
   const locationService = getLocationSrv();
   const location = useLocation();
-  const dispatch = useDispatch();
   const [state, onDashboardSave] = useAsyncFn(
     async (clone: any, options: SaveDashboardOptions, dashboard: DashboardModel) =>
       await saveDashboard(clone, options, dashboard),

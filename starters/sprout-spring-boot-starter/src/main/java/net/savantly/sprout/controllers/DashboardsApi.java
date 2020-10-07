@@ -75,7 +75,7 @@ public class DashboardsApi {
 		return new DashboardSaveResponse()
 			.setId(saved.getDashboard().getId())
 			.setSlug(slug)
-			.setStatus("saved")
+			.setStatus("success")
 			.setUid(saved.getDashboard().getUid())
 			.setUrl(servletContext.getContextPath() + "/d/" + saved.getDashboard().getUid() + "/" + slug)
 			.setVersion(saved.getDashboard().getVersion());

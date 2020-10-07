@@ -1,5 +1,5 @@
 // Libaries
-import React, { PureComponent } from 'react';
+import React, { Component, PureComponent } from 'react';
 import ReactGridLayout, { ItemCallback } from 'react-grid-layout';
 import classNames from 'classnames';
 // @ts-ignore
@@ -102,7 +102,7 @@ export interface Props {
   locationService: LocationUpdateService;
 }
 
-export class DashboardGrid extends PureComponent<Props> {
+export class DashboardGrid extends Component<Props> {
   panelMap!: { [id: string]: PanelModel };
   panelRef: { [id: string]: HTMLElement } = {};
 

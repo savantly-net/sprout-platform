@@ -40,7 +40,8 @@ type StateProps = {
 }
 
 type DispatchProps = {
-  notifyApp: typeof notifyApp
+  notifyApp: typeof notifyApp,
+  cleanUpDashboardAndVariables: () => void
 }
 
 type AllProps = OwnProps & StateProps & DispatchProps;
@@ -75,14 +76,7 @@ export class DashboardPage extends LifecycleLogging<AllProps, OwnState> {
 
   componentWillUnmount() {
     this.setPanelFullscreenClass(false);
-  }
-
-  shouldComponentUpdate = (nextProps: AllProps, nextState: OwnState) => {
-    return true;
-    if(this.props != nextProps) {
-      return true;
-    }
-    return false;
+    this.props.cleanUpDashboardAndVariables();
   }
 
   componentDidUpdate(prevProps: AllProps) {
@@ -266,7 +260,8 @@ const mapStateToProps = (state: StoreState): StateProps => ({
 
 
 const mapDispatchToProps: DispatchProps = {
-  notifyApp
+  notifyApp,
+  cleanUpDashboardAndVariables
 };
 
 
