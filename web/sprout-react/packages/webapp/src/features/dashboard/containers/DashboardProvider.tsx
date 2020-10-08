@@ -22,7 +22,7 @@ import {
 } from "../../../types";
 import { DashboardModel } from "../state/DashboardModel";
 import { initDashboard } from "../state/initDashboard";
-import DashboardPage from "./DashboardPage";
+import DashboardPage from "./DashboardPage"; /* webpackChunkName: "DashboardPage" */ 
 
 //const DashboardPage = SafeDynamicImport(import(/* webpackChunkName: "DashboardPage" */ './DashboardPage'));
 

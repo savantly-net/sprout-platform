@@ -1,9 +1,11 @@
 package net.savantly.sprout.core.domain.versioning;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
 import javax.persistence.Transient;
 
 import org.springframework.data.domain.Persistable;
@@ -28,6 +30,19 @@ public abstract class VersionedDomainObject extends AbstractAuditableDomainObjec
 			return String.format("%s_%s", this.id.getId(), this.id.getVersion());
 		} else {
 			return null;
+		}
+	}
+	
+	@PrePersist
+	public void prePersist_id() {
+		if(Objects.isNull(id)) {
+			this.setId(new StringVersionedId());
+		}
+		if(Objects.isNull(id.getId())) {
+			this.getId().setId(UUID.randomUUID().toString());
+		}
+		if(Objects.isNull(id.getVersion())) {
+			this.getId().setVersion(0L);
 		}
 	}
 	

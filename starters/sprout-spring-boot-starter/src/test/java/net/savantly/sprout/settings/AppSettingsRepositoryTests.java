@@ -24,8 +24,8 @@ public class AppSettingsRepositoryTests {
 
 	@Test
 	public void shouldReturnDefaultMessage() throws Exception {
-		this.mockMvc.perform(get("/api/repo/appSettings")).andDo(print()).andExpect(status().isOk())
-				.andDo(document("appSettings"));
+		this.mockMvc.perform(get("/api/repo/uiProperties")).andDo(print()).andExpect(status().isOk())
+				.andDo(document("uiProperties"));
 	}
 	
 

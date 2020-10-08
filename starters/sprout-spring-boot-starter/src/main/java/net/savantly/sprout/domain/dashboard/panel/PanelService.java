@@ -23,6 +23,7 @@ public class PanelService {
 			.setOptions(mapper.writeValueAsString(dto.getOptions()))
 			.setPluginVersion(dto.getPluginVersion())
 			.setTitle(dto.getTitle())
+			.setTransparent(dto.isTransparent())
 			.setType(dto.getType());
 	}
 	
@@ -34,6 +35,7 @@ public class PanelService {
 			.setOptions(mapper.readValue(entity.getOptions(), typeRef))
 			.setPluginVersion(entity.getPluginVersion())
 			.setTitle(entity.getTitle())
+			.setTransparent(entity.isTransparent())
 			.setType(entity.getType());
 	}
 }

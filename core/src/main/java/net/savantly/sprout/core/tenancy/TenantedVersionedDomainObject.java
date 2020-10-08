@@ -8,12 +8,13 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
 
+import net.savantly.sprout.core.domain.tenant.TenantSupport;
 import net.savantly.sprout.core.domain.versioning.VersionedDomainObject;
 
 @FilterDef(name = "tenantFilter", parameters = {@ParamDef(name = "tenantId", type = "string")})
 @Filter(name = "tenantFilter", condition = "tenant_id = :tenantId")
 @MappedSuperclass
-public abstract class TenantedVersionedDomainObject extends VersionedDomainObject {
+public abstract class TenantedVersionedDomainObject extends VersionedDomainObject implements TenantSupport {
 
 	@Column(name = "TENANT_ID")
 	private String tenantId;

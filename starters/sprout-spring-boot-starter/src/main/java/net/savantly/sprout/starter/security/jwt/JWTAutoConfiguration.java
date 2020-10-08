@@ -22,7 +22,7 @@ import net.savantly.sprout.starter.security.conditions.NoJwkUriConfigured;
 @Configuration
 public class JWTAutoConfiguration {
 	
-	@Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri")
+	@Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri:}")
 	private String springResourceServerJwkUri;
 	
 	private SproutConfigurationProperties properties;

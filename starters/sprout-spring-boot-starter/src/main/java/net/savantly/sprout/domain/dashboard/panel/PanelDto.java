@@ -23,6 +23,7 @@ private int id;
 	private String type;
 	
 	private String title;
+	private boolean transparent;
 	
 	@Embedded
 	private GridPosition gridPos;

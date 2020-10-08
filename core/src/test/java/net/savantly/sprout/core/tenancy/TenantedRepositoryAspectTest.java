@@ -1,49 +1,90 @@
 package net.savantly.sprout.core.tenancy;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.io.Serializable;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import net.savantly.sprout.core.DataIntegrationTest;
-import net.savantly.sprout.core.domain.menu.Menu;
-import net.savantly.sprout.core.domain.menu.MenuRepository;
+import net.savantly.sprout.core.tenancy.examples.Example;
+import net.savantly.sprout.core.tenancy.examples.TestTenantKeyedEntity;
+import net.savantly.sprout.core.tenancy.examples.TestTenantKeyedEntityRepository;
+import net.savantly.sprout.core.tenancy.examples.TestTenantedPersistedDomainObject;
+import net.savantly.sprout.core.tenancy.examples.TestTenantedPersistedDomainObjectRepository;
+import net.savantly.sprout.core.tenancy.examples.TestTenantedVersionedDomainObject;
+import net.savantly.sprout.core.tenancy.examples.TestTenantedVersionedDomainObjectRepository;
 
 @DataIntegrationTest
+@EnableJpaRepositories
 public class TenantedRepositoryAspectTest {
 
 	@Autowired
-	MenuRepository repository;
+	TestTenantedVersionedDomainObjectRepository TTVDOR;
+	@Autowired
+	TestTenantKeyedEntityRepository TTKER;
+	@Autowired
+	TestTenantedPersistedDomainObjectRepository TTPDOR;
 	
 	
 	@Test
-	public void test() {
-		Set<String> roles = new HashSet<>();
-		roles.add("user");
+	public void testTenantedPersistedDomainObject() {
+		doAssertions(
+				new TestTenantedPersistedDomainObject(),
+				new TestTenantedPersistedDomainObject(), (TenantedJpaRepository)TTPDOR);
 		
-		String defaultTenant = "sprout";
+	}
+	
+	@Test
+	public void testTenantedVersionedDomainObject() {
+		doAssertions(
+				new TestTenantedVersionedDomainObject(),
+				new TestTenantedVersionedDomainObject(), (TenantedJpaRepository)TTVDOR);
 		
-		Menu menu = new Menu();
-		menu.set_public(true);
-		menu.setDisplayText("a test");
-		menu.setRoles(roles);
+	}
+	
+	@Test
+	public void testTenantKeyedEntity() {
+		doAssertions(
+				new TestTenantKeyedEntity(),
+				new TestTenantKeyedEntity(), (TenantedJpaRepository)TTKER);
 		
-		Menu saved = repository.save(menu);
-		Assertions.assertEquals(defaultTenant, saved.getTenantId());
+	}
+	
+	private <T extends Example, R extends TenantedJpaRepository<T, Serializable>> void doAssertions(T entity1, T entity2, R repo) {
 
-		Assertions.assertEquals(1, repository.findAll().size(), "There should be one item using " + defaultTenant);
+		String defaultTenant = "sprout";
+		String testString1 = "test1";
+		String testString2 = "test2";
+		
+		entity1.SetString(testString1);
+		entity2.SetString(testString2);
+		
+		Example defaultTenantEntity = repo.save(entity1);
+		Assertions.assertEquals(defaultTenant, defaultTenantEntity.getTenantId());
+
+		Assertions.assertEquals(1, repo.findAll().size(), "There should be one item using " + defaultTenant);
 		
 		// CHANGE TENANTS
 		String tenantX = "tenant-x";
 		TenantContext.setCurrentTenant(tenantX);
-		Assertions.assertEquals(0, repository.findAll().size(), "There should be no results since we are using a different tenant");
+		Assertions.assertEquals(0, repo.findAll().size(), "There should be no results since we are using a different tenant");
 		
-		Menu tenantXMenu = repository.save(new Menu());
-		Assertions.assertEquals(tenantX, tenantXMenu.getTenantId());
+		Example tenantXEntity = repo.save(entity2);
+		Assertions.assertEquals(tenantX, entity2.getTenantId());
 
-		Assertions.assertEquals(1, repository.findAll().size(), "There should be one item using " + tenantX);
+		Assertions.assertEquals(1, repo.findAll().size(), "There should be one item using " + tenantX);
+		
+		Assertions.assertEquals(testString1, defaultTenantEntity.getString());
+		Assertions.assertEquals(testString2, tenantXEntity.getString());
+		
+		TenantContext.clear();
 		
 	}
+	
+	
+	
+	
+	
 }
