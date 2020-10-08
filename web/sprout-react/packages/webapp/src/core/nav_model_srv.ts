@@ -74,3 +74,8 @@ export function getWarningNav(text: string, subTitle?: string): NavModel {
     main: node,
   };
 }
+
+export function getExceptionNav(error: any): NavModel {
+  console.error(error);
+  return getWarningNav('Exception thrown', 'See console for details');
+}

@@ -26,3 +26,7 @@ management:
 logging:
   level:
     org.springframework.web: INFO
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs

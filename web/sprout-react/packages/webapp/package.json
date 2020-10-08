@@ -2,7 +2,6 @@
   "name": "webapp",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8080",
   "dependencies": {
     "@grafana/e2e-selectors": "^7.2.0",
     "@okta/okta-react": "^3.0.7",
@@ -37,6 +36,7 @@
     "customize-cra": "^1.0.0",
     "dangerously-set-html-content": "^1.0.8",
     "emotion": "^10.0.27",
+    "http-proxy-middleware": "^1.0.5",
     "jquery": "^3.5.1",
     "marked": "^1.1.1",
     "memoize-one": "^5.1.1",

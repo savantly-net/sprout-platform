@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
 import "./App.css";
 import ModalProxy from "./core/components/ModalProxy/ModalProxy";
+import { PluginProvider } from "./core/components/PluginProvider/PluginProvider";
 import { ThemeProvider } from "./core/utils/ConfigProvider";
 import { initDevFeatures } from "./dev";
 import AppRoutes from "./routes/AppRoutes";

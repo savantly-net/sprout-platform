@@ -64,7 +64,7 @@ public class TestSproutModuleTest extends SproutModuleTest<TestSproutModuleTest.
 		}
 
 		@Override
-		public String getAdminPanelMarkup() {
+		public String getPluginInformationMarkup() {
 			return "test";
 		}
 

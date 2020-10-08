@@ -18,4 +18,6 @@ class ExampleModuleComponent extends Component {
     }
 }
 
-export default ExampleModuleComponent;
+exports = {
+	plugin: ExampleModuleComponent
+}

@@ -47,7 +47,7 @@ public class OpenTokModule implements SproutWebModule {
 	}
 
 	@Override
-	public String getAdminPanelMarkup() {
+	public String getPluginInformationMarkup() {
 		return "<h1>OpenTok Integration</h1>";
 	}
 

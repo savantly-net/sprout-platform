@@ -7,7 +7,7 @@ module.exports = {
 	mode: "production",
     entry: path.join(__dirname, "src/main/browser/index.js"),
     output : {
-		path : path.join(__dirname, 'build/resources/main/public/plugins/example'),
+		path : path.join(__dirname, 'build/resources/main/public/api/plugins/example'),
 		filename : 'index.min.js',
 		library : 'ExampleModuleComponent',
 		libraryTarget: 'umd'

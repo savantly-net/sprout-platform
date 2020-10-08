@@ -5,6 +5,7 @@ import Drop from 'tether-drop';
 import { standardEditorsRegistry, UrlQueryValue } from "@savantly/sprout-api";
 import {
   config,
+  setBackendSrv,
   setLocationSrv
 } from "@savantly/sprout-runtime";
 import { getStandardOptionEditors } from "@savantly/sprout-ui";
@@ -24,12 +25,14 @@ import { CoreEvents, KioskUrlValue } from './types';
 import appEvents from './core/app_events';
 import { AppEvents } from '@savantly/sprout-api';
 import { setViewModeBodyClass } from './core/utils/viewMode';
+import { getBackendSrv } from './core/services/backend_srv';
 
 const store = configureStore();
 const locationService = locationSvc(history);
 const appElem = createRef<HTMLDivElement>();
 
 setLocationSrv(locationService);
+setBackendSrv(getBackendSrv());
 
 const location = window.location;
 console.log(location);

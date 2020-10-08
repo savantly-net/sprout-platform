@@ -1,5 +1,6 @@
 package net.savantly.sprout.controllers;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -28,6 +29,12 @@ import net.savantly.sprout.core.module.registration.SproutModuleRegistration;
 import net.savantly.sprout.core.module.registration.SproutModuleRegistrationRepository;
 import net.savantly.sprout.core.module.web.NavigationItem;
 import net.savantly.sprout.core.module.web.UIRoute;
+import net.savantly.sprout.core.module.web.plugin.PluginAuthor;
+import net.savantly.sprout.core.module.web.plugin.PluginBuildInfo;
+import net.savantly.sprout.core.module.web.plugin.PluginDependencies;
+import net.savantly.sprout.core.module.web.plugin.PluginMeta;
+import net.savantly.sprout.core.module.web.plugin.PluginMetaInfo;
+import net.savantly.sprout.core.module.web.plugin.PluginType;
 import net.savantly.sprout.model.AdminUserInterfaceModel;
 
 @RequiredArgsConstructor
@@ -42,6 +49,37 @@ public class PluginsApi {
 	private final List<SproutModule> sproutModules;
 	
 	@GetMapping("")
+	public List<PluginMeta> getPlugins() {
+		return Arrays.asList(examplePlugin());
+	}
+	
+	private PluginMeta examplePlugin() {
+		String defaultNavUrl = "/plugins/example/defaultNavUrl";
+		
+		PluginDependencies dependencies = new PluginDependencies();
+		PluginMetaInfo info = new PluginMetaInfo()
+				.setAuthor(new PluginAuthor().setName("Jeremy").setUrl("authorUrl"))
+				.setBuild(new PluginBuildInfo())
+				.setDescription("example plugin description")
+				.setUpdated("now")
+				.setVersion("0.0.1");
+		
+		PluginMeta plugin = PluginMeta.builder()
+			.baseUrl("/")
+			.defaultNavUrl(defaultNavUrl)
+			.dependencies(dependencies)
+			.enabled(true)
+			.hasUpdate(false)
+			.id("test-plugin")
+			.info(info)
+			.latestVersion("0.0.1")
+			.module("/api/plugins/example/index.min.js")
+			.name("example plugin")
+			.type(PluginType.app)
+			.build();
+		return plugin;
+	}
+
 	public HashMap<String, Object> getSproutModules(){
 		HashMap<String, Object> response = new HashMap<>();
 		
@@ -74,10 +112,15 @@ public class PluginsApi {
 	public String getSproutModuleUserConfig(@PathVariable String name){
 		SproutModule bean = getModuleByName(name);
 		if (SproutWebModule.class.isAssignableFrom(bean.getClass())) {
-			return ((SproutWebModule)bean).getAdminPanelMarkup();
+			return ((SproutWebModule)bean).getPluginInformationMarkup();
 		} else {
 			return String.format("<h1>%s</h1>", name);
 		}
+	}
+	
+	@GetMapping("/{name}/settings")
+	public PluginMeta getSproutModuleSettings(@PathVariable String name){
+		return examplePlugin();
 	}
 	
 	@PostMapping("/{name}/install")

@@ -7,8 +7,8 @@ import net.savantly.sprout.core.module.web.NavigationItem;
 import net.savantly.sprout.core.module.web.UIRoute;
 
 /**
- * A specialized SproutModule that provides a way to modify the Admin User Interface<br>
- * The Admin UI executes the provided resources in this order - <br>
+ * A specialized SproutModule that provides a way to modify the User Interface<br>
+ * The UI executes the provided resources in this order - <br>
  * {@link #getScriptResources()}<br>
  * {@link #getUIRoutes()}<br>
  * {@link #getNavigationItems()}<br>
@@ -19,7 +19,7 @@ public interface SproutWebModule extends SproutModule {
 
 	/**
 	 * This method should return browser markup. <br>
-	 * The markup is rendered in the Sprout admin panel, and may be used to interact with the module's rest controllers or other APIs.  <br>
+	 * The markup is rendered in the plugin information panel, and may be used to interact with the module's rest controllers or other APIs.  <br>
 	 * <br>
 	 * For more complex integration, consider creating a React Component library bundle in UMD format and/or provide UIRoutes and NavigationItems <br>
 	 * <br>
@@ -29,14 +29,14 @@ public interface SproutWebModule extends SproutModule {
 	 * {@link #getUIRoutes()}<br>
 	 * 
 	 * @return
-	 * HTML for rendering in the admin UI
+	 * HTML for rendering in the UI
 	 */
-	default String getAdminPanelMarkup() {
+	default String getPluginInformationMarkup() {
 		return String.format("<h1>%s</h1>", getName());
 	}
 	
 	/**
-	 * Modules can modify the Admin app navigation/menu by including a list of <code>NavigationItem</code>
+	 * Modules can modify the UI navigation/menu by including a list of <code>NavigationItem</code>
 	 * @return
 	 */
 	default List<NavigationItem> getNavigationItems(){
@@ -44,8 +44,8 @@ public interface SproutWebModule extends SproutModule {
 	}
 	
 	/**
-	 * Modules can provide the Admin app 'routes' by including a list of <code>UIRoute</code>
-	 * The jsComponentClass is constructed and the resulting output is attached to the DOM
+	 * Modules can provide the UI 'routes' by including a list of <code>UIRoute</code>
+	 * The JavaScript Module is lazy loaded when the route is accessed
 	 * @return
 	 */
 	default List<UIRoute> getUIRoutes(){
@@ -53,8 +53,8 @@ public interface SproutWebModule extends SproutModule {
 	}
 	
 	/**
-	 * Modules can provide script resources to the Admin app
-	 * The scripts are loaded in the UI after the default Admin app scripts
+	 * Modules can provide additional script resources to the UI
+	 * The scripts are loaded in the UI after the built-in scripts
 	 * Script resources should be bundled in UMD format - like a React Component Library
 	 * @return
 	 */

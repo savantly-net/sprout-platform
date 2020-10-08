@@ -51,7 +51,7 @@ public class SproutContentModule implements SproutWebModule {
 	}
 
 	@Override
-	public String getAdminPanelMarkup() {
+	public String getPluginInformationMarkup() {
 		return "<iframe src=\"/admin/content\" width=\"100%\" height=\"500px\"></iframe>";
 	}
 

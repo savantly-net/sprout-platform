@@ -2,11 +2,11 @@
   "name": "example-react-module",
   "version": "1.0.0",
   "description": "An example module that injects react components in the admin app for the Sprout Platform",
-  "main": "build/resources/main/public/plugins/example/index.js",
+  "main": "build/resources/main/public/api/plugins/example/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --config webpack.dev.js --open --hot",
-    "transpile": "babel src/main/browser -d build/resources/main/public/plugins/example --copy-files",
+    "transpile": "babel src/main/browser -d build/resources/main/public/api/plugins/example --copy-files",
     "build": "webpack --config webpack.prod.js",
     "build:dev": "webpack --config webpack.dev.js"
   },

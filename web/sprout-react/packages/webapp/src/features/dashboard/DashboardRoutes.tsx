@@ -1,11 +1,11 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Route } from "react-router-dom";
 import { DashboardRouteInfo } from "../../types";
 import DashboardProvider from "./containers/DashboardProvider";
 
 const DashboardRoutes = () => {
   return (
-    <>
+    <Fragment>
       <Route
         exact
         path="/"
@@ -34,7 +34,7 @@ const DashboardRoutes = () => {
           <DashboardProvider routeInfo={DashboardRouteInfo.New} {...props} />
         )}
       />
-    </>
+    </Fragment>
   );
 };
 

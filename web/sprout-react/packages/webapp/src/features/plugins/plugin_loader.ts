@@ -57,6 +57,7 @@ exposeToPlugin('rxjs', rxjs);
 exposeToPlugin('rxjs/operators', rxjsOperators);
 
 exposeToPlugin('react', react);
+exposeToPlugin('React', react);
 exposeToPlugin('react-dom', reactDom);
 exposeToPlugin('react-redux', reactRedux);
 exposeToPlugin('redux', redux);

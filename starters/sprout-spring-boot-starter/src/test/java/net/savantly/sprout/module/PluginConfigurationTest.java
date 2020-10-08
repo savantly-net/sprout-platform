@@ -149,7 +149,7 @@ public class PluginConfigurationTest {
 			}
 
 			@Override
-			public String getAdminPanelMarkup() {
+			public String getPluginInformationMarkup() {
 				return "test";
 			}
 

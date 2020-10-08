@@ -56,7 +56,7 @@ public class ExampleReactModule implements SproutWebModule {
 	}
 	
 	@Override
-	public String getAdminPanelMarkup() {
+	public String getPluginInformationMarkup() {
 		try {
 			return asString(htmlFileResource);
 		} catch (IOException e) {
@@ -82,16 +82,18 @@ public class ExampleReactModule implements SproutWebModule {
 		List<UIRoute> items = new ArrayList<UIRoute>();
 		items.add(SimpleUIRoute.builder()
 				.path(UI_ROUTE_PATH)
-				.jsComponentClass("ExampleModuleComponent") // the JS class we are packaging as a module. The object name is managed in the webpack config
+				.jsModulePath("/api/plugins/example/index.min.js") // the JS class we are packaging as a module. The object name is managed in the webpack config
 				.build());
 		return items;
 	}
 	
+	/*
 	@Override
 	public List<String> getScriptResources() {
 		// The location of this script is determined by our package.json config
 		return Arrays.asList("/plugins/example/index.min.js"); 
 	}
+	*/
 	
 	public static String asString(Resource resource) throws IOException {
 		Reader reader = new InputStreamReader(resource.getInputStream());

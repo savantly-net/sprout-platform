@@ -8,5 +8,5 @@ import lombok.Data;
 public class SimpleUIRoute implements UIRoute {
 
 	private final String path;
-	private final String jsComponentClass;
+	private final String jsModulePath;
 }
