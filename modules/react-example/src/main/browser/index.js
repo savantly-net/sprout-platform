@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
+import { AppPlugin } from "@savantly/sprout-api";
 import './styles.css';
+
+const plugin = new AppPlugin()
+.addConfigPage({
+    body: "<h1>test body</h1>",
+    id: "defaultPage",
+    title: "test config page",
+});
+
 
 class ExampleModuleComponent extends Component {
     constructor(props) {
@@ -18,6 +27,9 @@ class ExampleModuleComponent extends Component {
     }
 }
 
+plugin.root = ExampleModuleComponent
+
+
 exports = {
-	plugin: ExampleModuleComponent
+	plugin
 }

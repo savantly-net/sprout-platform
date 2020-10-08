@@ -37,10 +37,10 @@ node {
     download = true
 }
 
-npm_run_build {
+yarn_build {
     inputs.files fileTree("src/main/browser")
     inputs.file 'package.json'
-    inputs.file 'package-lock.json'
+    inputs.file 'yarn.lock'
     inputs.file 'webpack.dev.js'
     inputs.file 'webpack.prod.js'
     outputs.dir "build/resources/main/public/content"
@@ -48,10 +48,11 @@ npm_run_build {
 
 
 task npmBuildDev(type: NpmTask) {
-  args = ['run', 'build:dev']
+  args = ['build:dev']
 }
 
-classes.dependsOn npm_run_build
+yarn_build.dependsOn yarn
+classes.dependsOn yarn_build
 
 dependencies {
 	api project(':sprout-core')
