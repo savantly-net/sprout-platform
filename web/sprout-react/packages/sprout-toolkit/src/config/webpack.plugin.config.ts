@@ -169,22 +169,20 @@ const getBaseWebpackConfig: WebpackConfigurationGetter = async options => {
       'emotion',
       'prismjs',
       'slate-plain-serializer',
-      '@grafana/slate-react',
       'react',
       'react-dom',
       'react-redux',
       'redux',
       'rxjs',
       'd3',
-      'angular',
       '@savantly/sprout-ui',
-      '@grafana/runtime',
+      '@savantly/sprout-runtime',
       '@savantly/sprout-api',
       'monaco-editor',
       'react-monaco-editor',
       // @ts-ignore
       (context, request, callback) => {
-        const prefix = 'grafana/';
+        const prefix = 'savantly/';
         if (request.indexOf(prefix) === 0) {
           return callback(null, request.substr(prefix.length));
         }
@@ -207,7 +205,7 @@ const getBaseWebpackConfig: WebpackConfigurationGetter = async options => {
               loader: 'babel-loader',
               options: {
                 presets: [['@babel/preset-env', { modules: false }]],
-                plugins: ['angularjs-annotate'],
+                plugins: [],
                 sourceMaps: true,
               },
             },
@@ -228,7 +226,7 @@ const getBaseWebpackConfig: WebpackConfigurationGetter = async options => {
               loader: 'babel-loader',
               options: {
                 presets: [['@babel/preset-env', { modules: false }]],
-                plugins: ['angularjs-annotate'],
+                plugins: [],
                 sourceMaps: true,
               },
             },

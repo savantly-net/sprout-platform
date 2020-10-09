@@ -1,0 +1,38 @@
+{
+  "type": "panel",
+  "name": "Example",
+  "id": "savantly-example",
+  "info": {
+    "description": "Example Plugin",
+    "author": {
+      "name": "Jeremy Branham",
+      "url": "https://savantly.net"
+    },
+    "keywords": [
+      "savantly",
+      "sprout",
+      "example"
+    ],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "links": [
+      {
+        "name": "Website",
+        "url": "https://github.com/savantly/simple-sprout-panel"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/savantly/simple-sprout-panel/blob/master/LICENSE"
+      }
+    ],
+    "screenshots": [],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+  "dependencies": {
+    "sproutVersion": "2.0.x",
+    "plugins": []
+  }
+}

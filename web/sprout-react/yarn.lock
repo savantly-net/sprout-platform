@@ -1504,6 +1504,11 @@
     typescript "3.9.3"
     yaml "^1.8.3"
 
+"@grafana/eslint-config@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@grafana/eslint-config/-/eslint-config-2.0.1.tgz#859f316e1f4985138e44b54fcd42a127b309fcbb"
+  integrity sha512-VN1DS9g2+0UoWJriBGUK8gPVXm9cgxSVpAP79iXnpMipGWThyGjn2K01j1VJJZNiJ9yOJdRBv6Hlwo4sQc0fgA==
+
 "@grafana/slate-react@0.22.9-grafana":
   version "0.22.9-grafana"
   resolved "https://registry.yarnpkg.com/@grafana/slate-react/-/slate-react-0.22.9-grafana.tgz#07f35f0ffc018f616b9f82fa6e5ba65fae75c6a0"
@@ -3975,7 +3980,7 @@
   dependencies:
     jest-diff "*"
 
-"@types/jest@*":
+"@types/jest@*", "@types/jest@^26.0.14":
   version "26.0.14"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.14.tgz#078695f8f65cb55c5a98450d65083b2b73e5a3f3"
   integrity sha512-Hz5q8Vu0D288x3iWXePSn53W7hAjP0H7EQ6QvDO9c7t46mR0lNOLlfuwQ+JkVxuhygHzlzPX+0jKdA3ZgSh+Vg==

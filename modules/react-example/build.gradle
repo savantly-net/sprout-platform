@@ -8,7 +8,6 @@ plugins {
  	id 'jacoco'
  	id 'org.sonarqube'
 	id "org.owasp.dependencycheck" version "5.3.1"
-	id "com.github.node-gradle.node" version "2.2.0"
 }
 
 archivesBaseName = name
@@ -21,38 +20,6 @@ apply from: '../../gradle/sonatype.gradle'
 repositories {
 	mavenCentral()
 }
-
-node {
-    /* gradle-node-plugin configuration
-       https://github.com/srs/gradle-node-plugin/blob/master/docs/node.md
-       Task name pattern:
-       ./gradlew npm_<command> Executes an NPM command.
-    */
-    // Version of node to use.
-    version = '10.20.1'
-    // Version of npm to use.
-    //npmVersion = '6.9.0'
-    // If true, it will download node using above parameters.
-    // If false, it will try to use globally installed node.
-    download = true
-}
-
-yarn_build {
-    inputs.files fileTree("src/main/browser")
-    inputs.file 'package.json'
-    inputs.file 'yarn.lock'
-    inputs.file 'webpack.dev.js'
-    inputs.file 'webpack.prod.js'
-    outputs.dir "build/resources/main/public/content"
-}
-
-
-task npmBuildDev(type: NpmTask) {
-  args = ['build:dev']
-}
-
-yarn_build.dependsOn yarn
-classes.dependsOn yarn_build
 
 dependencies {
 	api project(':sprout-core')

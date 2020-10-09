@@ -23,10 +23,10 @@ interface PluginDetails {
 type PluginType = 'panel-plugin';
 
 const PluginNames: Record<PluginType, string> = {
-  'panel-plugin': 'Grafana Panel Plugin',
+  'panel-plugin': 'Sprout Panel Plugin',
 };
 const RepositoriesPaths: Record<PluginType, string> = {
-  'panel-plugin': 'https://github.com/grafana/simple-react-panel.git',
+  'panel-plugin': 'https://github.com/savantly-net/simple-sprout-panel.git',
 };
 const TutorialPaths: Record<PluginType, string> = {
   'panel-plugin': 'https://grafana.com/tutorials/build-a-panel-plugin',
@@ -65,8 +65,6 @@ export const promptPluginType = async () =>
       name: 'type',
       choices: [
         { name: 'Panel Plugin', value: 'panel-plugin' },
-        { name: 'Datasource Plugin', value: 'datasource-plugin' },
-        { name: 'Backend Datasource Plugin', value: 'backend-datasource-plugin' },
       ],
     },
   ]);

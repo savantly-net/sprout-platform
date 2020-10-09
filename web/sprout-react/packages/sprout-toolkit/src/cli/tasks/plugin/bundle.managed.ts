@@ -9,7 +9,7 @@ const readdirPromise = util.promisify(fs.readdir);
 interface BundeManagedOptions {}
 
 const MANAGED_PLUGINS_PATH = `${process.cwd()}/plugins-bundled`;
-const MANAGED_PLUGINS_SCOPES = ['external'];
+const MANAGED_PLUGINS_SCOPES = ['internal'];
 
 const bundleManagedPluginsRunner: TaskRunner<BundeManagedOptions> = async () => {
   await Promise.all(

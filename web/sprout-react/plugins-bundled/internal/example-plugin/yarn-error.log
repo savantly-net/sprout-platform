@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/Cellar/node@12/12.18.3/bin/node /Users/jeremybranham/git/savantly/sprout-platform/web/sprout-react/.yarn/releases/yarn-1.18.0.js
+  /usr/local/Cellar/node@12/12.18.3/bin/node /Users/jeremybranham/git/savantly/sprout-platform/web/sprout-react/.yarn/releases/yarn-1.18.0.js add @types/react
 
 PATH: 
   /usr/local/opt/node@12/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/jeremybranham/go/bin:/usr/local/opt/go/libexec/bin:/Users/jeremybranham/go/bin
@@ -14,67 +14,37 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: ENOENT: no such file or directory, scandir '/Users/jeremybranham/git/savantly/sprout-platform/web/sprout-react/plugins-bundled/internal/example-plugin/node_modules/@savantly'
+  Error: ENOENT: no such file or directory, lstat '/Users/jeremybranham/git/savantly/sprout-platform/web/sprout-react/node_modules/@savantly/sprout-runtime/node_modules/@types'
 
 npm manifest: 
   {
-    "author": "Jeremy Branham <Jeremy@savantly.net>",
-    "license": "Apache-2.0",
-    "private": true,
-    "name": "@savantly/sprout-workspace",
-    "version": "0.0.1",
-    "repository": "github:savantly/sprout-platform",
+    "name": "savantly-example",
+    "version": "1.0.0",
+    "description": "Example Plugin",
     "scripts": {
-      "clean": "lerna run clean ",
-      "clean:hard": "yarn clean && rm -rf ./packages/api/node_modules && rm -rf ./packages/runtime/node_modules && rm -rf ./packages/webapp/node_modules && rm -rf ./node_modules",
-      "build": "yarn packages:build",
-      "packages:build": "lerna run clean && lerna run build",
-      "packages:prepare": "lerna version --no-push --no-git-tag-version --force-publish --exact",
-      "packages:publish": "lerna publish from-package --contents dist",
-      "packages:publishCanary": "lerna publish from-package --contents dist --dist-tag canary --yes",
-      "packages:publishLatest": "lerna publish from-package --contents dist --yes",
-      "packages:publishNext": "lerna publish from-package --contents dist --dist-tag next --yes",
-      "packages:typecheck": "lerna run typecheck",
-      "plugins:build-bundled": "sprout-toolkit plugin:bundle-managed",
-      "plugins:create": "mkdir -p ./packages/plugins/example && cd ./packages/plugins/example && sprout-toolkit plugin:create",
-      "postinstall": "lerna bootstrap",
-      "prettier:check": "prettier --list-different \"**/*.{ts,tsx,scss}\"",
-      "prettier:write": "prettier --list-different \"**/*.{ts,tsx,scss}\" --write",
-      "start": "yarn start:dev",
-      "start:dev": "cd ./packages/webapp && yarn start",
-      "start:prod": "cd ./proxy && yarn start",
-      "themes:generate": "npx ts-node --project ./scripts/cli/tsconfig.json ./scripts/cli/generateSassVariableFiles.ts",
-      "typecheck": "tsc --noEmit"
+      "build": "sprout-toolkit plugin:build",
+      "test": "sprout-toolkit plugin:test",
+      "dev": "sprout-toolkit plugin:dev",
+      "watch": "sprout-toolkit plugin:dev --watch"
+    },
+    "repository": "github:savantly/simple-react-panel",
+    "author": "Jeremy Branham",
+    "license": "Apache-2.0",
+    "bugs": {
+      "url": "https://github.com/savantly/simple-react-panel/issues",
+      "email": "bug@savantly.net"
     },
     "devDependencies": {
-      "@types/node": "^14.11.2",
-      "eslint": "6.6.0",
-      "eslint-config-prettier": "6.11.0",
-      "eslint-plugin-jsdoc": "28.6.1",
-      "eslint-plugin-prettier": "3.1.4",
-      "eslint-plugin-react-hooks": "4.0.5",
-      "jest": "24.9.0",
-      "lerna": "^3.20.2",
-      "prettier": "1.19.1",
-      "typescript": "3.9.3",
-      "webpack": "4.42.0",
-      "yarn": "1.18.0"
-    },
-    "workspaces": {
-      "packages": [
-        "packages/*",
-        "plugins-bundled/internal/*"
-      ],
-      "nohoist": [
-        "**/@types/*",
-        "**/@types/*/**"
-      ]
+      "@savantly/sprout-api": "0.0.1",
+      "@savantly/sprout-toolkit": "0.0.1",
+      "@savantly/sprout-ui": "0.0.1",
+      "emotion": "10.0.27"
     },
     "engines": {
       "node": ">=12 <13"
     },
-    "volta": {
-      "node": "12.18.4"
+    "dependencies": {
+      "@grafana/eslint-config": "^2.0.1"
     }
   }
 
