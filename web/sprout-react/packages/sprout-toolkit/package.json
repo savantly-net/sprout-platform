@@ -19,7 +19,7 @@
     "sprout-toolkit": "./bin/sprout-toolkit.js"
   },
   "scripts": {
-    "build": "$npm_package_bin_sprout_toolkit toolkit:build",
+    "build": "sprout-toolkit toolkit:build",
     "clean": "rimraf ./dist ./compiled",
     "precommit": "npm run lint & npm run typecheck",
     "typecheck": "tsc --noEmit"

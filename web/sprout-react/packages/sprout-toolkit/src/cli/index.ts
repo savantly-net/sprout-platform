@@ -26,8 +26,8 @@ export const run = (includeInternalScripts = false) => {
 
     program
       .command('package:build')
-      .option('-s, --scope <packages>', 'packages=[api]')
-      .description('Builds @grafana/* package to packages/grafana-*/dist')
+      .option('-s, --scope <packages>', 'packages=[api|runtime|sprout-ui]')
+      .description('Builds @savantly/* package to packages/savantly-*/dist')
       .action(async cmd => {
         await execTask(buildPackageTask)({
           scope: cmd.scope,

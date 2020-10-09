@@ -11,7 +11,7 @@ rootProject.name = 'sprout-platform'
 include ':sprout-core'
 include ':sprout-spring-boot-starter'
 include ':sprout-server'
-include ':sprout-admin'
+//include ':sprout-admin'
 //include 'web:sprout-web-ui'
 include ':sprout-modules-content'
 include ':sprout-modules-openTok'
@@ -21,7 +21,7 @@ include ':sprout-module-test'
 project(':sprout-core').projectDir = file('core')
 project(':sprout-spring-boot-starter').projectDir = file('starters/sprout-spring-boot-starter')
 project(':sprout-server').projectDir = file('server')
-project(':sprout-admin').projectDir = file('web/admin')
+//project(':sprout-admin').projectDir = file('web/admin')
 project(':sprout-modules-content').projectDir = file('modules/content')
 project(':sprout-modules-openTok').projectDir = file('modules/openTok')
 project(':sprout-modules-react-example').projectDir = file('modules/react-example')

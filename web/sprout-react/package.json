@@ -19,6 +19,7 @@
     "plugins:build-bundled": "sprout-toolkit plugin:bundle-managed",
     "plugins:create": "mkdir -p ./packages/plugins/example && cd ./packages/plugins/example && sprout-toolkit plugin:create",
     "postinstall": "lerna bootstrap",
+    "precommit": "sprout-toolkit precommit",
     "prettier:check": "prettier --list-different \"**/*.{ts,tsx,scss}\"",
     "prettier:write": "prettier --list-different \"**/*.{ts,tsx,scss}\" --write",
     "start": "yarn start:dev",

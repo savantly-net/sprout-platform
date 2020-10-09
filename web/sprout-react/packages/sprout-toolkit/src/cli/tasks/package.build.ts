@@ -12,13 +12,13 @@ import globby from 'globby';
 let distDir: string, cwd: string;
 
 // @ts-ignore
-export const clean = useSpinner<void>('Cleaning', async () => await execa('yarn', ['clean']));
+export const clean = useSpinner<void>('Cleaning', async () => await execa('npm', ['run', 'clean']));
 
 // @ts-ignore
 const compile = useSpinner<void>('Compiling sources', () => execa('tsc', ['-p', './tsconfig.build.json']));
 
 // @ts-ignore
-const rollup = useSpinner<void>('Bundling', () => execa('yarn', ['bundle']));
+const rollup = useSpinner<void>('Bundling', () => execa('npm', ['run', 'bundle']));
 
 interface SavePackageOptions {
   path: string;
@@ -61,7 +61,7 @@ const preparePackage = async (pkg: any) => {
   const name: string = pkg.name;
   const deps: any = pkg.dependencies;
 
-  // Below we are adding cross-dependencies to Grafana's packages
+  // Below we are adding cross-dependencies to Sprout's packages
   // with the version being published
   if (name.endsWith('/sprout-ui')) {
     deps['@savantly/sprout-api'] = version;

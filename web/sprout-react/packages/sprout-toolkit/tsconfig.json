@@ -8,5 +8,5 @@
   },
   "exclude": ["dist", "node_modules"],
   "extends": "@savantly/sprout-tsconfig",
-  "include": ["src/**/*.ts", "../api/src/types/*.ts"]
+  "include": ["src/**/*.ts"]
 }
