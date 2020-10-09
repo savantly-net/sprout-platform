@@ -1,6 +1,6 @@
 import { PanelPlugin } from '@savantly/sprout-api';
-import { SimpleOptions } from './types';
-import { SimplePanel } from './SimplePanel';
+import { SimpleOptions } from './plugin/types';
+import { SimplePanel } from './plugin/SimplePanel';
 
 export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOptions(builder => {
   return builder

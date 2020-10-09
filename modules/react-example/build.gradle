@@ -23,26 +23,18 @@ repositories {
 }
 
 node {
-    /* gradle-node-plugin configuration
-       https://github.com/srs/gradle-node-plugin/blob/master/docs/node.md
-       Task name pattern:
-       ./gradlew npm_<command> Executes an NPM command.
-    */
-    // Version of node to use.
     version = '12.18.3'
-    // Version of npm to use.
-    //npmVersion = '6.9.0'
-    // If true, it will download node using above parameters.
-    // If false, it will try to use globally installed node.
     download = true
 }
 
 yarn_build {
-    inputs.files fileTree("src/main/browser")
+    inputs.files fileTree("src/plugin")
     inputs.file 'package.json'
     inputs.file 'yarn.lock'
     inputs.file 'tsconfig.json'
-    outputs.dir "build/resources/main/public/api/example"
+    inputs.file 'src/plugin.json'
+    inputs.file 'src/module.ts'
+    outputs.dir 'dist'
 }
 
 
@@ -51,7 +43,7 @@ task npmBuildDev(type: NpmTask) {
 }
 task copyPublicfiles(type: Copy) {
     from "$buildDir/../dist"
-    into "$buildDir/resources/main/public/api/example"
+    into "$buildDir/resources/main/public/api/plugins/example-react-module"
 }
 yarn_build.dependsOn yarn
 copyPublicfiles.dependsOn yarn_build

@@ -1,18 +1,18 @@
 {
   "name": "savantly-example",
   "version": "1.0.0",
-  "description": "Example Plugin",
+  "description": "Example React Module",
   "scripts": {
     "build": "sprout-toolkit plugin:build",
     "test": "sprout-toolkit plugin:test",
     "dev": "sprout-toolkit plugin:dev",
     "watch": "sprout-toolkit plugin:dev --watch"
   },
-  "repository": "github:savantly/simple-react-panel",
+  "repository": "github:savantly-net/sprout-platform",
   "author": "Jeremy Branham",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/savantly/simple-react-panel/issues",
+    "url": "https://github.com/savantly-net/sprout-platform/issues",
     "email": "bug@savantly.net"
   },
   "devDependencies": {

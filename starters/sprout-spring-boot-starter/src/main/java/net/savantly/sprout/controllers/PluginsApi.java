@@ -73,7 +73,7 @@ public class PluginsApi {
 			.id("test-plugin")
 			.info(info)
 			.latestVersion("0.0.1")
-			.module("/api/plugins/example/module.js")
+			.module("/api/plugins/example/browser/module.js")
 			.name("example plugin")
 			.type(PluginType.app)
 			.build();

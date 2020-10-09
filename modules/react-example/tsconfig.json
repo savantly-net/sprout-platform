@@ -1,6 +1,7 @@
 {
   "extends": "./node_modules/@savantly/sprout-toolkit/src/config/tsconfig.plugin.json",
-  "include": ["src", "types"],
+  "include": ["./src"],
+  "exclude": ["./src/main", "./src/test"],
   "compilerOptions": {
     "rootDir": "./src",
     "baseUrl": "./src",

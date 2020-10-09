@@ -1,9 +1,9 @@
 {
   "type": "panel",
-  "name": "Example",
-  "id": "savantly-example",
+  "name": "Example React Module",
+  "id": "example-react-module",
   "info": {
-    "description": "Example Plugin",
+    "description": "Example React Module that includes a client plugin",
     "author": {
       "name": "Jeremy Branham",
       "url": "https://savantly.net"
@@ -20,11 +20,11 @@
     "links": [
       {
         "name": "Website",
-        "url": "https://github.com/savantly/simple-sprout-panel"
+        "url": "https://github.com/savantly-net/sprout-platform/tree/development/modules/react-example"
       },
       {
         "name": "License",
-        "url": "https://github.com/savantly/simple-sprout-panel/blob/master/LICENSE"
+        "url": "https://github.com/savantly-net/sprout-platform/tree/development/modules/react-example/LICENSE"
       }
     ],
     "screenshots": [],

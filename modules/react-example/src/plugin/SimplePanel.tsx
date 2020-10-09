@@ -1,6 +1,6 @@
 import React from 'react';
 import { PanelProps } from '@savantly/sprout-api';
-import { SimpleOptions } from 'types';
+import { SimpleOptions } from './types';
 import { css, cx } from 'emotion';
 import { stylesFactory, useTheme } from '@savantly/sprout-ui';
 
