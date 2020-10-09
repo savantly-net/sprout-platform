@@ -1,0 +1,38 @@
+{
+  "type": "panel",
+  "name": "Example App Module",
+  "id": "example-app-module",
+  "info": {
+    "description": "Example App Module that includes a client plugin",
+    "author": {
+      "name": "Jeremy Branham",
+      "url": "https://savantly.net"
+    },
+    "keywords": [
+      "savantly",
+      "sprout",
+      "example"
+    ],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "links": [
+      {
+        "name": "Website",
+        "url": "https://github.com/savantly-net/sprout-platform/tree/development/modules/example-app"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/savantly-net/sprout-platform/tree/development/modules/example-app/LICENSE"
+      }
+    ],
+    "screenshots": [],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+  "dependencies": {
+    "sproutVersion": "2.0.x",
+    "plugins": []
+  }
+}

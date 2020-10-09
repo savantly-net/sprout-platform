@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+net.savantly.sprout.module.example.ExamplePanelModule

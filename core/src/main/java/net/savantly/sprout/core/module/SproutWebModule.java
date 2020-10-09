@@ -17,6 +17,10 @@ import net.savantly.sprout.core.module.web.UIRoute;
 @SuppressWarnings("unchecked")
 public interface SproutWebModule extends SproutModule {
 
+	default String getPluginJsonPath() {
+		return String.format("classpath:/public/api/plugins/%s/plugin.json", getId());
+	}
+	
 	/**
 	 * This method should return browser markup. <br>
 	 * The markup is rendered in the plugin information panel, and may be used to interact with the module's rest controllers or other APIs.  <br>

@@ -1,0 +1,80 @@
+plugins {
+	id 'org.springframework.boot' apply false
+	id 'io.spring.dependency-management'
+	id 'java'
+	id 'java-library'
+	id 'signing'
+	id 'maven'
+ 	id 'jacoco'
+ 	id 'org.sonarqube'
+	id "org.owasp.dependencycheck" version "5.3.1"
+	id "com.github.node-gradle.node" version "2.2.0"
+}
+
+archivesBaseName = name
+description = "Provides dynamic content management for the Sprout Platform"
+sourceCompatibility = '1.8'
+
+apply from: '../../gradle/sonar.gradle'
+apply from: '../../gradle/sonatype.gradle'
+
+repositories {
+	mavenCentral()
+}
+
+node {
+    version = '12.18.3'
+    download = true
+}
+
+yarn_build {
+    inputs.files fileTree("src/plugin")
+    inputs.file 'package.json'
+    inputs.file 'yarn.lock'
+    inputs.file 'tsconfig.json'
+    inputs.file 'src/plugin.json'
+    inputs.file 'src/module.ts'
+    outputs.dir 'dist'
+}
+
+
+task npmBuildDev(type: NpmTask) {
+  args = ['build']
+}
+task copyPublicfiles(type: Copy) {
+    from "$buildDir/../dist"
+    into "$buildDir/resources/main/public/api/plugins/example-react-module"
+}
+yarn_build.dependsOn yarn
+copyPublicfiles.dependsOn yarn_build
+classes.dependsOn copyPublicfiles
+
+dependencies {
+	api project(':sprout-core')
+	api 'org.freemarker:freemarker'
+
+	compileOnly 'org.projectlombok:lombok',
+		'javax.interceptor:javax.interceptor-api:1.2',
+		'javax.validation:validation-api:2.0.1.Final',
+		"org.springframework.boot:spring-boot-devtools"
+    annotationProcessor 'org.projectlombok:lombok',
+        'org.springframework.boot:spring-boot-configuration-processor'
+    
+    testImplementation project(':sprout-module-test')
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testImplementation 'org.springframework.security:spring-security-test',
+		'com.h2database:h2'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+dependencyManagement {
+	imports {
+		mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+	}
+}
+

@@ -1,6 +1,6 @@
 package net.savantly.sprout.controllers;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -29,13 +29,9 @@ import net.savantly.sprout.core.module.registration.SproutModuleRegistration;
 import net.savantly.sprout.core.module.registration.SproutModuleRegistrationRepository;
 import net.savantly.sprout.core.module.web.NavigationItem;
 import net.savantly.sprout.core.module.web.UIRoute;
-import net.savantly.sprout.core.module.web.plugin.PluginAuthor;
-import net.savantly.sprout.core.module.web.plugin.PluginBuildInfo;
-import net.savantly.sprout.core.module.web.plugin.PluginDependencies;
 import net.savantly.sprout.core.module.web.plugin.PluginMeta;
-import net.savantly.sprout.core.module.web.plugin.PluginMetaInfo;
-import net.savantly.sprout.core.module.web.plugin.PluginType;
 import net.savantly.sprout.model.AdminUserInterfaceModel;
+import net.savantly.sprout.module.PluginService;
 
 @RequiredArgsConstructor
 @RestController
@@ -46,38 +42,17 @@ public class PluginsApi {
 
 	private final SproutModuleRegistrationRepository registrationRepository;
 	private final ObjectMapper mapper;
-	private final List<SproutModule> sproutModules;
+	private final List<SproutModule> sproutModules = new ArrayList<>();
+	private final PluginService pluginService;
 	
-	@GetMapping("")
-	public List<PluginMeta> getPlugins() {
-		return Arrays.asList(examplePlugin());
+	@GetMapping("/app")
+	public List<PluginMeta> getAppPlugins() {
+		return this.pluginService.getAppPlugins();
 	}
-	
-	private PluginMeta examplePlugin() {
-		String defaultNavUrl = "/plugins/example/defaultNavUrl";
-		
-		PluginDependencies dependencies = new PluginDependencies();
-		PluginMetaInfo info = new PluginMetaInfo()
-				.setAuthor(new PluginAuthor().setName("Jeremy").setUrl("authorUrl"))
-				.setBuild(new PluginBuildInfo())
-				.setDescription("example plugin description")
-				.setUpdated("now")
-				.setVersion("0.0.1");
-		
-		PluginMeta plugin = PluginMeta.builder()
-			.baseUrl("/")
-			.defaultNavUrl(defaultNavUrl)
-			.dependencies(dependencies)
-			.enabled(true)
-			.hasUpdate(false)
-			.id("test-plugin")
-			.info(info)
-			.latestVersion("0.0.1")
-			.module("/api/plugins/example/browser/module.js")
-			.name("example plugin")
-			.type(PluginType.app)
-			.build();
-		return plugin;
+
+	@GetMapping("/panel")
+	public List<PluginMeta> getPanelPlugins() {
+		return this.pluginService.getPanelPlugins();
 	}
 
 	public HashMap<String, Object> getSproutModules(){
@@ -95,7 +70,7 @@ public class PluginsApi {
 			try {
 				String stringValue = moduleWriter.writeValueAsString(m);
 				JsonNode json = mapper.readTree(stringValue);
-				Optional<SproutModuleRegistration> registration = registrationRepository.findById(m.getKey());
+				Optional<SproutModuleRegistration> registration = registrationRepository.findById(m.getId());
 				if (registration.isPresent()) {
 					((ObjectNode)json).putPOJO("installed", registration.get().isInstalled());
 				}
@@ -108,34 +83,34 @@ public class PluginsApi {
 		return response;
 	}
 
-	@GetMapping("/{name}")
-	public String getSproutModuleUserConfig(@PathVariable String name){
-		SproutModule bean = getModuleByName(name);
+	@GetMapping("/{id}")
+	public String getSproutModuleUserConfig(@PathVariable String id){
+		SproutModule bean = getModuleById(id);
 		if (SproutWebModule.class.isAssignableFrom(bean.getClass())) {
 			return ((SproutWebModule)bean).getPluginInformationMarkup();
 		} else {
-			return String.format("<h1>%s</h1>", name);
+			return String.format("<h1>%s</h1>", id);
 		}
 	}
 	
-	@GetMapping("/{name}/settings")
-	public PluginMeta getSproutModuleSettings(@PathVariable String name){
-		return examplePlugin();
+	@GetMapping("/{id}/settings")
+	public PluginMeta getSproutModuleSettings(@PathVariable String id){
+		return this.pluginService.getPluginMetaByPluginId(id);
 	}
 	
-	@PostMapping("/{name}/install")
-	public SproutModuleExecutionResponse installModule(@PathVariable String name) {
-		SproutModule bean = getModuleByName(name);
+	@PostMapping("/{id}/install")
+	public SproutModuleExecutionResponse installModule(@PathVariable String id) {
+		SproutModule bean = getModuleById(id);
 		SproutModuleExecutionResponse result = bean.install();
-		markRegistrationInstallStatus(name, result.getSucceeded());
+		markRegistrationInstallStatus(id, result.getSucceeded());
 		return result;
 	}
 
-	@PostMapping("/{name}/uninstall")
-	public SproutModuleExecutionResponse uninstallModule(@PathVariable String name) {
-		SproutModule bean = getModuleByName(name);
+	@PostMapping("/{id}/uninstall")
+	public SproutModuleExecutionResponse uninstallModule(@PathVariable String id) {
+		SproutModule bean = getModuleById(id);
 		SproutModuleExecutionResponse result = bean.uninstall();
-		markRegistrationInstallStatus(name, false);
+		markRegistrationInstallStatus(id, false);
 		return result;
 	}
 	
@@ -157,8 +132,8 @@ public class PluginsApi {
 				.flatMap(m -> ((SproutWebModule)m).getScriptResources().stream()).collect(Collectors.toList());
 	}
 	
-	private SproutModule getModuleByName(String name) {
-		return sproutModules.stream().filter(m->m.getKey().contentEquals(name)).findFirst().orElseThrow(()->new UnknownSproutModule("SproutModule not found: " + name));
+	private SproutModule getModuleById(String id) {
+		return sproutModules.stream().filter(m->m.getId().contentEquals(id)).findFirst().orElseThrow(()->new UnknownSproutModule("SproutModule not found: " + id));
 	}
 
 	private void markRegistrationInstallStatus(String key, boolean b) {

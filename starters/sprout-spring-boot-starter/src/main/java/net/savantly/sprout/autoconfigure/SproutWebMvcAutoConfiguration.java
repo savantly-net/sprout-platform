@@ -20,7 +20,7 @@ import org.springframework.web.servlet.handler.MappedInterceptor;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 import net.savantly.sprout.core.domain.tenant.TenantRepository;
-import net.savantly.sprout.module.PluginConfiguration;
+import net.savantly.sprout.module.ModuleConfiguration;
 import net.savantly.sprout.starter.DateTimeFormatConfiguration;
 import net.savantly.sprout.starter.SpringDocConfigurer;
 import net.savantly.sprout.starter.mvc.SproutWebMvcConfigurer;
@@ -29,7 +29,7 @@ import net.savantly.sprout.starter.tenancy.TenantInterceptor;
 @Configuration
 @AutoConfigureBefore({WebMvcAutoConfiguration.class, SproutSecurityAutoConfiguration.class})
 @Import({
-	PluginConfiguration.class, 
+	ModuleConfiguration.class, 
 	SproutWebMvcConfigurer.class, 
 	SpringDocConfigurer.class,
 	DateTimeFormatConfiguration.class

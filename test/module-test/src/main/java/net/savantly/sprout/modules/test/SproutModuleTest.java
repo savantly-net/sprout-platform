@@ -31,7 +31,7 @@ public class SproutModuleTest<T extends SproutModule> {
 	public void propertiesSmokeTest() {
 		module.getClass();
 		module.getDescription();
-		module.getKey();
+		module.getId();
 		module.getName();
 		module.getVersion();
 	}

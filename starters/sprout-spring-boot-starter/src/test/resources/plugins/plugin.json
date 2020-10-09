@@ -1,0 +1,38 @@
+{
+  "type": "panel",
+  "name": "Example React Module",
+  "id": "example-module",
+  "info": {
+    "description": "description",
+    "author": {
+      "name": "authorName",
+      "url": "https://savantly.net"
+    },
+    "keywords": [
+      "savantly",
+      "sprout",
+      "example"
+    ],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "links": [
+      {
+        "name": "Website",
+        "url": "https://github.com/savantly-net/sprout-platform/tree/development/modules/react-example"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/savantly-net/sprout-platform/tree/development/modules/react-example/LICENSE"
+      }
+    ],
+    "screenshots": [],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+  "dependencies": {
+    "sproutVersion": "2.0.x",
+    "plugins": []
+  }
+}

@@ -15,7 +15,7 @@ public class OpenTokModule implements SproutWebModule {
 	public static final String version = "0.0.1";
 
 	@Override
-	public String getKey() {
+	public String getId() {
 		return BEAN_NAME;
 	}
 

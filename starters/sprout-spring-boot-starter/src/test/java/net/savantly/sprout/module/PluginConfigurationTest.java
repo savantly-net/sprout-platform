@@ -38,7 +38,7 @@ import net.savantly.sprout.module.PluginConfigurationTest.TestContext.ExampleCon
 public class PluginConfigurationTest {
 
 	private static final Logger log = LoggerFactory.getLogger(PluginConfigurationTest.class);
-	private static final String EXAMPLE_MODULE_KEY = "myExampleModule";
+	private static final String EXAMPLE_MODULE_KEY = "example-module";
 
 	@Autowired
 	WebApplicationContext ctx;
@@ -74,25 +74,24 @@ public class PluginConfigurationTest {
 	
 	@Test
 	public void testPluginController() throws Exception {
-		MvcResult result = mvc.perform(get("/api/plugins")).andExpect(status().isOk()).andReturn();
+		MvcResult result = mvc.perform(get("/api/plugins/panel")).andExpect(status().isOk()).andReturn();
 		String content = result.getResponse().getContentAsString();
 		log.info(content);
 		JsonNode jsonNode = mapper.readTree(content);
-		Assertions.assertTrue(jsonNode.at("/plugins/0").has("key"), "the example module should be in the payload: " + content);
+		Assertions.assertTrue(jsonNode.at("/0").has("id"), "the example module should be in the payload: " + content);
 	}
 	
 	@Test
 	public void testExampleModuleCustomController() throws Exception {
-		MvcResult result = mvc.perform(get("/api/modules/example/")).andExpect(status().isOk()).andReturn();
+		MvcResult result = mvc.perform(get("/api/example/")).andExpect(status().isOk()).andReturn();
 		String content = result.getResponse().getContentAsString();
 		Assertions.assertEquals("example-response", content);
 	}
 
 	@Test
-	public void testPluginControllerForExampleModuleAdminMarkup() throws Exception {
-		MvcResult result = mvc.perform(get("/api/plugins/"+EXAMPLE_MODULE_KEY)).andExpect(status().isOk()).andReturn();
+	public void testPluginControllerForSettings() throws Exception {
+		MvcResult result = mvc.perform(get("/api/plugins/"+EXAMPLE_MODULE_KEY+"/settings")).andExpect(status().isOk()).andReturn();
 		String content = result.getResponse().getContentAsString();
-		Assertions.assertEquals("test", content);
 	}
 	
 	
@@ -107,7 +106,7 @@ public class PluginConfigurationTest {
 		}
 		
 		@RestController
-		@RequestMapping("/api/modules/example")
+		@RequestMapping("/api/example")
 		class ExampleController {
 			@RequestMapping("/")
 			public String index() {
@@ -144,13 +143,19 @@ public class PluginConfigurationTest {
 			}
 
 			@Override
-			public String getKey() {
+			public String getId() {
 				return EXAMPLE_MODULE_KEY;
 			}
 
 			@Override
 			public String getPluginInformationMarkup() {
 				return "test";
+			}
+			
+			// Overriding because this example implementation is not packaged
+			@Override
+			public String getPluginJsonPath() {
+				return "classpath:/plugins/plugin.json";
 			}
 
 		};

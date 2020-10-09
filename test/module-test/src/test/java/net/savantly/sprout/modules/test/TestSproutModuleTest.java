@@ -59,7 +59,7 @@ public class TestSproutModuleTest extends SproutModuleTest<TestSproutModuleTest.
 		}
 
 		@Override
-		public String getKey() {
+		public String getId() {
 			return "example-module";
 		}
 
@@ -67,6 +67,7 @@ public class TestSproutModuleTest extends SproutModuleTest<TestSproutModuleTest.
 		public String getPluginInformationMarkup() {
 			return "test";
 		}
+
 
 	};
 	

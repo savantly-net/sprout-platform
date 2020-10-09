@@ -15,7 +15,8 @@ include ':sprout-server'
 //include 'web:sprout-web-ui'
 include ':sprout-modules-content'
 include ':sprout-modules-openTok'
-include ':sprout-modules-react-example'
+include ':sprout-modules-example-panel'
+include ':sprout-modules-example-app'
 include ':sprout-module-test'
 
 project(':sprout-core').projectDir = file('core')
@@ -24,5 +25,6 @@ project(':sprout-server').projectDir = file('server')
 //project(':sprout-admin').projectDir = file('web/admin')
 project(':sprout-modules-content').projectDir = file('modules/content')
 project(':sprout-modules-openTok').projectDir = file('modules/openTok')
-project(':sprout-modules-react-example').projectDir = file('modules/react-example')
+project(':sprout-modules-example-panel').projectDir = file('modules/example-panel')
+project(':sprout-modules-example-app').projectDir = file('modules/example-app')
 project(':sprout-module-test').projectDir = file('test/module-test')

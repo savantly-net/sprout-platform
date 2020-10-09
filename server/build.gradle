@@ -35,7 +35,8 @@ dependencies {
 	//runtimeOnly project(':web:sprout-web-ui')
 	runtimeOnly project(':sprout-modules-content')
 	runtimeOnly project(':sprout-modules-openTok')
-	runtimeOnly project(':sprout-modules-react-example')
+	runtimeOnly project(':sprout-modules-example-panel')
+	runtimeOnly project(':sprout-modules-example-app')
 	
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'

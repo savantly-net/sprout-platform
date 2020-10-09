@@ -2,14 +2,15 @@ package net.savantly.sprout.core.module.web.plugin;
 
 import java.util.Map;
 
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Getter @Setter
 @Accessors(chain = true)
-@Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PluginMeta {
 
 	private String id;
