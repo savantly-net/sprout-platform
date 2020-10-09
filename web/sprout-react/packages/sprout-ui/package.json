@@ -31,7 +31,7 @@
     "@grafana/e2e-selectors": "7.3.0-pre.0-ffc11cb63c",
     "@grafana/slate-react": "0.22.9-grafana",
     "@iconscout/react-unicons": "1.1.4",
-    "@savantly/sprout-api": "0.0.1",
+    "@savantly/sprout-api": "0.0.4",
     "@savantly/sprout-tsconfig": "1.0.0",
     "@torkelo/react-select": "3.0.8",
     "@types/clipboard": "^2.0.1",
