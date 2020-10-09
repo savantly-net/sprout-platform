@@ -3,7 +3,7 @@
   "license": "Apache-2.0",
   "private": true,
   "name": "@savantly/sprout-workspace",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "repository": "github:savantly/sprout-platform",
   "scripts": {
     "clean": "lerna run clean ",

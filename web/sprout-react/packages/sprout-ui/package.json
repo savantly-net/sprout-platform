@@ -2,7 +2,7 @@
   "author": "Savantly",
   "license": "Apache-2.0",
   "name": "@savantly/sprout-ui",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Sprout Components Library [from Grafana UI library]",
   "keywords": [
     "sprout",
@@ -118,5 +118,6 @@
     "storybook-dark-mode": "0.6.1",
     "ts-loader": "6.2.1",
     "typescript": "4.0.2"
-  }
+  },
+  "gitHead": "013d0ce682ca98b1493ce8335b63192ee2486efc"
 }

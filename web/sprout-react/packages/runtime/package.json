@@ -1,6 +1,6 @@
 {
   "name": "@savantly/sprout-runtime",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Runtime API for Sprout React applications",
   "scripts": {
     "build": "sprout-toolkit package:build --scope=runtime",
@@ -48,5 +48,6 @@
   },
   "engines": {
     "node": ">=12 <13"
-  }
+  },
+  "gitHead": "013d0ce682ca98b1493ce8335b63192ee2486efc"
 }

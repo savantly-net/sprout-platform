@@ -1,6 +1,6 @@
 {
   "name": "@savantly/sprout-api",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Core API for Sprout React applications",
   "scripts": {
     "build": "sprout-toolkit package:build --scope=api",
@@ -60,5 +60,6 @@
   },
   "engines": {
     "node": ">=12 <13"
-  }
+  },
+  "gitHead": "013d0ce682ca98b1493ce8335b63192ee2486efc"
 }
