@@ -112,5 +112,5 @@
   "_moduleAliases": {
     "puppeteer": "node_modules/puppeteer-core"
   },
-  "gitHead": "013d0ce682ca98b1493ce8335b63192ee2486efc"
+  "gitHead": "30ec9712e7dba721a10f4e2239c836ef68fbce9a"
 }
