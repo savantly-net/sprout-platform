@@ -3,7 +3,7 @@ import { getBackendSrv } from '@savantly/sprout-runtime';
 import extend from 'lodash/extend';
 import React, { PureComponent } from 'react';
 import { appEvents } from '../../core/app_events';
-import DashboardsTable from '../../features/datasources/DashboardsTable';
+import DashboardsTable from '../datasources/DashboardsTable';
 import { PluginDashboard } from '../../types';
 
 

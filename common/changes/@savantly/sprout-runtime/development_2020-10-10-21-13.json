@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@savantly/sprout-runtime",
+      "comment": "added version policy",
+      "type": "none"
+    }
+  ],
+  "packageName": "@savantly/sprout-runtime",
+  "email": "Jeremy@savantly.net"
+}

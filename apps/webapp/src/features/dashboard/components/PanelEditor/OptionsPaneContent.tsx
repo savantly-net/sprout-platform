@@ -5,7 +5,7 @@ import { css } from 'emotion';
 import React, { CSSProperties, useState } from 'react';
 import Transition from 'react-transition-group/Transition';
 import { DashboardModel, PanelModel } from '../../state';
-import { DashNavButton } from '..//DashNav/DashNavButton';
+import { DashNavButton } from '../DashNav/DashNavButton';
 import { PanelOptionsTab } from './PanelOptionsTab';
 
 interface Props {

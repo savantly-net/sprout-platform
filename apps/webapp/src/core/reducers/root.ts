@@ -3,7 +3,7 @@ import dashboardReducers from '../../features/dashboard/state/reducers';
 import importDashboardReducers from '../../features/manage-dashboards/state/reducers';
 import pluginReducers from '../../features/plugins/state/reducers';
 import { CleanUp, cleanUpAction } from '../actions/cleanUp';
-import sharedReducers from '../reducers';
+import sharedReducers from '.';
 import { locationReducer } from "../services/locationSvc";
 import { navTreeReducer } from './navTree';
 

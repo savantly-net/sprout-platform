@@ -4,7 +4,7 @@ import TopSection from "./TopSection";
 import BottomSection from "./BottomSection";
 import config from "../../config";
 import { CoreEvents } from "../../../types";
-import { Branding } from "../../components/Branding/Branding";
+import { Branding } from "../Branding/Branding";
 import { Icon } from "@savantly/sprout-ui";
 
 const homeUrl = config.appSubUrl || "/";
