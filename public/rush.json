@@ -442,20 +442,24 @@
     },
     {
       "packageName": "@savantly/sprout-api",
-      "projectFolder": "libs/api"
+      "projectFolder": "libs/api",
+      "versionPolicyName": "sprout"
     },
     {
       "packageName": "@savantly/sprout-toolkit",
-      "projectFolder": "tools/sprout-toolkit"
+      "projectFolder": "tools/sprout-toolkit",
+      "versionPolicyName": "sprout"
     },
     {
       "packageName": "@savantly/sprout-ui",
-      "projectFolder": "libs/sprout-ui"
+      "projectFolder": "libs/sprout-ui",
+      "versionPolicyName": "sprout"
     },
     {
       "packageName": "@savantly/sprout-runtime",
-      "projectFolder": "libs/runtime"
-    },
+      "projectFolder": "libs/runtime",
+      "versionPolicyName": "sprout"
+    }
 //    {
 //     "packageName": "webapp",
 //      "projectFolder": "apps/webapp"
