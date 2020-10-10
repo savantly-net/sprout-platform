@@ -1,5 +1,5 @@
 {
-  "type": "panel",
+  "type": "app",
   "name": "Example App Module",
   "id": "example-app-module",
   "info": {
@@ -31,6 +31,35 @@
     "version": "%VERSION%",
     "updated": "%TODAY%"
   },
+  "includes": [
+    {
+      "type": "page",
+      "name": "Root Page",
+      "path": "/a/example-app-module",
+      "role": "Viewer",
+      "addToNav": true,
+      "defaultNav": true
+    },
+    {
+      "type": "page",
+      "name": "Root Page (tab B)",
+      "path": "/a/example-app-module/?tab=B",
+      "role": "Viewer",
+      "addToNav": true
+    },
+    {
+      "type": "page",
+      "name": "Example App Config",
+      "path": "/plugins/example-app-module/?page=page2",
+      "role": "Admin",
+      "addToNav": true
+    },
+    {
+      "type": "dashboard",
+      "name": "Example Inlcuded Dashboard",
+      "path": "dashboards/exampleDashboard.json"
+    }
+  ],
   "dependencies": {
     "sproutVersion": "2.0.x",
     "plugins": []
