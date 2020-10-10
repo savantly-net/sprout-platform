@@ -2,6 +2,6 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-cd $DIR/../public
+cd $DIR/../public/apps/webapp
 
-rush publish -a
+npm run start

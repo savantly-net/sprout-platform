@@ -63,7 +63,6 @@
     "tinycolor2": "^1.4.2",
     "typescript": "~4.0.3"
   },
-  "peerDependencies": {},
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",

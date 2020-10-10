@@ -1,0 +1,15 @@
+.yarn
+**/.yarn
+
+.env
+**/.env
+
+
+node_modules
+**/node_modules
+
+dist
+**/dist
+
+compiled
+**/compiled

@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Sprout's Root TypeScript config",
     "keywords": [
-      "sprout",
-      "typescript",
-      "cms"
+        "sprout",
+        "typescript",
+        "cms"
     ],
     "repository": "github:savantly/sprout-platform",
     "main": "tsconfig.json",
     "files": [
-      "base.json",
-      "tsconfig.json"
+        "base.json",
+        "tsconfig.json"
     ]
-  }
+}

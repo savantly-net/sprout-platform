@@ -15,9 +15,7 @@
     "url": "http://github.com/savantly/sprout-platform.git",
     "directory": "web/libs/sprout-react/packages/sprout-toolkit"
   },
-  "bin": {
-    "sprout-toolkit": "./bin/sprout-toolkit.js"
-  },
+  "bin": "./bin/sprout-toolkit.js",
   "scripts": {
     "build": "sprout-toolkit toolkit:build",
     "clean": "rimraf ./dist ./compiled",
