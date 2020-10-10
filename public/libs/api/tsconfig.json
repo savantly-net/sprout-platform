@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "declarationDir": "dist",
+    "declaration": true,
+    "outDir": "compiled",
+    "rootDirs": ["."],
+    "typeRoots": ["node_modules/@types", "types"]
+  },
+  "exclude": ["dist", "node_modules"],
+  "extends": "@savantly/sprout-tsconfig",
+  "include": ["src/**/*.ts*"]
+}

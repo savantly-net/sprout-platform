@@ -1,0 +1,8 @@
+version: "3"
+services:
+
+  webapp:
+    image: savantly/sprout-webapp
+    container_name: sprout-webapp
+    ports:
+      - 3000:3000

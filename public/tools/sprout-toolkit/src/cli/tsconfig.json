@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "module": "commonjs"
+  },
+  "extends": "@savantly/sprout-tsconfig"
+}
