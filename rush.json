@@ -438,31 +438,37 @@
     // }
     {
       "packageName": "@savantly/sprout-tsconfig",
-      "projectFolder": "common/tsconfig"
+      "projectFolder": "frontend/common/tsconfig"
     },
     {
       "packageName": "@savantly/sprout-api",
-      "projectFolder": "libs/api",
+      "projectFolder": "frontend/libs/api",
       "versionPolicyName": "sprout",
       "shouldPublish": true
     },
     {
       "packageName": "@savantly/sprout-toolkit",
-      "projectFolder": "tools/sprout-toolkit",
+      "projectFolder": "frontend/tools/sprout-toolkit",
       "versionPolicyName": "sprout",
       "shouldPublish": true
     },
     {
       "packageName": "@savantly/sprout-ui",
-      "projectFolder": "libs/sprout-ui",
+      "projectFolder": "frontend/libs/sprout-ui",
       "versionPolicyName": "sprout",
       "shouldPublish": true
     },
     {
       "packageName": "@savantly/sprout-runtime",
-      "projectFolder": "libs/runtime",
+      "projectFolder": "frontend/libs/runtime",
       "versionPolicyName": "sprout",
       "shouldPublish": true
+    },
+    {
+      "packageName": "example-app-module",
+      "projectFolder": "frontend/modules/example-app",
+      "versionPolicyName": "sprout",
+      "shouldPublish": false
     }
 //    {
 //     "packageName": "webapp",

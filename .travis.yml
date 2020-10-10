@@ -11,28 +11,34 @@ cache:
     - node_modules
 install: true
 
-# Google Chrome
-#
-# https://github.com/travis-ci/travis-ci/issues/272#issuecomment-14402117
-# http://stackoverflow.com/questions/19255976/how-to-make-travis-execute-angular-tests-on-chrome-please-set-env-variable-chr
-#
 before_install:
   - sudo apt-get update
-  - sudo apt-get install chromium-chromedriver
-  - export CHROME_BIN=chromium-browser
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3 # give xvfb some time to start
   - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION
   - npm install -g rimraf
   
 before_script:
   - "export NODE_BIN=`nvm which $TRAVIS_NODE_VERSION`"
   - "export NODE_PATH=`dirname $NODE_BIN`"
-  - "export PATH=$PATH:/usr/lib/chromium-browser/"
   - "export CI=true"
   
-script: ./gradlew build
+script:
+  - set -e
+
+  - echo 'Checking for missing change logs...' && echo -en 'travis_fold:start:change\\r'
+  - git fetch origin master:refs/remotes/origin/master -a
+  - node common/scripts/install-run-rush.js change -v
+  - echo -en 'travis_fold:end:change\\r'
+
+  - echo 'Installing...' && echo -en 'travis_fold:start:install\\r'
+  - node common/scripts/install-run-rush.js install
+  - echo -en 'travis_fold:end:install\\r'
+
+  - echo 'Building...' && echo -en 'travis_fold:start:build\\r'
+  - node common/scripts/install-run-rush.js rebuild --verbose
+  - echo -en 'travis_fold:end:build\\r'
+  
+  - ./gradlew build
+
 addons:
   ssh_known_hosts:
     - repo.maven.org

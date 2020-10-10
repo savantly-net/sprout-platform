@@ -19,12 +19,12 @@ include ':sprout-modules-example-panel'
 include ':sprout-modules-example-app'
 include ':sprout-module-test'
 
-project(':sprout-core').projectDir = file('core')
-project(':sprout-spring-boot-starter').projectDir = file('starters/sprout-spring-boot-starter')
-project(':sprout-server').projectDir = file('server')
+project(':sprout-core').projectDir = file('backend/core')
+project(':sprout-spring-boot-starter').projectDir = file('backend/starters/sprout-spring-boot-starter')
+project(':sprout-server').projectDir = file('backend/server')
 //project(':sprout-admin').projectDir = file('web/admin')
-project(':sprout-modules-content').projectDir = file('modules/content')
-project(':sprout-modules-openTok').projectDir = file('modules/openTok')
-project(':sprout-modules-example-panel').projectDir = file('modules/example-panel')
-project(':sprout-modules-example-app').projectDir = file('modules/example-app')
-project(':sprout-module-test').projectDir = file('test/module-test')
+project(':sprout-modules-content').projectDir = file('backend/modules/content')
+project(':sprout-modules-openTok').projectDir = file('backend/modules/openTok')
+project(':sprout-modules-example-panel').projectDir = file('backend/modules/example-panel')
+project(':sprout-modules-example-app').projectDir = file('backend/modules/example-app')
+project(':sprout-module-test').projectDir = file('backend/test/module-test')

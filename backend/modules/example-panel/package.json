@@ -1,0 +1,33 @@
+{
+  "name": "savantly-example",
+  "version": "1.0.0",
+  "description": "Example Panel Module",
+  "private": true,
+  "scripts": {
+    "build": "sprout-toolkit plugin:build",
+    "test": "sprout-toolkit plugin:test",
+    "dev": "sprout-toolkit plugin:dev",
+    "watch": "sprout-toolkit plugin:dev --watch"
+  },
+  "repository": "github:savantly-net/sprout-platform",
+  "author": "Jeremy Branham",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/savantly-net/sprout-platform/issues",
+    "email": "bug@savantly.net"
+  },
+  "devDependencies": {
+    "@grafana/eslint-config": "^2.0.1",
+    "@savantly/sprout-api": "0.1.1-2",
+    "@savantly/sprout-toolkit": "0.1.1-2",
+    "@savantly/sprout-ui": "0.1.1-2",
+    "@types/jest": "^26.0.14",
+    "@types/react": "^16.9.0",
+    "emotion": "10.0.27"
+  },
+  "engines": {
+    "node": ">=12 <13"
+  },
+  "dependencies": {
+  }
+}
