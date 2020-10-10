@@ -2,6 +2,7 @@
   "name": "savantly-example",
   "version": "1.0.0",
   "description": "Example App Module",
+  "private": true,
   "scripts": {
     "build": "sprout-toolkit plugin:build",
     "test": "sprout-toolkit plugin:test",
