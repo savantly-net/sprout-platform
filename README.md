@@ -75,6 +75,11 @@ rush update
 rush build
 ```
 
+To start the front-end app -  
+```bash
+rush start
+``` 
+
 To add a dependency to a front-end project - 
 ```bash
 cd ./frontend/<project sub dir>
@@ -86,7 +91,8 @@ The toolkit from Grafana has been used to setup the dependencies.
 It doesn't support all the same features as Grafana, and the plugin bootstrapping is still progress.  
 
 
-## UI work
+## UI Port from Grafana 
+First - Many thanks to the Grafana developers, who have put tremendous effort into the UI and plugin toolkit.  
 
 The port from Grafana UI went like this - 
 - Copy the UI project into my workspace
