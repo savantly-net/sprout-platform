@@ -1,4 +1,0 @@
-{
-  "exclude": ["**/*.story.tsx", "**/*.test.ts*", "**/*.tmpl.ts", "dist", "node_modules", "src/utils/storybook"],
-  "extends": "./tsconfig.json"
-}

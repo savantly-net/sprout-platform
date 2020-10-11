@@ -172,8 +172,8 @@
    * To remove these restrictions, you could set projectFolderMinDepth=1
    * and set projectFolderMaxDepth to a large number.
    */
-  // "projectFolderMinDepth": 2,
-  // "projectFolderMaxDepth": 2,
+"projectFolderMinDepth": 2,
+"projectFolderMaxDepth": 3,
 
   /**
    * Today the npmjs.com registry enforces fairly strict naming rules for packages, but in the early
@@ -438,7 +438,7 @@
     // }
     {
       "packageName": "@savantly/sprout-tsconfig",
-      "projectFolder": "frontend/common/tsconfig"
+      "projectFolder": "common/tsconfig"
     },
     {
       "packageName": "@savantly/sprout-api",
@@ -466,13 +466,15 @@
     },
     {
       "packageName": "example-app-module",
-      "projectFolder": "frontend/modules/example-app",
+      "projectFolder": "backend/modules/example-app",
+      "versionPolicyName": "sprout",
+      "shouldPublish": false
+    },
+    {
+     "packageName": "webapp",
+      "projectFolder": "frontend/apps/webapp",
       "versionPolicyName": "sprout",
       "shouldPublish": false
     }
-//    {
-//     "packageName": "webapp",
-//      "projectFolder": "apps/webapp"
-//    }
   ]
 }

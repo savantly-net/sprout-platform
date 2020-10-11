@@ -33,6 +33,7 @@ type StateProps = {
   dashboard: DashboardModel | null;
   isPanelEditorOpen?: boolean;
   editview?: UrlQueryValue;
+  urlPath: string;
   urlPanelId?: UrlQueryValue;
   urlFolderId?: UrlQueryValue;
   urlViewPanelId?: UrlQueryValue;
@@ -76,6 +77,7 @@ export class DashboardPage extends LifecycleLogging<AllProps, OwnState> {
 
   componentWillUnmount() {
     this.setPanelFullscreenClass(false);
+    if(this)
     this.props.cleanUpDashboardAndVariables();
   }
 
@@ -252,6 +254,7 @@ export class DashboardPage extends LifecycleLogging<AllProps, OwnState> {
 const mapStateToProps = (state: StoreState): StateProps => ({
   dashboard: state.dashboard.getModel() as DashboardModel,
   isPanelEditorOpen: state.panelEditor.isOpen,
+  urlPath: state.location.path,
   urlPanelId: state.location.query.panel,
   urlFolderId: state.location.query.folder,
   urlViewPanelId: state.location.query.viewPanel,
