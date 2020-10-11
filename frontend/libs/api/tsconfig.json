@@ -2,6 +2,7 @@
   "compilerOptions": {
     "declarationDir": "dist",
     "declaration": true,
+    "declarationMap": true,
     "outDir": "compiled",
     "rootDirs": ["."],
     "typeRoots": ["node_modules/@types", "types"]

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Label } from './Label';
 import { stylesFactory, useTheme } from '../../themes';
 import { css, cx } from 'emotion';
@@ -44,7 +44,7 @@ export const getFieldStyles = stylesFactory((theme: GrafanaTheme) => {
     `,
     fieldValidationWrapperHorizontal: css`
       flex: 1 1 100%;
-    `,
+    `
   };
 });
 
@@ -58,14 +58,20 @@ export const Field: React.FC<FieldProps> = ({
   required,
   error,
   children,
-  className,
+  className
 }) => {
   const theme = useTheme();
   let inputId;
   const styles = getFieldStyles(theme);
 
   // Get the first, and only, child to retrieve form input's id
-  const child = React.Children.map(children, c => c)[0];
+  let child: ReactNode;
+  if (children) {
+    const childrenArray = React.Children.map(children, (c) => c);
+    if (childrenArray) {
+      child = childrenArray[0];
+    }
+  }
 
   if (child) {
     // Retrieve input's id to apply on the label for correct click interaction

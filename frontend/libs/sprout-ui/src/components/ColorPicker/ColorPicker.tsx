@@ -40,9 +40,10 @@ export const colorPickerFactory = <T extends ColorPickerProps>(
 
     render() {
       const { theme, children } = this.props;
+      // @ts-ignore
       const popoverElement = React.createElement(popover, {
         ...omit(this.props, 'children'),
-        onChange: this.onColorChange,
+        onChange: this.onColorChange
       });
 
       return (
@@ -67,7 +68,7 @@ export const colorPickerFactory = <T extends ColorPickerProps>(
                   (children as ColorPickerTriggerRenderer)({
                     ref: this.pickerTriggerRef,
                     showColorPicker: showPopper,
-                    hideColorPicker: hidePopper,
+                    hideColorPicker: hidePopper
                   })
                 ) : (
                   <ColorPickerTrigger

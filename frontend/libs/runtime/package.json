@@ -8,7 +8,6 @@
     "clean": "rimraf ./dist ./compiled"
   },
   "main": "dist/index.js",
-  "esnext": "dist/index.js",
   "types": "dist/index.d.ts",
   "homepage": "https://github.com/savantly/sprout-platform#readme",
   "repository": {

@@ -9,7 +9,6 @@
     "clean": "rimraf ./dist ./compiled"
   },
   "main": "index.js",
-  "esnext": "index.js",
   "types": "dist/index.d.ts",
   "homepage": "https://github.com/savantly/sprout-platform#readme",
   "repository": {
@@ -56,7 +55,7 @@
     "rollup-plugin-visualizer": "3.3.1",
     "sinon": "8.1.1",
     "tslib": "2.0.1",
-    "typescript": "~4.0.3"
+    "typescript": "~3.9.7"
   },
   "peerDependencies": {
     "react": "^16.13.1"

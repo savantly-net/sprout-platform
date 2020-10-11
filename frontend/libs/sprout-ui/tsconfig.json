@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": "node_modules/@types",
     "declarationDir": "dist",
+    "declarationMap": true,
     "outDir": "compiled",
     "paths": {
       "@grafana/slate-react": ["slate-react"],

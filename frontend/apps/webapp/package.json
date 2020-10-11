@@ -36,8 +36,9 @@
     "customize-cra": "^1.0.0",
     "dangerously-set-html-content": "^1.0.8",
     "emotion": "^10.0.27",
-    "history": "5.0.0",
+    "history": "^4",
     "http-proxy-middleware": "^1.0.5",
+    "jest": "24.9.0",
     "jquery": "^3.5.1",
     "lodash": "^4.17.20",
     "marked": "^1.1.1",
@@ -63,14 +64,15 @@
     "redux-thunk": "^2.3.0",
     "tether-drop": "^1.4.2",
     "tinycolor2": "^1.4.2",
-    "typescript": "~4.0.3",
+    "typescript": "~3.9.7",
     "rxjs": "~6.6.3",
     "uuid": "~8.3.1",
     "eventemitter3": "~4.0.7",
     "redux": "~4.0.5",
     "clipboard": "~2.0.6",
     "axios": "~0.20.0",
-    "moment": "~2.29.1"
+    "moment": "~2.29.1",
+    "@types/history": "~4.7.8"
   },
   "resolutions": {
     "**/@typescript-eslint/eslint-plugin": "^4.1.1",
