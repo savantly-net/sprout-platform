@@ -184,6 +184,7 @@ dependencies:
   react-monaco-editor: 0.36.0_react@16.13.1
   react-popper: 1.3.3_react@16.13.1
   react-redux: 7.2.1_49f644e2f7de4182503f8b93abece808
+  react-router: 5.2.0_react@16.13.1
   react-router-dom: 5.2.0_react@16.13.1
   react-scripts: 3.4.3_node-sass@4.14.1
   react-sizeme: 2.6.12_react-dom@16.13.1+react@16.13.1
@@ -24335,6 +24336,7 @@ packages:
       react-grid-layout: 1.1.1_react-dom@16.13.1+react@16.13.1
       react-loadable: 5.5.0_react@16.13.1
       react-redux: 7.2.1_49f644e2f7de4182503f8b93abece808
+      react-router: 5.2.0_react@16.13.1
       react-router-dom: 5.2.0_react@16.13.1
       react-scripts: 3.4.3_5bef26289a0d9b265b919ddb2259fc0d
       react-sizeme: 2.6.12_react-dom@16.13.1+react@16.13.1
@@ -24355,7 +24357,7 @@ packages:
     dev: false
     name: '@rush-temp/webapp'
     resolution:
-      integrity: sha512-aXx7VGS+2V8q9iWMXIPnRlNgdpj6lz2xhNTeqeUUBMY3sw2EoLXQjUd4EuMmnLVoCHVwaaxLAMJ6+p1pvUdvsA==
+      integrity: sha512-wbJaCc8DVm8N5ftAATu1qfXdn2Nx/wjs910yuo41p5XpLGxeNEuHuxfBNzELE300ZdUHPFklA74ga1Hpptx6Lw==
       tarball: 'file:projects/webapp.tgz'
     version: 0.0.0
 registry: ''
@@ -24545,6 +24547,7 @@ specifiers:
   react-monaco-editor: 0.36.0
   react-popper: 1.3.3
   react-redux: ^7.2.1
+  react-router: ~5.2.0
   react-router-dom: ^5.2.0
   react-scripts: 3.4.3
   react-sizeme: ^2.6.12

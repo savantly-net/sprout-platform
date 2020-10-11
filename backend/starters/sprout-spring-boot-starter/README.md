@@ -158,9 +158,3 @@ See here - [Sprout Content Module](../../modules/content/)
 ## Additional Information  
 
 See here for more information - https://github.com/savantly-net/sprout-platform/    
-
-
-[Garden App]
-A full featured application based on the Sprout platform that contains all the official plugins.   
-
-[Garden App]: https://github.com/savantly-net/garden  
