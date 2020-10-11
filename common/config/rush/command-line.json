@@ -106,12 +106,20 @@
     // },
     // 
     {
+      "name": "prettier",
       "commandKind": "global",
-      "name": "pretty",
-      "summary": "Make the typescript pretty",
-      "description": "Runs prettier across the whole repo for ts files",
-      "safeForSimultaneousRushProcesses": false,
-      "shellCommand": " npx prettier --list-different \"**/*.{ts,tsx,scss}\""
+      "summary": "Used by the pre-commit Git hook. This command invokes Prettier to reformat staged changes.",
+
+      "autoinstallerName": "rush-prettier",
+
+      // This will invoke common/autoinstallers/rush-prettier/node_modules/.bin/pretty-quick
+      "shellCommand": "pretty-quick --staged"
+    },
+    {
+      "name": "start",
+      "commandKind": "global",
+      "summary": "Starts the front-end webapp",
+      "shellCommand": "cd frontend/apps/webapp && npm run start"
     }
   ],
 
