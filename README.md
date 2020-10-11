@@ -61,14 +61,26 @@ You can override properties by modifying the `application.properties`
 The backend server is developed as a `Spring Boot Starter` so it can be added to any Spring app to bootstrap with defaults.  
 It's not production ready yet, but should be by Q1 2021.  
 
-The built-in admin app was being re-done in React, but I may drop it in favor of a single UI with all the administration functions included.  
-The UI could then be packaged with the server app to run as a single Java deployment.  
-Although, with CORs configured, the UI can easily be deployed to a static site server with the server app on a cloud provider like Heroku or AWS.   
-
 The main backend code is located in the Sprout Starter project.  
 Read more about the [Sprout Starter](./backend/starters/sprout-spring-boot-starter)
 
-The UI is in a `yarn` workspace project here [./frontend/apps/webapp](./frontend/apps/webapp)  
+The front-end uses the [Rush Stack](https://rushstack.io/) for build orchestration. [./frontend/apps/webapp](./frontend/apps/webapp)  
+You can install rush from the project script -  
+`./common/scripts/install-run-rush`  
+
+To build the front-end -  
+```bash
+# from the project root
+rush update
+rush build
+```
+
+To add a dependency to a front-end project - 
+```bash
+cd ./frontend/<project sub dir>
+rush add -p @scoped/package
+```
+
 
 The toolkit from Grafana has been used to setup the dependencies.  
 It doesn't support all the same features as Grafana, and the plugin bootstrapping is still progress.  

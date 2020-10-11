@@ -71,6 +71,7 @@ dependencies:
   '@types/react-grid-layout': 1.1.1
   '@types/react-loadable': 5.5.3
   '@types/react-redux': 7.1.9
+  '@types/react-router': 5.1.8
   '@types/react-router-dom': 5.1.6
   '@types/react-select': 3.0.8
   '@types/react-table': 7.0.12
@@ -24305,6 +24306,7 @@ packages:
       '@types/react-grid-layout': 1.1.1
       '@types/react-loadable': 5.5.3
       '@types/react-redux': 7.1.9
+      '@types/react-router': 5.1.8
       '@types/react-router-dom': 5.1.6
       '@types/react-transition-group': 4.4.0
       '@types/react-virtualized-auto-sizer': 1.0.0
@@ -24357,7 +24359,7 @@ packages:
     dev: false
     name: '@rush-temp/webapp'
     resolution:
-      integrity: sha512-wbJaCc8DVm8N5ftAATu1qfXdn2Nx/wjs910yuo41p5XpLGxeNEuHuxfBNzELE300ZdUHPFklA74ga1Hpptx6Lw==
+      integrity: sha512-yl/N+4KTN4ts+mislPVPShNU9OdP/kt+UkDqMs/ZrfmgwCrj2q0U8HlBHnksZ5S1tXpxODAz9S5WmNt/HDEUiA==
       tarball: 'file:projects/webapp.tgz'
     version: 0.0.0
 registry: ''
@@ -24434,6 +24436,7 @@ specifiers:
   '@types/react-grid-layout': ^1.1.0
   '@types/react-loadable': ^5.5.3
   '@types/react-redux': ^7.1.9
+  '@types/react-router': ~5.1.8
   '@types/react-router-dom': ^5.1.5
   '@types/react-select': 3.0.8
   '@types/react-table': 7.0.12
