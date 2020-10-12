@@ -45,6 +45,7 @@ public class PluginMetaBuilder {
 		PluginConfigurationEntity pluginConfig = getPluginConfiguration(pluginMeta.getId());
 		pluginMeta.setBaseUrl("/plugins/" + pluginMeta.getId())
 			.setDefaultNavUrl("")
+			.setModule("/api/plugins/" + pluginMeta.getId() + "/module.js")
 			.setEnabled(true)
 			.setHasUpdate(false)
 			.setJsonData(toMap(pluginConfig.getJsonData()))

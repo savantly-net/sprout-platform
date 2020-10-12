@@ -11,15 +11,16 @@ import { importAppPlugin } from './plugin_loader';
 import { getNotFoundNav, getWarningNav, getExceptionNav } from '../../core/nav_model_srv';
 import { appEvents } from '../../core/app_events';
 import PageLoader from '../../core/components/PageLoader/PageLoader';
+import { RouteComponentProps } from 'react-router-dom';
 
-interface Props {
-  pluginId: string; // From the angular router
+interface Props extends RouteComponentProps<any> {
   query: UrlQueryMap;
   path: string;
   slug?: string;
 }
 
 interface State {
+  pluginId: string;
   loading: boolean;
   plugin?: AppPlugin | null;
   nav?: NavModel;
@@ -43,14 +44,15 @@ class AppRootPage extends Component<Props, State> {
     super(props);
     this.state = {
       loading: true,
+      pluginId: props.match.params.pluginId
     };
   }
 
   async componentDidMount() {
-    const { pluginId } = this.props;
+    const { pluginId } = this.state;
 
     try {
-      const app = await getPluginSettings(pluginId).then(info => {
+      const app = await getPluginSettings(pluginId).then((info) => {
         const error = getAppPluginPageError(info);
         if (error) {
           appEvents.emit(AppEvents.alertError, [error]);
@@ -64,7 +66,7 @@ class AppRootPage extends Component<Props, State> {
       this.setState({
         plugin: null,
         loading: false,
-        nav: process.env.NODE_ENV === 'development' ? getExceptionNav(err) : getNotFoundNav(),
+        nav: process.env.NODE_ENV === 'development' ? getExceptionNav(err) : getNotFoundNav()
       });
     }
   }
@@ -103,10 +105,9 @@ class AppRootPage extends Component<Props, State> {
 }
 
 const mapStateToProps = (state: StoreState) => ({
-  pluginId: 'test-plugin', // state.location.routeParams.pluginId as string,
   slug: state.location.routeParams.slug as string,
   query: state.location.query,
-  path: state.location.path,
+  path: state.location.path
 });
 
 export default connect(mapStateToProps)(AppRootPage);

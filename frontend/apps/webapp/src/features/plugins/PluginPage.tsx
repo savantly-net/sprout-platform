@@ -9,7 +9,8 @@ import {
   PluginIncludeType,
   PluginMeta,
   PluginMetaInfo,
-  PluginType, SproutPlugin,
+  PluginType,
+  SproutPlugin,
   UrlQueryMap
 } from '@savantly/sprout-api';
 import find from 'lodash/find';
@@ -25,31 +26,31 @@ import { PluginDashboards } from './PluginDashboards';
 import { getPluginSettings } from './PluginSettingsCache';
 import { importAppPlugin, importPanelPlugin } from './plugin_loader';
 import { ConnectedReduxProps } from '../../routes/ConnectedReduxProps';
-
+import { RouteComponentProps } from 'react-router-dom';
 
 export function getLoadingNav(): NavModel {
   const node = {
     text: 'Loading...',
-    icon: 'icon-gf icon-gf-panel',
+    icon: 'icon-gf icon-gf-panel'
   };
   return {
     node: node,
-    main: node,
+    main: node
   };
 }
 
 export function loadPlugin(pluginId: string): Promise<SproutPlugin> {
-  return getPluginSettings(pluginId).then(info => {
+  return getPluginSettings(pluginId).then((info) => {
     if (info.type === PluginType.app) {
       return importAppPlugin(info) as any;
     }
     if (info.type === PluginType.panel) {
-      return importPanelPlugin(pluginId).then(plugin => {
+      return importPanelPlugin(pluginId).then((plugin) => {
         // Panel Meta does not have the *full* settings meta
-        return getPluginSettings(pluginId).then(meta => {
+        return getPluginSettings(pluginId).then((meta) => {
           plugin.meta = {
             ...meta, // Set any fields that do not exist
-            ...plugin.meta,
+            ...plugin.meta
           };
           return plugin;
         });
@@ -59,7 +60,9 @@ export function loadPlugin(pluginId: string): Promise<SproutPlugin> {
   });
 }
 
-interface Props {
+interface OwnProps extends RouteComponentProps<any> {}
+interface ConnectedProps {
+  query: UrlQueryMap;
 }
 
 interface State {
@@ -68,7 +71,6 @@ interface State {
   nav: NavModel;
   defaultPage: string; // The first configured one or readme
   pluginId: string;
-  query: UrlQueryMap;
   path: string; // the URL path
 }
 
@@ -76,28 +78,28 @@ const PAGE_ID_README = 'readme';
 const PAGE_ID_DASHBOARDS = 'dashboards';
 const PAGE_ID_CONFIG_CTRL = 'config';
 
-class PluginPage extends PureComponent<Props & ConnectedReduxProps, State> {
-  constructor(props: Props & ConnectedReduxProps) {
+class PluginPage extends PureComponent<OwnProps & ConnectedProps, State> {
+  constructor(props: OwnProps & ConnectedProps) {
     super(props);
     this.state = {
       loading: true,
       nav: getLoadingNav(),
       defaultPage: PAGE_ID_README,
       pluginId: props.match.params.pluginId,
-      query: props.match.params.query,
-      path: props.match.path // the URL path
+      path: props.location.pathname
     };
   }
 
   async componentDidMount() {
-    const { pluginId, path, query } = this.state;
+    const { pluginId, path } = this.state;
+    const { query } = this.props;
     const { appSubUrl } = config;
 
     const plugin = await loadPlugin(pluginId);
     if (!plugin) {
       this.setState({
         loading: false,
-        nav: getNotFoundNav(),
+        nav: getNotFoundNav()
       });
       return; // 404
     }
@@ -109,12 +111,11 @@ class PluginPage extends PureComponent<Props & ConnectedReduxProps, State> {
       loading: false,
       plugin,
       defaultPage,
-      nav,
+      nav
     });
   }
 
-  /* TODO
-  componentDidUpdate(prevProps: Props) {
+  componentDidUpdate(prevProps: OwnProps & ConnectedProps) {
     const prevPage = prevProps.query.page as string;
     const page = this.props.query.page as string;
 
@@ -122,27 +123,27 @@ class PluginPage extends PureComponent<Props & ConnectedReduxProps, State> {
       const { nav, defaultPage } = this.state;
       const node = {
         ...nav.node,
-        children: setActivePage(page, nav.node.children!, defaultPage),
+        children: setActivePage(page, nav.node.children!, defaultPage)
       };
 
       this.setState({
         nav: {
           node: node,
-          main: node,
-        },
+          main: node
+        }
       });
     }
   }
-  */
 
   renderBody() {
-    const { plugin, nav, query } = this.state;
+    const { plugin, nav } = this.state;
+    const { query } = this.props;
 
     if (!plugin) {
       return <Alert severity={AppNotificationSeverity.Error} title="Plugin Not Found" />;
     }
 
-    const active = nav.main.children!.find(tab => tab.active);
+    const active = nav.main.children!.find((tab) => tab.active);
     if (active) {
       // Find the current config tab
       if (plugin.configPages) {
@@ -166,8 +167,8 @@ class PluginPage extends PureComponent<Props & ConnectedReduxProps, State> {
 
   showUpdateInfo = () => {
     appEvents.emit(CoreEvents.showModal, {
-      src: 'public/app/features/plugins/partials/update_instructions.html',
-      model: this.state.plugin!.meta,
+      src: 'features/plugins/partials/update_instructions.html',
+      model: this.state.plugin!.meta
     });
   };
 
@@ -221,7 +222,7 @@ class PluginPage extends PureComponent<Props & ConnectedReduxProps, State> {
       <section className="page-sidebar-section">
         <h4>Includes</h4>
         <ul className="ui-list plugin-info-list">
-          {includes.map(include => {
+          {includes.map((include) => {
             return (
               <li className="plugin-info-list-item" key={include.name}>
                 {this.renderSidebarIncludeBody(include)}
@@ -247,7 +248,7 @@ class PluginPage extends PureComponent<Props & ConnectedReduxProps, State> {
             Grafana {dependencies.sproutVersion}
           </li>
           {dependencies.plugins &&
-            dependencies.plugins.map(plug => {
+            dependencies.plugins.map((plug) => {
               return (
                 <li className="plugin-info-list-item" key={plug.name}>
                   <i className={getPluginIcon(plug.type)} />
@@ -269,7 +270,7 @@ class PluginPage extends PureComponent<Props & ConnectedReduxProps, State> {
       <section className="page-sidebar-section">
         <h4>Links</h4>
         <ul className="ui-list">
-          {info.links.map(link => {
+          {info.links.map((link) => {
             return (
               <li key={link.url}>
                 <a href={link.url} className="external-link" target="_blank" rel="noopener">
@@ -341,7 +342,7 @@ function getPluginTabsNav(
       text: 'Readme',
       icon: 'fa fa-fw fa-file-text-o',
       url: `${appSubUrl}${path}?page=${PAGE_ID_README}`,
-      id: PAGE_ID_README,
+      id: PAGE_ID_README
     });
   }
 
@@ -356,7 +357,7 @@ function getPluginTabsNav(
             text: page.title,
             icon: page.icon,
             url: `${appSubUrl}${path}?page=${page.id}`,
-            id: page.id,
+            id: page.id
           });
 
           if (!defaultPage) {
@@ -371,7 +372,7 @@ function getPluginTabsNav(
           text: 'Dashboards',
           icon: 'gicon gicon-dashboard',
           url: `${appSubUrl}${path}?page=${PAGE_ID_DASHBOARDS}`,
-          id: PAGE_ID_DASHBOARDS,
+          id: PAGE_ID_DASHBOARDS
         });
       }
     }
@@ -387,22 +388,22 @@ function getPluginTabsNav(
     subTitle: meta.info.author.name,
     breadcrumbs: [{ title: 'Plugins', url: 'plugins' }],
     url: `${appSubUrl}${path}`,
-    children: setActivePage(query.page as string, pages, defaultPage!),
+    children: setActivePage(query.page as string, pages, defaultPage!)
   };
 
   return {
     defaultPage: defaultPage!,
     nav: {
       node: node,
-      main: node,
-    },
+      main: node
+    }
   };
 }
 
 function setActivePage(pageId: string, pages: NavModelItem[], defaultPageId: string): NavModelItem[] {
   let found = false;
   const selected = pageId || defaultPageId;
-  const changed = pages.map(p => {
+  const changed = pages.map((p) => {
     const active = !found && selected === p.id;
     if (active) {
       found = true;
@@ -435,6 +436,7 @@ function getPluginIcon(type: string) {
 }
 
 const mapStateToProps = (state: StoreState) => ({
+  query: state.location.query
 });
 
-export default (connect(mapStateToProps)(PluginPage));
+export default connect(mapStateToProps)(PluginPage);

@@ -1,4 +1,5 @@
-import { PluginMeta, PanelPlugin } from '@savantly/sprout-api';
+import { PluginMeta, PanelPlugin, AppPlugin, KeyValue, AppRootProps } from '@savantly/sprout-api';
+import { ComponentClass, ReactNode } from 'react';
 
 export interface PluginDashboard {
   dashboardId: number;
@@ -18,6 +19,12 @@ export interface PluginDashboard {
 
 export interface PanelPluginsIndex {
   [id: string]: PanelPlugin;
+}
+
+export interface PluginRoute {
+  path: string;
+  exact: boolean;
+  component?: ComponentClass<AppRootProps>;
 }
 
 export interface PluginsState {

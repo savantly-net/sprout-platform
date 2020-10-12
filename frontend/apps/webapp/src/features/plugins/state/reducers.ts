@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { PanelPlugin, PluginMeta } from '@savantly/sprout-api';
+import { AppPlugin, KeyValue, PanelPlugin, PluginMeta } from '@savantly/sprout-api';
 import { PluginsState } from '../../../types';
-import { PluginDashboard } from '../../../types/plugins';
-
+import { PluginDashboard, PluginRoute } from '../../../types/plugins';
 
 export const initialState: PluginsState = {
   plugins: [],
@@ -10,16 +9,16 @@ export const initialState: PluginsState = {
   hasFetched: false,
   dashboards: [],
   isLoadingPluginDashboards: false,
-  panels: {},
+  panels: {}
 };
 
 const pluginsSlice = createSlice({
   name: 'plugins',
   initialState,
   reducers: {
-    pluginsLoaded: (state, action: PayloadAction<PluginMeta[]>) => {
+    pluginsLoaded: (state, action: PayloadAction<{ pluginMetas: PluginMeta[] }>) => {
       state.hasFetched = true;
-      state.plugins = action.payload;
+      state.plugins = action.payload.pluginMetas;
     },
     setPluginsSearchQuery: (state, action: PayloadAction<string>) => {
       state.searchQuery = action.payload;
@@ -34,8 +33,8 @@ const pluginsSlice = createSlice({
     },
     panelPluginLoaded: (state, action: PayloadAction<PanelPlugin>) => {
       state.panels[action.payload.meta!.id] = action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const {
@@ -43,11 +42,11 @@ export const {
   pluginDashboardsLoad,
   pluginDashboardsLoaded,
   setPluginsSearchQuery,
-  panelPluginLoaded,
+  panelPluginLoaded
 } = pluginsSlice.actions;
 
 export const pluginsReducer = pluginsSlice.reducer;
 
 export default {
-  plugins: pluginsReducer,
+  plugins: pluginsReducer
 };

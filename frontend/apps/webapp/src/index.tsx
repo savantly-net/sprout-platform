@@ -1,26 +1,21 @@
-
 import $ from 'jquery';
 // @ts-ignore
 import Drop from 'tether-drop';
-import { standardEditorsRegistry, UrlQueryValue } from "@savantly/sprout-api";
-import {
-  config,
-  setBackendSrv,
-  setLocationSrv
-} from "@savantly/sprout-runtime";
-import { getStandardOptionEditors } from "@savantly/sprout-ui";
-import React, { createRef } from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import App from "./App";
+import { locationUtil, standardEditorsRegistry, UrlQueryValue } from '@savantly/sprout-api';
+import { config, LocationUpdate, setBackendSrv, setLocationSrv } from '@savantly/sprout-runtime';
+import { getStandardOptionEditors } from '@savantly/sprout-ui';
+import React, { createRef } from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import App from './App';
 //import { updateLocation } from "./core/actions";
-import ErrorBoundary from "./core/components/error/error-boundary";
-import { SideMenu } from "./core/components/sidemenu/SideMenu";
-import locationSvc from "./core/services/locationSvc";
-import { builtInPluginMeta } from "./features/plugins/built_in_plugins";
-import "./index.css";
-import * as serviceWorker from "./serviceWorker";
-import { configureStore, history } from "./store/configureStore";
+import ErrorBoundary from './core/components/error/error-boundary';
+import { SideMenu } from './core/components/sidemenu/SideMenu';
+import locationSvc from './core/services/locationSvc';
+import { builtInPluginMeta } from './features/plugins/built_in_plugins';
+import './index.css';
+import * as serviceWorker from './serviceWorker';
+import { configureStore, history } from './store/configureStore';
 import { CoreEvents, KioskUrlValue } from './types';
 import appEvents from './core/app_events';
 import { AppEvents } from '@savantly/sprout-api';
@@ -42,26 +37,24 @@ urlParams.forEach((value, key) => {
   queryParams[key] = value;
 });
 
-let theme = "light";
-if (queryParams["dark"]) {
-  theme = "dark";
+let theme = 'light';
+if (queryParams['dark']) {
+  theme = 'dark';
 }
 config.bootData.user = {
-  lightTheme: theme === "light" ? "light" : "dark"
+  lightTheme: theme === 'light' ? 'light' : 'dark'
 };
 
 // import stylesheet based on theme
-if (theme == "dark") {
-  require("./assets/stolen.dark.css");
+if (theme == 'dark') {
+  require('./assets/stolen.dark.css');
 } else {
-  require("./assets/stolen.light.css");
+  require('./assets/stolen.light.css');
 }
 
-document.body.classList.add("is-react");
+document.body.classList.add('is-react');
 config.panels = builtInPluginMeta;
 standardEditorsRegistry.setInit(getStandardOptionEditors);
-
-
 
 const body = $('body');
 
@@ -154,7 +147,6 @@ appEvents.on(CoreEvents.toggleViewMode, () => {
   checkForInActiveUser();
 });
 
-
 // handle document clicks that should hide things
 body.on('click', (evt: JQuery.ClickEvent) => {
   const target = $(evt.target);
@@ -183,6 +175,23 @@ body.on('click', (evt: JQuery.ClickEvent) => {
   }
 });
 
+const fullPageReloadRoutes: string[] = [];
+
+appEvents.on(CoreEvents.locationChange, (payload: LocationUpdate) => {
+  const urlWithoutBase = locationUtil.stripBaseFromUrl(payload.path || '');
+  if (fullPageReloadRoutes.indexOf(urlWithoutBase) > -1) {
+    window.location.href = urlWithoutBase;
+    return;
+  } else {
+    locationService.update({
+      path: urlWithoutBase,
+      replace: payload.replace,
+      partial: payload.partial,
+      query: payload.query
+    });
+  }
+});
+
 ReactDOM.render(
   <React.Fragment>
     <ErrorBoundary>
@@ -196,7 +205,7 @@ ReactDOM.render(
       </Provider>
     </ErrorBoundary>
   </React.Fragment>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -1,6 +1,7 @@
 import * as sproutApi from '@savantly/sprout-api';
 import { AppPlugin, PanelPlugin, PanelPluginMeta, PluginMeta, PluginType } from '@savantly/sprout-api';
 import * as sproutRuntime from '@savantly/sprout-runtime';
+import * as sproutUi from '@savantly/sprout-ui';
 import { config } from '@savantly/sprout-runtime';
 import * as emotion from 'emotion';
 import _ from 'lodash';
@@ -14,7 +15,6 @@ import * as rxjsOperators from 'rxjs/operators';
 import builtInPluginIndex from './built_in_plugins';
 import { getPanelPluginLoadError, getPanelPluginNotFound } from './PanelPluginError';
 
-
 // add cache busting
 const bust = `?_cache=${Date.now()}`;
 function locate(load: { address: string }) {
@@ -27,20 +27,20 @@ sproutRuntime.SystemJS.config({
   defaultExtension: 'js',
   packages: {
     plugins: {
-      defaultExtension: 'js',
-    },
+      defaultExtension: 'js'
+    }
   },
   map: {
     text: 'vendor/plugin-text/text.js',
-    css: 'vendor/plugin-css/css.js',
+    css: 'vendor/plugin-css/css.js'
   },
   meta: {
     '/*': {
       esModule: true,
       authorization: true,
-      loader: 'plugin-loader',
-    },
-  },
+      loader: 'plugin-loader'
+    }
+  }
 });
 
 function exposeToPlugin(name: string, component: any) {
@@ -51,6 +51,7 @@ function exposeToPlugin(name: string, component: any) {
 
 exposeToPlugin('@savantly/sprout-api', sproutApi);
 exposeToPlugin('@savantly/sprout-runtime', sproutRuntime);
+exposeToPlugin('@savantly/sprout-ui', sproutUi);
 exposeToPlugin('lodash', _);
 exposeToPlugin('moment', moment);
 exposeToPlugin('rxjs', rxjs);
@@ -62,7 +63,6 @@ exposeToPlugin('react-dom', reactDom);
 exposeToPlugin('react-redux', reactRedux);
 exposeToPlugin('redux', redux);
 exposeToPlugin('emotion', emotion);
-
 
 export async function importPluginModule(path: string): Promise<any> {
   const builtIn = builtInPluginIndex[path];
@@ -78,14 +78,15 @@ export async function importPluginModule(path: string): Promise<any> {
 }
 
 export function importAppPlugin(meta: PluginMeta): Promise<AppPlugin> {
-  return importPluginModule(meta.module).then(pluginExports => {
+  console.log(`importing app plugin:`);
+  console.log(meta);
+  return importPluginModule(meta.module).then((pluginExports) => {
     const plugin = pluginExports.plugin ? (pluginExports.plugin as AppPlugin) : new AppPlugin();
     plugin.init(meta);
     plugin.meta = meta;
     return plugin;
   });
 }
-
 
 interface PanelCache {
   [key: string]: Promise<PanelPlugin>;
@@ -106,17 +107,17 @@ export function importPanelPlugin(id: string): Promise<PanelPlugin> {
   }
 
   panelCache[id] = importPluginModule(meta.module)
-    .then(pluginExports => {
+    .then((pluginExports) => {
       if (pluginExports.plugin) {
         return pluginExports.plugin as PanelPlugin;
       }
       throw new Error('missing export: plugin');
     })
-    .then(plugin => {
+    .then((plugin) => {
       plugin.meta = meta;
       return plugin;
     })
-    .catch(err => {
+    .catch((err) => {
       // TODO, maybe a different error plugin
       console.warn('Error loading panel plugin: ' + id, err);
       return getPanelPluginLoadError(meta, err);

@@ -1,13 +1,11 @@
-import config from './config';
+import { NavModel, NavModelItem } from '@savantly/sprout-api';
 import _ from 'lodash';
-import { NavModel } from '@savantly/sprout-api';
 
 export class NavModelSrv {
-  navItems: any;
+  navItems: NavModelItem[];
 
-  /** @ngInject */
-  constructor() {
-    this.navItems = config.bootData.navTree;
+  constructor({ navItems }: { navItems: NavModelItem[] }) {
+    this.navItems = navItems;
   }
 
   getCfgNode() {
@@ -19,10 +17,10 @@ export class NavModelSrv {
     const nav: NavModel = {
       breadcrumbs: new Array<any>(),
       main: {
-          text: 'home'
+        text: 'home'
       },
       node: {
-          text: 'Home'
+        text: 'Home'
       }
     };
 
@@ -33,7 +31,7 @@ export class NavModelSrv {
         break;
       }
 
-      const node: any = _.find(children, { id: id });
+      const node: any = _.find(children, { id: id as string });
       nav.breadcrumbs?.push(node);
       nav.node = node;
       nav.main = node;
@@ -66,12 +64,12 @@ export function getWarningNav(text: string, subTitle?: string): NavModel {
   const node = {
     text,
     subTitle,
-    icon: 'exclamation-triangle',
+    icon: 'exclamation-triangle'
   };
   return {
     breadcrumbs: [node],
     node: node,
-    main: node,
+    main: node
   };
 }
 

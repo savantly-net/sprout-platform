@@ -1,4 +1,5 @@
 import { eventFactory } from '@savantly/sprout-api';
+import { LocationUpdate } from '@savantly/sprout-runtime';
 import { DashboardModel } from '../features/dashboard/state';
 
 /**
@@ -9,9 +10,7 @@ export interface ShowDashSearchPayload {
   query?: string;
 }
 
-export interface LocationChangePayload {
-  href: string;
-}
+export interface LocationChangePayload extends LocationUpdate {}
 
 export interface ShowModalPayload {
   model?: any;

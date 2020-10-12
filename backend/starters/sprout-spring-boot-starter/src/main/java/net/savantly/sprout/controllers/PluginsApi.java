@@ -45,6 +45,11 @@ public class PluginsApi {
 	private final List<SproutModule> sproutModules = new ArrayList<>();
 	private final PluginService pluginService;
 	
+	@GetMapping("")
+	public List<PluginMeta> getAllPlugins(){
+		return this.pluginService.getAllPlugins();
+	}
+	
 	@GetMapping("/app")
 	public List<PluginMeta> getAppPlugins() {
 		return this.pluginService.getAppPlugins();

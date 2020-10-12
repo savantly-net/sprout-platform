@@ -16,7 +16,7 @@ import net.savantly.sprout.core.module.SproutWebModule;
 public class ExamplePanelModule implements SproutWebModule {
 
 	public static final String version = "0.0.1";
-	protected static final String PLUGIN_ID = "example-react-module";
+	protected static final String PLUGIN_ID = "example-panel-module";
 	
 	@Override
 	public String getId() {
@@ -30,7 +30,7 @@ public class ExamplePanelModule implements SproutWebModule {
 
 	@Override
 	public String getName() {
-		return "Example React Module";
+		return "Example Panel Module";
 	}
 
 	@Override

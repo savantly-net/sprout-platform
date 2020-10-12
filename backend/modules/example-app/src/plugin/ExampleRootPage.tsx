@@ -8,29 +8,28 @@ const TAB_ID_C = 'C';
 
 export const ExampleRootPage = React.memo(function ExampleRootPage({ path, onNavChanged, query, meta }: Props) {
   useEffect(() => {
-    const pathWithoutLeadingSlash = path.replace(/^\//, '');
     const tabs: NavModelItem[] = [];
     tabs.push({
       text: 'Tab A',
       icon: 'fa fa-fw fa-file-text-o',
-      url: pathWithoutLeadingSlash + '?tab=' + TAB_ID_A,
+      url: path + '?tab=' + TAB_ID_A,
       id: TAB_ID_A,
     });
     tabs.push({
       text: 'Tab B',
       icon: 'fa fa-fw fa-file-text-o',
-      url: pathWithoutLeadingSlash + '?tab=' + TAB_ID_B,
+      url: path + '?tab=' + TAB_ID_B,
       id: TAB_ID_B,
     });
     tabs.push({
       text: 'Tab C',
       icon: 'fa fa-fw fa-file-text-o',
-      url: pathWithoutLeadingSlash + '?tab=' + TAB_ID_C,
+      url: path + '?tab=' + TAB_ID_C,
       id: TAB_ID_C,
     });
 
     const activeTab = query.tab || TAB_ID_B;
-    tabs.forEach(tab => (tab.active = activeTab === tab.id));
+    tabs.forEach((tab) => (tab.active = activeTab === tab.id));
 
     const node = {
       text: 'This is the Page title',

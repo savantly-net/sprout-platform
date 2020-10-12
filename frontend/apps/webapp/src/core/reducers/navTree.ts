@@ -3,12 +3,12 @@ import { NavModelItem } from '@savantly/sprout-api';
 import { defaultNavTree } from '../../mocks/navTree';
 
 export type NavTreeState = {
-    items: NavModelItem[];
-}
+  items: NavModelItem[];
+};
 
 // TODO: #35 get initial nav tree from server
 export const initialState: NavTreeState = {
-    items: defaultNavTree as NavModelItem[]
+  items: defaultNavTree as NavModelItem[]
 };
 
 const navTreeSlice = createSlice({
@@ -17,15 +17,19 @@ const navTreeSlice = createSlice({
   reducers: {
     addRootNav: (state, action: PayloadAction<NavModelItem>): NavTreeState => ({
       ...state,
-      items: state.items.concat([action.payload]),
+      items: state.items.concat([action.payload])
+    }),
+    addRootNavs: (state, action: PayloadAction<NavModelItem[]>): NavTreeState => ({
+      ...state,
+      items: state.items.concat(action.payload)
     }),
     updateNavTree: (state, action: PayloadAction<NavModelItem[]>): NavTreeState => ({
       ...state,
-      items: action.payload,
-    }),
-  },
+      items: action.payload
+    })
+  }
 });
 
-export const { addRootNav, updateNavTree } = navTreeSlice.actions;
+export const { addRootNav, addRootNavs, updateNavTree } = navTreeSlice.actions;
 
 export const navTreeReducer = navTreeSlice.reducer;

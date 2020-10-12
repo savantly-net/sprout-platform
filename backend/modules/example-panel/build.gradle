@@ -43,7 +43,7 @@ task npmBuildDev(type: NpmTask) {
 }
 task copyPublicfiles(type: Copy) {
     from "$buildDir/../dist"
-    into "$buildDir/resources/main/public/api/plugins/example-react-module"
+    into "$buildDir/resources/main/public/api/plugins/example-panel-module"
 }
 yarn_build.dependsOn yarn
 copyPublicfiles.dependsOn yarn_build

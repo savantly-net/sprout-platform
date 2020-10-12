@@ -27,6 +27,13 @@ public class PluginService {
 		this.registrationRepository = registrationRepository;
 	}
 	
+	public List<PluginMeta> getAllPlugins(){
+		return this.registrationRepository.findAllByIsPlugin(true).stream().map(p -> {
+			Optional<PluginMeta> opt = pluginMetaBuilder.buildMeta(p);
+			return opt.isPresent() ? opt.get() : null;
+		}).filter(p -> Objects.nonNull(p)).collect(Collectors.toList());
+	}
+	
 	public List<PluginMeta> getAppPlugins(){
 		return this.registrationRepository.findAllByIsPlugin(true).stream()
 				.filter(p -> p.getPluginType().equals(PluginType.app)).map(p -> {

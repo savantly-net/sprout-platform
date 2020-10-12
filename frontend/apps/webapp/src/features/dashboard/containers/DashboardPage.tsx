@@ -13,9 +13,7 @@ import LifecycleLogging, { LogFlags } from '../../../core/components/LifecycleLo
 import { createErrorNotification } from '../../../core/copy/appNotification';
 import { LocationUpdateService } from '../../../core/services/locationSvc';
 // Types
-import {
-  StoreState
-} from '../../../types';
+import { StoreState } from '../../../types';
 import { DashboardSettings } from '../components/DashboardSettings';
 import { DashNav } from '../components/DashNav';
 import { PanelEditor } from '../components/PanelEditor/PanelEditor';
@@ -25,9 +23,7 @@ import { DashboardGrid } from '../dashgrid/DashboardGrid';
 import { DashboardModel, PanelModel } from '../state';
 import { cleanUpDashboardAndVariables } from '../state/actions';
 
-
-
-type OwnProps = {}
+type OwnProps = {};
 
 type StateProps = {
   dashboard: DashboardModel | null;
@@ -38,12 +34,12 @@ type StateProps = {
   urlFolderId?: UrlQueryValue;
   urlViewPanelId?: UrlQueryValue;
   urlEditPanelId: UrlQueryValue;
-}
+};
 
 type DispatchProps = {
-  notifyApp: typeof notifyApp,
-  cleanUpDashboardAndVariables: () => void
-}
+  notifyApp: typeof notifyApp;
+  cleanUpDashboardAndVariables: () => void;
+};
 
 type AllProps = OwnProps & StateProps & DispatchProps;
 
@@ -54,14 +50,15 @@ type OwnState = {
   updateScrollTop?: number;
   rememberScrollTop: number;
   showLoadingState: boolean;
-}
+  path: string;
+};
 
 const logFlags: LogFlags = {
   logType: 'object',
-  names: ["nextProps", "nextState", "prevProps", "prevState", "props"]
-}
+  names: ['nextProps', 'nextState', 'prevProps', 'prevState', 'props']
+};
 
-export class DashboardPage extends LifecycleLogging<AllProps, OwnState> {
+export class DashboardPage extends Component<AllProps, OwnState> {
   locationUpdateService: LocationUpdateService = getLocationSrv();
 
   constructor(props: AllProps) {
@@ -72,13 +69,15 @@ export class DashboardPage extends LifecycleLogging<AllProps, OwnState> {
       showLoadingState: false,
       scrollTop: 0,
       rememberScrollTop: 0,
+      path: props.urlPath
     };
   }
 
   componentWillUnmount() {
     this.setPanelFullscreenClass(false);
-    if(this)
-    this.props.cleanUpDashboardAndVariables();
+    if (this.state.path !== this.props.urlPath) {
+      this.props.cleanUpDashboardAndVariables();
+    }
   }
 
   componentDidUpdate(prevProps: AllProps) {
@@ -96,7 +95,7 @@ export class DashboardPage extends LifecycleLogging<AllProps, OwnState> {
 
     // entering edit mode
     if (!editPanel && urlEditPanelId) {
-      this.getPanelByIdFromUrlParam(urlEditPanelId as string, panel => {
+      this.getPanelByIdFromUrlParam(urlEditPanelId as string, (panel) => {
         // if no edit permission show error
         if (!dashboard.canEditPanel(panel)) {
           this.props.notifyApp(createErrorNotification('Permission to edit panel denied'));
@@ -114,12 +113,12 @@ export class DashboardPage extends LifecycleLogging<AllProps, OwnState> {
 
     // entering view mode
     if (!viewPanel && urlViewPanelId) {
-      this.getPanelByIdFromUrlParam(urlViewPanelId as string, panel => {
+      this.getPanelByIdFromUrlParam(urlViewPanelId as string, (panel) => {
         this.setPanelFullscreenClass(true);
         dashboard.initViewPanel(panel);
         this.setState({
           viewPanel: panel,
-          rememberScrollTop: this.state.scrollTop,
+          rememberScrollTop: this.state.scrollTop
         });
       });
     }
@@ -149,9 +148,9 @@ export class DashboardPage extends LifecycleLogging<AllProps, OwnState> {
       this.locationUpdateService.update({
         query: {
           editPanel: null,
-          viewPanel: null,
+          viewPanel: null
         },
-        partial: true,
+        partial: true
       });
       return;
     }
@@ -192,21 +191,15 @@ export class DashboardPage extends LifecycleLogging<AllProps, OwnState> {
     dashboard.addPanel({
       type: 'add-panel',
       gridPos: { x: 0, y: 0, w: 12, h: 8 },
-      title: 'Panel Title',
+      title: 'Panel Title'
     });
 
     // scroll to top after adding panel
     this.setState({ updateScrollTop: 0 });
   };
 
-
-
   render() {
-    const {
-      dashboard,
-      isPanelEditorOpen,
-      editview
-    } = this.props;
+    const { dashboard, isPanelEditorOpen, editview } = this.props;
 
     const { editPanel, viewPanel, scrollTop, updateScrollTop } = this.state;
 
@@ -244,7 +237,9 @@ export class DashboardPage extends LifecycleLogging<AllProps, OwnState> {
           </CustomScrollbar>
         </div>
 
-        {editPanel && <PanelEditor dashboard={dashboard} sourcePanel={editPanel} locationService={this.locationUpdateService} />}
+        {editPanel && (
+          <PanelEditor dashboard={dashboard} sourcePanel={editPanel} locationService={this.locationUpdateService} />
+        )}
         {editview && <DashboardSettings dashboard={dashboard} locationService={this.locationUpdateService} />}
       </div>
     );
@@ -261,11 +256,9 @@ const mapStateToProps = (state: StoreState): StateProps => ({
   urlEditPanelId: state.location.query.editPanel
 });
 
-
 const mapDispatchToProps: DispatchProps = {
   notifyApp,
   cleanUpDashboardAndVariables
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage);

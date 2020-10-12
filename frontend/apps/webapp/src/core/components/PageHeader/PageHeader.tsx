@@ -2,11 +2,45 @@ import React, { FormEvent } from 'react';
 import { css } from 'emotion';
 import { Tab, TabsBar, Icon, IconName } from '@savantly/sprout-ui';
 import appEvents from '../../app_events';
-import { NavModel, NavModelItem, NavModelBreadcrumb } from '@savantly/sprout-api';
+import { NavModel, NavModelItem, NavModelBreadcrumb, locationUtil, urlUtil } from '@savantly/sprout-api';
 import { CoreEvents } from '../../../types';
 
 export interface Props {
   model: NavModel;
+}
+
+/**
+ * Return search part (as object) of current url
+ */
+function parseUrlValue(url: string) {
+  const urlParts = url.split('?');
+  const query: any = {};
+  if (urlParts.length === 1) {
+    return {
+      path: urlParts[0],
+      query: {}
+    };
+  }
+  const search = urlParts[1];
+  const searchParamsSegments = search.split('&');
+  const params: any = {};
+  for (const p of searchParamsSegments) {
+    const keyValuePair = p.split('=');
+    if (keyValuePair.length > 1) {
+      // key-value param
+      const key = decodeURIComponent(keyValuePair[0]);
+      const value = decodeURIComponent(keyValuePair[1]);
+      params[key] = value;
+    } else if (keyValuePair.length === 1) {
+      // boolean param
+      const key = decodeURIComponent(keyValuePair[0]);
+      params[key] = true;
+    }
+  }
+  return {
+    path: urlParts[0],
+    query: params
+  };
 }
 
 const SelectNav = ({ children, customCss }: { children: NavModelItem[]; customCss: string }) => {
@@ -14,14 +48,20 @@ const SelectNav = ({ children, customCss }: { children: NavModelItem[]; customCs
     return null;
   }
 
-  const defaultSelectedItem = children.find(navItem => {
+  const defaultSelectedItem = children.find((navItem) => {
     return navItem.active === true;
   });
 
   const gotoUrl = (evt: FormEvent) => {
     const element = evt.target as HTMLSelectElement;
     const url = element.options[element.selectedIndex].value;
-    appEvents.emit(CoreEvents.locationChange, { href: url });
+    const { path, query } = parseUrlValue(url);
+    appEvents.emit(CoreEvents.locationChange, {
+      path: path,
+      query: query,
+      partial: false,
+      replace: false
+    });
   };
 
   return (
@@ -61,7 +101,13 @@ const Navigation = ({ children }: { children: NavModelItem[] }) => {
   const goToUrl = (index: number) => {
     children.forEach((child, i) => {
       if (i === index) {
-        appEvents.emit(CoreEvents.locationChange, { href: child.url });
+        const { path, query } = parseUrlValue(child.url || '');
+        appEvents.emit(CoreEvents.locationChange, {
+          path: path,
+          query: query,
+          partial: false,
+          replace: false
+        });
       }
     });
   };
@@ -91,12 +137,6 @@ const Navigation = ({ children }: { children: NavModelItem[] }) => {
 };
 
 export default class PageHeader extends React.Component<Props, any> {
-
-  shouldComponentUpdate() {
-    //Hack to re-render on changed props from angular with the @observer decorator
-    return true;
-  }
-
   renderTitle(title: string, breadcrumbs: NavModelBreadcrumb[]) {
     if (!title && (!breadcrumbs || breadcrumbs.length === 0)) {
       return null;
