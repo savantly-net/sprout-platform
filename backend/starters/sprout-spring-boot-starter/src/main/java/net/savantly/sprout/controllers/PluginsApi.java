@@ -102,6 +102,11 @@ public class PluginsApi {
 	public PluginMeta getSproutModuleSettings(@PathVariable String id){
 		return this.pluginService.getPluginMetaByPluginId(id);
 	}
+
+	@GetMapping("/{id}/markdown/{markdownType}")
+	public String getSproutModuleMarkdown(@PathVariable String id, @PathVariable String markdownType){
+		return this.pluginService.getPluginMarkdownByPluginId(id, markdownType);
+	}
 	
 	@PostMapping("/{id}/install")
 	public SproutModuleExecutionResponse installModule(@PathVariable String id) {

@@ -1,22 +1,39 @@
 import { AppPluginMeta, PluginConfigPageProps } from '@savantly/sprout-api';
+import { getBackendSrv, BackendSrv } from '@savantly/sprout-runtime';
 import React, { PureComponent } from 'react';
 import { ExampleAppSettings } from '../types';
 
 interface Props extends PluginConfigPageProps<AppPluginMeta<ExampleAppSettings>> {}
+interface State {
+  message: string;
+}
 
-export class ExamplePage1 extends PureComponent<Props> {
+export class ExamplePage1 extends PureComponent<Props, State> {
+  backendSvc: BackendSrv;
   constructor(props: Props) {
     super(props);
+    this.backendSvc = getBackendSrv();
+    this.state = {
+      message: 'Waiting for server...',
+    };
   }
 
-  render() {
-    const { query } = this.props;
+  componentDidMount() {
+    this.getMessageFromExampleApi();
+  }
 
+  getMessageFromExampleApi = () => {
+    this.backendSvc.get('/api/example-app').then((value) => {
+      this.setState({
+        message: value,
+      });
+    });
+  };
+
+  render() {
     return (
       <div>
-        11111111111111111111111111111111
-        <pre>{JSON.stringify(query)}</pre>
-        11111111111111111111111111111111
+        <h1>{this.state.message}</h1>
       </div>
     );
   }

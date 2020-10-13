@@ -17,7 +17,7 @@ import net.savantly.sprout.module.example.api.ExampleAppApi;
 @ConfigurationProperties("example")
 public class ExampleAppModuleConfiguration {
 	
-	private String message = "";
+	private String message = "Hello from the Example Module Server API";
 
 	@Bean
 	public ExampleAppApi exampleAppApi() {

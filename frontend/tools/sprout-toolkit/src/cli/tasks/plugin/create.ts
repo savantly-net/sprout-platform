@@ -20,16 +20,19 @@ interface PluginDetails {
   keywords: string;
 }
 
-type PluginType = 'panel-plugin';
+type PluginType = 'panel-plugin' | 'app-module';
 
 const PluginNames: Record<PluginType, string> = {
   'panel-plugin': 'Sprout Panel Plugin',
+  'app-module': 'Sprout App Module'
 };
 const RepositoriesPaths: Record<PluginType, string> = {
   'panel-plugin': 'https://github.com/savantly-net/simple-sprout-panel.git',
+  'app-module': 'https://github.com/savantly-net/sprout-simple-app-module.git'
 };
 const TutorialPaths: Record<PluginType, string> = {
   'panel-plugin': 'https://grafana.com/tutorials/build-a-panel-plugin',
+  'app-module': 'https://github.comsavantly-net/sprout-simple-app-module'
 };
 
 export const getGitUsername = async () => {
@@ -43,8 +46,8 @@ export const getPluginId = (pluginDetails: PluginDetails) =>
 export const getPluginKeywords = (pluginDetails: PluginDetails) =>
   pluginDetails.keywords
     .split(',')
-    .map(k => k.trim())
-    .filter(k => k !== '');
+    .map((k) => k.trim())
+    .filter((k) => k !== '');
 
 export const verifyGitExists = async () => {
   return new Promise((resolve, reject) => {
@@ -64,9 +67,10 @@ export const promptPluginType = async () =>
       message: 'Select plugin type',
       name: 'type',
       choices: [
-        { name: 'Panel Plugin', value: 'panel-plugin' },
-      ],
-    },
+        { name: 'Panel Plugin [client]', value: 'panel-plugin' },
+        { name: 'App Module [client+api]', value: 'app-module' }
+      ]
+    }
   ]);
 
 export const promptPluginDetails = async (name?: string) => {
@@ -80,12 +84,12 @@ export const promptPluginDetails = async (name?: string) => {
     promptConfirm('author', `Author (${username})`, username, username !== ''),
     // Prompt for manual author entry if no git user.name specified
     promptInput('author', `Author`, true, undefined, (answers: any) => !answers.author || username === ''),
-    promptInput('url', 'Your URL (i.e. organisation url)'),
+    promptInput('url', 'Your URL (i.e. organization url)')
   ]);
 
   return {
     ...responses,
-    author: responses.author === true ? username : responses.author,
+    author: responses.author === true ? username : responses.author
   };
 };
 
@@ -122,9 +126,9 @@ export const prepareJsonFiles = useSpinner<{ type: PluginType; pluginDetails: Pl
       description: pluginDetails.description,
       author: {
         name: pluginDetails.author,
-        url: pluginDetails.url,
+        url: pluginDetails.url
       },
-      keywords: getPluginKeywords(pluginDetails),
+      keywords: getPluginKeywords(pluginDetails)
     };
 
     await Promise.all(
@@ -136,7 +140,9 @@ export const prepareJsonFiles = useSpinner<{ type: PluginType; pluginDetails: Pl
   }
 );
 
-export const removeGitFiles = useSpinner('Cleaning', async pluginPath => rmdir(`${path.resolve(pluginPath, '.git')}`));
+export const removeGitFiles = useSpinner('Cleaning', async (pluginPath) =>
+  rmdir(`${path.resolve(pluginPath, '.git')}`)
+);
 
 /* eslint-disable no-console */
 export const formatPluginDetails = (details: PluginDetails) => {
@@ -149,7 +155,7 @@ export const formatPluginDetails = (details: PluginDetails) => {
   console.log(chalk.bold('Description: '), details.description);
   console.log(chalk.bold('Keywords: '), getPluginKeywords(details));
   console.log(chalk.bold('Author: '), details.author);
-  console.log(chalk.bold('Organisation: '), details.org);
+  console.log(chalk.bold('Organization: '), details.org);
   console.log(chalk.bold('Website: '), details.url);
   console.log();
   console.groupEnd();

@@ -28,12 +28,12 @@ export const ExampleRootPage = React.memo(function ExampleRootPage({ path, onNav
       id: TAB_ID_C,
     });
 
-    const activeTab = query.tab || TAB_ID_B;
+    const activeTab = query.tab || TAB_ID_A;
     tabs.forEach((tab) => (tab.active = activeTab === tab.id));
 
     const node = {
       text: 'This is the Page title',
-      img: meta.info.logos.large,
+      img: `${meta.baseUrl}/${meta.info.logos.large}`,
       subTitle: 'subtitle here',
       url: path,
       children: tabs,

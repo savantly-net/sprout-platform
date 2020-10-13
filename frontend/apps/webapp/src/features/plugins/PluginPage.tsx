@@ -1,5 +1,5 @@
 // Libraries
-import { Alert, Tooltip } from '@savantly/sprout-ui';
+import { Alert, LinkButton, Tooltip } from '@savantly/sprout-ui';
 // Types
 import {
   NavModel,
@@ -14,7 +14,7 @@ import {
   UrlQueryMap
 } from '@savantly/sprout-api';
 import find from 'lodash/find';
-import React, { PureComponent } from 'react';
+import React, { Component, PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { appEvents } from '../../core/app_events';
 import Page from '../../core/components/Page/Page';
@@ -26,7 +26,7 @@ import { PluginDashboards } from './PluginDashboards';
 import { getPluginSettings } from './PluginSettingsCache';
 import { importAppPlugin, importPanelPlugin } from './plugin_loader';
 import { ConnectedReduxProps } from '../../routes/ConnectedReduxProps';
-import { RouteComponentProps } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 
 export function getLoadingNav(): NavModel {
   const node = {
@@ -78,7 +78,7 @@ const PAGE_ID_README = 'readme';
 const PAGE_ID_DASHBOARDS = 'dashboards';
 const PAGE_ID_CONFIG_CTRL = 'config';
 
-class PluginPage extends PureComponent<OwnProps & ConnectedProps, State> {
+class PluginPage extends Component<OwnProps & ConnectedProps, State> {
   constructor(props: OwnProps & ConnectedProps) {
     super(props);
     this.state = {
@@ -199,7 +199,7 @@ class PluginPage extends PureComponent<OwnProps & ConnectedProps, State> {
       const pluginId = this.state.plugin!.meta.id;
       const page = item.name.toLowerCase().replace(' ', '-');
       return (
-        <a href={`plugins/${pluginId}/page/${page}`}>
+        <a href={item.path}>
           <i className={getPluginIcon(item.type)} />
           {item.name}
         </a>
@@ -244,8 +244,8 @@ class PluginPage extends PureComponent<OwnProps & ConnectedProps, State> {
         <h4>Dependencies</h4>
         <ul className="ui-list plugin-info-list">
           <li className="plugin-info-list-item">
-            <img src="public/img/grafana_icon.svg" />
-            Grafana {dependencies.sproutVersion}
+            <img src="/favicon.png" />
+            Sprout {dependencies.sproutVersion}
           </li>
           {dependencies.plugins &&
             dependencies.plugins.map((plug) => {
@@ -384,7 +384,7 @@ function getPluginTabsNav(
 
   const node = {
     text: meta.name,
-    img: meta.info.logos.large,
+    img: `${meta.baseUrl}/${meta.info.logos.large}`,
     subTitle: meta.info.author.name,
     breadcrumbs: [{ title: 'Plugins', url: 'plugins' }],
     url: `${appSubUrl}${path}`,

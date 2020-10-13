@@ -8,23 +8,19 @@
       "name": "Jeremy Branham",
       "url": "https://savantly.net"
     },
-    "keywords": [
-      "savantly",
-      "sprout",
-      "example"
-    ],
+    "keywords": ["savantly", "sprout", "example"],
     "logos": {
-      "small": "img/logo.svg",
-      "large": "img/logo.svg"
+      "small": "./plugin/img/logo.svg",
+      "large": "./plugin/img/logo.svg"
     },
     "links": [
       {
         "name": "Website",
-        "url": "https://github.com/savantly-net/sprout-platform/tree/development/modules/example-panel"
+        "url": "https://github.com/savantly-net/sprout-platform/tree/development/backend/modules/example-panel"
       },
       {
         "name": "License",
-        "url": "https://github.com/savantly-net/sprout-platform/tree/development/modules/example-panel/LICENSE"
+        "url": "https://github.com/savantly-net/sprout-platform/tree/development/backend/modules/example-panel/LICENSE"
       }
     ],
     "screenshots": [],

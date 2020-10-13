@@ -17,22 +17,20 @@ export function loadPlugins(): ThunkResult<void> {
           id: p.id,
           text: p.name,
           url: `/a/${p.id}`,
-          icon: p.info.logos.small,
+          img: `/api/plugins/${p.id}/${p.info.logos.large}`,
           children: []
         };
         navItems.push(rootNav);
-        /* Inlcudes should be handled by PluginPage?
         p.includes?.forEach((pi, index) => {
-          if(pi.type === PluginIncludeType.page && pi.addToNav) {
+          if (pi.type === PluginIncludeType.page && pi.addToNav) {
             rootNav.children?.push({
               id: `${p.id}-${index}`,
               text: pi.name,
               icon: pi.icon,
               url: pi.path
-            })
+            });
           }
         });
-        */
       }
     });
     dispatch(addRootNavs(navItems));

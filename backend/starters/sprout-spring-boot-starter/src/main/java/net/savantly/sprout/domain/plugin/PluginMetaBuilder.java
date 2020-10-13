@@ -43,7 +43,7 @@ public class PluginMetaBuilder {
 		Resource resource = this.resourceLoader.getResource(resourceLocation);
 		PluginMeta pluginMeta = mapper.readValue(resource.getInputStream(), PluginMeta.class);
 		PluginConfigurationEntity pluginConfig = getPluginConfiguration(pluginMeta.getId());
-		pluginMeta.setBaseUrl("/plugins/" + pluginMeta.getId())
+		pluginMeta.setBaseUrl("/api/plugins/" + pluginMeta.getId())
 			.setDefaultNavUrl("")
 			.setModule("/api/plugins/" + pluginMeta.getId() + "/module.js")
 			.setEnabled(true)

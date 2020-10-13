@@ -1,16 +1,16 @@
-import React, { FormEvent } from 'react';
+import { NavModel, NavModelBreadcrumb, NavModelItem } from '@savantly/sprout-api';
+import { Icon, IconName, Tab, TabsBar } from '@savantly/sprout-ui';
 import { css } from 'emotion';
-import { Tab, TabsBar, Icon, IconName } from '@savantly/sprout-ui';
-import appEvents from '../../app_events';
-import { NavModel, NavModelItem, NavModelBreadcrumb, locationUtil, urlUtil } from '@savantly/sprout-api';
+import React, { FormEvent } from 'react';
 import { CoreEvents } from '../../../types';
+import appEvents from '../../app_events';
 
 export interface Props {
   model: NavModel;
 }
 
 /**
- * Return search part (as object) of current url
+ * Return path and search part (as object) of url
  */
 function parseUrlValue(url: string) {
   const urlParts = url.split('?');
@@ -126,7 +126,6 @@ const Navigation = ({ children }: { children: NavModelItem[] }) => {
                 key={`${child.url}-${index}`}
                 icon={child.icon as IconName}
                 onChangeTab={() => goToUrl(index)}
-                href={child.url}
               />
             )
           );

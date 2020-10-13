@@ -60,4 +60,10 @@ public class PluginService {
 		}
 		throw new PluginException("failed to get plugin meta info");
 	}
+
+	// TODO: Implement reading a markdown file from the module lib
+	// Maybe need to unpack the plugins/modules into a temp folder 
+	public String getPluginMarkdownByPluginId(String id, String markdownType) {
+		return "# Not Implemented Yet  \nTODO: Implement reading a markdown file from the module lib  \nMaybe need to unpack the plugins/modules into a temp folder";
+	}
 }

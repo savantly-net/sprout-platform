@@ -8,23 +8,19 @@
       "name": "Jeremy Branham",
       "url": "https://savantly.net"
     },
-    "keywords": [
-      "savantly",
-      "sprout",
-      "example"
-    ],
+    "keywords": ["savantly", "sprout", "example"],
     "logos": {
-      "small": "img/logo.svg",
-      "large": "img/logo.svg"
+      "small": "./plugin/img/logo.svg",
+      "large": "./plugin/img/logo.svg"
     },
     "links": [
       {
         "name": "Website",
-        "url": "https://github.com/savantly-net/sprout-platform/tree/development/modules/example-app"
+        "url": "https://github.com/savantly-net/sprout-platform/tree/development/backend/modules/example-app"
       },
       {
         "name": "License",
-        "url": "https://github.com/savantly-net/sprout-platform/tree/development/modules/example-app/LICENSE"
+        "url": "https://github.com/savantly-net/sprout-platform/tree/development/backend/modules/example-app/LICENSE"
       }
     ],
     "screenshots": [],
@@ -50,13 +46,13 @@
     {
       "type": "page",
       "name": "Example App Config",
-      "path": "/plugins/example-app-module/?page=page2",
+      "path": "/plugins/example-app-module/",
       "role": "Admin",
       "addToNav": true
     },
     {
       "type": "dashboard",
-      "name": "Example Inlcuded Dashboard",
+      "name": "Example Included Dashboard",
       "path": "dashboards/exampleDashboard.json"
     }
   ],

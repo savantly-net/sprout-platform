@@ -120,6 +120,12 @@
       "commandKind": "global",
       "summary": "Starts the front-end webapp",
       "shellCommand": "cd frontend/apps/webapp && npm run start"
+    },
+    {
+      "name": "plugin-create",
+      "commandKind": "global",
+      "summary": "Create a new Sprout Module in the current directory",
+      "shellCommand": "node ../../../frontend/tools/sprout-toolkit/bin/sprout-toolkit.js plugin:create"
     }
   ],
 
