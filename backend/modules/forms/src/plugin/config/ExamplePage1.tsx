@@ -23,7 +23,7 @@ export class ExamplePage1 extends PureComponent<Props, State> {
   }
 
   getMessageFromExampleApi = () => {
-    this.backendSvc.get('/api/example-app').then((value) => {
+    this.backendSvc.get('/api/example-app').then(value => {
       this.setState({
         message: value,
       });

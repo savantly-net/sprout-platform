@@ -21,7 +21,7 @@ export const plugin = new AppPlugin<ExampleAppSettings>()
     id: 'page2',
   });
 
-const panelPlugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOptions((builder) => {
+const panelPlugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOptions(builder => {
   return builder
     .addTextInput({
       path: 'text',
@@ -54,7 +54,7 @@ const panelPlugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOptions(
           },
         ],
       },
-      showIf: (config) => config.showMessage,
+      showIf: config => config.showMessage,
     });
 });
 
