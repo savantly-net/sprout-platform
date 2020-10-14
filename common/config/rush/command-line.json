@@ -113,7 +113,7 @@
       "autoinstallerName": "rush-prettier",
 
       // This will invoke common/autoinstallers/rush-prettier/node_modules/.bin/pretty-quick
-      "shellCommand": "prettier-eslint \"$PWD/backend/**/*{ts,tsx}\" --write"
+      "shellCommand": "prettier-eslint \"$PWD/backend/src/**/*{ts,tsx}\" --write"
     },
     {
       "name": "start",

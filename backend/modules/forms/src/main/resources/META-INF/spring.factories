@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.savantly.sprout.module.form.FormsModule
+net.savantly.sprout.module.forms.FormsModule

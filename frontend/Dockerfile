@@ -5,7 +5,7 @@ FROM nginx:1.19.2-alpine
 COPY ./proxy/default.conf /etc/nginx/templates/default.conf.template
 
 # Static build
-COPY apps/webapp/build/ /var/www/
+COPY ./apps/webapp/build/ /var/www/
 
 # Set default env vars
 ENV SPROUT_API_URL=http://localhost:8080
