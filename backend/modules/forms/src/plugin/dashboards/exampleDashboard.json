@@ -1,0 +1,27 @@
+{
+  "title": "Example",
+  "editable": false,
+  "tags": ["sprout", "example", "app"],
+  "links": [],
+  "panels": [
+    {
+      "type": "text",
+      "title": "Example Panel",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 18
+      },
+      "id": 1,
+      "options": {
+        "mode": "markdown",
+        "content": "![Sprout by Savantly](https://raw.githubusercontent.com/savantly-net/sprout-platform/development/starters/sprout-spring-boot-starter/src/main/resources/META-INF/resources/images/logo.png)\n        "
+      },
+      "pluginVersion": "0.0.1",
+      "transparent": false
+    }
+  ],
+  "schemaVersion": 1,
+  "version": 1
+}

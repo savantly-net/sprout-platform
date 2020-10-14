@@ -1,7 +1,7 @@
 {
-  "name": "savantly-newsfeed-module",
+  "name": "savantly-forms-module",
   "version": "1.0.0",
-  "description": "Newsfeed Module",
+  "description": "Forms Module for Sprout",
   "private": true,
   "scripts": {
     "build": "sprout-toolkit plugin:build",

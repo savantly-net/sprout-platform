@@ -1,0 +1,9 @@
+/bin/
+/node_modules/
+/dist/
+/.settings/
+/.classpath
+/.project
+
+yarn-error.log
+coverage

@@ -1,0 +1,35 @@
+{
+  "type": "app",
+  "name": "Forms",
+  "id": "savantly-forms-module",
+  "info": {
+    "description": "Provide Form integration APIs and UI components",
+    "author": {
+      "name": "Jeremy Branham",
+      "url": "https://savantly.net"
+    },
+    "keywords": ["savantly", "sprout", "forms", "formio"],
+    "logos": {
+      "small": "./plugin/img/logo.svg",
+      "large": "./plugin/img/logo.svg"
+    },
+    "links": [
+      {
+        "name": "Website",
+        "url": "https://github.com/savantly-net/sprout-platform/tree/development/backend/modules/forms"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/savantly-net/sprout-platform/tree/development/backend/modules/forms/LICENSE"
+      }
+    ],
+    "screenshots": [],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+  "includes": [],
+  "dependencies": {
+    "sproutVersion": "2.0.x",
+    "plugins": []
+  }
+}
