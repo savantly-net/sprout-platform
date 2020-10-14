@@ -116,14 +116,14 @@
       "shellCommand": "pretty-quick --staged"
     },
     {
-      "name": "eslint",
+      "name": "lint",
       "commandKind": "global",
       "summary": "Used by the pre-commit Git hook. This command invokes Prettier to reformat staged changes.",
 
       "autoinstallerName": "rush-prettier",
 
       // This will invoke common/autoinstallers/rush-prettier/node_modules/.bin/pretty-quick
-      "shellCommand": "prettier-eslint --version"
+      "shellCommand": "prettier-eslint \"$PWD/backend/**/*.tsx\" \"$PWD/backend/**/*.ts\" --write"
     },
     {
       "name": "start",
