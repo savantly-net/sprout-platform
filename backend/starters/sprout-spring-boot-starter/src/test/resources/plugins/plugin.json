@@ -1,6 +1,6 @@
 {
   "type": "panel",
-  "name": "Example React Module",
+  "name": "Example Plugin",
   "id": "example-module",
   "info": {
     "description": "description",
@@ -20,11 +20,11 @@
     "links": [
       {
         "name": "Website",
-        "url": "https://github.com/savantly-net/sprout-platform/tree/development/modules/react-example"
+        "url": "https://github.com/savantly-net/sprout-platform/"
       },
       {
         "name": "License",
-        "url": "https://github.com/savantly-net/sprout-platform/tree/development/modules/react-example/LICENSE"
+        "url": "https://github.com/savantly-net/sprout-platform/LICENSE"
       }
     ],
     "screenshots": [],

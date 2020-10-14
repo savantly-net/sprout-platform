@@ -1,0 +1,49 @@
+version: '3.7'
+services:
+
+  sprout-server:
+    image: savantly/sprout-server
+    container_name: fm-sprout-server
+    ports:
+      - 8080:8080
+    volumes:
+    - ./build/libs/sprout-modules-forms-2.0.0-SNAPSHOT.jar:/sprout/modules/sprout-forms-module.jar
+
+  webapp:
+    image: savantly/sprout-webapp
+    container_name: fm-sprout-webapp
+    ports:
+      - 3000:3000
+    environment: 
+      - SPROUT_API_URL=http://fm-sprout-server:8080
+    depends_on: 
+      - sprout-server
+  
+  formio-api-app:
+    image: tiredofit/formio-api
+    container_name: formio-api-app
+    volumes:
+    - ./templates:/app/templates
+    environment:
+    - DB_HOST=formio-db-mongo
+    - FORMIO_HOST=localhost
+    - FORMIO_PORT=3001
+
+    - ROOT_EMAIL=admin@example.com
+    - ROOT_PASS=password
+
+    - DEBUG_MODE=FALSE
+    - PROJECT_TEMPLATE=default
+    restart: always
+    ports:
+    - 3001:3001
+    depends_on: 
+      - formio-db-mongo
+
+  formio-db-mongo:
+    image: mongo
+    container_name: formio-db-mongo
+    volumes:
+    - ./db:/data/db
+    command: mongod
+    restart: unless-stopped 

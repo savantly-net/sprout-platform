@@ -20,7 +20,13 @@ if(!suspend) {
 	suspend = 'n'
 }
 bootRun {
-  jvmArgs=["-agentlib:jdwp=transport=dt_socket,server=y,suspend=$suspend,address=18080"]
+  jvmArgs=[
+  	"-agentlib:jdwp=transport=dt_socket,server=y,suspend=$suspend,address=18080"
+  ]
+}
+
+bootJar {
+    layered()
 }
 
 task uploadArchives {
@@ -36,7 +42,7 @@ dependencies {
 	//runtimeOnly project(':sprout-modules-content')
 	//runtimeOnly project(':sprout-modules-openTok')
 	runtimeOnly project(':sprout-modules-newsfeed')
-	runtimeOnly project(':sprout-modules-forms')
+	//runtimeOnly project(':sprout-modules-forms')
 	runtimeOnly project(':sprout-modules-example-panel')
 	
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'

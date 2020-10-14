@@ -4,6 +4,8 @@
 /.settings/
 /.classpath
 /.project
+db
+dbbackup
 
 yarn-error.log
 coverage

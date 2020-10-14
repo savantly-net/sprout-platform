@@ -14,7 +14,7 @@ include ':sprout-server'
 //include ':sprout-admin'
 //include 'web:sprout-web-ui'
 include ':sprout-modules-content'
-include ':sprout-modules-openTok'
+//include ':sprout-modules-openTok'
 include ':sprout-modules-example-panel'
 include ':sprout-modules-newsfeed'
 include ':sprout-modules-forms'
@@ -25,7 +25,7 @@ project(':sprout-spring-boot-starter').projectDir = file('backend/starters/sprou
 project(':sprout-server').projectDir = file('backend/server')
 //project(':sprout-admin').projectDir = file('web/admin')
 project(':sprout-modules-content').projectDir = file('backend/modules/content')
-project(':sprout-modules-openTok').projectDir = file('backend/modules/openTok')
+//project(':sprout-modules-openTok').projectDir = file('backend/modules/openTok')
 project(':sprout-modules-example-panel').projectDir = file('backend/modules/example-panel')
 project(':sprout-modules-newsfeed').projectDir = file('backend/modules/newsfeed')
 project(':sprout-modules-forms').projectDir = file('backend/modules/forms')
