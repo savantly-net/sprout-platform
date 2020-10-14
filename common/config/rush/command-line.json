@@ -120,12 +120,6 @@
       "commandKind": "global",
       "summary": "Starts the front-end webapp",
       "shellCommand": "cd frontend/apps/webapp && npm run start"
-    },
-    {
-      "name": "plugin-create",
-      "commandKind": "global",
-      "summary": "Create a new Sprout Module in the current directory",
-      "shellCommand": "node ../../../frontend/tools/sprout-toolkit/bin/sprout-toolkit.js plugin:create"
     }
   ],
 
@@ -134,6 +128,17 @@
    * For example, you might define a "--production" parameter for the "rush build" command.
    */
   "parameters": [
+    /** TODO:
+    {
+      "argumentName": "NAME",
+      "shortName": "-n",
+      "longName": "--name",
+      "parameterKind": "string",
+      "associatedCommands": ["plugin-create"],
+      "description": "The name given to the new plugin. It should be all lowercase with dash separators",
+      "required": true
+    }
+    */
     // {
     //   /**
     //    * (Required) Determines the type of custom parameter.
