@@ -52,7 +52,8 @@ classes.dependsOn copyPublicfiles
 
 dependencies {
 	api project(':sprout-core')
-	api 'org.freemarker:freemarker'
+	api 'org.freemarker:freemarker',
+		'org.springframework.boot:spring-boot-starter-web'
 
 	compileOnly 'org.projectlombok:lombok',
 		'javax.interceptor:javax.interceptor-api:1.2',
