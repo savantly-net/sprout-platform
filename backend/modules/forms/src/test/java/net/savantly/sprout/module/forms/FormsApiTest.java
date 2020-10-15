@@ -66,7 +66,7 @@ public class FormsApiTest {
 		
 		mvc.perform(post("/api/savantly-forms/form")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(exampleForm)).andExpect(status().isOk());
+				.content(requestString)).andExpect(status().isOk());
 		
 		MvcResult result = mvc.perform(get("/api/savantly-forms/form")).andExpect(status().isOk()).andReturn();
 		System.out.println(result.getResponse().getContentAsString());

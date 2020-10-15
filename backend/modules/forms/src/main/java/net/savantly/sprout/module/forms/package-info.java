@@ -1,4 +1,4 @@
 @org.hibernate.annotations.TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
-package net.savantly.sprout.module.forms.domain.data;
+package net.savantly.sprout.module.forms;
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;

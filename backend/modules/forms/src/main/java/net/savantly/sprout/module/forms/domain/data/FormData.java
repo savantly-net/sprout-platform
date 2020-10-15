@@ -16,6 +16,6 @@ public class FormData extends TenantKeyedEntity {
 
 	private String formDefinitionId;
 
-	@Type(type = "jsonb")
+	@Type(type = "com.vladmihalcea.hibernate.type.json.JsonBinaryType")
 	private String data;
 }
