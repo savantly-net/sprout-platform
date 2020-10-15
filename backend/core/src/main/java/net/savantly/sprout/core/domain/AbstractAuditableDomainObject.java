@@ -21,6 +21,7 @@ import org.springframework.lang.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import net.savantly.sprout.core.configuration.SproutConfiguration;
 import net.savantly.sprout.core.domain.user.SproutUser;
@@ -34,12 +35,14 @@ public abstract class AbstractAuditableDomainObject<ID extends Serializable> imp
 
 	private static final long serialVersionUID = SproutConfiguration.serialVersionUID;
 
+	@JsonDeserialize(as = SproutUserEntity.class)
 	@ManyToOne(targetEntity = SproutUserEntity.class)
 	private @Nullable SproutUser createdBy;
 
 	@Temporal(TemporalType.TIMESTAMP) //
 	private @Nullable Date createdDate;
 
+	@JsonDeserialize(as = SproutUserEntity.class)
 	@ManyToOne(targetEntity = SproutUserEntity.class)
 	private @Nullable SproutUser lastModifiedBy;
 

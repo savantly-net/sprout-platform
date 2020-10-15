@@ -53,7 +53,8 @@ classes.dependsOn copyPublicfiles
 dependencies {
 	api project(':sprout-core')
 	api 'org.freemarker:freemarker',
-		'org.springframework.boot:spring-boot-starter-web'
+		'org.springframework.boot:spring-boot-starter-web',
+		'com.vladmihalcea:hibernate-types-52:2.10.0'
 
 	compileOnly 'org.projectlombok:lombok',
 		'javax.interceptor:javax.interceptor-api:1.2',

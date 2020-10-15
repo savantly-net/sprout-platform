@@ -27,7 +27,8 @@ dependencies {
 		'org.springframework.boot:spring-boot-starter-data-rest',
 		'org.springframework.boot:spring-boot-starter-hateoas',
 		'org.springframework.data:spring-data-rest-hal-explorer',
-		'net.savantly:spring-fixtures:1.0.0-RELEASE'
+		'net.savantly:spring-fixtures:1.0.0-RELEASE',
+		'com.vladmihalcea:hibernate-types-52:2.10.0'
 
 	compileOnly 'org.projectlombok:lombok',
 		'javax.interceptor:javax.interceptor-api:1.2',

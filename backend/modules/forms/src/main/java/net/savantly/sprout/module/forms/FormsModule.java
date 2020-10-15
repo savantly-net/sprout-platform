@@ -4,14 +4,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.Resource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.util.FileCopyUtils;
 
 import net.savantly.sprout.core.module.SproutWebModule;
 
 @Configuration
+@EnableJpaRepositories
+@EntityScan
 @Import(FormsModuleConfiguration.class)
 public class FormsModule implements SproutWebModule {
 
