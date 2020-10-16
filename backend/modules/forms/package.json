@@ -7,7 +7,7 @@
     "build": "sprout-toolkit plugin:build",
     "test": "sprout-toolkit plugin:test",
     "dev": "sprout-toolkit plugin:dev",
-    "watch": "sprout-toolkit plugin:dev --watch",
+    "watch": "sprout-toolkit plugin:dev --watch -o \"$PWD/build/resources/main/public/api/plugins/savantly-forms-module\"",
     "pretty": "prettier-eslint \"$PWD/src/**/*{ts,tsx}\" --write"
   },
   "repository": "github:savantly-net/sprout-platform",
