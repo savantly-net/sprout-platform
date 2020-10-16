@@ -7,7 +7,7 @@ build
 .project
 .vscode/
 /sprout-platform.code-workspace
-/java_pid21158.hprof
+*.hprof
 
 .DS_Store
 # Logs
