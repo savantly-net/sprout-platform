@@ -58,6 +58,12 @@ task dev(type: JavaExec) {
     main = 'example.TestApplication'
 }
 
+dependencyCheck {
+	analyzers {
+		nodeEnabled=false
+	}
+}
+
 dependencies {
 	api project(':sprout-core')
 	api project(':sprout-spring-boot-starter')
