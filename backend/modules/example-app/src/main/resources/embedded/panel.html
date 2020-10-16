@@ -1,0 +1,20 @@
+<div>
+	<h1>Example Panel Markup</h1>
+	<div>
+		<p>We can use vanilla JS, jquery, or even transpiled code</p>
+		<p>This example uses a React plain JS component, where this file's content is retrieved from the Module class `getAdminPanelMarkup()` method</p>
+		<div id="exampleReactContainer"></div>
+	</div>
+</div>
+<script>
+	class Hello extends React.Component {
+	  render() {
+	    return React.createElement('div', null, `Hello ${this.props.toWhat}`);
+	  }
+	}
+	
+	ReactDOM.render(
+	  React.createElement(Hello, {toWhat: 'World'}, null),
+	  document.getElementById('exampleReactContainer')
+	);
+</script>
