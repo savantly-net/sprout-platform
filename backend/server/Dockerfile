@@ -11,4 +11,6 @@ COPY --from=builder build/snapshot-dependencies/ ./
 COPY --from=builder build/spring-boot-loader/ ./
 COPY --from=builder build/application/ ./
 ENV SPROUT_PLUGINS_DIR "/sprout/plugins"
-ENTRYPOINT ["java","-cp","/sprout/modules/*:/sprout","org.springframework.boot.loader.JarLauncher"]
+ENV SPROUT_OTHER_CLASSES "/sprout/other"
+RUN mkdir /sprout/other
+ENTRYPOINT ["java","-cp","/sprout/modules/*:${SPROUT_OTHER_CLASSES}:/sprout","org.springframework.boot.loader.JarLauncher"]

@@ -1,13 +1,15 @@
 import { AppPlugin, AppRootProps, PanelPlugin } from '@savantly/sprout-api';
-import { ExampleRootPage } from 'plugin/ExampleRootPage';
+import { FormsRootPage } from 'plugin/FormsRootPage';
 import { ComponentClass } from 'react';
 import { SimplePanel } from './plugin/SimplePanel';
 import { ExampleAppSettings, SimpleOptions } from './plugin/types';
 import { ExamplePage1 } from './plugin/config/ExamplePage1';
 import { ExamplePage2 } from 'plugin/config/ExamplePage2';
+import /* webpackChunkName: "formioCss" */ 'formiojs/dist/formio.full.min.css';
+import './plugin/styles.css';
 
 export const plugin = new AppPlugin<ExampleAppSettings>()
-  .setRootPage((ExampleRootPage as unknown) as ComponentClass<AppRootProps>)
+  .setRootPage((FormsRootPage as unknown) as ComponentClass<AppRootProps>)
   .addConfigPage({
     title: 'Page 1',
     icon: 'fa fa-info',

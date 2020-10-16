@@ -41,7 +41,7 @@ public class FormsApi {
 		return service.createFormDefinition(dto);
 	}
 	
-	@DeleteMapping("/form/{id")
+	@DeleteMapping("/form/{id}")
 	public void deleteFormDefinition(@PathVariable String id) {
 		service.deleteFormDefinitionById(id);
 	}
@@ -66,7 +66,7 @@ public class FormsApi {
 		return service.createFormData(dto);
 	}
 	
-	@DeleteMapping("/data/{id")
+	@DeleteMapping("/data/{id}")
 	public void deleteFormData(@PathVariable String id) {
 		service.deleteFormDefinitionById(id);
 	}

@@ -18,6 +18,7 @@ import { getStyleLoaders, getStylesheetEntries, getFileLoaders } from './webpack
 export interface WebpackConfigurationOptions {
   watch?: boolean;
   production?: boolean;
+  outputFolder?: string;
 }
 type WebpackConfigurationGetter = (options: WebpackConfigurationOptions) => Promise<webpack.Configuration>;
 export type CustomWebpackConfigurationGetter = (
@@ -110,7 +111,7 @@ const getCommonPlugins = (options: WebpackConfigurationOptions) => {
 
     new ReplaceInFileWebpackPlugin([
       {
-        dir: 'dist',
+        dir: options.outputFolder,
         files: ['plugin.json', 'README.md'],
         rules: [
           {
@@ -155,7 +156,7 @@ const getBaseWebpackConfig: WebpackConfigurationGetter = async options => {
     entry: await getEntries(),
     output: {
       filename: '[name].js',
-      path: path.join(process.cwd(), 'dist'),
+      path: options.outputFolder,
       libraryTarget: 'amd',
       publicPath: '/',
     },
@@ -249,6 +250,9 @@ const getBaseWebpackConfig: WebpackConfigurationGetter = async options => {
 };
 
 export const loadWebpackConfig: WebpackConfigurationGetter = async options => {
+  if(!options.outputFolder){
+    options.outputFolder = path.join(process.cwd(), 'dist');
+  }
   const baseConfig = await getBaseWebpackConfig(options);
   const customWebpackPath = path.resolve(process.cwd(), 'webpack.config.js');
 

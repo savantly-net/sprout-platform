@@ -50,8 +50,17 @@ yarn_build.dependsOn yarn
 copyPublicfiles.dependsOn yarn_build
 classes.dependsOn copyPublicfiles
 
+task dev(type: JavaExec) {
+    group = "Execution"
+    description = "Run the test app class with JavaExecTask"
+    classpath = sourceSets.main.runtimeClasspath
+    classpath += sourceSets.test.runtimeClasspath
+    main = 'example.TestApplication'
+}
+
 dependencies {
 	api project(':sprout-core')
+	api project(':sprout-spring-boot-starter')
 	api 'org.freemarker:freemarker',
 		'org.springframework.boot:spring-boot-starter-web',
 		'com.vladmihalcea:hibernate-types-52:2.10.0'

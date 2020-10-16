@@ -1,0 +1,4 @@
+/* Formio Builder Overrides */
+.formio .panel, .formio-dialog-content .panel {
+    height: auto;
+}
