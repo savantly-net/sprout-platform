@@ -22,18 +22,19 @@ import {
 } from '../../../types';
 import { DashboardModel } from './DashboardModel';
 import { locationUtil } from '@savantly/sprout-api';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export interface InitDashboardArgs {
   urlUid?: string;
   urlFolderId?: string;
   routeInfo: DashboardRouteInfo;
   fixUrl: boolean;
+  navigate: Function
 }
 
 async function fetchDashboard(
   args: InitDashboardArgs,
-  dispatch: ThunkDispatch,
-  getState: () => StoreState
+  dispatch: ThunkDispatch
 ): Promise<DashboardDTO | null> {
   try {
     switch (args.routeInfo) {
@@ -41,6 +42,7 @@ async function fetchDashboard(
         // load home dash
         const dashDTO: DashboardDTO = await backendSrv.get('/api/dashboards/home');
 
+        args.navigate(`/d/${dashDTO.dashboard.uid}/`, { replace: true});
 
         // disable some actions on the default home dashboard
         dashDTO.meta.canSave = true;
@@ -95,7 +97,7 @@ async function fetchDashboard(
  *
  */
 export function initDashboard(args: InitDashboardArgs): ThunkResult<void> {
-  return async (dispatch, getState) => {
+  return async (dispatch, getState,) => {
     // set fetching state
     dispatch(dashboardInitFetching());
 
@@ -108,7 +110,7 @@ export function initDashboard(args: InitDashboardArgs): ThunkResult<void> {
     }, 500);
 
     // fetch dashboard data
-    const dashDTO = await fetchDashboard(args, dispatch, getState);
+    const dashDTO = await fetchDashboard(args, dispatch);
 
     // returns null if there was a redirect or error
     if (!dashDTO) {

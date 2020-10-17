@@ -1,7 +1,8 @@
 // Libraries
-import { AppEvents, AppPlugin, AppPluginMeta, NavModel, PluginType, UrlQueryMap } from '@savantly/sprout-api';
-import React, { Component } from 'react';
+import { AppEvents, AppPlugin, AppPluginMeta, KeyValue, NavModel, PluginType, UrlQueryMap, urlUtil } from '@savantly/sprout-api';
+import React, { FC, useMemo, useState } from 'react';
 import { connect } from 'react-redux';
+import { useLocation, useParams } from 'react-router-dom';
 import { appEvents } from '../../core/app_events';
 import Page from '../../core/components/Page/Page';
 import PageLoader from '../../core/components/PageLoader/PageLoader';
@@ -13,16 +14,7 @@ import { importAppPlugin } from './plugin_loader';
 
 
 interface Props {
-  query: UrlQueryMap;
-  path: string;
   slug?: string;
-  pluginId: string;
-}
-
-interface State {
-  loading: boolean;
-  plugin?: AppPlugin | null;
-  nav?: NavModel;
 }
 
 export function getAppPluginPageError(meta: AppPluginMeta) {
@@ -38,68 +30,62 @@ export function getAppPluginPageError(meta: AppPluginMeta) {
   return null;
 }
 
-class AppRootPage extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      loading: true
-    };
-  }
+const AppRootPage: FC<Props> = ({
+}) => {
 
-  async componentDidMount() {
-    const { pluginId } = this.props;
+  const params = useParams();
+  const location = useLocation();
+  const [plugin, setPlugin] = useState<AppPlugin<KeyValue<any>> | null>();
+  const [nav, setNav] = useState<NavModel | null>();
+  const [loading, setLoading] = useState<boolean>(true);
 
+  useMemo(() => {
     try {
-      const app = await getPluginSettings(pluginId).then((info) => {
+      getPluginSettings(params.pluginId).then((info) => {
         const error = getAppPluginPageError(info);
         if (error) {
           appEvents.emit(AppEvents.alertError, [error]);
-          this.setState({ nav: getWarningNav(error) });
+          setNav(getWarningNav(error));
           return null;
         }
-        return importAppPlugin(info);
+        importAppPlugin(info).then(app => {
+          setPlugin(app);
+          setLoading(false);
+        });
       });
-      this.setState({ plugin: app, loading: false });
     } catch (err) {
-      this.setState({
-        plugin: null,
-        loading: false,
-        nav: process.env.NODE_ENV === 'development' ? getExceptionNav(err) : getNotFoundNav()
-      });
+      setPlugin(null);
+      setLoading(false);
+      setNav(process.env.NODE_ENV === 'development' ? getExceptionNav(err) : getNotFoundNav());
     }
-  }
+  }, [params.pluginId]);
 
-  onNavChanged = (nav: NavModel) => {
-    this.setState({ nav });
+  const onNavChanged = (nav: NavModel) => {
+    setNav(nav);
   };
 
-  render() {
-    const { path, query } = this.props;
-    const { loading, plugin, nav } = this.state;
-
-    if (plugin && !plugin.root) {
-      // TODO? redirect to plugin page?
-      return <div>No Root App</div>;
-    }
-
-    // When no naviagion is set, give full control to the app plugin
-    if (!nav) {
-      if (plugin && plugin.root) {
-        return <plugin.root meta={plugin.meta} query={query} path={path} onNavChanged={this.onNavChanged} />;
-      }
-      return <PageLoader />;
-    }
-
-    return (
-      <Page navModel={nav}>
-        <Page.Contents isLoading={loading}>
-          {plugin && plugin.root && (
-            <plugin.root meta={plugin.meta} query={query} path={path} onNavChanged={this.onNavChanged} />
-          )}
-        </Page.Contents>
-      </Page>
-    );
+  if (plugin && !plugin.root) {
+    // TODO? redirect to plugin page?
+    return <div>No Root App</div>;
   }
+
+  // When no navigation is set, give full control to the app plugin
+  if (!nav) {
+    if (plugin && plugin.root) {
+      return <plugin.root meta={plugin.meta} query={urlUtil.getUrlSearchParams()} path={location.pathname} onNavChanged={onNavChanged} />;
+    }
+    return <PageLoader />;
+  }
+
+  return (
+    <Page navModel={nav}>
+      <Page.Contents isLoading={loading}>
+        {plugin && plugin.root && (
+          <plugin.root meta={plugin.meta} query={urlUtil.getUrlSearchParams()} path={location.pathname} onNavChanged={onNavChanged} />
+        )}
+      </Page.Contents>
+    </Page>
+  );
 }
 
 const mapStateToProps = (state: StoreState) => ({

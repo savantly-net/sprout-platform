@@ -10,7 +10,7 @@ import React, {
   useEffect
 } from "react";
 import { connect } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getMessageFromError } from "../../../core/utils/errors";
 import {
   AppNotificationSeverity,
@@ -69,18 +69,18 @@ const DashboardProvider = ({
 }: AllProps) => {
 
   console.log('DashboardProvider entered')
-
-  const location = useLocation();
   const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     initDashboard({
-      fixUrl: false,
+      fixUrl: true,
       routeInfo: routeInfo,
       urlUid: params['uid'], //this.props.urlUid ? this.props.urlUid as string : undefined,
       urlFolderId: undefined, // this.props.urlFolderId ? this.props.urlFolderId as string : undefined,
+      navigate
     });
-  }, [ref]);
+  }, [params]);
 
   const cancelVariables = () => {
     //props.updateLocation({ path: '/' });

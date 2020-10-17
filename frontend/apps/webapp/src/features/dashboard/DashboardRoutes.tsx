@@ -7,15 +7,15 @@ const DashboardRoutes = () => {
   return (
     <Fragment>
       <Route
-        path="/d/:uid"
+        path="d/:uid/*"
         element={<DashboardProvider routeInfo={DashboardRouteInfo.Normal} />}
       />
       <Route
-        path="/d/:uid/:slug"
+        path="d/:uid/:slug"
         element={<DashboardProvider routeInfo={DashboardRouteInfo.Normal} />}
       />
       <Route
-        path="/dashboard/new"
+        path="dashboard/new"
         element={<DashboardProvider routeInfo={DashboardRouteInfo.New} />}
       />
     </Fragment>

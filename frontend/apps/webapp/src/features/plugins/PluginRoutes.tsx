@@ -13,9 +13,6 @@ const PluginRoutes = () => {
   const location = useLocation();
   return (
     <>
-      <Route path="/a/:pluginId" element={<AppRootPage pluginId={params.pluginId} />} />
-      <Route path="/plugins" element={<PluginListPage plugins={plugins} />} />
-      <Route path="/plugins/:pluginId" element={<PluginPage pluginId={params.pluginId} path={location.pathname} />} />
     </>
   );
 };

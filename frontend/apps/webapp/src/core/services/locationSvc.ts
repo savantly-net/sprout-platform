@@ -98,12 +98,12 @@ const _locationSvcInit  = (history: H.History): LocationUpdateService => ({
 
       if(location.replace){
           history.replace({
-              pathname: location.path,
+              pathname: location.path + '?',
               search: urlUtil.toUrlParams(location.query)
           })
       } else {
           history.push({
-            pathname: location.path,
+            pathname: location.path + '?',
             search: urlUtil.toUrlParams(location.query)
           })
       }

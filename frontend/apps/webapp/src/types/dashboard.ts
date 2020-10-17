@@ -35,6 +35,8 @@ export interface DashboardMeta {
 }
 
 export interface DashboardDataDTO {
+  uid: string;
+  id: string;
   title: string;
 }
 
