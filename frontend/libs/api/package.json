@@ -1,14 +1,16 @@
 {
   "name": "@savantly/sprout-api",
-  "version": "0.1.1-2",
+  "version": "0.1.1-3",
   "description": "Core API for Sprout React applications",
   "scripts": {
-    "build": "npm run compile && npm run bundle",
+    "build": "npm run compile && npm run bundle && node postBuild.js",
     "compile": "tsc -p tsconfig.build.json",
     "bundle": "rollup -c rollup.config.ts",
-    "clean": "rimraf ./dist ./compiled"
+    "clean": "rimraf ./dist ./compiled",
+    "npm:publish": "cd dist && npm publish"
   },
   "main": "index.js",
+  "type": "module",
   "types": "dist/index.d.ts",
   "homepage": "https://github.com/savantly/sprout-platform#readme",
   "repository": {
@@ -32,10 +34,10 @@
     "xss": "1.0.6"
   },
   "devDependencies": {
-    "@savantly/sprout-tsconfig": "^1.0.0",
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
+    "@savantly/sprout-tsconfig": "^1.0.0",
     "@types/braintree__sanitize-url": "4.0.0",
     "@types/jest": "^24.0.0",
     "@types/jquery": "^3.5.1",

@@ -1,11 +1,9 @@
 import { selectors } from '@grafana/e2e-selectors';
 import { GrafanaTheme, PanelPlugin } from '@savantly/sprout-api';
-import { getLocationSrv } from '@savantly/sprout-runtime';
 import { Button, getTheme, HorizontalGroup, Icon, RadioButtonGroup, stylesFactory } from '@savantly/sprout-ui';
 import { css, cx } from 'emotion';
 import React, { PureComponent } from 'react';
 import { connect, MapDispatchToProps, MapStateToProps } from 'react-redux';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { BackButton } from '../../../../core/components/BackButton/BackButton';
 import { LocationUpdateService } from '../../../../core/services/locationSvc';
@@ -48,7 +46,7 @@ interface DispatchProps {
   updatePanelEditorUIState: typeof updatePanelEditorUIState;
 }
 
-type Props = OwnProps & ConnectedProps & RouteComponentProps & DispatchProps;
+type Props = OwnProps & ConnectedProps & DispatchProps;
 
 export class PanelEditorUnconnected extends PureComponent<Props> {
 
@@ -192,7 +190,7 @@ export class PanelEditorUnconnected extends PureComponent<Props> {
   }
 
   renderPanelToolbar(styles: EditorStyles) {
-    const { dashboard, location, uiState } = this.props;
+    const { dashboard, uiState } = this.props;
     return (
       <div className={styles.panelToolbar}>
         <HorizontalGroup justify={'flex-end'} align="flex-start">
@@ -331,7 +329,7 @@ const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = {
   updatePanelEditorUIState
 };
 
-export const PanelEditor = connect(mapStateToProps, mapDispatchToProps)(withRouter(PanelEditorUnconnected as any) as any);
+export const PanelEditor = connect(mapStateToProps, mapDispatchToProps)(PanelEditorUnconnected as any);
 
 enum Pane {
   Right,

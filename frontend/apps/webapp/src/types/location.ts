@@ -5,5 +5,5 @@ export type LocationState = {
     path: string,
     query: Record<string, UrlQueryValue>,
     routeParams: Record<string, UrlQueryValue>,
-    lastUpdated: 0,
+    lastUpdated: number,
   };

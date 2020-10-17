@@ -1,26 +1,25 @@
 // Libraries
+import { AppEvents, AppPlugin, AppPluginMeta, NavModel, PluginType, UrlQueryMap } from '@savantly/sprout-api';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { appEvents } from '../../core/app_events';
+import Page from '../../core/components/Page/Page';
+import PageLoader from '../../core/components/PageLoader/PageLoader';
+import { getExceptionNav, getNotFoundNav, getWarningNav } from '../../core/nav_model_srv';
 // Types
 import { StoreState } from '../../types';
-import { AppEvents, AppPlugin, AppPluginMeta, NavModel, PluginType, UrlQueryMap } from '@savantly/sprout-api';
-
-import Page from '../../core/components/Page/Page';
 import { getPluginSettings } from './PluginSettingsCache';
 import { importAppPlugin } from './plugin_loader';
-import { getNotFoundNav, getWarningNav, getExceptionNav } from '../../core/nav_model_srv';
-import { appEvents } from '../../core/app_events';
-import PageLoader from '../../core/components/PageLoader/PageLoader';
-import { RouteComponentProps } from 'react-router-dom';
 
-interface Props extends RouteComponentProps<any> {
+
+interface Props {
   query: UrlQueryMap;
   path: string;
   slug?: string;
+  pluginId: string;
 }
 
 interface State {
-  pluginId: string;
   loading: boolean;
   plugin?: AppPlugin | null;
   nav?: NavModel;
@@ -43,13 +42,12 @@ class AppRootPage extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      loading: true,
-      pluginId: props.match.params.pluginId
+      loading: true
     };
   }
 
   async componentDidMount() {
-    const { pluginId } = this.state;
+    const { pluginId } = this.props;
 
     try {
       const app = await getPluginSettings(pluginId).then((info) => {

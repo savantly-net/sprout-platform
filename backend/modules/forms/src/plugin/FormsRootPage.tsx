@@ -1,22 +1,33 @@
 import { AppRootProps, NavModelItem } from '@savantly/sprout-api';
 import React, { useEffect } from 'react';
-import { FormBuilder } from 'react-formio';
-interface Props extends AppRootProps {}
-import { cx } from 'emotion';
+import { DynamicModuleLoader } from "redux-dynamic-modules";
+import FormEditor from './components/FormEditor';
+import { Route, Switch } from 'react-router-dom';
+import { getFormStateModule } from './state/FormStateModule';
+import { RouteComponentProps } from "react-router-dom";
 
-const TAB_ID_A = 'createForm';
+interface Props extends AppRootProps, RouteComponentProps { }
+
+const TAB_CREATE = 'createForm';
+const TAB_LIST = 'listForms';
 
 export const FormsRootPage = React.memo(function FormsRootPage({ path, onNavChanged, query, meta }: Props) {
   useEffect(() => {
     const tabs: NavModelItem[] = [];
     tabs.push({
-      text: 'Create Form',
+      text: 'List Forms',
       icon: 'fa fa-fw fa-file-text-o',
-      url: path + '?tab=' + TAB_ID_A,
-      id: TAB_ID_A,
+      url: path + '?tab=' + TAB_LIST,
+      id: TAB_LIST,
+    });
+    tabs.push({
+      text: 'Create Forms',
+      icon: 'fa fa-fw fa-file-text-o',
+      url: path + '?tab=' + TAB_CREATE,
+      id: TAB_CREATE,
     });
 
-    const activeTab = query.tab || TAB_ID_A;
+    const activeTab = query.tab || TAB_LIST;
     tabs.forEach(tab => (tab.active = activeTab === tab.id));
 
     const node = {
@@ -36,15 +47,12 @@ export const FormsRootPage = React.memo(function FormsRootPage({ path, onNavChan
 
   return (
     <div>
-      <FormBuilder
-        className={cx(`
-        .panel {
-          height: auto;
-        }
-      `)}
-        form={{ display: 'form' }}
-        onChange={(schema: any) => console.log(schema)}
-      />
+      <DynamicModuleLoader modules={[getFormStateModule()]}>
+          <Route exact path={path + '/edit'} component={FormEditor} />
+          <Route path={path}>
+            <h1>No path match</h1>
+          </Route>
+      </DynamicModuleLoader>
     </div>
   );
 });

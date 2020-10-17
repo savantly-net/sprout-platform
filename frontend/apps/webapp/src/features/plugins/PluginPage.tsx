@@ -1,5 +1,4 @@
 // Libraries
-import { Alert, LinkButton, Tooltip } from '@savantly/sprout-ui';
 // Types
 import {
   NavModel,
@@ -13,8 +12,9 @@ import {
   SproutPlugin,
   UrlQueryMap
 } from '@savantly/sprout-api';
+import { Alert, Tooltip } from '@savantly/sprout-ui';
 import find from 'lodash/find';
-import React, { Component, PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { appEvents } from '../../core/app_events';
 import Page from '../../core/components/Page/Page';
@@ -25,8 +25,6 @@ import { AppNotificationSeverity, CoreEvents, StoreState } from '../../types';
 import { PluginDashboards } from './PluginDashboards';
 import { getPluginSettings } from './PluginSettingsCache';
 import { importAppPlugin, importPanelPlugin } from './plugin_loader';
-import { ConnectedReduxProps } from '../../routes/ConnectedReduxProps';
-import { Link, RouteComponentProps } from 'react-router-dom';
 
 export function getLoadingNav(): NavModel {
   const node = {
@@ -60,7 +58,10 @@ export function loadPlugin(pluginId: string): Promise<SproutPlugin> {
   });
 }
 
-interface OwnProps extends RouteComponentProps<any> {}
+interface OwnProps {
+  pluginId: string;
+  path: string; // the URL path
+}
 interface ConnectedProps {
   query: UrlQueryMap;
 }
@@ -70,8 +71,6 @@ interface State {
   plugin?: SproutPlugin;
   nav: NavModel;
   defaultPage: string; // The first configured one or readme
-  pluginId: string;
-  path: string; // the URL path
 }
 
 const PAGE_ID_README = 'readme';
@@ -84,15 +83,12 @@ class PluginPage extends Component<OwnProps & ConnectedProps, State> {
     this.state = {
       loading: true,
       nav: getLoadingNav(),
-      defaultPage: PAGE_ID_README,
-      pluginId: props.match.params.pluginId,
-      path: props.location.pathname
+      defaultPage: PAGE_ID_README
     };
   }
 
   async componentDidMount() {
-    const { pluginId, path } = this.state;
-    const { query } = this.props;
+    const { query, pluginId, path } = this.props;
     const { appSubUrl } = config;
 
     const plugin = await loadPlugin(pluginId);

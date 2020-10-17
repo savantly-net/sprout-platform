@@ -3,7 +3,7 @@ import { AppPlugin, KeyValue, PanelPlugin, PluginMeta } from '@savantly/sprout-a
 import { PluginsState } from '../../../types';
 import { PluginDashboard, PluginRoute } from '../../../types/plugins';
 
-export const initialState: PluginsState = {
+export const initialPluginState: PluginsState = {
   plugins: [],
   searchQuery: '',
   hasFetched: false,
@@ -14,7 +14,7 @@ export const initialState: PluginsState = {
 
 const pluginsSlice = createSlice({
   name: 'plugins',
-  initialState,
+  initialState: initialPluginState,
   reducers: {
     pluginsLoaded: (state, action: PayloadAction<{ pluginMetas: PluginMeta[] }>) => {
       state.hasFetched = true;

@@ -7,7 +7,8 @@ dependencies:
   '@grafana/slate-react': 0.22.9-grafana_ab938f342646f6304baaf30f3838c23b
   '@iconscout/react-unicons': 1.1.4
   '@jest/core': 26.5.2
-  '@okta/okta-react': 3.0.8_0137bb454b6cc6611da3f99ce7cda70d
+  '@okta/okta-react': 3.0.8_20c298b6c3f9f4142df0e482350e0c0b
+  '@redux-offline/redux-offline': 2.6.0_redux@4.0.5
   '@reduxjs/toolkit': 1.4.0
   '@rollup/plugin-commonjs': 11.0.2_rollup@2.0.6
   '@rollup/plugin-image': 2.0.4_rollup@2.0.6
@@ -19,7 +20,6 @@ dependencies:
   '@rush-temp/sprout-tsconfig': 'file:projects/sprout-tsconfig.tgz'
   '@rush-temp/sprout-ui': 'file:projects/sprout-ui.tgz_86f5992dbcb15004ccb51cd860cfeff1'
   '@rush-temp/webapp': 'file:projects/webapp.tgz'
-  '@savantly/sprout-runtime': 0.0.4_4decbdd9f473ed7a53d04ae66ef19851
   '@storybook/addon-actions': 5.3.21_a03138d395080e20df5440f0330af792
   '@storybook/addon-docs': 5.3.21_710a0ed6c237cc23bb27e7021df0cf13
   '@storybook/addon-info': 5.3.21_a03138d395080e20df5440f0330af792
@@ -128,7 +128,7 @@ dependencies:
   fork-ts-checker-webpack-plugin: 1.0.0
   fs-extra: 8.1.0
   globby: 10.0.2
-  history: 4.10.1
+  history: 5.0.0
   hoist-non-react-statics: 3.3.2
   html-loader: 0.5.5
   html-webpack-plugin: 3.2.0_webpack@4.42.0
@@ -186,7 +186,7 @@ dependencies:
   react-popper: 1.3.3_react@16.13.1
   react-redux: 7.2.1_49f644e2f7de4182503f8b93abece808
   react-router: 5.2.0_react@16.13.1
-  react-router-dom: 5.2.0_react@16.13.1
+  react-router-dom: 6.0.0-beta.0_8809c2ed4d825ed08decbe17a55ba530
   react-scripts: 3.4.3_node-sass@4.14.1
   react-sizeme: 2.6.12_react-dom@16.13.1+react@16.13.1
   react-split-pane: 2.0.3
@@ -199,6 +199,10 @@ dependencies:
   react-virtualized-auto-sizer: 1.0.2_react-dom@16.13.1+react@16.13.1
   react-window: 1.8.5_react-dom@16.13.1+react@16.13.1
   redux: 4.0.5
+  redux-devtools-extension: 2.13.8_redux@4.0.5
+  redux-dynamic-modules: 5.2.3_f018fcd1b8e71da470fdbd502f3befaf
+  redux-dynamic-modules-core: 5.2.3_redux@4.0.5
+  redux-dynamic-modules-thunk: 5.2.3_10d382f56de41d280299389fae758380
   redux-logger: 3.0.6
   redux-promise-middleware: 6.1.2_redux@4.0.5
   redux-thunk: 2.3.0
@@ -3196,14 +3200,14 @@ packages:
       node: '>=10.3'
     resolution:
       integrity: sha512-QbyRhDrBI9CdKBFpikPFjR2zmwOIQSndx+/g9YVuQ25QrxUnVhq/nAg/EXMQtrOQVtcb99Vx5AIfm1DWnKV31A==
-  /@okta/okta-react/3.0.8_0137bb454b6cc6611da3f99ce7cda70d:
+  /@okta/okta-react/3.0.8_20c298b6c3f9f4142df0e482350e0c0b:
     dependencies:
       '@babel/runtime': 7.11.2
       '@okta/configuration-validation': 0.4.3
       '@okta/okta-auth-js': 3.2.5
       react: 16.13.1
       react-dom: 16.13.1_react@16.13.1
-      react-router-dom: 5.2.0_react@16.13.1
+      react-router-dom: 6.0.0-beta.0_8809c2ed4d825ed08decbe17a55ba530
     dev: false
     engines:
       node: '>=10.3'
@@ -3232,6 +3236,16 @@ packages:
       react-dom: 15.x || 16.x || 16.4.0-alpha.0911da3
     resolution:
       integrity: sha512-+mtn9wjlB9NN2CNnnC/BRYtwdKBfSyyasPYraNAyvaV1occr/5NnB4CVzjEZipNHwYebQwcndGUmpFzxAUoqSA==
+  /@redux-offline/redux-offline/2.6.0_redux@4.0.5:
+    dependencies:
+      '@babel/runtime': 7.11.2
+      redux: 4.0.5
+      redux-persist: 4.10.2
+    dev: false
+    peerDependencies:
+      redux: '>=3'
+    resolution:
+      integrity: sha512-h11HBMVnFSuJBtRm9cwasGnLC+zimY7ghKOyUslHp3gOjJjX4eCurvNDyKqxZAyPg4glp4X+4s2rOXNvLC9FRA==
   /@reduxjs/toolkit/1.4.0:
     dependencies:
       immer: 7.0.9
@@ -3361,29 +3375,6 @@ packages:
       react: ^16.13.1
     resolution:
       integrity: sha512-wNuWQVM7RMIf6txyJIQxQTDYZr2VCl/agS6meE78DTzhvllEaYPiW/EdVCc260MLB0bO9WY3A8E6xR0mhywMiA==
-  /@savantly/sprout-runtime/0.0.4_4decbdd9f473ed7a53d04ae66ef19851:
-    dependencies:
-      '@reduxjs/toolkit': 1.4.0
-      '@savantly/sprout-api': 0.0.4_react@16.13.1
-      '@savantly/sprout-ui': 0.0.4
-      lodash: 4.17.20
-      marked: 1.2.0
-      react: 16.13.1
-      react-app-rewired: 2.1.6_react-scripts@3.4.3
-      systemjs: 0.20.19
-      systemjs-plugin-css: 0.1.37
-    dev: false
-    engines:
-      node: '>=12 <13'
-    peerDependencies:
-      '@reduxjs/toolkit': ^1.4.0
-      eventemitter3: ^4.0.7
-      lodash: ^4.17.20
-      marked: ^1.1.1
-      react: ^16.13.1
-      react-app-rewired: ^2.1.6
-    resolution:
-      integrity: sha512-gVNykBxYreANbr7LFrnhPOvztNHo2FsX/UOTh+ypy/RQB5Va3m/M1LQrJ9WHGWERsm+d/qrg5ZljXsxheQ54eQ==
   /@savantly/sprout-runtime/0.0.4_70d7122902cf846e2feda26aa5b0734d:
     dependencies:
       '@reduxjs/toolkit': 1.4.0
@@ -12122,6 +12113,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-36nwAD620w12kuzPAsyINPWJqlNbij+hpK1k9XRloDtym8mxzGYl2c17LnV6IAGB2Dmg4tEa7G7DlawS0+qjew==
+  /history/5.0.0:
+    dependencies:
+      '@babel/runtime': 7.11.2
+    dev: false
+    resolution:
+      integrity: sha512-3NyRMKIiFSJmIPdq7FxkNMJkQ7ZEtVblOQ38VtKaA0zZMW1Eo6Q6W8oDKEflr1kNNTItSnk4JMCO1deeSgbLLg==
   /hmac-drbg/1.0.1:
     dependencies:
       hash.js: 1.1.7
@@ -19193,21 +19190,20 @@ packages:
       react-dom: 0.14.x || 15.x || 16.x
     resolution:
       integrity: sha512-VoGz2ddxUFvildS8r8/29UZJeyiM3QJnlmRZSuXm+FpTqq/eIrMPc796Y9XQLg291n2hFZJtIoP1xC3hSTw/jg==
-  /react-router-dom/5.2.0_react@16.13.1:
+  /react-router-dom/6.0.0-beta.0_8809c2ed4d825ed08decbe17a55ba530:
     dependencies:
-      '@babel/runtime': 7.11.2
-      history: 4.10.1
-      loose-envify: 1.4.0
+      history: 5.0.0
       prop-types: 15.7.2
       react: 16.13.1
-      react-router: 5.2.0_react@16.13.1
-      tiny-invariant: 1.1.0
-      tiny-warning: 1.0.3
+      react-dom: 16.13.1_react@16.13.1
+      react-router: 6.0.0-beta.0_history@5.0.0+react@16.13.1
     dev: false
     peerDependencies:
-      react: '>=15'
+      history: '>=5'
+      react: '>=16.8'
+      react-dom: '>=16.8'
     resolution:
-      integrity: sha512-gxAmfylo2QUjcwxI63RhQ5G85Qqt4voZpUXSEqCwykV0baaOTQDR1f0PmY8AELqIyVc0NEZUj0Gov5lNGcXgsA==
+      integrity: sha512-36yNNGMT8RB9FRPL9nKJi6HKDkgOakU+o/2hHpSzR6e37gN70MpOU6QQlmif4oAWWBwjyGc3ZNOMFCsFuHUY5w==
   /react-router/5.2.0_react@16.13.1:
     dependencies:
       '@babel/runtime': 7.11.2
@@ -19226,6 +19222,17 @@ packages:
       react: '>=15'
     resolution:
       integrity: sha512-smz1DUuFHRKdcJC0jobGo8cVbhO3x50tCL4icacOlcwDOEQPq4TMqwx3sY1TP+DvtTgz4nm3thuo7A+BK2U0Dw==
+  /react-router/6.0.0-beta.0_history@5.0.0+react@16.13.1:
+    dependencies:
+      history: 5.0.0
+      prop-types: 15.7.2
+      react: 16.13.1
+    dev: false
+    peerDependencies:
+      history: '>=5'
+      react: '>=16.8'
+    resolution:
+      integrity: sha512-VgMdfpVcmFQki/LZuLh8E/MNACekDetz4xqft+a6fBZvvJnVqKbLqebF7hyoawGrV1HcO5tVaUang2Og4W2j1Q==
   /react-scripts/3.4.3_5bef26289a0d9b265b919ddb2259fc0d:
     dependencies:
       '@babel/core': 7.9.0
@@ -19807,12 +19814,81 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-JYx479FT3fk8tWEjf2EYTzaW4yc=
+  /redux-devtools-extension/2.13.8_redux@4.0.5:
+    dependencies:
+      redux: 4.0.5
+    dev: false
+    peerDependencies:
+      redux: ^3.1.0 || ^4.0.0
+    resolution:
+      integrity: sha512-8qlpooP2QqPtZHQZRhx3x3OP5skEV1py/zUdMY28WNAocbafxdG2tRD1MWE7sp8obGMNYuLWanhhQ7EQvT1FBg==
+  /redux-dynamic-middlewares/1.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-smX1eY17dH90FVtXL6JPW01on1ptP4SOlkDYON5Lka52RNcZfgWM6hvtoZKA3O+dZL2/ytbS+tHo2gdKln5iHw==
+  /redux-dynamic-modules-core/5.2.3_redux@4.0.5:
+    dependencies:
+      redux: 4.0.5
+      redux-devtools-extension: 2.13.8_redux@4.0.5
+      redux-dynamic-middlewares: 1.0.0
+    dev: false
+    peerDependencies:
+      redux: '>= 3.0.0'
+    resolution:
+      integrity: sha512-4UyJY+r9llTYO2AJj/HMY2M/FPvcks169V3o0wUr1ViIFC8cmNsq9f1DRsNqI2Ns57hAvpvdd8fU6nm+GczRnw==
+  /redux-dynamic-modules-react/5.2.3_f018fcd1b8e71da470fdbd502f3befaf:
+    dependencies:
+      react: 16.13.1
+      react-redux: 7.2.1_49f644e2f7de4182503f8b93abece808
+      redux: 4.0.5
+      redux-devtools-extension: 2.13.8_redux@4.0.5
+      redux-dynamic-middlewares: 1.0.0
+      redux-dynamic-modules-core: 5.2.3_redux@4.0.5
+    dev: false
+    peerDependencies:
+      react: '>= 15.0.0'
+      react-redux: '>= 6.0.0'
+      redux: '>= 3.0.0'
+    resolution:
+      integrity: sha512-JuRBjjTL0WAcTu0sdTVghTrxWHc8G9d4cLzUy5m3m51ycW3W7hnq2mZNo/eaoIADYtMMWtpnhEm+z9KeNyp0kA==
+  /redux-dynamic-modules-thunk/5.2.3_10d382f56de41d280299389fae758380:
+    dependencies:
+      redux-dynamic-modules-core: 5.2.3_redux@4.0.5
+      redux-thunk: 2.3.0
+    dev: false
+    peerDependencies:
+      redux-dynamic-modules-core: '>=0.0.7'
+      redux-thunk: '>= 2.0.0'
+    resolution:
+      integrity: sha512-r6PMeDwydxT7pbEm41FewiwEbwCO9qPHEvbsnpvQFktwziSlCyfXgCywOiKEO/sdReBbGQER7cXPn4jf1+yj0g==
+  /redux-dynamic-modules/5.2.3_f018fcd1b8e71da470fdbd502f3befaf:
+    dependencies:
+      react: 16.13.1
+      react-redux: 7.2.1_49f644e2f7de4182503f8b93abece808
+      redux: 4.0.5
+      redux-dynamic-modules-core: 5.2.3_redux@4.0.5
+      redux-dynamic-modules-react: 5.2.3_f018fcd1b8e71da470fdbd502f3befaf
+    dev: false
+    peerDependencies:
+      react: '>= 15.0.0'
+      react-redux: '>= 5.0.0'
+      redux: '>= 3.0.0'
+    resolution:
+      integrity: sha512-eL3b82N4YiBYkXcWOMVFm7AOdNkwa6xp8jeXIoLAivoG1gjxNVg6AQIN7xmiB+PR7qBfN0QoPIiZ/uKmA9UhXw==
   /redux-logger/3.0.6:
     dependencies:
       deep-diff: 0.3.8
     dev: false
     resolution:
       integrity: sha1-91VZZvMJjzyIYExEnPC69XeCdL8=
+  /redux-persist/4.10.2:
+    dependencies:
+      json-stringify-safe: 5.0.1
+      lodash: 4.17.20
+      lodash-es: 4.17.15
+    dev: false
+    resolution:
+      integrity: sha512-U+e0ieMGC69Zr72929iJW40dEld7Mflh6mu0eJtVMLGfMq/aJqjxUM1hzyUWMR1VUyAEEdPHuQmeq5ti9krIgg==
   /redux-promise-middleware/6.1.2_redux@4.0.5:
     dependencies:
       redux: 4.0.5
@@ -24069,7 +24145,7 @@ packages:
       '@types/node': '*'
       react-scripts: '*'
     resolution:
-      integrity: sha512-MMYkvA5h9YDaJXiYxohiLQbmB/9h0g9mTUZEDJ90kjZ1zqMal66KsDQHCtPsNPXbOZes0B50LEPBA6h7jFwZVQ==
+      integrity: sha512-8Lxp8fbjLXeisUpZiWrZZL86Bff4itBBB1WcOk88BJs/dpe7DKxiHJY1poFhH4n7AetYX6LM1oWorf0ywje1hg==
       tarball: 'file:projects/sprout-runtime.tgz'
     version: 0.0.0
   'file:projects/sprout-toolkit.tgz':
@@ -24159,7 +24235,7 @@ packages:
     dev: false
     name: '@rush-temp/sprout-toolkit'
     resolution:
-      integrity: sha512-DgB0kFjO7/c53SFDnjbRl7oyNdo0rGX61Oz7/f2nmsx4y6zWulcB61nQQLRw/XTWrcmm524rYhtal7sA1AqF7A==
+      integrity: sha512-4P6rdy2lwE+NS6D1hHimjSmMFLAAEJPbmE/XKjl+cfhbJgb9MXThPvaLGSLR3xd1ebMpimHcNSMaV+GVydPiOg==
       tarball: 'file:projects/sprout-toolkit.tgz'
     version: 0.0.0
   'file:projects/sprout-tsconfig.tgz':
@@ -24281,13 +24357,14 @@ packages:
       babel-loader: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-UU0fdIe9UPe3t64ctBeUT3ik+inUUU2OKmRnW1Re9y562HUbi7/p1WDf82A0hv91QlZ50gEcszvfLRmZZSSAZA==
+      integrity: sha512-X+Pb8rhGcvzwOGs0vR5M8RPtVXnT6sFSxOp2lFLUVBnqEnlMXRoXSCg3Axw1IrxgnBbkN7S+8DWOrLPdKblGcA==
       tarball: 'file:projects/sprout-ui.tgz'
     version: 0.0.0
   'file:projects/webapp.tgz':
     dependencies:
       '@grafana/e2e-selectors': 7.2.1
-      '@okta/okta-react': 3.0.8_0137bb454b6cc6611da3f99ce7cda70d
+      '@okta/okta-react': 3.0.8_20c298b6c3f9f4142df0e482350e0c0b
+      '@redux-offline/redux-offline': 2.6.0_redux@4.0.5
       '@reduxjs/toolkit': 1.4.0
       '@savantly/sprout-runtime': 0.0.4_70d7122902cf846e2feda26aa5b0734d
       '@testing-library/jest-dom': 4.2.4
@@ -24322,7 +24399,7 @@ packages:
       dangerously-set-html-content: 1.0.8_react-dom@16.13.1+react@16.13.1
       emotion: 10.0.27
       eventemitter3: 4.0.7
-      history: 4.10.1
+      history: 5.0.0
       http-proxy-middleware: 1.0.5
       jest: 24.9.0
       jquery: 3.5.1
@@ -24339,7 +24416,7 @@ packages:
       react-loadable: 5.5.0_react@16.13.1
       react-redux: 7.2.1_49f644e2f7de4182503f8b93abece808
       react-router: 5.2.0_react@16.13.1
-      react-router-dom: 5.2.0_react@16.13.1
+      react-router-dom: 6.0.0-beta.0_8809c2ed4d825ed08decbe17a55ba530
       react-scripts: 3.4.3_5bef26289a0d9b265b919ddb2259fc0d
       react-sizeme: 2.6.12_react-dom@16.13.1+react@16.13.1
       react-split-pane: 2.0.3
@@ -24348,6 +24425,10 @@ packages:
       react-use: 15.3.4_react-dom@16.13.1+react@16.13.1
       react-virtualized-auto-sizer: 1.0.2_react-dom@16.13.1+react@16.13.1
       redux: 4.0.5
+      redux-devtools-extension: 2.13.8_redux@4.0.5
+      redux-dynamic-modules: 5.2.3_f018fcd1b8e71da470fdbd502f3befaf
+      redux-dynamic-modules-core: 5.2.3_redux@4.0.5
+      redux-dynamic-modules-thunk: 5.2.3_10d382f56de41d280299389fae758380
       redux-logger: 3.0.6
       redux-promise-middleware: 6.1.2_redux@4.0.5
       redux-thunk: 2.3.0
@@ -24359,7 +24440,7 @@ packages:
     dev: false
     name: '@rush-temp/webapp'
     resolution:
-      integrity: sha512-yl/N+4KTN4ts+mislPVPShNU9OdP/kt+UkDqMs/ZrfmgwCrj2q0U8HlBHnksZ5S1tXpxODAz9S5WmNt/HDEUiA==
+      integrity: sha512-7r17Zn9oxnN24mQWriVLlbsejyI7usMrnANtB3WYncLRKcOWPiANPdjQoVHnGt1YhY4/8KFnpEGjjiqsxbBOdQ==
       tarball: 'file:projects/webapp.tgz'
     version: 0.0.0
 registry: ''
@@ -24373,6 +24454,7 @@ specifiers:
   '@iconscout/react-unicons': 1.1.4
   '@jest/core': ~26.5.2
   '@okta/okta-react': ^3.0.7
+  '@redux-offline/redux-offline': ~2.6.0
   '@reduxjs/toolkit': ^1.4.0
   '@rollup/plugin-commonjs': ^11.0.2
   '@rollup/plugin-image': 2.0.4
@@ -24384,7 +24466,6 @@ specifiers:
   '@rush-temp/sprout-tsconfig': 'file:./projects/sprout-tsconfig.tgz'
   '@rush-temp/sprout-ui': 'file:./projects/sprout-ui.tgz'
   '@rush-temp/webapp': 'file:./projects/webapp.tgz'
-  '@savantly/sprout-runtime': 0.0.4
   '@storybook/addon-actions': 5.3.21
   '@storybook/addon-docs': 5.3.21
   '@storybook/addon-info': 5.3.21
@@ -24493,7 +24574,7 @@ specifiers:
   fork-ts-checker-webpack-plugin: 1.0.0
   fs-extra: ^8.1.0
   globby: ^10.0.1
-  history: ^4
+  history: ^5
   hoist-non-react-statics: ^3.3.2
   html-loader: 0.5.5
   html-webpack-plugin: ^3.2.0
@@ -24551,7 +24632,7 @@ specifiers:
   react-popper: 1.3.3
   react-redux: ^7.2.1
   react-router: ~5.2.0
-  react-router-dom: ^5.2.0
+  react-router-dom: 6.0.0-beta.0
   react-scripts: 3.4.3
   react-sizeme: ^2.6.12
   react-split-pane: ^2.0.3
@@ -24564,6 +24645,10 @@ specifiers:
   react-virtualized-auto-sizer: ^1.0.2
   react-window: ^1.8.5
   redux: ~4.0.5
+  redux-devtools-extension: ~2.13.8
+  redux-dynamic-modules: ~5.2.3
+  redux-dynamic-modules-core: ~5.2.3
+  redux-dynamic-modules-thunk: ~5.2.3
   redux-logger: ^3.0.6
   redux-promise-middleware: ^6.1.2
   redux-thunk: ^2.3.0

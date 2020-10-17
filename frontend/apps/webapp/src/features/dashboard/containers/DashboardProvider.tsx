@@ -1,4 +1,3 @@
-import { urlUtil } from "@savantly/sprout-api";
 import {
   Alert,
   Button,
@@ -6,12 +5,12 @@ import {
   Icon,
   VerticalGroup
 } from "@savantly/sprout-ui";
-import { Location } from "history";
 import React, {
+  createRef,
   useEffect
 } from "react";
 import { connect } from "react-redux";
-import { match } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { getMessageFromError } from "../../../core/utils/errors";
 import {
   AppNotificationSeverity,
@@ -22,7 +21,7 @@ import {
 } from "../../../types";
 import { DashboardModel } from "../state/DashboardModel";
 import { initDashboard } from "../state/initDashboard";
-import DashboardPage from "./DashboardPage"; /* webpackChunkName: "DashboardPage" */ 
+import DashboardPage from "./DashboardPage"; /* webpackChunkName: "DashboardPage" */
 
 //const DashboardPage = SafeDynamicImport(import(/* webpackChunkName: "DashboardPage" */ './DashboardPage'));
 
@@ -38,16 +37,11 @@ type StateProps = {
   initError: DashboardInitError | null;
 };
 
-type ConnectedProps = {
-  match: match<any>;
-  location: Location<any>;
-}
-
 type DispatchProps = {
   initDashboard: Function;
 };
 
-type AllProps = OwnProps & StateProps & DispatchProps & ConnectedProps;
+type AllProps = OwnProps & StateProps & DispatchProps;
 
 type OwnState = {
   showLoadingState: boolean;
@@ -64,26 +58,29 @@ const mapDispatchToProps: DispatchProps = {
   initDashboard,
 };
 
+const ref = createRef();
+
 const DashboardProvider = ({
   routeInfo,
   initDashboard,
   initError,
   initPhase,
-  isInitSlow,
-  location,
-  match
+  isInitSlow
 }: AllProps) => {
 
-  const queryParams = urlUtil.getUrlSearchParams();
+  console.log('DashboardProvider entered')
+
+  const location = useLocation();
+  const params = useParams();
 
   useEffect(() => {
     initDashboard({
       fixUrl: false,
       routeInfo: routeInfo,
-      urlUid: match.params['uid'], //this.props.urlUid ? this.props.urlUid as string : undefined,
+      urlUid: params['uid'], //this.props.urlUid ? this.props.urlUid as string : undefined,
       urlFolderId: undefined, // this.props.urlFolderId ? this.props.urlFolderId as string : undefined,
     });
-  }, [location.pathname]);
+  }, [ref]);
 
   const cancelVariables = () => {
     //props.updateLocation({ path: '/' });

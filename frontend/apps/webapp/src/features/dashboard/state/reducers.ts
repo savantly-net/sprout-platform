@@ -11,7 +11,7 @@ import { DashboardModel } from './DashboardModel';
 import { PanelModel } from './PanelModel';
 import { PanelPlugin } from '@savantly/sprout-api';
 
-export const initialState: DashboardState = {
+export const initialDashboardState: DashboardState = {
   initPhase: DashboardInitPhase.NotStarted,
   isInitSlow: false,
   getModel: () => null,
@@ -21,7 +21,7 @@ export const initialState: DashboardState = {
 
 const dashbardSlice = createSlice({
   name: 'dashboard',
-  initialState,
+  initialState: initialDashboardState,
   reducers: {
     dashboardInitFetching: (state, action: PayloadAction) => {
       state.initPhase = DashboardInitPhase.Fetching;

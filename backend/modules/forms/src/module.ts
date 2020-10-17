@@ -1,4 +1,4 @@
-import { AppPlugin, AppRootProps, PanelPlugin } from '@savantly/sprout-api';
+import { AppPlugin, AppPluginMeta, AppRootProps, KeyValue, PanelPlugin } from '@savantly/sprout-api';
 import { FormsRootPage } from 'plugin/FormsRootPage';
 import { ComponentClass } from 'react';
 import { SimplePanel } from './plugin/SimplePanel';
@@ -22,6 +22,9 @@ export const plugin = new AppPlugin<ExampleAppSettings>()
     body: ExamplePage2,
     id: 'page2',
   });
+  plugin.init = (meta: AppPluginMeta<KeyValue<any>>) => {
+
+  }
 
 const panelPlugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOptions(builder => {
   return builder

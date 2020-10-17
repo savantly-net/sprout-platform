@@ -7,7 +7,7 @@ import sharedReducers from '.';
 import { locationReducer } from "../services/locationSvc";
 import { navTreeReducer } from './navTree';
 
-const rootReducers = {
+export const rootReducers = {
   ...sharedReducers,
   ...dashboardReducers,
   ...pluginReducers,

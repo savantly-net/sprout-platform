@@ -62,7 +62,8 @@ export interface PluginDependencies {
 export enum PluginIncludeType {
   component = 'component',
   page = 'page',
-  dashboard = 'dashboard'
+  dashboard = 'dashboard',
+  panel = 'panel'
 }
 
 export interface PluginInclude {
@@ -73,9 +74,6 @@ export interface PluginInclude {
 
   role?: string; // "Viewer", Admin, editor???
   addToNav?: boolean; // Show in the sidebar... only if type=page?
-
-  // Angular app pages
-  component?: string;
 }
 
 interface PluginMetaInfoLink {

@@ -1,6 +1,7 @@
 // Libaries
-import { Icon, ModalsController } from '@savantly/sprout-ui';
 import { textUtil } from '@savantly/sprout-api';
+import { getLocationSrv } from '@savantly/sprout-runtime';
+import { Icon, ModalsController } from '@savantly/sprout-ui';
 import { css } from 'emotion';
 import React, { FC, PureComponent, ReactNode } from 'react';
 import { connect, MapDispatchToProps } from 'react-redux';
@@ -13,8 +14,6 @@ import { DashboardModel } from '../../state';
 import { SaveDashboardModalProxy } from '../SaveDashboard/SaveDashboardModalProxy';
 // Components
 import { DashNavButton } from './DashNavButton';
-import { getLocationSrv } from '@savantly/sprout-runtime';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 
 export interface OwnProps {
@@ -43,10 +42,9 @@ export function addCustomRightAction(content: DashNavButtonModel) {
 }
 
 export interface StateProps {
-  location: any;
 }
 
-type Props = StateProps & OwnProps & DispatchProps & RouteComponentProps;
+type Props = StateProps & OwnProps & DispatchProps;
 
 class DashNav extends PureComponent<Props> {
   locationService = getLocationSrv();
@@ -244,7 +242,7 @@ class DashNav extends PureComponent<Props> {
   }
 
   render() {
-    const { dashboard, location, isFullscreen } = this.props;
+    const { dashboard, isFullscreen } = this.props;
 
     return (
       <div className="navbar">
@@ -266,4 +264,4 @@ const mapStateToProps = (state: StoreState) => ({
 
 const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(DashNav));
+export default connect(mapStateToProps, mapDispatchToProps)(DashNav);

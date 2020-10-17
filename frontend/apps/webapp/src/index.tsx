@@ -21,6 +21,7 @@ import appEvents from './core/app_events';
 import { AppEvents } from '@savantly/sprout-api';
 import { setViewModeBodyClass } from './core/utils/viewMode';
 import { getBackendSrv } from './core/services/backend_srv';
+import { Router } from 'react-router-dom';
 
 const store = configureStore();
 const locationService = locationSvc(history);
@@ -199,7 +200,11 @@ ReactDOM.render(
         <SideMenu></SideMenu>
         <div ref={appElem} className="main-view">
           <div className="scroll-canvas">
-            <App theme={theme} />
+            <Provider store={store}>
+              <Router location={history.location} navigator={history} >
+                <App theme={theme} />
+              </Router>
+            </Provider>
           </div>
         </div>
       </Provider>

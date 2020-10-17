@@ -36,7 +36,7 @@ export interface PanelEditorState {
   ui: PanelEditorUIState;
 }
 
-export const initialState = (): PanelEditorState => {
+export const initialPanelEditorState = (): PanelEditorState => {
   return {
     getPanel: () => new PanelModel({}),
     getSourcePanel: () => new PanelModel({}),
@@ -60,7 +60,7 @@ interface InitEditorPayload {
 
 const pluginsSlice = createSlice({
   name: 'panelEditor',
-  initialState: initialState(),
+  initialState: initialPanelEditorState(),
   reducers: {
     updateEditorInitState: (state, action: PayloadAction<InitEditorPayload>) => {
       state.getPanel = () => action.payload.panel;

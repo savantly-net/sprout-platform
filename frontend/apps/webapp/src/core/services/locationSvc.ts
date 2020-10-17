@@ -15,7 +15,7 @@ export type LocationUpdateService = {
   update: (payload: LocationUpdate) => void;
 }
 
-const initialState = {
+export const initialLocationState = {
   url: urlUtil.renderUrl(window.location.pathname, urlUtil.getUrlSearchParams()),
   path: window.location.pathname,
   query: urlUtil.getUrlSearchParams(),
@@ -30,7 +30,7 @@ const initialState = {
 */
 const updateLocation = createAction<LocationUpdate>('location/updateLocation');
 
-export const locationReducer = (state: typeof initialState = initialState, action: Action<unknown>) => {
+export const locationReducer = (state: typeof initialLocationState = initialLocationState, action: Action<unknown>) => {
   if (updateLocation.match(action)) {
     const payload: LocationUpdate = action.payload;
     const { path, routeParams, replace } = payload;

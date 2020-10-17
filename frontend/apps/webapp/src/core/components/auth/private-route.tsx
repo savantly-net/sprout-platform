@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Redirect, RouteProps } from 'react-router-dom';
+import { Redirect, RouteProps } from 'react-router';
+import { Route } from 'react-router-dom';
 import { StoreState } from '../../../types';
 import ErrorBoundary from '../error/error-boundary';
 
@@ -31,7 +32,7 @@ export const PrivateRouteComponent = ({
       </div>
     );
 
-  const renderRedirect = (props:any) => {
+  const RenderRedirect = (props:any) => {
     if (!sessionHasBeenFetched) {
       return <div></div>;
     } else {
@@ -51,7 +52,7 @@ export const PrivateRouteComponent = ({
 
   if (!Component) throw new Error(`A component needs to be specified for private route for path ${(rest as any).path}`);
 
-  return <Route {...rest} render={renderRedirect} />;
+  return <Route element={<RenderRedirect />} />;
 };
 
 export const hasAnyAuthority = (authorities: string[], hasAnyAuthorities: string[]) => {

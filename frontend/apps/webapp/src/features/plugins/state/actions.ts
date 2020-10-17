@@ -20,7 +20,11 @@ export function loadPlugins(): ThunkResult<void> {
           img: `/api/plugins/${p.id}/${p.info.logos.large}`,
           children: []
         };
+        
+        // add default navigation for an app plugin
         navItems.push(rootNav);
+
+        // add any included pages
         p.includes?.forEach((pi, index) => {
           if (pi.type === PluginIncludeType.page && pi.addToNav) {
             rootNav.children?.push({

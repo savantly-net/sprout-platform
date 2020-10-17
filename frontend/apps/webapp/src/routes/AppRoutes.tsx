@@ -1,7 +1,7 @@
 //import { LoginCallback } from '@okta/okta-react';
 import React, { Fragment, Suspense, useEffect, useMemo, useState } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { SafeDynamicImport } from '../core/components/DynamicImports/SafeDynamicImport';
 import PageNotFound from '../core/components/error/page-not-found';
 import Spinner from '../core/components/Spinner/Spinner';
@@ -21,13 +21,16 @@ type AllProps = OwnProps & StateProps & DispatchProps;
 const AppRoutes = ({ history }: AllProps) => {
   return (
     <Suspense fallback={<Spinner />}>
-      <Switch>
+      <Routes>
         <Fragment>
+          <Route
+            path="/"
+            element={<DashboardProvider routeInfo={DashboardRouteInfo.Home} />} />
           <DashboardRoutes />
           <PluginRoutes />
         </Fragment>
-        <Route component={PageNotFound} />
-      </Switch>
+        <Route element={<PageNotFound />} />
+      </Routes>
     </Suspense>
   );
 };
