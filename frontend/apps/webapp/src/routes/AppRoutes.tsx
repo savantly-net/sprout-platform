@@ -3,6 +3,7 @@ import React, { Fragment, Suspense, useEffect, useMemo, useState } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, useLocation, useParams } from 'react-router-dom';
 import { SafeDynamicImport } from '../core/components/DynamicImports/SafeDynamicImport';
+import ErrorBoundary from '../core/components/error/error-boundary';
 import PageNotFound from '../core/components/error/page-not-found';
 import Spinner from '../core/components/Spinner/Spinner';
 import { DashboardPage } from '../features/dashboard/containers/DashboardPage';
@@ -47,7 +48,11 @@ const AppRoutes = ({ history }: AllProps) => {
           />
         </Route>
 
-        <Route path="/a/:pluginId" element={<AppRootPage />} />
+        <Route path="/a/:pluginId/*" element={
+          <ErrorBoundary>
+            <AppRootPage />
+          </ErrorBoundary>}
+        />
         <Route path="/plugins" element={<PluginListPage plugins={plugins} />} />
         <Route path="/plugins/:pluginId" element={<PluginPage pluginId={params.pluginId} path={location.pathname} />} />
         <Route element={<PageNotFound />} />

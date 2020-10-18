@@ -1,8 +1,10 @@
 // Libraries
 import { AppEvents, AppPlugin, AppPluginMeta, KeyValue, NavModel, PluginType, UrlQueryMap, urlUtil } from '@savantly/sprout-api';
-import React, { FC, useMemo, useState } from 'react';
+import { Alert } from '@savantly/sprout-ui';
+import React, { FC, ReactElement, useMemo, useState } from 'react';
 import { connect } from 'react-redux';
-import { useLocation, useParams } from 'react-router-dom';
+import { Route } from 'react-router';
+import { useInRouterContext, useLocation, useParams, useRoutes, Routes, Outlet } from 'react-router-dom';
 import { appEvents } from '../../core/app_events';
 import Page from '../../core/components/Page/Page';
 import PageLoader from '../../core/components/PageLoader/PageLoader';
@@ -11,6 +13,7 @@ import { getExceptionNav, getNotFoundNav, getWarningNav } from '../../core/nav_m
 import { StoreState } from '../../types';
 import { getPluginSettings } from './PluginSettingsCache';
 import { importAppPlugin } from './plugin_loader';
+import { DynamicModuleLoader, IModule } from "redux-dynamic-modules";
 
 
 interface Props {
@@ -38,6 +41,9 @@ const AppRootPage: FC<Props> = ({
   const [plugin, setPlugin] = useState<AppPlugin<KeyValue<any>> | null>();
   const [nav, setNav] = useState<NavModel | null>();
   const [loading, setLoading] = useState<boolean>(true);
+  const [routes, setRoutes] = useState<ReactElement>();
+  const [routesLoaded, setRoutesLoaded] = useState<boolean>(false);
+  const [appPluginState, setAppPluginState] = useState<IModule<any> | null>();
 
   useMemo(() => {
     try {
@@ -49,6 +55,11 @@ const AppRootPage: FC<Props> = ({
           return null;
         }
         importAppPlugin(info).then(app => {
+          //@ts-ignore
+          if (app.stateModule){
+            //@ts-ignore
+            setAppPluginState(app.stateModule());
+          }
           setPlugin(app);
           setLoading(false);
         });
@@ -64,34 +75,69 @@ const AppRootPage: FC<Props> = ({
     setNav(nav);
   };
 
-  if (plugin && !plugin.root) {
-    // TODO? redirect to plugin page?
-    return <div>No Root App</div>;
+  //@ts-ignore
+  const pluginRoutes = useRoutes((plugin?.routes && plugin.routes({
+    meta: plugin.meta,
+    query: urlUtil.getUrlSearchParams(),
+    path: `/a/${plugin.meta.id}`,
+    params,
+    onNavChanged
+  })) || []);
+  if (pluginRoutes && !routesLoaded) {
+    setRoutesLoaded(true);
+    setRoutes(pluginRoutes);
   }
 
-  // When no navigation is set, give full control to the app plugin
-  if (!nav) {
-    if (plugin && plugin.root) {
-      return <plugin.root meta={plugin.meta} query={urlUtil.getUrlSearchParams()} path={location.pathname} onNavChanged={onNavChanged} />;
+  const routesOrRoot = () => {
+    if (!plugin) {
+      return <PageLoader />;
+    } else if (routesLoaded) {
+      return routes!;
+    } else if (plugin && plugin.root) {
+      return (<plugin.root meta={plugin.meta} query={urlUtil.getUrlSearchParams()} path={location.pathname} onNavChanged={onNavChanged} />);
+    } else {
+      return (
+      <Alert title="App Plugin Error" severity="error">
+        <h3>No Routes or Root page has been provided in the App Plugin</h3>
+      </Alert>
+      );
     }
-    return <PageLoader />;
+  };
+
+  const withStateWrapper = (element: ReactElement) => {
+    if (appPluginState) {
+      return (
+        <DynamicModuleLoader modules={[appPluginState]}>
+          {element}
+        </DynamicModuleLoader>);
+    } else {
+      return element;
+    }
+  }
+
+  const withPageWrapper = (element: ReactElement) => {
+    if (nav) {
+      return (
+        <Page navModel={nav}>
+          <Page.Contents isLoading={loading}>
+            {element}
+          </Page.Contents>
+        </Page>
+      );
+    } else {
+      return element;
+    }
   }
 
   return (
-    <Page navModel={nav}>
-      <Page.Contents isLoading={loading}>
-        {plugin && plugin.root && (
-          <plugin.root meta={plugin.meta} query={urlUtil.getUrlSearchParams()} path={location.pathname} onNavChanged={onNavChanged} />
-        )}
-      </Page.Contents>
-    </Page>
+    <>
+     {withStateWrapper(withPageWrapper(routesOrRoot()))}
+    </>
+    
   );
 }
 
 const mapStateToProps = (state: StoreState) => ({
-  slug: state.location.routeParams.slug as string,
-  query: state.location.query,
-  path: state.location.path
 });
 
 export default connect(mapStateToProps)(AppRootPage);

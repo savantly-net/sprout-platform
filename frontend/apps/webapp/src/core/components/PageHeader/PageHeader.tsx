@@ -2,6 +2,7 @@ import { NavModel, NavModelBreadcrumb, NavModelItem } from '@savantly/sprout-api
 import { Icon, IconName, Tab, TabsBar } from '@savantly/sprout-ui';
 import { css } from 'emotion';
 import React, { FormEvent } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { CoreEvents } from '../../../types';
 import appEvents from '../../app_events';
 
@@ -44,6 +45,7 @@ function parseUrlValue(url: string) {
 }
 
 const SelectNav = ({ children, customCss }: { children: NavModelItem[]; customCss: string }) => {
+  const navigate = useNavigate();
   if (!children || children.length === 0) {
     return null;
   }
@@ -56,12 +58,7 @@ const SelectNav = ({ children, customCss }: { children: NavModelItem[]; customCs
     const element = evt.target as HTMLSelectElement;
     const url = element.options[element.selectedIndex].value;
     const { path, query } = parseUrlValue(url);
-    appEvents.emit(CoreEvents.locationChange, {
-      path: path,
-      query: query,
-      partial: false,
-      replace: false
-    });
+    navigate(url);
   };
 
   return (
@@ -94,6 +91,7 @@ const SelectNav = ({ children, customCss }: { children: NavModelItem[]; customCs
 };
 
 const Navigation = ({ children }: { children: NavModelItem[] }) => {
+  const navigate = useNavigate();
   if (!children || children.length === 0) {
     return null;
   }
@@ -102,12 +100,7 @@ const Navigation = ({ children }: { children: NavModelItem[] }) => {
     children.forEach((child, i) => {
       if (i === index) {
         const { path, query } = parseUrlValue(child.url || '');
-        appEvents.emit(CoreEvents.locationChange, {
-          path: path,
-          query: query,
-          partial: false,
-          replace: false
-        });
+        navigate(child.url || '');
       }
     });
   };
@@ -149,9 +142,9 @@ export default class PageHeader extends React.Component<Props, any> {
     for (const bc of breadcrumbs) {
       if (bc.url) {
         breadcrumbsResult.push(
-          <a className="text-link" key={breadcrumbsResult.length} href={bc.url}>
+          <Link className="text-link" key={breadcrumbsResult.length} to={bc.url}>
             {bc.title}
-          </a>
+          </Link>
         );
       } else {
         breadcrumbsResult.push(<span key={breadcrumbsResult.length}> / {bc.title}</span>);

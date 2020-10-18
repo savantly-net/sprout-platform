@@ -1,15 +1,17 @@
 import * as sproutApi from '@savantly/sprout-api';
-import { AppPlugin, PanelPlugin, PanelPluginMeta, PluginMeta, PluginType } from '@savantly/sprout-api';
+import { AppPlugin, PanelPlugin, PluginMeta } from '@savantly/sprout-api';
 import * as sproutRuntime from '@savantly/sprout-runtime';
-import * as sproutUi from '@savantly/sprout-ui';
 import { config } from '@savantly/sprout-runtime';
+import * as sproutUi from '@savantly/sprout-ui';
 import * as emotion from 'emotion';
 import _ from 'lodash';
 import moment from 'moment'; // eslint-disable-line no-restricted-imports
 import react from 'react';
 import reactDom from 'react-dom';
 import * as reactRedux from 'react-redux';
+import * as reactRouterDom from 'react-router-dom';
 import * as redux from 'redux';
+import * as reduxDynamicModules from 'redux-dynamic-modules';
 import * as rxjs from 'rxjs';
 import * as rxjsOperators from 'rxjs/operators';
 import builtInPluginIndex from './built_in_plugins';
@@ -60,8 +62,10 @@ exposeToPlugin('rxjs/operators', rxjsOperators);
 exposeToPlugin('react', react);
 exposeToPlugin('React', react);
 exposeToPlugin('react-dom', reactDom);
+exposeToPlugin('react-router-dom', reactRouterDom);
 exposeToPlugin('react-redux', reactRedux);
 exposeToPlugin('redux', redux);
+exposeToPlugin('redux-dynamic-modules', reduxDynamicModules);
 exposeToPlugin('emotion', emotion);
 
 export async function importPluginModule(path: string): Promise<any> {
