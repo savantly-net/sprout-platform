@@ -1,6 +1,6 @@
 {
   "name": "@savantly/sprout-api",
-  "version": "0.1.1-6",
+  "version": "0.1.1-7",
   "description": "Core API for Sprout React applications",
   "scripts": {
     "build": "npm run compile && npm run bundle && node postBuild.js",
