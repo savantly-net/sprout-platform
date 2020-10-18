@@ -13,7 +13,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd $DIR
 
 GIT_READY=$(git status --porcelain | wc -l)
-if [ $GIT_READY > 0 ]; then
+if [ $GIT_READY -gt 0 ]; then
     echo 'your git workspace is not pristine'
     exit 1
 fi
