@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "webapp",
+      "comment": "adds plugin route and state management options",
+      "type": "none"
+    }
+  ],
+  "packageName": "webapp",
+  "email": "Jeremy@savantly.net"
+}

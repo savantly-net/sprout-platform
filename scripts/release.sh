@@ -30,6 +30,6 @@ trap 'echo "\"${last_command}\" command failed with exit code $?."' EXIT
 
 rush publish --include-all --version-policy sprout \
   --target-branch development  --add-commit-details \
-  --apply --publish --pack --release-folder dist
+  --apply --pack --release-folder dist
 
 rush npm:publish
