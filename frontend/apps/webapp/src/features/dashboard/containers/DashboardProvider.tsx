@@ -80,7 +80,7 @@ const DashboardProvider = ({
       urlFolderId: undefined, // this.props.urlFolderId ? this.props.urlFolderId as string : undefined,
       navigate
     });
-  }, [params]);
+  }, [params['uid']]);
 
   const cancelVariables = () => {
     //props.updateLocation({ path: '/' });

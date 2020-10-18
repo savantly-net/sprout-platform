@@ -31,9 +31,11 @@
     "node": ">=12 <13"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
     "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.6",
     "history": "^5.0.0",
+    "jest-util": "^26.5.2",
     "prettier-eslint": "^11.0.0",
     "prettier-eslint-cli": "^5.0.0",
     "react-formio": "^4.3.0",

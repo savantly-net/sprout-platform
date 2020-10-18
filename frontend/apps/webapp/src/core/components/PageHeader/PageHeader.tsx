@@ -3,8 +3,6 @@ import { Icon, IconName, Tab, TabsBar } from '@savantly/sprout-ui';
 import { css } from 'emotion';
 import React, { FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { CoreEvents } from '../../../types';
-import appEvents from '../../app_events';
 
 export interface Props {
   model: NavModel;

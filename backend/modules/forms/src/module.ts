@@ -2,12 +2,16 @@ import { AppPlugin, AppPluginMeta, AppRootProps, KeyValue, PanelPlugin } from '@
 import /* webpackChunkName: "formioCss" */ 'formiojs/dist/formio.full.min.css';
 import { ExamplePage2 } from 'plugin/config/ExamplePage2';
 import { FormsRootPage } from 'plugin/FormsRootPage';
-import { getFormStateModule } from 'plugin/state/FormStateModule';
 import { ComponentClass } from 'react';
+import { Formio } from 'react-formio';
 import { ExamplePage1 } from './plugin/config/ExamplePage1';
 import { SimplePanel } from './plugin/SimplePanel';
 import './plugin/styles.css';
 import { ExampleAppSettings, SimpleOptions } from './plugin/types';
+
+const currentSite = `${location.protocol}//${location.host}/api/savantly-forms`;
+const PROJECT_URL = currentSite;
+const API_URL = currentSite;
 
 export const plugin = new AppPlugin<ExampleAppSettings>()
   .setRootPage((FormsRootPage as unknown) as ComponentClass<AppRootProps>)
@@ -25,6 +29,18 @@ export const plugin = new AppPlugin<ExampleAppSettings>()
   });
 plugin.init = (meta: AppPluginMeta<KeyValue<any>>) => {
   console.log('appplugin module init');
+  const query: KeyValue = {};
+  window.location.search
+    .substr(1)
+    .split('&')
+    .forEach(function(item) {
+      query[item.split('=')[0]] = item.split('=')[1] && decodeURIComponent(item.split('=')[1]);
+    });
+
+  const projUrl = query.projectUrl || PROJECT_URL;
+  const apiUrl = query.apiUrl || API_URL;
+  Formio.setProjectUrl(projUrl);
+  Formio.setBaseUrl(apiUrl);
 };
 
 const panelPlugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOptions(builder => {
@@ -63,9 +79,5 @@ const panelPlugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOptions(
       showIf: config => config.showMessage,
     });
 });
-// @ts-ignore
-//plugin.routes = (props: AppRootProps<KeyValue<any>>) => PluginRoutes(props);
-// @ts-ignore
-plugin.stateModule = getFormStateModule;
 
 export const panelPlugins: PanelPlugin[] = [panelPlugin];

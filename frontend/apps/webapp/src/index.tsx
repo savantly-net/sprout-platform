@@ -1,27 +1,24 @@
-import $ from 'jquery';
-// @ts-ignore
-import Drop from 'tether-drop';
-import { locationUtil, standardEditorsRegistry, UrlQueryValue } from '@savantly/sprout-api';
+import { AppEvents, locationUtil, standardEditorsRegistry, UrlQueryValue } from '@savantly/sprout-api';
 import { config, LocationUpdate, setBackendSrv, setLocationSrv } from '@savantly/sprout-runtime';
 import { getStandardOptionEditors } from '@savantly/sprout-ui';
+import $ from 'jquery';
 import React, { createRef } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
+import appEvents from './core/app_events';
 //import { updateLocation } from "./core/actions";
 import ErrorBoundary from './core/components/error/error-boundary';
 import { SideMenu } from './core/components/sidemenu/SideMenu';
+import { getBackendSrv } from './core/services/backend_srv';
 import locationSvc from './core/services/locationSvc';
+import { setViewModeBodyClass } from './core/utils/viewMode';
 import { builtInPluginMeta } from './features/plugins/built_in_plugins';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { configureStore, history } from './store/configureStore';
 import { CoreEvents, KioskUrlValue } from './types';
-import appEvents from './core/app_events';
-import { AppEvents } from '@savantly/sprout-api';
-import { setViewModeBodyClass } from './core/utils/viewMode';
-import { getBackendSrv } from './core/services/backend_srv';
-import { Router } from 'react-router-dom';
 
 const store = configureStore();
 const locationService = locationSvc(history);
@@ -176,23 +173,6 @@ body.on('click', (evt: JQuery.ClickEvent) => {
   }
 });
 
-const fullPageReloadRoutes: string[] = [];
-
-appEvents.on(CoreEvents.locationChange, (payload: LocationUpdate) => {
-  const urlWithoutBase = locationUtil.stripBaseFromUrl(payload.path || '');
-  if (fullPageReloadRoutes.indexOf(urlWithoutBase) > -1) {
-    window.location.href = urlWithoutBase;
-    return;
-  } else {
-    locationService.update({
-      path: urlWithoutBase,
-      replace: payload.replace,
-      partial: payload.partial,
-      query: payload.query
-    });
-  }
-});
-
 ReactDOM.render(
   <React.Fragment>
     <ErrorBoundary>
@@ -201,9 +181,9 @@ ReactDOM.render(
         <div ref={appElem} className="main-view">
           <div className="scroll-canvas">
             <Provider store={store}>
-              <Router location={history.location} navigator={history} >
+              <BrowserRouter>
                 <App theme={theme} />
-              </Router>
+              </BrowserRouter>
             </Provider>
           </div>
         </div>

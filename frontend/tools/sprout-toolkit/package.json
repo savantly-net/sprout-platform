@@ -2,7 +2,7 @@
   "author": "Jeremy Branham <Jeremy@savantly.net>",
   "license": "Apache-2.0",
   "name": "@savantly/sprout-toolkit",
-  "version": "0.1.1-3",
+  "version": "0.1.1-5",
   "description": "Toolkit for building Sprout plugins. [Stolen, err borrowed from Grafana Toolkit]",
   "keywords": [
     "sprout",
@@ -27,7 +27,8 @@
   "dependencies": {
     "@babel/core": "7.9.0",
     "@babel/preset-env": "7.9.0",
-    "@savantly/sprout-api": "0.1.1-3",
+    "@jest/core": "~26.5.2",
+    "@savantly/sprout-api": "0.1.1-5",
     "@savantly/sprout-tsconfig": "^1.0.0",
     "@types/command-exists": "^1.2.0",
     "@types/execa": "^0.9.0",
@@ -105,8 +106,7 @@
     "tslib": "2.0.1",
     "typescript": "4.0.2",
     "url-loader": "^2.0.1",
-    "webpack": "4.41.5",
-    "@jest/core": "~26.5.2"
+    "webpack": "4.41.5"
   },
   "_moduleAliases": {
     "puppeteer": "node_modules/puppeteer-core"

@@ -1,20 +1,46 @@
-import { IFormModuleRootState } from 'plugin/state/FormStateModule';
-import React, { createRef, Dispatch, useMemo } from 'react';
-import { Errors, FormGrid, indexForms, selectError, selectRoot } from 'react-formio';
-import { connect } from 'react-redux';
+import { IFormModuleRootState } from '../../state/types';
+import React, { Dispatch, useMemo } from 'react';
+import { Errors, FormGrid, selectError, selectRoot } from 'react-formio';
+import { connect, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { indexForms } from '../forms/actions';
 
 interface OwnProps {
     forms: any;
-    onAction: (form: any, action: string) => void;
-    getForms: (page: number, query: string) => void;
     errors: any;
 }
 
-const FormListPage = ({ forms, onAction, getForms, errors }: OwnProps) => {
-    const ref = createRef();
+const onAction = (navigate: Function, dispatch: Dispatch<any>) => {
+    return (form: any, action: string) => {
+        switch (action) {
+            case 'view':
+                dispatch(navigate(`/form/${form._id}`));
+                break;
+            case 'submission':
+                dispatch(navigate(`/form/${form._id}/submission`));
+                break;
+            case 'edit':
+                dispatch(navigate(`/form/${form._id}/edit`));
+                break;
+            case 'delete':
+                dispatch(navigate(`/form/${form._id}/delete`));
+                break;
+            default:
+        }
+    }
+}
+
+const FormListPage = ({ forms, errors }: OwnProps) => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const ref = 1;
+
+    const getForms = (page: number, query?: string) => {
+        dispatch(indexForms('forms', page))
+    }
+
     useMemo(() => {
-        getForms(1, '');
+        getForms(1);
     }, [ref]);
 
     if (forms.isActive) {
@@ -28,10 +54,10 @@ const FormListPage = ({ forms, onAction, getForms, errors }: OwnProps) => {
                 <Errors errors={errors} />
                 <FormGrid
                     forms={forms}
-                    onAction={onAction}
+                    onAction={onAction(navigate, dispatch)}
                     getForms={getForms}
                 />
-                <Link className="btn btn-primary" to="/form/create"><i className="fa fa-plus"></i> Create Form</Link>
+                <Link className="btn btn-primary" to="../create"><i className="fa fa-plus"></i> Create Form</Link>
             </div>
         )
     }
@@ -46,29 +72,7 @@ const mapStateToProps = (state: IFormModuleRootState) => {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => {
-    const navigate = useNavigate();
-    return {
-        getForms: (page: number, query: string) => {
-            dispatch(indexForms('forms', page, query))
-        },
-        onAction: (form: any, action: string) => {
-            switch (action) {
-                case 'view':
-                    dispatch(navigate(`/form/${form._id}`));
-                    break;
-                case 'submission':
-                    dispatch(navigate(`/form/${form._id}/submission`));
-                    break;
-                case 'edit':
-                    dispatch(navigate(`/form/${form._id}/edit`));
-                    break;
-                case 'delete':
-                    dispatch(navigate(`/form/${form._id}/delete`));
-                    break;
-                default:
-            }
-        }
-    }
+    return {}
 }
 
 export default connect(

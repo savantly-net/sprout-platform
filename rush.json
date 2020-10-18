@@ -272,7 +272,7 @@
      * your PR branch, and in this situation "rush change" will also automatically invoke "git fetch"
      * to retrieve the latest activity for the remote master branch.
      */
-    "url": "https://github.com/savantly-net/sprout-platform",
+    "url": "https://github.com/savantly-net/sprout-platform.git",
 
     /**
      * The default branch name. This tells "rush change" which remote branch to compare against.
