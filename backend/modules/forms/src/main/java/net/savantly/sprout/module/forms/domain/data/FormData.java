@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonRawValue;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -16,6 +18,11 @@ public class FormData extends TenantKeyedEntity {
 
 	private String formDefinitionId;
 
-	@Type(type = "com.vladmihalcea.hibernate.type.json.JsonBinaryType")
+	@Type(type = "jsonb")
+	@JsonRawValue
 	private String data;
+
+	@Type(type = "jsonb")
+	@JsonRawValue
+	private String metadata;
 }

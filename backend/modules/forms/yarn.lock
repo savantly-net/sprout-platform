@@ -1657,10 +1657,10 @@
     redux-thunk "^2.3.0"
     reselect "^4.0.0"
 
-"@savantly/sprout-api@0.1.1-3":
-  version "0.1.1-3"
-  resolved "https://registry.yarnpkg.com/@savantly/sprout-api/-/sprout-api-0.1.1-3.tgz#71a768bbda96f152e03fdcc08894167cc665837f"
-  integrity sha512-5B7BGlmUfTKGhVR1gg5Whldjn9LlPH4KLp38Q34iy7MClVFUUF+BOJzD9xWk5CLswDY9BSRBq/1gSCjTNULWDA==
+"@savantly/sprout-api@0.1.1-7":
+  version "0.1.1-7"
+  resolved "https://registry.yarnpkg.com/@savantly/sprout-api/-/sprout-api-0.1.1-7.tgz#d0df225768947a1b6d8a1a87d3b78e3c04f7cb53"
+  integrity sha512-LSXf770lAhxv1LX7xOwarW03r6n9fgeRuvGtQxVGrAeup21aidBjFClrSW6PIBZ6gAsxk2btojNfcVg2KzH7sQ==
   dependencies:
     "@braintree/sanitize-url" "4.0.0"
     "@types/marked" "^1.1.0"
@@ -1671,25 +1671,25 @@
     tinycolor2 "^1.4.2"
     xss "1.0.6"
 
-"@savantly/sprout-runtime@0.1.1-3":
-  version "0.1.1-3"
-  resolved "https://registry.yarnpkg.com/@savantly/sprout-runtime/-/sprout-runtime-0.1.1-3.tgz#5b98a170905a7fc9a35734a2fc67069d495753fe"
-  integrity sha512-COZHfaDajm/Q1fKE0eEnO8DKlDDkKB24A43emWSNKHYexKCfYqz8pMQOSWsdkOQbpz/FeEuIktQEQNB841++pQ==
+"@savantly/sprout-runtime@0.1.1-7":
+  version "0.1.1-7"
+  resolved "https://registry.yarnpkg.com/@savantly/sprout-runtime/-/sprout-runtime-0.1.1-7.tgz#cb66c8be54623787613de09f8b3a3f9a4b0a1680"
+  integrity sha512-q7q8Y40pjFAXBkDEfGiu/VZ+3gFBrL10rR3TiQESCap+CZMvDFIavtsrpip8uN5FKIkRwo4XbWPi0hRP6VpJhA==
   dependencies:
-    "@savantly/sprout-api" "0.1.1-3"
-    "@savantly/sprout-ui" "0.1.1-3"
+    "@savantly/sprout-api" "0.1.1-7"
+    "@savantly/sprout-ui" "0.1.1-7"
     systemjs "0.20.19"
     systemjs-plugin-css "0.1.37"
 
-"@savantly/sprout-toolkit@0.1.1-3":
-  version "0.1.1-3"
-  resolved "https://registry.yarnpkg.com/@savantly/sprout-toolkit/-/sprout-toolkit-0.1.1-3.tgz#83d81f2a5ee0e855110c4eb9d5752a27bcdd3432"
-  integrity sha512-cO2z7kxeRDi91NzWEdaanpCiLGLm8046rK5ohzqdwHA8Qy9DVozX13WU9LVjjzGUyhNjBo5AfvQJe+N3aa+8+A==
+"@savantly/sprout-toolkit@0.1.1-7":
+  version "0.1.1-7"
+  resolved "https://registry.yarnpkg.com/@savantly/sprout-toolkit/-/sprout-toolkit-0.1.1-7.tgz#4d1692ddbd0f76342899fabf4919a88d5a931f16"
+  integrity sha512-WN8IrUvgwuWEFU6lW4JJXbU5wJNl9eUqTar0j+f9UK+6+Nya3ZBVa9p7Z1lzQLeZcBl+NKnO8NuLk/IlLtctiA==
   dependencies:
     "@babel/core" "7.9.0"
     "@babel/preset-env" "7.9.0"
     "@jest/core" "~26.5.2"
-    "@savantly/sprout-api" "0.1.1-3"
+    "@savantly/sprout-api" "0.1.1-7"
     "@savantly/sprout-tsconfig" "^1.0.0"
     "@types/command-exists" "^1.2.0"
     "@types/execa" "^0.9.0"
@@ -1774,16 +1774,16 @@
   resolved "https://registry.yarnpkg.com/@savantly/sprout-tsconfig/-/sprout-tsconfig-1.0.0.tgz#e8a95fc980158a58ad41a5d98fd423b90113480a"
   integrity sha512-1PhXb/RcVIi+jZdCrcKsQ2Fhb5EP7EfD6xOjct0VTYwbCvVkU3OmXPAi7dL8NlQtwSbAmmFGpX9/wLNedkGzDQ==
 
-"@savantly/sprout-ui@0.1.1-3":
-  version "0.1.1-3"
-  resolved "https://registry.yarnpkg.com/@savantly/sprout-ui/-/sprout-ui-0.1.1-3.tgz#f2a8bc52f5bb59aa250f38dc689dbeb3afa297d7"
-  integrity sha512-ItRx6MbYSjWYVEzmiB8hgHFK/Xpp0OSiAwgQnpjc4muffwVia7PcmCwLXt1/kBezX+oESA/CztthovZZX9/ueA==
+"@savantly/sprout-ui@0.1.1-7":
+  version "0.1.1-7"
+  resolved "https://registry.yarnpkg.com/@savantly/sprout-ui/-/sprout-ui-0.1.1-7.tgz#35f4b1493d4d19a62a83a6c775f09d5bb4758b95"
+  integrity sha512-/4wrTx5ee7ovkY7UKf3ux8k+7Tzdv+wvXpMYWWnTDlO54HTJICWlRWHpO2T5lkUZVOn8esXPSM8zXyKqu64gtg==
   dependencies:
     "@emotion/core" "^10.0.27"
     "@grafana/e2e-selectors" "^7.2.0"
     "@grafana/slate-react" "0.22.9-grafana"
     "@iconscout/react-unicons" "1.1.4"
-    "@savantly/sprout-api" "0.1.1-3"
+    "@savantly/sprout-api" "0.1.1-7"
     "@savantly/sprout-tsconfig" "^1.0.0"
     "@torkelo/react-select" "3.0.8"
     "@types/clipboard" "^2.0.1"

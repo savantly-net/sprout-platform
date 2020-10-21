@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,14 +42,24 @@ public class FormsApi {
 		return service.createFormDefinition(dto);
 	}
 	
+	@PutMapping("/form/{id}")
+	public FormDefinitionDto updateFormDefinitionById(@PathVariable String id, @RequestBody FormDefinitionDto dto) {
+		return service.updateFormDefinitionById(id, dto);
+	}
+	
 	@DeleteMapping("/form/{id}")
 	public void deleteFormDefinition(@PathVariable String id) {
 		service.deleteFormDefinitionById(id);
 	}
+	
+	@GetMapping("/form/{id}/submission")
+	public Page<FormDataDto> getFormDataByFormId(@PathVariable String id, Pageable pageable) {
+		return service.findAllFormDataByFormId(id, pageable);
+	}
 
 
 	/*****************************/
-	/***** Form Data *******/
+	/***** Overall Form Data *****/
 	/*****************************/
 	
 	@GetMapping(value = {"/data", "/data/"})
@@ -69,6 +80,38 @@ public class FormsApi {
 	@DeleteMapping("/data/{id}")
 	public void deleteFormData(@PathVariable String id) {
 		service.deleteFormDefinitionById(id);
+	}
+	
+
+	/*****************************/
+	/******* Form Path ***********/
+	/*****************************/
+	
+	@GetMapping("/forms/{formPath}")
+	public FormDefinitionDto getFormByFormPath(@PathVariable String formPath) {
+		return service.getFormDefinitionByPath(formPath);
+	}
+
+	@PostMapping("/forms/{formPath}")
+	public FormDataDto createFormData(@PathVariable String formPath, @RequestBody FormDataDto dto) {
+		FormDefinitionDto formDefinition = service.getFormDefinitionByPath(formPath);
+		dto.setFormId(formDefinition.getId());
+		return service.createFormData(dto);
+	}
+	
+	@GetMapping(value = {"/forms/{formPath}/submission"})
+	public Page<FormDataDto> getDataByFormPath(@PathVariable String formPath, Pageable pageable) {
+		return service.findFormDataByFormPath(formPath, pageable);
+	}
+	
+	@GetMapping("/forms/{formPath}/submission/{id}")
+	public FormDataDto getFormDataByPathAndId(@PathVariable String id) {
+		return service.getFormDataById(id);
+	}
+	
+	@PutMapping("/forms/{formPath}/submission/{id}")
+	public FormDataDto updateFormData(@PathVariable String id, @RequestBody FormDataDto dto) {
+		return service.updateFormData(dto);
 	}
 	
 }

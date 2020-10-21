@@ -22,6 +22,7 @@ repositories {
 	mavenCentral()
 }
 
+
 node {
     version = '12.18.3'
     download = true
@@ -50,12 +51,20 @@ yarn_build.dependsOn yarn
 copyPublicfiles.dependsOn yarn_build
 classes.dependsOn copyPublicfiles
 
+// run `./gradlew :sprout-modules-forms:dev -Psuspend=y` to suspend for debugger connection
+def suspend = project.ext.properties.suspend
+if(!suspend) {
+	suspend = 'n'
+}
 task dev(type: JavaExec) {
     group = "Execution"
     description = "Run the test app class with JavaExecTask"
     classpath = sourceSets.main.runtimeClasspath
     classpath += sourceSets.test.runtimeClasspath
     main = 'example.TestApplication'
+    jvmArgs=[
+  	  "-agentlib:jdwp=transport=dt_socket,server=y,suspend=$suspend,address=18080"
+    ]
 }
 
 dependencyCheck {

@@ -20,6 +20,7 @@ public class SproutConfigurationProperties {
 	private Jpa jpa = new Jpa();
 	private Cors cors = new Cors();
 	private Mvc mvc = new Mvc();
+	private Problem problem = new Problem();
 	
 	/**
 	 * Additional UI properties that should be created for the default tenant
@@ -94,5 +95,11 @@ public class SproutConfigurationProperties {
 	public static class StaticResourceMap {
 		private List<String> patterns = new ArrayList<>();
 		private List<String> locations = new ArrayList<>();
+	}
+	
+	@Getter
+	@Setter
+	public static class Problem {
+		private boolean enableTrace = false;
 	}
 }

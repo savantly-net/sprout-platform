@@ -1,5 +1,6 @@
 package net.savantly.sprout.starter.jackson;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,9 +14,14 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
 
+import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
+
 @Configuration
 @ConditionalOnMissingBean(value = JacksonConfiguration.class)
 public class DefaultJacksonConfiguration implements JacksonConfiguration {
+	
+	@Autowired
+	SproutConfigurationProperties props;
 	
 	@Bean
 	public ObjectMapper objectMapper() {
@@ -67,7 +73,7 @@ public class DefaultJacksonConfiguration implements JacksonConfiguration {
      * Module for serialization/deserialization of RFC7807 Problem.
      */
     ProblemModule problemModule() {
-        return new ProblemModule();
+        return new ProblemModule().withStackTraces(props.getProblem().isEnableTrace());
     }
 
     /*

@@ -1,5 +1,8 @@
 package net.savantly.sprout.module.forms;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
@@ -19,6 +22,8 @@ import net.savantly.sprout.module.forms.domain.definition.FormDefinitionReposito
 @SproutModuleConfiguration
 @ConfigurationProperties("sprout.plugins.forms")
 public class FormsModuleConfiguration {
+	
+	private List<String> restrictedFormPaths = Arrays.asList("form", "user", "role", "data");
 	
 	@Bean
 	public FormsApi savantlyFormsApi(FormService formService) {

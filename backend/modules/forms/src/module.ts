@@ -3,15 +3,10 @@ import /* webpackChunkName: "formioCss" */ 'formiojs/dist/formio.full.min.css';
 import { ExamplePage2 } from 'plugin/config/ExamplePage2';
 import { FormsRootPage } from 'plugin/FormsRootPage';
 import { ComponentClass } from 'react';
-import { Formio } from 'react-formio';
 import { ExamplePage1 } from './plugin/config/ExamplePage1';
 import { SimplePanel } from './plugin/SimplePanel';
 import './plugin/styles.css';
 import { ExampleAppSettings, SimpleOptions } from './plugin/types';
-
-const currentSite = `${location.protocol}//${location.host}/api/savantly-forms`;
-const PROJECT_URL = currentSite;
-const API_URL = currentSite;
 
 export const plugin = new AppPlugin<ExampleAppSettings>()
   .setRootPage((FormsRootPage as unknown) as ComponentClass<AppRootProps>)
@@ -36,11 +31,6 @@ plugin.init = (meta: AppPluginMeta<KeyValue<any>>) => {
     .forEach(function(item) {
       query[item.split('=')[0]] = item.split('=')[1] && decodeURIComponent(item.split('=')[1]);
     });
-
-  const projUrl = query.projectUrl || PROJECT_URL;
-  const apiUrl = query.apiUrl || API_URL;
-  Formio.setProjectUrl(projUrl);
-  Formio.setBaseUrl(apiUrl);
 };
 
 const panelPlugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOptions(builder => {
