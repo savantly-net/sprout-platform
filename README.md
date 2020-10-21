@@ -39,13 +39,13 @@ Use the docker images to start an example server + web app.
 
 ## Examples
 
-
-![Sprout Web App](./docs/img/hello-world.gif)
-
-![Sprout Web App](./docs/img/default.png)
+![Sprout Web App](./docs/img/hello-world.gif)  
 
 
-![Sprout Web App](./docs/img/panel_edit.png)
+![Sprout Web App](./docs/img/default.png)  
+
+
+![Sprout Web App](./docs/img/panel_edit.png)  
 
 
 ## Development 
