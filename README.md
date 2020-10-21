@@ -39,6 +39,11 @@ Use the docker images to start an example server + web app.
 
 ## Examples
 
+<video width="320" height="240" controls>
+  <source src="./docs/video/hello-world.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 ![Sprout Web App](./docs/img/default.png)
 
 
