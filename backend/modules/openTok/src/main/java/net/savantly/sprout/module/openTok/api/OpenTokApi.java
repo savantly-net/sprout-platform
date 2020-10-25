@@ -1,6 +1,7 @@
 package net.savantly.sprout.module.openTok.api;
 
 import javax.annotation.PostConstruct;
+import javax.management.relation.Role;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.opentok.OpenTok;
-import com.opentok.Role;
 import com.opentok.TokenOptions;
 import com.opentok.exception.OpenTokException;
 

@@ -1,6 +1,5 @@
 package net.savantly.sprout.starter.jackson;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,10 +18,13 @@ import net.savantly.sprout.autoconfigure.properties.SproutConfigurationPropertie
 @Configuration
 @ConditionalOnMissingBean(value = JacksonConfiguration.class)
 public class DefaultJacksonConfiguration implements JacksonConfiguration {
-	
-	@Autowired
+
 	SproutConfigurationProperties props;
-	
+
+	public DefaultJacksonConfiguration(SproutConfigurationProperties props) {
+		this.props = props;
+	}
+
 	@Bean
 	public ObjectMapper objectMapper() {
 		ObjectMapper mapper = new ObjectMapper();
@@ -32,55 +34,50 @@ public class DefaultJacksonConfiguration implements JacksonConfiguration {
 
 	protected ObjectMapper configureObjectMapper(ObjectMapper mapper) {
 		mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-		mapper.registerModules(
-				jdk8Module(),
-				javaTimeModule(),
-				hibernate5Module(),
-				afterburnerModule(),
-				problemModule(),
-				constraintViolationProblemModule()
-				);
+		mapper.registerModules(jdk8Module(), javaTimeModule(), hibernate5Module(), afterburnerModule(), problemModule(),
+				constraintViolationProblemModule());
 		return mapper;
 	}
-	
-    /**
-     * Support for Java date and time API.
-     * @return the corresponding Jackson module.
-     */
-    public JavaTimeModule javaTimeModule() {
-        return new JavaTimeModule();
-    }
 
-    public Jdk8Module jdk8Module() {
-        return new Jdk8Module();
-    }
+	/**
+	 * Support for Java date and time API.
+	 * 
+	 * @return the corresponding Jackson module.
+	 */
+	public JavaTimeModule javaTimeModule() {
+		return new JavaTimeModule();
+	}
 
-    /*
-     * Support for Hibernate types in Jackson.
-     */
-    public Hibernate5Module hibernate5Module() {
-        return new Hibernate5Module();
-    }
+	public Jdk8Module jdk8Module() {
+		return new Jdk8Module();
+	}
 
-    /*
-     * Jackson Afterburner module to speed up serialization/deserialization.
-     */
-    public AfterburnerModule afterburnerModule() {
-        return new AfterburnerModule();
-    }
+	/*
+	 * Support for Hibernate types in Jackson.
+	 */
+	public Hibernate5Module hibernate5Module() {
+		return new Hibernate5Module();
+	}
 
-    /*
-     * Module for serialization/deserialization of RFC7807 Problem.
-     */
-    ProblemModule problemModule() {
-        return new ProblemModule().withStackTraces(props.getProblem().isEnableTrace());
-    }
+	/*
+	 * Jackson Afterburner module to speed up serialization/deserialization.
+	 */
+	public AfterburnerModule afterburnerModule() {
+		return new AfterburnerModule();
+	}
 
-    /*
-     * Module for serialization/deserialization of ConstraintViolationProblem.
-     */
-    ConstraintViolationProblemModule constraintViolationProblemModule() {
-        return new ConstraintViolationProblemModule();
-    }
+	/*
+	 * Module for serialization/deserialization of RFC7807 Problem.
+	 */
+	ProblemModule problemModule() {
+		return new ProblemModule().withStackTraces(props.getProblem().isEnableTrace());
+	}
+
+	/*
+	 * Module for serialization/deserialization of ConstraintViolationProblem.
+	 */
+	ConstraintViolationProblemModule constraintViolationProblemModule() {
+		return new ConstraintViolationProblemModule();
+	}
 
 }

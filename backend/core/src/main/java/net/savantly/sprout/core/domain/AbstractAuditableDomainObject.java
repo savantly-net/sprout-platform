@@ -2,17 +2,13 @@ package net.savantly.sprout.core.domain;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
 import javax.persistence.EntityListeners;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.TypeDef;
@@ -39,15 +35,13 @@ public abstract class AbstractAuditableDomainObject<ID extends Serializable> imp
 	@ManyToOne(targetEntity = SproutUserEntity.class)
 	private @Nullable SproutUser createdBy;
 
-	@Temporal(TemporalType.TIMESTAMP) //
-	private @Nullable Date createdDate;
+	private @Nullable ZonedDateTime createdDate;
 
 	@JsonDeserialize(as = SproutUserEntity.class)
 	@ManyToOne(targetEntity = SproutUserEntity.class)
 	private @Nullable SproutUser lastModifiedBy;
 
-	@Temporal(TemporalType.TIMESTAMP) //
-	private @Nullable Date lastModifiedDate;
+	private @Nullable ZonedDateTime lastModifiedDate;
 
 	@Override
 	public Optional<SproutUser> getCreatedBy() {
@@ -60,18 +54,17 @@ public abstract class AbstractAuditableDomainObject<ID extends Serializable> imp
 	}
 
 	@Override
-	public Optional<LocalDateTime> getCreatedDate() {
-		return null == createdDate ? Optional.empty()
-				: Optional.of(LocalDateTime.ofInstant(createdDate.toInstant(), ZoneId.systemDefault()));
+	public Optional<ZonedDateTime> getCreatedDate() {
+		return Optional.ofNullable(createdDate);
 	}
 
 	@Override
 	@JsonProperty(access = Access.READ_ONLY)
-	public void setCreatedDate(LocalDateTime createdDate) {
+	public void setCreatedDate(ZonedDateTime createdDate) {
 		if(Objects.nonNull(createdDate)) {
-			this.createdDate = Date.from(createdDate.atZone(ZoneId.systemDefault()).toInstant());
+			this.createdDate = createdDate;
 		} else {
-			this.createdDate = Date.from(Instant.now());
+			this.createdDate = ZonedDateTime.from(Instant.now());
 		}
 		
 	}
@@ -87,17 +80,16 @@ public abstract class AbstractAuditableDomainObject<ID extends Serializable> imp
 	}
 
 	@Override
-	public Optional<LocalDateTime> getLastModifiedDate() {
-		return null == lastModifiedDate ? Optional.empty()
-				: Optional.of(LocalDateTime.ofInstant(lastModifiedDate.toInstant(), ZoneId.systemDefault()));
+	public Optional<ZonedDateTime> getLastModifiedDate() {
+		return Optional.ofNullable(lastModifiedDate);
 	}
 
 	@Override
-	public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
+	public void setLastModifiedDate(ZonedDateTime lastModifiedDate) {
 		if(Objects.nonNull(lastModifiedDate)) {
-			this.lastModifiedDate = Date.from(lastModifiedDate.atZone(ZoneId.systemDefault()).toInstant());
+			this.lastModifiedDate = lastModifiedDate;
 		} else {
-			this.lastModifiedDate = Date.from(Instant.now());
+			this.lastModifiedDate = ZonedDateTime.from(Instant.now());
 		}
 	}
 

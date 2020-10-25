@@ -26,7 +26,7 @@ interface SavePackageOptions {
 }
 
 const isUIPackage = (pkg: any) => {
-  const _isUiPkg = pkg.name.endsWith('ui');
+  const _isUiPkg = pkg.name.endsWith('sprout-ui');
   if(_isUiPkg){
     console.log(chalk.green(`${pkg.name} is a UI package`));
   } else {

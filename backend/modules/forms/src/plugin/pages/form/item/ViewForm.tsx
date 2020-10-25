@@ -5,26 +5,23 @@ import { AppFormSubmissionDto, FormModuleRootState } from 'plugin/types';
 import React from 'react';
 import { Errors, Form } from 'react-formio';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 //import { useParams } from 'react-router-dom';
 
 export const ViewForm = () => {
   const form = useSelector((state: FormModuleRootState) => state.formModuleState.form);
+  const formId = useParams().formId;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onSubmit = (submission: AppFormSubmissionDto) => {
     if (!submission.data?.submit) {
       return;
     }
-    if (!form.form || !form.form.path || !form._id) {
-      console.error("we're missing form state data. this shouldnt happen", form);
-      return;
-    }
-    submission.formId = form._id;
+    submission.formId = formId;
     dispatch(
       doSaveSubmission({
         submission,
-        formPath: form.form.path!,
+        formId,
         done: (error: string, saved: AppFormSubmissionDto | null) => {
           if (error) {
             console.error(error);
@@ -45,7 +42,7 @@ export const ViewForm = () => {
       <h3>New {form.form.title || 'Form Data'}</h3>
       <Errors errors={form.error} />
       <Form
-        url={`${API_URL}/forms/${form.form.path}`}
+        url={`${API_URL}/form/${formId}`}
         form={form.form}
         options={{ ...{ template: 'bootstrap3', iconset: 'fa', noAlerts: true } }}
         onSubmit={onSubmit}

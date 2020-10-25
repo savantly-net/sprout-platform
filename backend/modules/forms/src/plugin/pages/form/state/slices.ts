@@ -1,46 +1,54 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { FetchResponse } from '@savantly/sprout-runtime';
 import {
   AppForm,
-  AppFormQueryResponse,
   AppFormQueryState,
   AppFormSubmission,
   AppFormSubmissionDto,
-  AppFormSubmissionQueryResponse,
   AppFormSubmissionQueryState,
 } from '../../../types';
 
+const formQueryInitialState = {
+  error: '',
+  forms: new Array<AppForm>(), // eslint-disable-line no-array-constructor
+  isActive: false,
+  limit: 20,
+  pagination: {
+    numPages: 0,
+    page: 1,
+    total: 0,
+  },
+  query: {
+    type: 'form',
+    tags: ['common'],
+  },
+  select: '',
+  sort: '',
+};
+
 const formQuerySlice = createSlice({
   name: 'formQuery',
-  initialState: {
-    error: '',
-    forms: new Array<AppForm>(), // eslint-disable-line no-array-constructor
-    isActive: false,
-    limit: 20,
-    pagination: {
-      numPages: 0,
-      page: 1,
-    },
-    query: {
-      type: 'form',
-      tags: ['common'],
-    },
-    select: '',
-    sort: '',
-  },
+  initialState: formQueryInitialState,
   reducers: {
+    formQueryReset: (state: AppFormQueryState, action: PayloadAction): AppFormQueryState => ({
+      ...formQueryInitialState,
+    }),
     formQueryStarted: (state: AppFormQueryState, action: PayloadAction): AppFormQueryState => ({
       ...state,
       isActive: true,
     }),
-    formQueryCompleted: (state: AppFormQueryState, action: PayloadAction<AppFormQueryResponse>): AppFormQueryState => ({
+    formQueryCompleted: (
+      state: AppFormQueryState,
+      action: PayloadAction<FetchResponse<AppForm[]>>
+    ): AppFormQueryState => ({
       ...state,
       isActive: false,
       error: '',
-      forms: action.payload.content,
-      limit: action.payload.size,
+      forms: action.payload.data,
       pagination: {
-        numPages: action.payload.totalPages,
-        page: action.payload.pageable.pageNumber,
+        numPages: Number(action.payload.headers.get('x-numPages') || '0'),
+        page: Number(action.payload.headers.get('x-page') || '0'),
+        total: Number(action.payload.headers.get('x-total') || '0'),
       },
     }),
     formQueryFailed: (state: AppFormQueryState, action: PayloadAction<{ error: string }>): AppFormQueryState => ({
@@ -105,16 +113,15 @@ const submissionQuerySlice = createSlice({
     }),
     submissionQueryCompleted: (
       state: AppFormSubmissionQueryState,
-      action: PayloadAction<AppFormSubmissionQueryResponse>
+      action: PayloadAction<FetchResponse<AppFormSubmissionDto[]>>
     ): AppFormSubmissionQueryState => ({
       ...state,
       error: '',
-      submissions: action.payload.content,
-      limit: action.payload.size,
+      submissions: action.payload.data,
       pagination: {
-        numPages: action.payload.totalPages,
-        page: action.payload.pageable.pageNumber,
-        total: action.payload.totalElements,
+        numPages: Number(action.payload.headers.get('x-numPages') || '0'),
+        page: Number(action.payload.headers.get('x-page') || '0'),
+        total: Number(action.payload.headers.get('x-total') || '0'),
       },
       isActive: false,
     }),
@@ -129,7 +136,7 @@ const submissionQuerySlice = createSlice({
   },
 });
 
-export const { formQueryStarted, formQueryCompleted, formQueryFailed } = formQuerySlice.actions;
+export const { formQueryReset, formQueryStarted, formQueryCompleted, formQueryFailed } = formQuerySlice.actions;
 export const formQueryReducer = formQuerySlice.reducer;
 
 export const { submissionInitStarted, submissionInitCompleted, submissionInitFailed } = submissionSlice.actions;

@@ -26,7 +26,10 @@ export interface AppFormDto {
   path?: string;
   name?: string;
   display: string;
+  type: string;
   components?: any[];
+  modified?: string;
+  created?: string;
 }
 
 export interface Sort {
@@ -68,6 +71,7 @@ export interface AppFormQueryState {
   pagination: {
     numPages: number;
     page: number;
+    total: number;
   };
   query: {
     type: string;

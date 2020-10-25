@@ -454,6 +454,12 @@
       "shouldPublish": true
     },
     {
+      "packageName": "@sprout-platform/ui",
+      "projectFolder": "frontend/libs/ui",
+      "versionPolicyName": "sprout",
+      "shouldPublish": true
+    },
+    {
       "packageName": "@savantly/sprout-runtime",
       "projectFolder": "frontend/libs/runtime",
       "versionPolicyName": "sprout",

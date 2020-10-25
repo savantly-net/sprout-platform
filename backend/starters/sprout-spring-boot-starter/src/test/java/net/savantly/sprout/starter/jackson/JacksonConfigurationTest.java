@@ -13,12 +13,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
+
 public class JacksonConfigurationTest {
 	private final Logger log = LoggerFactory.getLogger(JacksonConfigurationTest.class);
 
 	@Test
 	public void testDate() throws JsonProcessingException {
-		DefaultJacksonConfiguration config = new DefaultJacksonConfiguration();
+		DefaultJacksonConfiguration config = new DefaultJacksonConfiguration(new SproutConfigurationProperties());
 		ObjectMapper mapper = config.objectMapper();
 		
 		Map<String, ZonedDateTime> obj = new HashMap<>();

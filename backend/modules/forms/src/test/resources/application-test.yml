@@ -8,11 +8,13 @@ sprout:
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM 'classpath:init.sql';MODE=PostgreSQL
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM 'classpath:init.sql';MODE=PostgreSQL
     username: sa
-    password: sa
+    password: 
   jpa:
     properties:
       hibernate.dialect: net.savantly.sprout.module.forms.CustomH2Dialect
     generate-ddl: true
     hibernate.ddl-auto: create-drop
+  h2:
+    console.enabled: true

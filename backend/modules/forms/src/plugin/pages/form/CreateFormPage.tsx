@@ -1,7 +1,7 @@
 import { Alert } from '@savantly/sprout-ui';
+import { FormEdit } from 'plugin/components/FormEdit';
 import { doSaveForm } from 'plugin/pages/form/state/actions';
 import React, { FC, useState } from 'react';
-import { FormEdit } from 'react-formio';
 import { connect, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { AppFormDto, FormModuleRootState } from '../../types';
@@ -32,7 +32,7 @@ const CreateFormPage: FC<any> = ({}: OwnProps) => {
   return (
     <div>
       {error && <Alert title="Error saving form" severity="error" />}
-      <FormEdit form={{ display: 'form' }} saveForm={saveForm} saveText="Save Form" options={{ noAlerts: true }} />
+      <FormEdit form={{ display: 'form', type: 'form' }} saveForm={saveForm} saveText="Save Form" options={{ noAlerts: true }} />
     </div>
   );
 };

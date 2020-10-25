@@ -163,6 +163,7 @@ const getBaseWebpackConfig: WebpackConfigurationGetter = async options => {
 
     performance: { hints: false },
     externals: [
+      'formik',
       'lodash',
       'jquery',
       'moment',

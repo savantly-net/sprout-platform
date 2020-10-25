@@ -62,7 +62,7 @@ public class WebPageLayoutTemplateLoader implements TemplateLoader {
 		Optional<WebPageLayout> item = repository.findById(template.getId());
 		if (item.isPresent()) {
 			if(item.get().getLastModifiedDate().isPresent()) {
-				return item.get().getLastModifiedDate().get().toEpochSecond(ZoneOffset.UTC);
+				return item.get().getLastModifiedDate().get().toEpochSecond();
 			} else {
 				return Long.MIN_VALUE;
 			}

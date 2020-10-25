@@ -1,6 +1,8 @@
 package net.savantly.sprout.module.forms.domain.definition;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,12 +18,22 @@ public class FormDefinitionDto {
 	
 	@JsonProperty("_id")
 	private String id;
-	private String title;
-	private String display;
-	private String path;
 	
 	@JsonProperty("type")
 	private String formType;
+	
+	private String title;
+	private String name;
+	private String path;
+	private String display;
+	private ZonedDateTime created;
+	private ZonedDateTime modified;
+	
+	
 	private List<Map<String, Object>> components = new ArrayList<Map<String,Object>>();
+	
+	private List<String> tags = new ArrayList<>();
+
+	private Map<String, Object> settings = new HashMap<String,Object>();
 
 }

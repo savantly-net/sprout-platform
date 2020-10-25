@@ -65,7 +65,7 @@ public class ContentTypeTemplateLoader implements TemplateLoader {
 		Optional<ContentTemplateImpl> ct = repository.findById(template.getId());
 		if (ct.isPresent()) {
 			if(ct.get().getLastModifiedDate().isPresent()) {
-				return ct.get().getLastModifiedDate().get().toEpochSecond(ZoneOffset.UTC);
+				return ct.get().getLastModifiedDate().get().toEpochSecond();
 			} else {
 				return Long.MAX_VALUE;
 			}

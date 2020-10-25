@@ -3,12 +3,19 @@ services:
 
 
   sprout-server:
-    image: savantly/sprout-server
+    image: savantly/sprout-server:latest
     container_name: fm-sprout-server
     ports:
       - 8080:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_DATASOURCE_DRIVER_CLASS: org.postgresql.Driver
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
     volumes:
-    - ./build/libs:/sprout/modules
+    - ./build/libs/sprout-modules-forms-2.0.0-SNAPSHOT.jar:/sprout/modules/forms.jar:ro
 
   webapp:
     image: savantly/sprout-webapp
@@ -19,3 +26,17 @@ services:
       - SPROUT_API_URL=http://fm-sprout-server:8080
     depends_on: 
       - sprout-server
+
+  db:
+    image: postgres
+    container_name: fm-sprout-db
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+
+  adminer:
+    image: adminer
+    container_name: fm-sprout-adminer
+    restart: always
+    ports:
+      - 8081:8080

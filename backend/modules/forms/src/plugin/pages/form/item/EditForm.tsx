@@ -1,8 +1,8 @@
 import { Alert } from '@savantly/sprout-ui';
+import { FormEdit } from 'plugin/components/FormEdit';
 import { doUpdateForm } from 'plugin/pages/form/state/actions';
 import { AppFormDto, FormModuleRootState } from 'plugin/types';
 import React from 'react';
-import { FormEdit } from 'react-formio';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -27,10 +27,8 @@ export const EditForm = () => {
 
   return (
     <div>
-      <h2>Edit Form</h2>
-      <hr />
       {form.error && <Alert title="Error" />}
-      <FormEdit form={form.form} saveForm={updateForm} saveText="Update Form" />
+      <FormEdit form={form.form} saveForm={updateForm} />
     </div>
   );
 };

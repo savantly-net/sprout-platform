@@ -58,9 +58,11 @@ public class FormsApiTest {
 		List<Map<String, Object>> components = new ArrayList<>();
 		components.add(component);
 		
+
 		FormDefinitionDto request = new FormDefinitionDto()
 				.setTitle("test-title")
 				.setComponents(components);
+		request.getSettings().put("test", "setting");
 		
 		String requestString = mapper.writeValueAsString(request);
 		
@@ -104,7 +106,10 @@ public class FormsApiTest {
 			"         \"label\": \"Submit\",\n" + 
 			"         \"theme\": \"primary\"\n" + 
 			"      }\n" + 
-			"   ]\n" + 
+			"   ],\n" +
+			"   \"settings\": {\n" +
+			"       \"test\": \"setting\"\n" +
+			"   }\n" +
 			"}";
 	
 

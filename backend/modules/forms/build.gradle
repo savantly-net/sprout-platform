@@ -59,8 +59,8 @@ if(!suspend) {
 task dev(type: JavaExec) {
     group = "Execution"
     description = "Run the test app class with JavaExecTask"
-    classpath = sourceSets.main.runtimeClasspath
-    classpath += sourceSets.test.runtimeClasspath
+    classpath = sourceSets.test.runtimeClasspath
+    classpath += sourceSets.main.runtimeClasspath
     main = 'example.TestApplication'
     jvmArgs=[
   	  "-agentlib:jdwp=transport=dt_socket,server=y,suspend=$suspend,address=18080"

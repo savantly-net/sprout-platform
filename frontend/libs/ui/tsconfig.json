@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": "node_modules/@types",
+    "declaration": true,
+    "declarationDir": "dist",
+    "declarationMap": true,
+    "outDir": "compiled",
+    "paths": {
+      "@sprout-platform/ui": ["."]
+    },
+    "rootDirs": [".", "stories"],
+    "typeRoots": ["node_modules/@types"]
+  },
+  "exclude": ["dist", "node_modules"],
+  "extends": "@savantly/sprout-tsconfig",
+  "include": ["src/**/*.ts*"]
+}

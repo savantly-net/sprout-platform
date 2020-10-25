@@ -79,7 +79,7 @@
     "react-transition-group": "^4.4.1",
     "react-use": "^15.3.4",
     "react-window": "^1.8.5",
-    "rollup-plugin-ignore": "^1.0.9",
+    "rollup-plugin-ignore": "~1.0.9",
     "rxjs": "~6.6.3",
     "slate": "0.47.8",
     "tinycolor2": "^1.4.2",

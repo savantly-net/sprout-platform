@@ -1,4 +1,4 @@
-import { getBackendSrv } from '@savantly/sprout-runtime';
+import { FetchResponse, getBackendSrv } from '@savantly/sprout-runtime';
 import { API_URL } from 'plugin/config/formModuleConfiguration';
 import { Dispatch } from 'react';
 import { AppForm, AppFormDto, AppFormSubmissionDto } from '../../../types';
@@ -6,13 +6,14 @@ import { formInitCompleted, formInitFailed, formInitStarted } from './reducer';
 import {
   formQueryCompleted,
   formQueryFailed,
+  formQueryReset,
   formQueryStarted,
   submissionInitCompleted,
-  submissionQueryStarted,
+  submissionInitFailed,
+  submissionInitStarted,
   submissionQueryCompleted,
   submissionQueryFailed,
-  submissionInitStarted,
-  submissionInitFailed,
+  submissionQueryStarted,
 } from './slices';
 
 /********* FORMS */
@@ -20,23 +21,27 @@ export const doQueryForms = (name: string, page = 1, done: (error: string, form:
   dispatch: Dispatch<any>
 ) => {
   dispatch(formQueryStarted());
-  return getBackendSrv()
-    .get(`${API_URL}/form`)
-    .then((result: any) => {
-      dispatch(formQueryCompleted(result));
-      done('', result);
+  getBackendSrv()
+    .fetch({
+      url: `${API_URL}/form`,
     })
-    .catch((error: any) => {
-      dispatch(formQueryFailed({ error: error.detail || error.message }));
-      done(error, null);
-    });
+    .subscribe(
+      (response: FetchResponse) => {
+        dispatch(formQueryCompleted(response as FetchResponse<AppForm[]>));
+        done('', response.data);
+      },
+      (error: any) => {
+        dispatch(formQueryFailed({ error: error.detail || error.message }));
+        done(error.detail || error.message, null);
+      }
+    );
 };
 
 export const doGetForm = (id: string, done: (error: string, form: AppForm | null) => void) => (
   dispatch: Dispatch<any>
 ) => {
   dispatch(formInitStarted());
-  return getBackendSrv()
+  getBackendSrv()
     .get(`${API_URL}/form/${id}`)
     .then((result: any) => {
       dispatch(formInitCompleted(result));
@@ -52,7 +57,7 @@ export const doSaveForm = (form: AppFormDto, done: (error: string, form: AppForm
   dispatch: Dispatch<any>
 ) => {
   dispatch(formInitStarted());
-  return getBackendSrv()
+  getBackendSrv()
     .post(`${API_URL}/form`, form)
     .then((result: AppFormDto) => {
       dispatch(formInitCompleted(result));
@@ -68,7 +73,7 @@ export const doUpdateForm = (form: AppFormDto, done: (error: string, form: AppFo
   dispatch: Dispatch<any>
 ) => {
   dispatch(formInitStarted());
-  return getBackendSrv()
+  getBackendSrv()
     .put(`${API_URL}/form/${form._id}`, form)
     .then((result: AppFormDto) => {
       dispatch(formInitCompleted(result));
@@ -80,6 +85,30 @@ export const doUpdateForm = (form: AppFormDto, done: (error: string, form: AppFo
     });
 };
 
+export const doDeleteForm = (formId: string, done: (error: string) => void) => (dispatch: Dispatch<any>) => {
+  dispatch(formInitStarted());
+  getBackendSrv()
+    .fetch({
+      url: `${API_URL}/form/${formId}`,
+      method: 'DELETE',
+    })
+    .subscribe(
+      (response: FetchResponse) => {
+        dispatch(
+          formInitCompleted({
+            display: 'form',
+          })
+        );
+        dispatch(formQueryReset());
+        done('');
+      },
+      (error: any) => {
+        dispatch(formInitFailed({ error: error.detail || error.message }));
+        done(error.detail || error.message);
+      }
+    );
+};
+
 /********* Submissions */
 
 export const doQuerySubmissions = (
@@ -89,23 +118,27 @@ export const doQuerySubmissions = (
   done: (error: string, form: AppForm | null) => void
 ) => (dispatch: Dispatch<any>) => {
   dispatch(submissionQueryStarted());
-  return getBackendSrv()
-    .get(`${API_URL}/form/${formId}/submission`)
-    .then((result: any) => {
-      dispatch(submissionQueryCompleted(result));
-      done('', result);
+  getBackendSrv()
+    .fetch({
+      url: `${API_URL}/form/${formId}/submission`,
     })
-    .catch((error: any) => {
-      dispatch(submissionQueryFailed({ error: error.detail || error.message }));
-      done(error.detail || error.message, null);
-    });
+    .subscribe(
+      (response: FetchResponse) => {
+        dispatch(submissionQueryCompleted(response as FetchResponse<AppFormSubmissionDto[]>));
+        done('', response.data);
+      },
+      (error: any) => {
+        dispatch(submissionQueryFailed({ error: error.detail || error.message }));
+        done(error.detail || error.message, null);
+      }
+    );
 };
 
 export const doGetSubmission = (id: string, done: (error: string, form: AppFormSubmissionDto | null) => void) => (
   dispatch: Dispatch<any>
 ) => {
   dispatch(submissionInitStarted());
-  return getBackendSrv()
+  getBackendSrv()
     .get(`${API_URL}/data/${id}`)
     .then((result: any) => {
       dispatch(submissionInitCompleted(result));
@@ -119,16 +152,16 @@ export const doGetSubmission = (id: string, done: (error: string, form: AppFormS
 
 export const doSaveSubmission = ({
   submission,
-  formPath,
+  formId,
   done,
 }: {
   submission: AppFormSubmissionDto;
-  formPath: string;
+  formId: string;
   done: (error: string, submission: AppFormSubmissionDto | null) => void;
 }) => (dispatch: Dispatch<any>) => {
   dispatch(formInitStarted);
-  return getBackendSrv()
-    .post(`${API_URL}/forms/${formPath}`, submission)
+  getBackendSrv()
+    .post(`${API_URL}/form/${formId}/submission`, submission)
     .then((result: AppFormSubmissionDto) => {
       dispatch(submissionInitCompleted(result));
       done('', result);
@@ -149,7 +182,7 @@ export const doUpdateSubmission = ({
   done: (error: string, submission: AppFormSubmissionDto | null) => void;
 }) => (dispatch: Dispatch<any>) => {
   dispatch(formInitStarted);
-  return getBackendSrv()
+  getBackendSrv()
     .put(`${API_URL}/forms/${formPath}/submission/${submission._id}`, submission)
     .then((result: AppFormSubmissionDto) => {
       dispatch(submissionInitCompleted(result));

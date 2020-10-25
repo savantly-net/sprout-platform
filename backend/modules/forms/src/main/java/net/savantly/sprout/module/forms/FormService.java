@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -57,6 +58,10 @@ public class FormService {
 			throw new EntityNotFoundProblem("FormDefinition", id);
 		}
 		return fromEntity(entity);
+	}
+	
+	public Page<FormDefinitionDto> getBySpecification(Specification<FormDefinition> specification, Pageable pageable) {
+		return this.formDefinitionRepository.findAll(specification, pageable).map(this::fromEntity);
 	}
 	
 	public FormDefinitionDto getFormDefinitionByPath(String path) {
@@ -164,16 +169,21 @@ public class FormService {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	FormDefinitionDto fromEntity(FormDefinition formDefinition) {
         CollectionType mapCollectionType = mapper.getTypeFactory().constructCollectionType(List.class, Map.class);
 		try {
 			return new FormDefinitionDto()
 					.setId(Objects.nonNull(formDefinition.getId()) ? formDefinition.getId().getItemId() : null)
 					.setComponents(mapper.readValue(formDefinition.getComponents(), mapCollectionType))
+					.setSettings(mapper.readValue(formDefinition.getSettings(), Map.class))
 					.setTitle(formDefinition.getTitle())
 					.setDisplay(formDefinition.getDisplay().name())
 					.setFormType(formDefinition.getFormType().name())
-					.setPath(formDefinition.getPath());
+					.setPath(formDefinition.getPath())
+					.setName(formDefinition.getName())
+					.setCreated(formDefinition.getCreatedDate().orElse(null))
+					.setModified(formDefinition.getLastModifiedDate().orElse(null));
 		} catch (JsonProcessingException e) {
 			log.warn("failed to deserialize form definition: {}", formDefinition.getComponents());
 			return null;
@@ -200,9 +210,11 @@ public class FormService {
 			return new FormDefinition()
 					.setTitle(formDefinitionDto.getTitle())
 					.setDisplay(coerceDisplayType(formDefinitionDto.getDisplay()))
+					.setName(formDefinitionDto.getName())
 					.setFormType(coerceFormType(formDefinitionDto.getFormType()))
 					.setPath(formDefinitionDto.getPath())
-					.setComponents(mapper.writeValueAsString(formDefinitionDto.getComponents()));
+					.setComponents(mapper.writeValueAsString(formDefinitionDto.getComponents()))
+					.setSettings(mapper.writeValueAsString(formDefinitionDto.getSettings()));
 		} catch (JsonProcessingException e) {
 			throw new FormConversionException(e);
 		}
