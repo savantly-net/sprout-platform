@@ -4,7 +4,7 @@ language: java
 jdk:
   - oraclejdk8
 env:
-  - TRAVIS_NODE_VERSION="8"
+  - TRAVIS_NODE_VERSION="12"
 cache:
   directories:
     - $HOME/.m2
@@ -25,7 +25,7 @@ script:
   - set -e
 
   - echo 'Checking for missing change logs...' && echo -en 'travis_fold:start:change\\r'
-  - git fetch origin master:refs/remotes/origin/master -a
+  - git fetch origin $TRAVIS_BRANCH:refs/remotes/origin/$TRAVIS_BRANCH -a
   - node common/scripts/install-run-rush.js change -v
   - echo -en 'travis_fold:end:change\\r'
 
