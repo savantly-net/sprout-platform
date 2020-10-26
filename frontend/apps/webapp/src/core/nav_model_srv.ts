@@ -32,7 +32,9 @@ export class NavModelSrv {
       }
 
       const node: any = _.find(children, { id: id as string });
-      nav.breadcrumbs?.push(node);
+      if (nav.breadcrumbs) {
+        nav.breadcrumbs.push(node);
+      }
       nav.node = node;
       nav.main = node;
       children = node.children;
