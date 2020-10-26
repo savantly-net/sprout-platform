@@ -2,9 +2,9 @@ import { cx } from 'emotion';
 import { ErrorMessage, Field, FieldAttributes, FormikProps, FormikValues, useFormikContext } from 'formik';
 import _ from 'lodash';
 import React from 'react';
-import { Col, FormGroup, Label } from 'reactstrap';
+import { Col, ColProps, FormGroup, Label } from 'reactstrap';
 
-export interface FormFieldProps extends Partial<FormikProps<FormikValues>>, FieldAttributes<any> {
+export interface FormFieldProps extends Partial<FormikProps<FormikValues>>, FieldAttributes<any>, ColProps {
   name: string;
   children?:
     | ((props: FormFieldProps) => React.ReactElement | React.ReactElement[])
@@ -16,11 +16,10 @@ export const FormField = (props: FormFieldProps) => {
   const formik = useFormikContext<FormikValues>();
   const { errors, touched } = formik;
   const { name } = props;
+  const { ...colProps }: ColProps = props; 
   const isInvalid = (!!(errors as any)[name] as any) && !!(touched as any)[name];
 
   const renderFormikField = () => {
-    console.log('formik field');
-    console.log(props);
     return <Field className={cx(['form-control', { 'is-invalid': isInvalid }])} {...props} />;
   };
 
@@ -42,7 +41,7 @@ export const FormField = (props: FormFieldProps) => {
     }
   };
   return (
-    <Col>
+    <Col {...colProps}>
       <FormGroup>
         {props.label && <Label>{props.label}</Label>}
         {renderField()}

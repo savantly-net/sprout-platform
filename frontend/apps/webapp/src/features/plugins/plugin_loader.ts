@@ -1,24 +1,25 @@
+import * as reduxToolkit from '@reduxjs/toolkit';
 import * as sproutApi from '@savantly/sprout-api';
 import { AppPlugin, PanelPlugin, PluginMeta } from '@savantly/sprout-api';
 import * as sproutRuntime from '@savantly/sprout-runtime';
 import { config } from '@savantly/sprout-runtime';
 import * as sproutUi from '@savantly/sprout-ui';
+import * as ui from '@sprout-platform/ui';
 import * as emotion from 'emotion';
+import * as formik from 'formik';
 import _ from 'lodash';
 import moment from 'moment'; // eslint-disable-line no-restricted-imports
 import react from 'react';
 import reactDom from 'react-dom';
 import * as reactRedux from 'react-redux';
 import * as reactRouterDom from 'react-router-dom';
+import * as reactstrap from 'reactstrap';
 import * as redux from 'redux';
 import * as reduxDynamicModules from 'redux-dynamic-modules';
 import * as rxjs from 'rxjs';
 import * as rxjsOperators from 'rxjs/operators';
 import builtInPluginIndex from './built_in_plugins';
 import { getPanelPluginLoadError, getPanelPluginNotFound } from './PanelPluginError';
-import * as formik from 'formik';
-
-import * as reactstrap from 'reactstrap';
 
 // add cache busting
 const bust = `?_cache=${Date.now()}`;
@@ -59,9 +60,12 @@ function exposeToPlugin(name: string, component: any) {
   });
 }
 
+exposeToPlugin('@reduxjs/toolkit', reduxToolkit);
 exposeToPlugin('@savantly/sprout-api', sproutApi);
 exposeToPlugin('@savantly/sprout-runtime', sproutRuntime);
 exposeToPlugin('@savantly/sprout-ui', sproutUi);
+exposeToPlugin('@sprout-platform/ui', ui);
+exposeToPlugin('emotion', emotion);
 exposeToPlugin('formik', formik);
 exposeToPlugin('lodash', _);
 exposeToPlugin('moment', moment);
@@ -76,7 +80,6 @@ exposeToPlugin('react-redux', reactRedux);
 exposeToPlugin('reactstrap', reactstrap);
 exposeToPlugin('redux', redux);
 exposeToPlugin('redux-dynamic-modules', reduxDynamicModules);
-exposeToPlugin('emotion', emotion);
 
 export async function importPluginModule(path: string): Promise<any> {
   const builtIn = builtInPluginIndex[path];

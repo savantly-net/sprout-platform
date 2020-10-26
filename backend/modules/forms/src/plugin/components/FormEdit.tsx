@@ -86,7 +86,7 @@ export const FormEdit = (props: OwnProps) => {
               <hr />
               <Row form>
                 <Col md={3}>
-                  <FormField
+                <FormField
                     name="title"
                     type="text"
                     label="Title"
@@ -95,13 +95,17 @@ export const FormEdit = (props: OwnProps) => {
                       dispatchFormAction({ type: 'title', value: e.target.value });
                     }}
                   />
-                  <FormField name="name" type="text" placeholder="Enter the form machine name" />
+                  <FormField name="name" type="text" label="Name" placeholder="Enter the form machine name" />
                   <FormField
                     name="path"
                     type="text"
-                    placeholder="example"
+                    label="Path"
+                    placeholder="path-to/form"
                     style={{ textTransform: 'lowercase', width: '120px' }}
                   />
+                </Col>
+                <Col md={3}>
+                  
                   <FormField as="select" className="form-control" name="display">
                     <option label="Form" value="form">
                       Form
