@@ -20,21 +20,25 @@ export function loadPlugins(): ThunkResult<void> {
           img: `/api/plugins/${p.id}/${p.info.logos.large}`,
           children: []
         };
-        
+
         // add default navigation for an app plugin
         navItems.push(rootNav);
 
         // add any included pages
-        p.includes?.forEach((pi, index) => {
-          if (pi.type === PluginIncludeType.page && pi.addToNav) {
-            rootNav.children?.push({
-              id: `${p.id}-${index}`,
-              text: pi.name,
-              icon: pi.icon,
-              url: pi.path
-            });
-          }
-        });
+        if (p.includes) {
+          p.includes.forEach((pi, index) => {
+            if (pi.type === PluginIncludeType.page && pi.addToNav) {
+              if (rootNav.children) {
+                rootNav.children.push({
+                  id: `${p.id}-${index}`,
+                  text: pi.name,
+                  icon: pi.icon,
+                  url: pi.path
+                });
+              }
+            }
+          });
+        }
       }
     });
     dispatch(addRootNavs(navItems));
