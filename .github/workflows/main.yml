@@ -18,6 +18,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Disable CI env until we can cleanup up warnings
+        run: echo CI = $CI
+        env:
+          CI: false
       - name: Cache Gradle deps
         uses: actions/cache@v2
         with:

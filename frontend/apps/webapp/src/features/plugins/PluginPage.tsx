@@ -75,7 +75,6 @@ interface State {
 
 const PAGE_ID_README = 'readme';
 const PAGE_ID_DASHBOARDS = 'dashboards';
-const PAGE_ID_CONFIG_CTRL = 'config';
 
 class PluginPage extends Component<OwnProps & ConnectedProps, State> {
   constructor(props: OwnProps & ConnectedProps) {
@@ -192,8 +191,6 @@ class PluginPage extends Component<OwnProps & ConnectedProps, State> {
 
   renderSidebarIncludeBody(item: PluginInclude) {
     if (item.type === PluginIncludeType.page) {
-      const pluginId = this.state.plugin!.meta.id;
-      const page = item.name.toLowerCase().replace(' ', '-');
       return (
         <a href={item.path}>
           <i className={getPluginIcon(item.type)} />
@@ -240,7 +237,7 @@ class PluginPage extends Component<OwnProps & ConnectedProps, State> {
         <h4>Dependencies</h4>
         <ul className="ui-list plugin-info-list">
           <li className="plugin-info-list-item">
-            <img src="/favicon.png" />
+            <img src="/favicon.png" alt='favicon' />
             Sprout {dependencies.sproutVersion}
           </li>
           {dependencies.plugins &&
@@ -269,7 +266,7 @@ class PluginPage extends Component<OwnProps & ConnectedProps, State> {
           {info.links.map((link) => {
             return (
               <li key={link.url}>
-                <a href={link.url} className="external-link" target="_blank" rel="noopener">
+                <a href={link.url} className="external-link" target="_blank" rel="noopener noreferrer">
                   {link.name}
                 </a>
               </li>

@@ -5,7 +5,6 @@ import React, { PureComponent } from 'react';
 import { DashboardModel } from '../../state/DashboardModel';
 import { BackButton } from '../../../../core/components/BackButton/BackButton';
 import { CustomScrollbar } from '@savantly/sprout-ui';
-import { getLocationSrv } from '@savantly/sprout-runtime';
 import { LocationUpdateService } from '../../../../core/services/locationSvc';
 
 export interface Props {
