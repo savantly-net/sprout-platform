@@ -97,6 +97,7 @@ export const doDeleteForm = (formId: string, done: (error: string) => void) => (
         dispatch(
           formInitCompleted({
             display: 'form',
+            type: 'form',
           })
         );
         dispatch(formQueryReset());

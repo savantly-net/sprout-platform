@@ -1,12 +1,12 @@
 import { LoadingPlaceholder } from '@savantly/sprout-ui';
-import { Field, Form, Formik } from 'formik';
+import { Form, FormField } from '@sprout-platform/ui';
 import _camelCase from 'lodash/camelCase';
 import _cloneDeep from 'lodash/cloneDeep';
 import _set from 'lodash/set';
 import { AppFormDto } from 'plugin/types';
-import React, { useEffect, useReducer } from 'react';
+import React, { Fragment, useEffect, useReducer } from 'react';
 import { FormBuilder } from 'react-formio';
-import { ValidatedFormField } from './ValidatedFormField';
+import { Col, Row } from 'reactstrap';
 
 interface OwnProps {
   form: AppFormDto;
@@ -43,7 +43,7 @@ export const FormEdit = (props: OwnProps) => {
     if (newForm && (form._id !== newForm._id || form.modified !== newForm.modified)) {
       dispatchFormAction({ type: 'replaceForm', value: newForm });
     }
-  }, [props.form]);
+  }, [props, form._id, form.modified]);
 
   const saveForm = (values: AppFormDto) => {
     const { saveForm } = props;
@@ -54,7 +54,7 @@ export const FormEdit = (props: OwnProps) => {
 
   const formChange = (newForm: AppFormDto) => dispatchFormAction({ type: 'formChange', value: newForm });
 
-  const { saveText, options, builder } = props;
+  const { options, builder, saveText } = props;
 
   if (!props.form) {
     return <LoadingPlaceholder text="Loading Form..." />;
@@ -62,9 +62,11 @@ export const FormEdit = (props: OwnProps) => {
 
   return (
     <div>
-      <Formik
+      <Form
+        submitText={saveText}
+        showButtonsOnTop={true}
         initialValues={{ ...form }}
-        validate={values => {
+        validate={(values: AppFormDto) => {
           const errors: any = {};
           if (!values.title) {
             errors.title = 'Required';
@@ -77,107 +79,56 @@ export const FormEdit = (props: OwnProps) => {
         }}
         enableReinitialize={true}
       >
-        {({ errors, touched, isSubmitting, values }) => {
+        {({ values }) => {
           return (
-            <Form>
-              <div>
-                <div className="mb-3">
-                  <div className="d-flex p-2 mb-2 justify-content-end align-items-end">
-                    <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-                      {saveText || 'Save Form'}
-                    </button>
-                  </div>
-                  <h5>Details</h5>
-                  <hr />
-                  <div className="d-flex form-row">
-                    <div className="col-md-3 col-sm-6">
-                      <div id="form-group-title" className="form-group">
-                        <label htmlFor="title" className="control-label field-required">
-                          Title
-                        </label>
-                        <ValidatedFormField
-                          name="title"
-                          type="text"
-                          placeholder="Enter the form title"
-                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                            dispatchFormAction({ type: 'title', value: e.target.value });
-                          }}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-md-3 col-sm-6">
-                      <div id="form-group-name" className="form-group">
-                        <label htmlFor="name" className="control-label field-required">
-                          Name
-                        </label>
-                        <ValidatedFormField
-                          name="name"
-                          type="text"
-                          className="form-control"
-                          placeholder="Enter the form machine name"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-md-2 col-sm-4">
-                      <div id="form-group-path" className="form-group">
-                        <label htmlFor="path" className="control-label field-required">
-                          Path
-                        </label>
-                        <div className="input-group">
-                          <ValidatedFormField
-                            name="path"
-                            type="text"
-                            className="form-control"
-                            placeholder="example"
-                            style={{ textTransform: 'lowercase', width: '120px' }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-2 col-sm-4">
-                      <div id="form-group-display" className="form-group">
-                        <label htmlFor="name" className="control-label">
-                          Display as
-                        </label>
-                        <div className="input-group">
-                          <ValidatedFormField as="select" className="form-control" name="display">
-                            <option label="Form" value="form">
-                              Form
-                            </option>
-                            <option label="Wizard" value="wizard">
-                              Wizard
-                            </option>
-                          </ValidatedFormField>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-2 col-sm-4">
-                      <div id="form-group-type" className="form-group">
-                        <label htmlFor="form-type" className="control-label">
-                          Type
-                        </label>
-                        <div className="input-group">
-                          <ValidatedFormField as="select" className="form-control" name="type">
-                            <option label="Form" value="form">
-                              Form
-                            </option>
-                            <option label="Resource" value="resource">
-                              Resource
-                            </option>
-                          </ValidatedFormField>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <Fragment>
+              <h5>Details</h5>
+              <hr />
+              <Row form>
+                <Col md={3}>
+                  <FormField
+                    name="title"
+                    type="text"
+                    label="Title"
+                    placeholder="Enter the form title"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      dispatchFormAction({ type: 'title', value: e.target.value });
+                    }}
+                  />
+                  <FormField name="name" type="text" placeholder="Enter the form machine name" />
+                  <FormField
+                    name="path"
+                    type="text"
+                    placeholder="example"
+                    style={{ textTransform: 'lowercase', width: '120px' }}
+                  />
+                  <FormField as="select" className="form-control" name="display">
+                    <option label="Form" value="form">
+                      Form
+                    </option>
+                    <option label="Wizard" value="wizard">
+                      Wizard
+                    </option>
+                  </FormField>
+                  <FormField as="select" className="form-control" name="type">
+                    <option label="Form" value="form">
+                      Form
+                    </option>
+                    <option label="Resource" value="resource">
+                      Resource
+                    </option>
+                  </FormField>
+                </Col>
+              </Row>
+              <Row>
                 <h5>Components</h5>
                 <hr />
                 <FormBuilder key={values._id} form={values} options={options} builder={builder} onChange={formChange} />
-              </div>
-            </Form>
+              </Row>
+            </Fragment>
           );
         }}
-      </Formik>
+      </Form>
     </div>
   );
 };

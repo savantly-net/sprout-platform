@@ -1,15 +1,15 @@
 import { cx } from 'emotion';
-import { ErrorMessage, Field, FormikProps, FormikValues, useFormikContext } from 'formik';
+import { ErrorMessage, Field, FieldAttributes, FormikProps, FormikValues, useFormikContext } from 'formik';
 import _ from 'lodash';
 import React from 'react';
 import { Col, FormGroup, Label } from 'reactstrap';
 
-export type FormFieldChildProps = Partial<FormikProps<FormikValues>>;
-
-export interface FormFieldProps extends FormFieldChildProps {
-  label?: string;
+export interface FormFieldProps extends Partial<FormikProps<FormikValues>>, FieldAttributes<any> {
   name: string;
-  children?: ((props: FormFieldChildProps) => React.ReactElement) | React.ReactElement;
+  children?:
+    | ((props: FormFieldProps) => React.ReactElement | React.ReactElement[])
+    | React.ReactElement
+    | React.ReactElement[];
 }
 
 export const FormField = (props: FormFieldProps) => {
@@ -17,19 +17,28 @@ export const FormField = (props: FormFieldProps) => {
   const { errors, touched } = formik;
   const { name } = props;
   const isInvalid = (!!(errors as any)[name] as any) && !!(touched as any)[name];
+
+  const renderFormikField = () => {
+    console.log('formik field');
+    console.log(props);
+    return <Field className={cx(['form-control', { 'is-invalid': isInvalid }])} {...props} />;
+  };
+
   const renderField = () => {
     const { children, ...rest } = props;
+    const useFormikField = props.as === 'select' || !children || _.isArrayLike(children);
+    if (useFormikField) {
+      return renderFormikField();
+    }
     if (children) {
-      const childProps = {...rest, ...formik};
+      const childProps = { ...rest, ...formik };
       if (_.isFunction(children)) {
         return children(childProps);
       } else {
-        return React.cloneElement(children, childProps);
+        return React.cloneElement(children as React.ReactElement, childProps);
       }
     } else {
-      return (
-        <Field className={cx(['form-control', { 'is-invalid': isInvalid }])} name={props.name}/>
-      );
+      return renderFormikField();
     }
   };
   return (

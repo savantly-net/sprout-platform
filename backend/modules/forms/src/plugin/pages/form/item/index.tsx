@@ -37,7 +37,6 @@ export const FormItemIndex = () => {
   const formId = useParams().formId;
   const dispatch = useDispatch();
 
-  const toEdit = './edit';
   const toEnterData = './';
   const toViewData = './submission';
 

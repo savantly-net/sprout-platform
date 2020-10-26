@@ -1,7 +1,7 @@
 import { Story } from '@storybook/react/types-6-0';
-import React, { ComponentProps } from 'react';
+import React, { ComponentProps, Fragment } from 'react';
 import { Form } from '../Form/Form';
-import { FormField, FormFieldChildProps } from './FormField';
+import { FormField, FormFieldProps } from './FormField';
 
 // This default export determines where your story goes in the story list
 export default {
@@ -11,7 +11,6 @@ export default {
     (story: any) => (
       <Form
         initialValues={{
-          myFieldName: '',
           email: ''
         }}
         onSubmit={(values) => {
@@ -31,14 +30,28 @@ const Template: Story<ComponentProps<typeof FormField>> = (args) => <FormField {
 export const SimpleFormField = Template.bind({});
 SimpleFormField.args = {
   label: 'My String Field',
-  name: 'myFieldName'
+  name: 'email'
 };
 
 export const WithCustomInput = Template.bind({});
 WithCustomInput.args = {
   label: 'Email Address',
   name: 'email',
-  children: (props: FormFieldChildProps) => (
+  children: (props: FormFieldProps) => (
     <input type="email" name="email" value={props.values?.email} onChange={props.handleChange} />
+  )
+};
+
+export const WithSelect = Template.bind({});
+WithSelect.args = {
+  label: 'Select one',
+  name: 'email',
+  as: 'select',
+  children: (
+    <Fragment>
+      <option></option>
+      <option>him@example.com</option>
+      <option>her@example.com</option>
+    </Fragment>
   )
 };

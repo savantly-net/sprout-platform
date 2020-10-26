@@ -16,13 +16,21 @@ import * as rxjs from 'rxjs';
 import * as rxjsOperators from 'rxjs/operators';
 import builtInPluginIndex from './built_in_plugins';
 import { getPanelPluginLoadError, getPanelPluginNotFound } from './PanelPluginError';
+import * as formik from 'formik';
+
+import * as reactstrap from 'reactstrap';
 
 // add cache busting
 const bust = `?_cache=${Date.now()}`;
 function locate(load: { address: string }) {
   return load.address + bust;
 }
-sproutRuntime.SystemJS.registry.set('plugin-loader', sproutRuntime.SystemJS.newModule({ locate: locate }));
+sproutRuntime.SystemJS.registry.set(
+  'plugin-loader',
+  sproutRuntime.SystemJS.newModule({
+    locate: locate
+  })
+);
 
 sproutRuntime.SystemJS.config({
   baseURL: '.',
@@ -54,6 +62,7 @@ function exposeToPlugin(name: string, component: any) {
 exposeToPlugin('@savantly/sprout-api', sproutApi);
 exposeToPlugin('@savantly/sprout-runtime', sproutRuntime);
 exposeToPlugin('@savantly/sprout-ui', sproutUi);
+exposeToPlugin('formik', formik);
 exposeToPlugin('lodash', _);
 exposeToPlugin('moment', moment);
 exposeToPlugin('rxjs', rxjs);
@@ -64,6 +73,7 @@ exposeToPlugin('React', react);
 exposeToPlugin('react-dom', reactDom);
 exposeToPlugin('react-router-dom', reactRouterDom);
 exposeToPlugin('react-redux', reactRedux);
+exposeToPlugin('reactstrap', reactstrap);
 exposeToPlugin('redux', redux);
 exposeToPlugin('redux-dynamic-modules', reduxDynamicModules);
 exposeToPlugin('emotion', emotion);

@@ -64,6 +64,14 @@
      * For example, allow some projects to use an older TypeScript compiler
      * (in addition to whatever "usual" version is being used by other projects in the repo):
      */
+     "@storybook/addon-actions": [
+      "5.3.21", // remove when grafana ui is removed
+      "^6"
+    ],
+     "@storybook/react": [
+       "5.3.21", // remove when grafana ui is removed
+       "^6"
+     ],
     "babel-jest": [
       "^24.8"
     ],
@@ -71,7 +79,8 @@
       "^7.4.0"
     ],
     "jest": [
-      "^25"
+      "^25",
+      "~26.6.1" //current CRA version of webapp requires this
     ],
     "ts-jest": [
        "^26"

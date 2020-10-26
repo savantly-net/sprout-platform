@@ -1,11 +1,12 @@
 import { PayloadAction, Reducer } from '@reduxjs/toolkit';
 import { AppForm, AppFormDto } from '../../../types';
 
-const initialState = {
+const initialState: AppForm = {
   isActive: false,
   lastUpdated: 0,
   form: {
     display: 'form',
+    type: 'form',
   },
   url: '',
   error: '',

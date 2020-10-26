@@ -29,9 +29,14 @@ const buildCjsPackage = ({ env }) => {
       },
     ],
     external: [
+      'emotion',
+      'formik',
+      'lodash',
       'react',
       'react-dom',
+      'reactstrap',
       '@savantly/sprout-api',
+      'formik'
     ],
     plugins: [
       commonjs({
@@ -44,8 +49,12 @@ const buildCjsPackage = ({ env }) => {
             'find',
             'upperFirst',
             'debounce',
+            'isArrayLike',
+            'isEmpty',
+            'isFunction',
             'isNil',
             'isNumber',
+            'isString',
             'flattenDeep',
             'map',
             'chunk',
@@ -53,8 +62,6 @@ const buildCjsPackage = ({ env }) => {
             'uniqueId',
             'zip',
             'omit',
-            'isString',
-            'isEmpty',
             'toLower',
           ],
         },

@@ -1,5 +1,8 @@
 type SeriesSize = 'sm' | 'md' | 'lg';
 
+export type FormDisplayType = 'form' | 'wizard';
+export type FormType = 'form' | 'resource';
+
 export interface SimpleOptions {
   text: string;
   showMessage: boolean;
@@ -25,8 +28,8 @@ export interface AppFormDto {
   title?: string;
   path?: string;
   name?: string;
-  display: string;
-  type: string;
+  display?: FormDisplayType;
+  type?: FormType;
   components?: any[];
   modified?: string;
   created?: string;

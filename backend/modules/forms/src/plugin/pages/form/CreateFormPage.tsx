@@ -32,7 +32,12 @@ const CreateFormPage: FC<any> = ({}: OwnProps) => {
   return (
     <div>
       {error && <Alert title="Error saving form" severity="error" />}
-      <FormEdit form={{ display: 'form', type: 'form' }} saveForm={saveForm} saveText="Save Form" options={{ noAlerts: true }} />
+      <FormEdit
+        form={{ display: 'form', type: 'form' }}
+        saveForm={saveForm}
+        saveText="Save Form"
+        options={{ noAlerts: true }}
+      />
     </div>
   );
 };
