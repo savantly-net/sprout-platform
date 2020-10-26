@@ -21,8 +21,6 @@ rush change
 rush check
 rush update
 rush build
-rush version --bump
-rush build
 
 
 # keep track of the last executed command
