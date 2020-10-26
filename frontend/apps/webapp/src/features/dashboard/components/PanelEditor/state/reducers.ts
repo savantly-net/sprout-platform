@@ -6,13 +6,6 @@ import store from '../../../../../core/store';
 
 export const PANEL_EDITOR_UI_STATE_STORAGE_KEY = 'grafana.dashboard.editor.ui';
 
-export const DEFAULT_PANEL_EDITOR_UI_STATE: PanelEditorUIState = {
-  isPanelOptionsVisible: true,
-  rightPaneSize: 400,
-  topPaneSize: '45%',
-  mode: DisplayMode.Fill,
-};
-
 export interface PanelEditorUIState {
   /* Visualization options pane visibility */
   isPanelOptionsVisible: boolean;
@@ -23,6 +16,13 @@ export interface PanelEditorUIState {
   /* Visualization size mode */
   mode: DisplayMode;
 }
+
+export const DEFAULT_PANEL_EDITOR_UI_STATE: PanelEditorUIState = {
+  isPanelOptionsVisible: true,
+  rightPaneSize: 400,
+  topPaneSize: '45%',
+  mode: DisplayMode.Fill,
+};
 
 export interface PanelEditorState {
   /* These are functions as they are mutaded later on and redux toolkit will Object.freeze state so
