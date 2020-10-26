@@ -27,12 +27,6 @@ interface SavePackageOptions {
 
 const isUIPackage = (pkg: any) => {
   const _isUiPkg = pkg.name.endsWith('sprout-ui');
-  if(_isUiPkg){
-    console.log(chalk.green(`${pkg.name} is a UI package`));
-  } else {
-    console.log(chalk.yellow(`${pkg.name} not a UI package`));
-  }
-  
  return _isUiPkg
 }
 
@@ -44,6 +38,7 @@ export const savePackage = useSpinner<SavePackageOptions>(
     return new Promise((resolve, reject) => {
       fs.writeFile(path, JSON.stringify(pkg, null, 2), err => {
         if (err) {
+          console.error(chalk.red(`warning: ${err}`));
           reject(err);
           return;
         }
@@ -89,13 +84,13 @@ const moveFiles = () => {
         if (fs.existsSync(`${cwd}/${file}`)) {
           fs.copyFile(`${cwd}/${file}`, `${distDir}/${file}`, err => {
             if (err) {
+              console.error(chalk.red(`warning: ${err}`));
               reject(err);
               return;
             }
             resolve();
           });
         } else {
-          console.log(chalk.yellow(`warning: ${cwd}/${file} doesn't exist`));
           resolve();
         }
       });
@@ -103,6 +98,7 @@ const moveFiles = () => {
     promises.push(new Promise((resolve, reject) => {
       fs.copyFile(`node_modules/@savantly/sprout-toolkit/src/cli/templates/package/index.js`, `${distDir}/index.js`, err => {
         if (err) {
+              console.error(chalk.red(`warning: ${err}`));
               reject(err);
               return;
             }
@@ -146,7 +142,7 @@ const buildTaskRunner: TaskRunner<PackageBuildOptions> = async ({ scope }) => {
   const scopes = scope.split(',').map(s => {
     return async () => {
       cwd = path.resolve(__dirname, `../../../../../libs/${s}`);
-      // Lerna executes this in package's dir context, but for testing purposes I want to be able to run from root:
+      // Rush executes this in package's dir context, but for testing purposes I want to be able to run from root:
       // sprout-toolkit package:build --scope=<package>
       process.chdir(cwd);
       distDir = `${cwd}/dist`;
@@ -163,6 +159,7 @@ const buildTaskRunner: TaskRunner<PackageBuildOptions> = async ({ scope }) => {
   });
 
   await Promise.all(scopes.map(s => s()));
+  process.exit(0);
 };
 
 export const buildPackageTask = new Task<PackageBuildOptions>('Package build', buildTaskRunner);
