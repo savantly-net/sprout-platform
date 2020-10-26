@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Suppress the spinner in the toolkit, because it appears as warnings when building
+SUPPRESS_SPINNER=true
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
@@ -11,7 +13,9 @@ if [ $GIT_READY -gt 0 ]; then
     exit 1
 fi
 
-# not trapping errors until we can clear up the warnings during build
+
+# exit when any command fails
+set -e
 
 rush change
 rush check
@@ -20,8 +24,6 @@ rush build
 rush version --bump
 rush build
 
-# exit when any command fails
-set -e
 
 # keep track of the last executed command
 trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
