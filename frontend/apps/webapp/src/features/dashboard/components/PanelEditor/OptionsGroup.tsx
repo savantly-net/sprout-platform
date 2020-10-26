@@ -66,14 +66,15 @@ const CollapsibleSectionWithPersistence: FC<OptionsGroupProps> = memo(props => {
   const [value, setValue] = useLocalStorage(getOptionGroupStorageKey(props.id), {
     defaultToClosed: props.defaultToClosed,
   });
+  const onToggleProp = props.onToggle;
   const onToggle = useCallback(
     (isExpanded: boolean) => {
       setValue({ defaultToClosed: !isExpanded });
-      if (props.onToggle) {
-        props.onToggle(isExpanded);
+      if (onToggleProp) {
+        onToggleProp(isExpanded);
       }
     },
-    [setValue, props.onToggle]
+    [setValue, onToggleProp]
   );
 
   return <CollapsibleSection {...props} defaultToClosed={value?.defaultToClosed} onToggle={onToggle} />;

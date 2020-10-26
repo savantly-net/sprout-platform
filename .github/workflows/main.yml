@@ -18,6 +18,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
       - name: Cache Gradle deps
         uses: actions/cache@v2
         with:
@@ -28,16 +32,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Cache node_modules
+      - name: Cache Rush temp files
         uses: actions/cache@v2
         with:
-          path: common/temp/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: |
+            common/temp
+          key: ${{ runner.os }}-node-${{ hashFiles('common/config/rush/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-node-
-
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
 
       - uses: actions/setup-java@v1
         with:
@@ -47,12 +49,14 @@ jobs:
       - uses: actions/setup-node@v2-beta
         with:
           node-version: '12'
-
-      - name: Rush install
-        run: node common/scripts/install-run-rush.js install
+      - name: Rush Update
+        run: node common/scripts/install-run-rush.js update
 
       - name: Rush build
         run: node common/scripts/install-run-rush.js rebuild --verbose
+        env:
+          CI: false
+          SUPPRESS_SPINNER: true
       
       - name: Build Server Projects
         run: ./gradlew build

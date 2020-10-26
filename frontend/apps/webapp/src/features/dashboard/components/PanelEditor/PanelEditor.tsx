@@ -24,6 +24,11 @@ import { calculatePanelSize } from './utils';
 const splitPane = require('react-split-pane');
 const SplitPane = splitPane.default;
 
+enum Pane {
+  Right,
+  Top,
+}
+
 interface OwnProps {
   dashboard: DashboardModel;
   sourcePanel: PanelModel;
@@ -330,11 +335,6 @@ const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = {
 };
 
 export const PanelEditor = connect(mapStateToProps, mapDispatchToProps)(PanelEditorUnconnected as any);
-
-enum Pane {
-  Right,
-  Top,
-}
 
 /*
  * Styles

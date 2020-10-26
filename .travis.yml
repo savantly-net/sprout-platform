@@ -24,11 +24,6 @@ before_script:
 script:
   - set -e
 
-  - echo 'Checking for missing change logs...' && echo -en 'travis_fold:start:change\\r'
-  - git fetch origin $TRAVIS_BRANCH:refs/remotes/origin/$TRAVIS_BRANCH -a
-  - node common/scripts/install-run-rush.js change -v
-  - echo -en 'travis_fold:end:change\\r'
-
   - echo 'Installing...' && echo -en 'travis_fold:start:install\\r'
   - node common/scripts/install-run-rush.js install
   - echo -en 'travis_fold:end:install\\r'

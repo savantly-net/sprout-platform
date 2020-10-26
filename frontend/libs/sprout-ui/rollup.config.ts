@@ -63,7 +63,6 @@ const buildCjsPackage = ({ env }) => {
             'isEmpty',
             'toLower',
           ],
-          'node_modules/react-color/lib/components/common/index.js': ['Saturation', 'Hue', 'Alpha'],
           'node_modules/immutable/dist/immutable.js': [
             'Record',
             'Set',

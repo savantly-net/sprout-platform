@@ -80,7 +80,7 @@ const updateStyles = () => {
 
 const _locationSvcInit  = (history: H.History): LocationUpdateService => ({
   update: (payload: LocationUpdate) =>  {
-    const { path, routeParams, replace } = payload;
+    const { path, replace } = payload;
       let query = payload.query || urlUtil.getUrlSearchParams();
   
       if (payload.partial) {

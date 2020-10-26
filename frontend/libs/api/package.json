@@ -28,6 +28,7 @@
     "@types/marked": "^1.1.0",
     "@types/tinycolor2": "^1.4.2",
     "apache-arrow": "0.16.0",
+    "marked": "^1.1.1",
     "lodash": "^4.17.20",
     "rxjs": "~6.6.3",
     "tinycolor2": "^1.4.2",

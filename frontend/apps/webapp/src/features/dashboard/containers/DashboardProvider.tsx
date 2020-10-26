@@ -10,7 +10,7 @@ import React, {
   useEffect
 } from "react";
 import { connect } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getMessageFromError } from "../../../core/utils/errors";
 import {
   AppNotificationSeverity,
