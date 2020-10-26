@@ -7,7 +7,6 @@ import { PanelModel } from '../state/PanelModel';
 import { AppEvents } from '@savantly/sprout-api';
 
 // Utils
-import { isString as _isString } from 'lodash';
 import appEvents from '../../../core/app_events';
 import config from '../../../core/config';
 
