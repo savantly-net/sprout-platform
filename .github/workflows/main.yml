@@ -41,7 +41,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-
       - uses: actions/setup-java@v1
         with:
           java-version: '11' # The JDK version to make available on the path.
@@ -50,7 +49,6 @@ jobs:
       - uses: actions/setup-node@v2-beta
         with:
           node-version: '12'
-
       - name: Rush Update
         run: node common/scripts/install-run-rush.js update
 
