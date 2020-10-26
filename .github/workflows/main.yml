@@ -31,14 +31,14 @@ jobs:
         with:
           node-version: '12'
 
-      - name: Install Rush
-        run: node common/scripts/install-run-rush.js
+      - name: Check for change log
+        run: node common/scripts/install-run-rush.js change
 
-      - name: Update Dependencies
-        run: rush update
+      - name: Rush install
+        run: node common/scripts/install-run-rush.js install
 
-      - name: Build Client Projects
-        run: rush build
+      - name: Rush build
+        run: node common/scripts/install-run-rush.js rebuild --verbose
       
       - name: Build Server Projects
         run: ./gradlew build
