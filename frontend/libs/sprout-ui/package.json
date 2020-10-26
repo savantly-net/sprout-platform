@@ -17,7 +17,6 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "bin": "./",
   "scripts": {
     "build": "sprout-toolkit package:build --scope=sprout-ui",
     "bundle": "rollup -c rollup.config.ts",
