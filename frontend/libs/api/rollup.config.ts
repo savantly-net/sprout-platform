@@ -23,7 +23,7 @@ const buildCjsPackage = ({ env }) => {
         globals: {},
       },
     ],
-    external: ['lodash', 'rxjs', 'apache-arrow'], // Use Lodash, rxjs & arrow from grafana
+    external: ['lodash', 'rxjs', 'apache-arrow'], // Use Lodash, rxjs & arrow from the webapp
     plugins: [
       json(), // TODO: include: ['../../node_modules/moment-timezone/data/packed/latest.json'],
       commonjs({
@@ -49,6 +49,10 @@ const buildCjsPackage = ({ env }) => {
       sourceMaps(),
       env === 'production' && terser(),
     ],
+    onwarn: function (warning, warn) {
+      if (warning.code === 'CIRCULAR_DEPENDENCY') return;
+      warn(warning);
+    }
   };
 };
 export default [buildCjsPackage({ env: 'development' }), buildCjsPackage({ env: 'production' })];

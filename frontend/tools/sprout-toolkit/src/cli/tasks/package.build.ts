@@ -135,6 +135,8 @@ interface PackageBuildOptions {
 }
 
 const buildTaskRunner: TaskRunner<PackageBuildOptions> = async ({ scope }) => {
+
+  console.log(`SUPPRESS_SPINNER ${process.env.SUPPRESS_SPINNER}`);
   if (!scope) {
     throw new Error('Provide packages with -s, --scope <packages>');
   }
