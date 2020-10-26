@@ -51,8 +51,8 @@ jobs:
         with:
           node-version: '12'
 
-      - name: Rush install
-        run: node common/scripts/install-run-rush.js install
+      - name: Rush Update
+        run: node common/scripts/install-run-rush.js update
 
       - name: Rush build
         run: node common/scripts/install-run-rush.js rebuild --verbose
