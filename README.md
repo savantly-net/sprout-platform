@@ -1,7 +1,8 @@
 # sprout-platform  
 ![CI](https://github.com/savantly-net/sprout-platform/workflows/CI/badge.svg)
 
-This project provides a CMS application as a Spring Boot Starter library.  
+This project provides an extensible and modular CMS application.
+You can use the default server, or add the [Sprout Starter Library](./backend/starters/sprout-spring-boot-starter) to your own Spring Boot project.  
 It can be used headless, but a default UI is provided which is customizable via plugins.  
 
 The front-end UI uses a `plugin` system to add or modify functionality.  
@@ -28,10 +29,6 @@ Help me create that!
 Sprout platform is currently being refactored to leverage the latest libraries and practices. 
 The development branch may be unstable until this is complete.  
 Follow this project to stay informed.  
-
-[![Build Status](https://travis-ci.org/savantly-net/sprout-platform.svg?branch=master)](https://travis-ci.org/savantly-net/sprout-platform)  master
-
-[![Build Status](https://travis-ci.org/savantly-net/sprout-platform.svg?branch=development)](https://travis-ci.org/savantly-net/sprout-platform)  development
 
 ## Quick Start  
 
