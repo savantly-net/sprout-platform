@@ -1,8 +1,7 @@
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 ext.doSign = project.hasProperty('doSign') ? project.doSign : false
-ext.ossrhUsername = System.getenv('OSSRH_USER') ? System.getenv('OSSRH_USER') : ''
-ext.ossrhPassword = System.getenv('OSSRH_USER_TOKEN') ? System.getenv('OSSRH_USER_TOKEN') : ''
-
+ext.ossrhUsername = System.getenv('OSSRH_USER') ? System.getenv('OSSRH_USER') : (project.hasProperty('ossrhUsername') ? project.ossrhUsername : '')
+ext.ossrhPassword = System.getenv('OSSRH_USER_TOKEN') ? System.getenv('OSSRH_USER_TOKEN') : (project.hasProperty('ossrhPassword') ? project.ossrhPassword : '')
 
 signing {
 	required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") && doSign }
