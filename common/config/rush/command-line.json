@@ -62,7 +62,7 @@
       "name": "storybook:deploy",
       "commandKind": "global",
       "summary": "Build and deploy the UI storybook",
-      "shellCommand": "cd frontend/libs/ui && npx chromatic --project-token $CHROMATIC_PROJECT_TOKEN --auto-accept-changes",
+      "shellCommand": "cd frontend/libs/ui && npx chromatic --project-token $CHROMATIC_PROJECT_TOKEN --auto-accept-changes --exit-once-uploaded",
       "safeForSimultaneousRushProcesses": true
     }
   ],
