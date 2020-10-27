@@ -40,6 +40,18 @@ Use the docker images to start an example server + web app.
 
 ## Examples
 
+#### Server Demo  
+This is running on a Hobby Dyno, so it may take a min to start.  
+Also, the process memory is about 500mB so some performance enhancements may be required.  
+[https://sprout-server.herokuapp.com/](https://sprout-server.herokuapp.com/)  
+
+#### Client Demo
+Depends on the server Demo to be running.  
+[https://sprout-web.herokuapp.com/](https://sprout-web.herokuapp.com/)  
+
+
+#### Screenshots 
+
 ![Sprout Web App](./docs/img/hello-world.gif)  
 
 

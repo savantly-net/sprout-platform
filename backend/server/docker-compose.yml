@@ -4,5 +4,7 @@ services:
   server:
     image: savantly/sprout-server
     container_name: sprout-server
+    environment: 
+      - PORT=8080
     ports:
       - 8080:8080

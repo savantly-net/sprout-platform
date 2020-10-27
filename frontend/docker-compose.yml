@@ -4,5 +4,8 @@ services:
   webapp:
     image: savantly/sprout-webapp
     container_name: sprout-webapp
+    environment: 
+      - PORT=3000
+      - SPROUT_API_URL=http://localhost:8080
     ports:
       - 3000:3000

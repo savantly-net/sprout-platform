@@ -9,6 +9,4 @@ COPY ./apps/webapp/build/ /var/www/
 
 # Set default env vars
 ENV SPROUT_API_URL=http://localhost:8080
-
-# Default port exposure
-EXPOSE 3000
+ENV PORT=3000

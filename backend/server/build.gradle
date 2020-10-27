@@ -41,7 +41,7 @@ dependencies {
 	//runtimeOnly project(':web:sprout-web-ui')
 	//runtimeOnly project(':sprout-modules-content')
 	//runtimeOnly project(':sprout-modules-openTok')
-	runtimeOnly project(':sprout-modules-newsfeed')
+	//runtimeOnly project(':sprout-modules-newsfeed')
 	//runtimeOnly project(':sprout-modules-forms')
 	runtimeOnly project(':sprout-modules-example-panel')
 	

@@ -4,13 +4,16 @@ services:
   server:
     image: savantly/sprout-server
     container_name: example_sprout_server
+    environment: 
+      - PORT=9090
     ports:
-      - 8080:8080
+      - 8080:9090
 
   webapp:
     image: savantly/sprout-webapp
     container_name: example_sprout_webapp
     ports:
-      - 3000:3000
+      - 3000:4000
     environment: 
-      - SPROUT_API_URL=http://server:8080
+      - PORT=4000
+      - SPROUT_API_URL=http://server:9090
