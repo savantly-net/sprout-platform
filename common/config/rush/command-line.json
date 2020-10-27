@@ -57,6 +57,13 @@
       "commandKind": "global",
       "summary": "Starts the front-end webapp",
       "shellCommand": "cd frontend/apps/webapp && npm run start"
+    },
+    {
+      "name": "storybook:deploy",
+      "commandKind": "global",
+      "summary": "Build and deploy the UI storybook",
+      "shellCommand": "cd frontend/libs/ui && npx chromatic --project-token $CHROMATIC_PROJECT_TOKEN --auto-accept-changes",
+      "safeForSimultaneousRushProcesses": true
     }
   ],
 

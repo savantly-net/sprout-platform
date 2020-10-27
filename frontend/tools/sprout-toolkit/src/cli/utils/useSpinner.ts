@@ -2,8 +2,9 @@ import ora = require('ora');
 
 type FnToSpin<T> = (options: T) => Promise<void>;
 
+// disable completely until I can figure out why it's failing
 // pnpm detects console output as warnings, so we can suppress in CI
-const suppressSpinner = process.env.SUPRESS_SPINNER;
+const suppressSpinner = true; // Boolean(process.env.SUPRESS_SPINNER || true);
 
 class spinnerWrapper {
   spinner: any;

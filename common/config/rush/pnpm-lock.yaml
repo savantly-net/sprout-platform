@@ -160,7 +160,7 @@ dependencies:
   monaco-editor: 0.20.0
   node-sass: 4.14.1
   optimize-css-assets-webpack-plugin: 5.0.4_webpack@4.42.0
-  ora: 4.1.1
+  ora: 5.1.0
   papaparse: 5.3.0
   pixelmatch: 5.2.1
   pngjs: 3.4.0
@@ -16839,14 +16839,14 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-VeIAFslyIerEJLXHziedo2basKbMKtTw3vfn5IzG0XTjhAVEJyNHnL2p7vc+wBDSdQuUpNw3M2u6xb9QsAY5Eg==
-  /log-symbols/3.0.0:
+  /log-symbols/4.0.0:
     dependencies:
-      chalk: 2.4.2
+      chalk: 4.1.0
     dev: false
     engines:
-      node: '>=8'
+      node: '>=10'
     resolution:
-      integrity: sha512-dSkNGuI7iG3mfvDzUuYZyvk5dD9ocYCYzNU6CYDE6+Xqd+gwme6Z00NS3dUh8mq/73HaEtT7m6W+yUPtU6BZnQ==
+      integrity: sha512-FN8JBzLx6CzeMrB0tg6pqlGU1wCrXW+ZXGH481kfsBqer0hToTIiHdjH4Mq8xJUbvATujKCvaREGWpGUionraA==
   /log-update/2.3.0:
     dependencies:
       ansi-escapes: 3.2.0
@@ -18233,21 +18233,21 @@ packages:
       node: '>= 0.8.0'
     resolution:
       integrity: sha512-74RlY5FCnhq4jRxVUPKDaRwrVNXMqsGsiW6AJw4XK8hmtm10wC0ypZBLw5IIp85NZMr91+qd1RvvENwg7jjRFw==
-  /ora/4.1.1:
+  /ora/5.1.0:
     dependencies:
-      chalk: 3.0.0
+      chalk: 4.1.0
       cli-cursor: 3.1.0
       cli-spinners: 2.5.0
       is-interactive: 1.0.0
-      log-symbols: 3.0.0
+      log-symbols: 4.0.0
       mute-stream: 0.0.8
       strip-ansi: 6.0.0
       wcwidth: 1.0.1
     dev: false
     engines:
-      node: '>=8'
+      node: '>=10'
     resolution:
-      integrity: sha512-sjYP8QyVWBpBZWD6Vr1M/KwknSw6kJOz41tvGMlwWeClHBtYKTbHMki1PsLZnxKpXMPbTKv9b3pjQu3REib96A==
+      integrity: sha512-9tXIMPvjZ7hPTbk8DFq1f7Kow/HU/pQYB60JbNq+QnGwcyhWVZaQ4hM9zQDEsPxw/muLpgiHSaumUZxCAmod/w==
   /original/1.0.2:
     dependencies:
       url-parse: 1.4.7
@@ -26108,6 +26108,7 @@ packages:
       '@types/tinycolor2': 1.4.2
       apache-arrow: 0.16.0
       lodash: 4.17.20
+      marked: 1.2.2
       moment: 2.29.1
       moment-timezone: 0.5.31
       pretty-format: 25.1.0
@@ -26126,7 +26127,7 @@ packages:
     dev: false
     name: '@rush-temp/sprout-api'
     resolution:
-      integrity: sha512-vP1nt+w1/h4jEzzI63IPWLVvzVho8yhRTfsKNguginArxtdIVWSEURkpfOk6CZwbIGMmfby9U0hnJ79ym6rJSg==
+      integrity: sha512-KF7k50ZTX00HkKE9gSwhHOonIQ/2dY9z90+mG0NjAKoLQ6TDyplMXhw7JYzggimQMLm7AFAbDRWYCX/IGIWtKQ==
       tarball: 'file:projects/sprout-api.tgz'
     version: 0.0.0
   'file:projects/sprout-runtime.tgz_0d72c3f12c6df4c05dbb05932998e461':
@@ -26155,7 +26156,7 @@ packages:
       '@types/node': '*'
       react-scripts: '*'
     resolution:
-      integrity: sha512-i8pJLFtcblK25gPBzLPMCzS1OHf71d9qSLK8Tr5fDn0Gj/BxCDj+Yic9bBYVYcUraA09hUpZ3kIBP/XFbP/bOg==
+      integrity: sha512-7TDw0XQJMHr72R5BSWwlAm/XikSC2IQBda9jKM+R0IJHUhGAax1fIA9KCuNsAKpzw5mx9Eu43jxWArz6rf/LUg==
       tarball: 'file:projects/sprout-runtime.tgz'
     version: 0.0.0
   'file:projects/sprout-toolkit.tgz':
@@ -26216,7 +26217,7 @@ packages:
       mini-css-extract-plugin: 0.7.0_webpack@4.41.5
       node-sass: 4.14.1
       optimize-css-assets-webpack-plugin: 5.0.4_webpack@4.41.5
-      ora: 4.1.1
+      ora: 5.1.0
       pixelmatch: 5.2.1
       pngjs: 3.4.0
       postcss-flexbugs-fixes: 4.2.0
@@ -26243,7 +26244,7 @@ packages:
     dev: false
     name: '@rush-temp/sprout-toolkit'
     resolution:
-      integrity: sha512-OCHLTiGqp3XlbmELnvs7u87nx+l/xzGnMHfjd9s2J7tZEJCFiJpV9Gkg3lF9lDHukTPcq1eRf8XktQf3nSGnBg==
+      integrity: sha512-AFQP69FJ+ng98Sau0F00q2/1SWzYNLpgjUaO6JfMIXvg99thEjxtMx1s4GX0iYXG/9bD/ZceBTGCHW7UO/6DPA==
       tarball: 'file:projects/sprout-toolkit.tgz'
     version: 0.0.0
   'file:projects/sprout-tsconfig.tgz':
@@ -26365,7 +26366,7 @@ packages:
       babel-loader: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-pG/Yq18dLPhHrV9/SWAZrva2EJBIaYTVLGW+RotZKRGl3vr4YetyiQzzecBdy2XUc3oqwYDxiUNz6LkVb5xqxQ==
+      integrity: sha512-TvX1Ut38o5KtbDqAWx29n3YPyTcA6gd9ZC/hzN8G82lxN8fAurd9toiteYxGN+wBh7ZMQi4RraL5aY0D7zhB+w==
       tarball: 'file:projects/sprout-ui.tgz'
     version: 0.0.0
   'file:projects/ui.tgz_146f5c86aaf656d4da09698b03339365':
@@ -26428,7 +26429,7 @@ packages:
       ts-node: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-ynhRFs21QUrsgEQAadTtGiRtLai0rTivvHeXVg2T3YDg5GqBbGB3oA9tZSYufZbv9cKTDv5Pp1IBkbMJDqfUPg==
+      integrity: sha512-bv2vIXGhJUMWPreP4P0LqFdHNxyfIUZ5OYjjnei0IPOGEuiKSx7EuWQBykUKaIF0oh+J/BVaFDHSBKJ6xZQEWw==
       tarball: 'file:projects/ui.tgz'
     version: 0.0.0
   'file:projects/webapp.tgz_ts-node@8.8.1':
@@ -26516,9 +26517,10 @@ packages:
     peerDependencies:
       ts-node: '*'
     resolution:
-      integrity: sha512-nwBQXSVVT+rkF8YhpbUFGUc2YryRl6Bhu4vKPDmv+QvtVLyEDfvqmRQtwNI6mxFSCORhXdoT2/gNPh+8kL33NA==
+      integrity: sha512-il5zO9Bxjc+PdxF+ft2SIeJmf15LFW32MupAfEnPClg9yccv693/EKg8PTvPVJ36mB//DlAQr7u+IExJB+xHsw==
       tarball: 'file:projects/webapp.tgz'
     version: 0.0.0
+registry: ''
 specifiers:
   '@babel/core': ^7.12.3
   '@babel/preset-env': ^7.12.1
@@ -26681,7 +26683,7 @@ specifiers:
   monaco-editor: 0.20.0
   node-sass: ^4.14.1
   optimize-css-assets-webpack-plugin: ^5.0.3
-  ora: ^4.0.3
+  ora: 5.1.0
   papaparse: 5.3.0
   pixelmatch: ^5.1.0
   pngjs: ^3.4.0

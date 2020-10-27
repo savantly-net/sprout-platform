@@ -1,15 +1,13 @@
+const fs = require('fs');
+const path = require('path');
 
-import * as fs from 'fs';
-import * as path from 'path';
-
-const __dirname = fs.realpathSync('.');
+//const __dirname = fs.realpathSync('.');
 
 const pkgPath = path.join(__dirname, 'package.json');
 
 const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
 
-// @ts-ignore
-export const savePackage = (
+const savePackage = (
     'Updating package.json',
     // @ts-ignore
     async ({ path, pkg }) => {
@@ -35,4 +33,4 @@ export const savePackage = (
     });
   };
 
-export default preparePackage(pkg);
+preparePackage(pkg);

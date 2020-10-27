@@ -5,12 +5,11 @@
   "scripts": {
     "build": "npm run compile && npm run bundle && node postBuild.js",
     "compile": "tsc -p tsconfig.build.json",
-    "bundle": "rollup -c rollup.config.ts",
+    "bundle": "rollup -c rollup.config.ts --silent",
     "clean": "rimraf ./dist ./compiled",
     "npm:publish": "cd dist && npm publish"
   },
   "main": "index.js",
-  "type": "module",
   "types": "dist/index.d.ts",
   "homepage": "https://github.com/savantly/sprout-platform#readme",
   "repository": {
