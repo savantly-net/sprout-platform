@@ -51,9 +51,29 @@ jobs:
         with:
           path: |
             common/temp
-          key: ${{ runner.os }}-node-${{ hashFiles('common/config/rush/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-rush-${{ hashFiles('common/config/rush/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-rush-
+
+      - name: Cache NPM
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+      
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache Yarn
+        uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
       # Setup Java Environment
       - uses: actions/setup-java@v1
@@ -143,7 +163,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./backend/server
-          file: ./Dockerfile
+          file: ./backend/server/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.prep_server_docker.outputs.tags }}
           labels: |
@@ -194,7 +214,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./frontend
-          file: ./Dockerfile
+          file: ./frontend/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.prep_webapp_docker.outputs.tags }}
           labels: |
