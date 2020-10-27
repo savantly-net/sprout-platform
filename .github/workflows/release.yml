@@ -58,7 +58,7 @@ jobs:
         run: node common/scripts/install-run-rush.js update
   
       - name: Rush build
-        run: node common/scripts/install-run.js build --verbose
+        run: node common/scripts/install-run-rush.js build --verbose
         env:
           CI: false
       
@@ -74,6 +74,6 @@ jobs:
           OSSRH_USER_TOKEN: ${{ secrets.OSSRH_USER_TOKEN }}
 
       - name: Build Storybook
-        run: node common/scripts/install-run.js storybook:deploy
+        run: node common/scripts/install-run-rush.js storybook:deploy
         env:
           CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
