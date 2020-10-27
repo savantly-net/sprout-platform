@@ -1,4 +1,5 @@
 # sprout-platform  
+![CI](https://github.com/savantly-net/sprout-platform/workflows/CI/badge.svg)
 
 This project provides a CMS application as a Spring Boot Starter library.  
 It can be used headless, but a default UI is provided which is customizable via plugins.  
