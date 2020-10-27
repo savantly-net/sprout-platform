@@ -54,6 +54,12 @@ If you're a Java, React, or Grafana developer, you'll be familiar with the tooli
 The UI was bootstrapped using `create-react-app`  
 The backend uses `gradle` + `Spring Boot`  
 
+The component library is made of general React components that can be used in your own React application.  
+`npm install @sprout-platform/ui`  
+Storybook is used to document and demo the UI component library.  
+It's published [here](https://master--5f96ec613d800900227e3b76.chromatic.com)  
+
+To get started developing Sprout -  
 - Clone this project 
 - Run `./gradlew :server:bootRun` from the base directory of the project to start the server 
 - Open http://localhost:8080/admin to access the backend application  
