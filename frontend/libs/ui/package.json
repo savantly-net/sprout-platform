@@ -2,7 +2,7 @@
   "author": "Savantly",
   "license": "Apache-2.0",
   "name": "@sprout-platform/ui",
-  "version": "2.0.0-1",
+  "version": "2.0.0-2",
   "description": "Sprout UI Components Library",
   "keywords": [
     "sprout",
@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@emotion/core": "^10.0.27",
-    "@savantly/sprout-api": "2.0.0-1",
+    "@savantly/sprout-api": "2.0.0-2",
     "@savantly/sprout-tsconfig": "^1.0.0",
     "classnames": "^2.2.6",
     "emotion": "^10.0.27",
@@ -56,7 +56,7 @@
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-image": "2.0.4",
     "@rollup/plugin-node-resolve": "^9.0.0",
-    "@savantly/sprout-toolkit": "2.0.0-1",
+    "@savantly/sprout-toolkit": "2.0.0-2",
     "@storybook/addon-actions": "^6.0.27",
     "@storybook/addon-essentials": "^6.0.27",
     "@storybook/addon-links": "^6.0.27",
