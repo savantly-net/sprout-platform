@@ -50,13 +50,15 @@
       "autoinstallerName": "rush-prettier",
 
       // This will invoke common/autoinstallers/rush-prettier/node_modules/.bin/pretty-quick
-      "shellCommand": "prettier-eslint \"$PWD/backend/src/**/*{ts,tsx}\" "
+      "shellCommand": "prettier-eslint \"$PWD/backend/src/**/*{ts,tsx}\" ",
+        "safeForSimultaneousRushProcesses": true
     },
     {
       "name": "start",
       "commandKind": "global",
       "summary": "Starts the front-end webapp",
-      "shellCommand": "cd frontend/apps/webapp && npm run start"
+      "shellCommand": "cd frontend/apps/webapp && npm run start",
+      "safeForSimultaneousRushProcesses": true
     },
     {
       "name": "storybook:deploy",
