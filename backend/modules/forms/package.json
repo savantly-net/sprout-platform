@@ -1,6 +1,6 @@
 {
   "name": "savantly-forms-module",
-  "version": "1.0.0",
+  "version": "2.0.0-1",
   "description": "Forms Module for Sprout",
   "private": true,
   "scripts": {
@@ -37,11 +37,11 @@
     "node": ">=12 <13"
   },
   "dependencies": {
-    "formik": "^2.2.0",
-    "history": "^5.0.0",
+    "formik": "~2.2.0",
+    "history": "^5",
     "react-formio": "^4.3.0",
     "react-redux": "^7.2.1",
     "react-router-dom": "6.0.0-beta.0",
-    "redux-dynamic-modules": "^5.2.3"
+    "redux-dynamic-modules": "~5.2.3"
   }
 }

@@ -1,0 +1,79 @@
+name: Publish packages on release
+
+# Suppress Spinner because it appears as warnings
+env:
+  SUPPRESS_SPINNER: true
+
+on:
+  release:
+    types: [created]
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Import GPG key
+        id: import_gpg
+        uses: crazy-max/ghaction-import-gpg@v3
+        with:
+          gpg-private-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+          passphrase: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
+      - name: GPG user IDs
+        run: |
+          echo "fingerprint: ${{ steps.import_gpg.outputs.fingerprint }}"
+          echo "keyid:       ${{ steps.import_gpg.outputs.keyid }}"
+          echo "name:        ${{ steps.import_gpg.outputs.name }}"
+          echo "email:       ${{ steps.import_gpg.outputs.email }}"
+
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '12'
+
+      - name: Cache Gradle deps
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+  
+      - name: Cache Rush temp files
+        uses: actions/cache@v2
+        with:
+          path: |
+            common/temp
+          key: ${{ runner.os }}-node-${{ hashFiles('common/config/rush/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Rush Update
+        run: node common/scripts/install-run-rush.js update
+  
+      - name: Rush build
+        run: node common/scripts/install-run.js build --verbose
+        env:
+          CI: false
+      
+      - name: NPM Publish
+        run: node common/scripts/install-run-rush.js npm:publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+      - name: Publish java packages
+        run: ./gradlew uploadArchives
+        env:
+          OSSRH_USER: ${{ secrets.OSSRH_USER }}
+          OSSRH_USER_TOKEN: ${{ secrets.OSSRH_USER_TOKEN }}
+
+      - name: Build Storybook
+        run: node common/scripts/install-run.js storybook:deploy
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}

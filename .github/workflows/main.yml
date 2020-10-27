@@ -18,6 +18,11 @@ jobs:
     runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - id: install-secret-key
+        name: Install gpg secret key
+        run: |
+          cat <(echo -e "${{ secrets.OSSRH_GPG_SECRET_KEY }}") | gpg --batch --import
+          gpg --list-secret-keys --keyid-format LONG
       
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
@@ -55,7 +60,7 @@ jobs:
         run: node common/scripts/install-run-rush.js update
 
       - name: Rush build
-        run: node common/scripts/install-run-rush.js rebuild --verbose
+        run: node common/scripts/install-run.js rebuild --verbose
         env:
           CI: false
       
@@ -63,6 +68,6 @@ jobs:
         run: ./gradlew build
       
       - name: Build Storybook
-        run: node common/scripts/install-run-rush.js storybook:deploy
+        run: node common/scripts/install-run.js storybook:deploy
         env:
           CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}

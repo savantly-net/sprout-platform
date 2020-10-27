@@ -465,17 +465,17 @@
       "versionPolicyName": "sprout",
       "shouldPublish": true
     },
-    //{
-    //  "packageName": "example-app-module",
-    //  "projectFolder": "backend/modules/example-app",
-    //  "versionPolicyName": "sprout",
-    //  "shouldPublish": false
-    //},
     {
       "packageName": "webapp",
       "projectFolder": "frontend/apps/webapp",
       "versionPolicyName": "sprout",
       "shouldPublish": false
     }
+    //{
+    //  "packageName": "savantly-forms-module",
+    //  "projectFolder": "backend/modules/forms",
+    //  "versionPolicyName": "sprout",
+    //  "shouldPublish": false
+    //}
   ]
 }

@@ -15,7 +15,7 @@ archivesBaseName = name
 description = "Provides Form integration APIs and UI components for the Sprout Platform"
 sourceCompatibility = '1.8'
 
-apply from: '../../../gradle/sonar.gradle'
+//apply from: '../../../gradle/sonar.gradle'
 apply from: '../../../gradle/sonatype.gradle'
 
 repositories {
@@ -38,10 +38,6 @@ yarn_build {
     outputs.dir 'dist'
 }
 
-
-task npmBuildDev(type: NpmTask) {
-  args = ['build']
-}
 task copyPublicfiles(type: Copy) {
     from "$buildDir/../dist"
     into "$buildDir/resources/main/public/api/plugins/savantly-forms-module"
