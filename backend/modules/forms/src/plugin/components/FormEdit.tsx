@@ -86,7 +86,7 @@ export const FormEdit = (props: OwnProps) => {
               <hr />
               <Row form>
                 <Col md={3}>
-                <FormField
+                  <FormField
                     name="title"
                     type="text"
                     label="Title"
@@ -105,7 +105,6 @@ export const FormEdit = (props: OwnProps) => {
                   />
                 </Col>
                 <Col md={3}>
-                  
                   <FormField as="select" className="form-control" name="display">
                     <option label="Form" value="form">
                       Form
