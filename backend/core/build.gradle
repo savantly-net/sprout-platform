@@ -14,7 +14,7 @@ archivesBaseName = name
 description = "The core of the Sprout Platform"
 sourceCompatibility = '1.8'
 
-apply from: '../../gradle/sonar.gradle'
+//apply from: '../../gradle/sonar.gradle'
 apply from: '../../gradle/sonatype.gradle'
 
 repositories {

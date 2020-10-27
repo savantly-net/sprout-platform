@@ -21,7 +21,7 @@ description = "OpenTok/Vonage REST APIs module for Spring Platform"
 sourceCompatibility = '1.8'
 
 apply plugin: 'com.moowork.node' // gradle-node-plugin
-apply from: '../../../gradle/sonar.gradle'
+//apply from: '../../../gradle/sonar.gradle'
 apply from: '../../../gradle/sonatype.gradle'
 
 repositories {
