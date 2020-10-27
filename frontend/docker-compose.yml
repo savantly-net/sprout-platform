@@ -2,7 +2,7 @@ version: "3"
 services:
 
   webapp:
-    image: savantly/sprout-webapp
+    image: savantly/sprout-webapp:edge
     container_name: sprout-webapp
     environment: 
       - PORT=3000

@@ -2,7 +2,7 @@ version: "3"
 services:
 
   server:
-    image: savantly/sprout-server
+    image: savantly/sprout-server:edge
     container_name: sprout-server
     environment: 
       - PORT=8080
