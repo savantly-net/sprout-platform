@@ -1,5 +1,6 @@
 import { LoadingPlaceholder } from '@savantly/sprout-ui';
 import { Form, FormField } from '@sprout-platform/ui';
+import { css } from 'emotion';
 import _camelCase from 'lodash/camelCase';
 import _cloneDeep from 'lodash/cloneDeep';
 import _set from 'lodash/set';
@@ -65,6 +66,7 @@ export const FormEdit = (props: OwnProps) => {
       <Form
         submitText={saveText}
         showButtonsOnTop={true}
+        showCancelButton={false}
         initialValues={{ ...form }}
         validate={(values: AppFormDto) => {
           const errors: any = {};
@@ -98,14 +100,13 @@ export const FormEdit = (props: OwnProps) => {
                   <FormField name="name" type="text" label="Name" placeholder="Enter the form machine name" />
                   <FormField
                     name="path"
-                    type="text"
                     label="Path"
                     placeholder="path-to/form"
-                    style={{ textTransform: 'lowercase', width: '120px' }}
+                    css={css({ input: { textTransform: 'lowercase', width: '120px' } })}
                   />
                 </Col>
                 <Col md={3}>
-                  <FormField as="select" className="form-control" name="display">
+                  <FormField as="select" name="display" label="Display as">
                     <option label="Form" value="form">
                       Form
                     </option>
@@ -113,7 +114,7 @@ export const FormEdit = (props: OwnProps) => {
                       Wizard
                     </option>
                   </FormField>
-                  <FormField as="select" className="form-control" name="type">
+                  <FormField as="select" name="type" label="Type">
                     <option label="Form" value="form">
                       Form
                     </option>
