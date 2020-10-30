@@ -4,7 +4,7 @@ const config = {
 
 export default config;
 
-export const SERVER_API_URL = process.env.REACT_APP_SERVER_API_URL;
+export const SERVER_API_URL = process.env.REACT_APP_SERVER_API_URL || '';
 
 export const AUTHORITIES = {
   ADMIN: 'ROLE_ADMIN',
