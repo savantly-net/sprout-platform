@@ -26,14 +26,14 @@ dependencies {
 		'org.springframework.boot:spring-boot-starter-security',
 		'org.springframework.boot:spring-boot-starter-oauth2-resource-server',
 		'org.springframework.boot:spring-boot-starter-oauth2-client',
+		'org.springframework.boot:spring-boot-starter-data-rest',
+		'org.springframework.boot:spring-boot-starter-actuator',
+		
 		'org.springframework.security:spring-security-oauth2-client',
 		
-		'net.savantly.security:spring-role-permissions:0.0.1.RELEASE',
-		
-		
-		'org.springframework.boot:spring-boot-starter-data-rest',
 		'org.springframework:spring-context-support',
-		'org.springframework.boot:spring-boot-starter-actuator',
+		
+		'net.savantly.security:spring-role-permissions:0.0.1.RELEASE',
 		
 		'io.reactivex:rxjava',
 		"org.zalando:problem-spring-web:${problem_version}",
