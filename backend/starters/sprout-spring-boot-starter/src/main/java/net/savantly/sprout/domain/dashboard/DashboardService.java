@@ -25,7 +25,7 @@ import net.savantly.sprout.core.domain.versioning.StringVersionedId;
 import net.savantly.sprout.core.domain.versioning.VersionedId;
 import net.savantly.sprout.domain.dashboard.panel.PanelService;
 import net.savantly.sprout.domain.uiProperties.UIProperty;
-import net.savantly.sprout.domain.uiProperties.UIPropertyRepository;
+import net.savantly.sprout.domain.uiProperties.UIPropertyService;
 import net.savantly.sprout.domain.uiProperties.WellKnownUIProp;
 import net.savantly.sprout.starter.versioning.VersionedObjectBackendIdConverter;
 
@@ -40,7 +40,7 @@ public class DashboardService {
 	@Autowired
 	private DashboardRepository repo;
 	@Autowired
-	private UIPropertyRepository propRepo;
+	private UIPropertyService uiProps;
 	@Autowired
 	private ResourceLoader resourceLoader;
 	@Autowired
@@ -78,14 +78,12 @@ public class DashboardService {
 	}
 	
 	public DashboardDtoWrapper getHomeDashboard() {
-		String name = WellKnownUIProp.HOME_DASHBOARD_ID.name();
-		List<UIProperty> props = this.propRepo.findByName(name);
-		if(props.isEmpty()) {
+		Optional<UIProperty> prop = this.uiProps.getUIPropertyByName(WellKnownUIProp.HOME_DASHBOARD_ID);
+		if(prop.isPresent()) {
+			return getLatestById(prop.get().getValue());
+		} else {
 			Dashboard dashboard = addHomeDashboard();
 			return toDto(dashboard);
-		} else {
-			UIProperty prop = props.get(0);
-			return getLatestById(prop.getValue());
 		}
 	}
 	
@@ -103,17 +101,7 @@ public class DashboardService {
 			Dashboard dashboard = toEntity(mapper.readValue(resource.getInputStream(), DashboardDto.class));
 			dashboard = this.repo.saveAndFlush(dashboard);
 			StringVersionedId id = dashboard.getId();
-			String name = WellKnownUIProp.HOME_DASHBOARD_ID.name();
-			if(this.propRepo.findByName(name).isEmpty()) {
-				UIProperty prop = new UIProperty();
-				prop.setName(name);
-				prop.setValue(id.getId());
-				this.propRepo.save(prop);
-			} else {
-				UIProperty prop = this.propRepo.getOne(name);
-				prop.setValue(id.getId());
-				this.propRepo.saveAndFlush(prop);
-			}
+			uiProps.saveUIProperty(WellKnownUIProp.HOME_DASHBOARD_ID, id.getId());
 			return dashboard;
 		} catch (JsonParseException e) {
 			throw new RuntimeException("there was a problem parsing the home dashboard resource: " + props.getDashboards().getHome(), e);

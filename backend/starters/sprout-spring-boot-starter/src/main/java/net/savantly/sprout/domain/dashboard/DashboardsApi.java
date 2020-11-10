@@ -1,4 +1,4 @@
-package net.savantly.sprout.controllers;
+package net.savantly.sprout.domain.dashboard;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -17,10 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
-import net.savantly.sprout.domain.dashboard.DashboardDtoWrapper;
-import net.savantly.sprout.domain.dashboard.DashboardSaveRequest;
-import net.savantly.sprout.domain.dashboard.DashboardSaveResponse;
-import net.savantly.sprout.domain.dashboard.DashboardService;
 
 @RequestMapping("/api/dashboards")
 @RestController

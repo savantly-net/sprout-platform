@@ -10,8 +10,6 @@ import org.hibernate.EmptyInterceptor;
 import org.hibernate.type.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.FactoryBean;
-import org.springframework.beans.factory.SmartFactoryBean;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -19,7 +17,6 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -72,8 +69,6 @@ public class JpaConfiguration {
 	
 	public EmptyInterceptor hibernateInterceptor() {
 		return new EmptyInterceptor() {
-			
-			
 
 			@Override
 			public boolean onSave(Object entity, Serializable id, Object[] state, String[] propertyNames,
@@ -106,37 +101,6 @@ public class JpaConfiguration {
 				return false;
 			}
 
-		};
-	}
-
-	@Bean
-	public FactoryBean<SproutFixtures> sproutFixturesFactory(ApplicationContext applicationContext) {
-		return new SmartFactoryBean<SproutFixtures>() {
-
-			@Override
-			public boolean isSingleton() {
-				return false;
-			}
-
-			@Override
-			public Class<?> getObjectType() {
-				return SproutFixtures.class;
-			}
-
-			@Override
-			public SproutFixtures getObject() throws Exception {
-				return new SproutFixtures(applicationContext);
-			}
-
-			@Override
-			public boolean isPrototype() {
-				return true;
-			}
-
-			@Override
-			public boolean isEagerInit() {
-				return false;
-			}
 		};
 	}
 

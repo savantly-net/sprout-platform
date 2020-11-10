@@ -1,4 +1,4 @@
-package net.savantly.sprout.controllers;
+package net.savantly.sprout.domain.menu;
 
 import java.util.Set;
 

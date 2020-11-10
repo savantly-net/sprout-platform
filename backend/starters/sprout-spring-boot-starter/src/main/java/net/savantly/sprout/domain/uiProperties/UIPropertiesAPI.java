@@ -1,4 +1,4 @@
-package net.savantly.sprout.controllers;
+package net.savantly.sprout.domain.uiProperties;
 
 import java.util.List;
 
@@ -6,9 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import net.savantly.sprout.domain.uiProperties.UIProperty;
-import net.savantly.sprout.domain.uiProperties.UIPropertyRepository;
 
 @RestController
 @RequestMapping("/api/ui-properties")

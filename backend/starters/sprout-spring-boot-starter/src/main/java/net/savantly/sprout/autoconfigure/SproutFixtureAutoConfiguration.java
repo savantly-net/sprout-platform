@@ -27,8 +27,6 @@ import net.savantly.sprout.core.security.privilege.PrivilegeRepository;
 import net.savantly.sprout.core.security.role.Role;
 import net.savantly.sprout.core.security.role.RoleFixture;
 import net.savantly.sprout.core.security.role.RoleRepository;
-import net.savantly.sprout.domain.uiProperties.UIPropertyFixture;
-import net.savantly.sprout.domain.uiProperties.UIPropertyRepository;
 
 @Configuration
 @AutoConfigureAfter(JpaRepositoriesAutoConfiguration.class)
@@ -39,10 +37,6 @@ public class SproutFixtureAutoConfiguration {
     @Autowired
 	ApplicationContext ctx;
     
-	@Bean 
-	public UIPropertyFixture appSettingFixture(UIPropertyRepository repository) {
-		return new UIPropertyFixture(repository);
-	}
 	
 	@Bean
 	public RoleFixture roleFixture(RoleRepository repository, PrivilegeFixture privilegeFixture, PrivilegeRepository privilegeRepository) {

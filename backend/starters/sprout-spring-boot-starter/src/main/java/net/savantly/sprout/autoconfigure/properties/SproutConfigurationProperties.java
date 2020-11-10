@@ -40,20 +40,42 @@ public class SproutConfigurationProperties {
 		private List<String> anonymousAuthorities = Arrays.asList("ANONYMOUS");
 		private List<String> publicPaths = Arrays.asList();
 		private List<String> authenticatedPaths = Arrays.asList("/api/repo/**", "/v3/**", "/admin/**");
+		private OAuth oauth = new OAuth();
     }
+	
+	@Getter
+	@Setter
+	public static class OAuth {
+		private List<OAuthClientConfig> clients = new ArrayList<>();
+	}
+	
+	public static enum OAuthFlowType {
+		IMPLICIT,
+		STANDARD
+	}
+	
+	@Getter
+	@Setter
+	public static class OAuthClientConfig {
+		private String name;
+		private String displayName;
+		private String issuerUri;
+		private String clientId;
+		private String clientSecret;
+		private String scope;
+		private String authorizationUrl;
+		private String redirectUrl;
+		private String tokenUrl;
+		private String userInfoUrl;
+		private String jwksUrl;
+		private OAuthFlowType flowType;
+	}
 
 	@Getter
 	@Setter
 	public static class Authentication {
 		private Jwt jwt = new Jwt();
 		private OAuth oauth = new OAuth();
-	}
-	
-	@Getter
-	@Setter
-	/** NOT USED YET **/
-	public static class OAuth {
-		private String issuerUri;
 	}
 	
 	/*
