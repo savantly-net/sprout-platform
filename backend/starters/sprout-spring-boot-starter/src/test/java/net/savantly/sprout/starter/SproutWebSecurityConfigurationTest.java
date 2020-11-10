@@ -82,9 +82,7 @@ public class SproutWebSecurityConfigurationTest {
 		ResponseEntity<String> response = rest.getForEntity(url, String.class);
 		
 		log.info("{}", response.getBody());
-		// TODO: should this redirect or throw 401?
 		Assertions.assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode(), "Should fail to access");
-		//Assertions.assertTrue(response.getBody().contains("The Admin Page"));
 	}
 	
 	// TODO: Fix security testing admin

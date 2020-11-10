@@ -21,6 +21,7 @@ public class SproutConfigurationProperties {
 	private Cors cors = new Cors();
 	private Mvc mvc = new Mvc();
 	private Problem problem = new Problem();
+	private Hal hal = new Hal();
 	
 	/**
 	 * Additional UI properties that should be created for the default tenant
@@ -38,6 +39,7 @@ public class SproutConfigurationProperties {
 		private Authentication authentication = new Authentication();
 		private List<String> anonymousAuthorities = Arrays.asList("ANONYMOUS");
 		private List<String> publicPaths = Arrays.asList();
+		private List<String> authenticatedPaths = Arrays.asList("/api/repo/**", "/v3/**", "/admin/**");
     }
 
 	@Getter
@@ -101,5 +103,11 @@ public class SproutConfigurationProperties {
 	@Setter
 	public static class Problem {
 		private boolean enableTrace = false;
+	}
+
+	@Getter
+	@Setter
+	public static class Hal {
+		private boolean enable = false;
 	}
 }

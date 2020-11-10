@@ -27,6 +27,7 @@ import net.savantly.sprout.starter.SproutWebSecurityConfiguration;
 import net.savantly.sprout.starter.security.CustomAnonymousFilter;
 import net.savantly.sprout.starter.security.SecurityCustomizer;
 import net.savantly.sprout.starter.security.jwt.JWTAutoConfiguration;
+import net.savantly.sprout.starter.security.oauth.OAuthAutoConfiguration;
 import net.savantly.sprout.starter.security.permissions.PermissionsConfiguration;
 
 @Configuration
@@ -34,6 +35,7 @@ import net.savantly.sprout.starter.security.permissions.PermissionsConfiguration
 @Import({
 	SecurityProblemSupport.class, 
 	PermissionsConfiguration.class,
+	OAuthAutoConfiguration.class,
 	JWTAutoConfiguration.class})
 public class SproutSecurityAutoConfiguration {
 

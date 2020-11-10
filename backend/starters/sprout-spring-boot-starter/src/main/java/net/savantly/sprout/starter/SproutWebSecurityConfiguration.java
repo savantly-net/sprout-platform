@@ -1,6 +1,7 @@
 package net.savantly.sprout.starter;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.Filter;
@@ -8,6 +9,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,6 +25,7 @@ import net.savantly.sprout.starter.security.SecurityCustomizer;
 @EnableWebSecurity
 public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
+	private final static Logger log = LoggerFactory.getLogger(SproutWebSecurityConfiguration.class);
 	private final SproutConfigurationProperties configProps;
     private final SecurityProblemSupport problemSupport;
 	private final Filter anonymousFilter;
@@ -52,8 +56,7 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
             .authorizeRequests()
             .antMatchers("/api/login").permitAll()
             .antMatchers(configProps.getSecurity().getPublicPaths().toArray(new String[0])).permitAll()
-            .antMatchers("/api/repo/**").authenticated()
-            .antMatchers("/admin", "/admin/**").authenticated()
+            .antMatchers(configProps.getSecurity().getAuthenticatedPaths().toArray(new String[0])).authenticated()
         .and()
             .logout()
             	.logoutSuccessHandler(logoutSuccessHandler())
@@ -73,9 +76,14 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
            // .apply(jwtConfigurer)
         ;
 		
+		// Sort by priority
+		securityCustomizers.sort(Comparator.comparing(SecurityCustomizer::getPriority));
+		
 		for (SecurityCustomizer securityCustomizer : securityCustomizers) {
+			log.info("configuring with SecurityCustomizer: {}", securityCustomizer.getClass().getName());
 			securityCustomizer.configure(http);
 		}
+		
 	}
 	
 	LogoutSuccessHandler logoutSuccessHandler(){

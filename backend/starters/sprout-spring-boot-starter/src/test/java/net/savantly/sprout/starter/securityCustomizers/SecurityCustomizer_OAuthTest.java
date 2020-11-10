@@ -14,20 +14,19 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.security.InvalidKeyException;
-import net.savantly.sprout.starter.security.SecurityCustomizer;
+import net.savantly.sprout.starter.security.oauth.OAuthAutoConfiguration;
 import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT,
@@ -50,6 +49,30 @@ public class SecurityCustomizer_OAuthTest {
 	@BeforeAll
 	public static void beforeClass() {
 		//System.setProperty("spring.freemarker.template-loader-path", "classpath:/templates/");
+	}
+	
+	@Test
+	public void containsOAuthClientRegistry () {
+		try {
+			ctx.getBean(ClientRegistrationRepository.class);
+		} catch (Exception e) {
+			System.err.println(e);
+			Assertions.fail("should have a client registration because of active app property profile");
+		}
+		Assertions.assertTrue(ctx.containsBean(OAuthAutoConfiguration.BEAN_NAME), "should load the OAuth autoconfig");
+		Assertions.assertTrue(ctx.containsBean("oauthUserMapper"), "should load the default user mapper");
+		Assertions.assertTrue(ctx.containsBean("oauthConfigurer"), "should load the default oauthConfigurer");
+		Assertions.assertTrue(ctx.containsBean("oauth2UserService"), "should load the default oauth2UserService");
+	}
+	
+	@Test
+	public void mockOAuthProviderUrl() throws Exception {
+		String url = "/oauth2/authorization/mocklab";
+		
+		RequestEntity request = RequestEntity.get(new URI(url)).build();
+		ResponseEntity<String> response = rest.exchange(request, String.class);
+		
+		Assertions.assertEquals(HttpStatus.FOUND, response.getStatusCode(),"Should find the route added by spring security");
 	}
 	
 	@Test
@@ -94,16 +117,6 @@ public class SecurityCustomizer_OAuthTest {
 	@Configuration
 	@EnableAutoConfiguration
 	static class TestContext {
-		
-		@Bean
-		public SecurityCustomizer OauthCustomization() {
-			return new SecurityCustomizer() {
-				
-				@Override
-				public void configure(HttpSecurity http) throws Exception {
-					http.oauth2Client().and().oauth2Login();
-				}
-			};
-		}
+
 	}
 }
