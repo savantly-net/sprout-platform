@@ -49,7 +49,8 @@
     "@jest/types": "~26.6.1",
     "ts-jest": "^26",
     "react-router-dom": "6.0.0-beta.0",
-    "chromatic": "~5.2.0"
+    "chromatic": "~5.2.0",
+    "@storybook/addon-knobs": "5.3.21"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
