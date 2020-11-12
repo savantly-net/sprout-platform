@@ -6,7 +6,7 @@ import store from '../store';
 
 export const initialAuthenticationState: AuthenticationState = {
   loading: false,
-  isAuthenticated: false,
+  isAuthenticated: store.get(ACCESS_TOKEN_STORAGE_KEY) ? true : false,
   loginError: false, // Errors returned from server side
   account: {} as any,
   errorMessage: undefined, // Errors returned from server side

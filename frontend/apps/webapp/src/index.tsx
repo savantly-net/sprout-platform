@@ -1,16 +1,14 @@
-import { AppEvents, locationUtil, standardEditorsRegistry, UrlQueryValue } from '@savantly/sprout-api';
-import { config, LocationUpdate, setBackendSrv, setLocationSrv } from '@savantly/sprout-runtime';
+import { AppEvents, standardEditorsRegistry, UrlQueryValue } from '@savantly/sprout-api';
+import { config, setBackendSrv, setLocationSrv } from '@savantly/sprout-runtime';
 import { getStandardOptionEditors } from '@savantly/sprout-ui';
 import $ from 'jquery';
-import React, { createRef } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import appEvents from './core/app_events';
 //import { updateLocation } from "./core/actions";
 import ErrorBoundary from './core/components/error/error-boundary';
-import { SideMenu } from './core/components/sidemenu/SideMenu';
 import { getBackendSrv } from './core/services/backend_srv';
 import locationSvc from './core/services/locationSvc';
 import { setViewModeBodyClass } from './core/utils/viewMode';
@@ -22,7 +20,6 @@ import { CoreEvents, KioskUrlValue } from './types';
 
 const store = configureStore();
 const locationService = locationSvc(history);
-const appElem = createRef<HTMLDivElement>();
 
 setLocationSrv(locationService);
 setBackendSrv(getBackendSrv());
@@ -177,16 +174,7 @@ ReactDOM.render(
   <React.Fragment>
     <ErrorBoundary>
       <Provider store={store}>
-        <SideMenu></SideMenu>
-        <div ref={appElem} className="main-view">
-          <div className="scroll-canvas">
-            <Provider store={store}>
-              <BrowserRouter>
-                <App theme={theme} />
-              </BrowserRouter>
-            </Provider>
-          </div>
-        </div>
+        <App theme={theme} />
       </Provider>
     </ErrorBoundary>
   </React.Fragment>,
