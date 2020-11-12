@@ -4,18 +4,15 @@ import { ACCESS_TOKEN_STORAGE_KEY, SERVER_API_URL } from '../../config/constants
 import { AuthenticationState, AuthenticationUpdate } from '../../types';
 import store from '../store';
 
-const initialState: AuthenticationState = {
+export const initialAuthenticationState: AuthenticationState = {
   loading: false,
   isAuthenticated: false,
-  loginSuccess: false,
   loginError: false, // Errors returned from server side
   account: {} as any,
   errorMessage: undefined, // Errors returned from server side
   sessionHasBeenFetched: false,
-  accessToken: undefined,
   logoutUrl: undefined,
 };
-
 
 export const getSession = createAsyncThunk(
   'authentication/getSession',
@@ -27,17 +24,18 @@ export const getSession = createAsyncThunk(
 
 const authenticationSlice = createSlice({
   name: 'authentication',
-  initialState,
+  initialState: initialAuthenticationState,
   reducers: {
     login: (state, action: PayloadAction<AuthenticationUpdate>): AuthenticationState => {
-      state.isAuthenticated = action.payload.accessToken ? false : true;
-      if (state.isAuthenticated) {
+      const isAuthenticated = action.payload.accessToken ? true : false;
+      if (isAuthenticated) {
         store.set(ACCESS_TOKEN_STORAGE_KEY, action.payload.accessToken as string);
       }
       return {
         ...state,
+        isAuthenticated,
         errorMessage: action.payload.errorMessage,
-        loginError: !state.isAuthenticated,
+        loginError: !isAuthenticated,
       };
     },
     logout: (): AuthenticationState => {
@@ -45,13 +43,11 @@ const authenticationSlice = createSlice({
         store.delete(ACCESS_TOKEN_STORAGE_KEY);
       }
       return {
-        accessToken: undefined,
         account: {},
         errorMessage: undefined,
         isAuthenticated: false,
         loading: false,
         loginError: false,
-        loginSuccess: false,
         logoutUrl: undefined,
         sessionHasBeenFetched: false
       }

@@ -1,14 +1,14 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { NavIndex } from '@savantly/sprout-api';
 import { ThunkAction, ThunkDispatch as GenericThunkDispatch } from 'redux-thunk';
-import { DashboardState } from './dashboard';
+import { NavTreeState } from '../core/reducers/navTree';
 import { PanelEditorState } from '../features/dashboard/components/PanelEditor/state/reducers';
-import { AuthenticationState } from '../state/reducers/authentication';
 import { ApplicationState } from './application';
 import { AppNotificationsState } from './appNotifications';
-import { PluginsState } from './plugins';
+import { AuthenticationState } from './authentication';
+import { DashboardState } from './dashboard';
 import { LocationState } from './location';
-import { NavTreeState } from '../core/reducers/navTree';
+import { PluginsState } from './plugins';
 
 export interface StoreState {
   application: ApplicationState;

@@ -1,7 +1,7 @@
 import { Story } from '@storybook/react/types-6-0';
 import React, { ComponentProps } from 'react';
 import { Col } from 'reactstrap';
-import OAuth2Login from './OAuthLogin';
+import { OAuth2Login } from './OAuthLogin';
 
 // This default export determines where your story goes in the story list
 export default {

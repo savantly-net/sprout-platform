@@ -6,6 +6,7 @@ import ErrorBoundary from '../core/components/error/error-boundary';
 import PageNotFound from '../core/components/error/page-not-found';
 import Spinner from '../core/components/Spinner/Spinner';
 import DashboardProvider from '../features/dashboard/containers/DashboardProvider';
+import { LoginPage } from '../features/login/LoginPage';
 import AppRootPage from '../features/plugins/AppRootPage';
 import PluginListPage from '../features/plugins/PluginListPage';
 import PluginPage from '../features/plugins/PluginPage';
@@ -25,6 +26,9 @@ const AppRoutes = ({ history }: AllProps) => {
   return (
     <Suspense fallback={<Spinner />}>
       <Routes>
+        <Route path="/login">
+          <LoginPage />
+        </Route>
         <Route
           path="/"
           element={<DashboardProvider routeInfo={DashboardRouteInfo.Home} />}

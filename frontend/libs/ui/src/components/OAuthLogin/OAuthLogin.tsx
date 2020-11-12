@@ -42,7 +42,7 @@ const responseTypeDataKeys = {
   token: 'access_token'
 };
 
-class OAuth2Login extends Component<OAuth2LoginProps> {
+export class OAuth2Login extends Component<OAuth2LoginProps> {
   popup?: PopupWindow;
   static defaultProps = defaultProps;
 
@@ -129,4 +129,3 @@ class OAuth2Login extends Component<OAuth2LoginProps> {
   }
 }
 
-export default OAuth2Login;
