@@ -1,5 +1,6 @@
 package net.savantly.sprout.domain.uiProperties;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -27,13 +28,22 @@ public class UIPropertyFixture extends AbstractBaseFixture<UIProperty, UIPropert
 	@Override
 	public void addEntities(List<UIProperty> entityList) {
 		
+		ArrayList<UIProperty> propsFromConfig = new ArrayList<UIProperty>();
 		// add ui properties from config first
+		// always overwrite the stored value with the configured value
 		this.props.getUiProperties().forEach(d -> {
-			if (this.repository.findByName(d.getName()).isEmpty()) {
+			List<UIProperty> existing = this.repository.findByName(d.getName());
+			if (existing.isEmpty()) {
 				log.info("adding property from config: " + d.getName() + ":\"" + d.getValue() + "\"");
-				entityList.add(d);
+				propsFromConfig.add(d);
+			} else {
+				UIProperty prop = existing.get(0);
+				prop.setValue(d.getValue());
+				propsFromConfig.add(prop);
 			}
 		});
+		// save the props from config, so the defaults don't overwrite them.
+		repository.saveAll(propsFromConfig);
 		
 		// and add the defaults if they don't already exist
 		UIPropertyDefaults.getDefaults().forEach(d -> {
@@ -42,6 +52,15 @@ public class UIPropertyFixture extends AbstractBaseFixture<UIProperty, UIPropert
 				entityList.add(d);
 			}
 		});
+		
+		this.addIfMissing(WellKnownUIProp.REQUIRE_AUTHENTICATION, "false", entityList);
+	}
+	
+	private void addIfMissing(WellKnownUIProp prop, String value, List<UIProperty> entityList) {
+		if (this.repository.findByName(prop.name()).isEmpty()) {
+			log.info("adding property from defaults: " + prop.name() + ":\"" + value + "\"");
+			entityList.add(new UIProperty().setName(prop.name()).setValue(value));
+		}
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPO_URL=savantly/sprout-server
+REPO_URL=savantly/sprout-server:latest
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 

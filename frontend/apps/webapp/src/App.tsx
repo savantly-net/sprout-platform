@@ -1,12 +1,15 @@
-import { ErrorBoundaryAlert, ModalRoot, ModalsProvider } from '@savantly/sprout-ui';
+import { ModalRoot, ModalsProvider } from '@savantly/sprout-ui';
+import axios from 'axios';
 import { uniqueId } from 'lodash';
-import React, { createRef } from 'react';
-import { useSelector } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import React, { useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import './App.css';
+import setupAxiosInterceptors from './config/axios-interceptor';
+import { SERVER_API_URL } from './config/constants';
 import ModalProxy from './core/components/ModalProxy/ModalProxy';
 import { PluginProvider } from './core/components/PluginProvider/PluginProvider';
-import { SideMenu } from './core/components/sidemenu/SideMenu';
+import { updateAppSettings } from './core/reducers/application';
 import { ThemeProvider } from './core/utils/ConfigProvider';
 import { initDevFeatures } from './dev';
 import { LoginPage } from './features/login/LoginPage';
@@ -18,40 +21,44 @@ export const App = ({ theme }: { theme: string }) => {
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
     initDevFeatures();
   }
+  const navigate = useNavigate();
+  setupAxiosInterceptors(() => {
+    navigate('/login');
+  });
   const isAuthenticated = useSelector((state: StoreState) => state.authentication.isAuthenticated);
-  const appElem = createRef<HTMLDivElement>();
+  const appSettings = useSelector((state: StoreState) => state.application.settings);
+  const dispatch = useDispatch();
 
-  return (
-    <React.Fragment>
-      {isAuthenticated || (
-        <React.Fragment>
-          <LoginPage />
-        </React.Fragment>
-      )}
-      {isAuthenticated && (
-        <React.Fragment>
-          <SideMenu></SideMenu>
-          <div ref={appElem} className="main-view">
-            <div className="scroll-canvas">
-              <BrowserRouter>
-                <ErrorBoundaryAlert style="page">
-                  <ThemeProvider>
-                    <ModalsProvider>
-                      <PluginProvider>
-                        <AppRoutes history={history} />
-                      </PluginProvider>
-                      <ModalProxy key={uniqueId()} />
-                      <ModalRoot />
-                    </ModalsProvider>
-                  </ThemeProvider>
-                </ErrorBoundaryAlert>
-              </BrowserRouter>
-            </div>
-          </div>
-        </React.Fragment>
-      )}
-    </React.Fragment>
-  );
+  useMemo(() => {
+    axios
+      .get(`${SERVER_API_URL}/api/ui-properties`)
+      .then((value) => {
+        dispatch(updateAppSettings(value.data));
+      })
+      .catch((failed) => {
+        console.error(failed);
+      });
+  }, [isAuthenticated]);
+
+  const orRenderLogin = () => {
+    if (!isAuthenticated && appSettings.REQUIRE_AUTHENTICATION) {
+      return <LoginPage />;
+    } else {
+      return (
+        <ThemeProvider>
+          <ModalsProvider>
+            <PluginProvider>
+              <AppRoutes history={history} />
+            </PluginProvider>
+            <ModalProxy key={uniqueId()} />
+            <ModalRoot />
+          </ModalsProvider>
+        </ThemeProvider>
+      );
+    }
+  };
+
+  return orRenderLogin();
 };
 
 export default App;

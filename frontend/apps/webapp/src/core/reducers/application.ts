@@ -1,9 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { ApplicationState } from '../../types/application';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ApplicationState, ApplicationUIProperty } from '../../types/application';
 
 export const applicationInitialState: ApplicationState = {
   logActions: false,
-  themeName: 'light'
+  themeName: 'light',
+  settings: {}
 };
 
 const applicationSlice = createSlice({
@@ -11,9 +12,16 @@ const applicationSlice = createSlice({
   initialState: applicationInitialState,
   reducers: {
     toggleLogActions: state => ({ ...state, logActions: !state.logActions }),
-    switchTheme: state => ({...state})
+    switchTheme: state => ({...state}),
+    updateAppSettings: (state, action: PayloadAction<ApplicationUIProperty[]>) => {
+      const settings: {[key:string]:string} = {};
+       action.payload.map(item => {
+        settings[item.name] = item.value;
+      })
+      return {...state, settings};
+    }
   },
 });
 
-export const { toggleLogActions, switchTheme } = applicationSlice.actions;
+export const { toggleLogActions, switchTheme, updateAppSettings } = applicationSlice.actions;
 export const applicationReducer = applicationSlice.reducer;

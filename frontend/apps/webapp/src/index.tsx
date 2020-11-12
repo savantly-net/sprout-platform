@@ -5,7 +5,7 @@ import $ from 'jquery';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import App from './App';
+import { AppContainer } from './AppContainer';
 import appEvents from './core/app_events';
 //import { updateLocation } from "./core/actions";
 import ErrorBoundary from './core/components/error/error-boundary';
@@ -174,7 +174,7 @@ ReactDOM.render(
   <React.Fragment>
     <ErrorBoundary>
       <Provider store={store}>
-        <App theme={theme} />
+        <AppContainer theme={theme} />
       </Provider>
     </ErrorBoundary>
   </React.Fragment>,
