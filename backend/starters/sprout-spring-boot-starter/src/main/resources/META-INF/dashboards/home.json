@@ -6,7 +6,7 @@
   "panels": [
     {
       "type": "text",
-      "title": "Sprout Home",
+      "title": "",
       "gridPos": {
         "x": 0,
         "y": 0,
@@ -16,10 +16,10 @@
       "id": 1,
       "options": {
         "mode": "markdown",
-        "content": "![Sprout by Savantly](https://raw.githubusercontent.com/savantly-net/sprout-platform/development/backend/starters/sprout-spring-boot-starter/src/main/resources/META-INF/resources/images/logo.png)\n        "
+        "content": "![Sprout by Savantly](/api/public/brand/logo)\n        "
       },
       "pluginVersion": "7.1.0",
-      "transparent": false
+      "transparent": true
     }
   ],
   "schemaVersion": 1,

@@ -34,7 +34,7 @@ public class SproutConfigurationProperties {
 		private String faviconUrl = "/api/public/brand/favicon";
 		private String faviconResource = "classpath:/META-INF/resources/images/favicon.png";
 		private String logoUrl = "/api/public/brand/logo";
-		private String logoUrlResource = "classpath:/META-INF/resources/images/logo.png";
+		private String logoResource = "classpath:/META-INF/resources/images/logo.png";
 		private String miniLogoUrl = "/api/public/brand/mini-logo";
 		private String miniLogoResource = "classpath:/META-INF/resources/images/favicon.png";
 	}

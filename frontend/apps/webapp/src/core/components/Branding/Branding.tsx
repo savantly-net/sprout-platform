@@ -13,7 +13,7 @@ export const LoginLogo: FC<BrandComponentProps> = ({ className }) => {
 
   return (
     <>
-      <img className={cx(className, maxSize)} src="/favicon.png" alt="Sprout" />
+      <img className={cx(className, maxSize)} src="/api/public/brand/logo" alt="Sprout" />
       <div className="logo-wordmark" />
     </>
   );
@@ -29,7 +29,7 @@ export const LoginBackground: FC<BrandComponentProps> = ({ className, children }
 };
 
 export const MenuLogo: FC<BrandComponentProps> = ({ className }) => {
-  return <img className={className} src="/favicon.png" alt="Sprout" />;
+  return <img className={className} src="/api/public/brand/favicon" alt="Sprout" />;
 };
 
 export const AppTitle = 'Sprout';

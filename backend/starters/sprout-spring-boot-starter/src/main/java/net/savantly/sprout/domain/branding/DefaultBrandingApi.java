@@ -33,7 +33,7 @@ public class DefaultBrandingApi implements BrandingApi {
 
 	@Override
 	public byte[] getLogo() {
-		String resourcePath = props.getBranding().getLogoUrlResource();
+		String resourcePath = props.getBranding().getLogoResource();
 		try {
 			InputStream stream = resourceLoader.getResource(resourcePath).getInputStream();
 			return StreamUtils.copyToByteArray(stream);
