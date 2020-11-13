@@ -5,7 +5,7 @@ import { css, cx } from 'emotion';
 import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert, Col, Row } from 'reactstrap';
-import { login } from '../../core/reducers/authentication';
+import { login, logout } from '../../core/reducers/authentication';
 import { OAuthClientConfig, StoreState } from '../../types';
 
 export const LoginPage = () => {
@@ -25,6 +25,7 @@ export const LoginPage = () => {
         .catch((failed: Error) => {
           console.error(failed);
           setError(failed.message);
+          dispatch(logout());
         }),
     [once]
   );

@@ -10,6 +10,7 @@ import { SERVER_API_URL } from './config/constants';
 import ModalProxy from './core/components/ModalProxy/ModalProxy';
 import { PluginProvider } from './core/components/PluginProvider/PluginProvider';
 import { updateAppSettings } from './core/reducers/application';
+import { getBoolean } from './core/utils/booleans';
 import { ThemeProvider } from './core/utils/ConfigProvider';
 import { initDevFeatures } from './dev';
 import { LoginPage } from './features/login/LoginPage';
@@ -40,8 +41,11 @@ export const App = ({ theme }: { theme: string }) => {
       });
   }, [isAuthenticated]);
 
+  const requiresAuth = getBoolean(appSettings.REQUIRE_AUTHENTICATION);
   const orRenderLogin = () => {
-    if (!isAuthenticated && appSettings.REQUIRE_AUTHENTICATION) {
+    if ((!isAuthenticated) && requiresAuth) {
+      console.log('rendering LoginPage due to settings');
+      console.log(isAuthenticated, appSettings.REQUIRE_AUTHENTICATION);
       return <LoginPage />;
     } else {
       return (
