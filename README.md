@@ -5,6 +5,11 @@ This project provides an extensible and modular CMS application.
 You can use the default server, or add the [Sprout Starter Library](./backend/starters/sprout-spring-boot-starter) to your own Spring Boot project.  
 It can be used headless, but a default UI is provided which is customizable via plugins.  
 
+It's opinionated, but the default configurations can be backed off - so you can use as much or as little as you want.  
+Full documentation is in progress, and PRs are welcome!  
+[Check here for progress](./docs/)  
+
+
 The front-end UI uses a `plugin` system to add or modify functionality.  
 [Read more about the front-end](./frontend/)  
 

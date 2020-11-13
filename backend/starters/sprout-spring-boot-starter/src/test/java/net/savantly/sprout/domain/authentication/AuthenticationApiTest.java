@@ -19,7 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.savantly.sprout.domain.authentication.oauth.ImplicitFlowDto;
@@ -40,9 +39,6 @@ public class AuthenticationApiTest {
 	@WithAnonymousUser
 	public void getClientOAuthConfig() throws Exception {
 		String url = "/api/authentication/oauth";
-		TypeReference<List<ImplicitFlowDto>> responseType = new TypeReference<List<ImplicitFlowDto>>() {
-		};
-
 		RequestEntity request = RequestEntity.get(new URI(url)).accept(MediaType.APPLICATION_JSON).build();
 		ResponseEntity<Map> response = rest.exchange(request, Map.class);
 

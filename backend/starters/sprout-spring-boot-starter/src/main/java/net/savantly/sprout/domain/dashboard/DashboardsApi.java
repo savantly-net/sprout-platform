@@ -6,7 +6,6 @@ import java.util.Objects;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,26 +15,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
-
 @RequestMapping("/api/dashboards")
 @RestController
 public class DashboardsApi {
 	
-	private SproutConfigurationProperties props;
-	private ResourceLoader resourceLoader;
 	private DashboardService service;
     private ServletContext servletContext;
 
 
 	public DashboardsApi(
 			ServletContext servletContext,
-			SproutConfigurationProperties props, 
-			ResourceLoader resourceLoader,
 			DashboardService service) {
 		this.servletContext = servletContext;
-		this.props = props;
-		this.resourceLoader = resourceLoader;
 		this.service = service;
 	}
 

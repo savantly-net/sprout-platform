@@ -10,4 +10,14 @@ public class UIPropertiesConfiguration {
 	public UIPropertyFixture uiPropertyFixtureFixture(UIPropertyRepository repository) {
 		return new UIPropertyFixture(repository);
 	}
+	
+	@Bean
+	public UIPropertyService defaultUIPropertyService(UIPropertyRepository repository) {
+		return new UIPropertyService(repository);
+	}
+	
+	@Bean
+	public UIPropertiesAPI defaultUIPropertiesApi() {
+		return new UIPropertiesAPI();
+	}
 }

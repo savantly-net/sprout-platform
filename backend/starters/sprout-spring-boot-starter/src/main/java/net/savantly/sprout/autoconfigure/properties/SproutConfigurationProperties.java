@@ -15,6 +15,7 @@ import net.savantly.sprout.domain.uiProperties.UIProperty;
 @ConfigurationProperties(prefix = "sprout")
 public class SproutConfigurationProperties {
 	
+	private Branding branding = new Branding();
 	private Dashboards dashboards = new Dashboards();
 	private Security security = new Security();
 	private Jpa jpa = new Jpa();
@@ -28,6 +29,16 @@ public class SproutConfigurationProperties {
 	 */
 	private List<UIProperty> uiProperties = new ArrayList<>(); 
 	
+	@Getter @Setter
+	public static class Branding {
+		private String faviconUrl = "/api/public/brand/favicon";
+		private String faviconResource = "classpath:/META-INF/resources/images/favicon.png";
+		private String logoUrl = "/api/public/brand/logo";
+		private String logoUrlResource = "classpath:/META-INF/resources/images/logo.png";
+		private String miniLogoUrl = "/api/public/brand/mini-logo";
+		private String miniLogoResource = "classpath:/META-INF/resources/images/favicon.png";
+	}
+	
 	@Getter	@Setter
 	public static class Dashboards {
 		private String home = "classpath:/META-INF/dashboards/home.json";
@@ -38,7 +49,7 @@ public class SproutConfigurationProperties {
 	public static class Security {
 		private Authentication authentication = new Authentication();
 		private List<String> anonymousAuthorities = Arrays.asList("ANONYMOUS");
-		private List<String> publicPaths = Arrays.asList("/api/ui-properties", "/api/authentication/oauth");
+		private List<String> publicPaths = Arrays.asList("/api/ui-properties", "/api/authentication/oauth", "/api/public/**");
 		private List<String> authenticatedPaths = Arrays.asList("/api/repo/**", "/v3/**", "/admin/**");
 		private OAuth oauth = new OAuth();
     }
