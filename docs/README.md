@@ -9,3 +9,6 @@ There are multiple ways to introduce your own branding.
 - Change the default resource locations for the images.
 - Change the default URLs for the images.
 
+## Menus
+
+You can add menus through the API, or through configuration/environment parameters.

@@ -14,6 +14,12 @@ allprojects {
 	    mavenCentral()
         gradlePluginPortal()
         maven { url "https://repo.spring.io/plugins-release" }
+        maven {
+            url = uri('https://oss.sonatype.org/content/repositories/releases/')
+        }
+        maven {
+            url = uri('https://oss.sonatype.org/content/repositories/snapshots/')
+        }
 	}
 
 	tasks.withType(Sign) {

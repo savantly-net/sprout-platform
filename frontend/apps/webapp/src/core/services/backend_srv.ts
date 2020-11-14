@@ -1,27 +1,24 @@
-import { from, merge, MonoTypeOperatorFunction, Observable, Subject, Subscription, throwError } from 'rxjs';
-import { catchError, filter, map, mergeMap, retryWhen, share, takeUntil, tap, throwIfEmpty } from 'rxjs/operators';
-import { fromFetch } from 'rxjs/fetch';
-import { v4 as uuidv4 } from 'uuid';
-import { BackendSrv as BackendService, BackendSrvRequest, FetchResponse, FetchError } from '@savantly/sprout-runtime';
 import { AppEvents } from '@savantly/sprout-api';
-
+import { BackendSrv as BackendService, BackendSrvRequest, FetchError, FetchResponse } from '@savantly/sprout-runtime';
+import { from, merge, MonoTypeOperatorFunction, Observable, Subject, Subscription, throwError } from 'rxjs';
+import { fromFetch } from 'rxjs/fetch';
+import { catchError, filter, map, mergeMap, retryWhen, share, takeUntil, tap, throwIfEmpty } from 'rxjs/operators';
+import { v4 as uuidv4 } from 'uuid';
+import { SERVER_API_URL } from '../../config/constants';
+import { FolderDTO } from '../../types';
 import appEvents from '../app_events';
 import config, { getConfig } from '../config';
-import { FolderDTO } from '../../types';
-import { ContextSrv, contextSrv } from './context_srv';
 import { Emitter } from '../utils/emitter';
 import { parseInitFromOptions, parseUrlFromOptions } from '../utils/fetch';
 import { FetchQueue } from './FetchQueue';
-import { ResponseQueue } from './ResponseQueue';
 import { FetchQueueWorker } from './FetchQueueWorker';
-import { SERVER_API_URL } from "../../config/constants";
+import { ResponseQueue } from './ResponseQueue';
 
 const CANCEL_ALL_REQUESTS_REQUEST_ID = 'cancel_all_requests_request_id';
 
 export interface BackendSrvDependencies {
   fromFetch: (input: string | Request, init?: RequestInit) => Observable<Response>;
   appEvents: Emitter;
-  contextSrv: ContextSrv;
   logout: () => void;
 }
 
@@ -31,7 +28,7 @@ const fixApiUrl = (url: string) => {
   } else {
     return url;
   }
-}
+};
 
 export class BackendSrv implements BackendService {
   private inFlightRequests: Subject<string> = new Subject<string>();
@@ -44,17 +41,16 @@ export class BackendSrv implements BackendService {
   private dependencies: BackendSrvDependencies = {
     fromFetch: fromFetch,
     appEvents: appEvents,
-    contextSrv: contextSrv,
     logout: () => {
       window.location.href = config.appSubUrl + '/logout';
-    },
+    }
   };
 
   constructor(deps?: BackendSrvDependencies) {
     if (deps) {
       this.dependencies = {
         ...this.dependencies,
-        ...deps,
+        ...deps
       };
     }
 
@@ -71,7 +67,7 @@ export class BackendSrv implements BackendService {
   }
 
   fetch<T>(options: BackendSrvRequest): Observable<FetchResponse<T>> {
-    return new Observable(observer => {
+    return new Observable((observer) => {
       // We need to match an entry added to the queue stream with the entry that is eventually added to the response stream
       const id = uuidv4();
 
@@ -81,7 +77,7 @@ export class BackendSrv implements BackendService {
 
       // We're using the subscriptions.add function to add the subscription implicitly returned by this.responseQueue.getResponses<T>(id).subscribe below.
       subscriptions.add(
-        this.responseQueue.getResponses<T>(id).subscribe(result => {
+        this.responseQueue.getResponses<T>(id).subscribe((result) => {
           // The one liner below can seem magical if you're not accustomed to RxJs.
           // Firstly, we're subscribing to the result from the result.observable and we're passing in the outer observer object.
           // By passing the outer observer object then any updates on result.observable are passed through to any subscriber of the fetch<T> function.
@@ -111,8 +107,8 @@ export class BackendSrv implements BackendService {
     const fromFetchStream = this.getFromFetchStream<T>(options);
     const failureStream = fromFetchStream.pipe(this.toFailureStream<T>(options));
     const successStream = fromFetchStream.pipe(
-      filter(response => response.ok === true),
-      tap(response => {
+      filter((response) => response.ok === true),
+      tap((response) => {
         this.showSuccessAlert(response);
         this.inspectorStream.next(response);
       })
@@ -137,8 +133,6 @@ export class BackendSrv implements BackendService {
   }
 
   private parseRequestOptions(options: BackendSrvRequest): BackendSrvRequest {
-    const orgId = this.dependencies.contextSrv.user?.orgId;
-
     // init retry counter
     options.retry = options.retry ?? 0;
 
@@ -150,7 +144,7 @@ export class BackendSrv implements BackendService {
     const init = parseInitFromOptions(options);
 
     return this.dependencies.fromFetch(url, init).pipe(
-      mergeMap(async response => {
+      mergeMap(async (response) => {
         const { status, statusText, ok, headers, url, type, redirected } = response;
         const textData = await response.text(); // this could be just a string, prometheus requests for instance
         let data: T;
@@ -170,7 +164,7 @@ export class BackendSrv implements BackendService {
           url,
           type,
           redirected,
-          config: options,
+          config: options
         };
         return fetchResponse;
       }),
@@ -179,12 +173,10 @@ export class BackendSrv implements BackendService {
   }
 
   private toFailureStream<T>(options: BackendSrvRequest): MonoTypeOperatorFunction<FetchResponse<T>> {
-    const { isSignedIn } = this.dependencies.contextSrv.user;
-
-    return inputStream =>
+    return (inputStream) =>
       inputStream.pipe(
-        filter(response => response.ok === false),
-        mergeMap(response => {
+        filter((response) => response.ok === false),
+        mergeMap((response) => {
           const { status, statusText, data } = response;
           const fetchErrorResponse: FetchError = { status, statusText, data, config: options };
           return throwError(fetchErrorResponse);
@@ -194,9 +186,9 @@ export class BackendSrv implements BackendService {
             mergeMap((error, i) => {
               const firstAttempt = i === 0 && options.retry === 0;
 
-              if (error.status === 401 && firstAttempt && isSignedIn) {
+              if (error.status === 401 && firstAttempt) {
                 return from(this.loginPing()).pipe(
-                  catchError(err => {
+                  catchError((err) => {
                     if (err.status === 401) {
                       this.dependencies.logout();
                       return throwError(err);
@@ -223,10 +215,7 @@ export class BackendSrv implements BackendService {
     }
 
     // is showSuccessAlert is undefined we only show alerts non GET request, non data query and local api requests
-    if (
-      config.showSuccessAlert === undefined &&
-      (config.method === 'GET')
-    ) {
+    if (config.showSuccessAlert === undefined && config.method === 'GET') {
       return;
     }
 
@@ -261,7 +250,7 @@ export class BackendSrv implements BackendService {
 
     this.dependencies.appEvents.emit(err.status < 500 ? AppEvents.alertWarning : AppEvents.alertError, [
       message,
-      description,
+      description
     ]);
   }
 
@@ -272,7 +261,7 @@ export class BackendSrv implements BackendService {
       err.data = {
         error: err.statusText,
         response: err.data,
-        message: err.data,
+        message: err.data
       };
     }
 
@@ -295,11 +284,11 @@ export class BackendSrv implements BackendService {
   }
 
   private handleStreamCancellation(options: BackendSrvRequest): MonoTypeOperatorFunction<FetchResponse<any>> {
-    return inputStream =>
+    return (inputStream) =>
       inputStream.pipe(
         takeUntil(
           this.inFlightRequests.pipe(
-            filter(requestId => {
+            filter((requestId) => {
               let cancelRequest = false;
 
               if (options && options.requestId && options.requestId === requestId) {
@@ -325,7 +314,7 @@ export class BackendSrv implements BackendService {
           data: null,
           status: this.HTTP_REQUEST_CANCELED,
           statusText: 'Request was aborted',
-          config: options,
+          config: options
         }))
       );
   }

@@ -3,6 +3,7 @@ package net.savantly.sprout.starter.security.oauth;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -12,14 +13,32 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
 import net.savantly.sprout.core.domain.oauth.OAuthAccount;
 import net.savantly.sprout.core.domain.organization.Organization;
+import net.savantly.sprout.core.domain.user.SproutUser;
+import net.savantly.sprout.core.domain.user.repository.UserRepository;
 import net.savantly.sprout.core.security.role.Role;
 
 public class DefaultOAuthUserMapper implements OAuthUserMapper {
+	
+	private final UserRepository repository;
+	
+	public DefaultOAuthUserMapper(UserRepository repository) {
+		this.repository = repository;
+	}
 
 	
 	// TODO: get user from repository and possibly update them
 	@Override
 	public SproutOAuthUser mapUser(OAuth2User user, OAuth2AuthorizedClient client) {
+		
+		/*
+		String email = user.getAttribute("email");
+		
+		SproutUser foundUser = repository.findByEmailAddresses_EmailAddress(email);
+		if(Objects.nonNull(foundUser)) {
+			
+		}
+		*/
+		
 		return new SproutOAuthUser() {
 			
 			@Override

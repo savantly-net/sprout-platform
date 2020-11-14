@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react';
 import { css } from 'emotion';
 import appEvents from '../../app_events';
-import { User } from '../../services/context_srv';
 import { NavModelItem } from '@savantly/sprout-api';
 import { Icon, IconName } from '@savantly/sprout-ui';
-import { CoreEvents } from '../../../types';
+import { CoreEvents, User } from '../../../types';
 import { getFooterLinks } from '../Footer/Footer';
 
 export interface Props {
@@ -58,20 +57,6 @@ export default class BottomNavLinks extends PureComponent<Props, State> {
           {link.subTitle && (
             <li className="sidemenu-subtitle">
               <span className="sidemenu-item-text">{link.subTitle}</span>
-            </li>
-          )}
-          {link.showOrgSwitcher && (
-            <li className="sidemenu-org-switcher">
-              <a onClick={this.toggleSwitcherModal}>
-                <div>
-                  <div className="sidemenu-org-switcher__org-current">Current Org.:</div>
-                  <div className="sidemenu-org-switcher__org-name">{user.orgName}</div>
-                </div>
-                <div className="sidemenu-org-switcher__switch">
-                  <Icon name="arrow-random" className={subMenuIconClassName} />
-                  Switch
-                </div>
-              </a>
             </li>
           )}
 

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "declarationDir": "build/resources/main/public/api/plugins/savantly-forms-module",
+    "declarationDir": "build/resources/main/public/api/plugins/savantly-franchise-manager",
     "declarationMap": true,
     "rootDir": "./src",
     "baseUrl": "./src",

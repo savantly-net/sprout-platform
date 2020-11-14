@@ -27,7 +27,7 @@ const AppRoutes = ({ history }: AllProps) => {
     <Suspense fallback={<Spinner />}>
       <Routes>
         <Route path="/login">
-          <LoginPage />
+          <LoginPage redirectUrl="/"/>
         </Route>
         <Route
           path="/"

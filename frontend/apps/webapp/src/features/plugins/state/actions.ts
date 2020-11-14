@@ -2,6 +2,7 @@ import { NavModelItem, PanelPlugin, PluginIncludeType, PluginMeta } from '@savan
 import { getBackendSrv } from '@savantly/sprout-runtime';
 import { addRootNavs } from '../../../core/reducers/navTree';
 import { ThunkResult } from '../../../types';
+import { builtInPluginMeta } from '../built_in_plugins';
 import { importPanelPlugin } from '../plugin_loader';
 import { panelPluginLoaded, pluginsLoaded } from './reducers';
 
@@ -10,6 +11,10 @@ export function loadPlugins(): ThunkResult<void> {
     const result = await getBackendSrv().get('/api/plugins', { embedded: 0 });
 
     const pluginMetas = result as PluginMeta[];
+    // add built-in plugins
+    pluginMetas.push(builtInPluginMeta.iframe, builtInPluginMeta.text);
+
+
     const navItems: NavModelItem[] = [];
     pluginMetas.forEach((p) => {
       if (p.includes) {

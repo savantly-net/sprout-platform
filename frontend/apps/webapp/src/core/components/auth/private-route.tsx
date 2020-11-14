@@ -19,20 +19,16 @@ export const PrivateRouteComponent = ({
   hasAnyAuthorities = [],
   ...rest
 }: IPrivateRouteProps) => {
-  const checkAuthorities = (props:any) =>
+  const checkAuthorities = (props: any) =>
     isAuthorized ? (
-      <ErrorBoundary>
-        {/*<Component {...props} />*/}
-      </ErrorBoundary>
+      <ErrorBoundary>{/*<Component {...props} />*/}</ErrorBoundary>
     ) : (
       <div className="insufficient-authority">
-        <div className="alert alert-danger">
-          You are not authorized to access this page.
-        </div>
+        <div className="alert alert-danger">You are not authorized to access this page.</div>
       </div>
     );
 
-  const RenderRedirect = (props:any) => {
+  const RenderRedirect = (props: any) => {
     if (!sessionHasBeenFetched) {
       return <div></div>;
     } else {
@@ -43,7 +39,7 @@ export const PrivateRouteComponent = ({
           to={{
             pathname: '/login',
             search: props.location.search,
-            state: { from: props.location },
+            state: { from: props.location }
           }}
         />
       );
@@ -60,18 +56,18 @@ export const hasAnyAuthority = (authorities: string[], hasAnyAuthorities: string
     if (hasAnyAuthorities.length === 0) {
       return true;
     }
-    return hasAnyAuthorities.some(auth => authorities.includes(auth));
+    return hasAnyAuthorities.some((auth) => authorities.includes(auth));
   }
   return false;
 };
 
 const mapStateToProps = (
-  { authentication: { isAuthenticated, account, sessionHasBeenFetched } }: StoreState,
+  { authentication: { isAuthenticated, user, sessionHasBeenFetched } }: StoreState,
   { hasAnyAuthorities = [] }: IOwnProps
 ) => ({
   isAuthenticated,
-  isAuthorized: hasAnyAuthority(account.authorities, hasAnyAuthorities),
-  sessionHasBeenFetched,
+  isAuthorized: hasAnyAuthority(user.authorities, hasAnyAuthorities),
+  sessionHasBeenFetched
 });
 
 type StateProps = ReturnType<typeof mapStateToProps>;

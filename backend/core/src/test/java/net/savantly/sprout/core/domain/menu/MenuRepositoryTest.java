@@ -33,8 +33,6 @@ public class MenuRepositoryTest {
 		HashSet<Menu> items = new HashSet<>();
 		items.add(menu2);
 		
-		menu.setItems(items);
-		
 		repository.save(menu);
 		
 		repository.findRootMenus();

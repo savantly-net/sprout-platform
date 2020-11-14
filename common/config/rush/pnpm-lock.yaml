@@ -117,6 +117,7 @@ dependencies:
   common-tags: 1.8.0
   concurrently: 4.1.0
   copy-webpack-plugin: 5.1.1_webpack@4.42.0
+  create-react-class: 15.7.0
   css-loader: 3.6.0_webpack@4.42.0
   csstype: 2.6.7
   customize-cra: 1.0.0
@@ -196,7 +197,6 @@ dependencies:
   react-router: 5.2.0_react@16.14.0
   react-router-dom: 6.0.0-beta.0_3a8d3a2ec439ed05f71d417ec8c7ed2c
   react-scripts: 3.4.3_node-sass@4.14.1
-  react-simple-oauth2-login: 0.2.0_react@16.14.0
   react-sizeme: 2.6.12_react-dom@16.14.0+react@16.14.0
   react-split-pane: 2.0.3
   react-storybook-addon-props-combinations: 1.1.0_react@16.14.0
@@ -9723,6 +9723,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-MJG9liiZ+ogc4TzUwuvbER1JRdgvUFSB5+VR/g5h82fGaIRWMWddtKBHi7/sVhfjQZ6SehlyhvQYrcYkaUIpLg==
+  /create-react-class/15.7.0:
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+    dev: false
+    resolution:
+      integrity: sha512-QZv4sFWG9S5RUvkTYWbflxeZX+JG7Cz0Tn33rQBJ+WFQTqTfUTjMjiv9tnfXazjsO5r0KhPs+AqCjyrQX6h2ng==
   /create-react-context/0.2.2_prop-types@15.7.2+react@16.14.0:
     dependencies:
       fbjs: 0.8.17
@@ -26390,6 +26397,7 @@ packages:
       '@rollup/plugin-node-resolve': 9.0.0_rollup@2.0.6
       '@storybook/addon-actions': 6.0.27_6924a3a01d652738e2fd803d6b0c2ee3
       '@storybook/addon-essentials': 6.0.27_7fa58397d6a07e0e8902e51e3b00a0e0
+      '@storybook/addon-knobs': 5.3.21_15199c67d2c4d2f537ff94cbd86aca8f
       '@storybook/addon-links': 6.0.27_react-dom@16.14.0+react@16.14.0
       '@storybook/addon-storyshots': 6.0.27_aa525ba8b3ec52e4e07d9ce357021196
       '@storybook/react': 6.0.27_8697ad594384804acf125db970cd42f5
@@ -26440,7 +26448,7 @@ packages:
       ts-node: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-KdIH++uBJMCfDQpoUegcwgKckICww3NBVlQsVc7NHATj4EVUc7ErbgufUCfWbfJtydgYWkhRHXjD5K6jQr+c0A==
+      integrity: sha512-BzwDWeIdfh5hPa6d2OOXL+qMGPxVvAU0zU+mIBXBJAg835Mxv+lMxRnwPEYmOTjPSxm/CELz3/1RL5rN0Qq3PA==
       tarball: 'file:projects/ui.tgz'
     version: 0.0.0
   'file:projects/webapp.tgz_ts-node@8.8.1':
@@ -26478,6 +26486,7 @@ packages:
       axios: 0.20.0
       classnames: 2.2.6
       clipboard: 2.0.6
+      create-react-class: 15.7.0
       customize-cra: 1.0.0
       dangerously-set-html-content: 1.0.8_react-dom@16.14.0+react@16.14.0
       emotion: 10.0.27
@@ -26528,7 +26537,7 @@ packages:
     peerDependencies:
       ts-node: '*'
     resolution:
-      integrity: sha512-IdL4NZiyCUuE0ZEAtWtvjuDZEbAJ5HlS2/FtWRKJlkmgbpdro+rNzhNkJR2yLy5ej401OMFkngvbG3ftGAtZFg==
+      integrity: sha512-aEHneOTr2z+mGOXoysRQJf8JNa3Qf6yTDSATevesakzwqE90pFyfauRlYJZzJ7AWFq1+UPjLIW1wRRP6IuFVag==
       tarball: 'file:projects/webapp.tgz'
     version: 0.0.0
 registry: ''
@@ -26651,6 +26660,7 @@ specifiers:
   common-tags: ^1.8.0
   concurrently: 4.1.0
   copy-webpack-plugin: 5.1.1
+  create-react-class: ~15.7.0
   css-loader: ^3.0.0
   csstype: 2.6.7
   customize-cra: ^1.0.0
@@ -26730,7 +26740,6 @@ specifiers:
   react-router: ~5.2.0
   react-router-dom: 6.0.0-beta.0
   react-scripts: 3.4.3
-  react-simple-oauth2-login: ~0.2.0
   react-sizeme: ^2.6.12
   react-split-pane: ^2.0.3
   react-storybook-addon-props-combinations: 1.1.0

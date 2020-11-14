@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.savantly.sprout.domain.menu.MenuDto;
 import net.savantly.sprout.domain.uiProperties.UIProperty;
 
 @Getter
@@ -17,6 +18,7 @@ public class SproutConfigurationProperties {
 	
 	private Branding branding = new Branding();
 	private Dashboards dashboards = new Dashboards();
+	private List<MenuDto> menus = new ArrayList<>();
 	private Security security = new Security();
 	private Jpa jpa = new Jpa();
 	private Cors cors = new Cors();
@@ -49,7 +51,7 @@ public class SproutConfigurationProperties {
 	public static class Security {
 		private Authentication authentication = new Authentication();
 		private List<String> anonymousAuthorities = Arrays.asList("ANONYMOUS");
-		private List<String> publicPaths = Arrays.asList("/api/ui-properties", "/api/authentication/oauth", "/api/public/**");
+		private List<String> publicPaths = Arrays.asList("/api/ui-properties", "/api/authentication/oauth");
 		private List<String> authenticatedPaths = Arrays.asList("/api/repo/**", "/v3/**", "/admin/**");
 		private OAuth oauth = new OAuth();
     }
@@ -57,6 +59,7 @@ public class SproutConfigurationProperties {
 	@Getter
 	@Setter
 	public static class OAuth {
+		private boolean autoCreateUsers = true;
 		private List<OAuthClientConfig> clients = new ArrayList<>();
 	}
 	

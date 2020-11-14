@@ -1,12 +1,9 @@
 import { Icon } from '@savantly/sprout-ui';
-import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { StoreState } from '../../../types';
+import React from 'react';
 import { getForcedLoginUrl } from './utils';
 
 export const SignIn = () => {
-  const url = window.location.pathname;
+  const url = '/login';
   const forcedLoginUrl = getForcedLoginUrl(url);
 
   return (

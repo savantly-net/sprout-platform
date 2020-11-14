@@ -24,7 +24,8 @@ export const defaultNavTree = [
         icon: 'sitemap',
         id: 'manage-dashboards',
         text: 'Manage',
-        url: '/dashboards'
+        url: '/dashboards',
+        authority: 'admin'
       }
     ]
   },
@@ -34,6 +35,7 @@ export const defaultNavTree = [
     sortWeight: -1400,
     subTitle: 'Application Configuration',
     text: 'Configuration',
+    authority: 'admin',
     children: [
       {
         description: 'View and configure plugins',

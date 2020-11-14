@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -53,26 +54,24 @@ public class SproutWebMvcAutoConfigurationTest {
 		menu.set_public(true);
 		menu.setDisplayText("a test");
 		menu.setRoles(roles);
+		menu.setName("menu1");
 		
 		Menu menu2 = new Menu();
 		menu2.set_public(true);
 		menu2.setDisplayText("a test");
 		menu2.setRoles(roles);
+		menu2.setParentName("menu1");
+		menu2.setName("menu2");
 		
-		HashSet<Menu> items = new HashSet<>();
-		items.add(menu2);
+		repository.saveAll(Arrays.asList(menu, menu2));
 		
-		menu.setItems(items);
-		
-		repository.save(menu);
-		
-		MvcResult result = mvc.perform(get("/api/repo/menus/search/findRootMenus?projection=inlineMenuItems")).andExpect(status().isOk()).andReturn();
+		MvcResult result = mvc.perform(get("/api/repo/menus/search/findRootMenus")).andExpect(status().isOk()).andReturn();
 		
 		log.info(result.getResponse().getContentAsString());
 		
-		mvc.perform(delete("/api/repo/menus/" + menu.getId() + "/items/" + menu2.getId()));
+		mvc.perform(delete("/api/repo/menus/" + menu2.getId()));
 		
-		result = mvc.perform(get("/api/repo/menus/search/findRootMenus?projection=inlineMenuItems")).andExpect(status().isOk()).andReturn();
+		result = mvc.perform(get("/api/repo/menus/search/findRootMenus")).andExpect(status().isOk()).andReturn();
 		
 		log.info(result.getResponse().getContentAsString());
 	}

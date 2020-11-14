@@ -33,7 +33,7 @@ dependencies {
 		
 		'org.springframework:spring-context-support',
 		
-		'net.savantly.security:spring-role-permissions:0.0.1.RELEASE',
+		'net.savantly.security:spring-role-permissions:0.0.2.RELEASE',
 		
 		'io.reactivex:rxjava',
 		"org.zalando:problem-spring-web:${problem_version}",

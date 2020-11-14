@@ -16,10 +16,11 @@ export interface Props {
 export function getAllPanelPluginMeta(): PanelPluginMeta[] {
   const allPanels = config.panels;
 
-  return Object.keys(allPanels)
-    .filter(key => allPanels[key]['hideFromList'] === false)
+  const sortedPanels = Object.keys(allPanels)
+    //.filter(key => allPanels[key]['hideFromList'] === false)
     .map(key => allPanels[key])
     .sort((a: PanelPluginMeta, b: PanelPluginMeta) => a.sort - b.sort);
+  return sortedPanels;
 }
 
 export function filterPluginList(

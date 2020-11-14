@@ -1,0 +1,38 @@
+sprout:
+  menus:
+  - name: root1
+    display-text: root-1
+    url: http://localhost
+    children:
+    - name: child1-1
+      display-text: child-1-1
+      url: http://localhost/child1-1
+      children:
+      - name: grandchild1-1
+        display-text: grandchild-1-1
+        url: http://localhost/child1/grandchild1-1
+    - name: child1-2
+      display-text: child-1-2
+      url: http://localhost/child1-2
+      children:
+      - name: grandchild1-2
+        display-text: grandchild-1-2
+        url: http://localhost/child1/grandchild1-2
+  - name: root2
+    display-text: root-2
+    url: /root2
+    children:
+    - name: child2-1
+      display-text: child-2-1
+      url: http://localhost/child2-1
+      children:
+      - name: grandchild2-1
+        display-text: grandchild-2-1
+        url: http://localhost/child1/grandchild2-1
+    - name: child2-2
+      display-text: child-2-2
+      url: http://localhost/child2-2
+      children:
+      - name: grandchild2-2
+        display-text: grandchild-2-2
+        url: http://localhost/child1/grandchild2-2

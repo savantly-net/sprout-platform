@@ -16,6 +16,7 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import net.savantly.sprout.core.domain.user.repository.UserRepository;
 import net.savantly.sprout.starter.SproutWebSecurityConfiguration;
 import net.savantly.sprout.starter.security.SecurityCustomizer;
 
@@ -28,8 +29,8 @@ public class OAuthAutoConfiguration {
 	
 	@Bean(name = "oauthUserMapper")
 	@ConditionalOnMissingBean(DefaultOAuthUserMapper.class)
-	public OAuthUserMapper oauthUserMapper() {
-		return new DefaultOAuthUserMapper();
+	public OAuthUserMapper oauthUserMapper(UserRepository repository) {
+		return new DefaultOAuthUserMapper(repository);
 	}
 	
 	@Bean(name = "oauthConfigurer")

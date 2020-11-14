@@ -1,14 +1,16 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { ACCESS_TOKEN_STORAGE_KEY, SERVER_API_URL } from '../../config/constants';
-import { AuthenticationState, AuthenticationUpdate } from '../../types';
+import { AuthenticationState, AuthenticationUpdate, User } from '../../types';
 import store from '../store';
 
 export const initialAuthenticationState: AuthenticationState = {
   loading: false,
   isAuthenticated: store.get(ACCESS_TOKEN_STORAGE_KEY) ? true : false,
   loginError: false, // Errors returned from server side
-  account: {} as any,
+  user: {
+    authorities: []
+  } as User,
   errorMessage: undefined, // Errors returned from server side
   sessionHasBeenFetched: false,
   logoutUrl: undefined,
@@ -43,7 +45,9 @@ const authenticationSlice = createSlice({
         store.delete(ACCESS_TOKEN_STORAGE_KEY);
       }
       return {
-        account: {},
+        user: {
+          authorities: []
+        },
         errorMessage: undefined,
         isAuthenticated: false,
         loading: false,
@@ -54,12 +58,20 @@ const authenticationSlice = createSlice({
     }
   },
   extraReducers: builder => {
-    builder.addCase(getSession.fulfilled, (state, action) => {
-      state.isAuthenticated = action.payload.data && action.payload.data['name'] !== 'ANONYMOUS';
-      state.account = action.payload.data;
+    builder.addCase(getSession.fulfilled, (state, action): AuthenticationState => {
+      console.log(state);
+      console.log(action);
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...action.payload
+        },
+        sessionHasBeenFetched: true
+      };
     });
   }
-})
+});
 
 export const { login, logout } = authenticationSlice.actions;
 

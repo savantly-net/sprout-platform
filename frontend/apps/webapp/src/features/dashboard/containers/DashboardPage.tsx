@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { notifyApp } from '../../../core/actions';
 import { Branding } from '../../../core/components/Branding/Branding';
 import LifecycleLogging, { LogFlags } from '../../../core/components/LifecycleLogging/LifecycleLogging';
+import { PrivateComponent } from '../../../core/components/PrivateComponent/PrivateComponent';
 // Services & Utils
 import { createErrorNotification } from '../../../core/copy/appNotification';
 import { LocationUpdateService } from '../../../core/services/locationSvc';
@@ -75,8 +76,8 @@ export class DashboardPage extends Component<AllProps, OwnState> {
 
   componentWillUnmount() {
     this.setPanelFullscreenClass(false);
-    if (this.state.path !== this.props.urlPath) {
-      this.props.cleanUpDashboardAndVariables();
+    if (this.state.path !== this.props.urlPath && this.state.path !== '/') {
+      //this.props.cleanUpDashboardAndVariables();
     }
   }
 
@@ -212,7 +213,9 @@ export class DashboardPage extends Component<AllProps, OwnState> {
 
     return (
       <div className="dashboard-container">
-        <DashNav dashboard={dashboard} isFullscreen={!!viewPanel} onAddPanel={this.onAddPanel} />
+        <PrivateComponent hasAnyAuthority={[]}>
+          <DashNav dashboard={dashboard} isFullscreen={!!viewPanel} onAddPanel={this.onAddPanel} />
+        </PrivateComponent>
 
         <div className="dashboard-scroll">
           <CustomScrollbar

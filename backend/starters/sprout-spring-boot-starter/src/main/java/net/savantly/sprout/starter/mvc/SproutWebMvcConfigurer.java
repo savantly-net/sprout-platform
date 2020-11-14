@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -27,12 +28,13 @@ import net.savantly.sprout.domain.authentication.LoginApi;
 import net.savantly.sprout.domain.branding.BrandingApi;
 import net.savantly.sprout.domain.branding.DefaultBrandingApi;
 import net.savantly.sprout.domain.dashboard.DashboardConfiguration;
-import net.savantly.sprout.domain.menu.MenuApi;
+import net.savantly.sprout.domain.menu.MenuConfiguration;
 import net.savantly.sprout.domain.uiProperties.UIPropertiesConfiguration;
 import net.savantly.sprout.module.PluginService;
 
 @Configuration
-@ImportAutoConfiguration({ WebMvcAutoConfiguration.class, DashboardConfiguration.class, UIPropertiesConfiguration.class })
+@ImportAutoConfiguration({ WebMvcAutoConfiguration.class })
+@Import({DashboardConfiguration.class, UIPropertiesConfiguration.class, MenuConfiguration.class})
 @RequiredArgsConstructor
 public class SproutWebMvcConfigurer implements WebMvcConfigurer {
 
@@ -93,9 +95,5 @@ public class SproutWebMvcConfigurer implements WebMvcConfigurer {
 		return new DefaultBrandingApi();
 	}
 	
-	@Bean
-	public MenuApi defaultMenuApi() {
-		return new MenuApi();
-	}
 
 }

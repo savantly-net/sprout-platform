@@ -4,16 +4,20 @@ import axios from 'axios';
 import { css, cx } from 'emotion';
 import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Alert, Col, Row } from 'reactstrap';
-import { login, logout } from '../../core/reducers/authentication';
+import { getSession, login, logout } from '../../core/reducers/authentication';
 import { OAuthClientConfig, StoreState } from '../../types';
 
-export const LoginPage = () => {
+export const LoginPage = ({
+  redirectUrl
+}: {redirectUrl: string}) => {
   const once = true;
   const dispatch = useDispatch();
   const authentication = useSelector((store: StoreState) => store.authentication);
   const [oauthClients, setOauthClients] = useState(new Array<OAuthClientConfig>());
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   useMemo(
     () =>
@@ -83,6 +87,12 @@ export const LoginPage = () => {
                       accessToken: data.access_token
                     })
                   );
+                  dispatch(getSession());
+                  if(redirectUrl == '/login') {
+                    navigate('/');
+                  } else {
+                    navigate(redirectUrl);
+                  }
                 }}
               />
             ))}

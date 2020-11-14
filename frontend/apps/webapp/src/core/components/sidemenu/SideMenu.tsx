@@ -1,39 +1,33 @@
-import React, { PureComponent } from "react";
-import appEvents from "../../app_events";
-import TopSection from "./TopSection";
-import BottomSection from "./BottomSection";
-import config from "../../config";
-import { CoreEvents } from "../../../types";
-import { Branding } from "../Branding/Branding";
-import { Icon } from "@savantly/sprout-ui";
+import { Icon } from '@savantly/sprout-ui';
+import React from 'react';
+import { CoreEvents } from '../../../types';
+import appEvents from '../../app_events';
+import config from '../../config';
+import { Branding } from '../Branding/Branding';
+import BottomSection from './BottomSection';
+import TopSection from './TopSection';
 
-const homeUrl = config.appSubUrl || "/";
+const homeUrl = config.appSubUrl || '/';
 
-export class SideMenu extends PureComponent {
-  toggleSideMenuSmallBreakpoint = () => {
+export const SideMenu = () => {
+  const toggleSideMenuSmallBreakpoint = () => {
     appEvents.emit(CoreEvents.toggleSidemenuMobile);
   };
 
-  render() {
-    return (
-      <div className="sidemenu">
-        <a href={homeUrl} className="sidemenu__logo" key="logo">
-          <Branding.MenuLogo />
-        </a>
-        <div
-          className="sidemenu__logo_small_breakpoint"
-          onClick={this.toggleSideMenuSmallBreakpoint}
-          key="hamburger"
-        >
-          <Icon name="bars" size="xl" />
-          <span className="sidemenu__close">
-            <Icon name="times" />
-            &nbsp;Close
-          </span>
-        </div>
-        <TopSection key="topsection" />
-        <BottomSection key="bottomsection" />
+  return (
+    <div className="sidemenu">
+      <a href={homeUrl} className="sidemenu__logo" key="logo">
+        <Branding.MenuLogo />
+      </a>
+      <div className="sidemenu__logo_small_breakpoint" onClick={toggleSideMenuSmallBreakpoint} key="hamburger">
+        <Icon name="bars" size="xl" />
+        <span className="sidemenu__close">
+          <Icon name="times" />
+          &nbsp;Close
+        </span>
       </div>
-    );
-  }
-}
+      <TopSection key="topsection" />
+      <BottomSection key="bottomsection" />
+    </div>
+  );
+};
