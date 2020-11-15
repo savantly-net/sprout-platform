@@ -38,6 +38,8 @@ dependencies {
 		'io.reactivex:rxjava',
 		"org.zalando:problem-spring-web:${problem_version}",
 		"io.jsonwebtoken:jjwt-api:${json_web_token_version}",
+		"io.jsonwebtoken:jjwt-impl:${json_web_token_version}",
+		"io.jsonwebtoken:jjwt-jackson:${json_web_token_version}",
 		
 		"org.springdoc:springdoc-openapi-ui:${springdoc_version}",
 		"org.springdoc:springdoc-openapi-data-rest:${springdoc_version}",
@@ -46,9 +48,6 @@ dependencies {
 		"com.fasterxml.jackson.datatype:jackson-datatype-hibernate5",
 		"com.fasterxml.jackson.module:jackson-module-afterburner"
 			
-	runtimeOnly "io.jsonwebtoken:jjwt-impl:${json_web_token_version}",
-		"io.jsonwebtoken:jjwt-jackson:${json_web_token_version}"
-
 	compileOnly 'org.projectlombok:lombok',
 		'javax.interceptor:javax.interceptor-api:1.2'
     annotationProcessor 'org.projectlombok:lombok',
