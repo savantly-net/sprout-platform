@@ -24,10 +24,8 @@ public class VersionedObjectBackendIdConverter implements BackendIdConverter {
 	@Override
 	public Serializable fromRequestId(String id, Class<?> entityType) {
 		String[] parts = id.split("_");
-		try {
-			
-		} catch (Exception e) {
-			log.error("problem parsing entity id", e);
+		if (parts.length != 2) {
+			log.error("problem parsing entity id", id);
 			throw new EntityNotFoundException("with id: " + id);
 		}
 		Long _version = Long.parseLong(parts[1]);

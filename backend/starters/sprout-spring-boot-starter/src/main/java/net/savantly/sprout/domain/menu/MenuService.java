@@ -84,14 +84,14 @@ public class MenuService {
 			log.info("adding property from config: " + m.getName() + ":\"" + m.getUrl() + "\"");
 			menu = new Menu().set_public(true).setDisplayText(m.getDisplayText()).setUrl(m.getUrl()).setName(m.getName());
 		} else {
-			Menu prop = existing.get(0);
-			prop.set_public(true).setDisplayText(m.getDisplayText()).setUrl(m.getUrl()).setName(m.getName());
-			menuEntities.add(prop);
+			menu = existing.get(0);
+			menu.set_public(true).setDisplayText(m.getDisplayText()).setUrl(m.getUrl()).setName(m.getName());
+			menuEntities.add(menu);
 		}
 		if (Objects.nonNull(parent)) {
 			menu.setParentName(parent.getName());
 		}
-		m.getChildren().forEach(c -> {
+		m.getChildren().stream().filter(c -> Objects.nonNull(c)).forEach(c -> {
 			addIfMissing(c, m, menuEntities);
 		});
 		menuEntities.add(menu);

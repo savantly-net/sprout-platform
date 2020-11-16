@@ -3,6 +3,7 @@ package net.savantly.sprout.core.module.registration;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import net.savantly.sprout.core.module.web.plugin.PluginType;
 
 @Entity
 @Getter @Setter
+@Table(name = "sprout_module_registration")
 public class SproutModuleRegistration {
 
     @Id
