@@ -2,7 +2,9 @@ package net.savantly.sprout.autoconfigure.properties;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -53,7 +55,6 @@ public class SproutConfigurationProperties {
 		private List<String> anonymousAuthorities = Arrays.asList("ANONYMOUS");
 		private List<String> publicPaths = Arrays.asList("/api/ui-properties", "/api/authentication/oauth");
 		private List<String> authenticatedPaths = Arrays.asList("/api/repo/**", "/v3/**", "/admin/**");
-		private OAuth oauth = new OAuth();
     }
 	
 	@Getter
@@ -90,6 +91,32 @@ public class SproutConfigurationProperties {
 	public static class Authentication {
 		private Jwt jwt = new Jwt();
 		private OAuth oauth = new OAuth();
+		private Basic basic = new Basic();
+	}
+	
+	@Getter
+	@Setter
+	public static class Basic {
+		private boolean enable = true;
+		private List<BasicCreds> users = Arrays.asList(new BasicCreds("admin", UUID.randomUUID().toString(), "user@savantly.net", Arrays.asList("ROLE_ADMIN")));
+	}
+	
+	@Getter
+	@Setter
+	public static class BasicCreds {
+		private String username;
+		private String password;
+		private String emailAddress;
+		private List<String> roles = new ArrayList<String>();
+		
+		BasicCreds(){}
+		
+		BasicCreds(String username, String password, String emailAddress, Collection<String> roles) {
+			this.username = username;
+			this.password = password;
+			this.emailAddress = emailAddress;
+			this.roles.addAll(roles);
+		}
 	}
 	
 	/*

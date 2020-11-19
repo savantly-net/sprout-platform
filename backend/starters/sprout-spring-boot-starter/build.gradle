@@ -46,7 +46,8 @@ dependencies {
 		"org.springdoc:springdoc-openapi-security:${springdoc_version}",
 		
 		"com.fasterxml.jackson.datatype:jackson-datatype-hibernate5",
-		"com.fasterxml.jackson.module:jackson-module-afterburner"
+		"com.fasterxml.jackson.module:jackson-module-afterburner",
+		'org.apache.httpcomponents:httpclient:4.5.13'
 			
 	compileOnly 'org.projectlombok:lombok',
 		'javax.interceptor:javax.interceptor-api:1.2'

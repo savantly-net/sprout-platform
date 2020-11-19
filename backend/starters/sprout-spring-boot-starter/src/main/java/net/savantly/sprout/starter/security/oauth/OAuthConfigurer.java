@@ -1,9 +1,7 @@
 package net.savantly.sprout.starter.security.oauth;
 
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import net.savantly.sprout.starter.security.SecurityCustomizer;
 
-public interface OAuthConfigurer {
-	
-	void configure(HttpSecurity http);
+public interface OAuthConfigurer extends SecurityCustomizer {
 
 }

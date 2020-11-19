@@ -14,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 
-import net.savantly.authorization.service.PermissionAwareUserDetailsService;
 import net.savantly.authorization.service.PermissionProvider;
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
 import net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepository;
@@ -22,10 +21,14 @@ import net.savantly.sprout.core.domain.user.repository.UserPersistenceListener;
 import net.savantly.sprout.core.domain.user.repository.UserRepository;
 import net.savantly.sprout.core.security.SproutAuditorAware;
 import net.savantly.sprout.core.security.SproutPasswordEncoder;
-import net.savantly.sprout.core.security.SproutUserDetailsServiceImpl;
+import net.savantly.sprout.core.security.SproutUserService;
+import net.savantly.sprout.core.security.SproutUserServiceImpl;
+import net.savantly.sprout.core.security.role.RoleRepository;
 import net.savantly.sprout.starter.SproutWebSecurityConfiguration;
 import net.savantly.sprout.starter.security.CustomAnonymousFilter;
+import net.savantly.sprout.starter.security.PermissionAwareSproutUserService;
 import net.savantly.sprout.starter.security.SecurityCustomizer;
+import net.savantly.sprout.starter.security.basic.BasicAuthAutoConfiguration;
 import net.savantly.sprout.starter.security.jwt.JWTAutoConfiguration;
 import net.savantly.sprout.starter.security.oauth.OAuthAutoConfiguration;
 import net.savantly.sprout.starter.security.permissions.PermissionsConfiguration;
@@ -36,7 +39,8 @@ import net.savantly.sprout.starter.security.permissions.PermissionsConfiguration
 	SecurityProblemSupport.class, 
 	PermissionsConfiguration.class,
 	OAuthAutoConfiguration.class,
-	JWTAutoConfiguration.class})
+	JWTAutoConfiguration.class,
+	BasicAuthAutoConfiguration.class})
 public class SproutSecurityAutoConfiguration {
 
 	@Bean
@@ -58,12 +62,12 @@ public class SproutSecurityAutoConfiguration {
 	}
 
 	@Bean("userDetailsService")
-	public UserDetailsService sproutUserDetailsService(UserRepository userRepository,
-			EmailAddressRepository emailAddressRepository, PermissionProvider permissionProvider) {
+	public SproutUserService sproutUserDetailsService(UserRepository userRepository,
+			EmailAddressRepository emailAddressRepository, PermissionProvider permissionProvider, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
 
-		SproutUserDetailsServiceImpl userDetailsService = new SproutUserDetailsServiceImpl(userRepository, emailAddressRepository);
-		PermissionAwareUserDetailsService permissionAwareUserDetailsService = 
-				new PermissionAwareUserDetailsService(userDetailsService, permissionProvider);
+		SproutUserServiceImpl userDetailsService = new SproutUserServiceImpl(userRepository, emailAddressRepository, roleRepository, passwordEncoder);
+		PermissionAwareSproutUserService permissionAwareUserDetailsService = 
+				new PermissionAwareSproutUserService(userDetailsService, permissionProvider);
 		return permissionAwareUserDetailsService;
 	}
 

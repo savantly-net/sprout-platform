@@ -7,49 +7,36 @@ import java.util.Objects;
 import java.util.Optional;
 
 import javax.persistence.EntityListeners;
-import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.TypeDef;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.lang.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import net.savantly.sprout.core.configuration.SproutConfiguration;
-import net.savantly.sprout.core.domain.user.SproutUser;
-import net.savantly.sprout.core.domain.user.SproutUserEntity;
 import net.savantly.sprout.core.security.SproutAuditable;
 
 @MappedSuperclass
 @EntityListeners({ AuditingEntityListener.class })
-@TypeDef(name = "sproutUser", defaultForType = SproutUser.class, typeClass = SproutUserEntity.class)
 public abstract class AbstractAuditableDomainObject<ID extends Serializable> implements SproutAuditable<ID> {
 
 	private static final long serialVersionUID = SproutConfiguration.serialVersionUID;
 
-	@JsonDeserialize(as = SproutUserEntity.class)
-	@ManyToOne(targetEntity = SproutUserEntity.class)
-	private @Nullable SproutUser createdBy;
-
+	private @Nullable String createdBy;
 	private @Nullable ZonedDateTime createdDate;
-
-	@JsonDeserialize(as = SproutUserEntity.class)
-	@ManyToOne(targetEntity = SproutUserEntity.class)
-	private @Nullable SproutUser lastModifiedBy;
-
+	private @Nullable String lastModifiedBy;
 	private @Nullable ZonedDateTime lastModifiedDate;
 
 	@Override
-	public Optional<SproutUser> getCreatedBy() {
+	public Optional<String> getCreatedBy() {
 		return Optional.ofNullable(createdBy);
 	}
 
 	@Override
-	public void setCreatedBy(SproutUser createdBy) {
+	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -70,12 +57,12 @@ public abstract class AbstractAuditableDomainObject<ID extends Serializable> imp
 	}
 
 	@Override
-	public Optional<SproutUser> getLastModifiedBy() {
+	public Optional<String> getLastModifiedBy() {
 		return Optional.ofNullable(lastModifiedBy);
 	}
 
 	@Override
-	public void setLastModifiedBy(SproutUser lastModifiedBy) {
+	public void setLastModifiedBy(String lastModifiedBy) {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 

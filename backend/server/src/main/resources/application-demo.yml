@@ -5,18 +5,19 @@ logging:
 
 sprout:
   security:
-    oauth:
-      clients:
-      - name: mocklab
-        display-name: Login with Mocklab
-        authorization-url: https://savantly.mocklab.io/oauth/authorize
-        token-url: https://savantly.mocklab.io/oauth/token
-        user-info-url: https://savantly.mocklab.io/userinfo
-        jwks-url: https://savantly.mocklab.io/.well-known/jwks.json
-        scope: openid, profile, email
-        redirect-url: "http://localhost:8080/"
-        clientId: mocklab_oidc
-        flow-type: IMPLICIT
+    authentication:
+      oauth:
+        clients:
+        - name: mocklab
+          display-name: Login with Mocklab
+          authorization-url: https://savantly.mocklab.io/oauth/authorize
+          token-url: https://savantly.mocklab.io/oauth/token
+          user-info-url: https://savantly.mocklab.io/userinfo
+          jwks-url: https://savantly.mocklab.io/.well-known/jwks.json
+          scope: openid, profile, email
+          redirect-url: "http://localhost:8080/"
+          clientId: mocklab_oidc
+          flow-type: IMPLICIT
 
 spring:
   security:

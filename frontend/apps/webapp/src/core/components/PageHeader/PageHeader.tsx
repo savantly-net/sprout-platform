@@ -1,6 +1,7 @@
 import { NavModel, NavModelBreadcrumb, NavModelItem } from '@savantly/sprout-api';
 import { Icon, IconName, Tab, TabsBar } from '@savantly/sprout-ui';
-import { css } from 'emotion';
+import { Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
+import { css, cx } from 'emotion';
 import React, { FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -104,25 +105,28 @@ const Navigation = ({ children }: { children: NavModelItem[] }) => {
   };
 
   return (
-    <nav>
+    <div>
       <SelectNav customCss="page-header__select-nav" children={children} />
-      <TabsBar className="page-header__tabs" hideBorder={true}>
+      <Nav tabs className="page-header__tabs">
         {children.map((child, index) => {
           return (
             !child.hideFromTabs && (
-              <Tab
-                css={null}
-                label={child.text}
-                active={child.active}
-                key={`${child.url}-${index}`}
-                icon={child.icon as IconName}
-                onChangeTab={() => goToUrl(index)}
-              />
+              <NavItem>
+                <NavLink
+                  className={cx({ active: child.active })}
+                  onClick={() => {
+                    goToUrl(index);
+                  }}
+                >
+                  <Icon name={child.icon as IconName} />
+                  {child.text}
+                </NavLink>
+              </NavItem>
             )
           );
         })}
-      </TabsBar>
-    </nav>
+      </Nav>
+    </div>
   );
 };
 

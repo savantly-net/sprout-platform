@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.side-menu-header {
+  margin-top: -0.5rem;
+}
+
+ul.nav-tabs {
+  border-bottom: none;
+  margin-bottom: 0;
+}

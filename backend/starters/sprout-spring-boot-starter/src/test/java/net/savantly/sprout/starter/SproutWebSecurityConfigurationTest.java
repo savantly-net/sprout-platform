@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.context.support.WithAnonymousUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,6 +30,7 @@ import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 @IntegrationTest
+@ActiveProfiles("basicauth")
 public class SproutWebSecurityConfigurationTest {
 
 	private static final Logger log = LoggerFactory.getLogger(SproutWebSecurityConfigurationTest.class);
@@ -65,7 +68,7 @@ public class SproutWebSecurityConfigurationTest {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 
-		String body = "{\"username\": \"admin\", \"password\":\"password\"}";
+		String body = "{\"username\": \"test\", \"password\":\"test\"}";
 
 		HttpEntity<String> request = new HttpEntity<String>(body, headers);
 
@@ -82,7 +85,18 @@ public class SproutWebSecurityConfigurationTest {
 		ResponseEntity<String> response = rest.getForEntity(url, String.class);
 		
 		log.info("{}", response.getBody());
-		Assertions.assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode(), "Should fail to access");
+		Assertions.assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode(), "Should fail to access");
+	}
+	
+	@Test
+	@WithAnonymousUser
+	public void loadAdminPage() throws Exception {
+		String url = "/admin/";
+		// username / password comes from basicauth test profile config
+		ResponseEntity<String> response = rest.withBasicAuth("test", "test").getForEntity(url, String.class);
+		
+		log.info("{}", response.getBody());
+		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(), "Should succeed with basic auth");
 	}
 	
 	// TODO: Fix security testing admin

@@ -52,7 +52,7 @@ public class LoginApi {
 	@GetMapping("/api/authentication/oauth")
 	public ResponseEntity<HashMap<String, Object>> getImplicitOAuthClients() {
 		HashMap<String, Object> response = new HashMap<>();
-		List<ImplicitFlowDto> implicitFlows = configuration.getSecurity().getOauth().getClients().stream()
+		List<ImplicitFlowDto> implicitFlows = configuration.getSecurity().getAuthentication().getOauth().getClients().stream()
 				.filter(c -> c.getFlowType().equals(OAuthFlowType.IMPLICIT))
 				.map(c -> new ImplicitFlowDto()
 						.setAuthorizationUrl(c.getAuthorizationUrl())

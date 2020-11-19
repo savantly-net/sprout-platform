@@ -16,7 +16,7 @@ public class TenantedPrimaryKey implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(columnDefinition = "VARCHAR(36)")
+	@Column(name = "item_id", columnDefinition = "VARCHAR(36)")
     protected String itemId;
 	
 	@Column(name = "TENANT_ID")

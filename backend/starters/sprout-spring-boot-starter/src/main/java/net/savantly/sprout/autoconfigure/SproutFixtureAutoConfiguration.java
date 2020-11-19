@@ -13,18 +13,11 @@ import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfig
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import net.savantly.spring.fixture.Fixture;
-import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
-import net.savantly.sprout.core.domain.emailAddress.EmailAddressFixture;
-import net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepository;
-import net.savantly.sprout.core.domain.user.UserFixture;
-import net.savantly.sprout.core.domain.user.repository.UserRepository;
 import net.savantly.sprout.core.security.FakeContext;
 import net.savantly.sprout.core.security.privilege.PrivilegeFixture;
 import net.savantly.sprout.core.security.privilege.PrivilegeRepository;
-import net.savantly.sprout.core.security.role.Role;
 import net.savantly.sprout.core.security.role.RoleFixture;
 import net.savantly.sprout.core.security.role.RoleRepository;
 
@@ -47,23 +40,7 @@ public class SproutFixtureAutoConfiguration {
 	PrivilegeFixture privilegeFixture(PrivilegeRepository repository) {
 		return new PrivilegeFixture(repository);
 	}
-	
-	@Bean 
-	public EmailAddressFixture emailFixture(EmailAddressRepository repository) {
-		return new EmailAddressFixture(repository);
-	}
 
-	
-	@Bean 
-	public UserFixture userFixture(UserRepository repository, PasswordEncoder passwordEncoder, EmailAddressRepository emailAddressRepository, RoleRepository roleRepository, Fixture<Role> roleFixture, Fixture<EmailAddress> emailFixture) {
-		return new UserFixture(
-				repository, 
-				passwordEncoder, 
-				emailAddressRepository, 
-				roleRepository, 
-				roleFixture, 
-				emailFixture);
-	}
 	
     @PostConstruct
     public void installFixtures() {

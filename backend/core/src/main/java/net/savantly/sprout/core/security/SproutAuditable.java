@@ -5,8 +5,6 @@ import java.time.ZonedDateTime;
 
 import org.springframework.data.domain.Auditable;
 
-import net.savantly.sprout.core.domain.user.SproutUser;
-
-public interface SproutAuditable<ID extends Serializable> extends Auditable<SproutUser, ID, ZonedDateTime> {
+public interface SproutAuditable<ID extends Serializable> extends Auditable<String, ID, ZonedDateTime> {
 
 }

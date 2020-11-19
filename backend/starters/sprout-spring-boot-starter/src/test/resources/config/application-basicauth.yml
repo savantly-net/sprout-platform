@@ -1,0 +1,15 @@
+logging:
+  level:
+    org.springframework.security.web.authentication: DEBUG
+sprout:
+  security:
+    authentication:
+      basic:
+        users:
+        - username: test
+          password: test
+          email-address: test@savantly.net
+          roles:
+          - ROLE_ADMIN
+          - NEW_ROLE
+          

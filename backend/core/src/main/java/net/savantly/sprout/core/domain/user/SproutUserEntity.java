@@ -34,17 +34,17 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.savantly.sprout.core.domain.PersistedDomainObject;
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
 import net.savantly.sprout.core.domain.oauth.OAuthAccount;
 import net.savantly.sprout.core.domain.organization.Organization;
 import net.savantly.sprout.core.security.MD5Util;
 import net.savantly.sprout.core.security.privilege.Privilege;
 import net.savantly.sprout.core.security.role.Role;
+import net.savantly.sprout.core.tenancy.TenantKeyedEntity;
 
 @Getter @Setter
 @Entity
-public class SproutUserEntity extends PersistedDomainObject implements CredentialsContainer, SproutUser {
+public class SproutUserEntity extends TenantKeyedEntity implements CredentialsContainer, SproutUser {
 
     private static final long serialVersionUID = 6629698068044899330L;
 
@@ -64,7 +64,6 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
     	return password;
     }
     
-	@Column(unique = true)
     private String username;
 
 	@Size(min = 1)
@@ -93,13 +92,16 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
     @CollectionTable(name="APP_USER_EMAIL_ADDRESS")
     private Set<EmailAddress> emailAddresses = new HashSet<>();
 	
-	@ManyToMany(targetEntity=Role.class, fetch=FetchType.EAGER)
-    @JoinTable( 
-        name = "users_roles", 
-        joinColumns = @JoinColumn(
-          name = "user_id", referencedColumnName = "id"), 
-        inverseJoinColumns = @JoinColumn(
-          name = "role_id", referencedColumnName = "id"))
+	@ManyToMany(fetch=FetchType.EAGER, targetEntity=Role.class, cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+	@JoinTable(name = "user_roles",
+	    joinColumns = {
+	    		@JoinColumn(name="user_id", referencedColumnName = "item_id"),
+	    		@JoinColumn(name="user_tenant_id", referencedColumnName = "tenant_id")
+	    		},
+	    inverseJoinColumns = {
+	    		@JoinColumn(name = "role_id", referencedColumnName = "id")
+	    		}
+	)
     private Set<Role> roles = new HashSet<>();
 
 
@@ -158,7 +160,7 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
         this.accountNonExpired = accountNonExpired;
         this.credentialsNonExpired = credentialsNonExpired;
         this.accountNonLocked = accountNonLocked;
-        this.roles = roles;
+        roles.forEach(r -> this.addRole(r));
     }
 
     // ~ Methods
@@ -207,6 +209,11 @@ public class SproutUserEntity extends PersistedDomainObject implements Credentia
     // ************************
     // Rich domain methods
     // ************************
+    
+    public SproutUserEntity addRole(Role role) {
+    	this.roles.add(role);
+    	return this;
+    }
 
     @Transient
     @Override
