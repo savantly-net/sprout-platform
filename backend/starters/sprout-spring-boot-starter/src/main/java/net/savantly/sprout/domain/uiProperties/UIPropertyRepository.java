@@ -7,7 +7,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import net.savantly.sprout.core.tenancy.TenantedJpaRepository;
 
 @RepositoryRestResource(path="uiProperties")
-interface UIPropertyRepository extends TenantedJpaRepository<UIProperty, String> {
+public interface UIPropertyRepository extends TenantedJpaRepository<UIProperty, String> {
 	
 	List<UIProperty> findByName(String settingName);
 
