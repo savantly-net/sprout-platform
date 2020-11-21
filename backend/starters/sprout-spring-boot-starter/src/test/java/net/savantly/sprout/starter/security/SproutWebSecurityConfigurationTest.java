@@ -1,4 +1,4 @@
-package net.savantly.sprout.starter;
+package net.savantly.sprout.starter.security;
 
 import java.net.URI;
 
@@ -85,7 +85,7 @@ public class SproutWebSecurityConfigurationTest {
 		ResponseEntity<String> response = rest.getForEntity(url, String.class);
 		
 		log.info("{}", response.getBody());
-		Assertions.assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode(), "Should fail to access");
+		Assertions.assertEquals(HttpStatus.FOUND, response.getStatusCode(), "Should fail to access");
 	}
 	
 	@Test

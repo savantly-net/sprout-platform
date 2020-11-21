@@ -39,7 +39,7 @@ public interface SproutUser extends UserDetails {
 	
 	Set<Role> getRoles();
 	
-	static SproutUser guestUser() {
+	static SproutUser anonymousUser() {
 		return new SproutUser() {
 			
 			@Override
@@ -64,7 +64,7 @@ public interface SproutUser extends UserDetails {
 			
 			@Override
 			public String getUsername() {
-				return "guest";
+				return "anonymousUser";
 			}
 			
 			@Override

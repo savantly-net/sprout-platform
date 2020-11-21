@@ -22,6 +22,7 @@ const buildCjsPackage = ({ env }) => {
       },
     ],
     external: [
+      'axios',
       'lodash', 
       'rxjs', 
       'react', 

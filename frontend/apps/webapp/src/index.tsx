@@ -1,5 +1,5 @@
 import { AppEvents, standardEditorsRegistry, UrlQueryValue } from '@savantly/sprout-api';
-import { config, setBackendSrv, setLocationSrv } from '@savantly/sprout-runtime';
+import { config, setLocationSrv } from '@savantly/sprout-runtime';
 import { getStandardOptionEditors } from '@savantly/sprout-ui';
 import $ from 'jquery';
 import React from 'react';
@@ -9,7 +9,6 @@ import { AppContainer } from './AppContainer';
 import appEvents from './core/app_events';
 //import { updateLocation } from "./core/actions";
 import ErrorBoundary from './core/components/error/error-boundary';
-import { getBackendSrv } from './core/services/backend_srv';
 import locationSvc from './core/services/locationSvc';
 import { setViewModeBodyClass } from './core/utils/viewMode';
 import { builtInPluginMeta } from './features/plugins/built_in_plugins';
@@ -22,7 +21,6 @@ const store = configureStore();
 const locationService = locationSvc(history);
 
 setLocationSrv(locationService);
-setBackendSrv(getBackendSrv());
 
 const location = window.location;
 console.log(location);

@@ -13,9 +13,9 @@ import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidatorResult;
 import org.springframework.security.oauth2.jwt.Jwt;
 
-import net.savantly.authorization.service.PermissionAwareJwtAuthenticationConverter;
 import net.savantly.authorization.service.PermissionProvider;
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
+import net.savantly.sprout.core.security.SproutUserService;
 import net.savantly.sprout.starter.security.conditions.AnyJwkUriConfigured;
 import net.savantly.sprout.starter.security.conditions.NoJwkUriConfigured;
 
@@ -39,8 +39,8 @@ public class JWTAutoConfiguration {
 	}
 
 	@Bean
-	public PermissionAwareJwtAuthenticationConverter jwtAuthenticationConverter(PermissionProvider permissionProvider) {
-		return new PermissionAwareJwtAuthenticationConverter(permissionProvider, 
+	public DefaultJwtAuthenticationConverter jwtAuthenticationConverter(PermissionProvider permissionProvider, SproutUserService users) {
+		return new DefaultJwtAuthenticationConverter(users, permissionProvider, 
 				properties.getSecurity().getAuthentication().getJwt().getGroupsClaim());
 	}
 
@@ -48,7 +48,7 @@ public class JWTAutoConfiguration {
 	@ConditionalOnMissingBean({ JWTConfigurer.class })
 	@Conditional(AnyJwkUriConfigured.class)
 	public JWTConfigurer oauthJwtConfigurer(
-			PermissionAwareJwtAuthenticationConverter jwtAuthenticationConverter) {
+			DefaultJwtAuthenticationConverter jwtAuthenticationConverter) {
 		return new JWTConfigurer() {
 			@Override
 			public void configure(HttpSecurity builder) throws Exception {

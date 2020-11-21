@@ -22,7 +22,7 @@ public class SproutAuditorAware implements AuditorAware<SproutUser> {
             	return Optional.of((SproutUserEntity) authentication.getPrincipal());
             } else {
             	//throw new RuntimeException("Invalid Security Principal.");
-            	return Optional.of(SproutUser.guestUser());
+            	return Optional.of(SproutUser.anonymousUser());
             }
         }
 

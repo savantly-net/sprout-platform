@@ -1,4 +1,5 @@
 import { StandardEditorProps } from '../field/standardFieldConfigEditorRegistry';
+import { PanelPlugin } from '../panel/panelPlugin';
 import { Registry } from '../utils/Registry';
 import { LoadingState } from './data';
 import { OptionsEditorItem } from './OptionsUIRegistryBuilder';
@@ -152,21 +153,12 @@ export interface PanelMenuItem {
   subMenu?: PanelMenuItem[];
 }
 
-/**
- * @internal
- */
-export interface AngularPanelMenuItem {
-  click: Function;
-  icon: string;
-  href: string;
-  divider: boolean;
-  text: string;
-  shortcut: string;
-  submenu: any[];
-}
-
 export enum VizOrientation {
   Auto = 'auto',
   Vertical = 'vertical',
   Horizontal = 'horizontal',
+}
+
+export interface PanelRegistrationService {
+  registerPanelPlugin: (panelPlugin: PanelPlugin) => void;
 }

@@ -27,14 +27,14 @@ export const useDashboardSave = (dashboard: DashboardModel) => {
   );
 
   useEffect(() => {
-    if (state.value) {
-      dashboard.version = state.value.version;
+    if (state.value && state.value.data) {
+      dashboard.version = state.value.data.version;
 
       // important that these happen before location redirect below
       appEvents.emit(CoreEvents.dashboardSaved, dashboard);
       appEvents.emit(AppEvents.alertSuccess, ['Dashboard saved']);
 
-      const newUrl = locationUtil.stripBaseFromUrl(state.value.url);
+      const newUrl = locationUtil.stripBaseFromUrl(state.value.data.url);
       const currentPath = location.pathname;
 
       if (newUrl !== currentPath) {
@@ -47,5 +47,5 @@ export const useDashboardSave = (dashboard: DashboardModel) => {
     }
   }, [state]);
 
-  return { state, onDashboardSave };
+  return { state: state?.value?.data, onDashboardSave };
 };

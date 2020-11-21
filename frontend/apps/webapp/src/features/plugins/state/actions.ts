@@ -1,22 +1,24 @@
 import { NavModelItem, PanelPlugin, PluginIncludeType, PluginMeta } from '@savantly/sprout-api';
-import { getBackendSrv } from '@savantly/sprout-runtime';
+import Axios from 'axios';
 import { addRootNavs } from '../../../core/reducers/navTree';
 import { ThunkResult } from '../../../types';
 import { builtInPluginMeta } from '../built_in_plugins';
+import { loadPlugin } from '../PluginPage';
 import { importPanelPlugin } from '../plugin_loader';
 import { panelPluginLoaded, pluginsLoaded } from './reducers';
 
 export function loadPlugins(): ThunkResult<void> {
   return async (dispatch) => {
-    const result = await getBackendSrv().get('/api/plugins', { embedded: 0 });
+    const result = await Axios.get('/api/plugins', { params: { embedded: 0 } });
 
-    const pluginMetas = result as PluginMeta[];
+    const pluginMetas = result.data as PluginMeta[];
     // add built-in plugins
     pluginMetas.push(builtInPluginMeta.iframe, builtInPluginMeta.text);
 
 
     const navItems: NavModelItem[] = [];
     pluginMetas.forEach((p) => {
+      // Process 'includes' listed in meta
       if (p.includes) {
         const rootNav: NavModelItem = {
           id: p.id,
@@ -44,6 +46,18 @@ export function loadPlugins(): ThunkResult<void> {
             }
           });
         }
+      }
+      // if preload is set, load the plugin immediately
+      if (p.preload) {
+        loadPlugin(p.id).then(plugin => {
+          if (plugin.loadError) {
+            console.error('failed loading plugin:', p);
+          } else {
+            console.log('loaded plugin:', p)
+          }
+        }).catch(err => {
+          console.error(err);
+        });
       }
     });
     dispatch(addRootNavs(navItems));

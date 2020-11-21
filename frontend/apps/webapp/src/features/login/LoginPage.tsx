@@ -77,7 +77,7 @@ export const LoginPage = ({
                 onFailure={(error) =>
                   dispatch(
                     login({
-                      errorMessage: error
+                      errorMessage: error.message
                     })
                   )
                 }

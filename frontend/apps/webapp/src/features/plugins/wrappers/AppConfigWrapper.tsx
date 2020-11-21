@@ -1,13 +1,11 @@
 // Libraries
 import { Button } from '@savantly/sprout-ui';
 import { AppPlugin, AppRootProps, KeyValue, PluginMeta } from '@savantly/sprout-api';
-import { getBackendSrv } from '@savantly/sprout-runtime';
 import { css } from 'emotion';
 import cloneDeep from 'lodash/cloneDeep';
 import extend from 'lodash/extend';
 import React, { ComponentClass, PureComponent } from 'react';
-
-
+import Axios from 'axios';
 
 interface Props {
   app: AppPlugin;
@@ -81,7 +79,7 @@ export class AppConfigCtrlWrapper extends PureComponent<Props, State> {
         },
         {}
       );
-      return getBackendSrv().post(`/api/plugins/${pluginId}/settings`, updateCmd);
+      return Axios.post(`/api/plugins/${pluginId}/settings`, updateCmd);
   };
 
   enable = () => {

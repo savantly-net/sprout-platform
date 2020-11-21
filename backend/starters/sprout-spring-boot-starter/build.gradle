@@ -18,6 +18,29 @@ sourceCompatibility = '1.8'
 //apply from: "${rootProject.projectDir}/gradle/sonar.gradle"
 apply from: "${rootProject.projectDir}/gradle/sonatype.gradle"
 
+// run `./gradlew :sprout-spring-boot-starter:dev -Psuspend=y` to suspend for debugger connection
+def suspend = project.ext.properties.suspend
+if(!suspend) {
+	suspend = 'n'
+}
+task dev(type: JavaExec) {
+    group = "Execution"
+    description = "Run the test app class with JavaExecTask"
+    classpath = sourceSets.test.runtimeClasspath
+    classpath += sourceSets.main.runtimeClasspath
+    main = 'example.TestApplication'
+    jvmArgs=[
+  	  "-agentlib:jdwp=transport=dt_socket,server=y,suspend=$suspend,address=18080"
+    ]
+}
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+}
+
 dependencies {
 	api project(':sprout-core')
 	
@@ -53,7 +76,9 @@ dependencies {
 		'javax.interceptor:javax.interceptor-api:1.2'
     annotationProcessor 'org.projectlombok:lombok',
         'org.springframework.boot:spring-boot-configuration-processor'
-        
+    
+	developmentOnly "org.springframework.boot:spring-boot-devtools"
+	
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}

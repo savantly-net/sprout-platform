@@ -2,6 +2,8 @@ package net.savantly.sprout.starter.security;
 
 import java.util.Collection;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import net.savantly.authorization.service.PermissionAwareUserDetailsService;
 import net.savantly.authorization.service.PermissionProvider;
 import net.savantly.sprout.core.domain.user.SproutUser;
@@ -14,6 +16,11 @@ public class PermissionAwareSproutUserService extends PermissionAwareUserDetails
 			PermissionProvider permissionProvider) {
 		super(userDetailsService, permissionProvider);
 		this.userDetailsService = userDetailsService;
+	}
+	
+	@Override
+	public SproutUser loadUserByUsername(String username) throws UsernameNotFoundException {
+		return userDetailsService.loadUserByUsername(username);
 	}
 
 	@Override

@@ -55,6 +55,7 @@ public class SproutConfigurationProperties {
 		private List<String> anonymousAuthorities = Arrays.asList("ANONYMOUS");
 		private List<String> publicPaths = Arrays.asList("/api/ui-properties", "/api/authentication/oauth");
 		private List<String> authenticatedPaths = Arrays.asList("/api/repo/**", "/v3/**", "/admin/**");
+		private String cookieHmacKey = UUID.randomUUID().toString();
     }
 	
 	@Getter

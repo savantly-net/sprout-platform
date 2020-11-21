@@ -1,12 +1,10 @@
 import { AppEvents, PluginMeta } from '@savantly/sprout-api';
-import { getBackendSrv } from '@savantly/sprout-runtime';
+import axios from 'axios';
 import extend from 'lodash/extend';
 import React, { PureComponent } from 'react';
 import { appEvents } from '../../core/app_events';
-import DashboardsTable from '../datasources/DashboardsTable';
 import { PluginDashboard } from '../../types';
-
-
+import DashboardsTable from '../datasources/DashboardsTable';
 
 interface Props {
   plugin: PluginMeta;
@@ -22,17 +20,15 @@ export class PluginDashboards extends PureComponent<Props, State> {
     super(props);
     this.state = {
       loading: true,
-      dashboards: [],
+      dashboards: []
     };
   }
 
   async componentDidMount() {
     const pluginId = this.props.plugin.id;
-    getBackendSrv()
-      .get(`/api/plugins/${pluginId}/dashboards`)
-      .then((dashboards: any) => {
-        this.setState({ dashboards, loading: false });
-      });
+    axios.get<PluginDashboard[]>(`/api/plugins/${pluginId}/dashboards`).then((response) => {
+      this.setState({ dashboards: response.data, loading: false });
+    });
   }
 
   importAll = () => {
@@ -43,7 +39,7 @@ export class PluginDashboards extends PureComponent<Props, State> {
     const { dashboards } = this.state;
     return this.import(dashboards[index], true).then(() => {
       if (index + 1 < dashboards.length) {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           setTimeout(() => {
             this.importNext(index + 1).then(() => {
               resolve();
@@ -63,21 +59,19 @@ export class PluginDashboards extends PureComponent<Props, State> {
       pluginId: plugin.id,
       path: dash.path,
       overwrite: overwrite,
-      inputs: [],
+      inputs: []
     };
 
-    return getBackendSrv()
-      .post(`/api/dashboards/import`, installCmd)
-      .then((res: PluginDashboard) => {
+    return axios.post(`/api/dashboards/import`, installCmd)
+      .then((res) => {
         appEvents.emit(AppEvents.alertSuccess, ['Dashboard Imported', dash.title]);
-        extend(dash, res);
+        extend(dash, res.data);
         this.setState({ dashboards: [...this.state.dashboards] });
       });
   };
 
   remove = (dash: PluginDashboard) => {
-    getBackendSrv()
-      .delete('/api/dashboards/' + dash.importedUri)
+    axios.delete('/api/dashboards/' + dash.importedUri)
       .then(() => {
         dash.imported = false;
         this.setState({ dashboards: [...this.state.dashboards] });

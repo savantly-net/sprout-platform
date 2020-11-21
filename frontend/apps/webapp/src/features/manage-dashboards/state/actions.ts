@@ -1,34 +1,17 @@
-import { AppEvents } from '@savantly/sprout-api';
-import { appEvents } from '../../../core/app_events';
+import axios from 'axios';
 import { getBackendSrv } from '../../../core/services/backend_srv';
 import { DashboardDataDTO, DashboardDTO, FolderInfo, ThunkResult } from '../../../types';
-import {
-  clearDashboard,
-  setGcomDashboard, setInputs,
-  setJsonDashboard
-} from './reducers';
-
-export function fetchGcomDashboard(id: string): ThunkResult<void> {
-  return async dispatch => {
-    try {
-      const dashboard = await getBackendSrv().get(`/api/gnet/dashboards/${id}`);
-      dispatch(setGcomDashboard(dashboard));
-      dispatch(processInputs(dashboard.json));
-    } catch (error) {
-      appEvents.emit(AppEvents.alertError, [error.data.message || error]);
-    }
-  };
-}
+import { clearDashboard, setInputs, setJsonDashboard } from './reducers';
 
 export function importDashboardJson(dashboard: any): ThunkResult<void> {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch(setJsonDashboard(dashboard));
     dispatch(processInputs(dashboard));
   };
 }
 
 function processInputs(dashboardJson: any): ThunkResult<void> {
-  return dispatch => {
+  return (dispatch) => {
     if (dashboardJson && dashboardJson.__inputs) {
       const inputs: any[] = [];
       dashboardJson.__inputs.forEach((input: any) => {
@@ -39,7 +22,7 @@ function processInputs(dashboardJson: any): ThunkResult<void> {
           value: input.value,
           type: input.type,
           pluginId: input.pluginId,
-          options: [],
+          options: []
         };
 
         if (!inputModel.info) {
@@ -54,7 +37,7 @@ function processInputs(dashboardJson: any): ThunkResult<void> {
 }
 
 export function clearLoadedDashboard(): ThunkResult<void> {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(clearDashboard());
   };
 }
@@ -70,13 +53,14 @@ export function moveDashboards(dashboardUids: string[], toFolder: FolderInfo) {
     return {
       totalCount: result.length,
       successCount: result.filter((res: any) => res.succeeded).length,
-      alreadyInFolderCount: result.filter((res: any) => res.alreadyInFolder).length,
+      alreadyInFolderCount: result.filter((res: any) => res.alreadyInFolder).length
     };
   });
 }
 
 async function moveDashboard(uid: string, toFolder: FolderInfo) {
-  const fullDash: DashboardDTO = await getBackendSrv().getDashboardByUid(uid);
+  const response = await getBackendSrv().getDashboardByUid(uid);
+  const fullDash: DashboardDTO = response.data;
 
   if ((!fullDash.meta.folderId && toFolder.id === 0) || fullDash.meta.folderId === toFolder.id) {
     return { alreadyInFolder: true };
@@ -85,7 +69,7 @@ async function moveDashboard(uid: string, toFolder: FolderInfo) {
   const options = {
     dashboard: fullDash.dashboard,
     folderId: toFolder.id,
-    overwrite: false,
+    overwrite: false
   };
 
   try {
@@ -145,32 +129,24 @@ export interface SaveDashboardOptions {
 }
 
 export function saveDashboard(options: SaveDashboardOptions) {
-  return getBackendSrv().post('/api/dashboards/db/', {
+  return axios.post('/api/dashboards/db/', {
     dashboard: options.dashboard,
     message: options.message ?? '',
     overwrite: options.overwrite ?? false,
-    folderId: options.folderId,
+    folderId: options.folderId
   });
 }
 
 function deleteFolder(uid: string, showSuccessAlert: boolean) {
-  return getBackendSrv().request({
-    method: 'DELETE',
-    url: `/api/folders/${uid}`,
-    showSuccessAlert: showSuccessAlert === true,
-  });
+  return axios.delete(`/api/folders/${uid}`);
 }
 
 export function createFolder(payload: any) {
-  return getBackendSrv().post('/api/folders', payload);
+  return axios.post('/api/folders', payload);
 }
 
 export function deleteDashboard(uid: string, showSuccessAlert: boolean) {
-  return getBackendSrv().request({
-    method: 'DELETE',
-    url: `/api/dashboards/uid/${uid}`,
-    showSuccessAlert: showSuccessAlert === true,
-  });
+  return axios.delete(`/api/dashboards/uid/${uid}`);
 }
 
 function executeInOrder(tasks: any[]) {

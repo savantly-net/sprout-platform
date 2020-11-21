@@ -2,8 +2,7 @@ package net.savantly.sprout.autoconfigure;
 
 import java.util.List;
 
-import javax.servlet.Filter;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -11,7 +10,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 
 import net.savantly.authorization.service.PermissionProvider;
@@ -25,49 +23,65 @@ import net.savantly.sprout.core.security.SproutUserService;
 import net.savantly.sprout.core.security.SproutUserServiceImpl;
 import net.savantly.sprout.core.security.role.RoleRepository;
 import net.savantly.sprout.starter.SproutWebSecurityConfiguration;
-import net.savantly.sprout.starter.security.CustomAnonymousFilter;
 import net.savantly.sprout.starter.security.PermissionAwareSproutUserService;
 import net.savantly.sprout.starter.security.SecurityCustomizer;
 import net.savantly.sprout.starter.security.basic.BasicAuthAutoConfiguration;
 import net.savantly.sprout.starter.security.jwt.JWTAutoConfiguration;
 import net.savantly.sprout.starter.security.oauth.OAuthAutoConfiguration;
 import net.savantly.sprout.starter.security.permissions.PermissionsConfiguration;
+import net.savantly.sprout.starter.security.session.CookieSecurityContextRepository;
+import net.savantly.sprout.starter.security.session.LoginWithTargetUrlAuthenticationEntryPoint;
+import net.savantly.sprout.starter.security.session.RedirectToOriginalUrlAuthenticationSuccessHandler;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@Import({
-	SecurityProblemSupport.class, 
-	PermissionsConfiguration.class,
-	OAuthAutoConfiguration.class,
-	JWTAutoConfiguration.class,
-	BasicAuthAutoConfiguration.class})
+@Import({ SecurityProblemSupport.class, PermissionsConfiguration.class, OAuthAutoConfiguration.class,
+		JWTAutoConfiguration.class, BasicAuthAutoConfiguration.class })
 public class SproutSecurityAutoConfiguration {
 
+	@Autowired
+	private SproutConfigurationProperties props;
+	
 	@Bean
 	public AuthenticationManager authenticationManager(SproutWebSecurityConfiguration securityConfig) throws Exception {
 		return securityConfig.authenticationManagerBean();
 	}
 
 	@Bean
-	public SproutWebSecurityConfiguration sproutWebSecurityConfiguration(
-			UserDetailsService userDetailsService, SecurityProblemSupport problemSupport, List<SecurityCustomizer> securityCustomizers, 
-			SproutConfigurationProperties sproutConfig) {
-		return new SproutWebSecurityConfiguration(sproutConfig,
-				getAnonymousFilter(userDetailsService), problemSupport, securityCustomizers);
+	public SproutWebSecurityConfiguration sproutWebSecurityConfiguration(UserDetailsService userDetailsService,
+			SecurityProblemSupport problemSupport, List<SecurityCustomizer> securityCustomizers,
+			SproutConfigurationProperties sproutConfig, CookieSecurityContextRepository cookieSecurityContextRepository,
+			LoginWithTargetUrlAuthenticationEntryPoint loginWithTargetUrlAuthenticationEntryPoint,
+			RedirectToOriginalUrlAuthenticationSuccessHandler redirectToOriginalUrlAuthenticationSuccessHandler) {
+		return new SproutWebSecurityConfiguration(sproutConfig, problemSupport,
+				securityCustomizers, cookieSecurityContextRepository, loginWithTargetUrlAuthenticationEntryPoint,
+				redirectToOriginalUrlAuthenticationSuccessHandler);
+	}
+	
+	@Bean
+	public RedirectToOriginalUrlAuthenticationSuccessHandler redirectToOriginalUrlAuthenticationSuccessHandler() {
+		return new RedirectToOriginalUrlAuthenticationSuccessHandler();
+	}
+	
+	@Bean
+	public LoginWithTargetUrlAuthenticationEntryPoint loginWithTargetUrlAuthenticationEntryPoint() {
+		return new LoginWithTargetUrlAuthenticationEntryPoint();
 	}
 
 	@Bean
-	public HttpSessionSecurityContextRepository securityContextRepository() {
-		return new HttpSessionSecurityContextRepository();
+	public CookieSecurityContextRepository securityContextRepository(SproutUserService userService) {
+		return new CookieSecurityContextRepository(props.getSecurity().getCookieHmacKey(), userService);
 	}
 
 	@Bean("userDetailsService")
 	public SproutUserService sproutUserDetailsService(UserRepository userRepository,
-			EmailAddressRepository emailAddressRepository, PermissionProvider permissionProvider, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+			EmailAddressRepository emailAddressRepository, PermissionProvider permissionProvider,
+			RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
 
-		SproutUserServiceImpl userDetailsService = new SproutUserServiceImpl(userRepository, emailAddressRepository, roleRepository, passwordEncoder);
-		PermissionAwareSproutUserService permissionAwareUserDetailsService = 
-				new PermissionAwareSproutUserService(userDetailsService, permissionProvider);
+		SproutUserServiceImpl userDetailsService = new SproutUserServiceImpl(userRepository, emailAddressRepository,
+				roleRepository, passwordEncoder);
+		PermissionAwareSproutUserService permissionAwareUserDetailsService = new PermissionAwareSproutUserService(
+				userDetailsService, permissionProvider);
 		return permissionAwareUserDetailsService;
 	}
 
@@ -75,7 +89,7 @@ public class SproutSecurityAutoConfiguration {
 	public SproutPasswordEncoder sproutPasswordEncoder() {
 		return new SproutPasswordEncoder();
 	}
-	
+
 	@Bean
 	public UserPersistenceListener userPersistenceListener(PasswordEncoder pwEncoder) {
 		return new UserPersistenceListener(pwEncoder);
@@ -86,7 +100,4 @@ public class SproutSecurityAutoConfiguration {
 		return new SproutAuditorAware();
 	}
 
-	private Filter getAnonymousFilter(UserDetailsService userDetailsService) {
-		return new CustomAnonymousFilter(userDetailsService);
-	}
 }

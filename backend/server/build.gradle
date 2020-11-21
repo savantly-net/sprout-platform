@@ -28,9 +28,27 @@ bootRun {
 bootJar {
     layered()
 }
+// run `./gradlew :sprout-modules-forms:dev -Psuspend=y` to suspend for debugger connection
+task dev(type: JavaExec) {
+    group = "Execution"
+    description = "Run the app class with JavaExecTask"
+    //classpath = sourceSets.test.runtimeClasspath
+    classpath += sourceSets.main.runtimeClasspath
+    main = 'net.savantly.sprout.server.SproutApplication'
+    jvmArgs=[
+  	  "-agentlib:jdwp=transport=dt_socket,server=y,suspend=$suspend,address=18080"
+    ]
+}
 
 task uploadArchives {
  // Don't publish the example server
+}
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
 }
 
 dependencies {
@@ -53,6 +71,8 @@ dependencies {
 		'org.postgresql:postgresql'
 
 	compileOnly 'org.projectlombok:lombok'
+	
+	developmentOnly "org.springframework.boot:spring-boot-devtools"
     annotationProcessor 'org.projectlombok:lombok',
         'org.springframework.boot:spring-boot-configuration-processor'
         

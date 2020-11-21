@@ -1,5 +1,5 @@
-import { getBackendSrv } from '@savantly/sprout-runtime';
 import { PluginMeta } from '@savantly/sprout-api';
+import Axios from 'axios';
 
 type PluginCache = {
   [key: string]: PluginMeta;
@@ -12,11 +12,11 @@ export function getPluginSettings(pluginId: string): Promise<PluginMeta> {
   if (v) {
     return Promise.resolve(v);
   }
-  return getBackendSrv()
+  return Axios
     .get(`/api/plugins/${pluginId}/settings`)
-    .then((settings: any) => {
-      pluginInfoCache[pluginId] = settings;
-      return settings;
+    .then((response) => {
+      pluginInfoCache[pluginId] = response.data;
+      return response.data;
     })
     .catch((err: any) => {
       // err.isHandled = true;

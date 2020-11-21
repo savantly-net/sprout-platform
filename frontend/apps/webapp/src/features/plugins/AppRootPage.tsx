@@ -43,7 +43,7 @@ const AppRootPage: FC<Props> = ({
   useMemo(() => {
     try {
       getPluginSettings(params.pluginId).then((info) => {
-        const error = getAppPluginPageError(info);
+        const error = getAppPluginPageError(info as AppPluginMeta<KeyValue<any>>);
         if (error) {
           appEvents.emit(AppEvents.alertError, [error]);
           setNav(getWarningNav(error));

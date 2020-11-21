@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react';
 import { renderMarkdown } from '@savantly/sprout-api';
-import { getBackendSrv } from '@savantly/sprout-runtime';
+import axios from 'axios';
+import React, { PureComponent } from 'react';
 
 interface Props {
   plugin: {
@@ -35,12 +35,12 @@ export class PluginHelp extends PureComponent<Props, State> {
     const { plugin, type } = this.props;
     this.setState({ isLoading: true });
 
-    getBackendSrv()
-      .get(`/api/plugins/${plugin.id}/markdown/${type}`)
-      .then((response: string) => {
-        const helpHtml = renderMarkdown(response);
+    axios
+      .get<string>(`/api/plugins/${plugin.id}/markdown/${type}`)
+      .then((response) => {
+        const helpHtml = renderMarkdown(response.data);
 
-        if (response === '' && type === 'help') {
+        if (response.data === '' && type === 'help') {
           this.setState({
             isError: false,
             isLoading: false,

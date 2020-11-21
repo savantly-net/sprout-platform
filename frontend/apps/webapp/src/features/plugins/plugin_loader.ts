@@ -142,3 +142,16 @@ export function importPanelPlugin(id: string): Promise<PanelPlugin> {
 
   return panelCache[id];
 }
+
+/**
+ * inversion of control to allow plugins to dynamically register panels themselves.
+ * 
+ * @param panelPlugin A panel plugin to register
+ */
+export const registerPanelPlugin = (panelPlugin: PanelPlugin) => {
+  // If it's already loaded, don't do anything
+  if(panelCache[panelPlugin.meta.id]) {
+    return; 
+  }
+  panelCache[panelPlugin.meta.id] = Promise.resolve(panelPlugin);
+}

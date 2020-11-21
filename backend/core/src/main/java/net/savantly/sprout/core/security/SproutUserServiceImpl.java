@@ -6,7 +6,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +36,7 @@ public class SproutUserServiceImpl implements SproutUserService {
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public SproutUser loadUserByUsername(String username) throws UsernameNotFoundException {
 		SproutUserEntity user = userRepository.findOneByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException(String.format("User not found: %s", username));

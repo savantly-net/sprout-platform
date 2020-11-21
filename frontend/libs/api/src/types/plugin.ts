@@ -27,6 +27,7 @@ export interface PluginMeta<T extends KeyValue = {}> {
   info: PluginMetaInfo;
   includes?: PluginInclude[];
   state?: PluginState;
+  preload?: boolean; // if true, the module will be loaded on discovery
 
   // System.load & relative URLS
   module: string;
@@ -71,7 +72,6 @@ export interface PluginInclude {
   name: string;
   path?: string;
   icon?: string;
-
   role?: string; // "Viewer", Admin, editor???
   addToNav?: boolean; // Show in the sidebar... only if type=page?
 }

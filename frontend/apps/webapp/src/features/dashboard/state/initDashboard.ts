@@ -1,28 +1,24 @@
 // Services & Utils
-import { createErrorNotification } from '../../../core/copy/appNotification';
-import { backendSrv } from '../../../core/services/backend_srv';
-import { dashboardLoaderService } from '../services/DashboardLoaderSrv';
+import axios from 'axios';
 // Actions
 import { notifyApp } from '../../../core/actions';
+import { createErrorNotification } from '../../../core/copy/appNotification';
+// Types
+import {
+  DashboardDTO,
+  DashboardInitPhase, DashboardRouteInfo,
+  ThunkDispatch,
+  ThunkResult
+} from '../../../types';
+import { dashboardLoaderService } from '../services/DashboardLoaderSrv';
+import { DashboardModel } from './DashboardModel';
 import {
   dashboardInitCompleted,
   dashboardInitFailed,
   dashboardInitFetching,
   dashboardInitServices,
-  dashboardInitSlow,
+  dashboardInitSlow
 } from './reducers';
-// Types
-import {
-  DashboardDTO,
-  DashboardRouteInfo,
-  StoreState,
-  ThunkDispatch,
-  ThunkResult,
-  DashboardInitPhase,
-} from '../../../types';
-import { DashboardModel } from './DashboardModel';
-import { locationUtil } from '@savantly/sprout-api';
-import { Navigate, useNavigate } from 'react-router-dom';
 
 export interface InitDashboardArgs {
   urlUid?: string;
@@ -40,7 +36,8 @@ async function fetchDashboard(
     switch (args.routeInfo) {
       case DashboardRouteInfo.Home: {
         // load home dash
-        const dashDTO: DashboardDTO = await backendSrv.get('/api/dashboards/home');
+        const response = await axios.get('/api/dashboards/home');
+        const dashDTO: DashboardDTO = response.data;
 
         args.navigate(`/d/${dashDTO.dashboard.uid}/`, { replace: true});
 
