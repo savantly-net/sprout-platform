@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -26,8 +28,10 @@ import org.springframework.security.web.util.matcher.RequestHeaderRequestMatcher
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
-import net.savantly.sprout.core.domain.user.SproutUser;
 import net.savantly.sprout.starter.security.SecurityCustomizer;
 import net.savantly.sprout.starter.security.session.CookieSecurityContextRepository;
 import net.savantly.sprout.starter.security.session.LoginWithTargetUrlAuthenticationEntryPoint;
@@ -35,6 +39,10 @@ import net.savantly.sprout.starter.security.session.RedirectToOriginalUrlAuthent
 import net.savantly.sprout.starter.security.session.SignedUserInfoCookie;
 
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(
+	prePostEnabled = true, // (1)
+	securedEnabled = true, // (2)
+	jsr250Enabled = true)
 public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 	private final static Logger log = LoggerFactory.getLogger(SproutWebSecurityConfiguration.class);
@@ -75,16 +83,15 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		
+		logSettings();
 
 		http
         	.headers()
         	.frameOptions().disable()
-        .and()
-            .authorizeRequests()
-            .antMatchers(LOGIN_FORM_URL).permitAll()
-            .antMatchers("/api/login", "/api/public/**", "/api/authentication/oauth").permitAll()
-            .antMatchers(configProps.getSecurity().getAuthenticatedPaths().toArray(new String[0])).authenticated()
-            .antMatchers(configProps.getSecurity().getPublicPaths().toArray(new String[0])).permitAll()
+        //.and()
+        //    .authorizeRequests().antMatchers(HttpMethod.GET, "/v3/api-docs/swagger-config").hasAuthority("ADMIN")
+            
         .and()
 	     	// store SecurityContext in Cookie / delete Cookie on logout
 	        .securityContext().securityContextRepository(cookieSecurityContextRepository)
@@ -109,14 +116,11 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
         .and()
         	// deactivate RequestCache and append originally requested URL as query parameter to login form request
             .requestCache().disable()
-            .exceptionHandling()
-            .authenticationEntryPoint(authenticationEntryPoint())
-            .accessDeniedHandler(problemSupport)
+            //.exceptionHandling()
+            //.authenticationEntryPoint(authenticationEntryPoint())
+            //.accessDeniedHandler(problemSupport)
         	//.accessDeniedPage("/errors/403")
-        .and()
-        	.anonymous()
-        	.principal(SproutUser.anonymousUser())
-        	.authorities(configProps.getSecurity().getAnonymousAuthorities().toArray(new String[0]))
+        
         //.oauth2ResourceServer().jwt().and().and()
         	// adds a default role for anonymous users
         	//.addFilterBefore(anonymousFilter , BasicAuthenticationFilter.class)
@@ -133,6 +137,16 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 		
 	}
 	
+	private void logSettings() {
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			log.debug("using security settings: {}", mapper.writeValueAsString(this.configProps.getSecurity()));
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException("failed to parse security configuration", e);
+		}
+		
+	}
+
 	LogoutSuccessHandler logoutSuccessHandler(){
 		return new LogoutSuccessHandler() {
 			@Override

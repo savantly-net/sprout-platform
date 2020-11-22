@@ -23,7 +23,7 @@ public class Privilege extends TenantedPersistedDomainObject implements GrantedA
 	@Override
 	@Transient
 	public String getAuthority() {
-		return id;
+		return name;
 	}
 
 	@Override

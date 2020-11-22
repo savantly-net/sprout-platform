@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,9 +27,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.security.InvalidKeyException;
 import net.savantly.sprout.test.IntegrationTest;
 
-@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT,
-		properties = {"spring.security.oauth2.resourceserver.jwt.jwk-set-uri=https://savantly.mocklab.io/.well-known/jwks.json"})
+@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 @IntegrationTest
+@ActiveProfiles({"jwt"})
 public class JWTAutoConfigurationTest {
 
 	private static final Logger log = LoggerFactory.getLogger(JWTAutoConfigurationTest.class);
@@ -49,8 +50,8 @@ public class JWTAutoConfigurationTest {
 		//System.setProperty("spring.freemarker.template-loader-path", "classpath:/templates/");
 	}
 
-	// mocklab is being flakey
-	//@Test
+	// disable if mocklab is being flakey
+	@Test
 	public void useBearer() throws Exception {
 		String url = "/admin/";
 		

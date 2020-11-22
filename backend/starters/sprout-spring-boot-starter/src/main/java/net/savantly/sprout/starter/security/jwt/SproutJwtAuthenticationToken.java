@@ -1,22 +1,67 @@
 package net.savantly.sprout.starter.security.jwt;
 
-import org.springframework.security.oauth2.jwt.Jwt;
+import java.util.Collection;
+
+import javax.security.auth.Subject;
+
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 
-import net.savantly.sprout.core.domain.user.SproutUser;
+import net.savantly.sprout.core.security.SproutUserService;
 
-public class SproutJwtAuthenticationToken extends JwtAuthenticationToken {
+public class SproutJwtAuthenticationToken extends AbstractAuthenticationToken {
 	
-	private final SproutUser principal;
+	private final JwtAuthenticationToken token;
+	private final SproutUserService users;
+	
+	public SproutJwtAuthenticationToken(JwtAuthenticationToken token, SproutUserService users) {
+		super(token.getAuthorities());
+		this.users = users;
+		this.token = token;
+	}
 
-	public SproutJwtAuthenticationToken(Jwt jwt, SproutUser user) {
-		super(jwt);
-		this.principal = user;
+	@Override
+	public Collection<GrantedAuthority> getAuthorities() {
+		return token.getAuthorities();
+	}
+	
+	@Override
+	public void eraseCredentials() {
+		token.eraseCredentials();
+	}
+	
+	@Override
+	public Object getDetails() {
+		return token.getDetails();
+	}
+	
+	@Override
+	public String getName() {
+		return token.getName();
+	}
+	
+	@Override
+	public boolean implies(Subject subject) {
+		return token.implies(subject);
+	}
+	
+	@Override
+	public boolean isAuthenticated() {
+		return token.isAuthenticated();
+	}
+	
+	@Override
+	public Object getCredentials() {
+		return token.getCredentials();
 	}
 
 	@Override
 	public Object getPrincipal() {
-		return principal;
+		if (users.usernameExists(token.getToken().getSubject())) {
+			return users.loadUserByUsername(token.getToken().getSubject());
+		} else {
+			return new SproutJwtUser(token);
+		}
 	}
-	
 }

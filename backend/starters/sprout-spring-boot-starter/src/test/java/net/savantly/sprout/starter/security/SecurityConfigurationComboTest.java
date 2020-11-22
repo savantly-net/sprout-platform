@@ -52,6 +52,7 @@ public class SecurityConfigurationComboTest {
 		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(), "Should find the root view");
 		Assertions.assertTrue("The Root Index Page".contentEquals(response.getBody()));
 	}
+
 	@Test
 	@WithAnonymousUser
 	public void doLogin() throws Exception {
@@ -111,7 +112,7 @@ public class SecurityConfigurationComboTest {
 				.accept(MediaType.TEXT_HTML).build();
 		ResponseEntity<String> response = rest.exchange(request, String.class);
 		
-		Assertions.assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode(),"XHR should NOT be redirected for login");
+		Assertions.assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode(),"XHR should NOT be redirected for login");
 	}
 
 	@Configuration

@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.http.HttpMethod;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -52,11 +54,39 @@ public class SproutConfigurationProperties {
 	@Setter
 	public static class Security {
 		private Authentication authentication = new Authentication();
-		private List<String> anonymousAuthorities = Arrays.asList("ANONYMOUS");
+		private Authorization authorization = new Authorization();
 		private List<String> publicPaths = Arrays.asList("/api/ui-properties", "/api/authentication/oauth");
 		private List<String> authenticatedPaths = Arrays.asList("/api/repo/**", "/v3/**", "/admin/**");
 		private String cookieHmacKey = UUID.randomUUID().toString();
     }
+	
+	@Getter
+	@Setter
+	public static class Authorization {
+		private List<AuthorizationPattern> patterns = new ArrayList<>();
+		
+		/* NOT IMPLEMENTED YET */
+		private List<BootstrapPermission> bootstrapPermissions = Arrays.asList(new BootstrapPermission("ADMIN", Arrays.asList("ADMIN")));
+	}
+
+	@Getter
+	@Setter
+	public static class BootstrapPermission {
+		private String role;
+		private List<String> permissions = new ArrayList<>();
+		public BootstrapPermission() {}
+		public BootstrapPermission(String role, List<String> permissions) {
+			this.role = role;
+			this.permissions = permissions;
+		}
+	}
+	
+	@Getter
+	@Setter
+	public static class AuthorizationPattern {
+		private String path;
+		private Map<HttpMethod, String> expression;
+	}
 	
 	@Getter
 	@Setter
@@ -93,6 +123,14 @@ public class SproutConfigurationProperties {
 		private Jwt jwt = new Jwt();
 		private OAuth oauth = new OAuth();
 		private Basic basic = new Basic();
+		private Anonymous anonymous = new Anonymous();
+	}
+	
+	@Getter
+	@Setter
+	public static class Anonymous {
+		private boolean enable = true;
+		private List<String> roles = Arrays.asList("ANONYMOUS");
 	}
 	
 	@Getter

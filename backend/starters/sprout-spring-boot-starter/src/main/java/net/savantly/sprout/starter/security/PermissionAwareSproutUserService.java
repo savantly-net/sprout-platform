@@ -10,6 +10,8 @@ import net.savantly.sprout.core.domain.user.SproutUser;
 import net.savantly.sprout.core.security.SproutUserService;
 
 public class PermissionAwareSproutUserService extends PermissionAwareUserDetailsService implements SproutUserService {
+	
+	public final static String BEAN_NAME = "permissionAwareSproutUserService";
 
 	private SproutUserService userDetailsService;
 	public PermissionAwareSproutUserService(SproutUserService userDetailsService,

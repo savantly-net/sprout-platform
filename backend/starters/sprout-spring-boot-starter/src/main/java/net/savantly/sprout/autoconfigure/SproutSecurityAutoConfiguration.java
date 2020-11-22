@@ -25,6 +25,8 @@ import net.savantly.sprout.core.security.role.RoleRepository;
 import net.savantly.sprout.starter.SproutWebSecurityConfiguration;
 import net.savantly.sprout.starter.security.PermissionAwareSproutUserService;
 import net.savantly.sprout.starter.security.SecurityCustomizer;
+import net.savantly.sprout.starter.security.anonymous.AnonymousAuthAutoConfiguration;
+import net.savantly.sprout.starter.security.authorization.AuthorizationAutoConfiguration;
 import net.savantly.sprout.starter.security.basic.BasicAuthAutoConfiguration;
 import net.savantly.sprout.starter.security.jwt.JWTAutoConfiguration;
 import net.savantly.sprout.starter.security.oauth.OAuthAutoConfiguration;
@@ -36,7 +38,7 @@ import net.savantly.sprout.starter.security.session.RedirectToOriginalUrlAuthent
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Import({ SecurityProblemSupport.class, PermissionsConfiguration.class, OAuthAutoConfiguration.class,
-		JWTAutoConfiguration.class, BasicAuthAutoConfiguration.class })
+		JWTAutoConfiguration.class, BasicAuthAutoConfiguration.class, AnonymousAuthAutoConfiguration.class, AuthorizationAutoConfiguration.class })
 public class SproutSecurityAutoConfiguration {
 
 	@Autowired
@@ -73,7 +75,7 @@ public class SproutSecurityAutoConfiguration {
 		return new CookieSecurityContextRepository(props.getSecurity().getCookieHmacKey(), userService);
 	}
 
-	@Bean("userDetailsService")
+	@Bean({"userDetailsService", PermissionAwareSproutUserService.BEAN_NAME})
 	public SproutUserService sproutUserDetailsService(UserRepository userRepository,
 			EmailAddressRepository emailAddressRepository, PermissionProvider permissionProvider,
 			RoleRepository roleRepository, PasswordEncoder passwordEncoder) {

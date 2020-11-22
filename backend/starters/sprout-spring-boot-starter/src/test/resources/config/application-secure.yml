@@ -1,0 +1,30 @@
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework.security.web.authentication: DEBUG
+sprout:
+  security:
+    authentication:
+      basic:
+        users:
+        - username: admin
+          password: admin
+          email-address: admin@savantly.net
+          roles:
+          - ROLE_ADMIN
+        - username: test
+          password: test
+          email-address: test@savantly.net
+          roles:
+          - TEST
+    authorization:
+      patterns:
+        - path: /v3/api-docs
+          expression:
+            GET: hasAuthority('GENERAL_ADMIN')
+        - path: /v3/api-docs/swagger-config
+          expression:
+            GET: hasAuthority('GENERAL_ADMIN')
+        - path: /api/repo
+          expression:
+            GET: hasAuthority('SUPER')
