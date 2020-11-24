@@ -7,11 +7,14 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidatorResult;
 import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
 import net.savantly.authorization.service.PermissionProvider;
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
@@ -38,8 +41,9 @@ public class JWTAutoConfiguration {
 		return new DefaultJWTConfigurer(tokenProvider);
 	}
 
-	@Bean
-	public DefaultJwtAuthenticationConverter jwtAuthenticationConverter(PermissionProvider permissionProvider, SproutUserService users) {
+	@Bean(name = "jwtAuthenticationConverter")
+	@ConditionalOnMissingBean(value = {JwtAuthenticationConverter.class}, name = {"jwtAuthenticationConverter"})
+	public Converter<Jwt, AbstractAuthenticationToken> jwtAuthenticationConverter(PermissionProvider permissionProvider, SproutUserService users) {
 		return new DefaultJwtAuthenticationConverter(users, permissionProvider, 
 				properties.getSecurity().getAuthentication().getJwt().getGroupsClaim());
 	}

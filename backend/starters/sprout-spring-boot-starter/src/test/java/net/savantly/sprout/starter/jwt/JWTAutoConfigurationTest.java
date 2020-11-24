@@ -3,6 +3,7 @@ package net.savantly.sprout.starter.jwt;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Map;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -53,15 +54,15 @@ public class JWTAutoConfigurationTest {
 	// disable if mocklab is being flakey
 	@Test
 	public void useBearer() throws Exception {
-		String url = "/admin/";
+		String url = "/api/account";
 		
 		RequestEntity request = RequestEntity.get(new URI(url))
 				.header("Authorization", "Bearer " + this.getBearerToken())
-				.accept(MediaType.TEXT_HTML).build();
-		ResponseEntity<String> response = rest.exchange(request, String.class);
+				.accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Map> response = rest.exchange(request, Map.class);
 		
-		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(),"Should find the admin view");
-		Assertions.assertTrue("The Admin Page".contentEquals(response.getBody()));
+		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(),"Should get account details");
+		Assertions.assertFalse(response.getBody().get("name").equals("anonymousUser"), "Should not be anonymous");
 	}
 	
 	private String getBearerToken() throws InvalidKeyException, UnsupportedEncodingException, URISyntaxException {

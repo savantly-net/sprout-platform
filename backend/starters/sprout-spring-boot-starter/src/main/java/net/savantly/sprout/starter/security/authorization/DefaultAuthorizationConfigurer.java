@@ -24,15 +24,15 @@ public class DefaultAuthorizationConfigurer implements AuthorizationConfigurer {
 			ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http.authorizeRequests();
 			registry.antMatchers(HttpMethod.GET, "/admin","/admin/","/admin/**").hasAuthority("GENERAL_ADMIN");
 			registry.antMatchers(LOGIN_FORM_URL).permitAll()
-			.antMatchers("/api/login", "/api/public/**", "/api/authentication/oauth").permitAll();
-			//.antMatchers(configProps.getSecurity().getPublicPaths().toArray(new String[0])).permitAll()
-			//.antMatchers(configProps.getSecurity().getAuthenticatedPaths().toArray(new String[0])).authenticated();
+			.antMatchers("/api/login", "/api/public/**", "/api/authentication/oauth").permitAll()
+			.antMatchers(configProps.getSecurity().getAuthorization().getPublicPaths().toArray(new String[0])).permitAll();
 			
 			configProps.getSecurity().getAuthorization().getPatterns().forEach(p -> {
 				p.getExpression().forEach((method, expression) -> {
 					registry.antMatchers(method, p.getPath()).access(expression);
 				});
 			});
+			registry.antMatchers(configProps.getSecurity().getAuthorization().getAuthenticatedPaths().toArray(new String[0])).authenticated();
 		} catch (Exception e) {
 			log.error("failed to execute authorization configuration", e);
 		}

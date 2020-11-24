@@ -19,12 +19,15 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.util.Assert;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -38,12 +41,12 @@ import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
 import net.savantly.sprout.core.domain.oauth.OAuthAccount;
 import net.savantly.sprout.core.domain.organization.Organization;
 import net.savantly.sprout.core.security.MD5Util;
-import net.savantly.sprout.core.security.privilege.Privilege;
 import net.savantly.sprout.core.security.role.Role;
 import net.savantly.sprout.core.tenancy.TenantKeyedEntity;
 
 @Getter @Setter
 @Entity
+@Table(name = "app_users", uniqueConstraints = {@UniqueConstraint(columnNames = {"username", "tenant_id"})})
 public class SproutUserEntity extends TenantKeyedEntity implements CredentialsContainer, SproutUser {
 
     private static final long serialVersionUID = 6629698068044899330L;
@@ -64,6 +67,7 @@ public class SproutUserEntity extends TenantKeyedEntity implements CredentialsCo
     	return password;
     }
     
+    @Column(name = "username")
     private String username;
 
 	@Size(min = 1)
@@ -170,13 +174,13 @@ public class SproutUserEntity extends TenantKeyedEntity implements CredentialsCo
         password = null;
     }
 
-    private static SortedSet<Privilege> sortAuthorities(Collection<? extends Privilege> authorities) {
+    private static SortedSet<GrantedAuthority> sortAuthorities(Collection<? extends GrantedAuthority> authorities) {
         Assert.notNull(authorities, "Cannot pass a null GrantedAuthority collection");
         // Ensure array iteration order is predictable (as per
         // UserDetails.getAuthorities() contract and SEC-717)
-        SortedSet<Privilege> sortedAuthorities = new TreeSet<Privilege>(new AuthorityComparator());
+        SortedSet<GrantedAuthority> sortedAuthorities = new TreeSet<GrantedAuthority>(new AuthorityComparator());
 
-        for (Privilege grantedAuthority : authorities) {
+        for (GrantedAuthority grantedAuthority : authorities) {
             Assert.notNull(grantedAuthority, "GrantedAuthority list cannot contain any null elements");
             sortedAuthorities.add(grantedAuthority);
         }
@@ -218,9 +222,10 @@ public class SproutUserEntity extends TenantKeyedEntity implements CredentialsCo
     @Transient
     @Override
     @JsonTypeInfo(use = com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NONE)
-    public Set<Privilege> getAuthorities() {
-        Set<Privilege> privileges = new HashSet<>();
+    public Set<GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> privileges = new HashSet<>();
         this.roles.stream().forEach(r -> {
+        	privileges.add(new SimpleGrantedAuthority(r.getName()));
         	r.getPrivileges().forEach(p -> {
         		if (!privileges.contains(p)) {
         			privileges.add(p);

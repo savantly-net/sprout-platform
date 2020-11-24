@@ -27,6 +27,7 @@ bootRun {
 
 bootJar {
     layered()
+	exclude("**/application-local.yml")
 }
 // run `./gradlew :sprout-modules-forms:dev -Psuspend=y` to suspend for debugger connection
 task dev(type: JavaExec) {

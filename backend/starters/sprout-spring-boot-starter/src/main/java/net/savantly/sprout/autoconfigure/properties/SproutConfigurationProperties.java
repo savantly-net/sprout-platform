@@ -55,18 +55,27 @@ public class SproutConfigurationProperties {
 	public static class Security {
 		private Authentication authentication = new Authentication();
 		private Authorization authorization = new Authorization();
-		private List<String> publicPaths = Arrays.asList("/api/ui-properties", "/api/authentication/oauth");
-		private List<String> authenticatedPaths = Arrays.asList("/api/repo/**", "/v3/**", "/admin/**");
 		private String cookieHmacKey = UUID.randomUUID().toString();
     }
 	
 	@Getter
 	@Setter
 	public static class Authorization {
+		/**
+		 * Applied second, after the public-paths
+		 */
 		private List<AuthorizationPattern> patterns = new ArrayList<>();
+		/**
+		 * Applied first, before patterns and authenticated-paths
+		 */
+		private List<String> publicPaths = Arrays.asList("/api/ui-properties", "/api/authentication/oauth");
+		/**
+		 * Applied third [last], to handle paths that aren't designated public, or previously matched pattern
+		 */
+		private List<String> authenticatedPaths = Arrays.asList("/api/repo/**", "/v3/**", "/admin/**");
 		
 		/* NOT IMPLEMENTED YET */
-		private List<BootstrapPermission> bootstrapPermissions = Arrays.asList(new BootstrapPermission("ADMIN", Arrays.asList("ADMIN")));
+		private List<BootstrapPermission> bootstrapPermissions = Arrays.asList(new BootstrapPermission("ROLE_ADMIN", Arrays.asList("GENERAL_ADMIN")));
 	}
 
 	@Getter

@@ -1,5 +1,6 @@
 package net.savantly.sprout.starter.security.oauth;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -8,16 +9,12 @@ import org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAu
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
-import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import net.savantly.sprout.core.domain.user.repository.UserRepository;
 import net.savantly.sprout.starter.SproutWebSecurityConfiguration;
+import net.savantly.sprout.starter.security.PermissionAwareSproutUserService;
 import net.savantly.sprout.starter.security.SecurityCustomizer;
 
 @Configuration(OAuthAutoConfiguration.BEAN_NAME)
@@ -27,28 +24,36 @@ import net.savantly.sprout.starter.security.SecurityCustomizer;
 public class OAuthAutoConfiguration {
 	public static final String BEAN_NAME = "oAuthAutoConfiguration";
 	
-	@Bean(name = "oauthUserMapper")
-	@ConditionalOnMissingBean(DefaultOAuthUserMapper.class)
-	public OAuthUserMapper oauthUserMapper(UserRepository repository) {
-		return new DefaultOAuthUserMapper(repository);
+	@Bean(name = "oAuth2UserSynchronizer")
+	@ConditionalOnMissingBean(value = {OAuth2UserSynchronizer.class}, name = {"oAuth2UserSynchronizer"})
+	public OAuth2UserSynchronizer oAuth2UserSynchronizer(PermissionAwareSproutUserService userService) {
+		return new DefaultOAuth2UserSynchronizer(userService);
 	}
-	
+
+	@Bean(name = "oauthUserMapper")
+	@ConditionalOnMissingBean(OAuthUserMapper.class)
+	public OAuthUserMapper oauthUserMapper(OAuth2UserSynchronizer synchronizer) {
+		return new DefaultOAuthUserMapper(synchronizer);
+	}
+
 	@Bean(name = "oauthConfigurer")
 	@ConditionalOnMissingBean(OAuthConfigurer.class)
-	public SecurityCustomizer oauthConfigurer() {
-		return new DefaultOAuthConfigurer();
+	public SecurityCustomizer oauthConfigurer(@Qualifier("oauth2UserService") OAuth2UserService userService,
+			@Qualifier("oidcUserService") OidcUserService oidcUserService) {
+		oidcUserService.setOauth2UserService(userService);
+		return new DefaultOAuthConfigurer(userService, oidcUserService);
 	}
-	
+
 	@Bean(name = "oauth2UserService")
 	@ConditionalOnMissingBean(OAuth2UserService.class)
-	public OAuth2UserService<OAuth2UserRequest, SproutOAuthUser> oauth2UserService(ClientRegistrationRepository clients, OAuth2AuthorizedClientRepository authz, OAuthUserMapper userMapper) {
-		
-	    DefaultOAuth2UserService delegate = new DefaultOAuth2UserService();
-	    return request -> {
-	    	OAuth2User user = delegate.loadUser(request);
-	        OAuth2AuthorizedClient client = new OAuth2AuthorizedClient
-	                (request.getClientRegistration(), user.getName(), request.getAccessToken());
-	        return userMapper.mapUser(user, client);
-	    };
+	public OAuth2UserService oauth2UserService(OAuth2AuthorizedClientRepository authz, OAuthUserMapper userMapper) {
+
+		return new DefaultSproutOAuth2UserService(userMapper);
+	}
+
+	@Bean(name = "oidcUserService")
+	@ConditionalOnMissingBean(OidcUserService.class)
+	public OidcUserService oidcUserService(PermissionAwareSproutUserService userService) {
+		return new DefaultSproutOidcUserService(userService);
 	}
 }

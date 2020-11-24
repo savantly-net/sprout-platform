@@ -1,9 +1,7 @@
 package net.savantly.sprout.starter.security.oauth;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -14,136 +12,131 @@ import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
 import net.savantly.sprout.core.domain.oauth.OAuthAccount;
 import net.savantly.sprout.core.domain.organization.Organization;
 import net.savantly.sprout.core.domain.user.SproutUser;
-import net.savantly.sprout.core.domain.user.repository.UserRepository;
 import net.savantly.sprout.core.security.role.Role;
 
 public class DefaultOAuthUserMapper implements OAuthUserMapper {
-	
-	private final UserRepository repository;
-	
-	public DefaultOAuthUserMapper(UserRepository repository) {
-		this.repository = repository;
+
+	private final OAuth2UserSynchronizer userService;
+
+	public DefaultOAuthUserMapper(OAuth2UserSynchronizer synchronizer) {
+		this.userService = synchronizer;
 	}
 
-	
-	// TODO: get user from repository and possibly update them
 	@Override
 	public SproutOAuthUser mapUser(OAuth2User user, OAuth2AuthorizedClient client) {
-		
-		/*
-		String email = user.getAttribute("email");
-		
-		SproutUser foundUser = repository.findByEmailAddresses_EmailAddress(email);
-		if(Objects.nonNull(foundUser)) {
-			
-		}
-		*/
-		
+
+		SproutUser sproutUser = this.userService.syncUser(user);
+
 		return new SproutOAuthUser() {
-			
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public String getName() {
 				return user.getName();
 			}
-			
+
 			@Override
 			public Map<String, Object> getAttributes() {
 				return user.getAttributes();
 			}
-			
+
 			@Override
 			public boolean isEnabled() {
-				return true;
+				return sproutUser.isEnabled();
 			}
-			
+
 			@Override
 			public boolean isCredentialsNonExpired() {
-				return true;
+				return sproutUser.isCredentialsNonExpired();
 			}
-			
+
 			@Override
 			public boolean isAccountNonLocked() {
-				return true;
+				return sproutUser.isAccountNonLocked();
 			}
-			
+
 			@Override
 			public boolean isAccountNonExpired() {
-				return true;
+				return sproutUser.isAccountNonExpired();
 			}
-			
+
 			@Override
 			public String getUsername() {
-				return client.getPrincipalName();
+				return sproutUser.getUsername();
 			}
-			
+
 			@Override
 			public String getPassword() {
 				return null;
 			}
-			
+
 			@Override
 			public Collection<? extends GrantedAuthority> getAuthorities() {
-				return user.getAuthorities();
+				return sproutUser.getAuthorities();
 			}
-			
+
 			@Override
 			public boolean isHidePrimaryEmailAddress() {
-				return false;
+				return sproutUser.isHidePrimaryEmailAddress();
 			}
-			
+
 			@Override
 			public boolean hasAuthority(String role) {
-				return true;
+				return sproutUser.hasAuthority(role);
 			}
-			
+
 			@Override
 			public Set<Role> getRoles() {
-				return user.getAttribute("roles");
+				return sproutUser.getRoles();
 			}
-			
+
 			@Override
 			public EmailAddress getPrimaryEmailAddress() {
-				return user.getAttribute("email");
+				return sproutUser.getPrimaryEmailAddress();
 			}
-			
+
 			@Override
 			public String getPhoneNumber() {
-				return user.getAttribute("phone_number");
+				return sproutUser.getPhoneNumber();
 			}
-			
+
 			@Override
 			public Organization getOrganization() {
-				return null;
+				return sproutUser.getOrganization();
 			}
-			
+
 			@Override
 			public Set<OAuthAccount> getOAuthAccounts() {
-				return new HashSet<OAuthAccount>();
+				return sproutUser.getOAuthAccounts();
 			}
-			
+
 			@Override
 			public String getLastName() {
-				return user.getAttribute("given_name");
+				return sproutUser.getLastName();
 			}
-			
+
 			@Override
 			public String getGravatarUrl() {
-				return user.getAttribute("picture_url");
+				return sproutUser.getGravatarUrl();
 			}
-			
+
 			@Override
 			public String getFirstName() {
-				return user.getAttribute("first_name");
+				return sproutUser.getFirstName();
 			}
-			
+
 			@Override
 			public Set<EmailAddress> getEmailAddresses() {
-				return new HashSet<>();
+				return sproutUser.getEmailAddresses();
 			}
-			
+
 			@Override
 			public String getDisplayName() {
-				return user.getAttribute("nickname");
+				return sproutUser.getDisplayName();
 			}
 		};
 	}

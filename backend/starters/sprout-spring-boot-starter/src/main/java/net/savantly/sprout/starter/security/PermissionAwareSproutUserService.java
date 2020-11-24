@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import net.savantly.authorization.service.PermissionAwareUserDetailsService;
 import net.savantly.authorization.service.PermissionProvider;
 import net.savantly.sprout.core.domain.user.SproutUser;
+import net.savantly.sprout.core.domain.user.UserUpdateDto;
 import net.savantly.sprout.core.security.SproutUserService;
 
 public class PermissionAwareSproutUserService extends PermissionAwareUserDetailsService implements SproutUserService {
@@ -21,6 +22,9 @@ public class PermissionAwareSproutUserService extends PermissionAwareUserDetails
 	}
 	
 	@Override
+	/**
+	 * Gets the user with the processed effective permissions
+	 */
 	public SproutUser loadUserByUsername(String username) throws UsernameNotFoundException {
 		return userDetailsService.loadUserByUsername(username);
 	}
@@ -31,13 +35,35 @@ public class PermissionAwareSproutUserService extends PermissionAwareUserDetails
 	}
 
 	@Override
+	/**
+	 * Calls loadUserByUsername internally to return a user with processed effective permissions
+	 */
 	public SproutUser loadByEmailAddress(String emailAddress) {
-		return userDetailsService.loadByEmailAddress(emailAddress);
+		SproutUser user = userDetailsService.loadByEmailAddress(emailAddress);
+		return loadUserByUsername(user.getUsername());
 	}
 
 	@Override
+	/**
+	 * Creates a user, then calls loadUserByUsername internally to return a user with processed effective permissions
+	 */
 	public SproutUser createUser(String username, String password, String emailAddress, Collection<String> roles) {
-		return userDetailsService.createUser(username, password, emailAddress, roles);
+		SproutUser user = userDetailsService.createUser(username, password, emailAddress, roles);
+		return loadUserByUsername(user.getUsername());
+	}
+
+	public boolean emailAddressExists(String email) {
+		return userDetailsService.emailAddressExists(email);
+	}
+
+	@Override
+	public void updatePassword(SproutUser user, String clearText) {
+		userDetailsService.updatePassword(user, clearText);
+	}
+
+	@Override
+	public SproutUser updateUser(UserUpdateDto user) {
+		return userDetailsService.updateUser(user);
 	}
 
 }

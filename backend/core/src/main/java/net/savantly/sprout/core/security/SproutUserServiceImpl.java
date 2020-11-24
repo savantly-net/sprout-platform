@@ -14,6 +14,7 @@ import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
 import net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepository;
 import net.savantly.sprout.core.domain.user.SproutUser;
 import net.savantly.sprout.core.domain.user.SproutUserEntity;
+import net.savantly.sprout.core.domain.user.UserUpdateDto;
 import net.savantly.sprout.core.domain.user.repository.UserRepository;
 import net.savantly.sprout.core.security.role.Role;
 import net.savantly.sprout.core.security.role.RoleRepository;
@@ -66,7 +67,9 @@ public class SproutUserServiceImpl implements SproutUserService {
 
 		EmailAddress emailAddressEntity = new EmailAddress(emailAddress);
 		userDetails.setPrimaryEmailAddress(emailAddressEntity);
-		return userRepository.save(userDetails);
+		SproutUserEntity saved = userRepository.save(userDetails);
+		userRepository.flush();
+		return saved;
 	}
 
 	@Override
@@ -87,5 +90,40 @@ public class SproutUserServiceImpl implements SproutUserService {
 		return emailAddressRepository.findByEmailAddress(emailAddress)
 				.stream()
 				.findFirst();
+	}
+
+	@Override
+	public boolean emailAddressExists(String email) {
+		return getEmailAddress(email).isPresent();
+	}
+
+	@Override
+	public SproutUser updateUser(UserUpdateDto user) {
+		SproutUserEntity entity = userRepository.findOneByUsername(user.getUsername());
+		entity.setFirstName(user.getFirstName());
+		entity.setLastName(user.getLastName());
+		entity.setRoles(user.getRoles().stream().map(r -> getRole(r)).collect(Collectors.toSet()));
+		/*
+		entity.setAccountNonExpired(user.isAccountNonExpired());
+		entity.setAccountNonLocked(user.isAccountNonLocked());
+		entity.setDisplayName(user.getDisplayName());
+		entity.setEnabled(user.isEnabled());
+		entity.setFirstName(user.getFirstName());
+		entity.setHidePrimaryEmailAddress(user.isHidePrimaryEmailAddress());
+		entity.setOAuthAccounts(user.getOAuthAccounts());
+		entity.setRoles(user.getRoles());
+		entity.setOrganization(user.getOrganization());
+		entity.setPhoneNumber(user.getPhoneNumber());
+		entity.setPrimaryEmailAddress(user.getPrimaryEmailAddress());
+		*/
+		userRepository.save(entity);
+		return entity;
+	}
+
+	@Override
+	public void updatePassword(SproutUser user, String clearText) {
+		SproutUserEntity entity = userRepository.findOneByUsername(user.getUsername());
+		entity.setClearTextPassword(clearText);
+		userRepository.save(entity);
 	}
 }

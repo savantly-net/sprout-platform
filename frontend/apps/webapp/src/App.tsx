@@ -21,23 +21,17 @@ export const App = ({ theme, forceLogin }: { theme: string; forceLogin: boolean 
   });
 
   const orRenderLogin = () => {
-    if (forceLogin) {
-      console.log('rendering LoginPage due to settings');
-      window.location.href = '/login';
-      return <React.Fragment></React.Fragment>;
-    } else {
-      return (
-        <ThemeProvider>
-          <ModalsProvider>
-            <PluginProvider>
-              <AppRoutes history={history} />
-            </PluginProvider>
-            <ModalProxy key={uniqueId()} />
-            <ModalRoot />
-          </ModalsProvider>
-        </ThemeProvider>
-      );
-    }
+    return (
+      <ThemeProvider>
+        <ModalsProvider>
+          <PluginProvider>
+            <AppRoutes history={history} />
+          </PluginProvider>
+          <ModalProxy key={uniqueId()} />
+          <ModalRoot />
+        </ModalsProvider>
+      </ThemeProvider>
+    );
   };
 
   return orRenderLogin();

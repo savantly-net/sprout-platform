@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -89,9 +88,6 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 		http
         	.headers()
         	.frameOptions().disable()
-        //.and()
-        //    .authorizeRequests().antMatchers(HttpMethod.GET, "/v3/api-docs/swagger-config").hasAuthority("ADMIN")
-            
         .and()
 	     	// store SecurityContext in Cookie / delete Cookie on logout
 	        .securityContext().securityContextRepository(cookieSecurityContextRepository)
@@ -116,15 +112,6 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
         .and()
         	// deactivate RequestCache and append originally requested URL as query parameter to login form request
             .requestCache().disable()
-            //.exceptionHandling()
-            //.authenticationEntryPoint(authenticationEntryPoint())
-            //.accessDeniedHandler(problemSupport)
-        	//.accessDeniedPage("/errors/403")
-        
-        //.oauth2ResourceServer().jwt().and().and()
-        	// adds a default role for anonymous users
-        	//.addFilterBefore(anonymousFilter , BasicAuthenticationFilter.class)
-           // .apply(jwtConfigurer)
         ;
 		
 		// Sort by priority
@@ -157,6 +144,7 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 		};
 	}
 	
+	// not using currently - I think Spring Boot's default authentication entry point is sufficient
 	DelegatingAuthenticationEntryPoint authenticationEntryPoint() {
 		LinkedHashMap<RequestMatcher, AuthenticationEntryPoint> matchers = new LinkedHashMap<RequestMatcher, AuthenticationEntryPoint>();
 		

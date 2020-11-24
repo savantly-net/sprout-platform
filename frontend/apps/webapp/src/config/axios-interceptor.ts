@@ -12,12 +12,8 @@ axios.defaults.headers = {
 
 const setupAxiosInterceptors = (onUnauthenticated: any) => {
   const onRequestSuccess = (config: any) => {
-    const token = store.get(ACCESS_TOKEN_STORAGE_KEY);
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    } else {
-      console.log('sending unauthenticated request', config);
-    }
+    // moved JWT out - only need to send it once now, and get a signed session cookie, instead of passing it with every request.
+    // This makes it easier when not running the front-end behind a proxy server, where the token can be passed even for static file requests.
     return config;
   };
   const onResponseSuccess = (response:any) => response;

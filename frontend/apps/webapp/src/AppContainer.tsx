@@ -43,7 +43,8 @@ export const AppContainer = ({ theme }: { theme: string }) => {
   const isAuthenticated = useSelector((state: StoreState) => state.authentication.isAuthenticated);
   const isSessionFetched = useSelector((state: StoreState) => state.authentication.sessionHasBeenFetched);
   const appSettings = useSelector((state: StoreState) => state.application.settings);
-  const requiresAuth = getBoolean(appSettings.REQUIRE_AUTHENTICATION) && !isAuthenticated && (window.location.pathname !== '/login');
+  const requiresAuth =
+    getBoolean(appSettings.REQUIRE_AUTHENTICATION) && !isAuthenticated && window.location.pathname !== '/login';
 
   const dispatch = useDispatch();
   const once = true;
@@ -61,7 +62,7 @@ export const AppContainer = ({ theme }: { theme: string }) => {
   }, [once]);
 
   useMemo(() => {
-    if (isAuthenticated && !isSessionFetched) {
+    if (!isSessionFetched) {
       dispatch(getSession());
     }
     axios
@@ -76,19 +77,25 @@ export const AppContainer = ({ theme }: { theme: string }) => {
 
   const appElem = createRef<HTMLDivElement>();
 
+  const renderApp = () => {
+    if (isSessionFetched) {
+      return <App theme={theme} forceLogin={requiresAuth} />;
+    } else {
+      return null;
+    }
+  };
+
   return (
-    <React.Fragment>
-      {requiresAuth || (<SideMenu></SideMenu>)}
-      <div ref={appElem} className="main-view">
-        <div className="scroll-canvas">
-          <BrowserRouter>
-            <ErrorBoundaryAlert style="page">
-              <App theme={theme} forceLogin={requiresAuth}/>
-            </ErrorBoundaryAlert>
-          </BrowserRouter>
+    <BrowserRouter>
+      <React.Fragment>
+        <SideMenu></SideMenu>
+        <div ref={appElem} className="main-view">
+          <div className="scroll-canvas">
+            <ErrorBoundaryAlert style="page">{renderApp()}</ErrorBoundaryAlert>
+          </div>
         </div>
-      </div>
-    </React.Fragment>
+      </React.Fragment>
+    </BrowserRouter>
   );
 };
 

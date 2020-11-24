@@ -1,11 +1,13 @@
 package net.savantly.sprout.core.domain.user;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
@@ -74,7 +76,7 @@ public interface SproutUser extends UserDetails {
 			
 			@Override
 			public Collection<? extends GrantedAuthority> getAuthorities() {
-				return new ArrayList<>();
+				return Arrays.asList(new SimpleGrantedAuthority("ANONYMOUS"));
 			}
 			
 			@Override

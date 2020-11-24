@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpRequestResponseHolder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SaveContextOnUpdateOrErrorResponseWrapper;
 import org.springframework.security.web.context.SecurityContextRepository;
 
@@ -22,7 +23,7 @@ import net.savantly.sprout.core.domain.user.SproutUser;
 import net.savantly.sprout.core.security.SproutUserService;
 import net.savantly.sprout.model.user.UserDto;
 
-public class CookieSecurityContextRepository implements SecurityContextRepository {
+public class CookieSecurityContextRepository extends HttpSessionSecurityContextRepository implements SecurityContextRepository {
 
 	private static final Logger log = LoggerFactory.getLogger(CookieSecurityContextRepository.class);
 	private static final String EMPTY_CREDENTIALS = "";
@@ -43,39 +44,57 @@ public class CookieSecurityContextRepository implements SecurityContextRepositor
 		requestResponseHolder.setResponse(new SaveToCookieResponseWrapper(request, response));
 
 		SecurityContext context = SecurityContextHolder.getContext();
-		try {
-			readUserInfoFromCookie(request).ifPresent(userInfo -> context.setAuthentication(
-					new UsernamePasswordAuthenticationToken(userInfo, EMPTY_CREDENTIALS, userInfo.getAuthorities())));
-		} catch (CookieVerificationFailedException e) {
-			log.debug("cookie validation failed: {}", e.getMessage());
-		}
+		if(hasJSessionId(request)) {
+			return super.loadContext(requestResponseHolder);
+		} else {
+			try {
+				readUserInfoFromCookie(request).ifPresent(userInfo -> context.setAuthentication(
+						new UsernamePasswordAuthenticationToken(userInfo, EMPTY_CREDENTIALS, userInfo.getAuthorities())));
+			} catch (CookieVerificationFailedException e) {
+				log.debug("cookie validation failed: {}", e.getMessage());
+			}
 
-		return context;
+			return context;
+		}
+	}
+
+	private boolean hasJSessionId(HttpServletRequest request) {
+		Optional<Cookie> maybe = readCookieFromRequest(request, "JSESSIONID");
+		return maybe.isPresent();
 	}
 
 	@Override
 	public void saveContext(SecurityContext context, HttpServletRequest request, HttpServletResponse response) {
-		if (SaveToCookieResponseWrapper.class.isAssignableFrom(response.getClass())) {
-			SaveToCookieResponseWrapper responseWrapper = (SaveToCookieResponseWrapper) response;
-			if (!responseWrapper.isContextSaved()) {
-				responseWrapper.saveContext(context);
-			}
+		if(hasJSessionId(request)) {
+			super.saveContext(context, request, response);
+			return;
 		} else {
-			log.debug("servlet response is not wrapped, so not saving to cookie: {}", response.getClass());
+			if (SaveToCookieResponseWrapper.class.isAssignableFrom(response.getClass())) {
+				SaveToCookieResponseWrapper responseWrapper = (SaveToCookieResponseWrapper) response;
+				if (!responseWrapper.isContextSaved()) {
+					responseWrapper.saveContext(context);
+				}
+			} else {
+				log.debug("servlet response is not wrapped, so not saving to cookie: {}", response.getClass());
+			}
 		}
 	}
 
 	@Override
 	public boolean containsContext(HttpServletRequest request) {
-		try {
-			return readUserInfoFromCookie(request).isPresent();
-		} catch (CookieVerificationFailedException e) {
-			return false;
+		if(hasJSessionId(request)) {
+			return super.containsContext(request);
+		} else {
+			try {
+				return readUserInfoFromCookie(request).isPresent();
+			} catch (CookieVerificationFailedException e) {
+				return false;
+			}
 		}
 	}
 
 	private Optional<SproutUser> readUserInfoFromCookie(HttpServletRequest request) throws CookieVerificationFailedException {
-		Optional<Cookie> maybeCookie = readCookieFromRequest(request);
+		Optional<Cookie> maybeCookie = readCookieFromRequest(request, SignedUserInfoCookie.NAME);
 		if(maybeCookie.isPresent()) {
 			return Optional.of(createUserInfo(maybeCookie.get()));
 		} else {
@@ -83,13 +102,13 @@ public class CookieSecurityContextRepository implements SecurityContextRepositor
 		}
 	}
 
-	private Optional<Cookie> readCookieFromRequest(HttpServletRequest request) {
+	private Optional<Cookie> readCookieFromRequest(HttpServletRequest request, String cookieName) {
 		if (request.getCookies() == null) {
 			return Optional.empty();
 		}
 
 		Optional<Cookie> maybeCookie = Stream.of(request.getCookies())
-				.filter(c -> SignedUserInfoCookie.NAME.equals(c.getName())).findFirst();
+				.filter(c -> cookieName.equals(c.getName())).findFirst();
 
 		return maybeCookie;
 	}
