@@ -1,5 +1,6 @@
 package net.savantly.sprout.starter.security.jwt;
 
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import net.savantly.sprout.core.domain.user.SproutUser;
@@ -16,10 +17,14 @@ public class DefaultJwtUserSynchronizer implements JwtUserSynchronizer {
 
 	@Override
 	public void syncUser(SproutUser user) {
-		userService.updateUser(new UserUpdateDto()
-				.setFirstName(user.getFirstName())
-				.setLastName(user.getLastName())
-				.setRoles(user.getRoles().stream().map(r -> r.getName()).collect(Collectors.toList())));
+		if (userService.usernameExists(user.getUsername())) {
+			userService.updateUser(new UserUpdateDto().setUsername(user.getUsername()).setFirstName(user.getFirstName()).setLastName(user.getLastName())
+					.setRoles(user.getRoles().stream().map(r -> r.getName()).collect(Collectors.toList())));
+		} else {
+			userService.createUser(user.getUsername(), UUID.randomUUID().toString(),
+					user.getPrimaryEmailAddress().getEmailAddress(),
+					user.getRoles().stream().map(r -> r.getName()).collect(Collectors.toList()));
+		}
 	}
 
 }
