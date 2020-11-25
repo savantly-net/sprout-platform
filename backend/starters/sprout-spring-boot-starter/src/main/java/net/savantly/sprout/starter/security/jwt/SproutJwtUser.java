@@ -69,7 +69,7 @@ public class SproutJwtUser implements SproutUser {
 
 	@Override
 	public EmailAddress getPrimaryEmailAddress() {
-		String emailAddress = token.getToken().getClaimAsString("emailaddress");
+		String emailAddress = token.getToken().getClaimAsString("email");
 		return new EmailAddress(emailAddress);
 	}
 
@@ -80,12 +80,12 @@ public class SproutJwtUser implements SproutUser {
 
 	@Override
 	public String getFirstName() {
-		return token.getToken().getClaimAsString("firstName");
+		return token.getToken().getClaimAsString("first_name");
 	}
 
 	@Override
 	public String getLastName() {
-		return token.getToken().getClaimAsString("givenName");
+		return token.getToken().getClaimAsString("last_name");
 	}
 
 	@Override

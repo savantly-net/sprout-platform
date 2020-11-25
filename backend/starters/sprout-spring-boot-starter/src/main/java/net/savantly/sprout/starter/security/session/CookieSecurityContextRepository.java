@@ -43,7 +43,7 @@ public class CookieSecurityContextRepository extends HttpSessionSecurityContextR
 		HttpServletResponse response = requestResponseHolder.getResponse();
 		requestResponseHolder.setResponse(new SaveToCookieResponseWrapper(request, response));
 
-		SecurityContext context = SecurityContextHolder.getContext();
+		SecurityContext context = SecurityContextHolder.createEmptyContext();
 		if(hasJSessionId(request)) {
 			return super.loadContext(requestResponseHolder);
 		} else {

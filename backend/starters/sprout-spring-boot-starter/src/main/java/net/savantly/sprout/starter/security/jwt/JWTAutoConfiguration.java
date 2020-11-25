@@ -24,14 +24,20 @@ import net.savantly.sprout.starter.security.conditions.NoJwkUriConfigured;
 
 @Configuration
 public class JWTAutoConfiguration {
-	
+
 	@Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri:}")
 	private String springResourceServerJwkUri;
-	
+
 	private SproutConfigurationProperties properties;
-	
+
 	public JWTAutoConfiguration(SproutConfigurationProperties properties) {
 		this.properties = properties;
+	}
+
+	@Bean("jwtUserSynchronizer")
+	@ConditionalOnMissingBean(value = { JwtUserSynchronizer.class }, name = { "jwtUserSynchronizer" })
+	public DefaultJwtUserSynchronizer jwtUserSynchronizer(SproutUserService userService) {
+		return new DefaultJwtUserSynchronizer(userService);
 	}
 
 	@Bean
@@ -42,17 +48,17 @@ public class JWTAutoConfiguration {
 	}
 
 	@Bean(name = "jwtAuthenticationConverter")
-	@ConditionalOnMissingBean(value = {JwtAuthenticationConverter.class}, name = {"jwtAuthenticationConverter"})
-	public Converter<Jwt, AbstractAuthenticationToken> jwtAuthenticationConverter(PermissionProvider permissionProvider, SproutUserService users) {
-		return new DefaultJwtAuthenticationConverter(users, permissionProvider, 
+	@ConditionalOnMissingBean(value = { JwtAuthenticationConverter.class }, name = { "jwtAuthenticationConverter" })
+	public Converter<Jwt, AbstractAuthenticationToken> jwtAuthenticationConverter(PermissionProvider permissionProvider,
+			SproutUserService users, JwtUserSynchronizer synchronizer) {
+		return new DefaultJwtAuthenticationConverter(synchronizer, users, permissionProvider,
 				properties.getSecurity().getAuthentication().getJwt().getGroupsClaim());
 	}
 
 	@Bean
 	@ConditionalOnMissingBean({ JWTConfigurer.class })
 	@Conditional(AnyJwkUriConfigured.class)
-	public JWTConfigurer oauthJwtConfigurer(
-			DefaultJwtAuthenticationConverter jwtAuthenticationConverter) {
+	public JWTConfigurer oauthJwtConfigurer(DefaultJwtAuthenticationConverter jwtAuthenticationConverter) {
 		return new JWTConfigurer() {
 			@Override
 			public void configure(HttpSecurity builder) throws Exception {

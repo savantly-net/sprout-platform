@@ -38,7 +38,7 @@ public class SproutJwtAuthenticationToken extends AbstractAuthenticationToken {
 	
 	@Override
 	public String getName() {
-		return token.getName();
+		return token.getToken().getClaim("email");
 	}
 	
 	@Override
@@ -58,8 +58,8 @@ public class SproutJwtAuthenticationToken extends AbstractAuthenticationToken {
 
 	@Override
 	public Object getPrincipal() {
-		if (users.usernameExists(token.getToken().getSubject())) {
-			return users.loadUserByUsername(token.getToken().getSubject());
+		if (users.usernameExists(token.getToken().getClaim("email"))) {
+			return users.loadUserByUsername(token.getToken().getClaim("email"));
 		} else {
 			return new SproutJwtUser(token);
 		}
