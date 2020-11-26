@@ -39,7 +39,6 @@ export const AppContainer = ({ theme }: { theme: string }) => {
     initDevFeatures();
   }
 
-  const isAuthenticated = useSelector((state: StoreState) => state.authentication.isAuthenticated);
   const isSessionFetched = useSelector((state: StoreState) => state.authentication.sessionHasBeenFetched);
 
   const dispatch = useDispatch();
@@ -70,7 +69,7 @@ export const AppContainer = ({ theme }: { theme: string }) => {
         console.error(failed);
       });
     }
-  }, [isAuthenticated, isSessionFetched]);
+  }, [isSessionFetched]);
 
   const appElem = createRef<HTMLDivElement>();
 

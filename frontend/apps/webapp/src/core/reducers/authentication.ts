@@ -86,6 +86,7 @@ const authenticationSlice = createSlice({
           ...state.user,
           ...action.payload
         },
+        isAuthenticated: true,
         sessionHasBeenFetched: true,
         sessionFetchFailed: false
       };
