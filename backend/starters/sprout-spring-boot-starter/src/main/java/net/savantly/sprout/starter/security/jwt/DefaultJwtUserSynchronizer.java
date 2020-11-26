@@ -1,6 +1,8 @@
 package net.savantly.sprout.starter.security.jwt;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -26,8 +28,9 @@ public class DefaultJwtUserSynchronizer implements JwtUserSynchronizer {
 		final String username = jwt.getClaimAsString("email");
 		final String firstName = jwt.getClaimAsString("first_name");
 		final String lastName = jwt.getClaimAsString("last_name");
-		final List<String> roles = jwt
+		final List<String> groupsFromJwt = jwt
 				.getClaimAsStringList(configProps.getSecurity().getAuthentication().getJwt().getGroupsClaim());
+		final List<String> roles = Objects.nonNull(groupsFromJwt) ? groupsFromJwt : new ArrayList<>() ;
 
 		if (userService.usernameExists(username)) {
 			return userService.updateUser(new UserUpdateDto().setUsername(username).setFirstName(firstName)
