@@ -40,15 +40,17 @@ Follow this project to stay informed.
 Use the docker images to start an example server + web app.  
 `docker-compose up`  
 
+The example server creates a user -  
+username: admin  
+password: changeme!  
+
+
 ## Examples
 
-#### Server Demo  
-This is running on a Hobby Dyno, so it may take a min to start.  
-Also, the process memory is about 500mB so some performance enhancements may be required.  
+#### Live Server Demo  
 [https://sprout-server.herokuapp.com/](https://sprout-server.herokuapp.com/)  
 
-#### Client Demo
-Depends on the server Demo to be running.  
+#### Live Client Demo
 [https://sprout-web.herokuapp.com/](https://sprout-web.herokuapp.com/)  
 
 
@@ -76,8 +78,8 @@ It's published [here](https://master--5f96ec613d800900227e3b76.chromatic.com)
 
 To get started developing Sprout -  
 - Clone this project 
-- Run `./gradlew :server:bootRun` from the base directory of the project to start the server 
-- Open http://localhost:8080/admin to access the backend application  
+- Run `./gradlew :sprout-server:bootRun` from the base directory of the project to start the server 
+- Open http://localhost:8080/ to access the backend application  
 
 You can override properties by modifying the `application.properties`    
 [See here for more info.](./starters/sprout-spring-boot-starter/src/main/resources/)  

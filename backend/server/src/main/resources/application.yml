@@ -2,6 +2,13 @@ sprout:
   jpa:
     packages-to-scan:
     - net.savantly.sprout.server.domain
+  security:
+    authentication:
+      basic:
+        users:
+        - username: admin
+          password: changeme!
+          email-address: example@savantly.net
 
 spring:
   banner:
