@@ -7,8 +7,8 @@ It can be used headless, but a default UI is provided which is customizable via 
 
 It's opinionated, but the default configurations can be backed off - so you can use as much or as little as you want.  
 Full documentation is in progress, and PRs are welcome!  
-[Check here for progress](./docs/)  
 
+#### [Goto Documentation](./docs/)  
 
 The front-end UI uses a `plugin` system to add or modify functionality.  
 [Read more about the front-end](./frontend/)  
@@ -82,7 +82,7 @@ To get started developing Sprout -
 - Open http://localhost:8080/ to access the backend application  
 
 You can override properties by modifying the `application.properties`    
-[See here for more info.](./starters/sprout-spring-boot-starter/src/main/resources/)  
+[See here for more info.](./backend/starters/sprout-spring-boot-starter/src/main/resources/)  
 
 The backend server is developed as a `Spring Boot Starter` so it can be added to any Spring app to bootstrap with defaults.  
 It's not production ready yet, but should be by Q1 2021.  
@@ -91,8 +91,6 @@ The main backend code is located in the Sprout Starter project.
 Read more about the [Sprout Starter](./backend/starters/sprout-spring-boot-starter)
 
 The front-end uses the [Rush Stack](https://rushstack.io/) for build orchestration. [./frontend/apps/webapp](./frontend/apps/webapp)  
-You can install rush from the project script -  
-`./common/scripts/install-run-rush`  
 
 To build the front-end -  
 ```bash
@@ -136,6 +134,7 @@ The port from Grafana UI went like this -
 This list is not comprehensive, but some high level tasks I'd like to tackle soon. 
 
 - [ ] Add a code editor to the Standard Editors [port Monaco stuff from Grafana?]
-- [ ] Add Authentication screens to UI
+- [X] Add Authentication screens to UI
 - [ ] Add lots of tests
-- [ ] Add server hook for all the boot data the UI expects [in progress]
+- [X] Add server hook for all the boot data the UI expects
+- [ ] Remove dependency on Grafana CSS
