@@ -43,7 +43,7 @@ export const LoginPage = ({ redirectUrl, showBasic }: { redirectUrl?: string; sh
     setError('');
     try {
       await axios.post('/api/login', creds);
-      navigate(redirectTo);
+      window.location.href = redirectTo;
     } catch (error) {
       console.error(error);
       setError('Authentication Failed');
