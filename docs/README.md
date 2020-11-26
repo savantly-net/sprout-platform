@@ -140,7 +140,7 @@ sprout:
 ```
 
 More sohpisticated expressions can be created.  
-See the (Spring Documentation)[https://docs.spring.io/spring-security/site/docs/3.0.x/reference/el-access.html] for more information.  
+See the [Spring Documentation](https://docs.spring.io/spring-security/site/docs/3.0.x/reference/el-access.html) for more information.  
 Or other tutorials for Spring Expression Language -  
 https://www.baeldung.com/spring-expression-language  
 
