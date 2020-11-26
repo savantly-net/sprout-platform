@@ -11,7 +11,6 @@ import { SideMenu } from './core/components/sidemenu/SideMenu';
 import { updateAppSettings } from './core/reducers/application';
 import { getSession } from './core/reducers/authentication';
 import { addRootNavs } from './core/reducers/navTree';
-import { getBoolean } from './core/utils/booleans';
 import { initDevFeatures } from './dev';
 import { StoreState } from './types';
 
@@ -42,9 +41,6 @@ export const AppContainer = ({ theme }: { theme: string }) => {
 
   const isAuthenticated = useSelector((state: StoreState) => state.authentication.isAuthenticated);
   const isSessionFetched = useSelector((state: StoreState) => state.authentication.sessionHasBeenFetched);
-  const appSettings = useSelector((state: StoreState) => state.application.settings);
-  const requiresAuth =
-    getBoolean(appSettings.REQUIRE_AUTHENTICATION) && !isAuthenticated && window.location.pathname !== '/login';
 
   const dispatch = useDispatch();
   const once = true;
@@ -64,8 +60,8 @@ export const AppContainer = ({ theme }: { theme: string }) => {
   useMemo(() => {
     if (!isSessionFetched) {
       dispatch(getSession());
-    }
-    axios
+    } else {
+      axios
       .get(`${SERVER_API_URL}/api/ui-properties`)
       .then((value) => {
         dispatch(updateAppSettings(value.data));
@@ -73,17 +69,10 @@ export const AppContainer = ({ theme }: { theme: string }) => {
       .catch((failed) => {
         console.error(failed);
       });
+    }
   }, [isAuthenticated, isSessionFetched]);
 
   const appElem = createRef<HTMLDivElement>();
-
-  const renderApp = () => {
-    if (isSessionFetched) {
-      return <App theme={theme} forceLogin={requiresAuth} />;
-    } else {
-      return null;
-    }
-  };
 
   return (
     <BrowserRouter>
@@ -91,7 +80,9 @@ export const AppContainer = ({ theme }: { theme: string }) => {
         <SideMenu></SideMenu>
         <div ref={appElem} className="main-view">
           <div className="scroll-canvas">
-            <ErrorBoundaryAlert style="page">{renderApp()}</ErrorBoundaryAlert>
+            <ErrorBoundaryAlert style="page">
+              <App />
+            </ErrorBoundaryAlert>
           </div>
         </div>
       </React.Fragment>

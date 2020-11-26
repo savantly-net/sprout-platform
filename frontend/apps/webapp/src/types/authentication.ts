@@ -4,6 +4,7 @@ export interface AuthenticationState {
   loginError: boolean; // Errors returned from server side
   errorMessage?: string; // Errors returned from server side
   sessionHasBeenFetched: boolean;
+  sessionFetchFailed: boolean;
   logoutUrl?: string;
   user: User;
 }

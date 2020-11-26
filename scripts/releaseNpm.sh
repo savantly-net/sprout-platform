@@ -29,7 +29,7 @@ trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
 trap 'echo "\"${last_command}\" command failed with exit code $?."' EXIT
 
 rush publish --include-all --version-policy sprout \
-  --target-branch development  --add-commit-details \
+  --target-branch master  --add-commit-details \
   --apply --pack --release-folder dist
 
 rush npm:publish

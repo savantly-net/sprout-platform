@@ -1,6 +1,8 @@
-package net.savantly.sprout.starter.security.jwt;import net.savantly.sprout.core.domain.user.SproutUser;
+package net.savantly.sprout.starter.security.jwt;import org.springframework.security.oauth2.jwt.Jwt;
+
+import net.savantly.sprout.core.domain.user.SproutUser;
 
 public interface JwtUserSynchronizer {
 
-	void syncUser(SproutUser user);
+	SproutUser syncUser(Jwt jwt);
 }

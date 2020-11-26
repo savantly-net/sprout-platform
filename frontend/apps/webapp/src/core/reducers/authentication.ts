@@ -13,6 +13,7 @@ export const initialAuthenticationState: AuthenticationState = {
   } as User,
   errorMessage: undefined, // Errors returned from server side
   sessionHasBeenFetched: false,
+  sessionFetchFailed: false,
   logoutUrl: undefined,
 };
 
@@ -50,9 +51,7 @@ const authenticationSlice = createSlice({
       const isAuthenticated = action.payload.accessToken ? true : false;
       if (isAuthenticated) {
         store.set(ACCESS_TOKEN_STORAGE_KEY, action.payload.accessToken as string);
-      } else {
-        store.set(ACCESS_TOKEN_STORAGE_KEY, false);
-      }
+      } 
       return {
         ...state,
         isAuthenticated,
@@ -73,7 +72,8 @@ const authenticationSlice = createSlice({
         loading: false,
         loginError: false,
         logoutUrl: undefined,
-        sessionHasBeenFetched: false
+        sessionHasBeenFetched: false,
+        sessionFetchFailed: false
       }
     }
   },
@@ -86,7 +86,8 @@ const authenticationSlice = createSlice({
           ...state.user,
           ...action.payload
         },
-        sessionHasBeenFetched: true
+        sessionHasBeenFetched: true,
+        sessionFetchFailed: false
       };
     });
     builder.addCase(getSession.rejected, (state, action): AuthenticationState => {
@@ -97,7 +98,8 @@ const authenticationSlice = createSlice({
           ...state.user
         },
         isAuthenticated: false,
-        sessionHasBeenFetched: false
+        sessionHasBeenFetched: false,
+        sessionFetchFailed: true
       };
     });
   }

@@ -1,8 +1,11 @@
 package net.savantly.sprout.starter.security.jwt;
 
+import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
+import org.springframework.security.oauth2.jwt.Jwt;
+
+import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
 import net.savantly.sprout.core.domain.user.SproutUser;
 import net.savantly.sprout.core.domain.user.UserUpdateDto;
 import net.savantly.sprout.core.security.SproutUserService;
@@ -10,20 +13,27 @@ import net.savantly.sprout.core.security.SproutUserService;
 public class DefaultJwtUserSynchronizer implements JwtUserSynchronizer {
 
 	private final SproutUserService userService;
+	private final SproutConfigurationProperties configProps;
 
-	public DefaultJwtUserSynchronizer(SproutUserService userService) {
+	public DefaultJwtUserSynchronizer(SproutUserService userService, SproutConfigurationProperties configProps) {
 		this.userService = userService;
+		this.configProps = configProps;
 	}
 
 	@Override
-	public void syncUser(SproutUser user) {
-		if (userService.usernameExists(user.getUsername())) {
-			userService.updateUser(new UserUpdateDto().setUsername(user.getUsername()).setFirstName(user.getFirstName()).setLastName(user.getLastName())
-					.setRoles(user.getRoles().stream().map(r -> r.getName()).collect(Collectors.toList())));
+	public SproutUser syncUser(Jwt jwt) {
+		// uses the email as the username
+		final String username = jwt.getClaimAsString("email");
+		final String firstName = jwt.getClaimAsString("first_name");
+		final String lastName = jwt.getClaimAsString("last_name");
+		final List<String> roles = jwt
+				.getClaimAsStringList(configProps.getSecurity().getAuthentication().getJwt().getGroupsClaim());
+
+		if (userService.usernameExists(username)) {
+			return userService.updateUser(new UserUpdateDto().setUsername(username).setFirstName(firstName)
+					.setLastName(lastName).setRoles(roles));
 		} else {
-			userService.createUser(user.getUsername(), UUID.randomUUID().toString(),
-					user.getPrimaryEmailAddress().getEmailAddress(),
-					user.getRoles().stream().map(r -> r.getName()).collect(Collectors.toList()));
+			return userService.createUser(username, UUID.randomUUID().toString(), username, roles);
 		}
 	}
 

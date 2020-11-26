@@ -24,10 +24,10 @@ import net.savantly.sprout.core.domain.tenant.TenantSupport;
 @Filter(name = "tenantFilter", condition = "tenant_id = :tenantId")
 @MappedSuperclass
 @Getter
-@Setter
 public class TenantKeyedEntity extends AbstractAuditableDomainObject<TenantedPrimaryKey> implements Persistable<TenantedPrimaryKey>, TenantSupport {
 
 	@Id
+	@Setter
 	private TenantedPrimaryKey id;
 
 	@Version

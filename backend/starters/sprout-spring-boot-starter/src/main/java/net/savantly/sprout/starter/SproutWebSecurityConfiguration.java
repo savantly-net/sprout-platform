@@ -39,8 +39,8 @@ import net.savantly.sprout.starter.security.session.SignedUserInfoCookie;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
-	prePostEnabled = true, // (1)
-	securedEnabled = true, // (2)
+	prePostEnabled = true,
+	securedEnabled = true,
 	jsr250Enabled = true)
 public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
@@ -109,9 +109,9 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
         .and()
             .csrf().disable()
             .cors().and().rememberMe()
-        .and()
+        //.and()
         	// deactivate RequestCache and append originally requested URL as query parameter to login form request
-            .requestCache().disable()
+            //.requestCache().disable()
         ;
 		
 		// Sort by priority

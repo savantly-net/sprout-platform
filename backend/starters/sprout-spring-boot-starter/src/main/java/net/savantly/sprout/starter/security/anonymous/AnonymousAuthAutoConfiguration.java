@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
+import net.savantly.sprout.core.security.SproutUserService;
 import net.savantly.sprout.starter.SproutWebSecurityConfiguration;
 
 @Configuration(AnonymousAuthAutoConfiguration.BEAN_NAME)
@@ -15,11 +16,12 @@ import net.savantly.sprout.starter.SproutWebSecurityConfiguration;
 @ConditionalOnMissingBean(name = AnonymousAuthAutoConfiguration.BEAN_NAME )
 public class AnonymousAuthAutoConfiguration {
 	public static final String BEAN_NAME = "anonymousAuthAutoConfiguration";
+	public final static String ANONYMOUS_USER = "anonymousUser";
 
 	@Bean
 	@ConditionalOnProperty(prefix = "sprout.security.authentication.anonymous", name = "enable", matchIfMissing = true)
-	public AnonymousAuthConfigurer defaultAnonymousAuthConfigurer(SproutConfigurationProperties configProps) {
-		return new DefaultAnonymousAuthConfigurer(configProps);
+	public AnonymousAuthConfigurer defaultAnonymousAuthConfigurer(SproutConfigurationProperties configProps, SproutUserService userService) {
+		return new DefaultAnonymousAuthConfigurer(configProps, userService);
 	}
 	
 	@Bean

@@ -55,7 +55,11 @@ public class SproutConfigurationProperties {
 	public static class Security {
 		private Authentication authentication = new Authentication();
 		private Authorization authorization = new Authorization();
-		private String cookieHmacKey = UUID.randomUUID().toString();
+		/**
+		 * This is generated every time the application restarts. When it changes, all issued cookies are invalidated.
+		 * It should be set in the application properties, and shared across all app instances
+		 */
+		private String cookieHmacKey = UUID.randomUUID().toString().replace("-", "");
     }
 	
 	@Getter

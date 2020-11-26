@@ -24,13 +24,10 @@ public class DefaultJwtAuthenticationConverter implements Converter<Jwt, Abstrac
 
 	@Override
 	public final AbstractAuthenticationToken convert(Jwt jwt) {
+		SproutUser user = this.synchronizer.syncUser(jwt);
+		
 		JwtAuthenticationToken internalToken = (JwtAuthenticationToken)internalConverter.convert(jwt);
-		SproutJwtAuthenticationToken authToken = new SproutJwtAuthenticationToken(internalToken, users);
-		if (SproutUser.class.isAssignableFrom(authToken.getPrincipal().getClass())) {
-			this.synchronizer.syncUser((SproutUser) authToken.getPrincipal());
-		} else {
-			throw new RuntimeException("the JwtAuthenticationToken.getPrincipal() should return a SproutUser");
-		}
+		SproutJwtAuthenticationToken authToken = new SproutJwtAuthenticationToken(internalToken, user);
 		return authToken;
 	}
 }

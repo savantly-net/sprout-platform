@@ -68,7 +68,7 @@ public class SproutUserServiceImpl implements SproutUserService {
 		EmailAddress emailAddressEntity = new EmailAddress(emailAddress);
 		userDetails.setPrimaryEmailAddress(emailAddressEntity);
 		SproutUserEntity saved = userRepository.save(userDetails);
-		userRepository.flush();
+		//userRepository.flush();
 		return saved;
 	}
 
@@ -116,8 +116,7 @@ public class SproutUserServiceImpl implements SproutUserService {
 		entity.setPhoneNumber(user.getPhoneNumber());
 		entity.setPrimaryEmailAddress(user.getPrimaryEmailAddress());
 		*/
-		userRepository.save(entity);
-		return entity;
+		return userRepository.save(entity);
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -22,12 +23,13 @@ import org.springframework.security.web.context.SecurityContextRepository;
 import net.savantly.sprout.core.domain.user.SproutUser;
 import net.savantly.sprout.core.security.SproutUserService;
 import net.savantly.sprout.model.user.UserDto;
+import net.savantly.sprout.starter.security.anonymous.AnonymousAuthAutoConfiguration;
 
-public class CookieSecurityContextRepository extends HttpSessionSecurityContextRepository implements SecurityContextRepository {
+public class CookieSecurityContextRepository extends HttpSessionSecurityContextRepository
+		implements SecurityContextRepository {
 
 	private static final Logger log = LoggerFactory.getLogger(CookieSecurityContextRepository.class);
 	private static final String EMPTY_CREDENTIALS = "";
-	private static final String ANONYMOUS_USER = "anonymousUser";
 
 	private final String cookieHmacKey;
 	private final SproutUserService userService;
@@ -44,18 +46,36 @@ public class CookieSecurityContextRepository extends HttpSessionSecurityContextR
 		requestResponseHolder.setResponse(new SaveToCookieResponseWrapper(request, response));
 
 		SecurityContext context = SecurityContextHolder.createEmptyContext();
-		if(hasJSessionId(request)) {
+		if (hasJSessionId(request)) {
+			// If there is a JSESSIONID, then the request is likely coming from the server
+			// app, and not the SPA
 			return super.loadContext(requestResponseHolder);
+		} else if (hasBearerToken(request)) {
+			// the SPA is likely requesting a session
+			// let's not read the UserInfo cookie because it should be anonymous before the
+			// JWT Filter completes
+			// so just do nothing...
+			return context;
 		} else {
 			try {
-				readUserInfoFromCookie(request).ifPresent(userInfo -> context.setAuthentication(
-						new UsernamePasswordAuthenticationToken(userInfo, EMPTY_CREDENTIALS, userInfo.getAuthorities())));
+				readUserInfoFromCookie(request).ifPresent(userInfo -> {
+					if (!userInfo.getUsername().contentEquals(AnonymousAuthAutoConfiguration.ANONYMOUS_USER)) {
+						context.setAuthentication(
+								new UsernamePasswordAuthenticationToken(userInfo, EMPTY_CREDENTIALS,
+								userInfo.getAuthorities()));
+					}
+				});
 			} catch (CookieVerificationFailedException e) {
 				log.debug("cookie validation failed: {}", e.getMessage());
 			}
 
 			return context;
 		}
+	}
+
+	private boolean hasBearerToken(HttpServletRequest request) {
+		Optional<Cookie> maybe = readCookieFromRequest(request, "Authorization");
+		return (maybe.isPresent() && maybe.get().getValue().contains("Bearer"));
 	}
 
 	private boolean hasJSessionId(HttpServletRequest request) {
@@ -65,7 +85,7 @@ public class CookieSecurityContextRepository extends HttpSessionSecurityContextR
 
 	@Override
 	public void saveContext(SecurityContext context, HttpServletRequest request, HttpServletResponse response) {
-		if(hasJSessionId(request)) {
+		if (hasJSessionId(request)) {
 			super.saveContext(context, request, response);
 			return;
 		} else {
@@ -82,7 +102,7 @@ public class CookieSecurityContextRepository extends HttpSessionSecurityContextR
 
 	@Override
 	public boolean containsContext(HttpServletRequest request) {
-		if(hasJSessionId(request)) {
+		if (hasJSessionId(request)) {
 			return super.containsContext(request);
 		} else {
 			try {
@@ -93,9 +113,10 @@ public class CookieSecurityContextRepository extends HttpSessionSecurityContextR
 		}
 	}
 
-	private Optional<SproutUser> readUserInfoFromCookie(HttpServletRequest request) throws CookieVerificationFailedException {
+	private Optional<SproutUser> readUserInfoFromCookie(HttpServletRequest request)
+			throws CookieVerificationFailedException {
 		Optional<Cookie> maybeCookie = readCookieFromRequest(request, SignedUserInfoCookie.NAME);
-		if(maybeCookie.isPresent()) {
+		if (maybeCookie.isPresent()) {
 			return Optional.of(createUserInfo(maybeCookie.get()));
 		} else {
 			return Optional.empty();
@@ -107,8 +128,8 @@ public class CookieSecurityContextRepository extends HttpSessionSecurityContextR
 			return Optional.empty();
 		}
 
-		Optional<Cookie> maybeCookie = Stream.of(request.getCookies())
-				.filter(c -> cookieName.equals(c.getName())).findFirst();
+		Optional<Cookie> maybeCookie = Stream.of(request.getCookies()).filter(c -> cookieName.equals(c.getName()))
+				.findFirst();
 
 		return maybeCookie;
 	}
@@ -118,6 +139,8 @@ public class CookieSecurityContextRepository extends HttpSessionSecurityContextR
 		if (userService.usernameExists(user.getName())) {
 			return userService.loadUserByUsername(user.getName());
 		} else {
+			log.warn("did not find valid user in cookie. using anonymous as fail-safe. username in cookie: "
+					+ user.getName());
 			return SproutUser.anonymousUser();
 		}
 	}
@@ -135,13 +158,11 @@ public class CookieSecurityContextRepository extends HttpSessionSecurityContextR
 			HttpServletResponse response = (HttpServletResponse) getResponse();
 			Authentication authentication = securityContext.getAuthentication();
 
-			if (Objects.nonNull(authentication) && SproutUser.class.isAssignableFrom(authentication.getPrincipal().getClass())) {
+			// Let's not add a cookie for an anonymous user, otherwise we will need to handle creating an anonymous token when rehydrating the cookie
+			if (Objects.nonNull(authentication)
+					&& SproutUser.class.isAssignableFrom(authentication.getPrincipal().getClass())
+					&& !AnonymousAuthenticationToken.class.isAssignableFrom(authentication.getClass())) {
 				SproutUser userInfo = (SproutUser) authentication.getPrincipal();
-				SignedUserInfoCookie cookie = new SignedUserInfoCookie(userInfo, cookieHmacKey);
-				cookie.setSecure(request.isSecure());
-				response.addCookie(cookie);
-			} else if (Objects.nonNull(authentication) && ANONYMOUS_USER.contentEquals(authentication.getPrincipal().toString())) {
-				SproutUser userInfo = SproutUser.anonymousUser();
 				SignedUserInfoCookie cookie = new SignedUserInfoCookie(userInfo, cookieHmacKey);
 				cookie.setSecure(request.isSecure());
 				response.addCookie(cookie);

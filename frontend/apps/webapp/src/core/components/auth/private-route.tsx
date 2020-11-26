@@ -1,54 +1,57 @@
-import React from 'react';
+import React, { ComponentType, ReactElement } from 'react';
 import { connect } from 'react-redux';
-import { Redirect, RouteProps } from 'react-router';
-import { Route } from 'react-router-dom';
+import { BrowserRouterProps, Route, useNavigate } from 'react-router-dom';
 import { StoreState } from '../../../types';
 import ErrorBoundary from '../error/error-boundary';
 
-interface IOwnProps extends RouteProps {
+interface IOwnProps {
   hasAnyAuthorities?: string[];
+  children: ReactElement | ReactElement[];
+  path: string;
+  element: React.ReactElement;
 }
 
 export interface IPrivateRouteProps extends IOwnProps, StateProps {}
 
 export const PrivateRouteComponent = ({
-  component: Component,
   isAuthenticated,
   sessionHasBeenFetched,
   isAuthorized,
   hasAnyAuthorities = [],
   ...rest
 }: IPrivateRouteProps) => {
-  const checkAuthorities = (props: any) =>
-    isAuthorized ? (
-      <ErrorBoundary>{/*<Component {...props} />*/}</ErrorBoundary>
-    ) : (
+  const navigate = useNavigate();
+
+  const unauthorized = () => {
+    return (
       <div className="insufficient-authority">
         <div className="alert alert-danger">You are not authorized to access this page.</div>
       </div>
+    );
+  };
+
+  const checkAuthorities = (props: any) =>
+    isAuthorized ? (
+      <ErrorBoundary>
+        <Route {...props} />
+      </ErrorBoundary>
+    ) : (
+      unauthorized()
     );
 
   const RenderRedirect = (props: any) => {
     if (!sessionHasBeenFetched) {
       return <div></div>;
     } else {
-      return isAuthenticated ? (
-        checkAuthorities(props)
-      ) : (
-        <Redirect
-          to={{
-            pathname: '/login',
-            search: props.location.search,
-            state: { from: props.location }
-          }}
-        />
-      );
+      if (isAuthenticated) {
+        return checkAuthorities(props);
+      } else {
+        return unauthorized();
+      }
     }
   };
 
-  if (!Component) throw new Error(`A component needs to be specified for private route for path ${(rest as any).path}`);
-
-  return <Route element={<RenderRedirect />} />;
+  return RenderRedirect({ ...rest });
 };
 
 export const hasAnyAuthority = (authorities: string[], hasAnyAuthorities: string[]) => {

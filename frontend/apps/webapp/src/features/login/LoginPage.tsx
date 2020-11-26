@@ -87,7 +87,6 @@ export const LoginPage = ({
                       accessToken: data.access_token
                     })
                   );
-                  dispatch(getSession());
                   if(redirectUrl == '/login') {
                     navigate('/');
                   } else {

@@ -36,8 +36,8 @@ public class JWTAutoConfiguration {
 
 	@Bean("jwtUserSynchronizer")
 	@ConditionalOnMissingBean(value = { JwtUserSynchronizer.class }, name = { "jwtUserSynchronizer" })
-	public DefaultJwtUserSynchronizer jwtUserSynchronizer(SproutUserService userService) {
-		return new DefaultJwtUserSynchronizer(userService);
+	public DefaultJwtUserSynchronizer jwtUserSynchronizer(SproutUserService userService, SproutConfigurationProperties configProps) {
+		return new DefaultJwtUserSynchronizer(userService, configProps);
 	}
 
 	@Bean
@@ -58,7 +58,7 @@ public class JWTAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean({ JWTConfigurer.class })
 	@Conditional(AnyJwkUriConfigured.class)
-	public JWTConfigurer oauthJwtConfigurer(DefaultJwtAuthenticationConverter jwtAuthenticationConverter) {
+	public JWTConfigurer oauthJwtConfigurer(Converter<Jwt, AbstractAuthenticationToken> jwtAuthenticationConverter) {
 		return new JWTConfigurer() {
 			@Override
 			public void configure(HttpSecurity builder) throws Exception {
