@@ -1,11 +1,15 @@
 # sprout-platform  
 ![CI](https://github.com/savantly-net/sprout-platform/workflows/CI/badge.svg)
 
-This project provides an extensible and modular CMS application.
-You can use the default server, or add the [Sprout Starter Library](./backend/starters/sprout-spring-boot-starter) to your own Spring Boot project.  
+
+![Sprout Web App](./docs/img/favicon.png)  
+  
+The Sprout Platform provides an extensible and modular application platform, suitable for custom CMS, line-of-business, application portals, or other types of apps.  
+
+You can use the default server, or add the [Sprout Starter Library](https://github.com/savantly-net/sprout-platform/tree/master/backend/starters/sprout-spring-boot-starter) to your own Spring Boot project.  
 It can be used headless, but a default UI is provided which is customizable via plugins.  
 
-It's opinionated, but the default configurations can be backed off - so you can use as much or as little as you want.  
+It's opinionated, but the default configurations can be backed off - so you can use as much or as little as you want.   
 Full documentation is in progress, and PRs are welcome!  
 
 # [Go here for documentation](https://sprout-platform.web.app/)  
