@@ -2,7 +2,7 @@ import * as reduxToolkit from '@reduxjs/toolkit';
 import * as sproutApi from '@savantly/sprout-api';
 import { AppPlugin, PanelPlugin, PluginMeta } from '@savantly/sprout-api';
 import * as sproutRuntime from '@savantly/sprout-runtime';
-import { config } from '@savantly/sprout-runtime';
+import { config, setPanelRegistrationService } from '@savantly/sprout-runtime';
 import * as sproutUi from '@savantly/sprout-ui';
 import * as ui from '@sprout-platform/ui';
 import * as emotion from 'emotion';
@@ -150,8 +150,13 @@ export function importPanelPlugin(id: string): Promise<PanelPlugin> {
  */
 export const registerPanelPlugin = (panelPlugin: PanelPlugin) => {
   // If it's already loaded, don't do anything
-  if(panelCache[panelPlugin.meta.id]) {
+  if(config.panels[panelPlugin.meta.id]) {
     return; 
   }
+  config.panels[panelPlugin.meta.id] = panelPlugin.meta;
   panelCache[panelPlugin.meta.id] = Promise.resolve(panelPlugin);
 }
+
+setPanelRegistrationService({
+  registerPanelPlugin
+});
