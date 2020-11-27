@@ -1,4 +1,13 @@
-# Sprout Platform Documentation
+---
+title: "Orientation and setup"
+keywords: get started, setup, orientation, quickstart, intro, concepts, containers, sprout
+description: Get oriented on some basics of Sprout
+---
+
+# Documentation
+
+* TOC
+{:toc}
 
 ## Branding
 
@@ -139,7 +148,7 @@ sprout:
             TRACE: hasRole('EVERYONE')
 ```
 
-More sohpisticated expressions can be created.  
+More sophisticated expressions can be created.  
 See the [Spring Documentation](https://docs.spring.io/spring-security/site/docs/3.0.x/reference/el-access.html) for more information.  
 Or other tutorials for Spring Expression Language -  
 https://www.baeldung.com/spring-expression-language  

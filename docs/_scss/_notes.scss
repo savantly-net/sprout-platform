@@ -1,0 +1,79 @@
+//noinspection CssNoGenericFontName
+blockquote {
+    background-color:  $note-bg-color;
+    border-left-color: $note-color;
+    font-size:         unset; // override bootstrap font-size for blockquotes
+  
+    > p:first-child {
+      color:       $note-color;
+      font-weight: 700;
+      margin-top:  0;
+  
+      &::before {
+        font-family: FontAwesome;
+        content:     "\f058 \00a0";
+      }
+    }
+  
+    // Maintain backwards compatibility with old note style
+    > p:only-child {
+      color:       inherit;
+      font-weight: inherit;
+  
+      &::before {
+        content: none;
+      }
+    }
+  
+    &.important {
+      border-left-color: $important-color;
+  
+      > p:first-child {
+        color: $important-color;
+  
+        &::before {
+          content: "\f06a  \00a0";
+        }
+      }
+    }
+  
+    &.warning {
+      border-left-color: $warning-color;
+  
+      > p:first-child {
+        color: $warning-color;
+  
+        &::before {
+          content: "\f057  \00a0";
+        }
+      }
+    }
+  }
+  
+  /* For Bootstrap badges */
+  span {
+    &.badge {
+      border-radius:  .25rem;
+      color:          #fff;
+      display:        inline-block;
+      font-size:      75%;
+      font-weight:    bold;
+      line-height:    1;
+      padding:        .25em .4em;
+      text-align:     center;
+      vertical-align: baseline;
+      white-space:    nowrap;
+  
+      &.badge-info {
+        background-color: $note-color;
+      }
+  
+      &.badge-danger {
+        background-color: $warning-color;
+      }
+  
+      &.badge-warning {
+        background-color: $important-color;
+      }
+    }
+  }

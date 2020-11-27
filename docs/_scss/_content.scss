@@ -1,0 +1,102 @@
+.content, p {
+    line-height: 24px;
+  
+    img {
+      display:   block;
+      height:    auto;
+      max-width: 100%;
+    }
+  }
+  
+  /*
+   * Code formatting *************************************************************
+   */
+  pre, code {
+    background-color: #f5f8fa!important;
+    color: #0c5176 !important;
+  }
+  
+  pre {
+      border: 0;
+      border-radius: 4px;
+      display: block;
+      padding: 20.5px!important;
+      margin: 0 0 10px;
+      font-size: 13px;
+      line-height: 1.42857143;
+      word-break: normal !important;
+      word-wrap: break-word;
+  
+      code {
+          overflow-x: auto;
+          overflow-wrap: normal;
+          white-space: pre;
+      }
+  }
+  
+  code {
+      border-radius: 2px;
+      font-size: 90%;
+      padding: 3px 7px;
+      overflow-x: scroll;
+      white-space: nowrap;
+  }
+  
+  .highlighter-rouge {
+    margin: 15px 0;
+  }
+  
+  /*
+   * Guides : components *********************************************************
+   */
+  
+  .component-container {
+      padding: 0;
+      margin: 0 0 50px;
+      width: 100%;
+  }
+  
+  .component {
+      padding: 15px 25px 5px 15px;
+      text-align: center;
+      margin: 0 8px 15px;
+      float: left;
+      height: 250px;
+      width: 100%;
+      background: $bg-component;
+      img {
+        width: 70px;
+        height: 70px;
+      }
+      .component-icon {
+        margin: 0 auto;
+        width: 70px;
+      }
+      h2 {
+        font-size: 22px;
+      }
+      h2, h3, p {
+        margin: 0;
+      }
+  }
+  
+  a.anchorLink {
+      font-size: 0.5em;
+      margin-left: 5px;
+      visibility: hidden;
+  }
+  
+  h1:hover > a.anchorLink,
+  h2:hover > a.anchorLink,
+  h3:hover > a.anchorLink
+  {
+      visibility: visible;
+  }
+  
+  a.glossary {
+      color: $body-text;
+      outline: none;
+       &:hover {
+          opacity: 1;
+      }
+  }

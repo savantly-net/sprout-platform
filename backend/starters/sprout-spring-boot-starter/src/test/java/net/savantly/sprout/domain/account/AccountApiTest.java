@@ -33,16 +33,17 @@ public class AccountApiTest {
 	TestRestTemplate rest;
 
 	@Test
-	public void failWithAnonymousUser() throws Exception {
+	public void withAnonymousUser() throws Exception {
 		String url = "/api/account";
 		RequestEntity request = RequestEntity.get(new URI(url)).accept(MediaType.APPLICATION_JSON).build();
 		ResponseEntity<Map> response = rest.exchange(request, Map.class);
 
-		Assertions.assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode(), "Should get account information");
+		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(), "Should get account information");
+		Assertions.assertTrue("anonymousUser".equals(response.getBody().get("name")));
 	}
 	
 	@Test
-	public void passWithTestUser() throws Exception {
+	public void withTestUser() throws Exception {
 		String url = "/api/account";
 		RequestEntity request = RequestEntity.get(new URI(url)).accept(MediaType.APPLICATION_JSON).build();
 		ResponseEntity<Map> response = rest.withBasicAuth("test", "test").exchange(request, Map.class);

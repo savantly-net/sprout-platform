@@ -1,0 +1,288 @@
+/*
+ * Primary navigation - top header *********************************************
+ */
+ .nav-container {
+    height: 55px;
+}
+
+.sidebar-toggle {
+    margin: 4px 0 0 0;
+    float: right;
+    padding: 16px 15px 0 0;
+}
+
+/*
+ * Secondary Navigation  *******************************************************
+ */
+
+.nav-secondary {
+    background-color: $bg-secondary;
+    box-shadow: 0 1px 13px rgba(0, 0, 0, 0.24);
+    height: 55px;
+}
+
+
+/*
+ * NAV SIDEBAR *****************************************************************
+ */
+
+// Some links don't have 'href' attr, hence no mouse pointer
+.nav-sidebar li a {
+    cursor: pointer;
+}
+
+.nav-sidebar>li>a {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.nav-sidebar>.active>a,
+.nav-sidebar>.active>a:focus,
+.nav-sidebar>.active>a:hover {
+    color: #2089C4;
+    background-color: #428bca;
+}
+
+.nav-sidebar ul {
+    list-style: none;
+    padding: 0 15px;
+    text-align: left;
+
+    li {
+        display: block;
+    }
+
+    @include lg-width {
+        padding: 0;
+    }
+}
+
+.nav-sidebar .nav ul {
+  padding: 0 0 0 15px;
+}
+
+.nav-sidebar ul li a:hover {
+    opacity: 0.7;
+    background: transparent;
+}
+
+.nav-sidebar ul li a,
+.nav-sidebar ul li a:focus,
+.nav-sidebar ul li a:hover {
+    border-bottom: none;
+}
+
+.nav-sidebar ul li a.active,
+.nav-sidebar.nav>li>a:focus {
+    background: #F3F4F4;
+    border-left: 4px solid $primary-links;
+    font-weight: 600;
+}
+
+.nav-sidebar ul li li a {
+    border-left: 1px solid $primary-links;
+    font-size: 12px;
+    margin-left: 15px;
+}
+
+.nav-sidebar .caret {
+    float: right;
+    margin-top: 10px;
+}
+
+/* pointer for collapsed sidebar list items */
+
+.collapsed
+{
+    cursor:pointer;
+}
+
+/*
+ * Table of contents menu  *****************************************************
+ */
+
+.toc-toggle {
+    width: 25px;
+    height: 25px;
+    float: right;
+}
+
+.toc-nav ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 10px;
+    line-height: 20px;
+    li {
+        padding: 2px 8px 2px 0;
+        width: 100%;
+        a {
+            display: inline-block;
+            font-size: 12px;
+            padding: 5px 10px 5px 10px;
+        }
+    }
+}
+
+.toc-nav li a.active {
+    color: #2089C4;
+    border-left: 4px solid #2089C4;
+    font-weight: bold;
+}
+
+.toc-nav i.fa {
+    font-size: 14px;
+    margin: 0 8px 0 0;
+    color: $primary-links;
+}
+
+div#side-toc-title {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 11px 0 10px 13px;
+}
+
+.edit {
+    margin: 10px 0 20px 15px;
+}
+
+/*
+ * Toggle Switches *************************************************************
+ */
+
+.toggle-mode {
+    float: left;
+    padding: 0 0 0 10px;
+    width: 100%;
+    .icon {
+        width: 25px;
+        float: left;
+        font-size: 1.5rem;
+    }
+}
+
+
+.toggle-switch {
+    float: left;
+    height: 40px;
+    width: 60px;
+    padding: 3px 7px 0 2px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 47px;
+    height: 19px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $slider-bg;
+    border: 1px solid #c3e4f7;
+}
+
+.slider:before {
+    background-color: $slider-btn;
+    position: absolute;
+    content: "";
+    height: 15px;
+    width: 15px;
+    left: 2px;
+    bottom: 1px;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+
+/*
+ * Tabs ************************************************************************
+ */
+#tabs {
+    float: left;
+    margin: 0;
+    padding-left: 8px;
+    ul {
+        padding: 0;
+    }
+}
+
+.tabs {
+    li {
+        float: left;
+        list-style: none;
+        a {
+            color: $white;
+            padding: 17px 19px 14px 15px;
+            float: left;
+            font-weight: 600;
+            &:hover {
+                background: rgba(0, 0, 0, 0.17) !important;
+                border-bottom: 4px solid #fff;
+            }
+        }
+    }
+}
+
+.tabs li.active a {
+    background: transparent !important;
+    color: #fff;
+    cursor: default;
+    border-bottom: 4px solid #fff;
+}
+
+/*
+ * feedback links **************************************************************
+ */
+
+.feedback-links {
+    margin: 0 0 10px 0;
+}
+
+.rating-msg {
+    font: inherit !important;
+    color: inherit !important;
+}
+
+/*
+ * Controls ********************************************************************
+ */
+
+.ctrl-left {
+    float: left;
+    width: 20px;
+    margin: 3px 0 0 0;
+}
+
+.ctrl-right {
+    float: right;
+    padding: 5px 0;
+}
+
+.ctrl-right .btn-group {
+    float: left;
+    margin: 2px 0 0;
+}
