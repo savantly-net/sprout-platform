@@ -8,7 +8,7 @@ It can be used headless, but a default UI is provided which is customizable via 
 It's opinionated, but the default configurations can be backed off - so you can use as much or as little as you want.  
 Full documentation is in progress, and PRs are welcome!  
 
-# [Documentation](https://sprout-platform.web.app/)  
+# [Go here for documentation](https://sprout-platform.web.app/)  
 
 The front-end UI uses a `plugin` system to add or modify functionality.  
 [Read more about the front-end](./frontend/)  
@@ -32,7 +32,6 @@ Help me create that!
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/Savantly)  
 
 Sprout platform is currently being refactored to leverage the latest libraries and practices. 
-The development branch may be unstable until this is complete.  
 Follow this project to stay informed.  
 
 ## Quick Start  
@@ -63,56 +62,6 @@ password: changeme!
 
 
 ![Sprout Web App](./docs/img/panel_edit.png)  
-
-
-## Development 
-If you're a Java, React, or Grafana developer, you'll be familiar with the tooling. 
-
-The UI was bootstrapped using `create-react-app`  
-The backend uses `gradle` + `Spring Boot`  
-
-The component library is made of general React components that can be used in your own React application.  
-`npm install @sprout-platform/ui`  
-Storybook is used to document and demo the UI component library.  
-It's published [here](https://master--5f96ec613d800900227e3b76.chromatic.com)  
-
-To get started developing Sprout -  
-- Clone this project 
-- Run `./gradlew :sprout-server:bootRun` from the base directory of the project to start the server 
-- Open http://localhost:8080/ to access the backend application  
-
-You can override properties by modifying the `application.properties`    
-[See here for more info.](./backend/starters/sprout-spring-boot-starter/src/main/resources/)  
-
-The backend server is developed as a `Spring Boot Starter` so it can be added to any Spring app to bootstrap with defaults.  
-It's not production ready yet, but should be by Q1 2021.  
-
-The main backend code is located in the Sprout Starter project.  
-Read more about the [Sprout Starter](./backend/starters/sprout-spring-boot-starter)
-
-The front-end uses the [Rush Stack](https://rushstack.io/) for build orchestration. [./frontend/apps/webapp](./frontend/apps/webapp)  
-
-To build the front-end -  
-```bash
-# from the project root
-rush update
-rush build
-```
-
-To start the front-end app -  
-```bash
-rush start
-``` 
-
-To add a dependency to a front-end project - 
-```bash
-cd ./frontend/<project sub dir>
-rush add -p @scoped/package
-```
-
-
-The toolkit from Grafana has been used to setup the dependencies.  
-It doesn't support all the same features as Grafana, and the plugin bootstrapping is still progress.  
 
 
 ## UI Port from Grafana 
