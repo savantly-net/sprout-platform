@@ -9,11 +9,19 @@ horizontalnav:
 home: {}
 
 guides:
-- title: Sprout overview
-  path: /get-started/guides/
-- title: Get Sprout
-  path: /get-started/run/
+- title: Overview
+  path: /get-started/
 - sectiontitle: Get started
   section:
-  - title: "Orientation and setup"
-    path: /get-started/
+  - title: Get Sprout
+    path: /get-started/run/
+  - title: Sprout Development
+    path: /get-started/development/
+- title: Authentication
+  path: /get-started/guides/authentication/
+- title: Authorization
+  path: /get-started/guides/authorization/
+- title: Branding
+  path: /get-started/guides/branding/
+- title: Menus
+  path: /get-started/guides/menus/

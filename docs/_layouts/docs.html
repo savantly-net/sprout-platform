@@ -60,7 +60,7 @@
                                         {%- if edit_url != "" -%}
                                         <li><a href="{{ edit_url }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit this page</a></li>
                                         {%- endif -%}
-                                        <li><a href="https://github.com/savantly-net/sprout-platform/issues/new?body=File: [{{ page.path }}](https://savantly-net.github.io/sprout-platform/docs/{{ page.url }})" class="nomunge"><i class="fa fa-check" aria-hidden="true"></i> Request docs changes</a></li>
+                                        <li><a href="https://github.com/savantly-net/sprout-platform/issues/new?body=File: [{{ page.path }}](https://sprout-platform.web.app{{ page.url }})" class="nomunge"><i class="fa fa-check" aria-hidden="true"></i> Request docs changes</a></li>
                                         <li>{%- include theme-switch.html -%}</li>
                                     </ul>
                                 </div>
@@ -82,5 +82,6 @@
         {% include footer.html %}
     </footer>
     <script>const pageURL = "{{ page.url }}";</script>
+    {% include firebase.html %}
 </body>
 </html>

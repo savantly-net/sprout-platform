@@ -8,7 +8,7 @@ It can be used headless, but a default UI is provided which is customizable via 
 It's opinionated, but the default configurations can be backed off - so you can use as much or as little as you want.  
 Full documentation is in progress, and PRs are welcome!  
 
-#### [Goto Documentation](./docs/)  
+# [Documentation](https://sprout-platform.web.app/)  
 
 The front-end UI uses a `plugin` system to add or modify functionality.  
 [Read more about the front-end](./frontend/)  

@@ -3,4 +3,4 @@ title: Guides
 description: Learn how to customize Sprout
 ---
 
-# TODO
+Learn how to perform tasks and customizations using the guides here.
