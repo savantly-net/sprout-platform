@@ -20,7 +20,7 @@
 
 title: Sprout Platform
 email: support@savantly.net
-description: A modular CMS in a Spring Boot Starter
+description: A modular CMS as a Spring Boot Starter. Use as a lib in your own project, or extend the default server with modules. Roll your own UI, or extend the default UI with plugins
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 #twitter_username: 

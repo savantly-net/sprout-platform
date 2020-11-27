@@ -159,7 +159,7 @@ body.landing {
     }
   }
 
-  $icons: rocket, download-docker, guides, whats-new, manuals, reference;
+  $icons: rocket, download, guides, whats-new, manuals, reference;
 
   .card {
     color: $body-text;
@@ -176,7 +176,7 @@ body.landing {
     @each $icon in $icons {
       &.#{$icon} {
         @extend %icon-card;
-        background-image: url("/images/#{$icon}.svg");
+        background-image: url("/img/#{$icon}.svg");
       }
     }
 
