@@ -1,8 +1,9 @@
-import React, { FC } from 'react';
-import SideMenuDropDown from './SideMenuDropDown';
-import { Icon } from '@savantly/sprout-ui';
 import { NavModelItem } from '@savantly/sprout-api';
+import { Icon } from '@savantly/sprout-ui';
+import { css, cx } from 'emotion';
+import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
+import SideMenuDropDown from './SideMenuDropDown';
 
 export interface Props {
   link: NavModelItem;
@@ -22,19 +23,29 @@ const TopSectionItem: FC<Props> = (props) => {
           {link.img && <img src={link.img} />}
         </span>
       </a>
-    ); 
+    );
   };
 
   const renderLink = () => {
-    if(link.url){
-      return (<NavLink to={link.url}></NavLink>);
+    if (link.url) {
+      return (
+        <NavLink to={link.url} replace={false}>
+          <span className="icon-circle sidemenu-icon">
+            <Icon name={link.icon as any} size="xl" />
+            {link.img && <img src={link.img} />}
+          </span>
+        </NavLink>
+      );
     } else {
       return renderAnchor();
     }
-  }
+  };
 
   return (
-    <div className="sidemenu-item dropdown">
+    <div className={cx("sidemenu-item", "dropdown", "justify-content-center", css`
+      display: flex;
+      flex-direction: row;
+    `)}>
       {renderLink()}
       <SideMenuDropDown link={link} onHeaderClick={onClick} />
     </div>
