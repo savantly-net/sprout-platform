@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@savantly/sprout-api",
+      "comment": "Export panel registration service",
+      "type": "none"
+    }
+  ],
+  "packageName": "@savantly/sprout-api",
+  "email": "Jeremy@savantly.net"
+}
