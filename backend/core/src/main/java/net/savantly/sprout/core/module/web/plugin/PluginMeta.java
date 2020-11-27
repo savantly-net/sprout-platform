@@ -14,6 +14,7 @@ import lombok.experimental.Accessors;
 public class PluginMeta {
 
 	private String id;
+	private boolean preload;
 	private String name;
 	private PluginType type;
 	private PluginMetaInfo info;
