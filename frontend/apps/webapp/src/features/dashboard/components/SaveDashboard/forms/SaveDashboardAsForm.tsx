@@ -58,7 +58,7 @@ export const SaveDashboardAsForm: React.FC<SaveDashboardFormProps & { isNew?: bo
           dashboard
         );
 
-        if (result.status === 'success') {
+        if (result.status === 200) {
           onSuccess();
         }
       }}

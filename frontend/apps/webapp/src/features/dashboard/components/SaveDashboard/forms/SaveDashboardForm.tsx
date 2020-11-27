@@ -21,7 +21,7 @@ export const SaveDashboardForm: React.FC<SaveDashboardFormProps> = ({ dashboard,
         }
 
         const result = await onSubmit(dashboard.getSaveModelClone(data), data, dashboard);
-        if (result.status === 'success') {
+        if (result.status === 200) {
           onSuccess();
         }
       }}

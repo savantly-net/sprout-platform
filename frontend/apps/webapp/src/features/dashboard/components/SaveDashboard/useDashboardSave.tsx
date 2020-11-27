@@ -47,5 +47,5 @@ export const useDashboardSave = (dashboard: DashboardModel) => {
     }
   }, [state]);
 
-  return { state: state?.value?.data, onDashboardSave };
+  return { state, onDashboardSave };
 };
