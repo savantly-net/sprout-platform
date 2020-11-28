@@ -1,4 +1,4 @@
-package net.savantly.sprout.core.security.role;
+package net.savantly.sprout.core.domain.role;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +10,7 @@ import javax.persistence.ManyToMany;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.savantly.sprout.core.security.privilege.Privilege;
+import net.savantly.sprout.core.domain.privilege.Privilege;
 import net.savantly.sprout.core.tenancy.TenantedPersistedDomainObject;
 
 @Getter @Setter

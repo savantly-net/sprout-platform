@@ -1,11 +1,11 @@
-package net.savantly.sprout.core.security.privilege;
+package net.savantly.sprout.core.domain.privilege;
 
 import java.io.Serializable;
 
 import org.springframework.security.core.Authentication;
 
-import net.savantly.sprout.core.security.Permission;
-import net.savantly.sprout.core.security.SproutPermissionEvaluator;
+import net.savantly.sprout.core.security.permissions.Permission;
+import net.savantly.sprout.core.security.permissions.SproutPermissionEvaluator;
 
 public class PrivilegePermissionEvaluator implements SproutPermissionEvaluator<Privilege> {
     

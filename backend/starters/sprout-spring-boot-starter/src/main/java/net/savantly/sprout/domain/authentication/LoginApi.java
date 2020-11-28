@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties.OAuthFlowType;
+import net.savantly.sprout.core.domain.role.RoleRepository;
 import net.savantly.sprout.core.domain.user.repository.UserRepository;
-import net.savantly.sprout.core.security.role.RoleRepository;
 import net.savantly.sprout.domain.authentication.oauth.ImplicitFlowDto;
 import net.savantly.sprout.model.user.UserDto;
 import net.savantly.sprout.model.user.UsernameAndPassword;

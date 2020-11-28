@@ -18,7 +18,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 
 import net.savantly.authorization.service.PermissionProvider;
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
-import net.savantly.sprout.core.security.SproutUserService;
+import net.savantly.sprout.core.security.users.SproutUserService;
 import net.savantly.sprout.starter.security.conditions.AnyJwkUriConfigured;
 import net.savantly.sprout.starter.security.conditions.NoJwkUriConfigured;
 

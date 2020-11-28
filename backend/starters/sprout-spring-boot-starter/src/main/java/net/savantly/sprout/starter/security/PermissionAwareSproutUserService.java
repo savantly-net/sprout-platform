@@ -8,7 +8,7 @@ import net.savantly.authorization.service.PermissionAwareUserDetailsService;
 import net.savantly.authorization.service.PermissionProvider;
 import net.savantly.sprout.core.domain.user.SproutUser;
 import net.savantly.sprout.core.domain.user.UserUpdateDto;
-import net.savantly.sprout.core.security.SproutUserService;
+import net.savantly.sprout.core.security.users.SproutUserService;
 
 public class PermissionAwareSproutUserService extends PermissionAwareUserDetailsService implements SproutUserService {
 	

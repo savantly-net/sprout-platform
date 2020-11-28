@@ -1,4 +1,4 @@
-import { ModalRoot, ModalsProvider } from '@savantly/sprout-ui';
+import { ModalRoot, ModalsProvider, Spinner } from '@savantly/sprout-ui';
 import { uniqueId } from 'lodash';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -9,7 +9,6 @@ import ModalProxy from './core/components/ModalProxy/ModalProxy';
 import { PluginProvider } from './core/components/PluginProvider/PluginProvider';
 import { ThemeProvider } from './core/utils/ConfigProvider';
 import { initDevFeatures } from './dev';
-import { LoginPage } from './features/login/LoginPage';
 import AppRoutes from './routes/AppRoutes';
 import { history } from './store/configureStore';
 import { StoreState } from './types';
@@ -24,7 +23,7 @@ export const App = () => {
     navigate('/login');
   });
 
-  const orRenderLogin = () => {
+  const orRenderSuspense = () => {
     if (isSessionFetched) {
       return (
         <PluginProvider>
@@ -32,14 +31,14 @@ export const App = () => {
         </PluginProvider>
       );
     } else {
-      return <LoginPage redirectUrl={location.pathname} />;
+      return <Spinner />;
     }
   };
 
   return (
     <ThemeProvider>
       <ModalsProvider>
-        {orRenderLogin()}
+        {orRenderSuspense()}
         <ModalProxy key={uniqueId()} />
         <ModalRoot />
       </ModalsProvider>

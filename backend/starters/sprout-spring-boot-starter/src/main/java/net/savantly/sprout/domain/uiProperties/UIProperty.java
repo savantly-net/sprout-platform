@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import net.savantly.sprout.core.security.privilege.Privilege;
+import net.savantly.sprout.core.domain.privilege.Privilege;
 import net.savantly.sprout.core.tenancy.TenantedPersistedDomainObject;
 
 @Data

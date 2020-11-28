@@ -10,7 +10,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
 import net.savantly.sprout.core.domain.user.SproutUser;
 import net.savantly.sprout.core.domain.user.UserUpdateDto;
-import net.savantly.sprout.core.security.SproutUserService;
+import net.savantly.sprout.core.security.users.SproutUserService;
 
 public class DefaultJwtUserSynchronizer implements JwtUserSynchronizer {
 

@@ -1,4 +1,4 @@
-package net.savantly.sprout.core.security.role;
+package net.savantly.sprout.core.domain.role;
 
 import java.util.List;
 

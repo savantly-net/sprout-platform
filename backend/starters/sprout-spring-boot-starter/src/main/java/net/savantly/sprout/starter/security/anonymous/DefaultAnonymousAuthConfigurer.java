@@ -3,7 +3,7 @@ package net.savantly.sprout.starter.security.anonymous;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
-import net.savantly.sprout.core.security.SproutUserService;
+import net.savantly.sprout.core.security.users.SproutUserService;
 
 public class DefaultAnonymousAuthConfigurer implements AnonymousAuthConfigurer {
 

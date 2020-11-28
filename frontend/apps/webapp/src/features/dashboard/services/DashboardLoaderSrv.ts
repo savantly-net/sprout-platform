@@ -1,8 +1,8 @@
-import _ from 'lodash';
+import { AxiosResponse } from 'axios';
 import { backendSrv } from '../../../core/services/backend_srv';
+import { DashboardDTO } from '../../../types';
 
 export class DashboardLoaderSrv {
-
   _dashboardLoadFailed(title: string, snapshot?: boolean) {
     snapshot = snapshot || false;
     return {
@@ -12,31 +12,26 @@ export class DashboardLoaderSrv {
         canDelete: false,
         canSave: false,
         canEdit: false,
-        dashboardNotFound: true,
+        dashboardNotFound: true
       },
-      dashboard: { title },
+      dashboard: { title }
     };
   }
 
   loadDashboard(uid: any) {
-    let promise = backendSrv.getDashboardByUid(uid)
-    .then((result: any) => {
-      if (result.meta.isFolder) {
-        throw new Error('Dashboard not found');
-      }
-      return result;
-    })
-    .catch(() => {
-      return this._dashboardLoadFailed('Not found', true);
-    });
-
-    promise.then((result: any) => {
-      if (result.meta.dashboardNotFound !== true) {
-      }
-
-      return result;
-    });
-
+    const promise = new Promise<DashboardDTO>((resolve, reject) => {
+      backendSrv
+      .getDashboardByUid(uid)
+      .then((result: AxiosResponse<DashboardDTO>) => {
+        if (result.status != 200) {
+          throw new Error('Dashboard not found');
+        }
+        resolve(result.data);
+      })
+      .catch(() => {
+        reject(this._dashboardLoadFailed('Not found', true));
+      });
+    }); 
     return promise;
   }
 }

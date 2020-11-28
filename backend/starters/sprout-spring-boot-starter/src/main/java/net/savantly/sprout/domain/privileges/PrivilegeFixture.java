@@ -5,8 +5,8 @@ import java.util.List;
 import net.savantly.spring.fixture.AbstractBaseFixture;
 import net.savantly.spring.fixture.Fixture;
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
-import net.savantly.sprout.core.security.privilege.Privilege;
-import net.savantly.sprout.core.security.privilege.PrivilegeRepository;
+import net.savantly.sprout.core.domain.privilege.Privilege;
+import net.savantly.sprout.core.domain.privilege.PrivilegeRepository;
 
 public class PrivilegeFixture extends AbstractBaseFixture<Privilege, PrivilegeRepository> {
 	
@@ -29,7 +29,6 @@ public class PrivilegeFixture extends AbstractBaseFixture<Privilege, PrivilegeRe
 				}
 			});
 		});
-		
 	}
 
 	@Override

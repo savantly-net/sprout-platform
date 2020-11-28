@@ -1,6 +1,5 @@
 package net.savantly.sprout.core.domain.user;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -11,9 +10,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
-import net.savantly.sprout.core.domain.oauth.OAuthAccount;
 import net.savantly.sprout.core.domain.organization.Organization;
-import net.savantly.sprout.core.security.role.Role;
+import net.savantly.sprout.core.domain.role.Role;
 
 public interface SproutUser extends UserDetails {
 
@@ -37,8 +35,6 @@ public interface SproutUser extends UserDetails {
 
 	String getPhoneNumber();
 
-	Set<OAuthAccount> getOAuthAccounts();
-	
 	Set<Role> getRoles();
 	
 	static SproutUser anonymousUser() {
@@ -87,11 +83,6 @@ public interface SproutUser extends UserDetails {
 			@Override
 			public boolean hasAuthority(String role) {
 				return false;
-			}
-			
-			@Override
-			public Set<OAuthAccount> getOAuthAccounts() {
-				return new HashSet<>();
 			}
 			
 			@Override

@@ -6,4 +6,5 @@ import net.savantly.sprout.core.tenancy.TenantedVersionedDomainObjectRepository;
 
 public interface DashboardRepository extends TenantedVersionedDomainObjectRepository<Dashboard> {
 	List<Dashboard> findByIdId(String id);
+	List<Dashboard> findByFolder(String id);
 }

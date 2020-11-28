@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,7 @@ import net.savantly.sprout.domain.uiProperties.WellKnownUIProp;
 import net.savantly.sprout.starter.versioning.VersionedObjectBackendIdConverter;
 
 @Service
+@Transactional
 public class DashboardService {
 	
 	private final static Logger log = LoggerFactory.getLogger(DashboardService.class);
@@ -49,6 +51,8 @@ public class DashboardService {
 	private ObjectMapper mapper;
 	@Autowired
 	private VersionedObjectBackendIdConverter converter;
+	@Autowired
+	private DashboardConverter dashboardConverter;
 	
 	public DashboardDtoWrapper saveDashboard(DashboardSaveRequest dto) {
 		Dashboard tempEntity = fromDto(dto);
@@ -57,12 +61,12 @@ public class DashboardService {
 			tempEntity.getId().setVersion(tempEntity.getId().getVersion()+1);
 		}
 		Dashboard entity = this.repo.save(tempEntity);
-		return toDto(entity);
+		return dashboardConverter.convert(entity);
 	}
 	
 	public DashboardDtoWrapper getByUid(String uid) {
 		Dashboard entity = this.repo.getOne((VersionedId) converter.fromRequestId(uid, Dashboard.class));
-		return toDto(entity);
+		return dashboardConverter.convert(entity);
 	}
 
 	public DashboardDtoWrapper getLatestById(String id) {
@@ -70,10 +74,10 @@ public class DashboardService {
 		if(dashboardSearchResult.size() == 0) {
 			throw notFound(id);
 		} else if(dashboardSearchResult.size() == 1) {
-			return toDto(dashboardSearchResult.get(0));
+			return dashboardConverter.convert(dashboardSearchResult.get(0));
 		} else {
 			Optional<Dashboard> entity = dashboardSearchResult.stream().max((d1, d2) -> d1.getId().getVersion().compareTo(d2.getId().getVersion()));
-			return toDto(entity.get());
+			return dashboardConverter.convert(entity.get());
 		}
 	}
 	
@@ -83,8 +87,12 @@ public class DashboardService {
 			return getLatestById(prop.get().getValue());
 		} else {
 			Dashboard dashboard = addHomeDashboard();
-			return toDto(dashboard);
+			return dashboardConverter.convert(dashboard);
 		}
+	}
+	
+	public List<DashboardDtoWrapper> getDashboardsByFolder(String folder) {
+		return dashboardConverter.convert(this.repo.findByFolder(folder));
 	}
 	
 	public Resource getDefaultHomeDashboard() throws JsonParseException, JsonMappingException, IOException {
@@ -127,41 +135,13 @@ public class DashboardService {
 				return null;
 			}).filter(p -> Objects.nonNull(p)).collect(Collectors.toList()))
 			.setSchemaVersion(dto.getSchemaVersion())
-			.setTags(dto.getTags());
+			.setTags(dto.getTags())
+			.setDeleted(dto.isDeleted());
 
 		entity.setId(new StringVersionedId().setId(dto.getId()).setVersion(dto.getVersion()));
 		return entity;
 	}
 
-	private DashboardDtoWrapper toDto(Dashboard entity) {
-		DashboardDto dto = new DashboardDto()
-				.setTitle(entity.getTitle())
-				.setEditable(entity.isEditable())
-				.setHideControls(entity.isHideControls())
-				.setLinks(entity.getLinks())
-				.setPanels(entity.getPanels().stream().map(p -> {
-					try {
-						return this.panelService.toDto(p);
-					} catch (JsonProcessingException e) {
-						log.warn("invalid panel definition: " + p.toString());
-					}
-					return null;
-				}).filter(p -> Objects.nonNull(p)).collect(Collectors.toList()))
-				.setSchemaVersion(entity.getSchemaVersion())
-				.setTags(entity.getTags())
-				.setId(entity.getId().getId())
-				.setUid(entity.getUid())
-				.setVersion(entity.getId().getVersion());
-			return new DashboardDtoWrapper()
-				.setDashboard(dto)
-				.setMeta(createMetaData(dto));
-	}
-
-	// TODO: Get actual meta-data
-	private DashboardMeta createMetaData(DashboardDto dto) {
-		DashboardMeta meta = new DashboardMeta();
-		return meta;
-	}
 
 	private Dashboard fromDto(DashboardSaveRequest dto) {
 		Dashboard entity = toEntity(dto.getDashboard());
@@ -171,4 +151,5 @@ public class DashboardService {
 	private RuntimeException notFound(String id) {
 		return new EntityNotFoundException("dashboard with id: " + id + " not found");
 	}
+
 }

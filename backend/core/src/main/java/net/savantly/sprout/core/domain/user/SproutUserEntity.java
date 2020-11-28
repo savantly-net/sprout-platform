@@ -38,10 +38,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;
 import lombok.Setter;
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
-import net.savantly.sprout.core.domain.oauth.OAuthAccount;
 import net.savantly.sprout.core.domain.organization.Organization;
+import net.savantly.sprout.core.domain.role.Role;
 import net.savantly.sprout.core.security.MD5Util;
-import net.savantly.sprout.core.security.role.Role;
 import net.savantly.sprout.core.tenancy.TenantKeyedEntity;
 
 @Getter @Setter
@@ -84,13 +83,6 @@ public class SproutUserEntity extends TenantKeyedEntity implements CredentialsCo
     
 	@ManyToOne(fetch=FetchType.EAGER)
     private Organization organization;
-	
-    
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
-    private Set<OAuthAccount> oAuthAccounts = new HashSet<>();
-	public Set<OAuthAccount> getOAuthAccounts() {
-		return this.oAuthAccounts;
-	}
 
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
     @CollectionTable(name="APP_USER_EMAIL_ADDRESS")
@@ -296,11 +288,6 @@ public class SproutUserEntity extends TenantKeyedEntity implements CredentialsCo
     public boolean hasNewPassword(){
         return (this.clearTextPassword != null);
     }
-
-	public void addOAuthAccount(OAuthAccount oauthAccount) {
-		this.oAuthAccounts.add(oauthAccount);
-	}
-
 	
     /**
      * Returns {@code true} if the supplied object is a {@code User} instance with the

@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import net.savantly.authorization.service.PermissionProvider;
-import net.savantly.sprout.core.security.role.RoleRepository;
+import net.savantly.sprout.core.domain.role.RoleRepository;
 
 @Configuration
 public class PermissionsConfiguration {

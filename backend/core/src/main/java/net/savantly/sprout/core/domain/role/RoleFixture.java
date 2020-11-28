@@ -1,12 +1,12 @@
-package net.savantly.sprout.core.security.role;
+package net.savantly.sprout.core.domain.role;
 
 import java.util.List;
 
 import net.savantly.spring.fixture.AbstractBaseFixture;
 import net.savantly.spring.fixture.Fixture;
-import net.savantly.sprout.core.security.privilege.Privilege;
-import net.savantly.sprout.core.security.privilege.PrivilegeFixture;
-import net.savantly.sprout.core.security.privilege.PrivilegeRepository;
+import net.savantly.sprout.core.domain.privilege.Privilege;
+import net.savantly.sprout.core.domain.privilege.PrivilegeFixture;
+import net.savantly.sprout.core.domain.privilege.PrivilegeRepository;
 
 public class RoleFixture extends AbstractBaseFixture<Role, RoleRepository>{
 

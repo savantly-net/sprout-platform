@@ -6,8 +6,10 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
 import net.savantly.sprout.core.DataIntegrationTest;
-import net.savantly.sprout.core.security.privilege.PrivilegeFixture;
-import net.savantly.sprout.core.security.privilege.PrivilegeRepository;
+import net.savantly.sprout.core.domain.privilege.PrivilegeFixture;
+import net.savantly.sprout.core.domain.privilege.PrivilegeRepository;
+import net.savantly.sprout.core.domain.role.RoleFixture;
+import net.savantly.sprout.core.domain.role.RoleRepository;
 
 @DataIntegrationTest
 public class RoleFixtureTest {

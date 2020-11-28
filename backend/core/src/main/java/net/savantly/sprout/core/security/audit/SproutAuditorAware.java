@@ -1,4 +1,4 @@
-package net.savantly.sprout.core.security;
+package net.savantly.sprout.core.security.audit;
 
 import java.util.Optional;
 

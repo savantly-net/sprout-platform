@@ -7,8 +7,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import javax.transaction.Transactional;
-
 import org.springframework.boot.test.context.SpringBootTest;
 
 import example.TestApplication;
@@ -19,7 +17,6 @@ import example.TestApplication;
 @Documented
 @Inherited
 @SpringBootTest(classes = TestApplication.class)
-@Transactional
 public @interface IntegrationTest {
 
 }

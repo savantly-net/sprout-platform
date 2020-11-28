@@ -1,4 +1,4 @@
-package net.savantly.sprout.core.security;
+package net.savantly.sprout.core.security.permissions;
 
 import java.util.HashMap;
 import java.util.HashSet;

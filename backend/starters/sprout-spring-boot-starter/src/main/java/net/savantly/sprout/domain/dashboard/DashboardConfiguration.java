@@ -24,4 +24,9 @@ public class DashboardConfiguration {
 	public PanelService defaultPanelService() {
 		return new PanelService();
 	}
+	
+	@Bean
+	public DashboardConverter dashboardConverter(PanelService panelService) {
+		return new DashboardConverter(panelService);
+	}
 }

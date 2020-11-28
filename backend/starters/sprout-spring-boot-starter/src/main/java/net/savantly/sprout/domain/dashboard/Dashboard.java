@@ -28,8 +28,9 @@ public class Dashboard extends TenantedVersionedDomainObject {
 	private final static long serialVersionUID = 1L;
 	
 	private boolean editable;
-	
 	private String title;
+	private boolean deleted;
+	private String folder;
 	
 	@ElementCollection(fetch=FetchType.EAGER)
 	@CollectionTable(name = "DASHBOARD_LINKS")

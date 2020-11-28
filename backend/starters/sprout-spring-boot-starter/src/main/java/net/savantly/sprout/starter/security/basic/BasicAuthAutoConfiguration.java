@@ -6,9 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
+import net.savantly.sprout.core.domain.role.RoleFixture;
 import net.savantly.sprout.core.domain.user.repository.UserRepository;
-import net.savantly.sprout.core.security.SproutUserService;
-import net.savantly.sprout.core.security.role.RoleFixture;
+import net.savantly.sprout.core.security.users.SproutUserService;
 import net.savantly.sprout.starter.SproutWebSecurityConfiguration;
 
 @Configuration(BasicAuthAutoConfiguration.BEAN_NAME)

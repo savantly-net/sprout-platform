@@ -3,6 +3,8 @@ package net.savantly.sprout.domain.dashboard;
 import java.io.IOException;
 import java.nio.file.Files;
 
+import javax.transaction.Transactional;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 @IntegrationTest
+@Transactional
 public class DashboardServiceTest {
 
 	@Autowired

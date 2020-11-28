@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
-import net.savantly.sprout.core.security.SproutUserService;
+import net.savantly.sprout.core.security.users.SproutUserService;
 import net.savantly.sprout.starter.SproutWebSecurityConfiguration;
 
 @Configuration(AnonymousAuthAutoConfiguration.BEAN_NAME)

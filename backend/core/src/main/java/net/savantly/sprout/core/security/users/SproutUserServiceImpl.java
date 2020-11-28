@@ -1,4 +1,4 @@
-package net.savantly.sprout.core.security;
+package net.savantly.sprout.core.security.users;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -12,12 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
 import net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepository;
+import net.savantly.sprout.core.domain.role.Role;
+import net.savantly.sprout.core.domain.role.RoleRepository;
 import net.savantly.sprout.core.domain.user.SproutUser;
 import net.savantly.sprout.core.domain.user.SproutUserEntity;
 import net.savantly.sprout.core.domain.user.UserUpdateDto;
 import net.savantly.sprout.core.domain.user.repository.UserRepository;
-import net.savantly.sprout.core.security.role.Role;
-import net.savantly.sprout.core.security.role.RoleRepository;
 
 @Transactional
 public class SproutUserServiceImpl implements SproutUserService {

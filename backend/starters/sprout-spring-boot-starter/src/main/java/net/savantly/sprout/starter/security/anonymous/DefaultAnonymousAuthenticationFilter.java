@@ -9,7 +9,7 @@ import org.springframework.security.web.authentication.AnonymousAuthenticationFi
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 
 import net.savantly.sprout.core.domain.user.SproutUser;
-import net.savantly.sprout.core.security.SproutUserService;
+import net.savantly.sprout.core.security.users.SproutUserService;
 
 public class DefaultAnonymousAuthenticationFilter extends AnonymousAuthenticationFilter {
 	private static final String key = "SproutAnonymousAuthenticationFilter";

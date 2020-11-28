@@ -9,10 +9,9 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
-import net.savantly.sprout.core.domain.oauth.OAuthAccount;
 import net.savantly.sprout.core.domain.organization.Organization;
+import net.savantly.sprout.core.domain.role.Role;
 import net.savantly.sprout.core.domain.user.SproutUser;
-import net.savantly.sprout.core.security.role.Role;
 
 public class DefaultOAuthUserMapper implements OAuthUserMapper {
 
@@ -107,11 +106,6 @@ public class DefaultOAuthUserMapper implements OAuthUserMapper {
 			@Override
 			public Organization getOrganization() {
 				return sproutUser.getOrganization();
-			}
-
-			@Override
-			public Set<OAuthAccount> getOAuthAccounts() {
-				return sproutUser.getOAuthAccounts();
 			}
 
 			@Override

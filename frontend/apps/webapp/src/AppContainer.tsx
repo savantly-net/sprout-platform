@@ -3,7 +3,7 @@ import { ErrorBoundaryAlert } from '@savantly/sprout-ui';
 import axios from 'axios';
 import React, { createRef, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import App from './App';
 import './App.css';
 import { SERVER_API_URL } from './config/constants';
@@ -12,6 +12,7 @@ import { updateAppSettings } from './core/reducers/application';
 import { getSession } from './core/reducers/authentication';
 import { addRootNavs } from './core/reducers/navTree';
 import { initDevFeatures } from './dev';
+import { LoginPage } from './features/login/LoginPage';
 import { StoreState } from './types';
 
 interface ServerMenuItem {
@@ -61,13 +62,13 @@ export const AppContainer = ({ theme }: { theme: string }) => {
       dispatch(getSession());
     } else {
       axios
-      .get(`${SERVER_API_URL}/api/ui-properties`)
-      .then((value) => {
-        dispatch(updateAppSettings(value.data));
-      })
-      .catch((failed) => {
-        console.error(failed);
-      });
+        .get(`${SERVER_API_URL}/api/ui-properties`)
+        .then((value) => {
+          dispatch(updateAppSettings(value.data));
+        })
+        .catch((failed) => {
+          console.error(failed);
+        });
     }
   }, [isSessionFetched]);
 
@@ -75,18 +76,27 @@ export const AppContainer = ({ theme }: { theme: string }) => {
 
   return (
     <BrowserRouter>
-      <React.Fragment>
-        <SideMenu></SideMenu>
-        <div ref={appElem} className="main-view">
-          <div className="scroll-canvas">
-            <ErrorBoundaryAlert style="page">
-              <App />
-            </ErrorBoundaryAlert>
-          </div>
-        </div>
-      </React.Fragment>
+      <Routes>
+        <Route path="/login">
+          <LoginPage redirectUrl="/" />
+        </Route>
+        <Route path='/*'
+          element={
+            <React.Fragment>
+              <SideMenu></SideMenu>
+              <div ref={appElem} className="main-view">
+                <div className="scroll-canvas">
+                  <ErrorBoundaryAlert style="page">
+                    <App />
+                  </ErrorBoundaryAlert>
+                </div>
+              </div>
+            </React.Fragment>
+          }
+        />
+      </Routes>
     </BrowserRouter>
   );
 };
 
-export default App;
+export default AppContainer;

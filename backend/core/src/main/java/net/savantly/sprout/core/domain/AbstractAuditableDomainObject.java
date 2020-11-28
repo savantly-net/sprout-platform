@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import net.savantly.sprout.core.configuration.SproutConfiguration;
-import net.savantly.sprout.core.security.SproutAuditable;
+import net.savantly.sprout.core.security.audit.SproutAuditable;
 
 @MappedSuperclass
 @EntityListeners({ AuditingEntityListener.class })

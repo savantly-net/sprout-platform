@@ -1,4 +1,4 @@
-package net.savantly.sprout.core.security;
+package net.savantly.sprout.core.security.users;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

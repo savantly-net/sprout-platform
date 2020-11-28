@@ -1,212 +1,250 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class-diagram version="1.2.4" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
-  realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="net.savantly.sprout.core.domain.emailAddress.EmailAddress" project="sprout-core" 
-    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/emailAddress/EmailAddress.java" binary="false" 
+<class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="net.savantly.sprout.core.domain.role.Role" project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/role/Role.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="285" y="567"/>    
-    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
-      <operations public="false" package="false" protected="false" private="false" static="false"/>    
-    </display>  
-  </class>  
-  <class id="2" language="java" name="net.savantly.sprout.core.domain.menu.Menu" project="sprout-core" 
-    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/menu/Menu.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="161" y="271"/>    
-    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+    <position height="78" width="171" x="282" y="715"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="net.savantly.sprout.core.domain.organization.Organization" project="sprout-core" 
-    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/organization/Organization.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="855" y="-61"/>    
-    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
-      <operations public="false" package="false" protected="false" private="false" static="false"/>    
-    </display>  
-  </class>  
-  <class id="4" language="java" name="net.savantly.sprout.core.domain.tenant.TenantEntity" project="sprout-core" 
-    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/tenant/TenantEntity.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="96" width="182" x="68" y="32"/>    
-    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
-      <operations public="false" package="false" protected="false" private="false" static="false"/>    
-    </display>  
-  </class>  
-  <class id="5" language="java" name="net.savantly.sprout.core.domain.user.SproutUserEntity" project="sprout-core" 
+  <class id="2" language="java" name="net.savantly.sprout.core.domain.user.SproutUserEntity" project="sprout-core" 
     file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/user/SproutUserEntity.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="527" y="326"/>    
-    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+    <position height="294" width="214" x="721" y="381"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
-      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="net.savantly.sprout.core.domain.PersistedDomainObject" project="sprout-core" 
-    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/PersistedDomainObject.java" binary="false" 
+  <class id="3" language="java" name="net.savantly.sprout.core.domain.user.SproutUserEntity.AuthorityComparator" 
+    project="sprout-core" file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/user/SproutUserEntity.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="78" width="174" x="742" y="715"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="net.savantly.sprout.core.domain.privilege.Privilege" project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/privilege/Privilege.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="531" y="86"/>    
-    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+    <position height="96" width="192" x="242" y="977"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
-      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="net.savantly.sprout.core.domain.AbstractAuditableDomainObject" 
+  <class id="5" language="java" name="net.savantly.sprout.core.domain.audit.PersistentAuditEvent" project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/audit/PersistentAuditEvent.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="168" width="176" x="314" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="net.savantly.sprout.core.domain.emailAddress.EmailAddress" project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/emailAddress/EmailAddress.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="150" width="215" x="956" y="715"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="net.savantly.sprout.core.domain.menu.Menu" project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/menu/Menu.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="222" width="179" x="42" y="715"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="net.savantly.sprout.core.domain.organization.Organization" project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/organization/Organization.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="114" width="209" x="493" y="715"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="net.savantly.sprout.core.domain.tenant.TenantEntity" project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/tenant/TenantEntity.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="96" width="182" x="473" y="381"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="net.savantly.sprout.core.domain.versioning.VersionedDomainObject" 
+    project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/versioning/VersionedDomainObject.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="78" width="200" x="996" y="245"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="net.savantly.sprout.core.domain.AbstractAuditableDomainObject" 
     project="sprout-core" 
     file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/AbstractAuditableDomainObject.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="535" y="-99"/>    
-    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+    <position height="150" width="270" x="802" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="net.savantly.sprout.core.domain.audit.PersistentAuditEvent" project="sprout-core" 
-    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/audit/PersistentAuditEvent.java" binary="false" 
+  <class id="12" language="java" name="net.savantly.sprout.core.domain.PersistedDomainObject" project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/PersistedDomainObject.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="183" y="-89"/>    
-    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+    <position height="96" width="182" x="580" y="245"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="net.savantly.sprout.core.security.role.Role" project="sprout-core" 
-    file="/sprout-core/src/main/java/net/savantly/sprout/core/security/role/Role.java" binary="false" 
+  <class id="13" language="java" name="net.savantly.sprout.core.tenancy.TenantKeyedEntity" project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/tenancy/TenantKeyedEntity.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1013" y="80"/>    
-    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+    <position height="96" width="154" x="802" y="245"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="net.savantly.sprout.core.security.privilege.Privilege" project="sprout-core" 
-    file="/sprout-core/src/main/java/net/savantly/sprout/core/security/privilege/Privilege.java" binary="false" 
+  <class id="14" language="java" name="net.savantly.sprout.core.tenancy.TenantedPersistedDomainObject" 
+    project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/tenancy/TenantedPersistedDomainObject.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1029" y="270"/>    
-    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+    <position height="78" width="244" x="189" y="381"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="net.savantly.sprout.core.domain.oauth.OAuthAccount" project="sprout-core" 
-    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/oauth/OAuthAccount.java" binary="false" 
+  <class id="15" language="java" name="net.savantly.sprout.core.tenancy.TenantedVersionedDomainObject" 
+    project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/tenancy/TenantedVersionedDomainObject.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="915" y="398"/>    
-    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+    <position height="78" width="248" x="996" y="381"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <generalization id="12">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="6"/>  
-  </generalization>  
-  <association id="13">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="14" name="roles"/>      
-      <multiplicity id="15" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="16">    
+  <nesting id="16">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </nesting>  
+  <association id="17">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="17" name="items"/>      
-      <multiplicity id="18" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="19">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="20" name="emailAddresses"/>      
-      <multiplicity id="21" minimum="0" maximum="2147483647"/>    
+      <attribute id="18" name="roles"/>      
+      <multiplicity id="19" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="22">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="23" name="users"/>      
-      <multiplicity id="24" minimum="0" maximum="2147483647"/>    
+  <association id="20">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="21" name="organization"/>      
+      <multiplicity id="22" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
+    <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="25">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="26" name="privileges"/>      
-      <multiplicity id="27" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
+  <generalization id="23">    
+    <bendpoint x="251" y="715"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <generalization id="24">    
+    <bendpoint x="965" y="381"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <generalization id="25">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <generalization id="26">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="12"/>  
+  </generalization>  
+  <generalization id="27">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
   <association id="28">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="29" name="oAuthAccounts"/>      
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="29" name="emailAddresses"/>      
       <multiplicity id="30" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
+    <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="31">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="7"/>  
-  </generalization>  
-  <association id="32">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="33" name="organization"/>      
-      <multiplicity id="34" minimum="0" maximum="1"/>    
+  <association id="31">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="32" name="privileges"/>      
+      <multiplicity id="33" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <generalization id="34">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
   <generalization id="35">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="6"/>  
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="12"/>  
   </generalization>  
-  <association id="36">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="37" name="parent"/>      
-      <multiplicity id="38" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="39">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="40" name="roles"/>      
-      <multiplicity id="41" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="42">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="6"/>  
+  <generalization id="36">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="10"/>  
   </generalization>  
-  <generalization id="43">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="6"/>  
+  <generalization id="37">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="11"/>  
   </generalization>  
-  <classifier-display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
+  <generalization id="38">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <generalization id="39">    
+    <bendpoint x="685" y="381"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="12"/>  
+  </generalization>  
+  <generalization id="40">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
-    <attributes public="true" package="true" protected="true" private="true" static="false"/>    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
     <operations public="false" package="false" protected="false" private="false" static="true"/>  
   </classifier-display>  
   <association-display labels="true" multiplicity="true"/>

@@ -28,13 +28,14 @@ import net.savantly.sprout.domain.authentication.LoginApi;
 import net.savantly.sprout.domain.branding.BrandingApi;
 import net.savantly.sprout.domain.branding.DefaultBrandingApi;
 import net.savantly.sprout.domain.dashboard.DashboardConfiguration;
+import net.savantly.sprout.domain.folder.FolderConfiguration;
 import net.savantly.sprout.domain.menu.MenuConfiguration;
 import net.savantly.sprout.domain.uiProperties.UIPropertiesConfiguration;
 import net.savantly.sprout.module.PluginService;
 
 @Configuration
 @ImportAutoConfiguration({ WebMvcAutoConfiguration.class })
-@Import({DashboardConfiguration.class, UIPropertiesConfiguration.class, MenuConfiguration.class})
+@Import({DashboardConfiguration.class, UIPropertiesConfiguration.class, MenuConfiguration.class, FolderConfiguration.class})
 @RequiredArgsConstructor
 public class SproutWebMvcConfigurer implements WebMvcConfigurer {
 

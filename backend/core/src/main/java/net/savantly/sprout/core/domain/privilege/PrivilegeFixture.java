@@ -1,4 +1,4 @@
-package net.savantly.sprout.core.security.privilege;
+package net.savantly.sprout.core.domain.privilege;
 
 import java.util.List;
 
