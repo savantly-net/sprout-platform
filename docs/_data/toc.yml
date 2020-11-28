@@ -2,13 +2,13 @@ horizontalnav:
 - title: Home
   path: /
   node: home
-- title: Guides
-  path: /get-started/guides/
-  node: guides
+- title: Documentation
+  path: /get-started/
+  node: documentation
 
 home: {}
 
-guides:
+documentation:
 - title: Overview
   path: /get-started/
 - sectiontitle: Get started
@@ -17,11 +17,23 @@ guides:
     path: /get-started/run/
   - title: Sprout Development
     path: /get-started/development/
-- title: Authentication
-  path: /get-started/guides/authentication/
-- title: Authorization
-  path: /get-started/guides/authorization/
-- title: Branding
-  path: /get-started/guides/branding/
-- title: Menus
-  path: /get-started/guides/menus/
+- sectiontitle: Guides
+  section:
+  - title: Overview
+    path: /get-started/guides/
+  - title: Authentication
+    path: /get-started/guides/authentication/
+  - title: Authorization
+    path: /get-started/guides/authorization/
+  - title: Branding
+    path: /get-started/guides/branding/
+  - title: Menus
+    path: /get-started/guides/menus/
+- sectiontitle: Reference
+  section:
+  - title: Overview
+    path: /reference/
+  - title: Core ERDs
+    path: /reference/erd/core/
+  - title: Sprout Starter ERDs
+    path: /reference/erd/starter/

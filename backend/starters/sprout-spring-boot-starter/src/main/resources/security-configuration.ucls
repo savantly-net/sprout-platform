@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" always-add-relationships="true" generalizations="true" realizations="true" 
+  associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="net.savantly.sprout.starter.SproutWebSecurityConfiguration" 
+    project="sprout-spring-boot-starter" 
+    file="/sprout-spring-boot-starter/src/main/java/net/savantly/sprout/starter/SproutWebSecurityConfiguration.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="644" y="154"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="2" language="java" name="net.savantly.sprout.starter.security.SecurityCustomizer" 
+    project="sprout-spring-boot-starter" 
+    file="/sprout-spring-boot-starter/src/main/java/net/savantly/sprout/starter/security/SecurityCustomizer.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="175" x="554" y="281"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="3" language="java" name="net.savantly.sprout.starter.security.anonymous.AnonymousAuthConfigurer" 
+    project="sprout-spring-boot-starter" 
+    file="/sprout-spring-boot-starter/src/main/java/net/savantly/sprout/starter/security/anonymous/AnonymousAuthConfigurer.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="65" width="215" x="354" y="422"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="4" language="java" name="net.savantly.sprout.starter.security.authorization.AuthorizationConfigurer" 
+    project="sprout-spring-boot-starter" 
+    file="/sprout-spring-boot-starter/src/main/java/net/savantly/sprout/starter/security/authorization/AuthorizationConfigurer.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="65" width="221" x="836" y="422"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="5" language="java" name="net.savantly.sprout.starter.security.basic.BasicAuthConfigurer" 
+    project="sprout-spring-boot-starter" 
+    file="/sprout-spring-boot-starter/src/main/java/net/savantly/sprout/starter/security/basic/BasicAuthConfigurer.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="65" width="187" x="609" y="422"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="6" language="java" name="net.savantly.sprout.starter.security.jwt.JWTConfigurer" 
+    project="sprout-spring-boot-starter" 
+    file="/sprout-spring-boot-starter/src/main/java/net/savantly/sprout/starter/security/jwt/JWTConfigurer.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="65" width="176" x="1097" y="422"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="7" language="java" name="net.savantly.sprout.starter.security.jwt.JwtUserSynchronizer" 
+    project="sprout-spring-boot-starter" 
+    file="/sprout-spring-boot-starter/src/main/java/net/savantly/sprout/starter/security/jwt/JwtUserSynchronizer.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="211" y="588"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="8" language="java" name="net.savantly.sprout.starter.security.jwt.DefaultJWTConfigurer" 
+    project="sprout-spring-boot-starter" 
+    file="/sprout-spring-boot-starter/src/main/java/net/savantly/sprout/starter/security/jwt/DefaultJWTConfigurer.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1188" y="618"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="9" language="java" name="net.savantly.sprout.starter.security.jwt.TokenProvider" 
+    project="sprout-spring-boot-starter" 
+    file="/sprout-spring-boot-starter/src/main/java/net/savantly/sprout/starter/security/jwt/TokenProvider.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="854" y="626"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="10" language="java" name="net.savantly.sprout.starter.security.jwt.DefaultJwtAuthenticationConverter" 
+    project="sprout-spring-boot-starter" 
+    file="/sprout-spring-boot-starter/src/main/java/net/savantly/sprout/starter/security/jwt/DefaultJwtAuthenticationConverter.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="554" y="584"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="11" language="java" name="net.savantly.sprout.starter.security.oauth.OAuthConfigurer" 
+    project="sprout-spring-boot-starter" 
+    file="/sprout-spring-boot-starter/src/main/java/net/savantly/sprout/starter/security/oauth/OAuthConfigurer.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="65" width="189" x="125" y="422"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="12" language="java" name="net.savantly.sprout.starter.security.oauth.OAuth2UserSynchronizer" 
+    project="sprout-spring-boot-starter" 
+    file="/sprout-spring-boot-starter/src/main/java/net/savantly/sprout/starter/security/oauth/OAuth2UserSynchronizer.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1019" y="800"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="13" language="java" name="net.savantly.sprout.starter.security.oauth.OAuthUserMapper" 
+    project="sprout-spring-boot-starter" 
+    file="/sprout-spring-boot-starter/src/main/java/net/savantly/sprout/starter/security/oauth/OAuthUserMapper.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="315" y="798"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="14" language="java" name="net.savantly.sprout.starter.security.oauth.SproutOAuthUser" 
+    project="sprout-spring-boot-starter" 
+    file="/sprout-spring-boot-starter/src/main/java/net/savantly/sprout/starter/security/oauth/SproutOAuthUser.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="697" y="795"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <association id="15">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="16" name="synchronizer"/>      
+      <multiplicity id="17" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="18">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <association id="19">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="20" name="tokenProvider"/>      
+      <multiplicity id="21" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="22">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <association id="23">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="24" name="securityCustomizers"/>      
+      <multiplicity id="25" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="26">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <generalization id="27">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <generalization id="28">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <generalization id="29">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <realization id="30">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="6"/>  
+  </realization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

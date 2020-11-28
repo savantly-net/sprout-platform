@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <interface id="1" language="java" name="net.savantly.sprout.core.domain.audit.PersistenceAuditEventRepository" 
+    project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/audit/PersistenceAuditEventRepository.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3072" y="688"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="2" language="java" 
+    name="net.savantly.sprout.core.domain.emailAddress.repository.EmailAddressRepository" project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/emailAddress/repository/EmailAddressRepository.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="83" width="283" x="2743" y="286"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="3" language="java" name="net.savantly.sprout.core.domain.menu.MenuRepository" project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/menu/MenuRepository.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="119" width="233" x="3437" y="286"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="4" language="java" name="net.savantly.sprout.core.domain.organization.OrganizationRepository" 
+    project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/organization/OrganizationRepository.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2864" y="519"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="5" language="java" name="net.savantly.sprout.core.domain.privilege.PrivilegeRepository" 
+    project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/privilege/PrivilegeRepository.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3534" y="697"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="6" language="java" name="net.savantly.sprout.core.domain.role.RoleRepository" project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/role/RoleRepository.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="119" width="354" x="2349" y="286"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="7" language="java" name="net.savantly.sprout.core.domain.tenant.TenantRepository" project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/tenant/TenantRepository.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3165" y="523"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="8" language="java" name="net.savantly.sprout.core.domain.user.repository.UserRepository" 
+    project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/user/repository/UserRepository.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="173" width="331" x="3066" y="286"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="9" language="java" name="net.savantly.sprout.core.domain.versioning.VersionedDomainObjectRepository" 
+    project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/versioning/VersionedDomainObjectRepository.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2503" y="516"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="10" language="java" name="net.savantly.sprout.core.domain.PersistedDomainObjectRepository" 
+    project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/domain/PersistedDomainObjectRepository.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3521" y="526"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="11" language="java" 
+    name="net.savantly.sprout.core.module.registration.SproutModuleRegistrationRepository" project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/module/registration/SproutModuleRegistrationRepository.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2537" y="839"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="12" language="java" name="net.savantly.sprout.core.security.permissions.SproutPermissionRegistry" 
+    project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/security/permissions/SproutPermissionRegistry.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2994" y="903"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="13" language="java" name="net.savantly.sprout.core.security.users.SproutUserService" 
+    project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/security/users/SproutUserService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2543" y="1037"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="14" language="java" name="net.savantly.sprout.core.tenancy.TenantedJpaRepository" project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/tenancy/TenantedJpaRepository.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3030" y="63"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="15" language="java" name="net.savantly.sprout.core.tenancy.TenantedVersionedDomainObjectRepository" 
+    project="sprout-core" 
+    file="/sprout-core/src/main/java/net/savantly/sprout/core/tenancy/TenantedVersionedDomainObjectRepository.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2529" y="650"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <generalization id="16">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <generalization id="17">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <generalization id="18">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <generalization id="19">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <generalization id="20">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <generalization id="21">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="10"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="false" static="true"/>    
+    <operations public="true" package="true" protected="true" private="false" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

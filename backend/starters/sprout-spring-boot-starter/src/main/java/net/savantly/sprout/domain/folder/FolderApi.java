@@ -39,7 +39,7 @@ public class FolderApi {
 
 	@PreAuthorize("hasAuthority('FOLDER_DELETE')")
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> createFolder(@PathVariable("id") String id) {
+	public ResponseEntity<Void> deleteFolder(@PathVariable("id") String id) {
 		service.deleteFolder(id);
 		return ResponseEntity.ok().build();
 	}
