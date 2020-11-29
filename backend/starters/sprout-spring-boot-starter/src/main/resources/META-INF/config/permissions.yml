@@ -1,0 +1,6 @@
+authorities:
+- role: GENERAL_ADMIN
+  permissions:
+  - FOLDER_READ
+  - FOLDER_CREATE
+  - FOLDER_DELETE

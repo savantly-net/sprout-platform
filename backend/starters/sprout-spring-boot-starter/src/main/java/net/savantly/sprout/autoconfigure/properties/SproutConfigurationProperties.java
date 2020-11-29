@@ -14,6 +14,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.savantly.sprout.domain.menu.MenuDto;
 import net.savantly.sprout.domain.uiProperties.UIProperty;
+import net.savantly.sprout.starter.security.permissions.BootstrapPermission;
 
 @Getter
 @Setter
@@ -77,22 +78,19 @@ public class SproutConfigurationProperties {
 		 * Applied third [last], to handle paths that aren't designated public, or previously matched pattern
 		 */
 		private List<String> authenticatedPaths = Arrays.asList("/**");
-		
-		/* NOT IMPLEMENTED YET */
+
+		/**
+		 * If true, ensure the default permissions exist on application startup
+		 */
+		private boolean applyDefaultPermissions = true;
+
+		/**
+		 * Additional permissions to bootstrap on application startup.
+		 */
 		private List<BootstrapPermission> bootstrapPermissions = Arrays.asList(new BootstrapPermission("ROLE_ADMIN", Arrays.asList("GENERAL_ADMIN")));
 	}
 
-	@Getter
-	@Setter
-	public static class BootstrapPermission {
-		private String role;
-		private List<String> permissions = new ArrayList<>();
-		public BootstrapPermission() {}
-		public BootstrapPermission(String role, List<String> permissions) {
-			this.role = role;
-			this.permissions = permissions;
-		}
-	}
+	
 	
 	@Getter
 	@Setter

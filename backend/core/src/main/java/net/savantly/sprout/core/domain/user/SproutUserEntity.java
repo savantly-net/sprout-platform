@@ -219,7 +219,7 @@ public class SproutUserEntity extends TenantKeyedEntity implements CredentialsCo
         this.roles.stream().forEach(r -> {
         	privileges.add(new SimpleGrantedAuthority(r.getName()));
         	r.getPrivileges().forEach(p -> {
-        		if (!privileges.contains(p)) {
+        		if (!privileges.contains(new SimpleGrantedAuthority(p.getName()))) {
         			privileges.add(p);
         		}
         	});
