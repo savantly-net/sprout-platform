@@ -1,6 +1,6 @@
 import { NavModelItem, PanelPlugin, PluginIncludeType, PluginMeta } from '@savantly/sprout-api';
 import Axios from 'axios';
-import { addRootNavs } from '../../../core/reducers/navTree';
+import { addRootNavs } from '../../navigation/navTree';
 import { ThunkResult } from '../../../types';
 import { builtInPluginMeta } from '../built_in_plugins';
 import { loadPlugin } from '../PluginPage';
@@ -20,32 +20,16 @@ export function loadPlugins(): ThunkResult<void> {
     pluginMetas.forEach((p) => {
       // Process 'includes' listed in meta
       if (p.includes) {
-        const rootNav: NavModelItem = {
-          id: p.id,
-          text: p.name,
-          url: `/a/${p.id}`,
-          img: `/api/plugins/${p.id}/${p.info.logos.large}`,
-          children: []
-        };
-
-        // add default navigation for an app plugin
-        navItems.push(rootNav);
-
-        // add any included pages
-        if (p.includes) {
-          p.includes.forEach((pi, index) => {
-            if (pi.type === PluginIncludeType.page && pi.addToNav) {
-              if (rootNav.children) {
-                rootNav.children.push({
-                  id: `${p.id}-${index}`,
-                  text: pi.name,
-                  icon: pi.icon,
-                  url: pi.path
-                });
-              }
-            }
-          });
-        }
+        p.includes.forEach((pi, index) => {
+          if (pi.type === PluginIncludeType.page && pi.addToNav) {
+            navItems.push({
+              id: `${p.id}-${index}`,
+              text: pi.name,
+              icon: pi.icon,
+              url: pi.path
+            });
+          }
+        });
       }
       // if preload is set, load the plugin immediately
       if (p.preload) {

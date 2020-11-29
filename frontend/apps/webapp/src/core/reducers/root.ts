@@ -5,7 +5,7 @@ import pluginReducers from '../../features/plugins/state/reducers';
 import { CleanUp, cleanUpAction } from '../actions/cleanUp';
 import sharedReducers from '.';
 import { locationReducer } from "../services/locationSvc";
-import { navTreeReducer } from './navTree';
+import { navTreeReducer } from '../../features/navigation/navTree';
 
 export const rootReducers = {
   ...sharedReducers,

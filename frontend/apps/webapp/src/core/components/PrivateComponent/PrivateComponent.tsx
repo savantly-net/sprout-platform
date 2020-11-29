@@ -6,7 +6,7 @@ const authorize = (authorities: string[], hasAnyAuthorities?: string[]) => {
   if (!hasAnyAuthorities || hasAnyAuthorities.length === 0) {
     return true;
   } else {
-    if ( authorities && authorities.length !== 0) {
+    if ( !authorities && hasAnyAuthorities.length !== 0) {
       return false;
     } else {
         return hasAnyAuthorities.some((auth) => authorities.includes(auth));

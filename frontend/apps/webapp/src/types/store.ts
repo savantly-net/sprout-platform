@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { NavIndex } from '@savantly/sprout-api';
 import { ThunkAction, ThunkDispatch as GenericThunkDispatch } from 'redux-thunk';
-import { NavTreeState } from '../core/reducers/navTree';
+import { NavTreeState } from '../features/navigation/navTree';
 import { PanelEditorState } from '../features/dashboard/components/PanelEditor/state/reducers';
 import { ApplicationState } from './application';
 import { AppNotificationsState } from './appNotifications';

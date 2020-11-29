@@ -10,7 +10,7 @@ import { SERVER_API_URL } from './config/constants';
 import { SideMenu } from './core/components/sidemenu/SideMenu';
 import { updateAppSettings } from './core/reducers/application';
 import { getSession } from './core/reducers/authentication';
-import { addRootNavs } from './core/reducers/navTree';
+import { addRootNavs } from './features/navigation/navTree';
 import { initDevFeatures } from './dev';
 import { LoginPage } from './features/login/LoginPage';
 import { StoreState } from './types';

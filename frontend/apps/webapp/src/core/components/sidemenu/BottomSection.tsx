@@ -1,16 +1,14 @@
-import React from 'react';
-import _ from 'lodash';
-import { SignIn } from './SignIn';
-import BottomNavLinks from './BottomNavLinks';
-import config from '../../config';
 import { NavModelItem } from '@savantly/sprout-api';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { StoreState } from '../../../types';
+import BottomNavLinks from './BottomNavLinks';
+import { SignIn } from './SignIn';
 
 const BottomSection = () => {
-  const navTree: NavModelItem[] = _.cloneDeep(config.bootData.navTree);
-  const bottomNav: NavModelItem[] = navTree.filter(item => item.hideFromMenu);
-  const authentication = useSelector((state:StoreState) => state.authentication);
+  const navTree = useSelector((state: StoreState) => state.navTree.items);
+  const bottomNav: NavModelItem[] = navTree.filter((item) => item.hideFromMenu);
+  const authentication = useSelector((state: StoreState) => state.authentication);
 
   return (
     <div className="sidemenu__bottom">
@@ -20,6 +18,6 @@ const BottomSection = () => {
       })}
     </div>
   );
-}
+};
 
 export default BottomSection;

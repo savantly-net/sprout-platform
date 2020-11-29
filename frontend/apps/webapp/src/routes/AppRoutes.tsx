@@ -10,6 +10,8 @@ import AppRootPage from '../features/plugins/AppRootPage';
 import PluginListPage from '../features/plugins/PluginListPage';
 import PluginPage from '../features/plugins/PluginPage';
 import { DashboardRouteInfo, StoreState } from '../types';
+import { PermissionsPage } from '../features/permissions/PermissionsPage';
+import { ManageDashboardsPage } from '../features/manage-dashboards/ManageDashboardsPage';
 
 type OwnProps = {
   history: any;
@@ -27,6 +29,7 @@ const AppRoutes = ({ history }: AllProps) => {
         <Route path="/d/:uid" element={<DashboardProvider routeInfo={DashboardRouteInfo.Normal} />} />
         <Route path="/d/:uid/:slug" element={<DashboardProvider routeInfo={DashboardRouteInfo.Normal} />} />
         <Route path="/dashboard/new" element={<DashboardProvider routeInfo={DashboardRouteInfo.New} />} />
+        <Route path="/dashboards" element={<ManageDashboardsPage />} />
         <Route
           path="/a/:pluginId/*"
           element={
@@ -35,6 +38,7 @@ const AppRoutes = ({ history }: AllProps) => {
             </ErrorBoundary>
           }
         />
+        <Route path="/permissions" element={<PermissionsPage />} />
         <Route path="/plugins" element={<PluginListPage plugins={plugins} />} />
         <Route path="/plugins/:pluginId" element={<PluginPage pluginId="CHANGEME" path="CHANGEME" />} />
         <Route path="*" element={<PageNotFound />} />

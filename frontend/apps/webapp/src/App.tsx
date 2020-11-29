@@ -7,6 +7,7 @@ import './App.css';
 import setupAxiosInterceptors from './config/axios-interceptor';
 import ModalProxy from './core/components/ModalProxy/ModalProxy';
 import { PluginProvider } from './core/components/PluginProvider/PluginProvider';
+import { logout } from './core/reducers/authentication';
 import { ThemeProvider } from './core/utils/ConfigProvider';
 import { initDevFeatures } from './dev';
 import AppRoutes from './routes/AppRoutes';
@@ -20,6 +21,7 @@ export const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
   setupAxiosInterceptors(() => {
+    logout();
     navigate('/login');
   });
 

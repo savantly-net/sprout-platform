@@ -51,8 +51,15 @@ public class PermissionsFixture extends AbstractBaseFixture<Role, RoleRepository
 					addIfMissing(a);
 				});
 			} catch (IOException e) {
-				log.error("Failed to apply default permissions", e);
+				throw new RuntimeException("Failed to apply default permissions", e);
 			}
+		}
+		try {
+			configProps.getSecurity().getAuthorization().getBootstrapPermissions().forEach(p -> {
+				addIfMissing(p);
+			});
+		} catch (Exception e) {
+			throw new RuntimeException("Failed to apply bootstrap permissions", e);
 		}
 	}
 

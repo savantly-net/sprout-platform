@@ -34,7 +34,7 @@ public class DashboardsApi {
 	}
 
 	@PreAuthorize("hasAuthority('DASHBOARD_READ')")
-	@GetMapping("/folder/{folder}")
+	@GetMapping({"/folder/", "/folder/{folder}"})
 	public ResponseEntity<List<DashboardDtoWrapper>> getDashboards(@PathVariable(name = "folder", required = false) String folder) throws IOException{
 	    return ResponseEntity.ok()
 	            .contentType(MediaType.APPLICATION_JSON)

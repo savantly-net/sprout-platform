@@ -9,6 +9,7 @@ sprout:
         - username: admin
           password: changeme!
           email-address: example@savantly.net
+          roles: GENERAL_ADMIN
 
 spring:
   banner:

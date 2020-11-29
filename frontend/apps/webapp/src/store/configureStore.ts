@@ -8,12 +8,12 @@ import { getThunkExtension } from 'redux-dynamic-modules-thunk';
 import { createLogger } from 'redux-logger';
 import { applicationInitialState } from '../core/reducers/application';
 import { initialAuthenticationState } from '../core/reducers/authentication';
-import { buildInitialState } from '../core/reducers/navModel';
+import { buildInitialState } from '../features/navigation/navModel';
 import { addReducer, rootReducers } from '../core/reducers/root';
 import { initialPanelEditorState } from '../features/dashboard/components/PanelEditor/state/reducers';
 import { initialDashboardState } from '../features/dashboard/state';
 import { initialPluginState } from '../features/plugins/state/reducers';
-import { defaultNavTree } from '../mocks/navTree';
+import { defaultNavTree } from '../features/navigation/defaultNavTree';
 import { StoreState } from '../types/store';
 import { setStore } from './store';
 

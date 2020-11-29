@@ -1,4 +1,4 @@
 import { clearAppNotification, notifyApp } from '../reducers/appNotification';
-import { updateNavIndex, updateConfigurationSubtitle } from '../reducers/navModel';
+import { updateNavIndex, updateConfigurationSubtitle } from '../../features/navigation/navModel';
 
 export { updateNavIndex, updateConfigurationSubtitle, notifyApp, clearAppNotification };

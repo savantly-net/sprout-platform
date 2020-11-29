@@ -148,7 +148,7 @@ public class SproutConfigurationProperties {
 	@Setter
 	public static class Basic {
 		private boolean enable = true;
-		private List<BasicCreds> users = Arrays.asList(new BasicCreds("admin", UUID.randomUUID().toString(), "user@savantly.net", Arrays.asList("ROLE_ADMIN")));
+		private List<BasicCreds> users = new ArrayList<>();
 	}
 	
 	@Getter

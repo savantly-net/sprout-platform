@@ -59,11 +59,12 @@ const authenticationSlice = createSlice({
         loginError: !isAuthenticated,
       };
     },
-    logout: (): AuthenticationState => {
+    logout: (state): AuthenticationState => {
       if (store.get(ACCESS_TOKEN_STORAGE_KEY)) {
-        //store.delete(ACCESS_TOKEN_STORAGE_KEY);
+        store.delete(ACCESS_TOKEN_STORAGE_KEY);
       }
       return {
+        ...state,
         user: {
           authorities: []
         },
@@ -71,9 +72,7 @@ const authenticationSlice = createSlice({
         isAuthenticated: false,
         loading: false,
         loginError: false,
-        logoutUrl: undefined,
-        sessionHasBeenFetched: false,
-        sessionFetchFailed: false
+        logoutUrl: undefined
       }
     }
   },

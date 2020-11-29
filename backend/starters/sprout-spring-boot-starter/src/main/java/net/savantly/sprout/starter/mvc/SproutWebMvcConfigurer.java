@@ -21,6 +21,8 @@ import net.savantly.sprout.autoconfigure.properties.SproutConfigurationPropertie
 import net.savantly.sprout.controllers.DefaultMvcController;
 import net.savantly.sprout.controllers.PluginsApi;
 import net.savantly.sprout.controllers.argument.TenantIdArgumentResolver;
+import net.savantly.sprout.core.domain.privilege.PrivilegeRepository;
+import net.savantly.sprout.core.domain.role.RoleRepository;
 import net.savantly.sprout.core.domain.tenant.TenantRepository;
 import net.savantly.sprout.core.module.registration.SproutModuleRegistrationRepository;
 import net.savantly.sprout.domain.account.AccountApi;
@@ -30,6 +32,7 @@ import net.savantly.sprout.domain.branding.DefaultBrandingApi;
 import net.savantly.sprout.domain.dashboard.DashboardConfiguration;
 import net.savantly.sprout.domain.folder.FolderConfiguration;
 import net.savantly.sprout.domain.menu.MenuConfiguration;
+import net.savantly.sprout.domain.permissions.PermissionsApi;
 import net.savantly.sprout.domain.uiProperties.UIPropertiesConfiguration;
 import net.savantly.sprout.module.PluginService;
 
@@ -88,6 +91,11 @@ public class SproutWebMvcConfigurer implements WebMvcConfigurer {
 	@Bean
 	public LoginApi defaultLoginApi() {
 		return new LoginApi();
+	}
+	
+	@Bean
+	public PermissionsApi permissionsApi(RoleRepository roleRepo, PrivilegeRepository privilegeRepo) {
+		return new PermissionsApi(roleRepo, privilegeRepo);
 	}
 	
 	@Bean

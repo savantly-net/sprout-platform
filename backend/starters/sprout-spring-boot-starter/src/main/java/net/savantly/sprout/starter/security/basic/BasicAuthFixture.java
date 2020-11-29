@@ -12,6 +12,7 @@ import net.savantly.sprout.core.domain.role.RoleFixture;
 import net.savantly.sprout.core.domain.user.SproutUserEntity;
 import net.savantly.sprout.core.domain.user.repository.UserRepository;
 import net.savantly.sprout.core.security.users.SproutUserService;
+import net.savantly.sprout.starter.security.permissions.PermissionsFixture;
 
 /**
  * Creates default basic auth credentials if enabled
@@ -24,9 +25,9 @@ public class BasicAuthFixture extends AbstractBaseFixture<SproutUserEntity, User
 
 	private SproutConfigurationProperties props;
 	private SproutUserService userService;
-	private RoleFixture roles;
+	private PermissionsFixture roles;
 
-	public BasicAuthFixture(SproutConfigurationProperties props, UserRepository repository, SproutUserService userService, RoleFixture roles) {
+	public BasicAuthFixture(SproutConfigurationProperties props, UserRepository repository, SproutUserService userService, PermissionsFixture roles) {
 		super(repository);
 		this.props = props;
 		this.userService = userService;
