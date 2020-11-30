@@ -9,7 +9,6 @@ dependencies:
   '@iconscout/react-unicons': 1.1.4
   '@jest/core': 26.5.3_ts-node@8.8.1
   '@jest/types': 26.6.1
-  '@okta/okta-react': 3.0.8_a48f0d1e0522ea1db712290d1057cfea
   '@redux-offline/redux-offline': 2.6.0_redux@4.0.5
   '@reduxjs/toolkit': 1.4.0
   '@rollup/plugin-commonjs': 11.1.0_rollup@2.0.6
@@ -21,7 +20,7 @@ dependencies:
   '@rush-temp/sprout-toolkit': 'file:projects/sprout-toolkit.tgz'
   '@rush-temp/sprout-tsconfig': 'file:projects/sprout-tsconfig.tgz'
   '@rush-temp/sprout-ui': 'file:projects/sprout-ui.tgz_ef70b55bdecafcca78ac60b4015d2861'
-  '@rush-temp/ui': 'file:projects/ui.tgz_146f5c86aaf656d4da09698b03339365'
+  '@rush-temp/ui': 'file:projects/ui.tgz_4f40ccb30284aec483e5d1ddb72523aa'
   '@rush-temp/webapp': 'file:projects/webapp.tgz_ts-node@8.8.1'
   '@storybook/addon-docs': 5.3.21_31b8d74ec71ac1892d1b15a3abbc91d5
   '@storybook/addon-essentials': 6.0.27_31b8d74ec71ac1892d1b15a3abbc91d5
@@ -117,7 +116,6 @@ dependencies:
   common-tags: 1.8.0
   concurrently: 4.1.0
   copy-webpack-plugin: 5.1.1_webpack@4.42.0
-  create-react-class: 15.7.0
   css-loader: 3.6.0_webpack@4.42.0
   csstype: 2.6.7
   customize-cra: 1.0.0
@@ -231,6 +229,7 @@ dependencies:
   sinon: 8.1.1
   slate: 0.47.8_immutable@3.8.2
   storybook-dark-mode: 0.6.1_@storybook+theming@5.3.21
+  storybook-react-router: 1.0.8_39566ec7cc5fe716a59f91f7330320ef
   style-loader: 0.23.1
   systemjs: 0.20.19
   systemjs-plugin-css: 0.1.37
@@ -21063,15 +21062,6 @@ packages:
       react-dom: ^16.8.0
     resolution:
       integrity: sha512-wBFVblBH1iuCBprtpyGtd1dGMadsG36W5/t2Aj8OE6WbByDg5jIFyT7X5gT+l0qmT5TqWhxX+VsKJvCEl2uL9g==
-  /react-simple-oauth2-login/0.2.0_react@16.14.0:
-    dependencies:
-      react: 16.14.0
-    dev: false
-    peerDependencies:
-      prop-types: ^15.7.2
-      react: ^16.0.0
-    resolution:
-      integrity: sha512-rVQJN/ngEpHK9uQl6S7ymtm0o39c7t/kUxjJg6Yy1uL7A9At0YqjhAw1mDVj2ht9EkVGE8QgzYbXZElRC2OeFQ==
   /react-sizeme/2.6.12_react-dom@16.14.0+react@16.14.0:
     dependencies:
       element-resize-detector: 1.2.1
@@ -23215,6 +23205,35 @@ packages:
       '@storybook/theming': '>= 5.x'
     resolution:
       integrity: sha512-E8LIHnVfFhOsPqBc2fLshVBnspziYMXHdwQc/qAjpf4h5ewzrDzeqy4QfJioE+jDoyyZXEtIMugzb0wIaK10Uw==
+  /storybook-react-router/1.0.8_39566ec7cc5fe716a59f91f7330320ef:
+    dependencies:
+      prop-types: 15.7.2
+      react: 16.14.0
+      react-dom: 16.14.0_react@16.14.0
+      react-router: 5.2.0_react@16.14.0
+    dev: false
+    peerDependencies:
+      '@storybook/addon-actions': ^4.0.0||^5.0.0||5.2.0-beta.13
+      react: '*'
+      react-dom: '*'
+      react-router: ^4.0.0||^5.0.0
+    resolution:
+      integrity: sha512-3PvuTu6cJHtF72WC3aKdIrUY1eUYsdVYEmW74nZiJoLCn0C/6iDx73w94jgI6lXq75aEJsri+lEDyhcokfP6YA==
+  /storybook-react-router/1.0.8_8bdf835454ac641a4f1c1442df882738:
+    dependencies:
+      '@storybook/addon-actions': 6.0.27_6924a3a01d652738e2fd803d6b0c2ee3
+      prop-types: 15.7.2
+      react: 16.14.0
+      react-dom: 16.14.0_react@16.14.0
+      react-router: 5.2.0_react@16.14.0
+    dev: false
+    peerDependencies:
+      '@storybook/addon-actions': ^4.0.0||^5.0.0||5.2.0-beta.13
+      react: '*'
+      react-dom: '*'
+      react-router: ^4.0.0||^5.0.0
+    resolution:
+      integrity: sha512-3PvuTu6cJHtF72WC3aKdIrUY1eUYsdVYEmW74nZiJoLCn0C/6iDx73w94jgI6lXq75aEJsri+lEDyhcokfP6YA==
   /stream-browserify/2.0.2:
     dependencies:
       inherits: 2.0.4
@@ -26155,6 +26174,7 @@ packages:
       '@rollup/plugin-node-resolve': 9.0.0_rollup@2.0.6
       '@types/lodash': 4.14.162
       '@types/react': 16.9.53
+      axios: 0.20.0
       eventemitter3: 4.0.7
       lodash: 4.17.20
       marked: 1.2.2
@@ -26173,7 +26193,7 @@ packages:
       '@types/node': '*'
       react-scripts: '*'
     resolution:
-      integrity: sha512-3LX2b5u5lJiHxSsk7jF8o0xV0kmBLBukWj0OL0dAhuEOPgd6k0JXVhdZQgTnmZa5IcxO4YrFIO8kN9B7FRgEuQ==
+      integrity: sha512-NDdvuajDjDWZL3W0Hk1FQ5Mb3qQxu4Yr8i6VZbbQLdDk8qAut9SgDmQq08vnF/ll5vggAOUKspVDdTew9fimLw==
       tarball: 'file:projects/sprout-runtime.tgz'
     version: 0.0.0
   'file:projects/sprout-toolkit.tgz':
@@ -26261,7 +26281,7 @@ packages:
     dev: false
     name: '@rush-temp/sprout-toolkit'
     resolution:
-      integrity: sha512-KZAlagK7E+2to1fTHtO3MRIuXCndoCJDJrp3Tyh4O9UKyieAD0iBtIXbGA4XJIPkuhRUyWsiSh6Mhbb6e3WcRQ==
+      integrity: sha512-j2pxQkyk9a1xMim+DnxN7cEkKj0E3mpd5N0RmZqZx0YmFaJbC4fu0UF8JV+xbR0rv0hVN45mqMGXSYmJh0HACQ==
       tarball: 'file:projects/sprout-toolkit.tgz'
     version: 0.0.0
   'file:projects/sprout-tsconfig.tgz':
@@ -26383,10 +26403,10 @@ packages:
       babel-loader: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-vmvvwkrO6d6mUkW2bMbfnjPi8+ZyuZZkQHC2Xqvp+VnuUG+jx5yIvsG5s+8GqbQXEuQhLoVffHmR3zV6xHjFHw==
+      integrity: sha512-/N5yIgnYyrmSJ5lsvIZ4nAae+YDcODGGfIgX3uEVNFict5wc1aoLo46McADF1DMN+ORo4XdBRBGwcVXNezy/xg==
       tarball: 'file:projects/sprout-ui.tgz'
     version: 0.0.0
-  'file:projects/ui.tgz_146f5c86aaf656d4da09698b03339365':
+  'file:projects/ui.tgz_4f40ccb30284aec483e5d1ddb72523aa':
     dependencies:
       '@babel/core': 7.12.3
       '@babel/preset-react': 7.12.1_@babel+core@7.12.3
@@ -26423,7 +26443,6 @@ packages:
       react-docgen-typescript-loader: 3.7.1_typescript@3.9.7+webpack@4.42.0
       react-dom: 16.14.0_react@16.14.0
       react-router-dom: 6.0.0-beta.0_3a8d3a2ec439ed05f71d417ec8c7ed2c
-      react-simple-oauth2-login: 0.2.0_react@16.14.0
       react-test-renderer: 16.13.1_react@16.14.0
       reactstrap: 8.6.0_react-dom@16.14.0+react@16.14.0
       rimraf: 3.0.2
@@ -26433,6 +26452,7 @@ packages:
       rollup-plugin-terser: 7.0.2_rollup@2.0.6
       rollup-plugin-typescript2: 0.26.0_rollup@2.0.6+typescript@3.9.7
       rollup-plugin-visualizer: 3.3.1_rollup@2.0.6
+      storybook-react-router: 1.0.8_8bdf835454ac641a4f1c1442df882738
       ts-jest: 26.4.2_jest@26.6.1+typescript@3.9.7
       ts-loader: 6.2.1_typescript@3.9.7
       tslib: 2.0.1
@@ -26445,10 +26465,11 @@ packages:
       jquery: '*'
       popper.js: '*'
       react-is: '*'
+      react-router: '*'
       ts-node: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-BzwDWeIdfh5hPa6d2OOXL+qMGPxVvAU0zU+mIBXBJAg835Mxv+lMxRnwPEYmOTjPSxm/CELz3/1RL5rN0Qq3PA==
+      integrity: sha512-v802YkqkGWlljOWXSjiRST3hMM3i8RqTe4JaT+HBdTyuEtNkU0lDI7cA/jooyiee2S8+/ETknkp0GagrFMq93A==
       tarball: 'file:projects/ui.tgz'
     version: 0.0.0
   'file:projects/webapp.tgz_ts-node@8.8.1':
@@ -26537,7 +26558,7 @@ packages:
     peerDependencies:
       ts-node: '*'
     resolution:
-      integrity: sha512-aEHneOTr2z+mGOXoysRQJf8JNa3Qf6yTDSATevesakzwqE90pFyfauRlYJZzJ7AWFq1+UPjLIW1wRRP6IuFVag==
+      integrity: sha512-sIkkeXejHImoTQeffrgz6HdTuGh8zSwVddZD1vM8E9Q4diPrp3LQbLqD1vce4Vmi2SoW5fNVlL6VpDJdI73INA==
       tarball: 'file:projects/webapp.tgz'
     version: 0.0.0
 registry: ''
@@ -26552,7 +26573,6 @@ specifiers:
   '@iconscout/react-unicons': 1.1.4
   '@jest/core': ~26.5.2
   '@jest/types': ~26.6.1
-  '@okta/okta-react': ^3.0.7
   '@redux-offline/redux-offline': ~2.6.0
   '@reduxjs/toolkit': ^1.4.0
   '@rollup/plugin-commonjs': ^11.0.2
@@ -26660,7 +26680,6 @@ specifiers:
   common-tags: ^1.8.0
   concurrently: 4.1.0
   copy-webpack-plugin: 5.1.1
-  create-react-class: ~15.7.0
   css-loader: ^3.0.0
   csstype: 2.6.7
   customize-cra: ^1.0.0
@@ -26774,6 +26793,7 @@ specifiers:
   sinon: 8.1.1
   slate: 0.47.8
   storybook-dark-mode: 0.6.1
+  storybook-react-router: 1.0.8
   style-loader: ^0.23.1
   systemjs: 0.20.19
   systemjs-plugin-css: 0.1.37

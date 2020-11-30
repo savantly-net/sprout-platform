@@ -71,8 +71,8 @@ const Navigation = ({ children }: { children: NavModelItem[] }) => {
         {children.map((child, index) => {
           return (
             !child.hideFromTabs && (
-              <NavItem>
-                <NavLink to={goToUrl(index)}>
+              <NavItem key={`child-${index}`}>
+                <NavLink className="nav-link" to={goToUrl(index)}>
                   <Icon name={child.icon as IconName} />
                   {child.text}
                 </NavLink>
@@ -85,7 +85,7 @@ const Navigation = ({ children }: { children: NavModelItem[] }) => {
   );
 };
 
-export default class PageHeader extends React.Component<Props, any> {
+export class PageHeader extends React.Component<Props, any> {
   renderTitle(title: string, breadcrumbs: NavModelBreadcrumb[]) {
     if (!title && (!breadcrumbs || breadcrumbs.length === 0)) {
       return null;

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { getTitleFromNavModel } from '../../selectors/navModel';
 
 // Components
-import PageHeader from '../PageHeader/PageHeader';
+import { PageHeader } from '@sprout-platform/ui';
 import { Footer } from '../Footer/Footer';
 import PageContents from './PageContents';
 import { CustomScrollbar } from '@savantly/sprout-ui';

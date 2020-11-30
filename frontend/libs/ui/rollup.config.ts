@@ -34,6 +34,7 @@ const buildCjsPackage = ({ env }) => {
       'lodash',
       'react',
       'react-dom',
+      'react-router-dom',
       'reactstrap',
       '@savantly/sprout-api',
       'formik'
