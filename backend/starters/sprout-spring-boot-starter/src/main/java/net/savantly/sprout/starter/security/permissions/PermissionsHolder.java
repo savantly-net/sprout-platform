@@ -10,5 +10,5 @@ import lombok.Setter;
 @Setter
 public class PermissionsHolder {
 
-	private List<BootstrapPermission> authorities = new ArrayList<>();
+	private List<BootstrapPermission> permissions = new ArrayList<>();
 }

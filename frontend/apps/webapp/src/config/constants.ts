@@ -7,8 +7,8 @@ export default config;
 export const SERVER_API_URL = process.env.REACT_APP_SERVER_API_URL || '';
 
 export const AUTHORITIES = {
-  ADMIN: 'ROLE_ADMIN',
-  USER: 'ROLE_USER',
+  ADMIN: 'ADMIN',
+  USER: 'USER',
 };
 
 export const ACCESS_TOKEN_STORAGE_KEY = 'savantly_access_token';

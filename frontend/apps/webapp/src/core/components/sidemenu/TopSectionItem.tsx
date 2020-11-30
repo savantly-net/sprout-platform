@@ -29,7 +29,7 @@ const TopSectionItem: FC<Props> = (props) => {
   const renderLink = () => {
     if (link.url) {
       return (
-        <NavLink to={link.url} replace={false}>
+        <NavLink className="sidemenu-link" to={link.url} replace={false}>
           <span className="icon-circle sidemenu-icon">
             <Icon name={link.icon as any} size="xl" />
             {link.img && <img src={link.img} />}

@@ -10,9 +10,9 @@ import net.savantly.sprout.core.domain.privilege.PrivilegeRepository;
 
 public class RoleFixture extends AbstractBaseFixture<Role, RoleRepository>{
 
-	public static final String USER_ROLE = "ROLE_USER";
-	public static final String ADMIN_ROLE = "ROLE_ADMIN";
-	public static final String ANONYMOUS_ROLE = "ROLE_ANONYMOUS";
+	public static final String USER_ROLE = "USER";
+	public static final String ADMIN_ROLE = "ADMIN";
+	public static final String ANONYMOUS_ROLE = "ANONYMOUS";
     
     RoleRepository repository;
     PrivilegeFixture privilegeFixture;

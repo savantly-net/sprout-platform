@@ -1,5 +1,8 @@
 package net.savantly.sprout.core.module.web.plugin;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Getter;
@@ -20,4 +23,5 @@ public class PluginInclude {
 	private String role; // "Viewer", Admin, editor???
 	private String defaultNav;
 	private boolean addToNav;
+	private List<PluginInclude> children = new ArrayList<>();
 }

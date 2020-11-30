@@ -1,6 +1,7 @@
-authorities:
-- role: GENERAL_ADMIN
-  permissions:
+permissions:
+- role: ADMIN
+  privileges:
+  - GENERAL_ADMIN
   - FOLDER_READ
   - FOLDER_CREATE
   - FOLDER_DELETE
@@ -8,5 +9,5 @@ authorities:
   - DASHBOARD_EDIT
   - DASHBOARD_DELETE
 - role: ANONYMOUS
-  permissions:
+  privileges:
   - DASHBOARD_READ

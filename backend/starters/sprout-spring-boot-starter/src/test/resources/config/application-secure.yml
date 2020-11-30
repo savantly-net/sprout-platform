@@ -11,7 +11,7 @@ sprout:
           password: admin
           email-address: admin@savantly.net
           roles:
-          - ROLE_ADMIN
+          - ADMIN
         - username: test
           password: test
           email-address: test@savantly.net

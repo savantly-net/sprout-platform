@@ -47,7 +47,7 @@ public class PermissionsFixture extends AbstractBaseFixture<Role, RoleRepository
 			final ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
 			try {
 				final PermissionsHolder holder = mapper.readValue(permissionsResource.getInputStream(), PermissionsHolder.class);
-				holder.getAuthorities().forEach(a -> {
+				holder.getPermissions().forEach(a -> {
 					addIfMissing(a);
 				});
 			} catch (IOException e) {
@@ -64,9 +64,9 @@ public class PermissionsFixture extends AbstractBaseFixture<Role, RoleRepository
 	}
 
 	private void addIfMissing(BootstrapPermission a) {
-		log.info("ensuring role: {} exists with permissions: {}", a.getRole(), a.getPermissions());
+		log.info("ensuring role: {} exists with permissions: {}", a.getRole(), a.getPrivileges());
 		Role role = addRoleIfMissing(a.getRole());
-		Set<Privilege> privileges = a.getPermissions().stream().map(p -> addPrivilegeIfMissing(p)).collect(Collectors.toSet());
+		Set<Privilege> privileges = a.getPrivileges().stream().map(p -> addPrivilegeIfMissing(p)).collect(Collectors.toSet());
 		role.getPrivileges().addAll(privileges);
 		roleRepo.save(role);
 	}

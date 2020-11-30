@@ -10,10 +10,10 @@ import lombok.Setter;
 @Setter
 public class BootstrapPermission {
 	private String role;
-	private List<String> permissions = new ArrayList<>();
+	private List<String> privileges = new ArrayList<>();
 	public BootstrapPermission() {}
-	public BootstrapPermission(String role, List<String> permissions) {
+	public BootstrapPermission(String role, List<String> privileges) {
 		this.role = role;
-		this.permissions = permissions;
+		this.privileges = privileges;
 	}
 }

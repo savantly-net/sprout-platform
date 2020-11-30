@@ -79,6 +79,7 @@ export const PermissionsPage = () => {
   const [error, setError] = useState('');
   const [roles, setRoles] = useState(emptyRoles);
   const [privileges, setPrivileges] = useState(emptyPrivileges);
+  const once = 'once';
 
   useMemo(() => {
     permissionService
@@ -89,7 +90,7 @@ export const PermissionsPage = () => {
       .catch((err) => {
         setError(err.detail || err.message || err.status);
       });
-  }, roles);
+  }, [once]);
 
   useMemo(() => {
     permissionService
@@ -100,7 +101,7 @@ export const PermissionsPage = () => {
       .catch((err) => {
         setError(err.detail || err.message || err.status);
       });
-  }, roles);
+  }, [once]);
 
   return (
     <Page navModel={navModel}>

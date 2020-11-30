@@ -10,6 +10,6 @@ sprout:
           password: test
           email-address: test@savantly.net
           roles:
-          - ROLE_ADMIN
+          - ADMIN
           - NEW_ROLE
           

@@ -74,6 +74,7 @@ export interface PluginInclude {
   icon?: string;
   role?: string; // "Viewer", Admin, editor???
   addToNav?: boolean; // Show in the sidebar... only if type=page?
+  children?: PluginInclude[];
 }
 
 interface PluginMetaInfoLink {

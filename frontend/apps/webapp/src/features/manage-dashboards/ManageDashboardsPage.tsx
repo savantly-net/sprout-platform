@@ -35,6 +35,7 @@ export const ManageDashboardsPage = () => {
 
   const [error, setError] = useState('');
   const [dashboards, setDashboards] = useState(emptyDashboards);
+  const once = 'once';
 
   useMemo(() => {
     dashboardService
@@ -45,7 +46,7 @@ export const ManageDashboardsPage = () => {
       .catch((err) => {
         setError(err.detail || err.message || err.status);
       });
-  }, []);
+  }, [once]);
 
   return (
     <Page navModel={navModel}>
