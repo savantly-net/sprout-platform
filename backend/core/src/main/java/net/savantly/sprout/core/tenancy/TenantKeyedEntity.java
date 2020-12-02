@@ -44,6 +44,15 @@ public class TenantKeyedEntity extends AbstractAuditableDomainObject<TenantedPri
 		this.getId().setTenantId(TenantContext.getCurrentTenant());
 	}
 	
+	@Transient
+	public String getItemId() {
+		if(Objects.nonNull(id)) {
+			return id.getItemId();
+		} else {
+			return null;
+		}
+	}
+	
 	public String getTenantId() {
 		if(Objects.nonNull(id)) {
 			return id.getTenantId();

@@ -25,9 +25,13 @@ public abstract class AbstractAuditableDomainObject<ID extends Serializable> imp
 
 	private static final long serialVersionUID = SproutConfiguration.serialVersionUID;
 
+	@JsonProperty(access = Access.READ_ONLY)
 	private @Nullable String createdBy;
+	@JsonProperty(access = Access.READ_ONLY)
 	private @Nullable ZonedDateTime createdDate;
+	@JsonProperty(access = Access.READ_ONLY)
 	private @Nullable String lastModifiedBy;
+	@JsonProperty(access = Access.READ_ONLY)
 	private @Nullable ZonedDateTime lastModifiedDate;
 
 	@Override
@@ -46,7 +50,6 @@ public abstract class AbstractAuditableDomainObject<ID extends Serializable> imp
 	}
 
 	@Override
-	@JsonProperty(access = Access.READ_ONLY)
 	public void setCreatedDate(ZonedDateTime createdDate) {
 		if(Objects.nonNull(createdDate)) {
 			this.createdDate = createdDate;
