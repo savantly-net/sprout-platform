@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@sprout-platform/ui",
+      "comment": "adds PageHeader component for plugins",
+      "type": "none"
+    }
+  ],
+  "packageName": "@sprout-platform/ui",
+  "email": "Jeremy@savantly.net"
+}
