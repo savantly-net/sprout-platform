@@ -40,6 +40,7 @@ export const AppContainer = ({ theme }: { theme: string }) => {
     initDevFeatures();
   }
 
+  const isShowLogin = useSelector((state: StoreState) => state.authentication.showLogin);
   const isSessionFetched = useSelector((state: StoreState) => state.authentication.sessionHasBeenFetched);
 
   const dispatch = useDispatch();
@@ -83,7 +84,7 @@ export const AppContainer = ({ theme }: { theme: string }) => {
         <Route path='/*'
           element={
             <React.Fragment>
-              <SideMenu></SideMenu>
+              {!isShowLogin && (<SideMenu></SideMenu>)}
               <div ref={appElem} className="main-view">
                 <div className="scroll-canvas">
                   <ErrorBoundaryAlert style="page">

@@ -7,6 +7,7 @@ export interface AuthenticationState {
   sessionFetchFailed: boolean;
   logoutUrl?: string;
   user: User;
+  showLogin: boolean;
 }
 
 export interface AuthenticationUpdate {

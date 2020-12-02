@@ -1,15 +1,16 @@
 import { ModalRoot, ModalsProvider, Spinner } from '@savantly/sprout-ui';
 import { uniqueId } from 'lodash';
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import './App.css';
 import setupAxiosInterceptors from './config/axios-interceptor';
 import ModalProxy from './core/components/ModalProxy/ModalProxy';
 import { PluginProvider } from './core/components/PluginProvider/PluginProvider';
-import { logout } from './core/reducers/authentication';
+import { logout, showLogin } from './core/reducers/authentication';
 import { ThemeProvider } from './core/utils/ConfigProvider';
 import { initDevFeatures } from './dev';
+import { LoginPage } from './features/login/LoginPage';
 import AppRoutes from './routes/AppRoutes';
 import { history } from './store/configureStore';
 import { StoreState } from './types';
@@ -17,19 +18,21 @@ export const App = () => {
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
     initDevFeatures();
   }
+  const isShowLogin = useSelector((state: StoreState) => state.authentication.showLogin);
   const isSessionFetched = useSelector((state: StoreState) => state.authentication.sessionHasBeenFetched);
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const location = useLocation();
   setupAxiosInterceptors(() => {
     logout();
-    navigate('/login');
+    dispatch(showLogin());
   });
 
-  const orRenderSuspense = () => {
+  const orRenderSprinner = () => {
     if (isSessionFetched) {
       return (
         <PluginProvider>
-          <AppRoutes history={history} />
+          {isShowLogin && <LoginPage redirectUrl={location.pathname} />}
+          {!isShowLogin && <AppRoutes history={history} />}
         </PluginProvider>
       );
     } else {
@@ -40,7 +43,7 @@ export const App = () => {
   return (
     <ThemeProvider>
       <ModalsProvider>
-        {orRenderSuspense()}
+        {orRenderSprinner()}
         <ModalProxy key={uniqueId()} />
         <ModalRoot />
       </ModalsProvider>
