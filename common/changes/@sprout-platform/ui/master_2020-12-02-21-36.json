@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@sprout-platform/ui",
+      "comment": "adds ConfirmModal",
+      "type": "none"
+    }
+  ],
+  "packageName": "@sprout-platform/ui",
+  "email": "Jeremy@savantly.net"
+}
