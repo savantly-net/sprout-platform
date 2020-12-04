@@ -20,7 +20,7 @@ dependencies:
   '@rush-temp/sprout-toolkit': 'file:projects/sprout-toolkit.tgz'
   '@rush-temp/sprout-tsconfig': 'file:projects/sprout-tsconfig.tgz'
   '@rush-temp/sprout-ui': 'file:projects/sprout-ui.tgz_ef70b55bdecafcca78ac60b4015d2861'
-  '@rush-temp/ui': 'file:projects/ui.tgz_4f40ccb30284aec483e5d1ddb72523aa'
+  '@rush-temp/ui': 'file:projects/ui.tgz_6f9153c85ad43018cf57ec05bbea0c1c'
   '@rush-temp/webapp': 'file:projects/webapp.tgz_ts-node@8.8.1'
   '@storybook/addon-docs': 5.3.21_31b8d74ec71ac1892d1b15a3abbc91d5
   '@storybook/addon-essentials': 6.0.27_31b8d74ec71ac1892d1b15a3abbc91d5
@@ -67,6 +67,7 @@ dependencies:
   '@types/react': 16.9.53
   '@types/react-beautiful-dnd': 12.1.2
   '@types/react-bootstrap': 0.32.24
+  '@types/react-bootstrap-table-next': 4.0.10
   '@types/react-color': 3.0.1
   '@types/react-custom-scrollbars': 4.0.5
   '@types/react-dev-utils': 9.0.4
@@ -178,6 +179,7 @@ dependencies:
   react-app-rewired: 2.1.6_react-scripts@3.4.3
   react-beautiful-dnd: 13.0.0_react-dom@16.14.0+react@16.14.0
   react-bootstrap: 1.4.0_react-dom@16.14.0+react@16.14.0
+  react-bootstrap-table-next: 4.0.3_react-dom@16.14.0+react@16.14.0
   react-calendar: 2.19.2_react-dom@16.14.0+react@16.14.0
   react-color: 2.18.0_react@16.14.0
   react-custom-scrollbars: 4.2.1_react-dom@16.14.0+react@16.14.0
@@ -229,7 +231,6 @@ dependencies:
   sinon: 8.1.1
   slate: 0.47.8_immutable@3.8.2
   storybook-dark-mode: 0.6.1_@storybook+theming@5.3.21
-  storybook-react-router: 1.0.8_39566ec7cc5fe716a59f91f7330320ef
   style-loader: 0.23.1
   systemjs: 0.20.19
   systemjs-plugin-css: 0.1.37
@@ -5958,6 +5959,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-h+0mA4cHmzL4BhyCniB6ZSSZhfO9LpXXbnhdAfa2k7klS03woiOT+Dh5AchY6eoQXk3vQVtqn40YY3u+MwFs8A==
+  /@types/react-bootstrap-table-next/4.0.10:
+    dependencies:
+      '@types/react': 16.9.53
+    dev: false
+    resolution:
+      integrity: sha512-gWiCs+d2uBvHFh2Vd8qApY6atMDWnP0GZzaekON4oRsSyuNzfGeb1tVlFPAD75d6xmAl7pV86tMKdzEYfxv5rg==
   /@types/react-bootstrap/0.32.24:
     dependencies:
       '@types/react': 16.9.53
@@ -20355,6 +20362,20 @@ packages:
       react-dom: ^16.8.5
     resolution:
       integrity: sha512-87It8sN0ineoC3nBW0SbQuTFXM6bUqM62uJGY4BtTf0yzPl8/3+bHMWkgIe0Z6m8e+gJgjWxefGRVfpE3VcdEg==
+  /react-bootstrap-table-next/4.0.3_react-dom@16.14.0+react@16.14.0:
+    dependencies:
+      classnames: 2.2.6
+      react: 16.14.0
+      react-dom: 16.14.0_react@16.14.0
+      react-transition-group: 4.4.1_react-dom@16.14.0+react@16.14.0
+      underscore: 1.9.1
+    dev: false
+    peerDependencies:
+      prop-types: ^15.0.0
+      react: ^16.3.0
+      react-dom: ^16.3.0
+    resolution:
+      integrity: sha512-uKxC73qUdUfusRf2uzDfMiF9LvTG5vuhTZa0lbAgHWSLLLaKTsI0iHf1e4+c7gP71q8dFsp7StvkP65SxC1JRg==
   /react-bootstrap/1.4.0_react-dom@16.14.0+react@16.14.0:
     dependencies:
       '@babel/runtime': 7.12.1
@@ -23205,35 +23226,6 @@ packages:
       '@storybook/theming': '>= 5.x'
     resolution:
       integrity: sha512-E8LIHnVfFhOsPqBc2fLshVBnspziYMXHdwQc/qAjpf4h5ewzrDzeqy4QfJioE+jDoyyZXEtIMugzb0wIaK10Uw==
-  /storybook-react-router/1.0.8_39566ec7cc5fe716a59f91f7330320ef:
-    dependencies:
-      prop-types: 15.7.2
-      react: 16.14.0
-      react-dom: 16.14.0_react@16.14.0
-      react-router: 5.2.0_react@16.14.0
-    dev: false
-    peerDependencies:
-      '@storybook/addon-actions': ^4.0.0||^5.0.0||5.2.0-beta.13
-      react: '*'
-      react-dom: '*'
-      react-router: ^4.0.0||^5.0.0
-    resolution:
-      integrity: sha512-3PvuTu6cJHtF72WC3aKdIrUY1eUYsdVYEmW74nZiJoLCn0C/6iDx73w94jgI6lXq75aEJsri+lEDyhcokfP6YA==
-  /storybook-react-router/1.0.8_8bdf835454ac641a4f1c1442df882738:
-    dependencies:
-      '@storybook/addon-actions': 6.0.27_6924a3a01d652738e2fd803d6b0c2ee3
-      prop-types: 15.7.2
-      react: 16.14.0
-      react-dom: 16.14.0_react@16.14.0
-      react-router: 5.2.0_react@16.14.0
-    dev: false
-    peerDependencies:
-      '@storybook/addon-actions': ^4.0.0||^5.0.0||5.2.0-beta.13
-      react: '*'
-      react-dom: '*'
-      react-router: ^4.0.0||^5.0.0
-    resolution:
-      integrity: sha512-3PvuTu6cJHtF72WC3aKdIrUY1eUYsdVYEmW74nZiJoLCn0C/6iDx73w94jgI6lXq75aEJsri+lEDyhcokfP6YA==
   /stream-browserify/2.0.2:
     dependencies:
       inherits: 2.0.4
@@ -24650,6 +24642,10 @@ packages:
       react: '>=15.0.0'
     resolution:
       integrity: sha512-EcPYhot3uWTS3w00R32R2+vS8Vr53tttrvMj/yA1uYRhf8hbTG2GyugGqWDY0qIskxn0uTTojVd6wPYW9ZEf8Q==
+  /underscore/1.9.1:
+    dev: false
+    resolution:
+      integrity: sha512-5/4etnCkd9c8gwgowi5/om/mYO5ajCaOgdzj/oW+0eQV9WxKBDZw5+ycmKmeaTXjInS/W0BzpGLo2xR2aBwZdg==
   /unfetch/4.2.0:
     dev: false
     resolution:
@@ -26193,7 +26189,7 @@ packages:
       '@types/node': '*'
       react-scripts: '*'
     resolution:
-      integrity: sha512-NDdvuajDjDWZL3W0Hk1FQ5Mb3qQxu4Yr8i6VZbbQLdDk8qAut9SgDmQq08vnF/ll5vggAOUKspVDdTew9fimLw==
+      integrity: sha512-kEI8qUZnhjI2KRjMEQOxsvKk+tUNa7Xq3lBIDqBqXC5T74qFJUb7+CQKZqRIqs+dBLbHAuU5ZxooWcjWJ9OQWQ==
       tarball: 'file:projects/sprout-runtime.tgz'
     version: 0.0.0
   'file:projects/sprout-toolkit.tgz':
@@ -26281,7 +26277,7 @@ packages:
     dev: false
     name: '@rush-temp/sprout-toolkit'
     resolution:
-      integrity: sha512-j2pxQkyk9a1xMim+DnxN7cEkKj0E3mpd5N0RmZqZx0YmFaJbC4fu0UF8JV+xbR0rv0hVN45mqMGXSYmJh0HACQ==
+      integrity: sha512-4Di3CwbKBcunDC5hFkZ8a32cxIU3LB8EO7dlBlUf8cDHrMujpV5zwBgOVJ8JsjX8WxLH+VDk5Zu+dqNmSqqR+g==
       tarball: 'file:projects/sprout-toolkit.tgz'
     version: 0.0.0
   'file:projects/sprout-tsconfig.tgz':
@@ -26403,14 +26399,15 @@ packages:
       babel-loader: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-/N5yIgnYyrmSJ5lsvIZ4nAae+YDcODGGfIgX3uEVNFict5wc1aoLo46McADF1DMN+ORo4XdBRBGwcVXNezy/xg==
+      integrity: sha512-aJXavlC9ha6dk5Js+5VzxOXaaycZ6rBI9gD7cjCpBmEz9g74C8Nr/XriQ+D9zacpARtj6b/EKVu2K/nsdigDEg==
       tarball: 'file:projects/sprout-ui.tgz'
     version: 0.0.0
-  'file:projects/ui.tgz_4f40ccb30284aec483e5d1ddb72523aa':
+  'file:projects/ui.tgz_6f9153c85ad43018cf57ec05bbea0c1c':
     dependencies:
       '@babel/core': 7.12.3
       '@babel/preset-react': 7.12.1_@babel+core@7.12.3
       '@emotion/core': 10.0.35_react@16.14.0
+      '@iconscout/react-unicons': 1.1.4
       '@jest/types': 26.6.1
       '@rollup/plugin-commonjs': 11.1.0_rollup@2.0.6
       '@rollup/plugin-image': 2.0.4_rollup@2.0.6
@@ -26426,7 +26423,9 @@ packages:
       '@types/lodash': 4.14.162
       '@types/node': 12.19.1
       '@types/react': 16.9.53
+      '@types/react-bootstrap-table-next': 4.0.10
       '@types/react-dom': 16.9.8
+      '@types/react-redux': 7.1.9
       '@types/reactstrap': 8.5.2
       '@types/rollup-plugin-visualizer': 2.6.0
       babel-loader: 8.1.0_c469a5abc93aee6c0316d662800f35a3
@@ -26440,8 +26439,10 @@ packages:
       lodash: 4.17.20
       pretty-format: 25.1.0
       react: 16.14.0
+      react-bootstrap-table-next: 4.0.3_react-dom@16.14.0+react@16.14.0
       react-docgen-typescript-loader: 3.7.1_typescript@3.9.7+webpack@4.42.0
       react-dom: 16.14.0_react@16.14.0
+      react-redux: 7.2.1_bbabd8c34ea235719dc50e75b43f85a4
       react-router-dom: 6.0.0-beta.0_3a8d3a2ec439ed05f71d417ec8c7ed2c
       react-test-renderer: 16.13.1_react@16.14.0
       reactstrap: 8.6.0_react-dom@16.14.0+react@16.14.0
@@ -26452,7 +26453,6 @@ packages:
       rollup-plugin-terser: 7.0.2_rollup@2.0.6
       rollup-plugin-typescript2: 0.26.0_rollup@2.0.6+typescript@3.9.7
       rollup-plugin-visualizer: 3.3.1_rollup@2.0.6
-      storybook-react-router: 1.0.8_8bdf835454ac641a4f1c1442df882738
       ts-jest: 26.4.2_jest@26.6.1+typescript@3.9.7
       ts-loader: 6.2.1_typescript@3.9.7
       tslib: 2.0.1
@@ -26465,11 +26465,11 @@ packages:
       jquery: '*'
       popper.js: '*'
       react-is: '*'
-      react-router: '*'
+      redux: '*'
       ts-node: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-v802YkqkGWlljOWXSjiRST3hMM3i8RqTe4JaT+HBdTyuEtNkU0lDI7cA/jooyiee2S8+/ETknkp0GagrFMq93A==
+      integrity: sha512-0CjaG2NC0zq0GUiXOAEWH9sKEPpMJAnWp/s0isgVjYapVFty2MmrYgFNulrgudsoRWZiD4FLTWzAlEL3WaFQ9g==
       tarball: 'file:projects/ui.tgz'
     version: 0.0.0
   'file:projects/webapp.tgz_ts-node@8.8.1':
@@ -26558,7 +26558,7 @@ packages:
     peerDependencies:
       ts-node: '*'
     resolution:
-      integrity: sha512-sIkkeXejHImoTQeffrgz6HdTuGh8zSwVddZD1vM8E9Q4diPrp3LQbLqD1vce4Vmi2SoW5fNVlL6VpDJdI73INA==
+      integrity: sha512-oZZgjoFYgc4+JQ7txQGq1vqKUsAQCd/5h2/ktgsLqEbSNOoZosU8KuotLX/BHz5aribSCZvaA84OOWHxQs0VKQ==
       tarball: 'file:projects/webapp.tgz'
     version: 0.0.0
 registry: ''
@@ -26631,6 +26631,7 @@ specifiers:
   '@types/react': ^16.9.49
   '@types/react-beautiful-dnd': 12.1.2
   '@types/react-bootstrap': ^0.32.23
+  '@types/react-bootstrap-table-next': ^4.0.10
   '@types/react-color': 3.0.1
   '@types/react-custom-scrollbars': 4.0.5
   '@types/react-dev-utils': ^9.0.4
@@ -26742,6 +26743,7 @@ specifiers:
   react-app-rewired: ^2.1.6
   react-beautiful-dnd: 13.0.0
   react-bootstrap: ^1.3.0
+  react-bootstrap-table-next: ^4.0.3
   react-calendar: 2.19.2
   react-color: 2.18.0
   react-custom-scrollbars: 4.2.1
@@ -26793,7 +26795,6 @@ specifiers:
   sinon: 8.1.1
   slate: 0.47.8
   storybook-dark-mode: 0.6.1
-  storybook-react-router: 1.0.8
   style-loader: ^0.23.1
   systemjs: 0.20.19
   systemjs-plugin-css: 0.1.37

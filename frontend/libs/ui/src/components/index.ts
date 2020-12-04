@@ -1,4 +1,6 @@
 export * from './ConfirmModal/ConfirmModal';
+export * from './DataTable/DataTable';
+export * from './EntityPage/EntityPage';
 export * from './Form/Form';
 export * from './FormField/FormField';
 export * from './OAuthLogin/OAuthLogin';

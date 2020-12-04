@@ -29,14 +29,17 @@ const buildCjsPackage = ({ env }) => {
       },
     ],
     external: [
+      '@savantly/sprout-api',
+      '@reduxjs/toolkit',
+      'axios',
       'emotion',
       'formik',
       'lodash',
       'react',
       'react-dom',
+      'react-redux',
       'react-router-dom',
       'reactstrap',
-      '@savantly/sprout-api',
       'formik'
     ],
     plugins: [

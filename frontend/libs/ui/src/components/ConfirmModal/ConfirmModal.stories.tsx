@@ -10,14 +10,16 @@ export default {
 };
 
 const Template: Story<ComponentProps<typeof ConfirmModal>> = (args) => <Button onClick={() => {
-    confirm(args)
+    confirm(args).then(response => {
+      console.log('confirmed: ', response);
+    }).catch(err => {
+      console.error(err);
+    })
 }}>
     Open Confirm
 </Button>;
 
 export const DefaultConfirmModal = Template.bind({});
 DefaultConfirmModal.args = {
-  onClose: (result) => {
-    console.log(`ConfirmModal result: ${result}`);
-  }
+  confirmColor: 'primary'
 };

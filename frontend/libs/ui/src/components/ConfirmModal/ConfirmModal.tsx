@@ -70,7 +70,7 @@ ConfirmModal.defaultProps = {
   size: null
 };
 
-export const confirm = (props: ConfirmModalProps) => {
+export const confirm = (props: Omit<ConfirmModalProps, 'onClose'>) => {
   return new Promise((resolve) => {
     let el: HTMLDivElement | null = document.createElement('div');
 
