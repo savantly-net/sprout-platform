@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@savantly/sprout-api",
+      "comment": "adds Entity APIs to match server crud controller responses",
+      "type": "none"
+    }
+  ],
+  "packageName": "@savantly/sprout-api",
+  "email": "Jeremy@savantly.net"
+}

@@ -32,7 +32,8 @@
     "rxjs": "~6.6.3",
     "tinycolor2": "^1.4.2",
     "xss": "1.0.6",
-    "axios": "~0.20.0"
+    "axios": "~0.20.0",
+    "@reduxjs/toolkit": "^1.4.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.0.2",

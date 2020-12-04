@@ -23,7 +23,7 @@ const buildCjsPackage = ({ env }) => {
         globals: {},
       },
     ],
-    external: ['axios', 'lodash', 'rxjs', 'apache-arrow'], // Use Lodash, rxjs & arrow from the webapp
+    external: ['@reduxjs/toolkit', 'axios', 'lodash', 'rxjs', 'apache-arrow'], // Use Lodash, rxjs & arrow from the webapp
     plugins: [
       json(), // TODO: include: ['../../node_modules/moment-timezone/data/packed/latest.json'],
       commonjs({

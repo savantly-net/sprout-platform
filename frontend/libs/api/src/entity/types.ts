@@ -28,7 +28,7 @@ export interface TenantId {
   }
   
   export interface QueryResponse<T> {
-    content: T[] | [];
+    content: T[];
     pageable: Pageable;
     totalPages: number;
     totalElements: number;
