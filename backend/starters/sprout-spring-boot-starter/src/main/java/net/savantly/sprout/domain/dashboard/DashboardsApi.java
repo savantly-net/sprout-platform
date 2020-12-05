@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/api/dashboards")
 @RestController
+@Transactional
 public class DashboardsApi {
 	
 	private DashboardService service;
