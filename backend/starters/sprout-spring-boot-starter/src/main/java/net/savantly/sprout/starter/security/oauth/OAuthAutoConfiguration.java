@@ -13,8 +13,8 @@ import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
 
+import net.savantly.sprout.core.security.users.SproutUserService;
 import net.savantly.sprout.starter.SproutWebSecurityConfiguration;
-import net.savantly.sprout.starter.security.PermissionAwareSproutUserService;
 import net.savantly.sprout.starter.security.SecurityCustomizer;
 
 @Configuration(OAuthAutoConfiguration.BEAN_NAME)
@@ -26,7 +26,7 @@ public class OAuthAutoConfiguration {
 	
 	@Bean(name = "oAuth2UserSynchronizer")
 	@ConditionalOnMissingBean(value = {OAuth2UserSynchronizer.class}, name = {"oAuth2UserSynchronizer"})
-	public OAuth2UserSynchronizer oAuth2UserSynchronizer(PermissionAwareSproutUserService userService) {
+	public OAuth2UserSynchronizer oAuth2UserSynchronizer(SproutUserService userService) {
 		return new DefaultOAuth2UserSynchronizer(userService);
 	}
 
@@ -53,7 +53,7 @@ public class OAuthAutoConfiguration {
 
 	@Bean(name = "oidcUserService")
 	@ConditionalOnMissingBean(OidcUserService.class)
-	public OidcUserService oidcUserService(PermissionAwareSproutUserService userService) {
+	public OidcUserService oidcUserService(SproutUserService userService) {
 		return new DefaultSproutOidcUserService(userService);
 	}
 }

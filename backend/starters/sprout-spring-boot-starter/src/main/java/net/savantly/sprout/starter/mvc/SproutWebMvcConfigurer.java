@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -19,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
 import net.savantly.sprout.controllers.DefaultMvcController;
+import net.savantly.sprout.controllers.LoginController;
 import net.savantly.sprout.controllers.PluginsApi;
 import net.savantly.sprout.controllers.argument.TenantIdArgumentResolver;
 import net.savantly.sprout.core.domain.privilege.PrivilegeRepository;
@@ -70,11 +72,16 @@ public class SproutWebMvcConfigurer implements WebMvcConfigurer {
 	}
 
 	
-	//*** REST Controllers ****/
+	//*** Controllers ****/
 	
 	@Bean
 	public DefaultMvcController defaultMvcController() {
 		return new DefaultMvcController();
+	}
+	
+	@Bean
+	public LoginController defaultLoginController(ApplicationContext context) {
+		return new LoginController(context);
 	}
 
 	@Bean

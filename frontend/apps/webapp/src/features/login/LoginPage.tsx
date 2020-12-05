@@ -39,7 +39,7 @@ export const LoginPage = ({ redirectUrl, showBasic }: { redirectUrl?: string; sh
   console.log(oauthClients);
 
   const showOAuth = oauthClients.length > 0;
-  const submitLogin = async (creds: {username: string, password: string}) => {
+  const submitLogin = async (creds: { username: string; password: string }) => {
     setError('');
     try {
       await axios.post('/api/login', creds);
@@ -48,7 +48,7 @@ export const LoginPage = ({ redirectUrl, showBasic }: { redirectUrl?: string; sh
       console.error(error);
       setError('Authentication Failed');
     }
-  }
+  };
 
   return (
     <Container grow={1}>
@@ -96,7 +96,7 @@ export const LoginPage = ({ redirectUrl, showBasic }: { redirectUrl?: string; sh
                   <FormField label="Password" name="password" type={'password'} />
                 </Row>
               </Form>
-              {error && <Alert color='danger'>{error}</Alert>}
+              {error && <Alert color="danger">{error}</Alert>}
             </ModalBody>
           </Modal>
         </Row>
@@ -120,14 +120,16 @@ export const LoginPage = ({ redirectUrl, showBasic }: { redirectUrl?: string; sh
                 buttonText={c.displayName}
                 scope={c.scope}
                 className="btn btn-primary"
-                onFailure={(error) =>
+                onFailure={(error) => {
+                  console.log(`failed authentication`, JSON.stringify(error));
                   dispatch(
                     login({
                       errorMessage: error.message
                     })
-                  )
-                }
+                  );
+                }}
                 onSuccess={(data) => {
+                  console.log(`successful authentication. logging into web app.`, JSON.stringify(data));
                   dispatch(
                     login({
                       accessToken: data.access_token

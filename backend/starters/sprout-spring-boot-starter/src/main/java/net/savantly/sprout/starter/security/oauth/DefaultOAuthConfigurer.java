@@ -29,7 +29,7 @@ public class DefaultOAuthConfigurer implements OAuthConfigurer {
 	@Override
 	public void configure(HttpSecurity http) {
 		try {
-			http.oauth2Login().userInfoEndpoint().userService(oauthUserService).oidcUserService(oidcUserService);
+			http.oauth2Login().loginPage("/login").userInfoEndpoint().userService(oauthUserService).oidcUserService(oidcUserService);
 		} catch (Exception e) {
 			log.error("", e);
 			throw new OAuthConfigurationException(e.getLocalizedMessage());

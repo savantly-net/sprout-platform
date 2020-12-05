@@ -72,6 +72,7 @@ export class OAuth2Login extends Component<OAuth2LoginProps> {
     const left = window.screenX + (window.outerWidth - width) / 2;
     const top = window.screenY + (window.outerHeight - height) / 2.5;
     const locationKey = responseTypeLocationKeys[responseType];
+    console.log(`opening popup window: ${authorizationUrl}?${search}`);
     const popup = PopupWindow.open(
       buttonText,
       `${authorizationUrl}?${search}`,

@@ -11,15 +11,15 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import net.savantly.sprout.core.domain.user.SproutUser;
 import net.savantly.sprout.core.domain.user.UserUpdateDto;
-import net.savantly.sprout.starter.security.PermissionAwareSproutUserService;
+import net.savantly.sprout.core.security.users.SproutUserService;
 
 public class DefaultOAuth2UserSynchronizer implements OAuth2UserSynchronizer {
 	
 	private final static Logger log = LoggerFactory.getLogger(DefaultOAuth2UserSynchronizer.class);
 
-	private final PermissionAwareSproutUserService userService;
+	private final SproutUserService userService;
 
-	public DefaultOAuth2UserSynchronizer(PermissionAwareSproutUserService userService) {
+	public DefaultOAuth2UserSynchronizer(SproutUserService userService) {
 		this.userService = userService;
 	}
 

@@ -69,7 +69,7 @@ public class SproutConfigurationProperties {
 		/**
 		 * Applied first, before patterns and authenticated-paths
 		 */
-		private List<String> publicPaths = Arrays.asList("/api/ui-properties", "/api/authentication/oauth");
+		private List<String> publicPaths = Arrays.asList("/api/ui-properties", "/api/authentication/oauth", "/images/**");
 		/**
 		 * Applied second, after the public-paths
 		 */
@@ -175,10 +175,6 @@ public class SproutConfigurationProperties {
 	@Getter
 	@Setter
 	public static class Jwt {
-    	private String secret = "UseThebAse64SecreTformOreSecurity!";
-    	private String base64Secret = "NDkxYWFlYzJkMDk4Mjk4OTdkMGU5MWQ5MTEwZGZkMjQxYTdkNGYzNGQ3"
-    			+ "OWI5YzQ2OTA2OGQwYWQxNWVjZWUwMDk3NDA1NjU1YWIxMjE2MTc5YWFjMmVjZGY0NTJhOGZlOTg4O"
-    			+ "DgwYjBlM2Y5ZTE5NDY2MDZkMGE5Y2Y5MmVlOTY";
     	private long tokenValidityInSeconds = 86400;
         private long tokenValidityInSecondsForRememberMe = 2592000;
         private String jwkSetUri;

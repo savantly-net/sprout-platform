@@ -1,37 +1,92 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Sign into Sprout">
-    <meta name="author" content="https://www.linkedin.com/in/jeremybranham/">
+    <title>Login to Sprout</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Sign into Sprout" />
+    <meta name="author" content="https://www.linkedin.com/in/jeremybranham/" />
 
-    <title>Sprout Sign-in</title>
+    <link rel="icon" type="image/png" href="api/public/brand/favicon" />
 
-    <!-- Bootstrap core CSS -->
-    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
 
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/fontawesome.min.css"
+      integrity="sha512-kJ30H6g4NGhWopgdseRb8wTsyllFUYIx3hiUwmGAkgA9B/JbzUBDQVr2VVlWGde6sdBVOG7oU8AL35ORDuMm8g=="
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" type="text/css" href="css/login.css" />
   </head>
-
   <body>
-
-    <div class="container">
-
-      <form action="/login"  method="post">
-        <h2>Please sign in</h2>
-        <label for="username" class="sr-only">Username / Email address</label>
-        <input type="text" id="username" name="username" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
+    <div class="container page-container justify-content-center">
+      <div class="login-container m-auto">
+        <div class="card">
+          <div class="card-header text-center">Login</div>
+          <div class="card-body">
+            <form method="POST">
+              <div class="form-group" data-validate="Username is required">
+                <input class="form-control" type="text" name="username" placeholder="Username" />
+              </div>
+              <div class="form-group" data-validate="Password is required">
+                <input class="form-control" type="password" name="password" placeholder="Password" />
+              </div>
+              <div class="form-group">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="rememberMe" name="rememberMe" />
+                  <label class="form-check-label" for="rememberMe"> Remember Me </label>
+                </div>
+			  </div>
+			  <div class="text-center error-text" style="display: none;"><span class="text-danger">Failed to login</span></div>
+              <div class="text-center form-row p-2">
+                <button class="btn btn-primary btn-block">Login</button>
+              </div>
+              <div class="text-center form-row p-2">
+                <span class="m-auto"> Or login with </span>
+			  </div>
+			  <div class="form-row p-2">
+				  <#if oauthClients?size gt 0>
+					<#list oauthClients as client>
+						<div class="col-12">
+						<a href="${authorizationBaseUri}/${client}" class="btn btn-info btn-block mb-2">${client}</a>
+						</div>
+					</#list>
+				</#if>
+			  </div>
+            </form>
+          </div>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
+      crossorigin="anonymous"
+    ></script>
 
-    </div> <!-- /container -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ES2CTJZJTF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+	  gtag('config', 'G-ES2CTJZJTF');
+	</script>
+	<script src="js/login.js"></script>
   </body>
 </html>

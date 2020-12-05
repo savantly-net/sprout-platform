@@ -63,7 +63,9 @@ const authenticationSlice = createSlice({
         isAuthenticated,
         errorMessage: action.payload.errorMessage,
         loginError: !isAuthenticated,
-        showLogin: !isAuthenticated
+        showLogin: !isAuthenticated,
+        sessionHasBeenFetched: false,
+        sessionFetchFailed: false
       };
     },
     logout: (state): AuthenticationState => {

@@ -13,13 +13,13 @@ import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 
 import net.savantly.sprout.core.domain.user.SproutUser;
-import net.savantly.sprout.starter.security.PermissionAwareSproutUserService;
+import net.savantly.sprout.core.security.users.SproutUserService;
 
 public class DefaultSproutOidcUserService extends OidcUserService {
 	
-	private final PermissionAwareSproutUserService userService;
+	private final SproutUserService userService;
 	
-	public DefaultSproutOidcUserService(PermissionAwareSproutUserService userService) {
+	public DefaultSproutOidcUserService(SproutUserService userService) {
 		this.userService = userService;
 	}
 
