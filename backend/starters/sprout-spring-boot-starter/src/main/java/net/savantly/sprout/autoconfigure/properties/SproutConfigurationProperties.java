@@ -77,7 +77,7 @@ public class SproutConfigurationProperties {
 		/**
 		 * Applied third [last], to handle paths that aren't designated public, or previously matched pattern
 		 */
-		private List<String> authenticatedPaths = Arrays.asList("/**");
+		private List<String> authenticatedPaths = Arrays.asList("/api/**");
 
 		/**
 		 * If true, ensure the default permissions exist on application startup

@@ -39,6 +39,9 @@ public class DefaultAuthorizationConfigurer implements AuthorizationConfigurer {
 			registry.antMatchers(
 					configProps.getSecurity().getAuthorization().getAuthenticatedPaths().toArray(new String[0]))
 					.not().anonymous();
+			
+			// if HATEOAS is not already protected by an expression, we'll add a default of ADMIN
+			registry.antMatchers("/api/repo/**").hasAuthority("ADMIN");
 		} catch (Exception e) {
 			log.error("failed to execute authorization configuration", e);
 		}
