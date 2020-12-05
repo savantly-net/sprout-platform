@@ -12,3 +12,8 @@ body {
 	max-width: 500px;
 	min-width: 100px;
 }
+
+img.logo-small {
+	max-width: 150px;
+	min-width: 50px;
+}
