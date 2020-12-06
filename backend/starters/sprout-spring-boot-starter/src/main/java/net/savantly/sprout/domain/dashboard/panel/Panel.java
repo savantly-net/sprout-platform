@@ -27,6 +27,7 @@ public class Panel {
 	private GridPosition gridPos;
 	
 	@Size(max = 64000)
+	@Column(length = 64000)
 	private String options;
 	private String pluginVersion;
 	
