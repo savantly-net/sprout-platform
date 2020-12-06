@@ -70,7 +70,7 @@ async function fetchDashboard(
         return getNewDashboardModelData(args.urlFolderId);
       }
       default:
-        throw { message: 'Unknown route ' + args.routeInfo };
+        throw new Error('Unknown route ' + args.routeInfo );
     }
   } catch (err) {
     // Ignore cancelled errors

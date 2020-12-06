@@ -5,7 +5,7 @@ import { css, cx } from 'emotion';
 import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Alert, Button, Col, Modal, ModalBody, ModalHeader, Row } from 'reactstrap';
+import { Alert, Button, Col, Modal, ModalBody, Row } from 'reactstrap';
 import { login, logout } from '../../core/reducers/authentication';
 import { OAuthClientConfig, StoreState } from '../../types';
 
@@ -135,7 +135,7 @@ export const LoginPage = ({ redirectUrl, showBasic }: { redirectUrl?: string; sh
                       accessToken: data.access_token
                     })
                   );
-                  if (redirectTo == '/login') {
+                  if (redirectTo === '/login') {
                     navigate('/');
                   } else {
                     navigate(redirectTo);

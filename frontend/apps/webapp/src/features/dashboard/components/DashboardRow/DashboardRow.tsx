@@ -6,6 +6,7 @@ import { DashboardModel } from '../../state/DashboardModel';
 import appEvents from '../../../../core/app_events';
 import { CoreEvents } from '../../../../types';
 import { RowOptionsButton } from '../RowOptions/RowOptionsButton';
+import { Button } from 'reactstrap';
 
 export interface DashboardRowProps {
   panel: PanelModel;
@@ -17,7 +18,7 @@ export class DashboardRow extends React.Component<DashboardRowProps, any> {
     super(props);
 
     this.state = {
-      collapsed: this.props.panel.collapsed,
+      collapsed: this.props.panel.collapsed
     };
 
     this.props.dashboard.on(CoreEvents.templateVariableValueUpdated, this.onVariableUpdated);
@@ -56,14 +57,14 @@ export class DashboardRow extends React.Component<DashboardRowProps, any> {
       },
       onAltAction: () => {
         this.props.dashboard.removeRow(this.props.panel, false);
-      },
+      }
     });
   };
 
   render() {
     const classes = classNames({
       'dashboard-row': true,
-      'dashboard-row--collapsed': this.state.collapsed,
+      'dashboard-row--collapsed': this.state.collapsed
     });
 
     const title = 'TODO';
@@ -73,22 +74,19 @@ export class DashboardRow extends React.Component<DashboardRowProps, any> {
 
     return (
       <div className={classes}>
-        <a className="dashboard-row__title pointer" onClick={this.onToggle}>
+        <Button className="dashboard-row__title pointer" onClick={this.onToggle}>
           <Icon name={this.state.collapsed ? 'angle-right' : 'angle-down'} />
           {title}
           <span className="dashboard-row__panel_count">
             ({count} {panels})
           </span>
-        </a>
+        </Button>
         {canEdit && (
           <div className="dashboard-row__actions">
-            <RowOptionsButton
-              title={this.props.panel.title}
-              onUpdate={this.onUpdate}
-            />
-            <a className="pointer" onClick={this.onDelete}>
+            <RowOptionsButton title={this.props.panel.title} onUpdate={this.onUpdate} />
+            <Button className="pointer" onClick={this.onDelete}>
               <Icon name="trash-alt" />
-            </a>
+            </Button>
           </div>
         )}
         {this.state.collapsed === true && (

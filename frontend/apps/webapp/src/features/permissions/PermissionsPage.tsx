@@ -79,29 +79,32 @@ export const PermissionsPage = () => {
   const [error, setError] = useState('');
   const [roles, setRoles] = useState(emptyRoles);
   const [privileges, setPrivileges] = useState(emptyPrivileges);
-  const once = 'once';
 
   useMemo(() => {
-    permissionService
-      .getRoles()
-      .then((response) => {
-        setRoles(response.data);
-      })
-      .catch((err) => {
-        setError(err.detail || err.message || err.status);
-      });
-  }, [once]);
+    if (roles.length === 0) {
+      permissionService
+        .getRoles()
+        .then((response) => {
+          setRoles(response.data);
+        })
+        .catch((err) => {
+          setError(err.detail || err.message || err.status);
+        });
+    }
+  }, [roles]);
 
   useMemo(() => {
-    permissionService
-      .getPrivileges()
-      .then((response) => {
-        setPrivileges(response.data);
-      })
-      .catch((err) => {
-        setError(err.detail || err.message || err.status);
-      });
-  }, [once]);
+    if (privileges.length === 0) {
+      permissionService
+        .getPrivileges()
+        .then((response) => {
+          setPrivileges(response.data);
+        })
+        .catch((err) => {
+          setError(err.detail || err.message || err.status);
+        });
+    }
+  }, [privileges]);
 
   return (
     <Page navModel={navModel}>

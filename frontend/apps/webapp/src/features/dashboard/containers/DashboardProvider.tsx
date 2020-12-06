@@ -6,7 +6,6 @@ import {
   VerticalGroup
 } from "@savantly/sprout-ui";
 import React, {
-  createRef,
   useEffect
 } from "react";
 import { connect } from "react-redux";
@@ -58,7 +57,6 @@ const mapDispatchToProps: DispatchProps = {
   initDashboard,
 };
 
-const ref = createRef();
 
 const DashboardProvider = ({
   routeInfo,
@@ -71,16 +69,17 @@ const DashboardProvider = ({
   console.log('DashboardProvider entered')
   const params = useParams();
   const navigate = useNavigate();
+  const uid = params['uid'];
 
   useEffect(() => {
     initDashboard({
       fixUrl: true,
       routeInfo: routeInfo,
-      urlUid: params['uid'], //this.props.urlUid ? this.props.urlUid as string : undefined,
+      urlUid: uid, //this.props.urlUid ? this.props.urlUid as string : undefined,
       urlFolderId: undefined, // this.props.urlFolderId ? this.props.urlFolderId as string : undefined,
       navigate
     });
-  }, [params['uid']]);
+  }, [uid, initDashboard, routeInfo, navigate]);
 
   const cancelVariables = () => {
     //props.updateLocation({ path: '/' });

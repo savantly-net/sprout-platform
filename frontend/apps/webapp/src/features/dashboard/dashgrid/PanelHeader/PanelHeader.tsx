@@ -11,7 +11,6 @@ import { PanelHeaderMenu } from './PanelHeaderMenu';
 import { DashboardModel } from '../../state/DashboardModel';
 import { PanelModel } from '../../state/PanelModel';
 import { getPanelMenu } from '../../utils/getPanelMenu';
-import { getLocationSrv, LocationSrv } from '@savantly/sprout-runtime';
 import { LocationUpdateService } from '../../../../core/services/locationSvc';
 
 export interface Props {
@@ -42,13 +41,13 @@ export class PanelHeader extends Component<Props, State> {
 
   state: State = {
     panelMenuOpen: false,
-    menuItems: [],
+    menuItems: []
   };
 
   eventToClickCoordinates = (event: React.MouseEvent<HTMLDivElement>) => {
     return {
       x: event.clientX,
-      y: event.clientY,
+      y: event.clientY
     };
   };
 
@@ -72,13 +71,13 @@ export class PanelHeader extends Component<Props, State> {
 
     this.setState({
       panelMenuOpen: !this.state.panelMenuOpen,
-      menuItems,
+      menuItems
     });
   };
 
   closeMenu = () => {
     this.setState({
-      panelMenuOpen: false,
+      panelMenuOpen: false
     });
   };
 
@@ -99,7 +98,7 @@ export class PanelHeader extends Component<Props, State> {
 
     updateLocationService.update({
       query: { inspect: panel.id, inspectTab: tab },
-      partial: true,
+      partial: true
     });
   };
 
@@ -107,11 +106,11 @@ export class PanelHeader extends Component<Props, State> {
     return (
       <Tooltip content={notice.text} key={notice.severity}>
         {notice.inspect ? (
-          <div className="panel-info-notice pointer" onClick={e => this.openInspect(e, notice.inspect!)}>
+          <div className="panel-info-notice pointer" onClick={(e) => this.openInspect(e, notice.inspect!)}>
             <Icon name="info-circle" style={{ marginRight: '8px' }} />
           </div>
         ) : (
-          <a className="panel-info-notice" href={notice.link} target="_blank">
+          <a className="panel-info-notice" href={notice.link} target="_blank" rel="noopener noreferrer">
             <Icon name="info-circle" style={{ marginRight: '8px' }} />
           </a>
         )}
@@ -126,7 +125,7 @@ export class PanelHeader extends Component<Props, State> {
 
     const panelHeaderClass = classNames({
       'panel-header': true,
-      'grid-drag-handle': !(isViewing || isEditing),
+      'grid-drag-handle': !(isViewing || isEditing)
     });
 
     // dedupe on severity
@@ -136,12 +135,7 @@ export class PanelHeader extends Component<Props, State> {
       <>
         {data.state === LoadingState.Loading && this.renderLoadingState()}
         <div className={panelHeaderClass}>
-          <PanelHeaderCorner
-            panel={panel}
-            title={panel.title}
-            description={panel.description}
-            error={error}
-          />
+          <PanelHeaderCorner panel={panel} title={panel.title} description={panel.description} error={error} />
           <div
             className="panel-title-container"
             onClick={this.onMenuToggle}

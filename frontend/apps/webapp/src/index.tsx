@@ -12,10 +12,11 @@ import ErrorBoundary from './core/components/error/error-boundary';
 import locationSvc from './core/services/locationSvc';
 import { setViewModeBodyClass } from './core/utils/viewMode';
 import { builtInPluginMeta } from './features/plugins/built_in_plugins';
-import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { configureStore, history } from './store/configureStore';
 import { CoreEvents, KioskUrlValue } from './types';
+import 'react-datetime/css/react-datetime.css';
+import './index.css';
 
 const store = configureStore();
 const locationService = locationSvc(history);

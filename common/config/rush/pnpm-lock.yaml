@@ -70,6 +70,7 @@ dependencies:
   '@types/react-bootstrap-table-next': 4.0.10
   '@types/react-color': 3.0.1
   '@types/react-custom-scrollbars': 4.0.5
+  '@types/react-datepicker': 3.1.2
   '@types/react-dev-utils': 9.0.4
   '@types/react-dom': 16.9.8
   '@types/react-grid-layout': 1.1.1
@@ -183,6 +184,8 @@ dependencies:
   react-calendar: 2.19.2_react-dom@16.14.0+react@16.14.0
   react-color: 2.18.0_react@16.14.0
   react-custom-scrollbars: 4.2.1_react-dom@16.14.0+react@16.14.0
+  react-datepicker: 3.3.0_react-dom@16.14.0+react@16.14.0
+  react-datetime: 3.0.4_moment@2.29.1+react@16.14.0
   react-dev-utils: 10.2.1
   react-docgen-typescript-loader: 3.7.1_webpack@4.42.0
   react-dom: 16.14.0_react@16.14.0
@@ -5983,6 +5986,14 @@ packages:
     dev: false
     resolution:
       integrity: sha512-Qdotjy9wbf9nrNRzGj0bFDlhYIvjMxwrxHR0V1zUSc2cqb74a8ujLWTfIQ6JBSUx+3hY74+tHgEOthRJLEMyKw==
+  /@types/react-datepicker/3.1.2:
+    dependencies:
+      '@types/react': 16.9.53
+      date-fns: 2.16.1
+      popper.js: 1.16.1
+    dev: false
+    resolution:
+      integrity: sha512-luMH1fUF3GRJwaNFh4cogHV7FSFCJLU8Ai2dZ60Xw0n+MrExvuwOHxcbNkaIkIztPwyuT0H0K8Q4g0RN88LoFQ==
   /@types/react-dev-utils/9.0.4:
     dependencies:
       '@types/eslint': 7.2.4
@@ -10484,6 +10495,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
+  /date-fns/2.16.1:
+    dev: false
+    engines:
+      node: '>=0.11'
+    resolution:
+      integrity: sha512-sAJVKx/FqrLYHAQeN7VpJrPhagZc9R4ImZIWYRFZaaohR3KzmuK88touwsSwSVT8Qcbd4zoDsnGfX4GFB4imyQ==
   /date-format/0.0.2:
     dev: false
     resolution:
@@ -20453,6 +20470,32 @@ packages:
       react-dom: ^0.14.0 || ^15.0.0 || ^16.0.0
     resolution:
       integrity: sha1-gw/ZUCkn6X6KeMIIaBOJmyqLZts=
+  /react-datepicker/3.3.0_react-dom@16.14.0+react@16.14.0:
+    dependencies:
+      classnames: 2.2.6
+      date-fns: 2.16.1
+      prop-types: 15.7.2
+      react: 16.14.0
+      react-dom: 16.14.0_react@16.14.0
+      react-onclickoutside: 6.9.0_react-dom@16.14.0+react@16.14.0
+      react-popper: 1.3.7_react@16.14.0
+    dev: false
+    peerDependencies:
+      react: ^16.9.0
+      react-dom: ^16.9.0
+    resolution:
+      integrity: sha512-QnIlBxDSWEGBi2X5P1BqWzvfnPFRKhtrsgAcujUVwyWeID/VatFaAOEjEjfD1bXR9FuSYVLlLR3j/vbG19hWOA==
+  /react-datetime/3.0.4_moment@2.29.1+react@16.14.0:
+    dependencies:
+      moment: 2.29.1
+      prop-types: 15.7.2
+      react: 16.14.0
+    dev: false
+    peerDependencies:
+      moment: ^2.16.0
+      react: ^16.5.0
+    resolution:
+      integrity: sha512-v6MVwCve+DRaLN2f22LTO5TlrPpkUXumPkp1zfrbhaFtSYGl2grZ2JtwJfLxRj/T4ACyePAV4srCR6cMSiQ/Iw==
   /react-dev-utils/10.2.1:
     dependencies:
       '@babel/code-frame': 7.8.3
@@ -20790,6 +20833,16 @@ packages:
       react: ^16.x
     resolution:
       integrity: sha512-JVA5SZhOoYZ0DCdTwYgagtRb3jHo4KN7TVFiJauG+ZBAJWfDSTzavPIrwzWbgu8ahhDqDk4jUcYlOJL2BC/0UA==
+  /react-onclickoutside/6.9.0_react-dom@16.14.0+react@16.14.0:
+    dependencies:
+      react: 16.14.0
+      react-dom: 16.14.0_react@16.14.0
+    dev: false
+    peerDependencies:
+      react: ^15.5.x || ^16.x
+      react-dom: ^15.5.x || ^16.x
+    resolution:
+      integrity: sha512-8ltIY3bC7oGhj2nPAvWOGi+xGFybPNhJM0V1H8hY/whNcXgmDeaeoCMPPd8VatrpTsUWjb/vGzrmu6SrXVty3A==
   /react-overlays/4.1.0_react-dom@16.14.0+react@16.14.0:
     dependencies:
       '@babel/runtime': 7.12.1
@@ -26124,6 +26177,7 @@ packages:
   'file:projects/sprout-api.tgz':
     dependencies:
       '@braintree/sanitize-url': 4.0.0
+      '@reduxjs/toolkit': 1.4.0
       '@rollup/plugin-commonjs': 11.1.0_rollup@2.0.6
       '@rollup/plugin-json': 4.1.0_rollup@2.0.6
       '@rollup/plugin-node-resolve': 9.0.0_rollup@2.0.6
@@ -26139,6 +26193,7 @@ packages:
       '@types/sinon': 7.5.2
       '@types/tinycolor2': 1.4.2
       apache-arrow: 0.16.0
+      axios: 0.20.0
       lodash: 4.17.20
       marked: 1.2.2
       moment: 2.29.1
@@ -26159,7 +26214,7 @@ packages:
     dev: false
     name: '@rush-temp/sprout-api'
     resolution:
-      integrity: sha512-KF7k50ZTX00HkKE9gSwhHOonIQ/2dY9z90+mG0NjAKoLQ6TDyplMXhw7JYzggimQMLm7AFAbDRWYCX/IGIWtKQ==
+      integrity: sha512-zleOYonMqptzoDRgoYr4OJd+icuyTIrgxa7Czz9QwQkQSISaxDCLtO6cXumlNcHFb+W0qddG2L85A2DtYtvf3Q==
       tarball: 'file:projects/sprout-api.tgz'
     version: 0.0.0
   'file:projects/sprout-runtime.tgz_0d72c3f12c6df4c05dbb05932998e461':
@@ -26189,7 +26244,7 @@ packages:
       '@types/node': '*'
       react-scripts: '*'
     resolution:
-      integrity: sha512-kEI8qUZnhjI2KRjMEQOxsvKk+tUNa7Xq3lBIDqBqXC5T74qFJUb7+CQKZqRIqs+dBLbHAuU5ZxooWcjWJ9OQWQ==
+      integrity: sha512-P3T1Xd+9rCWaD8HRoR4Bhr1jpqFVOA60lvg4GPuDoTcltILpi9trp9hoDXRHIpQAl4SICgf4Q5WtX44UQuhZBA==
       tarball: 'file:projects/sprout-runtime.tgz'
     version: 0.0.0
   'file:projects/sprout-toolkit.tgz':
@@ -26277,7 +26332,7 @@ packages:
     dev: false
     name: '@rush-temp/sprout-toolkit'
     resolution:
-      integrity: sha512-4Di3CwbKBcunDC5hFkZ8a32cxIU3LB8EO7dlBlUf8cDHrMujpV5zwBgOVJ8JsjX8WxLH+VDk5Zu+dqNmSqqR+g==
+      integrity: sha512-t/n07wwLeVxGaha+fXajWKHPzRShcpQZFaXqfeYGKkBf3c0JR/KOUAB3SEBq6YdVnt7AGTC1/gSwiERfHfdZAw==
       tarball: 'file:projects/sprout-toolkit.tgz'
     version: 0.0.0
   'file:projects/sprout-tsconfig.tgz':
@@ -26399,7 +26454,7 @@ packages:
       babel-loader: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-aJXavlC9ha6dk5Js+5VzxOXaaycZ6rBI9gD7cjCpBmEz9g74C8Nr/XriQ+D9zacpARtj6b/EKVu2K/nsdigDEg==
+      integrity: sha512-2TjbsgUX14tjc26Y+7dIDi8T+w9YsYfNBpfd2e/ihCJ0ct8O6z55jDYOF1MaAPlvSV2HT2JVtDJEquR4EYPeqA==
       tarball: 'file:projects/sprout-ui.tgz'
     version: 0.0.0
   'file:projects/ui.tgz_6f9153c85ad43018cf57ec05bbea0c1c':
@@ -26409,6 +26464,7 @@ packages:
       '@emotion/core': 10.0.35_react@16.14.0
       '@iconscout/react-unicons': 1.1.4
       '@jest/types': 26.6.1
+      '@reduxjs/toolkit': 1.4.0
       '@rollup/plugin-commonjs': 11.1.0_rollup@2.0.6
       '@rollup/plugin-image': 2.0.4_rollup@2.0.6
       '@rollup/plugin-node-resolve': 9.0.0_rollup@2.0.6
@@ -26428,6 +26484,7 @@ packages:
       '@types/react-redux': 7.1.9
       '@types/reactstrap': 8.5.2
       '@types/rollup-plugin-visualizer': 2.6.0
+      axios: 0.20.0
       babel-loader: 8.1.0_c469a5abc93aee6c0316d662800f35a3
       bootstrap: 4.5.3_jquery@3.5.1+popper.js@1.16.1
       chromatic: 5.2.0_@babel+core@7.12.3
@@ -26440,6 +26497,7 @@ packages:
       pretty-format: 25.1.0
       react: 16.14.0
       react-bootstrap-table-next: 4.0.3_react-dom@16.14.0+react@16.14.0
+      react-datepicker: 3.3.0_react-dom@16.14.0+react@16.14.0
       react-docgen-typescript-loader: 3.7.1_typescript@3.9.7+webpack@4.42.0
       react-dom: 16.14.0_react@16.14.0
       react-redux: 7.2.1_bbabd8c34ea235719dc50e75b43f85a4
@@ -26469,7 +26527,7 @@ packages:
       ts-node: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-0CjaG2NC0zq0GUiXOAEWH9sKEPpMJAnWp/s0isgVjYapVFty2MmrYgFNulrgudsoRWZiD4FLTWzAlEL3WaFQ9g==
+      integrity: sha512-LpGwvfgueAmMFVz7873m5DgiPkWlBN4A0uHTl4kLVFEMQXlEn3zf+v3kj5NP0QO+ajFzhoxp3l129D9oiKUqdA==
       tarball: 'file:projects/ui.tgz'
     version: 0.0.0
   'file:projects/webapp.tgz_ts-node@8.8.1':
@@ -26490,6 +26548,7 @@ packages:
       '@types/node': 12.19.1
       '@types/react': 16.9.53
       '@types/react-bootstrap': 0.32.24
+      '@types/react-datepicker': 3.1.2
       '@types/react-dom': 16.9.8
       '@types/react-grid-layout': 1.1.1
       '@types/react-loadable': 5.5.3
@@ -26525,6 +26584,8 @@ packages:
       react: 16.14.0
       react-app-rewired: 2.1.6_react-scripts@3.4.3
       react-bootstrap: 1.4.0_react-dom@16.14.0+react@16.14.0
+      react-datepicker: 3.3.0_react-dom@16.14.0+react@16.14.0
+      react-datetime: 3.0.4_moment@2.29.1+react@16.14.0
       react-dom: 16.14.0_react@16.14.0
       react-grid-layout: 1.1.1_react-dom@16.14.0+react@16.14.0
       react-loadable: 5.5.0_react@16.14.0
@@ -26558,7 +26619,7 @@ packages:
     peerDependencies:
       ts-node: '*'
     resolution:
-      integrity: sha512-oZZgjoFYgc4+JQ7txQGq1vqKUsAQCd/5h2/ktgsLqEbSNOoZosU8KuotLX/BHz5aribSCZvaA84OOWHxQs0VKQ==
+      integrity: sha512-4Df/S0foFi3L22uB4V70uyxO59LrJOZwUNg5SfyNhSXTJFf5eqXSInGKtqYcZyre9PRdyTAt+7YmM+Fif+IrxA==
       tarball: 'file:projects/webapp.tgz'
     version: 0.0.0
 registry: ''
@@ -26634,6 +26695,7 @@ specifiers:
   '@types/react-bootstrap-table-next': ^4.0.10
   '@types/react-color': 3.0.1
   '@types/react-custom-scrollbars': 4.0.5
+  '@types/react-datepicker': ~3.1.2
   '@types/react-dev-utils': ^9.0.4
   '@types/react-dom': ^16.9.8
   '@types/react-grid-layout': ^1.1.0
@@ -26747,6 +26809,8 @@ specifiers:
   react-calendar: 2.19.2
   react-color: 2.18.0
   react-custom-scrollbars: 4.2.1
+  react-datepicker: ~3.3.0
+  react-datetime: ~3.0.4
   react-dev-utils: ^10.2.1
   react-docgen-typescript-loader: 3.7.1
   react-dom: ^16.13.1

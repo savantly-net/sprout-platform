@@ -13,8 +13,6 @@ export interface Props {
 const TopSectionItem: FC<Props> = (props) => {
   const { link, onClick } = props;
 
-  const shouldRenderAsAnchor = link.target || onClick;
-
   const renderAnchor = () => {
     return (
       <a className="sidemenu-link" href={link.url} target={link.target} onClick={onClick}>
@@ -42,10 +40,17 @@ const TopSectionItem: FC<Props> = (props) => {
   };
 
   return (
-    <div className={cx("sidemenu-item", "dropdown", "justify-content-center", css`
-      display: flex;
-      flex-direction: row;
-    `)}>
+    <div
+      className={cx(
+        'sidemenu-item',
+        'dropdown',
+        'justify-content-center',
+        css`
+          display: flex;
+          flex-direction: row;
+        `
+      )}
+    >
       {renderLink()}
       <SideMenuDropDown link={link} onHeaderClick={onClick} />
     </div>

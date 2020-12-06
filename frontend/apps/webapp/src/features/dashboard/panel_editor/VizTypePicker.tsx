@@ -63,7 +63,7 @@ export const VizTypePicker: React.FC<Props> = ({ searchQuery, onTypeChange, curr
 
   const getFilteredPluginList = useCallback((): PanelPluginMeta[] => {
     return filterPluginList(pluginsList, searchQuery, current);
-  }, [searchQuery]);
+  }, [searchQuery, pluginsList, current]);
 
   const renderVizPlugin = (plugin: PanelPluginMeta, index: number) => {
     const isCurrent = plugin.id === current.id;
