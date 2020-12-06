@@ -34,7 +34,7 @@ const SelectNav = ({ children, customCss }: { children: NavModelItem[]; customCs
       />
       {/* Label to make it clickable */}
       <select
-        className="gf-select-nav gf-form-input"
+        className="gf-select-nav gf-form-input form-control"
         value={defaultSelectedItem?.url ?? ''}
         onChange={gotoUrl}
         id="page-header-select-nav"

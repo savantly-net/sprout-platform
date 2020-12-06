@@ -33,7 +33,7 @@ const getIconStyles = () => {
 };
 
 export const Icon = React.forwardRef<HTMLDivElement, IconProps>(
-  ({ size = 'md', type = 'default', name, className, style, ...divElementProps }, ref) => {
+  ({ size = 'sm', type = 'default', name, className, style, ...divElementProps }, ref) => {
     const styles = getIconStyles();
     const svgSize = getSvgSize(size);
 

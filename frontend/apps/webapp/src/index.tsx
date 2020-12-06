@@ -30,20 +30,13 @@ urlParams.forEach((value, key) => {
   queryParams[key] = value;
 });
 
-let theme = 'light';
-if (queryParams['dark']) {
-  theme = 'dark';
+let theme = 'off';
+if (queryParams['light']) {
+  theme = 'light';
 }
 config.bootData.user = {
-  lightTheme: theme === 'light' ? 'light' : 'dark'
+  lightTheme: theme === 'off' ? 'off' : 'light'
 };
-
-// import stylesheet based on theme
-if (theme == 'dark') {
-  require('./assets/stolen.dark.css');
-} else {
-  require('./assets/stolen.light.css');
-}
 
 document.body.classList.add('is-react');
 config.panels = builtInPluginMeta;
