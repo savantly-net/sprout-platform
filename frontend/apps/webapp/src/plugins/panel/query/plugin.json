@@ -1,7 +1,7 @@
 {
   "type": "panel",
-  "name": "IFrame",
-  "id": "iframe",
+  "name": "Query",
+  "id": "query",
 
   "skipDataQuery": true,
 

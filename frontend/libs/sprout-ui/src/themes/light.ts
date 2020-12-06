@@ -31,6 +31,8 @@ const basicColors = {
   purple: '#9954bb',
   orange: '#ff7941',
   orangeDark: '#ed5700',
+  brandPrimary: '#07bedd',
+  brandSecondary: '#10eeff',
 };
 
 const backgrounds = {
@@ -93,7 +95,7 @@ const lightTheme: GrafanaTheme = {
   name: 'Grafana Light',
   palette: {
     ...basicColors,
-    brandPrimary: basicColors.orange,
+    brandPrimary: basicColors.brandPrimary,
     brandSuccess: basicColors.greenBase,
     brandWarning: basicColors.orange,
     brandDanger: basicColors.redBase,

@@ -38,7 +38,7 @@ export const PanelEditorTabs: React.FC<PanelEditorTabsProps> = ({ panel, dashboa
           );
         })}
       </TabsBar>
-      <TabContent className={styles.tabContent}>
+      <TabContent className={`${styles.tabContent} panel-editor-tab-content`}>
         <div>TODO: add editor?</div>
       </TabContent>
     </div>

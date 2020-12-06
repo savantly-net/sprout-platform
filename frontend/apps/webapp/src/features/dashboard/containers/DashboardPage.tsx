@@ -219,7 +219,7 @@ export class DashboardPage extends Component<AllProps, OwnState> {
 
         <div className="dashboard-scroll">
           <CustomScrollbar
-            autoHeightMin="100%"
+            autoHeightMin="100% - 60px"
             setScrollTop={this.setScrollTop}
             scrollTop={updateScrollTop}
             updateAfterMountMs={500}
