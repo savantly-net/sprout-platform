@@ -172,6 +172,7 @@ const getBaseWebpackConfig: WebpackConfigurationGetter = async options => {
       'prismjs',
       'slate-plain-serializer',
       'react',
+      'react-datepicker',
       'react-dom',
       'react-redux',
       'react-router-dom',
