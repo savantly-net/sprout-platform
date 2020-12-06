@@ -48,7 +48,7 @@ const body = $('body');
 // see https://github.com/zenorocha/clipboard.js/issues/155
 //$.fn.modal.Constructor.prototype.enforceFocus = () => {};
 
-$('.preloader').remove();
+$('#preloader').remove();
 
 appEvents.on(CoreEvents.toggleSidemenuMobile, () => {
   body.toggleClass('sidemenu-open--xs');

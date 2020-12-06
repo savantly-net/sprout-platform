@@ -370,10 +370,10 @@ ul.nav-tabs {
   .sidemenu-item.active,
   .sidemenu-item:hover {
     background-color: #2c3235;
-    -o-border-image: -o-linear-gradient(#f05a28 30%, #fbca0a 99%);
-    border-image: -webkit-gradient(linear, left top, left bottom, color-stop(30%, #f05a28), color-stop(99%, #fbca0a));
-    border-image: -webkit-linear-gradient(#f05a28 30%, #fbca0a 99%);
-    border-image: linear-gradient(#f05a28 30%, #fbca0a 99%);
+    -o-border-image: -o-linear-gradient(#07bedd 30%, #10eeff 99%);
+    border-image: -webkit-gradient(linear, left top, left bottom, color-stop(30%, #07bedd), color-stop(99%, #10eeff));
+    border-image: -webkit-linear-gradient(#07bedd 30%, #10eeff 99%);
+    border-image: linear-gradient(#07bedd 30%, #10eeff 99%);
     border-image-slice: 1;
     border-style: solid;
     border-top: 0;
@@ -686,10 +686,10 @@ ul.nav-tabs {
 .dropdown-menu--menu > li > a:hover,
 .dropdown-menu--navbar > li > a:hover,
 .dropdown-menu--sidemenu > li > a:hover {
-  -o-border-image: -o-linear-gradient(#f05a28 30%, #fbca0a 99%);
-  border-image: -webkit-gradient(linear, left top, left bottom, color-stop(30%, #f05a28), color-stop(99%, #fbca0a));
-  border-image: -webkit-linear-gradient(#f05a28 30%, #fbca0a 99%);
-  border-image: linear-gradient(#f05a28 30%, #fbca0a 99%);
+  -o-border-image: -o-linear-gradient(#07bedd 30%, #10eeff 99%);
+  border-image: -webkit-gradient(linear, left top, left bottom, color-stop(30%, #07bedd), color-stop(99%, #10eeff));
+  border-image: -webkit-linear-gradient(#07bedd 30%, #10eeff 99%);
+  border-image: linear-gradient(#07bedd 30%, #10eeff 99%);
   border-image-slice: 1;
   border-style: solid;
   border-top: 0;
@@ -845,10 +845,10 @@ ul.nav-tabs {
   padding-right: 21px;
 }
 .dropdown-menu.dropdown-menu--new li a:hover {
-  -o-border-image: -o-linear-gradient(#f05a28 30%, #fbca0a 99%);
-  border-image: -webkit-gradient(linear, left top, left bottom, color-stop(30%, #f05a28), color-stop(99%, #fbca0a));
-  border-image: -webkit-linear-gradient(#f05a28 30%, #fbca0a 99%);
-  border-image: linear-gradient(#f05a28 30%, #fbca0a 99%);
+  -o-border-image: -o-linear-gradient(#07bedd 30%, #10eeff 99%);
+  border-image: -webkit-gradient(linear, left top, left bottom, color-stop(30%, #07bedd), color-stop(99%, #10eeff));
+  border-image: -webkit-linear-gradient(#07bedd 30%, #10eeff 99%);
+  border-image: linear-gradient(#07bedd 30%, #10eeff 99%);
   border-image-slice: 1;
   border-style: solid;
   border-top: 0;
