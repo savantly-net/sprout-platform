@@ -39,14 +39,14 @@ public class SignedUserInfoCookie extends Cookie {
 	  private final Payload payload;
 	  private final String hmac;
 
-	  public SignedUserInfoCookie(SproutUser userInfo, String cookieHmacKey) {
+	  public SignedUserInfoCookie(SproutUser userInfo, String cookieHmacKey, int durationInHours) {
 	    super(NAME, "");
 	    this.payload = new Payload(
 	      userInfo.getUsername(),
 	      userInfo.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet()));
 	    this.hmac = calculateHmac(this.payload, cookieHmacKey);
 	    this.setPath(PATH);
-	    this.setMaxAge((int) Duration.of(1, ChronoUnit.HOURS).getSeconds());
+	    this.setMaxAge((int) Duration.of(durationInHours, ChronoUnit.HOURS).getSeconds());
 	    this.setHttpOnly(true);
 	  }
 

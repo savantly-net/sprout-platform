@@ -20,6 +20,7 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.security.web.context.SaveContextOnUpdateOrErrorResponseWrapper;
 import org.springframework.security.web.context.SecurityContextRepository;
 
+import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
 import net.savantly.sprout.core.domain.user.SproutUser;
 import net.savantly.sprout.core.security.users.SproutUserService;
 import net.savantly.sprout.model.user.UserDto;
@@ -33,10 +34,12 @@ public class CookieSecurityContextRepository extends HttpSessionSecurityContextR
 
 	private final String cookieHmacKey;
 	private final SproutUserService userService;
+	private final int durationInHours;
 
-	public CookieSecurityContextRepository(String cookieHmacKey, SproutUserService userService) {
-		this.cookieHmacKey = cookieHmacKey;
+	public CookieSecurityContextRepository(SproutConfigurationProperties props, SproutUserService userService) {
+		this.cookieHmacKey = props.getSecurity().getCookieHmacKey();
 		this.userService = userService;
+		this.durationInHours = props.getSecurity().getCookieDurationHours();
 	}
 
 	@Override
@@ -163,7 +166,7 @@ public class CookieSecurityContextRepository extends HttpSessionSecurityContextR
 					&& SproutUser.class.isAssignableFrom(authentication.getPrincipal().getClass())
 					&& !AnonymousAuthenticationToken.class.isAssignableFrom(authentication.getClass())) {
 				SproutUser userInfo = (SproutUser) authentication.getPrincipal();
-				SignedUserInfoCookie cookie = new SignedUserInfoCookie(userInfo, cookieHmacKey);
+				SignedUserInfoCookie cookie = new SignedUserInfoCookie(userInfo, cookieHmacKey, durationInHours);
 				cookie.setSecure(request.isSecure());
 				response.addCookie(cookie);
 			}

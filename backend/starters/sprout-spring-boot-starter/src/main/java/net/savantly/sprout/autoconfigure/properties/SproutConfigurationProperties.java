@@ -61,6 +61,7 @@ public class SproutConfigurationProperties {
 		 * It should be set in the application properties, and shared across all app instances
 		 */
 		private String cookieHmacKey = UUID.randomUUID().toString().replace("-", "");
+		private int cookieDurationHours = 8;
     }
 	
 	@Getter

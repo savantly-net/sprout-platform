@@ -65,7 +65,7 @@ public class SproutSecurityAutoConfiguration {
 
 	@Bean
 	public CookieSecurityContextRepository securityContextRepository(SproutUserService userService) {
-		return new CookieSecurityContextRepository(props.getSecurity().getCookieHmacKey(), userService);
+		return new CookieSecurityContextRepository(props, userService);
 	}
 
 	@Bean

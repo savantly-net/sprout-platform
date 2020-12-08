@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +13,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import net.savantly.sprout.domain.dashboard.panel.PanelService;
 
+@Transactional
 public class DashboardConverter {
 	private final static Logger log = LoggerFactory.getLogger(DashboardConverter.class);
 
