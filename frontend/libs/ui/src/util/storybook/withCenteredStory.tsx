@@ -14,10 +14,10 @@ const CenteredStory: React.FunctionComponent<CenteredStoryProps> = ({ horizontal
         width: '100%',
         display: 'flex',
         alignItems: vertical ? 'center' : 'flex-start',
-        justifyContent: horizontal ? 'center' : 'flex-start',
+        justifyContent: horizontal ? 'center' : 'flex-start'
       }}
     >
-      {children}
+      <div style={{ margin: 'auto' }}>{children}</div>
     </div>
   );
 };

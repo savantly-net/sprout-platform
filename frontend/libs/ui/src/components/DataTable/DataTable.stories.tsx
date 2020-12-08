@@ -6,7 +6,7 @@ import { ProviderWrapper } from '../../util/mocks/provider';
 
 // This default export determines where your story goes in the story list
 export default {
-  title: 'Data/DataTable',
+  title: 'Tables/DataTable',
   component: DataTable,
   decorators: [(story: any) => <ProviderWrapper>{story()}</ProviderWrapper>]
 };

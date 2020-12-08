@@ -3,11 +3,11 @@ import React from 'react';
 import { IconName } from '../../types';
 import { Icon, IconProps } from '../Icon/Icon';
 
-interface OwnProps extends Omit<IconProps, 'name'> {
+export interface LoadingIconProps extends Omit<IconProps, 'name'> {
   name?: IconName;
 }
 
-export const LoadingIcon = ({ size = '5x', name = 'cog', ...rest }: OwnProps) => {
+export const LoadingIcon = ({ size = '5x', name = 'cog', ...rest }: LoadingIconProps) => {
   return (
     <div
       className={css`
