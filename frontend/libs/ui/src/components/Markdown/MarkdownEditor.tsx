@@ -1,7 +1,6 @@
 import React, { FC, HTMLAttributes, ReactNode, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import ReactMde, { ReactMdeProps } from 'react-mde';
-import 'react-mde/lib/styles/css/react-mde-all.css';
 
 export type MarkdownEditorTab = 'write' | 'preview';
 export type GenerateMarkdownPreview = (markdown: string) => Promise<ReactNode>;

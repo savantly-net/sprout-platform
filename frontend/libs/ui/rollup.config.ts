@@ -4,6 +4,7 @@ import image from '@rollup/plugin-image';
 // import sourceMaps from 'rollup-plugin-sourcemaps';
 import { terser } from 'rollup-plugin-terser';
 import ignore from "rollup-plugin-ignore"
+import json from '@rollup/plugin-json';
 
 const pkg = require('./package.json');
 
@@ -12,6 +13,7 @@ const libraryName = pkg.name;
 const buildCjsPackage = ({ env }) => {
   return {
     input: `compiled/index.js`,
+    preferBuiltins: true,
     output: [
       {
         //dir: 'dist',
@@ -43,6 +45,7 @@ const buildCjsPackage = ({ env }) => {
       'formik'
     ],
     plugins: [
+      json(),
       commonjs({
         include: /node_modules/,
         // When 'rollup-plugin-commonjs' fails to properly convert the CommonJS modules to ES6 one has to manually name the exports

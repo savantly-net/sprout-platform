@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@sprout-platform/ui",
+      "comment": "Adds Markdown editing and viewing components",
+      "type": "none"
+    }
+  ],
+  "packageName": "@sprout-platform/ui",
+  "email": "Jeremy@savantly.net"
+}

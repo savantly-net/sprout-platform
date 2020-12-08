@@ -230,6 +230,7 @@ dependencies:
   replace-in-file-webpack-plugin: 1.0.6
   rimraf: 3.0.2
   rollup: 2.0.6
+  rollup-plugin-css-only: 3.0.0_rollup@2.0.6
   rollup-plugin-ignore: 1.0.9
   rollup-plugin-sourcemaps: 0.6.3_@types+node@12.19.1+rollup@2.0.6
   rollup-plugin-terser: 7.0.2_rollup@2.0.6
@@ -22600,6 +22601,17 @@ packages:
     dev: false
     resolution:
       integrity: sha512-ii4iagi25WusVoiC4B4lq7pbXfAp3D9v5CwfkY33vffw2+pkDjY1D8GaN7spsxvCSx8dkPqOZCEZyfxcmJG2IA==
+  /rollup-plugin-css-only/3.0.0_rollup@2.0.6:
+    dependencies:
+      '@rollup/pluginutils': 3.1.0_rollup@2.0.6
+      rollup: 2.0.6
+    dev: false
+    engines:
+      node: '>=10.12.0'
+    peerDependencies:
+      rollup: 1 || 2
+    resolution:
+      integrity: sha512-v6ZZuApxXl/Z07jAmH+p5HsLPMW2BHIRJ4Tpxv22S+jpINZ1QFxWoeMDMyFDd+XM1jFcQeshkjuD8xUVOJJG7Q==
   /rollup-plugin-ignore/1.0.9:
     dev: false
     resolution:
@@ -26661,7 +26673,7 @@ packages:
       '@types/node': '*'
       react-scripts: '*'
     resolution:
-      integrity: sha512-hFZKqBeJbU/4dPoWkVdDfxXCyn56hJiB5F5713k8aOlbWYGuo8BY3IcwsSsN8jtPdliSCSAq7Zu2geN3s9zNLQ==
+      integrity: sha512-+oSoxI26Tn4oN+Y12JqWB/VXYldTBHpJUAFAezyzHHCQ7Q9XRFP+Ke5U6fq/0G31as+bBFyMWvC+uuWGwJhypQ==
       tarball: 'file:projects/sprout-runtime.tgz'
     version: 0.0.0
   'file:projects/sprout-toolkit.tgz':
@@ -26749,7 +26761,7 @@ packages:
     dev: false
     name: '@rush-temp/sprout-toolkit'
     resolution:
-      integrity: sha512-pWcvr9+Aspgi7nSyUr8gorsbIgiVlJSiOyAjWT2JJxV4+8EKEN7v78gytXT/rjrGn572mgtuhemG3cknKukxfQ==
+      integrity: sha512-/QFl8CN4eva4HEMweP96qwI59rKFrZkmWszEu7EsSZRd4018etDyonkoVcPQ51x4dbNW04IAjw+yvloTOGmo4w==
       tarball: 'file:projects/sprout-toolkit.tgz'
     version: 0.0.0
   'file:projects/sprout-tsconfig.tgz':
@@ -26871,7 +26883,7 @@ packages:
       babel-loader: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-pfzR4as5zIR2dXwRux+srlqN1BDPa82FYXBVMOcSWlBEtQb5MQ8kTwX+WaTe/4Zw1LCOwa378tlIUsBvOwc7Yg==
+      integrity: sha512-c7onT/gE3h1J4PNSeVXc5WSfSLC99JlaHXOpPmocRJQK32mUU/Ui5bOPEwdhaXGPoHXUPGbQDt8WsxHV/T+q4g==
       tarball: 'file:projects/sprout-ui.tgz'
     version: 0.0.0
   'file:projects/ui.tgz_6f9153c85ad43018cf57ec05bbea0c1c':
@@ -26933,6 +26945,7 @@ packages:
       reactstrap: 8.6.0_react-dom@16.14.0+react@16.14.0
       rimraf: 3.0.2
       rollup: 2.0.6
+      rollup-plugin-css-only: 3.0.0_rollup@2.0.6
       rollup-plugin-ignore: 1.0.9
       rollup-plugin-sourcemaps: 0.6.3_@types+node@12.19.1+rollup@2.0.6
       rollup-plugin-terser: 7.0.2_rollup@2.0.6
@@ -26954,7 +26967,7 @@ packages:
       ts-node: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-ky2THVJqivE0J76FbK8N3JD0uUwX8E8aAC/p4AJQwkMZk/f21XA7mDAesTZ7BCDFCKMO1o2yT12a8uzMIOP2Cw==
+      integrity: sha512-J944ZFovvTeBYflgmg81MRAab4U0HxfsnzICQR38kA2dE/z3TUYLgXVtKiianPKFnDiHmX0qNVfqiraMx8QBJg==
       tarball: 'file:projects/ui.tgz'
     version: 0.0.0
   'file:projects/webapp.tgz_ts-node@8.8.1':
@@ -27046,7 +27059,7 @@ packages:
     peerDependencies:
       ts-node: '*'
     resolution:
-      integrity: sha512-WopBGAuJTW7aYwd9690nnz1D3FUQ+aDbi8A3mtVnIokL9BKsEGPF7xGc+Prgmuz1zkkieZXk5ibJ9HP7juVYkw==
+      integrity: sha512-2P+dbz3KcEihVBKl+Wmu4eiYY/Mxf60hGPFDyqLmlQR4bL117rbOV0QbJ9SKtEWAgNKO3X/7M47ng21HM25rtQ==
       tarball: 'file:projects/webapp.tgz'
     version: 0.0.0
 registry: ''
@@ -27282,6 +27295,7 @@ specifiers:
   replace-in-file-webpack-plugin: ^1.0.6
   rimraf: ^3.0.0
   rollup: 2.0.6
+  rollup-plugin-css-only: ~3.0.0
   rollup-plugin-ignore: ~1.0.9
   rollup-plugin-sourcemaps: ^0.6.2
   rollup-plugin-terser: ^7.0.2

@@ -16,6 +16,7 @@ import * as serviceWorker from './serviceWorker';
 import { configureStore, history } from './store/configureStore';
 import { CoreEvents, KioskUrlValue } from './types';
 import 'react-datetime/css/react-datetime.css';
+import 'react-mde/lib/styles/css/react-mde-all.css';
 import './index.css';
 
 const store = configureStore();
