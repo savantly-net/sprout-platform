@@ -5,6 +5,7 @@ export * from './Form/Form';
 export * from './FormField/FormField';
 export * from './Icon/Icon';
 export * from './Icon/assets';
+export * from './LoadingIcon/LoadingIcon';
 export * from './Markdown/MarkdownEditor';
 export * from './Markdown/MarkdownViewer';
 export * from './OAuthLogin/OAuthLogin';
