@@ -1,4 +1,4 @@
-import { Button, Field, Form, HorizontalGroup, Input } from '@savantly/sprout-ui';
+import { Form, FormField } from '@sprout-platform/ui';
 import React from 'react';
 import { DashboardModel } from '../../../state';
 import { SaveDashboardFormProps } from '../types';
@@ -25,20 +25,21 @@ export const SaveDashboardAsForm: React.FC<SaveDashboardFormProps & { isNew?: bo
   dashboard,
   onSubmit,
   onCancel,
-  onSuccess,
+  onSuccess
 }) => {
   const defaultValues: SaveDashboardAsFormDTO = {
     title: `${dashboard.title} Copy`,
     $folder: {
       id: dashboard.meta.folderId || 0,
-      title: dashboard.meta.folderTitle,
+      title: dashboard.meta.folderTitle
     },
-    copyTags: false,
+    copyTags: false
   };
 
   return (
     <Form
-      defaultValues={defaultValues}
+      initialValues={defaultValues}
+      onCancel={() => onCancel()}
       onSubmit={async (data: SaveDashboardAsFormDTO) => {
         if (!onSubmit) {
           return;
@@ -53,7 +54,7 @@ export const SaveDashboardAsForm: React.FC<SaveDashboardFormProps & { isNew?: bo
         const result = await onSubmit(
           clone,
           {
-            folderId: data.$folder?.id || 0,
+            folderId: data.$folder?.id || 0
           },
           dashboard
         );
@@ -63,23 +64,9 @@ export const SaveDashboardAsForm: React.FC<SaveDashboardFormProps & { isNew?: bo
         }
       }}
     >
-      {({ register, control, errors, getValues }) => (
+      {({ values }) => (
         <>
-          <Field label="Dashboard name" invalid={!!errors.title} error={errors.title?.message}>
-            <Input css={null}
-              name="title"
-              aria-label="Save dashboard title field"
-              autoFocus
-            />
-          </Field>
-          <HorizontalGroup>
-            <Button type="submit" aria-label="Save dashboard button">
-              Save
-            </Button>
-            <Button variant="secondary" onClick={onCancel}>
-              Cancel
-            </Button>
-          </HorizontalGroup>
+          <FormField label="Dashboard name" name="title" aria-label="Save dashboard title field" autoFocus />
         </>
       )}
     </Form>

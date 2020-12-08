@@ -1,10 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {
-  DashboardInitError,
-  DashboardInitPhase,
-  DashboardState,
-  PanelState
-} from '../../../types';
+import { DashboardInitError, DashboardInitPhase, DashboardState, PanelState } from '../../../types';
 import { EDIT_PANEL_ID } from '../../../core/constants';
 import { panelEditorReducer } from '../components/PanelEditor/state/reducers';
 import { DashboardModel } from './DashboardModel';
@@ -16,7 +11,7 @@ export const initialDashboardState: DashboardState = {
   isInitSlow: false,
   getModel: () => null,
   panels: {},
-  initError: null,
+  initError: null
 };
 
 const dashbardSlice = createSlice({
@@ -36,10 +31,10 @@ const dashbardSlice = createSlice({
       state.getModel = () => action.payload;
       state.initPhase = DashboardInitPhase.Completed;
       state.isInitSlow = false;
-
+      state.initError = null;
       for (const panel of action.payload.panels) {
         state.panels[panel.id] = {
-          pluginId: panel.type,
+          pluginId: panel.type
         };
       }
     },
@@ -71,8 +66,8 @@ const dashbardSlice = createSlice({
     addPanel: (state, action: PayloadAction<PanelModel>) => {
       // TODO: refactor, since the state should be mutated by copying only
       state.panels[action.payload.id] = { pluginId: action.payload.type };
-    },
-  },
+    }
+  }
 });
 
 export function updatePanelState(state: DashboardState, panelId: number, ps: Partial<PanelState>) {
@@ -97,12 +92,12 @@ export const {
   cleanUpDashboard,
   panelModelAndPluginReady,
   addPanel,
-  cleanUpEditPanel,
+  cleanUpEditPanel
 } = dashbardSlice.actions;
 
 export const dashboardReducer = dashbardSlice.reducer;
 
 export default {
   dashboard: dashboardReducer,
-  panelEditor: panelEditorReducer,
+  panelEditor: panelEditorReducer
 };

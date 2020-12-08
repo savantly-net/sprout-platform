@@ -1,7 +1,8 @@
+import { css } from 'emotion';
 import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import { Alert } from 'reactstrap';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { Alert, Button, Row } from 'reactstrap';
 import Page from '../../core/components/Page/Page';
 import { getNavModel } from '../../core/selectors/navModel';
 import { DashboardDTO, StoreState } from '../../types';
@@ -36,13 +37,13 @@ const DashboardList = ({ dashboards }: { dashboards: DashboardDTO[] }) => {
             <tr key={k}>
               <td>{versionedList[k][0].dashboard.title}</td>
               <td>
-                <ul>
-                  {versionedList[k].map((d) => (
-                    <li>
-                      <NavLink to={`/d/${d.dashboard.uid}`}>{d.dashboard.title}</NavLink>
-                    </li>
-                  ))}
-                </ul>
+                {versionedList[k].map((d) => (
+                  <div key={d.dashboard.uid}>
+                    <NavLink to={`/d/${d.dashboard.uid}`}>
+                      version {d.dashboard.version} ({d.dashboard.title})
+                    </NavLink>
+                  </div>
+                ))}
               </td>
             </tr>
           ))}
@@ -53,6 +54,7 @@ const DashboardList = ({ dashboards }: { dashboards: DashboardDTO[] }) => {
 
 export const ManageDashboardsPage = () => {
   const navModel = useSelector((state: StoreState) => getNavModel(state.navIndex, 'manage-dashboards'));
+  const navigate = useNavigate();
 
   const [error, setError] = useState('');
   const [dashboards, setDashboards] = useState(emptyDashboards);
@@ -74,6 +76,22 @@ export const ManageDashboardsPage = () => {
       <Page.Contents>
         <>
           {error && <Alert color="danger">{error}</Alert>}
+          <div
+            className={css`
+              display: flex;
+            `}
+          >
+            <Button
+              className={css`
+                margin-left: auto;
+              `}
+              onClick={() => {
+                navigate('./new');
+              }}
+            >
+              Create Dashboard
+            </Button>
+          </div>
           {dashboards && <DashboardList dashboards={dashboards} />}
         </>
       </Page.Contents>

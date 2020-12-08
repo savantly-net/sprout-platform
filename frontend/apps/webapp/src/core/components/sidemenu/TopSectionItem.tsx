@@ -25,7 +25,7 @@ const TopSectionItem: FC<Props> = (props) => {
   };
 
   const renderLink = () => {
-    if (link.url) {
+    if (link.url && !link.url.startsWith('http')) {
       return (
         <NavLink className="sidemenu-link" to={link.url} replace={false}>
           <span className="icon-circle sidemenu-icon">

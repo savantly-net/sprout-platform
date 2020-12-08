@@ -37,11 +37,14 @@ export const DateField = ({ ...props }) => {
 };
 
 const buildParamString = (values: KeyValue) => {
-  return Object.keys(values)
-    .map((value) => {
-      return `${value}=${values[value]}`;
-    })
-    .join('&');
+  return (
+    '&' +
+    Object.keys(values)
+      .map((value) => {
+        return `${value}=${values[value]}`;
+      })
+      .join('&')
+  );
 };
 
 const renderChoiceControl = (control: QueryParameterControl) => {
@@ -52,7 +55,7 @@ const renderChoiceControl = (control: QueryParameterControl) => {
         'col',
         css`
           flex-direction: column;
-          display: inherit;
+          display: inline-grid;
         `
       )}
     >
@@ -60,7 +63,11 @@ const renderChoiceControl = (control: QueryParameterControl) => {
       <Field as="select" name={control.id} className="form-control">
         {control.options &&
           control.options.choices &&
-          control.options.choices.map((choice) => <option value={choice.value}>{choice.name}</option>)}
+          control.options.choices.map((choice) => (
+            <option key={choice.value} value={choice.value}>
+              {choice.name}
+            </option>
+          ))}
       </Field>
     </div>
   );
@@ -68,7 +75,16 @@ const renderChoiceControl = (control: QueryParameterControl) => {
 
 const renderDateControl = (control: QueryParameterControl) => {
   return (
-    <div key={control.id} className="col">
+    <div
+      key={control.id}
+      className={cx(
+        'col',
+        css`
+          flex-direction: column;
+          display: inline-grid;
+        `
+      )}
+    >
       <small>{control.label}</small>
       <DateField name={control.id} />
     </div>
@@ -77,7 +93,16 @@ const renderDateControl = (control: QueryParameterControl) => {
 
 const renderTextControl = (control: QueryParameterControl) => {
   return (
-    <div key={control.id} className="col">
+    <div
+      key={control.id}
+      className={cx(
+        'col',
+        css`
+          flex-direction: column;
+          display: inline-grid;
+        `
+      )}
+    >
       <small>{control.label}</small>
       <Field name={control.id} className="form-control" />
     </div>
@@ -134,15 +159,7 @@ export const QueryPanel = (props: Props) => {
             {({ values }) => (
               <form className="form-inline">
                 {getFormControls()}
-                <div
-                  className={cx(
-                    'd-flex align-items-end',
-                    css`
-                      height: 100%;
-                      flex-direction: column;
-                    `
-                  )}
-                >
+                <div>
                   <Button
                     className="mt-auto"
                     onClick={() => {
@@ -158,7 +175,7 @@ export const QueryPanel = (props: Props) => {
           <hr />
         </Fragment>
       )}
-      <iframe src={getFullUrl()} className={cx(styles.content)} />
+      {url && <iframe src={getFullUrl()} className={cx(styles.content)} />}
     </CustomScrollbar>
   );
 };

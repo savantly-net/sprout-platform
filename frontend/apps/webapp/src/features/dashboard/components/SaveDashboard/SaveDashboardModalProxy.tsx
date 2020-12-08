@@ -5,8 +5,8 @@ import { SaveDashboardModal } from './SaveDashboardModal';
 
 export const SaveDashboardModalProxy: React.FC<SaveDashboardModalProps> = ({ dashboard, onDismiss, onSaveSuccess }) => {
   const isProvisioned = dashboard.meta.provisioned;
-  const isNew = dashboard.version === 0;
-  const isChanged = dashboard.version > 0;
+  const isNew = dashboard.id === null;
+  const isChanged = true; // TODO: detect if changed
 
   const modalProps = {
     dashboard,

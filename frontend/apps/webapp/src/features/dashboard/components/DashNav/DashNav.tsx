@@ -1,20 +1,18 @@
 // Libaries
 import { textUtil } from '@savantly/sprout-api';
-import { getLocationSrv } from '@savantly/sprout-runtime';
 import { Icon, ModalsController } from '@savantly/sprout-ui';
 import { css } from 'emotion';
-import React, { FC, PureComponent, ReactNode } from 'react';
-import { connect, MapDispatchToProps } from 'react-redux';
+import React, { FC, ReactNode } from 'react';
+import { useSearchParams } from 'react-router-dom';
 // Utils & Services
 import { appEvents } from '../../../../core/app_events';
 import { BackButton } from '../../../../core/components/BackButton/BackButton';
-import { CoreEvents, StoreState } from '../../../../types';
+import { CoreEvents } from '../../../../types';
 // Types
 import { DashboardModel } from '../../state';
 import { SaveDashboardModalProxy } from '../SaveDashboard/SaveDashboardModalProxy';
 // Components
 import { DashNavButton } from './DashNavButton';
-
 
 export interface OwnProps {
   dashboard: DashboardModel;
@@ -22,11 +20,9 @@ export interface OwnProps {
   onAddPanel: () => void;
 }
 
-interface DispatchProps {}
-
 interface DashNavButtonModel {
-  show: (props: Props) => boolean;
-  component: FC<Partial<Props>>;
+  show: (props: OwnProps) => boolean;
+  component: FC<Partial<OwnProps>>;
   index?: number | 'end';
 }
 
@@ -41,60 +37,47 @@ export function addCustomRightAction(content: DashNavButtonModel) {
   customRightActions.push(content);
 }
 
-export interface StateProps {
-}
+const DashNav = (props: OwnProps) => {
+  const [searchParams, setSearchParams] = useSearchParams();
 
-type Props = StateProps & OwnProps & DispatchProps;
-
-class DashNav extends PureComponent<Props> {
-  locationService = getLocationSrv();
-
-  constructor(props: Props) {
-    super(props);
-  }
-
-  onFolderNameClick = () => {
-    this.locationService.update({
-      query: { search: 'open', folder: 'current' },
-      partial: true,
-    });
+  // TODO: goto search?
+  const onFolderNameClick = () => {
+    setSearchParams(
+      { open: 'true' },
+      {
+        state: {
+          folder: 'current'
+        }
+      }
+    );
   };
 
-  onClose = () => {
-    this.locationService.update({
-      query: { viewPanel: null },
-      partial: true,
-    });
+  const onClose = () => {
+    setSearchParams({});
   };
 
-  onToggleTVMode = () => {
+  const onToggleTVMode = () => {
     appEvents.emit(CoreEvents.toggleKioskMode);
   };
 
-  onOpenSettings = () => {
-    this.locationService.update({
-      query: { editview: 'settings' },
-      partial: true,
-    });
+  const onOpenSettings = () => {
+    setSearchParams({ editview: 'settings' });
   };
 
-  onDashboardNameClick = () => {
-    this.locationService.update({
-      query: { search: 'open' },
-      partial: true,
-    });
+  const onDashboardNameClick = () => {
+    setSearchParams({ open: 'true' });
   };
 
-  addCustomContent(actions: DashNavButtonModel[], buttons: ReactNode[]) {
+  const addCustomContent = (actions: DashNavButtonModel[], buttons: ReactNode[]) => {
     actions.map((action, index) => {
       const Component = action.component;
-      const element = <Component {...this.props} key={`button-custom-${index}`} />;
+      const element = <Component {...props} key={`button-custom-${index}`} />;
       typeof action.index === 'number' ? buttons.splice(action.index, 0, element) : buttons.push(element);
     });
-  }
+  };
 
-  renderLeftActionsButton() {
-    const { dashboard } = this.props;
+  const renderLeftActionsButton = () => {
+    const { dashboard } = props;
     const { canStar, canShare, isStarred } = dashboard.meta;
 
     const buttons: ReactNode[] = [];
@@ -115,7 +98,7 @@ class DashNav extends PureComponent<Props> {
     if (canShare) {
       buttons.push(
         <ModalsController key="button-share">
-          {({ showModal, hideModal }: {showModal: Function, hideModal: Function}) => (
+          {({ showModal, hideModal }: { showModal: Function; hideModal: Function }) => (
             <DashNavButton
               tooltip="Share dashboard"
               classSuffix="share"
@@ -128,12 +111,12 @@ class DashNav extends PureComponent<Props> {
       );
     }
 
-    this.addCustomContent(customLeftActions, buttons);
+    addCustomContent(customLeftActions, buttons);
     return buttons;
-  }
+  };
 
-  renderDashboardTitleSearchButton() {
-    const { dashboard, isFullscreen } = this.props;
+  const renderDashboardTitleSearchButton = () => {
+    const { dashboard, isFullscreen } = props;
 
     const folderSymbol = css`
       margin-right: 0 4px;
@@ -153,30 +136,30 @@ class DashNav extends PureComponent<Props> {
             {!isFullscreen && <Icon name="apps" size="lg" className={mainIconClassName} />}
             {haveFolder && (
               <>
-                <a className="navbar-page-btn__folder" onClick={this.onFolderNameClick}>
+                <a className="navbar-page-btn__folder" onClick={onFolderNameClick}>
                   {folderTitle} <span className={folderSymbol}>/</span>
                 </a>
               </>
             )}
-            <a onClick={this.onDashboardNameClick}>{dashboard.title}</a>
+            <a onClick={onDashboardNameClick}>{dashboard.title}</a>
           </div>
         </div>
-        <div className="navbar-buttons navbar-buttons--actions">{this.renderLeftActionsButton()}</div>
+        <div className="navbar-buttons navbar-buttons--actions">{renderLeftActionsButton()}</div>
         <div className="navbar__spacer" />
       </>
     );
-  }
+  };
 
-  renderBackButton() {
+  const renderBackButton = () => {
     return (
       <div className="navbar-edit">
-        <BackButton surface="dashboard" onClick={this.onClose} />
+        <BackButton surface="dashboard" onClick={onClose} />
       </div>
     );
-  }
+  };
 
-  renderRightActionsButton() {
-    const { dashboard, onAddPanel } = this.props;
+  const renderRightActionsButton = () => {
+    const { dashboard, onAddPanel } = props;
     const { canSave, showSettings } = dashboard.meta;
     const { snapshot } = dashboard;
     const snapshotUrl = snapshot && snapshot.originalUrl;
@@ -196,7 +179,7 @@ class DashNav extends PureComponent<Props> {
       );
       buttons.push(
         <ModalsController key="button-save">
-          {({ showModal, hideModal }: {showModal: Function, hideModal: Function}) => (
+          {({ showModal, hideModal }: { showModal: Function; hideModal: Function }) => (
             <DashNavButton
               tooltip="Save dashboard"
               classSuffix="save"
@@ -204,7 +187,7 @@ class DashNav extends PureComponent<Props> {
               onClick={() => {
                 showModal(SaveDashboardModalProxy, {
                   dashboard,
-                  onDismiss: hideModal,
+                  onDismiss: hideModal
                 });
               }}
             />
@@ -231,37 +214,30 @@ class DashNav extends PureComponent<Props> {
           tooltip="Dashboard settings"
           classSuffix="settings"
           icon="cog"
-          onClick={this.onOpenSettings}
+          onClick={onOpenSettings}
           key="button-settings"
         />
       );
     }
 
-    this.addCustomContent(customRightActions, buttons);
+    addCustomContent(customRightActions, buttons);
     return buttons;
-  }
+  };
 
-  render() {
-    const { dashboard, isFullscreen } = this.props;
+  const { dashboard, isFullscreen } = props;
 
-    return (
-      <div className="navbar">
-        {isFullscreen && this.renderBackButton()}
-        {this.renderDashboardTitleSearchButton()}
+  return (
+    <div className="navbar">
+      {isFullscreen && renderBackButton()}
+      {renderDashboardTitleSearchButton()}
 
-        <div className="navbar-buttons navbar-buttons--actions">{this.renderRightActionsButton()}</div>
+      <div className="navbar-buttons navbar-buttons--actions">{renderRightActionsButton()}</div>
 
-        <div className="navbar-buttons navbar-buttons--tv">
-          <DashNavButton tooltip="Cycle view mode" classSuffix="tv" icon="monitor" onClick={this.onToggleTVMode} />
-        </div>
+      <div className="navbar-buttons navbar-buttons--tv">
+        <DashNavButton tooltip="Cycle view mode" classSuffix="tv" icon="monitor" onClick={onToggleTVMode} />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
-const mapStateToProps = (state: StoreState) => ({
-});
-
-const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(DashNav);
+export default DashNav;

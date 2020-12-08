@@ -1,4 +1,4 @@
-import { PanelPlugin } from '@savantly/sprout-api';
+import { PanelModel, PanelPlugin } from '@savantly/sprout-api';
 import { DashboardModel } from '../features/dashboard/state/DashboardModel';
 
 export interface DashboardDTO {
@@ -38,13 +38,21 @@ export interface DashboardDataDTO {
   uid: string;
   id: string;
   title: string;
+  deleted: boolean;
+  editable: boolean;
+  hideControls: boolean;
+  links: any[];
+  panels: PanelModel<any>;
+  schemaVersion: number;
+  version: number;
+  tags: string[];
 }
 
 export enum DashboardRouteInfo {
   Home = 'home-dashboard',
   New = 'new-dashboard',
   Normal = 'normal-dashboard',
-  Scripted = 'scripted-dashboard',
+  Scripted = 'scripted-dashboard'
 }
 
 export enum DashboardInitPhase {
@@ -52,7 +60,7 @@ export enum DashboardInitPhase {
   Fetching = 'Fetching',
   Services = 'Services',
   Failed = 'Failed',
-  Completed = 'Completed',
+  Completed = 'Completed'
 }
 
 export interface DashboardInitError {

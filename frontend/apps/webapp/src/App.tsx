@@ -1,8 +1,10 @@
-import { ModalRoot, ModalsProvider, Spinner } from '@savantly/sprout-ui';
+import { ConfirmModal, ModalRoot, ModalsProvider, Spinner } from '@savantly/sprout-ui';
+import { confirm } from '@sprout-platform/ui';
 import { uniqueId } from 'lodash';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { Button, Col } from 'reactstrap';
 import './App.css';
 import setupAxiosInterceptors from './config/axios-interceptor';
 import ModalProxy from './core/components/ModalProxy/ModalProxy';
@@ -20,6 +22,7 @@ export const App = () => {
   }
   const isShowLogin = useSelector((state: StoreState) => state.authentication.showLogin);
   const isSessionFetched = useSelector((state: StoreState) => state.authentication.sessionHasBeenFetched);
+  const sessionFetchFailed = useSelector((state: StoreState) => state.authentication.sessionFetchFailed);
   const dispatch = useDispatch();
   const location = useLocation();
   setupAxiosInterceptors(() => {
@@ -35,6 +38,23 @@ export const App = () => {
           {!isShowLogin && <AppRoutes history={history} />}
         </PluginProvider>
       );
+    } else if (sessionFetchFailed && !showLogin) {
+      confirm({
+        message: 'Problem connecting to the API server.',
+        title: 'Error',
+        buttonsComponent: ({ onClose }) => {
+          return (
+            <div>
+              <Button color="warning" onClick={() => onClose(true)}>Refresh</Button>
+            </div>
+          );
+        }
+      }).then((v) => {
+        if (v) {
+          window.location.href = window.location.href;
+        }
+      });
+      return null;
     } else {
       return <Spinner />;
     }

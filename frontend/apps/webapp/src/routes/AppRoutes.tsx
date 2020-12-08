@@ -28,7 +28,7 @@ const AppRoutes = ({ history }: AllProps) => {
         <Route path="/" element={<DashboardProvider routeInfo={DashboardRouteInfo.Home} />} />
         <Route path="/d/:uid" element={<DashboardProvider routeInfo={DashboardRouteInfo.Normal} />} />
         <Route path="/d/:uid/:slug" element={<DashboardProvider routeInfo={DashboardRouteInfo.Normal} />} />
-        <Route path="/dashboard/new" element={<DashboardProvider routeInfo={DashboardRouteInfo.New} />} />
+        <Route path="/dashboards/new" element={<DashboardProvider routeInfo={DashboardRouteInfo.New} />} />
         <Route path="/dashboards" element={<ManageDashboardsPage />} />
         <Route
           path="/a/:pluginId/*"

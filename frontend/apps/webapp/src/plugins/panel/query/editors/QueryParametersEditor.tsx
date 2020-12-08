@@ -89,7 +89,7 @@ export const QueryParametersEditor: React.FC<
                         {values.controls &&
                           values.controls.length > 0 &&
                           values.controls.map((control, index) => (
-                            <Fragment>
+                            <Fragment key={`control-${index}`}>
                               <div className="mb-1" key={`control-${index}`}>
                                 <div className="form-row">
                                   <div className="mr-2">
