@@ -126,7 +126,7 @@ export class PageHeader extends React.Component<Props, any> {
       <div className="page-header__inner">
         <span className="page-header__logo">
           {/*  */}
-          {main.icon && <Icon name={main.icon as IconName} size="xxxl" className={iconClassName} />}
+          {main.icon && <Icon name={main.icon as IconName} size="3x" className={iconClassName} />}
           {main.img && <img alt="logo" className="page-header__img" src={main.img} />}
         </span>
 

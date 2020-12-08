@@ -31,7 +31,10 @@
   "dependencies": {
     "@babel/preset-react": "~7.12.1",
     "@emotion/core": "^10.0.27",
-    "@iconscout/react-unicons": "1.1.4",
+    "@fortawesome/fontawesome-svg-core": "~1.2.32",
+    "@fortawesome/free-solid-svg-icons": "~5.15.1",
+    "@fortawesome/react-fontawesome": "~0.1.13",
+    "@fortawesome/free-brands-svg-icons": "~5.15.1",
     "@jest/types": "~26.6.1",
     "@savantly/sprout-api": "2.0.0-8",
     "@savantly/sprout-tsconfig": "^1.0.0",
@@ -51,15 +54,18 @@
     "react-router-dom": "6.0.0-beta.0",
     "react-bootstrap-table-next": "^4.0.3",
     "@reduxjs/toolkit": "^1.4.0",
-    "axios": "~0.20.0"
+    "axios": "~0.20.0",
+    "@babel/plugin-transform-react-jsx": "~7.12.7"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
+    "@mdx-js/loader": "~1.6.22",
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-image": "2.0.4",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "@savantly/sprout-toolkit": "2.0.0-8",
     "@storybook/addon-actions": "^6.0.27",
+    "@storybook/addon-docs": "5.3.21",
     "@storybook/addon-essentials": "^6.0.27",
     "@storybook/addon-links": "^6.0.27",
     "@storybook/react": "^6.0.27",

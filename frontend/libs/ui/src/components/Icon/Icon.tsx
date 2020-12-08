@@ -1,17 +1,26 @@
-//@ts-ignore
-import * as DefaultIcon from '@iconscout/react-unicons';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
 import { toPascalCase } from '@savantly/sprout-api';
 import { css, cx } from 'emotion';
 import React from 'react';
-import { IconName, IconSize, IconType } from '../../types/icon';
+import { IconName, IconSize, IconType, monoIcons } from '../../types/icon';
 import * as MonoIcon from './assets';
 
-const alwaysMonoIcons = ['grafana', 'favorite', 'heart-break', 'heart'];
+library.add(fab, fas);
 
-export interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
+// a bit fragile, as we're using an internal property to get the list
+//@ts-ignore
+export const fasIcons = Object.keys(library.definitions.fas);
+//@ts-ignore
+export const fabIcons = Object.keys(library.definitions.fab);
+
+export interface IconProps extends Omit<FontAwesomeIconProps, 'icon' | 'size'> {
   name: IconName;
   size?: IconSize;
   type?: IconType;
+  wrapperProps?: React.HTMLAttributes<HTMLDivElement>;
 }
 
 const getIconStyles = () => {
@@ -28,47 +37,56 @@ const getIconStyles = () => {
     `,
     orange: css`
       fill: orange;
-    `,
+    `
   };
 };
 
 export const Icon = React.forwardRef<HTMLDivElement, IconProps>(
-  ({ size = 'sm', type = 'default', name, className, style, ...divElementProps }, ref) => {
+  ({ size = 'sm', type = 'default', name, className, style, wrapperProps, ...faProps }, ref) => {
     const styles = getIconStyles();
     const svgSize = getSvgSize(size);
+    let _type = type;
 
-    /* Temporary solution to display also font awesome icons */
-    const isFontAwesome = name?.includes('fa-');
-    if (isFontAwesome) {
-      return <i className={cx(name, className)} {...divElementProps} style={style} />;
+    if (monoIcons.includes(name)) {
+      _type = 'mono';
+    } else if (fasIcons.includes(name)) {
+      _type = 'fas';
+    } else if (fabIcons.includes(name)) {
+      _type = 'fab';
+    } else {
+      _type = 'default';
     }
 
-    if (alwaysMonoIcons.includes(name)) {
-      type = 'mono';
+    if (_type === 'default') {
+      return <i className={cx(name, className)} {...wrapperProps} style={style} />;
     }
 
-    const iconName = type === 'default' ? `Uil${toPascalCase(name)}` : toPascalCase(name);
+    const iconName = _type === 'mono' ? toPascalCase(name) : name;
 
-    /* Unicons don't have type definitions */
-    //@ts-ignore
-    const Component = type === 'default' ? DefaultIcon[iconName] : MonoIcon[iconName];
-
-    if (!Component) {
-      return <div />;
-    }
-
-    return (
-      <div className={styles.container} {...divElementProps} ref={ref}>
-        {type === 'default' && <Component size={svgSize} className={cx(styles.icon, className)} style={style} />}
-        {type === 'mono' && (
-          <Component
-            size={svgSize}
-            className={cx(styles.icon, { [styles.orange]: name === 'favorite' }, className)}
+    if (_type == 'mono') {
+      //@ts-ignore
+      let Component = MonoIcon[iconName];
+      return (
+        <Component
+          size={svgSize}
+          className={cx(styles.icon, { [styles.orange]: name === 'favorite' }, className)}
+          style={style}
+        />
+      );
+    } else {
+      const faSize = size !== 'md' ? size : 'lg';
+      return (
+        <div className={styles.container} {...wrapperProps} ref={ref}>
+          <FontAwesomeIcon
+            icon={{ prefix: _type, iconName } as any}
+            size={faSize}
+            className={cx(styles.icon, className)}
             style={style}
+            {...faProps}
           />
-        )}
-      </div>
-    );
+        </div>
+      );
+    }
   }
 );
 
@@ -85,11 +103,25 @@ export const getSvgSize = (size: IconSize) => {
       return 16;
     case 'lg':
       return 18;
-    case 'xl':
+    case '1x':
       return 24;
-    case 'xxl':
+    case '2x':
       return 36;
-    case 'xxxl':
+    case '3x':
       return 48;
+    case '4x':
+      return 56;
+    case '5x':
+      return 64;
+    case '6x':
+      return 72;
+    case '7x':
+      return 86;
+    case '8x':
+      return 96;
+    case '9x':
+      return 128;
+    case '10x':
+      return 180;
   }
 };

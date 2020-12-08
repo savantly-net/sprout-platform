@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { Alert } from 'reactstrap';
 import Page from '../../core/components/Page/Page';
 import { getNavModel } from '../../core/selectors/navModel';
@@ -9,6 +10,18 @@ import { dashboardService } from '../dashboard/services/dashboardService';
 const emptyDashboards: DashboardDTO[] = [];
 
 const DashboardList = ({ dashboards }: { dashboards: DashboardDTO[] }) => {
+  const versionedList: { [id: string]: DashboardDTO[] } = {};
+
+  // add keys
+  dashboards.forEach((d) => {
+    versionedList[d.dashboard.id] = [];
+  });
+
+  // add data
+  dashboards.forEach((d) => {
+    versionedList[d.dashboard.id].push(d);
+  });
+
   return (
     <table className="table table-striped">
       <thead>
@@ -18,11 +31,19 @@ const DashboardList = ({ dashboards }: { dashboards: DashboardDTO[] }) => {
         </tr>
       </thead>
       <tbody>
-        {dashboards &&
-          dashboards.map((d) => (
-            <tr key={d.dashboard.id}>
-              <td>{d.dashboard.title}</td>
-              <td>{d.dashboard.id}</td>
+        {versionedList &&
+          Object.keys(versionedList).map((k) => (
+            <tr key={k}>
+              <td>{versionedList[k][0].dashboard.title}</td>
+              <td>
+                <ul>
+                  {versionedList[k].map((d) => (
+                    <li>
+                      <NavLink to={`/d/${d.dashboard.uid}`}>{d.dashboard.title}</NavLink>
+                    </li>
+                  ))}
+                </ul>
+              </td>
             </tr>
           ))}
       </tbody>

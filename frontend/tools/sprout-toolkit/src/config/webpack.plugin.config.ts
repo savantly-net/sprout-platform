@@ -61,7 +61,7 @@ const getManualChunk = (id: string) => {
 
       return {
         name,
-        module: id,
+        module: id
       };
     }
   }
@@ -79,7 +79,7 @@ const getEntries = async () => {
   });
   return {
     ...entries,
-    ...getStylesheetEntries(),
+    ...getStylesheetEntries()
   };
 };
 
@@ -89,7 +89,7 @@ const getCommonPlugins = (options: WebpackConfigurationOptions) => {
   return [
     new MiniCssExtractPlugin({
       // both options are optional
-      filename: 'styles/[name].css',
+      filename: 'styles/[name].css'
     }),
     new webpack.optimize.OccurrenceOrderPlugin(true),
     new CopyWebpackPlugin(
@@ -104,7 +104,7 @@ const getCommonPlugins = (options: WebpackConfigurationOptions) => {
         { from: '**/*.html', to: '.' },
         { from: 'img/**/*', to: '.' },
         { from: 'libs/**/*', to: '.' },
-        { from: 'static/**/*', to: '.' },
+        { from: 'static/**/*', to: '.' }
       ],
       { logLevel: options.watch ? 'silent' : 'warn' }
     ),
@@ -116,20 +116,20 @@ const getCommonPlugins = (options: WebpackConfigurationOptions) => {
         rules: [
           {
             search: '%VERSION%',
-            replace: packageJson.version,
+            replace: packageJson.version
           },
           {
             search: '%TODAY%',
-            replace: new Date().toISOString().substring(0, 10),
-          },
-        ],
-      },
+            replace: new Date().toISOString().substring(0, 10)
+          }
+        ]
+      }
     ]),
     new ForkTsCheckerWebpackPlugin({
       tsconfig: path.join(process.cwd(), 'tsconfig.json'),
       // Only report problems in detected in plugin's code
-      reportFiles: ['**/*.{ts,tsx}'],
-    }),
+      reportFiles: ['**/*.{ts,tsx}']
+    })
   ];
 };
 
@@ -149,7 +149,7 @@ const getBaseWebpackConfig: WebpackConfigurationGetter = async options => {
     node: {
       fs: 'empty',
       net: 'empty',
-      tls: 'empty',
+      tls: 'empty'
     },
     context: path.join(process.cwd(), 'src'),
     devtool: 'source-map',
@@ -158,7 +158,7 @@ const getBaseWebpackConfig: WebpackConfigurationGetter = async options => {
       filename: '[name].js',
       path: options.outputFolder,
       libraryTarget: 'amd',
-      publicPath: '/',
+      publicPath: '/'
     },
 
     performance: { hints: false },
@@ -186,6 +186,11 @@ const getBaseWebpackConfig: WebpackConfigurationGetter = async options => {
       '@savantly/sprout-runtime',
       '@savantly/sprout-api',
       '@sprout-platform/ui',
+      // need to do this?
+      //'@fortawesome/fontawesome-svg-core',
+      //'@fortawesome/free-solid-svg-icons',
+      //'@fortawesome/react-fontawesome',
+      //'@fortawesome/free-brands-svg-icons',
       'monaco-editor',
       'react-monaco-editor',
       // @ts-ignore
@@ -197,12 +202,12 @@ const getBaseWebpackConfig: WebpackConfigurationGetter = async options => {
 
         // @ts-ignore
         callback();
-      },
+      }
     ],
     plugins,
     resolve: {
       extensions: ['.ts', '.tsx', '.js'],
-      modules: [path.resolve(process.cwd(), 'src'), 'node_modules'],
+      modules: [path.resolve(process.cwd(), 'src'), 'node_modules']
     },
     module: {
       rules: [
@@ -214,18 +219,18 @@ const getBaseWebpackConfig: WebpackConfigurationGetter = async options => {
               options: {
                 presets: [['@babel/preset-env', { modules: false }]],
                 plugins: [],
-                sourceMaps: true,
-              },
+                sourceMaps: true
+              }
             },
             {
               loader: 'ts-loader',
               options: {
                 onlyCompileBundledFiles: true,
-                transpileOnly: true,
-              },
-            },
+                transpileOnly: true
+              }
+            }
           ],
-          exclude: /(node_modules)/,
+          exclude: /(node_modules)/
         },
         {
           test: /\.jsx?$/,
@@ -235,29 +240,29 @@ const getBaseWebpackConfig: WebpackConfigurationGetter = async options => {
               options: {
                 presets: [['@babel/preset-env', { modules: false }]],
                 plugins: [],
-                sourceMaps: true,
-              },
-            },
+                sourceMaps: true
+              }
+            }
           ],
-          exclude: /(node_modules)/,
+          exclude: /(node_modules)/
         },
         ...getStyleLoaders(),
         {
           test: /\.html$/,
           exclude: [/node_modules/],
           use: {
-            loader: 'html-loader',
-          },
+            loader: 'html-loader'
+          }
         },
-        ...getFileLoaders(),
-      ],
+        ...getFileLoaders()
+      ]
     },
-    optimization,
+    optimization
   };
 };
 
 export const loadWebpackConfig: WebpackConfigurationGetter = async options => {
-  if(!options.outputFolder){
+  if (!options.outputFolder) {
     options.outputFolder = path.join(process.cwd(), 'dist');
   }
   const baseConfig = await getBaseWebpackConfig(options);
