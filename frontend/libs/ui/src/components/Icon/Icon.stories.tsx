@@ -51,7 +51,7 @@ const IconWrapper: React.FC<{ name: IconName }> = ({ name }) => {
         text-align: center;
       `}
     >
-      <Icon name={name} />
+      <Icon name={name} size="lg" />
       <div
         className={css`
           padding-top: 16px;

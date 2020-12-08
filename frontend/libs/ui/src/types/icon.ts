@@ -1,7 +1,7 @@
 import { SizeProp } from '@fortawesome/fontawesome-svg-core';
 import { IconName as faIconNames } from '@fortawesome/free-solid-svg-icons';
 import { ComponentSize } from './size';
-export type IconType = 'mono' | 'fas' | 'fab' | 'default';
+export type IconType = 'mono' | 'fas' | 'fab' | 'far' | 'default';
 export type IconSize = ComponentSize | SizeProp;
 
 export type MonoIcons = 'apps' | 'grafana' | 'favorite' | 'heart-break' | 'heart';

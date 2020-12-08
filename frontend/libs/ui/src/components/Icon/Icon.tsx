@@ -1,6 +1,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
 import { toPascalCase } from '@savantly/sprout-api';
 import { css, cx } from 'emotion';
@@ -8,13 +9,15 @@ import React from 'react';
 import { IconName, IconSize, IconType, monoIcons } from '../../types/icon';
 import * as MonoIcon from './assets';
 
-library.add(fab, fas);
+library.add(fab, fas, far);
 
 // a bit fragile, as we're using an internal property to get the list
 //@ts-ignore
 export const fasIcons = Object.keys(library.definitions.fas);
 //@ts-ignore
 export const fabIcons = Object.keys(library.definitions.fab);
+//@ts-ignore
+export const farIcons = Object.keys(library.definitions.far);
 
 export interface IconProps extends Omit<FontAwesomeIconProps, 'icon' | 'size'> {
   name: IconName;
@@ -53,6 +56,8 @@ export const Icon = React.forwardRef<HTMLDivElement, IconProps>(
       _type = 'fas';
     } else if (fabIcons.includes(name)) {
       _type = 'fab';
+    } else if (farIcons.includes(name)) {
+      _type = 'far';
     } else {
       _type = 'default';
     }

@@ -7,6 +7,7 @@ dependencies:
   '@emotion/core': 10.0.35_react@16.14.0
   '@fortawesome/fontawesome-svg-core': 1.2.32
   '@fortawesome/free-brands-svg-icons': 5.15.1
+  '@fortawesome/free-regular-svg-icons': 5.15.1
   '@fortawesome/free-solid-svg-icons': 5.15.1
   '@fortawesome/react-fontawesome': 0.1.13_7b53ac401c65ded4c43384956efd993a
   '@grafana/e2e-selectors': 7.2.2
@@ -2676,6 +2677,15 @@ packages:
     requiresBuild: true
     resolution:
       integrity: sha512-pkTZIWn7iuliCCgV+huDfZmZb2UjslalXGDA2PcqOVUYJmYL11y6ooFiMJkJvUZu+xgAc1gZgQe+Px12mZF0CA==
+  /@fortawesome/free-regular-svg-icons/5.15.1:
+    dependencies:
+      '@fortawesome/fontawesome-common-types': 0.2.32
+    dev: false
+    engines:
+      node: '>=6'
+    requiresBuild: true
+    resolution:
+      integrity: sha512-eD9NWFy89e7SVVtrLedJUxIpCBGhd4x7s7dhesokjyo1Tw62daqN5UcuAGu1NrepLLq1IeAYUVfWwnOjZ/j3HA==
   /@fortawesome/free-solid-svg-icons/5.15.1:
     dependencies:
       '@fortawesome/fontawesome-common-types': 0.2.32
@@ -26519,7 +26529,7 @@ packages:
       '@types/node': '*'
       react-scripts: '*'
     resolution:
-      integrity: sha512-mG9nx+0nL5hMtbQdFys16yhyR3ymEs858xOdUafXeX2FymKzEeuQBU+6GuCCGWUvcb2zgnrsvLh/ZAc0AppU3Q==
+      integrity: sha512-T3s1W926aJEatdg4ZVprxiQxu7TU866PPWB/f+IGLOVASZ0rgf9/5XD39e7nU3anDRzm9Rr0pLr9Z0K8FjHPwA==
       tarball: 'file:projects/sprout-runtime.tgz'
     version: 0.0.0
   'file:projects/sprout-toolkit.tgz':
@@ -26607,7 +26617,7 @@ packages:
     dev: false
     name: '@rush-temp/sprout-toolkit'
     resolution:
-      integrity: sha512-s4bI5x4+aswOhFe84a/Jm+dfJbsUPpElCb/aci07VykX7Dn70e8c0LaWRcPj8TQQbQXS9fju9NGnONXVJ030uw==
+      integrity: sha512-NDnOLZy728NtdLEvIc6bz6qSuqDCI2VdZNPMNXQJktyTjqF9dDV5M7oilod+pvh78ebfMqAtnawoUEvf87i9ow==
       tarball: 'file:projects/sprout-toolkit.tgz'
     version: 0.0.0
   'file:projects/sprout-tsconfig.tgz':
@@ -26729,7 +26739,7 @@ packages:
       babel-loader: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-e7xjJPwcdSlhsLJtpIzNm59viO/XoHCWgQIA1fqYOVktyeRz2YFNqlKqYcNHtlftbRtLjNeH/gpsZ8+WZCmg+w==
+      integrity: sha512-Gkl8y9B7RgC1tJPOgs0qJIz4DXAGZKEPQHLHPHi867CjmovLNG4A8mdsEKAzCsGfVcLC11J02/47m4Qq/UW79Q==
       tarball: 'file:projects/sprout-ui.tgz'
     version: 0.0.0
   'file:projects/ui.tgz_6f9153c85ad43018cf57ec05bbea0c1c':
@@ -26740,6 +26750,7 @@ packages:
       '@emotion/core': 10.0.35_react@16.14.0
       '@fortawesome/fontawesome-svg-core': 1.2.32
       '@fortawesome/free-brands-svg-icons': 5.15.1
+      '@fortawesome/free-regular-svg-icons': 5.15.1
       '@fortawesome/free-solid-svg-icons': 5.15.1
       '@fortawesome/react-fontawesome': 0.1.13_7b53ac401c65ded4c43384956efd993a
       '@iconscout/react-unicons': 1.1.4
@@ -26809,7 +26820,7 @@ packages:
       ts-node: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-0mZtQNINh1zx7Bd/kFcD+/rP85lrTG5ZNkHmWb1JmhIs/DTqCtinE5BYLMcUS11W3KxuS/Xq190jOmMnbHBzGQ==
+      integrity: sha512-1T3BryQv6onx+2VKa+wIuEyUnZINBPllTgKuumyduXJFMqfB2TTFPsmhyGHhY29Yq+6ZQDTrAO86ghheK43PsQ==
       tarball: 'file:projects/ui.tgz'
     version: 0.0.0
   'file:projects/webapp.tgz_ts-node@8.8.1':
@@ -26901,7 +26912,7 @@ packages:
     peerDependencies:
       ts-node: '*'
     resolution:
-      integrity: sha512-AA7ztjFu+F7WzdqU6anx3wHXP3U1nQQAbex+Lo64VjgmDtcOnJrs4hw7E2THjO7claaXUCO89ycSWE3X6o7ibA==
+      integrity: sha512-QcVWUDVuoHipi6AXC/70YaA/WhzLDOAq0cCcyDJv6FY6yVAsJGGrblKpQyidnQ3e6jQMTqgeVU6kymxHrDf/lQ==
       tarball: 'file:projects/webapp.tgz'
     version: 0.0.0
 registry: ''
@@ -26914,6 +26925,7 @@ specifiers:
   '@emotion/core': ^10.0.27
   '@fortawesome/fontawesome-svg-core': ~1.2.32
   '@fortawesome/free-brands-svg-icons': ~5.15.1
+  '@fortawesome/free-regular-svg-icons': ~5.15.1
   '@fortawesome/free-solid-svg-icons': ~5.15.1
   '@fortawesome/react-fontawesome': ~0.1.13
   '@grafana/e2e-selectors': ^7.2.0

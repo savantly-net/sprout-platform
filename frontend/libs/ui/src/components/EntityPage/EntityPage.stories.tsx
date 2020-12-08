@@ -6,7 +6,7 @@ import { EntityPage } from './EntityPage';
 
 // This default export determines where your story goes in the story list
 export default {
-  title: 'EntityPage',
+  title: 'Data/EntityPage',
   component: EntityPage,
   decorators: [(story: any) => <ProviderWrapper>{story()}</ProviderWrapper>]
 };

@@ -5,7 +5,7 @@ import { OAuth2Login } from './OAuthLogin';
 
 // This default export determines where your story goes in the story list
 export default {
-  title: 'OAuthLogin',
+  title: 'Login/OAuthLogin',
   component: OAuth2Login,
   decorators: [(story: any) => <Col>{story()}</Col>]
 };

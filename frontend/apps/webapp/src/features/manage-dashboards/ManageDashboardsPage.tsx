@@ -2,7 +2,7 @@ import { css } from 'emotion';
 import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Alert, Button, Row } from 'reactstrap';
+import { Alert, Button } from 'reactstrap';
 import Page from '../../core/components/Page/Page';
 import { getNavModel } from '../../core/selectors/navModel';
 import { DashboardDTO, StoreState } from '../../types';

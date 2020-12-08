@@ -61,6 +61,13 @@
       "safeForSimultaneousRushProcesses": true
     },
     {
+      "name": "storybook",
+      "commandKind": "global",
+      "summary": "Build and start storybook",
+      "shellCommand": "cd frontend/libs/ui && yarn storybook",
+      "safeForSimultaneousRushProcesses": true
+    },
+    {
       "name": "storybook:deploy",
       "commandKind": "global",
       "summary": "Build and deploy the UI storybook",
