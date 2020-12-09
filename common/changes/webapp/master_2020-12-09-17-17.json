@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "webapp",
+      "comment": "sort menu items and dont show a blank screen when the API server is unreachable",
+      "type": "none"
+    }
+  ],
+  "packageName": "webapp",
+  "email": "Jeremy@savantly.net"
+}
