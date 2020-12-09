@@ -1,14 +1,15 @@
 // Libraries
-import { UrlQueryValue, urlUtil } from '@savantly/sprout-api';
+import { UrlQueryValue } from '@savantly/sprout-api';
 import { getLocationSrv } from '@savantly/sprout-runtime';
 import { CustomScrollbar } from '@savantly/sprout-ui';
 // @ts-ignore
 import $ from 'jquery';
 import React, { Component, MouseEvent } from 'react';
 import { connect } from 'react-redux';
+import { Prompt } from 'react-router-dom';
 import { notifyApp } from '../../../core/actions';
 import { Branding } from '../../../core/components/Branding/Branding';
-import LifecycleLogging, { LogFlags } from '../../../core/components/LifecycleLogging/LifecycleLogging';
+import { LogFlags } from '../../../core/components/LifecycleLogging/LifecycleLogging';
 import { PrivateComponent } from '../../../core/components/PrivateComponent/PrivateComponent';
 // Services & Utils
 import { createErrorNotification } from '../../../core/copy/appNotification';
@@ -213,6 +214,7 @@ export class DashboardPage extends Component<AllProps, OwnState> {
 
     return (
       <div className="dashboard-container">
+        <Prompt message="You have unsaved changes" when={!dashboard.id} />
         <PrivateComponent hasAnyAuthority={[]}>
           <DashNav dashboard={dashboard} isFullscreen={!!viewPanel} onAddPanel={this.onAddPanel} />
         </PrivateComponent>

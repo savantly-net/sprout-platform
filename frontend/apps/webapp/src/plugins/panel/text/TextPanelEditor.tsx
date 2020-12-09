@@ -5,6 +5,7 @@ import { stylesFactory, TextArea, useTheme } from "@savantly/sprout-ui";
 import { GrafanaTheme, StandardEditorProps } from "@savantly/sprout-api";
 
 import { TextOptions } from "./types";
+import { MarkdownEditor } from "@sprout-platform/ui";
 
 export const TextPanelEditor: FC<StandardEditorProps<
   string,
@@ -16,13 +17,11 @@ export const TextPanelEditor: FC<StandardEditorProps<
 
   return (
     <div className={cx(styles.editorBox)}>
-      <TextArea
-        css={null}
-        value={value}
-        onBlur={(e) => onChange(e.target.value)}
-        onChange={(e) => onChange(e.currentTarget.value)}
-        width="100%"
-        height="200px"
+      <MarkdownEditor
+      value={value}
+      onChange={(markdown) => onChange(markdown)}
+      disablePreview={true}
+      initialEditorHeight={200}
       />
     </div>
   );

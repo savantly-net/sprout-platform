@@ -1,29 +1,20 @@
-import {
-  Alert,
-  Button,
-  HorizontalGroup,
-  Icon,
-  VerticalGroup
-} from "@savantly/sprout-ui";
-import React, {
-  useEffect
-} from "react";
-import { connect } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { getMessageFromError } from "../../../core/utils/errors";
+import { Alert, Button, HorizontalGroup, Icon, VerticalGroup } from '@savantly/sprout-ui';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getMessageFromError } from '../../../core/utils/errors';
 import {
   AppNotificationSeverity,
   DashboardInitError,
   DashboardInitPhase,
   DashboardRouteInfo,
   StoreState
-} from "../../../types";
-import { DashboardModel } from "../state/DashboardModel";
-import { initDashboard } from "../state/initDashboard";
-import DashboardPage from "./DashboardPage"; /* webpackChunkName: "DashboardPage" */
+} from '../../../types';
+import { DashboardModel } from '../state/DashboardModel';
+import { initDashboard } from '../state/initDashboard';
+import DashboardPage from './DashboardPage'; /* webpackChunkName: "DashboardPage" */
 
 //const DashboardPage = SafeDynamicImport(import(/* webpackChunkName: "DashboardPage" */ './DashboardPage'));
-
 
 type OwnProps = {
   routeInfo?: DashboardRouteInfo;
@@ -50,23 +41,15 @@ const mapStateToProps = (state: StoreState): StateProps => ({
   initPhase: state.dashboard.initPhase,
   isInitSlow: state.dashboard.isInitSlow,
   initError: state.dashboard.initError,
-  dashboard: state.dashboard.getModel() as DashboardModel,
+  dashboard: state.dashboard.getModel() as DashboardModel
 });
 
 const mapDispatchToProps: DispatchProps = {
-  initDashboard,
+  initDashboard
 };
 
-
-const DashboardProvider = ({
-  routeInfo,
-  initDashboard,
-  initError,
-  initPhase,
-  isInitSlow
-}: AllProps) => {
-
-  console.log('DashboardProvider entered')
+const DashboardProvider = ({ routeInfo, initDashboard, initError, initPhase, isInitSlow }: AllProps) => {
+  console.log('DashboardProvider entered');
   const params = useParams();
   const navigate = useNavigate();
   const uid = params['uid'];
@@ -92,14 +75,9 @@ const DashboardProvider = ({
           <VerticalGroup spacing="md">
             <HorizontalGroup align="center" justify="center" spacing="xs">
               <Icon name="fa fa-spinner" className="fa-spin" /> {initPhase}
-            </HorizontalGroup>{" "}
+            </HorizontalGroup>{' '}
             <HorizontalGroup align="center" justify="center">
-              <Button
-                variant="secondary"
-                size="md"
-                icon="repeat"
-                onClick={cancelVariables}
-              >
+              <Button variant="secondary" size="md" icon="repeat" onClick={cancelVariables}>
                 Cancel loading dashboard
               </Button>
             </HorizontalGroup>
