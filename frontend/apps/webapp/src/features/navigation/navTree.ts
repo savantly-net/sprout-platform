@@ -1,15 +1,46 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NavModelItem } from '@savantly/sprout-api';
+import axios from 'axios';
+import { SERVER_API_URL } from '../../config/constants';
 import { defaultNavTree } from './defaultNavTree';
+
+interface ServerMenuItem {
+  name: string;
+  displayText: string;
+  icon: string;
+  url: string;
+  children: ServerMenuItem[];
+}
+
+function toNavModel(menuItem: ServerMenuItem): NavModelItem {
+  return {
+    id: menuItem.name,
+    text: menuItem.displayText,
+    icon: menuItem.icon || 'cube',
+    url: menuItem.url,
+    children: menuItem.children.map((m) => {
+      return toNavModel(m);
+    })
+  };
+}
 
 export type NavTreeState = {
   items: NavModelItem[];
+  fetching: boolean;
+  fetched: boolean;
+  error: string;
 };
 
-// TODO: #35 get initial nav tree from server
-export const initialState: NavTreeState = {
-  items: defaultNavTree as NavModelItem[]
+const initialState: NavTreeState = {
+  items: defaultNavTree,
+  error: '',
+  fetched: false,
+  fetching: false
 };
+
+export const loadNavTreeState = createAsyncThunk('navTree/load', async (arg, thunkAPI) => {
+  return axios.get<ServerMenuItem[]>(`${SERVER_API_URL}/api/public/menu`);
+});
 
 const navTreeSlice = createSlice({
   name: 'navTree',
@@ -27,6 +58,32 @@ const navTreeSlice = createSlice({
       ...state,
       items: action.payload
     })
+  },
+  extraReducers: (builder) => {
+    builder.addCase(loadNavTreeState.pending, (state, action) => {
+      return {
+        ...state,
+        fetched: false,
+        fetching: true,
+        error: ''
+      }
+    });
+    builder.addCase(loadNavTreeState.fulfilled, (state, action) => {
+      return {
+        items: state.items.concat(action.payload.data.map((n) => toNavModel(n))),
+        fetched: true,
+        fetching: false,
+        error: ''
+      };
+    });
+    builder.addCase(loadNavTreeState.rejected, (state, action) => {
+      return {
+        ...state,
+        fetched: false,
+        fetching: false,
+        error: action.error.message || 'failed for unknown reason'
+      };
+    });
   }
 });
 

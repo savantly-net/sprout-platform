@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import net.savantly.sprout.domain.dashboard.panel.PanelService;
+import net.savantly.sprout.domain.menu.MenuContributor;
 
 @Configuration
 public class DashboardConfiguration {
@@ -28,5 +29,10 @@ public class DashboardConfiguration {
 	@Bean
 	public DashboardConverter dashboardConverter(PanelService panelService) {
 		return new DashboardConverter(panelService);
+	}
+	
+	@Bean
+	public MenuContributor dashboardMenuContributor(DashboardRepository repository) {
+		return new DashboardMenuContributor(repository);
 	}
 }

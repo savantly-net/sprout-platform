@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OrderColumn;
 import javax.persistence.PrePersist;
+import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +24,7 @@ import net.savantly.sprout.domain.dashboard.panel.Panel;
 @Entity
 @Accessors(chain = true)
 @Getter @Setter
+@Table(name = "DASHBOARDS")
 public class Dashboard extends TenantedVersionedDomainObject {
 
 	private final static long serialVersionUID = 1L;

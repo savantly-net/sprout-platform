@@ -54,7 +54,7 @@ export const App = () => {
           window.location.href = window.location.href;
         }
       });
-      return null;
+      return <Spinner />;
     } else {
       return <Spinner />;
     }

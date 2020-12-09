@@ -6,26 +6,6 @@ export const defaultNavTree = [
       subTitle: 'Manage dashboards & folders',
       text: 'Dashboards',
       children: [
-        {
-          hideFromTabs: true,
-          icon: 'home-alt',
-          id: 'home',
-          text: 'Home',
-          url: '/'
-        },
-        {
-          divider: true,
-          hideFromTabs: true,
-          id: 'divider',
-          text: 'Divider'
-        },
-        {
-          icon: 'sitemap',
-          id: 'manage-dashboards',
-          text: 'Manage',
-          url: '/dashboards',
-          authority: 'admin'
-        }
       ]
     },
     {
@@ -36,6 +16,13 @@ export const defaultNavTree = [
       text: 'Configuration',
       authority: 'GENERAL_ADMIN',
       children: [
+        {
+          icon: 'sitemap',
+          id: 'manage-dashboards',
+          text: 'Manage Dashboards',
+          url: '/dashboards',
+          authority: 'admin'
+        },
         {
           description: 'View and configure plugins',
           icon: 'plug',

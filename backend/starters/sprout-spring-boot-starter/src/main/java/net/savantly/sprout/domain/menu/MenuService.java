@@ -1,6 +1,7 @@
 package net.savantly.sprout.domain.menu;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,13 +15,18 @@ public class MenuService {
 
 	private static final Logger log = LoggerFactory.getLogger(MenuFixture.class);
 	private final MenuRepository repository;
+	private final List<MenuContributor> menuContributors;
 	
-	public MenuService(MenuRepository repository) {
+	public MenuService(MenuRepository repository, List<MenuContributor> menuContributors) {
 		this.repository = repository;
+		 menuContributors.sort(Comparator.comparing(MenuContributor::getPriority));
+		 this.menuContributors = menuContributors;
 	}
 	
 	public List<MenuDto> getRootMenus() {
-		return toDto(this.repository.findRootMenus());
+		List<MenuDto> dtos = toDto(this.repository.findRootMenus());
+		menuContributors.forEach(contributor -> contributor.contribute(dtos));
+		return dtos;
 	}
 
 	public void upsertMenus(List<MenuDto> menus){

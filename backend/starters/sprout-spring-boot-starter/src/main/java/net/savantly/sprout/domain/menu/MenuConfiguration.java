@@ -1,5 +1,7 @@
 package net.savantly.sprout.domain.menu;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,7 +21,7 @@ public class MenuConfiguration {
 	}
 	
 	@Bean
-	public MenuService defaultMenuService(MenuRepository repository) {
-		return new MenuService(repository);
+	public MenuService defaultMenuService(MenuRepository repository, List<MenuContributor> contributors) {
+		return new MenuService(repository, contributors);
 	}
 }

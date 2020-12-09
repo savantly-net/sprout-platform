@@ -16,6 +16,7 @@ import { DashboardModel, PanelModel } from '../state';
 import { CoreEvents } from '../../../types';
 import { panelAdded, panelRemoved } from '../state/PanelModel';
 import { LocationUpdateService } from '../../../core/services/locationSvc';
+import { Spinner } from 'reactstrap';
 
 let lastGridWidth = 1200;
 let ignoreNextWidthChange = false;
@@ -103,8 +104,14 @@ export interface Props {
 }
 
 export class DashboardGrid extends Component<Props> {
-  panelMap!: { [id: string]: PanelModel };
-  panelRef: { [id: string]: HTMLElement } = {};
+  panelMap: { [id: string]: PanelModel };
+  panelRef: { [id: string]: HTMLElement };
+
+  constructor(props: Props) {
+    super(props);
+    this.panelMap = {};
+    this.panelRef = {};
+  }
 
   componentDidMount() {
     const { dashboard } = this.props;
@@ -240,6 +247,7 @@ export class DashboardGrid extends Component<Props> {
   };
 
   renderPanels() {
+    console.log('rendering panels');
     const panelElements = [];
 
     for (const panel of this.props.dashboard.panels) {

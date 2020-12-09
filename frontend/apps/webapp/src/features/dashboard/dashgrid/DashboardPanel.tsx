@@ -1,10 +1,10 @@
 // Libraries
 import { PanelPlugin } from '@savantly/sprout-api';
-import { getLocationSrv } from '@savantly/sprout-runtime';
 import classNames from 'classnames';
-import React, { ComponentClass, PureComponent } from 'react';
-import { connect, MapDispatchToProps, MapStateToProps } from 'react-redux';
+import React, { FC, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import AutoSizer from 'react-virtualized-auto-sizer';
+import { LocationUpdateService } from '../../../core/services/locationSvc';
 import { StoreState } from '../../../types';
 // Types
 import { DashboardModel, PanelModel } from '../state';
@@ -12,63 +12,36 @@ import { DashboardModel, PanelModel } from '../state';
 import { initDashboardPanel } from '../state/actions';
 // Components
 import { PanelChrome } from './PanelChrome';
-import { LocationUpdateService } from '../../../core/services/locationSvc';
 
-
-export interface OwnProps {
+export interface DashboardPanelProps {
   panel: PanelModel;
   dashboard: DashboardModel;
   isEditing: boolean;
   isViewing: boolean;
   isInView: boolean;
-  locationService: LocationUpdateService
+  locationService: LocationUpdateService;
 }
 
-export interface ConnectedProps {
-  plugin?: PanelPlugin | null;
-}
+export const DashboardPanel: FC<DashboardPanelProps> = (props: DashboardPanelProps) => {
+  const panelState = useSelector((state: StoreState) => state.dashboard.panels[props.panel.id]) || { plugin: null };
+  const dispatch = useDispatch();
 
-export interface DispatchProps {
-  initDashboardPanel: typeof initDashboardPanel;
-}
-
-export type Props = OwnProps & ConnectedProps & DispatchProps;
-
-export interface State {
-  isLazy: boolean;
-}
-
-export class DashboardPanelUnconnected extends PureComponent<Props, State> {
-  specialPanels: { [key: string]: Function } = {};
-
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      isLazy: !props.isInView,
-    };
-  }
-
-  componentDidMount() {
-    this.props.initDashboardPanel(this.props.panel);
-  }
-
-  componentDidUpdate() {
-    if (this.state.isLazy && this.props.isInView) {
-      this.setState({ isLazy: false });
+  useMemo(() => {
+    if (!panelState.plugin) {
+      dispatch(initDashboardPanel(props.panel));
     }
-  }
+  }, [panelState]);
 
-  onMouseEnter = () => {
-    this.props.dashboard.setPanelFocus(this.props.panel.id);
+  const onMouseEnter = () => {
+    props.dashboard.setPanelFocus(props.panel.id);
   };
 
-  onMouseLeave = () => {
-    this.props.dashboard.setPanelFocus(0);
+  const onMouseLeave = () => {
+    props.dashboard.setPanelFocus(0);
   };
 
-  renderPanel(plugin: PanelPlugin) {
-    const { dashboard, panel, isViewing, isInView, isEditing } = this.props;
+  const renderPanel = (plugin: PanelPlugin) => {
+    const { dashboard, panel, isViewing, isInView, isEditing } = props;
 
     return (
       <AutoSizer>
@@ -86,52 +59,28 @@ export class DashboardPanelUnconnected extends PureComponent<Props, State> {
               isInView={isInView}
               width={width}
               height={height}
-              updateLocation={this.props.locationService}
+              updateLocation={props.locationService}
             />
           );
         }}
       </AutoSizer>
     );
-  }
+  };
 
-  render() {
-    const { isViewing, plugin } = this.props;
-    const { isLazy } = this.state;
+  const { isViewing } = props;
 
-    // if we have not loaded plugin exports yet, wait
-    if (!plugin) {
-      return null;
-    }
+  const panelWrapperClass = classNames({
+    'panel-wrapper': true,
+    'panel-wrapper--view': isViewing
+  });
 
-    // If we are lazy state don't render anything
-    if (isLazy) {
-      return null;
-    }
-
-    const panelWrapperClass = classNames({
-      'panel-wrapper': true,
-      'panel-wrapper--view': isViewing,
-    });
-
+  if (panelState.plugin) {
     return (
-      <div className={panelWrapperClass} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
-        {this.renderPanel(plugin)}
+      <div className={panelWrapperClass} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+        {renderPanel(panelState.plugin)}
       </div>
     );
+  } else {
+    return null;
   }
-}
-
-const mapStateToProps: MapStateToProps<ConnectedProps, OwnProps, StoreState> = (state, props) => {
-  const panelState = state.dashboard.panels[props.panel.id];
-  if (!panelState) {
-    return { plugin: null };
-  }
-
-  return {
-    plugin: panelState.plugin,
-  };
 };
-
-const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = { initDashboardPanel };
-
-export const DashboardPanel = connect(mapStateToProps, mapDispatchToProps)(DashboardPanelUnconnected as any);

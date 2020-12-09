@@ -1,4 +1,3 @@
-import { NavModelItem } from '@savantly/sprout-api';
 import { ErrorBoundaryAlert } from '@savantly/sprout-ui';
 import axios from 'axios';
 import React, { createRef, useMemo } from 'react';
@@ -10,30 +9,10 @@ import { SERVER_API_URL } from './config/constants';
 import { SideMenu } from './core/components/sidemenu/SideMenu';
 import { updateAppSettings } from './core/reducers/application';
 import { getSession } from './core/reducers/authentication';
-import { addRootNavs } from './features/navigation/navTree';
 import { initDevFeatures } from './dev';
 import { LoginPage } from './features/login/LoginPage';
+import { loadNavTreeState } from './features/navigation/navTree';
 import { StoreState } from './types';
-
-interface ServerMenuItem {
-  name: string;
-  displayText: string;
-  icon: string;
-  url: string;
-  children: ServerMenuItem[];
-}
-
-function toNavModel(menuItem: ServerMenuItem): NavModelItem {
-  return {
-    id: menuItem.name,
-    text: menuItem.displayText,
-    icon: menuItem.icon || 'cube',
-    url: menuItem.url,
-    children: menuItem.children.map((m) => {
-      return toNavModel(m);
-    })
-  };
-}
 
 export const AppContainer = ({ theme }: { theme: string }) => {
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
@@ -42,21 +21,14 @@ export const AppContainer = ({ theme }: { theme: string }) => {
 
   const isShowLogin = useSelector((state: StoreState) => state.authentication.showLogin);
   const isSessionFetched = useSelector((state: StoreState) => state.authentication.sessionHasBeenFetched);
+  const navTreeState = useSelector((state: StoreState) => state.navTree);
 
   const dispatch = useDispatch();
-  const once = true;
   useMemo(() => {
-    axios.get(`${SERVER_API_URL}/api/public/menu`).then((value) => {
-      const items = value.data as ServerMenuItem[];
-      dispatch(
-        addRootNavs(
-          items.map((m) => {
-            return toNavModel(m);
-          })
-        )
-      );
-    });
-  }, [once]);
+    if (!navTreeState.fetched && !navTreeState.fetching) {
+      dispatch(loadNavTreeState());
+    }
+  }, [navTreeState]);
 
   useMemo(() => {
     if (!isSessionFetched) {
@@ -81,10 +53,11 @@ export const AppContainer = ({ theme }: { theme: string }) => {
         <Route path="/login">
           <LoginPage redirectUrl="/" />
         </Route>
-        <Route path='/*'
+        <Route
+          path="/*"
           element={
             <React.Fragment>
-              {!isShowLogin && (<SideMenu></SideMenu>)}
+              {!isShowLogin && <SideMenu></SideMenu>}
               <div ref={appElem} className="main-view">
                 <div className="scroll-canvas">
                   <ErrorBoundaryAlert style="page">
