@@ -70,7 +70,8 @@ public class MenuService {
 				.setName(menu.getName())
 				.setParentName(menu.getParentName())
 				.setIcon(menu.getIcon())
-				.setUrl(menu.getUrl());
+				.setUrl(menu.getUrl())
+				.setPosition(menu.getPosition());
 	}
 
 	private List<MenuDto> getChildren(Menu menu) {

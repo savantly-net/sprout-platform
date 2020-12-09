@@ -3,6 +3,7 @@ package net.savantly.sprout.autoconfigure.properties;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpMethod;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import net.savantly.sprout.domain.menu.MenuDto;
 import net.savantly.sprout.domain.uiProperties.UIProperty;
 import net.savantly.sprout.starter.security.permissions.BootstrapPermission;
@@ -49,6 +51,7 @@ public class SproutConfigurationProperties {
 	@Getter	@Setter
 	public static class Dashboards {
 		private String home = "classpath:/META-INF/dashboards/home.json";
+		private boolean enableMenuItems = true;
 	}
 	
 	@Getter
@@ -71,10 +74,18 @@ public class SproutConfigurationProperties {
 		 * Applied first, before patterns and authenticated-paths
 		 */
 		private List<String> publicPaths = Arrays.asList("/api/ui-properties", "/api/authentication/oauth", "/images/**");
+		
 		/**
 		 * Applied second, after the public-paths
 		 */
-		private List<AuthorizationPattern> patterns = new ArrayList<>();
+		final static Map<HttpMethod, String> expression = new HashMap<HttpMethod, String>();
+		static {
+			expression.put(HttpMethod.GET, "permitAll");
+		}
+		private List<AuthorizationPattern> patterns = Arrays.asList(
+				new AuthorizationPattern().setPath("/api/plugins**").setExpression(expression),
+				new AuthorizationPattern().setPath("/api/dashboards**").setExpression(expression)
+				);
 		/**
 		 * Applied third [last], to handle paths that aren't designated public, or previously matched pattern
 		 */
@@ -95,6 +106,7 @@ public class SproutConfigurationProperties {
 	
 	@Getter
 	@Setter
+	@Accessors(chain = true)
 	public static class AuthorizationPattern {
 		private String path;
 		private Map<HttpMethod, String> expression;

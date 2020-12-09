@@ -28,19 +28,14 @@ export const getSession = createAsyncThunk('authentication/getSession', async (a
   } else {
     console.log('sending unauthenticated request', config);
   }
-  const promise = new Promise<any>((resolve, reject) => {
-    axios
-      .get(`${SERVER_API_URL}/api/account`, config)
-      .then((response) => {
-        resolve(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-        store.delete(ACCESS_TOKEN_STORAGE_KEY);
-        reject(error);
-      });
-  });
-  return promise;
+  const response = await axios.get(`${SERVER_API_URL}/api/account`, config);
+  console.log(response);
+  if (response.data) {
+    return response.data;
+  } else {
+    store.delete(ACCESS_TOKEN_STORAGE_KEY);
+    return thunkAPI.rejectWithValue(response);
+  }
 });
 
 const authenticationSlice = createSlice({
@@ -108,6 +103,7 @@ const authenticationSlice = createSlice({
       getSession.rejected,
       (state, action): AuthenticationState => {
         console.error(action);
+        const authError = !!action.error.message && action.error.message.indexOf('401') > -1;
         return {
           ...state,
           user: {
@@ -116,7 +112,7 @@ const authenticationSlice = createSlice({
           isAuthenticated: false,
           sessionHasBeenFetched: false,
           sessionFetchFailed: true,
-          showLogin: true
+          showLogin: authError
         };
       }
     );

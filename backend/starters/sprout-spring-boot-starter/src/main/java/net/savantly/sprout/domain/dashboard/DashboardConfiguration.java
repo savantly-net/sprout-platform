@@ -2,6 +2,7 @@ package net.savantly.sprout.domain.dashboard;
 
 import javax.servlet.ServletContext;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -32,6 +33,7 @@ public class DashboardConfiguration {
 	}
 	
 	@Bean
+	@ConditionalOnProperty(prefix = "sprout.dashboards", name = "enable-menu-items", matchIfMissing = true)
 	public MenuContributor dashboardMenuContributor(DashboardRepository repository) {
 		return new DashboardMenuContributor(repository);
 	}

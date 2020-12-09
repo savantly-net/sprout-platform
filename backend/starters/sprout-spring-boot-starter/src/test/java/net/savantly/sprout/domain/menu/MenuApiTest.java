@@ -19,7 +19,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import net.savantly.sprout.test.IntegrationTest;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, properties = {"sprout.dashboards.enable-menu-items=false"})
 @IntegrationTest
 @ActiveProfiles("menus")
 public class MenuApiTest {

@@ -15,5 +15,6 @@ public class MenuDto {
 	private String displayText;
 	private String parentName;
 	private String url;
+	private int position;
 	private List<MenuDto> children = new ArrayList<>();
 }

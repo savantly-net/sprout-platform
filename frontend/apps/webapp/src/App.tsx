@@ -31,14 +31,16 @@ export const App = () => {
   });
 
   const orRenderSprinner = () => {
-    if (isSessionFetched) {
+    if (isShowLogin) {
+      return <LoginPage redirectUrl={location.pathname} />;
+    }
+    else if (isSessionFetched) {
       return (
         <PluginProvider>
-          {isShowLogin && <LoginPage redirectUrl={location.pathname} />}
-          {!isShowLogin && <AppRoutes history={history} />}
+          <AppRoutes history={history} />
         </PluginProvider>
       );
-    } else if (sessionFetchFailed && !showLogin) {
+    } else if (sessionFetchFailed && !isShowLogin) {
       confirm({
         message: 'Problem connecting to the API server.',
         title: 'Error',

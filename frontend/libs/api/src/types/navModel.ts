@@ -14,7 +14,8 @@ export interface NavModelItem {
     target?: string;
     parentItem?: NavModelItem;
     showOrgSwitcher?: boolean;
-    authority?: string
+    authority?: string;
+    position?: number;
   }
   
   /**

@@ -158,7 +158,7 @@ body.on('click', (evt: JQuery.ClickEvent) => {
 
   // hide popovers
   const popover = body.find('.popover');
-  if (popover.length > 0 && target.parents('.graph-legend').length === 0) {
+  if (popover.length > 0) {
     popover.hide();
   }
 });

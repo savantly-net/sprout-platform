@@ -1,14 +1,5 @@
 export const defaultNavTree = [
     {
-      icon: 'apps',
-      id: 'dashboards',
-      sortWeight: -1900,
-      subTitle: 'Manage dashboards & folders',
-      text: 'Dashboards',
-      children: [
-      ]
-    },
-    {
       icon: 'cog',
       id: 'cfg',
       sortWeight: -1400,

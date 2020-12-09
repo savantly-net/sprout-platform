@@ -10,6 +10,7 @@ interface ServerMenuItem {
   icon: string;
   url: string;
   children: ServerMenuItem[];
+  position: number;
 }
 
 function toNavModel(menuItem: ServerMenuItem): NavModelItem {
@@ -20,7 +21,8 @@ function toNavModel(menuItem: ServerMenuItem): NavModelItem {
     url: menuItem.url,
     children: menuItem.children.map((m) => {
       return toNavModel(m);
-    })
+    }),
+    position: menuItem.position
   };
 }
 
@@ -66,7 +68,7 @@ const navTreeSlice = createSlice({
         fetched: false,
         fetching: true,
         error: ''
-      }
+      };
     });
     builder.addCase(loadNavTreeState.fulfilled, (state, action) => {
       return {

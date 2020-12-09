@@ -214,7 +214,7 @@ export class DashboardPage extends Component<AllProps, OwnState> {
 
     return (
       <div className="dashboard-container">
-        <Prompt message="You have unsaved changes" when={!dashboard.id} />
+        {/* <Prompt message="You have unsaved changes" when={!dashboard.id} /> */}
         <PrivateComponent hasAnyAuthority={[]}>
           <DashNav dashboard={dashboard} isFullscreen={!!viewPanel} onAddPanel={this.onAddPanel} />
         </PrivateComponent>

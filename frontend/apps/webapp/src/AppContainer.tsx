@@ -25,7 +25,7 @@ export const AppContainer = ({ theme }: { theme: string }) => {
 
   const dispatch = useDispatch();
   useMemo(() => {
-    if (!navTreeState.fetched && !navTreeState.fetching) {
+    if (!navTreeState.fetched && !navTreeState.fetching && !navTreeState.error) {
       dispatch(loadNavTreeState());
     }
   }, [navTreeState]);
@@ -57,7 +57,7 @@ export const AppContainer = ({ theme }: { theme: string }) => {
           path="/*"
           element={
             <React.Fragment>
-              {!isShowLogin && <SideMenu></SideMenu>}
+              {(!isShowLogin && isSessionFetched) && <SideMenu></SideMenu>}
               <div ref={appElem} className="main-view">
                 <div className="scroll-canvas">
                   <ErrorBoundaryAlert style="page">

@@ -8,7 +8,7 @@ import TopSectionItem from './TopSectionItem';
 
 const TopSection: FC<any> = () => {
   const navTree = useSelector((state: StoreState) => state.navTree.items);
-  const mainLinks = _.filter(navTree, (item) => !item.hideFromMenu);
+  const mainLinks = _.filter(navTree, (item) => !item.hideFromMenu).sort((a,b) => (a?.position || 0) - (b?.position || 0));
   const searchLink = {
     text: 'Search',
     icon: 'search'

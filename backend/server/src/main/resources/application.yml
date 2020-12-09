@@ -10,6 +10,14 @@ sprout:
           password: changeme!
           email-address: example@savantly.net
           roles: ADMIN
+    authorization:
+      patterns:
+      - path: /api/plugins**
+        expression:
+          GET: permitAll
+      - path: /api/dashboards**
+        expression:
+          GET: permitAll
 
 spring:
   banner:
