@@ -16,8 +16,8 @@ export class BaseEntityService<T> {
   create(item: T, config?: AxiosRequestConfig) {
     return axios.post<T>(this.props.baseUrl, item, config);
   }
-  update(item: T, config?: AxiosRequestConfig) {
-    return axios.put<T>(this.props.baseUrl, item, config);
+  update(id: string, item: T, config?: AxiosRequestConfig) {
+    return axios.put<T>(`${this.props.baseUrl}/${id}`, item, config);
   }
   delete(id: string, config?: AxiosRequestConfig) {
     return axios.delete<void>(`${this.props.baseUrl}/${id}`, config);
