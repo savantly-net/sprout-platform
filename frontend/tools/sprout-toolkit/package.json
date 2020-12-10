@@ -2,7 +2,7 @@
   "author": "Jeremy Branham <Jeremy@savantly.net>",
   "license": "Apache-2.0",
   "name": "@savantly/sprout-toolkit",
-  "version": "2.0.0-13",
+  "version": "2.0.0-14",
   "description": "Toolkit for building Sprout plugins. [Stolen, err borrowed from Grafana Toolkit]",
   "keywords": [
     "sprout",
@@ -28,7 +28,7 @@
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@jest/core": "~26.5.2",
-    "@savantly/sprout-api": "2.0.0-13",
+    "@savantly/sprout-api": "2.0.0-14",
     "@savantly/sprout-tsconfig": "^1.0.0",
     "@types/command-exists": "^1.2.0",
     "@types/execa": "^0.9.0",
