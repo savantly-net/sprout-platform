@@ -10,6 +10,9 @@ export class BaseEntityService<T> {
   load(config?: AxiosRequestConfig) {
     return axios.get<QueryResponse<T>>(this.props.baseUrl, config);
   }
+  getById(id: string, config?: AxiosRequestConfig) {
+    return axios.get<T>(`${this.props.baseUrl}/${id}`, config);
+  }
   create(item: T, config?: AxiosRequestConfig) {
     return axios.post<T>(this.props.baseUrl, item, config);
   }
