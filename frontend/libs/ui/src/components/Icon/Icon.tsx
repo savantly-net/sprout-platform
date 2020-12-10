@@ -49,24 +49,37 @@ export const Icon = React.forwardRef<HTMLDivElement, IconProps>(
     const styles = getIconStyles();
     const svgSize = getSvgSize(size);
     let _type = type;
+    let _name = name;
 
-    if (monoIcons.includes(name)) {
-      _type = 'mono';
-    } else if (fasIcons.includes(name)) {
-      _type = 'fas';
-    } else if (fabIcons.includes(name)) {
-      _type = 'fab';
-    } else if (farIcons.includes(name)) {
-      _type = 'far';
+    // Allow name to include type
+    const nameParts = name.split(' ');
+    if (nameParts.length > 1) {
+      _type = nameParts[0] as any;
+      _name = nameParts[1];
+    }
+
+    // If a specific type was passed, don't overwrite it
+    if (type === 'default') {
+      if (monoIcons.includes(_name)) {
+        _type = 'mono';
+      } else if (fasIcons.includes(_name)) {
+        _type = 'fas';
+      } else if (fabIcons.includes(_name)) {
+        _type = 'fab';
+      } else if (farIcons.includes(_name)) {
+        _type = 'far';
+      } else {
+        _type = 'default';
+      }
     } else {
-      _type = 'default';
+      _type = type;
     }
-
+    
     if (_type === 'default') {
-      return <i className={cx(name, className)} {...wrapperProps} style={style} />;
+      return <i className={cx(_name, className)} {...wrapperProps} style={style} />;
     }
 
-    const iconName = _type === 'mono' ? toPascalCase(name) : name;
+    const iconName = _type === 'mono' ? toPascalCase(_name) : _name;
 
     if (_type == 'mono') {
       //@ts-ignore
@@ -74,7 +87,7 @@ export const Icon = React.forwardRef<HTMLDivElement, IconProps>(
       return (
         <Component
           size={svgSize}
-          className={cx(styles.icon, { [styles.orange]: name === 'favorite' }, className)}
+          className={cx(styles.icon, { [styles.orange]: iconName === 'favorite' }, className)}
           style={style}
         />
       );

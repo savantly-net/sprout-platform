@@ -3,9 +3,9 @@ import { css, cx } from 'emotion';
 import React, { ChangeEvent, ComponentProps, useState } from 'react';
 import { IconName, monoIcons } from '../../types';
 import { withCenteredStory } from '../../util/storybook/withCenteredStory';
-import { fabIcons, fasIcons, Icon } from './Icon';
+import { fabIcons, fasIcons, farIcons, Icon } from './Icon';
 
-const withDupes = fabIcons.concat(fasIcons).concat(monoIcons);
+const withDupes = fabIcons.concat(fasIcons).concat(farIcons).concat(monoIcons);
 const availableFaIcons = withDupes.filter((name, index) => {
   return withDupes.indexOf(name) === index;
 });
@@ -38,6 +38,13 @@ const Template: Story<ComponentProps<typeof Icon>> = (args) => <Icon {...args} /
 export const ExampleIcon = Template.bind({});
 ExampleIcon.args = {
   name: 'check',
+  size: '3x',
+  color: 'blue'
+};
+
+export const UsingTypeInName = Template.bind({});
+UsingTypeInName.args = {
+  name: 'fas address-book',
   size: '3x',
   color: 'blue'
 };
