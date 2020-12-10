@@ -9,31 +9,29 @@ export interface DataTableColumnProviderProps<T> {
   columnDescriptions: ColumnDescription[];
   onEditClick?: (row: T) => void;
   onDeleteClick?: (row: T) => void;
-  extraActions?: ReactElement;
+  onViewClick?: (row: T) => void;
+  showActionColumn?: boolean;
+  extraActions?: (row: T) => ReactElement;
   deleteModalProps?: ConfirmModalProps;
 }
 
 export class DataTableColumnProvider<T> {
-  private _onEditClick: (row: T) => void;
   private _onDeleteClick: (row: T) => void;
+  private _showActionColumn: boolean;
   private props: DataTableColumnProviderProps<T>;
 
   constructor(props: DataTableColumnProviderProps<T>) {
     this.props = props;
-    this._onEditClick =
-      props.onEditClick ||
-      (row => {
-        console.log('edit clicked', JSON.stringify(row));
-      });
+    this._showActionColumn = this.props.showActionColumn === undefined ? true : this.props.showActionColumn;
 
     const deleteClick =
       props.onDeleteClick ||
-      (row => {
+      ((row) => {
         console.log('delete clicked', JSON.stringify(row));
       });
 
-    this._onDeleteClick = row => {
-      confirm(props.deleteModalProps || { onClose: () => {} }).then(result => {
+    this._onDeleteClick = (row) => {
+      confirm(props.deleteModalProps || { onClose: () => {} }).then((result) => {
         if (result) {
           deleteClick(row);
         } else {
@@ -44,33 +42,39 @@ export class DataTableColumnProvider<T> {
   }
 
   getColumnDescriptions() {
-    return [
-      ...this.props.columnDescriptions,
-      {
+    const columns: ColumnDescription[] = [];
+    columns.push(...this.props.columnDescriptions);
+    if (this._showActionColumn) {
+      columns.push({
         dataField: 'actions',
         text: 'Actions',
         isDummyField: true,
         formatter: (cell: any, row: T) => {
           return (
             <ButtonGroup>
-              <Button onClick={() => this._onEditClick(row)} color="info">
-                <Icon name="pen" />
-              </Button>
-              <Button onClick={() => this._onDeleteClick(row)} color="danger">
-                <Icon name="trash-alt" />
-              </Button>
-              {this.props.extraActions && this.props.extraActions}
+              {this.props.extraActions && this.props.extraActions(row)}
+              {this.props.onViewClick && (
+                <Button onClick={() => this.props.onViewClick && this.props.onViewClick(row)} color="info">
+                  <Icon name="eye" />
+                </Button>
+              )}
+              {this.props.onEditClick && (
+                <Button onClick={() => this.props.onEditClick && this.props.onEditClick(row)} color="warning">
+                  <Icon name="pen" />
+                </Button>
+              )}
+              {this.props.onDeleteClick && (
+                <Button onClick={() => this._onDeleteClick(row)} color="danger">
+                  <Icon name="trash-alt" />
+                </Button>
+              )}
             </ButtonGroup>
           );
-        },
-      },
-    ];
+        }
+      });
+    }
+    return columns;
   }
-}
-
-export interface DataTableRowEditor<T> {
-  editRow?: (row: T) => T;
-  hasError: () => null | ReactElement | string;
 }
 
 export interface DataTableProps<T extends object = any>
@@ -96,7 +100,6 @@ export const DataTable: FC<DataTableProps<any>> = ({
   createButtonText = 'Create',
   ...rest
 }: DataTableProps<any>) => {
-
   return (
     <div>
       <Fragment>

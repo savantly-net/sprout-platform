@@ -1,6 +1,7 @@
 import React, { FC, HTMLAttributes, ReactNode, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import ReactMde, { ReactMdeProps } from 'react-mde';
+import ReactMde, { ReactMdeProps, SvgIcon, getDefaultToolbarCommands } from 'react-mde';
+import { Icon } from '../Icon/Icon';
 
 export type MarkdownEditorTab = 'write' | 'preview';
 export type GenerateMarkdownPreview = (markdown: string) => Promise<ReactNode>;
@@ -69,6 +70,23 @@ export const MarkdownEditor: FC<MarkdownOptions> = ({
         onTabChange={updateSelectedTab}
         childProps={childProps}
         generateMarkdownPreview={_generateMarkdownPreview}
+        getIcon={(iconName) => {
+          if (iconName === 'help') {
+            return <Icon name="question" />;
+          } else {
+            return SvgIcon({ icon: iconName });
+          }
+        }}
+        toolbarCommands={[...getDefaultToolbarCommands(), ['help']]}
+        commands={{
+          help: {
+            icon: (getIconFromProvider) => getIconFromProvider('help'),
+            execute: (options) => {
+              window.open('https://commonmark.org/help/', '_commonmark');
+              return Promise.resolve();
+            }
+          }
+        }}
         {...rest}
       />
     </div>

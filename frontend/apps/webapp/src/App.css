@@ -1290,3 +1290,8 @@ ul.nav-tabs {
   -ms-flex-item-align: end;
   align-self: flex-end;
 }
+
+/*** mde [markdown editor] ***/
+.mde-preview {
+  background-color: white;
+}
