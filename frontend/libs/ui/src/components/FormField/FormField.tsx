@@ -15,8 +15,7 @@ export interface FormFieldProps extends Partial<FormikProps<FormikValues>>, Fiel
 export const FormField = (props: FormFieldProps) => {
   const formik = useFormikContext<FormikValues>();
   const { errors, touched } = formik;
-  const { name } = props;
-  const { ...colProps }: ColProps = props; 
+  const { name, className, ...colProps } = props; 
   const isInvalid = (!!(errors as any)[name] as any) && !!(touched as any)[name];
 
   const renderFormikField = () => {
@@ -41,7 +40,7 @@ export const FormField = (props: FormFieldProps) => {
     }
   };
   return (
-    <Col {...colProps}>
+    <Col className={className} {...colProps}>
       <FormGroup>
         {props.label && <Label>{props.label}</Label>}
         {renderField()}
