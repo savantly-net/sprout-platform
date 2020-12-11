@@ -1,4 +1,4 @@
-import { BaseEntityService, EntityState } from '@savantly/sprout-api';
+import { BaseEntityService, EntityState, EntityStateProvider } from '@savantly/sprout-api';
 
 export interface DemoEntity {
   id?: string;
@@ -55,4 +55,14 @@ export const demoEntityState_fetched: EntityState<DemoEntity> = {
   example: {
     name: ''
   }
+};
+
+export const demoEntityStateProvider: EntityStateProvider<DemoEntity> = {
+  props: {
+    entityService: new DemoEntityService(),
+    initialState: demoEntityState_fetched,
+    stateKey: 'demo'
+  },
+  loadState: (() => {}) as any,
+  slice: {} as any
 };
