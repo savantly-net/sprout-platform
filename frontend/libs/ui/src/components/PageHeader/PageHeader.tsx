@@ -73,7 +73,7 @@ const Navigation = ({ children }: { children: NavModelItem[] }) => {
             !child.hideFromTabs && (
               <NavItem key={`child-${index}`}>
                 <NavLink className="nav-link" to={goToUrl(index)}>
-                  <Icon name={child.icon as IconName} className="mr-1" />
+                  <Icon name={child.icon || '' as IconName} className="mr-1" />
                   {child.text}
                 </NavLink>
               </NavItem>
