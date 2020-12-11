@@ -1,7 +1,9 @@
 import { Story } from '@storybook/react/types-6-0';
+import { css } from 'emotion';
+import { FieldProps } from 'formik';
 import React, { ComponentProps, Fragment } from 'react';
 import { Form } from '../Form/Form';
-import { FormField, FormFieldProps } from './FormField';
+import { FormField } from './FormField';
 
 // This default export determines where your story goes in the story list
 export default {
@@ -37,8 +39,38 @@ export const WithCustomInput = Template.bind({});
 WithCustomInput.args = {
   label: 'Email Address',
   name: 'email',
-  children: (props: FormFieldProps) => (
-    <input type="email" name="email" value={props.values?.email} onChange={props.handleChange} />
+  children: (props: FieldProps) => (
+    <input type="email" name="email" value={props.field.value} onChange={props.form.handleChange} />
+  )
+};
+
+export const WithCustomComponentProps = Template.bind({});
+WithCustomComponentProps.args = {
+  label: 'Email Address',
+  name: 'email',
+  wrapperProps: {
+    className: css`
+      padding: 0;
+    `
+  },
+  labelProps: {
+    className: css`
+      color: blue;
+    `
+  },
+  formGroupProps: {
+    className: css`
+      border: green solid 2px;
+    `
+  },
+  children: (props: FieldProps) => (
+    <input
+      className="form-control"
+      type="email"
+      name="email"
+      value={props.field.value}
+      onChange={props.form.handleChange}
+    />
   )
 };
 

@@ -1,13 +1,16 @@
 import { cx } from 'emotion';
-import { ErrorMessage, Field, FieldAttributes, FormikProps, FormikValues, useFormikContext } from 'formik';
+import { ErrorMessage, Field, FieldAttributes, FieldProps, FormikProps, FormikValues, useFormikContext } from 'formik';
 import _ from 'lodash';
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import { Col, ColProps, FormGroup, Label } from 'reactstrap';
 
-export interface FormFieldProps extends Partial<FormikProps<FormikValues>>, FieldAttributes<any>, ColProps {
+export interface FormFieldProps extends Partial<FormikProps<FormikValues>>, FieldAttributes<any> {
   name: string;
+  wrapperProps: ColProps;
+  formGroupProps: HTMLAttributes<HTMLDivElement>;
+  labelProps: HTMLAttributes<HTMLLabelElement>;
   children?:
-    | ((props: FormFieldProps) => React.ReactElement | React.ReactElement[])
+    | ((props: FieldProps & HTMLAttributes<any>) => React.ReactElement | React.ReactElement[])
     | React.ReactElement
     | React.ReactElement[];
 }
@@ -15,34 +18,34 @@ export interface FormFieldProps extends Partial<FormikProps<FormikValues>>, Fiel
 export const FormField = (props: FormFieldProps) => {
   const formik = useFormikContext<FormikValues>();
   const { errors, touched } = formik;
-  const { name, className, ...colProps } = props; 
+  const { name, className, wrapperProps, formGroupProps, labelProps, children, ...rest } = props;
   const isInvalid = (!!(errors as any)[name] as any) && !!(touched as any)[name];
 
-  const renderFormikField = () => {
-    return <Field className={cx(['form-control', { 'is-invalid': isInvalid }])} {...props} />;
+  const renderField = () => {
+    if (children) {
+      if (_.isFunction(children)) {
+        return (
+          <Field name={name} className={cx(['form-control', { 'is-invalid': isInvalid }])} {...rest}>
+            {(childProps: FieldProps) => children(childProps)}
+          </Field>
+        );
+      } else {
+        return (
+          <Field
+            name={name}
+            className={cx(['form-control', { 'is-invalid': isInvalid }])}
+            {...rest}
+            children={children}
+          />
+        );
+      }
+    } else return <Field name={name} className={cx(['form-control', { 'is-invalid': isInvalid }])} {...rest} />;
   };
 
-  const renderField = () => {
-    const { children, ...rest } = props;
-    const useFormikField = props.as === 'select' || !children || _.isArrayLike(children);
-    if (useFormikField) {
-      return renderFormikField();
-    }
-    if (children) {
-      const childProps = { ...rest, ...formik };
-      if (_.isFunction(children)) {
-        return children(childProps);
-      } else {
-        return React.cloneElement(children as React.ReactElement, childProps);
-      }
-    } else {
-      return renderFormikField();
-    }
-  };
   return (
-    <Col className={className} {...colProps}>
-      <FormGroup>
-        {props.label && <Label>{props.label}</Label>}
+    <Col {...wrapperProps}>
+      <FormGroup {...formGroupProps}>
+        {props.label && <Label {...labelProps}>{props.label}</Label>}
         {renderField()}
         {isInvalid && (
           <ErrorMessage name={name} render={(errorMessage) => <small className="text-danger">{errorMessage}</small>} />
