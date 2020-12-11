@@ -6,9 +6,9 @@ import { Col, ColProps, FormGroup, Label } from 'reactstrap';
 
 export interface FormFieldProps extends Partial<FormikProps<FormikValues>>, FieldAttributes<any> {
   name: string;
-  wrapperProps: ColProps;
-  formGroupProps: HTMLAttributes<HTMLDivElement>;
-  labelProps: HTMLAttributes<HTMLLabelElement>;
+  wrapperProps?: ColProps;
+  formGroupProps?: HTMLAttributes<HTMLDivElement>;
+  labelProps?: HTMLAttributes<HTMLLabelElement>;
   children?:
     | ((props: FieldProps & HTMLAttributes<any>) => React.ReactElement | React.ReactElement[])
     | React.ReactElement
