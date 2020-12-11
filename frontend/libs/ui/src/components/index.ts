@@ -1,6 +1,6 @@
 export * from './ConfirmModal/ConfirmModal';
 export * from './DataTable/DataTable';
-export * from './EntityPage';
+export * from './Entity';
 export * from './Form/Form';
 export * from './FormField/FormField';
 export * from './Icon/Icon';

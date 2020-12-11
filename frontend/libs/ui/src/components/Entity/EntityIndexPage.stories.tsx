@@ -4,7 +4,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { DemoEntityService, demoEntityStateProvider, demoEntityState_fetched } from '../../util/mocks/entity';
 import { ProviderWrapper } from '../../util/mocks/provider';
-import EntityIndexPage from './EntityManager';
+import { EntityManager } from './EntityManager';
 
 const NavMe = () => {
   const navigtate = useNavigate();
@@ -14,7 +14,7 @@ const NavMe = () => {
 // This default export determines where your story goes in the story list
 export default {
   title: 'Entity/EntityIndexPage',
-  component: EntityIndexPage,
+  component: EntityManager,
   decorators: [
     (story: any) => {
       return (
@@ -31,7 +31,7 @@ export default {
   ]
 };
 
-const Template: Story<ComponentProps<typeof EntityIndexPage>> = (args) => <EntityIndexPage {...args} />;
+const Template: Story<ComponentProps<typeof EntityManager>> = (args) => <EntityManager {...args} />;
 
 export const SimpleEntityIndexPage = Template.bind({});
 SimpleEntityIndexPage.args = {

@@ -5,10 +5,10 @@ import { ColumnDescription } from 'react-bootstrap-table-next';
 import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { EntityPageIconProvider, EntityPageSubTitleProvider, EntityPageTitleProvider } from '../../types';
-import EntityListPage from './EntityListPage';
-import ItemCreatePage from './ItemCreatePage';
-import ItemEditPage from './ItemEditPage';
-import ItemIndexPage from './ItemIndexPage';
+import { EntityItemCreatePage } from './EntityItemCreatePage';
+import { EntityItemEditPage } from './EntityItemEditPage';
+import { EntityItemIndexPage } from './EntityItemIndexPage';
+import { EntityListPage } from './EntityListPage';
 
 export interface EntityIndexPageProps<E extends TenantedEntity = any> {
   entityListColumns: Array<ColumnDescription<E>>;
@@ -28,7 +28,7 @@ export interface EntityIndexPageProps<E extends TenantedEntity = any> {
   entityViewer: ({ item }: { item: E }) => ReactElement;
 }
 
-const EntityManager = ({
+export const EntityManager = ({
   entityListColumns,
   titleProvider,
   subTitleProvider,
@@ -59,7 +59,7 @@ const EntityManager = ({
       <Route
         path="/new"
         element={
-          <ItemCreatePage
+          <EntityItemCreatePage
             editor={entityEditor}
             entityStateProvider={entityStateProvider}
             iconProvider={iconProvider}
@@ -71,7 +71,7 @@ const EntityManager = ({
       <Route
         path="/item/:itemId"
         element={
-          <ItemIndexPage
+          <EntityItemIndexPage
             titleProvider={titleProvider}
             subTitleProvider={subTitleProvider}
             iconProvider={iconProvider}
@@ -84,7 +84,7 @@ const EntityManager = ({
       <Route
         path="/item/:itemId/edit"
         element={
-          <ItemEditPage
+          <EntityItemEditPage
             editor={entityEditor}
             titleProvider={titleProvider}
             subTitleProvider={subTitleProvider}
@@ -97,5 +97,3 @@ const EntityManager = ({
     </Routes>
   );
 };
-
-export default EntityManager;

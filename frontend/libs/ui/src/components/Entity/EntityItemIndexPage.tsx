@@ -9,7 +9,7 @@ import { Icon } from '../Icon/Icon';
 import { LoadingIcon } from '../LoadingIcon/LoadingIcon';
 import { RoutedEntityPage } from './RoutedEntityPage';
 
-interface ItemIndexPageProps<E> {
+export interface EntityItemIndexPageProps<E> {
   titleProvider: EntityPageTitleProvider<E>;
   subTitleProvider: EntityPageSubTitleProvider<E>;
   iconProvider: EntityPageIconProvider<E>;
@@ -18,14 +18,14 @@ interface ItemIndexPageProps<E> {
   entityViewer: ({ item }: { item: E }) => ReactElement;
 }
 
-const ItemIndexPage = ({
+export const EntityItemIndexPage = ({
   titleProvider,
   subTitleProvider,
   iconProvider,
   entityState,
   entityStateProvider,
   entityViewer
-}: ItemIndexPageProps<any>) => {
+}: EntityItemIndexPageProps<any>) => {
   type ItemState = TenantedEntity | undefined;
   const params = useParams();
   const itemId = params['itemId'];
@@ -85,5 +85,3 @@ const ItemIndexPage = ({
     return <LoadingIcon />;
   }
 };
-
-export default ItemIndexPage;

@@ -26,6 +26,6 @@ SimpleEntityPage.args = {
       text: 'The Name'
     }
   ],
-  entityEditor: ({entity, save, cancel}) => <div>some fancy editor here: {JSON.stringify(entity)}</div>,
+  entityEditor: ({ entity, save, cancel }) => <div>some fancy editor here: {JSON.stringify(entity)}</div>,
   entityService: new DemoEntityService()
 };

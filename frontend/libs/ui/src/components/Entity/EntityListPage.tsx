@@ -14,7 +14,7 @@ import { EntityPageIconProvider, EntityPageSubTitleProvider, EntityPageTitleProv
 import { DataTable, DataTableColumnProvider } from '../DataTable/DataTable';
 import { RoutedEntityPage } from './RoutedEntityPage';
 
-interface EntityListPageProps<E extends TenantedEntity = any> {
+export interface EntityListPageProps<E extends TenantedEntity = any> {
   entityListColumns: Array<ColumnDescription<E>>;
   titleProvider: EntityPageTitleProvider<E>;
   subTitleProvider: EntityPageSubTitleProvider<E>;
@@ -24,7 +24,7 @@ interface EntityListPageProps<E extends TenantedEntity = any> {
   entityStateSelector: (state: any) => EntityState<E>;
 }
 
-const EntityListPage = ({
+export const EntityListPage = ({
   entityListColumns,
   titleProvider,
   subTitleProvider,
@@ -87,5 +87,3 @@ const EntityListPage = ({
     </RoutedEntityPage>
   );
 };
-
-export default EntityListPage;

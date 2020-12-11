@@ -8,7 +8,7 @@ import { EntityPageIconProvider, EntityPageSubTitleProvider, EntityPageTitleProv
 import { LoadingIcon } from '../LoadingIcon/LoadingIcon';
 import { RoutedEntityPage } from './RoutedEntityPage';
 
-interface ItemEditPageProps<E extends TenantedEntity> {
+export interface EntityItemEditPageProps<E extends TenantedEntity> {
   titleProvider: EntityPageTitleProvider<E>;
   subTitleProvider: EntityPageSubTitleProvider<E>;
   iconProvider: EntityPageIconProvider<E>;
@@ -17,14 +17,14 @@ interface ItemEditPageProps<E extends TenantedEntity> {
   editor: ({ item, afterSave }: { item: E; afterSave: (values: E, helpers: FormikHelpers<E>) => void }) => ReactElement;
 }
 
-const ItemEditPage = ({
+export const EntityItemEditPage = ({
   titleProvider,
   subTitleProvider,
   iconProvider,
   entityService,
   entityStateProvider,
   editor
-}: ItemEditPageProps<any>) => {
+}: EntityItemEditPageProps<any>) => {
   type ItemState = TenantedEntity | undefined;
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -78,5 +78,3 @@ const ItemEditPage = ({
     </RoutedEntityPage>
   );
 };
-
-export default ItemEditPage;

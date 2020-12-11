@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { EntityPageIconProvider, EntityPageSubTitleProvider, EntityPageTitleProvider } from '../../types';
 import { RoutedEntityPage } from './RoutedEntityPage';
 
-interface ItemCreatePageProps<E extends TenantedEntity> {
+export interface EntityItemCreatePageProps<E extends TenantedEntity> {
   titleProvider: EntityPageTitleProvider<E>;
   subTitleProvider: EntityPageSubTitleProvider<E>;
   iconProvider: EntityPageIconProvider<E>;
@@ -14,13 +14,13 @@ interface ItemCreatePageProps<E extends TenantedEntity> {
   editor: ({ item, afterSave }: { item: E; afterSave: (values: E, helpers: FormikHelpers<E>) => void }) => ReactElement;
 }
 
-const ItemCreatePage = ({
+export const EntityItemCreatePage = ({
   iconProvider,
   subTitleProvider,
   titleProvider,
   entityStateProvider,
   editor
-}: ItemCreatePageProps<any>) => {
+}: EntityItemCreatePageProps<any>) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -47,5 +47,3 @@ const ItemCreatePage = ({
     </RoutedEntityPage>
   );
 };
-
-export default ItemCreatePage;
