@@ -1,4 +1,4 @@
-import { KeyValue, StandardEditorProps } from '@savantly/sprout-api';
+import { StandardEditorProps } from '@savantly/sprout-api';
 import { Form, FormField, Icon } from '@sprout-platform/ui';
 import { css, cx } from 'emotion';
 import { Field, FieldArray } from 'formik';

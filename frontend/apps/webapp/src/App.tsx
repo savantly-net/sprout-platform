@@ -1,10 +1,10 @@
-import { ConfirmModal, ModalRoot, ModalsProvider, Spinner } from '@savantly/sprout-ui';
+import { ModalRoot, ModalsProvider, Spinner } from '@savantly/sprout-ui';
 import { confirm } from '@sprout-platform/ui';
 import { uniqueId } from 'lodash';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { Button, Col } from 'reactstrap';
+import { Button } from 'reactstrap';
 import './App.css';
 import setupAxiosInterceptors from './config/axios-interceptor';
 import ModalProxy from './core/components/ModalProxy/ModalProxy';
@@ -33,8 +33,7 @@ export const App = () => {
   const orRenderSprinner = () => {
     if (isShowLogin) {
       return <LoginPage redirectUrl={location.pathname} />;
-    }
-    else if (isSessionFetched) {
+    } else if (isSessionFetched) {
       return (
         <PluginProvider>
           <AppRoutes history={history} />
@@ -47,7 +46,9 @@ export const App = () => {
         buttonsComponent: ({ onClose }) => {
           return (
             <div>
-              <Button color="warning" onClick={() => onClose(true)}>Refresh</Button>
+              <Button color="warning" onClick={() => onClose(true)}>
+                Refresh
+              </Button>
             </div>
           );
         }
