@@ -1,6 +1,6 @@
 logging:
   level:
-    org.springframework.security.web.authentication: DEBUG
+    org.springframework.security.web: DEBUG
 sprout:
   security:
     authentication:

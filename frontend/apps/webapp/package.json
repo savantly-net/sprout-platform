@@ -84,7 +84,9 @@
     "tinycolor2": "^1.4.2",
     "typescript": "~3.9.7",
     "uuid": "~8.3.1",
-    "formik": "~2.2.0"
+    "formik": "~2.2.0",
+    "chonky": "~2.1.0",
+    "chonky-icon-fontawesome": "~2.1.0"
   },
   "resolutions": {
     "**/@typescript-eslint/eslint-plugin": "^4.1.1",
