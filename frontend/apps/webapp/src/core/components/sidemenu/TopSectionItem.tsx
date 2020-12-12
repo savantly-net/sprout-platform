@@ -1,5 +1,5 @@
 import { NavModelItem } from '@savantly/sprout-api';
-import { Icon } from '@savantly/sprout-ui';
+import { Icon } from '@sprout-platform/ui';
 import { css, cx } from 'emotion';
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -17,7 +17,7 @@ const TopSectionItem: FC<Props> = (props) => {
     return (
       <a className="sidemenu-link" href={link.url} target={link.target} onClick={onClick}>
         <span className="icon-circle sidemenu-icon">
-          <Icon name={link.icon as any} size="xl" />
+          <Icon name={link.icon as any} size="1x" />
           {link.img && <img src={link.img} />}
         </span>
       </a>
@@ -29,7 +29,7 @@ const TopSectionItem: FC<Props> = (props) => {
       return (
         <NavLink className="sidemenu-link" to={link.url} replace={false}>
           <span className="icon-circle sidemenu-icon">
-            <Icon name={link.icon as any} size="xl" />
+            <Icon name={link.icon as any} size="1x" />
             {link.img && <img src={link.img} />}
           </span>
         </NavLink>
