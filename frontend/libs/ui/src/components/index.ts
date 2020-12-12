@@ -2,6 +2,7 @@ export * from './ConfirmModal/ConfirmModal';
 export * from './DataTable/DataTable';
 export * from './DateField/DateField';
 export * from './DateTimeField/DateTimeField';
+export * from './DialogModal/DialogModal';
 export * from './Entity';
 export * from './Form/Form';
 export * from './FormField/FormField';

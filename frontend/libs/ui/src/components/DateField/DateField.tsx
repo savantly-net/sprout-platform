@@ -24,7 +24,7 @@ export const DateField = ({ name, label, dateFormat = 'YYYY-MM-DD', ...dateContr
           `
         )}
       >
-        <small>{label}</small>
+        <label>{label}</label>
         <Datetime
           {...field}
           {...dateControlProps}

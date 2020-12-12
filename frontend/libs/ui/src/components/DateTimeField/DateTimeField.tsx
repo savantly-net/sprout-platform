@@ -88,7 +88,7 @@ export const DateTimeField = ({
           `
         )}
       >
-        <small>{label}</small>
+        <label>{label}</label>
         <DateTimeWrapper
           onChange={_pickerOnChange}
           dateFormat={dateDisplayFormat}
