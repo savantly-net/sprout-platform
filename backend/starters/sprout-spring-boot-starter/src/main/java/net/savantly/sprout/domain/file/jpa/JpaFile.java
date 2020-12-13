@@ -14,7 +14,7 @@ import net.savantly.sprout.core.tenancy.TenantedPersistedDomainObject;
 import net.savantly.sprout.domain.file.FileData;
 
 @Entity
-@Table(name = "files", uniqueConstraints = { @UniqueConstraint(columnNames = { "tenant_id", "name", "path" }) })
+@Table(name = "files", uniqueConstraints = { @UniqueConstraint(columnNames = { "tenant_id", "name", "parent" }) })
 @Getter
 @Setter
 @Accessors(chain = true)
@@ -27,7 +27,7 @@ public class JpaFile extends TenantedPersistedDomainObject implements FileData, 
 	private String color;
 	private String icon;
 	private String thumbnailUrl;
-	private String path;
+	private String parent;
 	private byte[] bytes;
 
 	@Transient

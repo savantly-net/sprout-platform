@@ -1,11 +1,9 @@
 package net.savantly.sprout.domain.files;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.io.File;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -22,17 +20,22 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.mock.web.MockPart;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.util.StreamUtils;
 
-import net.savantly.sprout.domain.file.jpa.JpaFile;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import net.savantly.sprout.domain.file.FileDataRequest;
+import net.savantly.sprout.domain.file.FileDataResponse;
 import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -50,47 +53,92 @@ public class FileProviderApiTest {
 	@Value("classpath:/static/test.js")
 	Resource testFile;
 
-	@Test
-	void createFolder() throws URISyntaxException {
-		String url = "/api/files/test";
+	@Autowired
+	ObjectMapper mapper;
 
-		RequestEntity request = RequestEntity.post(new URI(url)).build();
-		ResponseEntity<JpaFile> response = rest.withBasicAuth("test", "test").exchange(request, JpaFile.class);
-		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(), "Should create a folder");
+	@Test
+	public void createFolder() throws URISyntaxException, JsonProcessingException {
+
+		FileDataRequest folderRequest = new FileDataRequest().setColor("blue").setDir(true).setIcon("folder")
+				.setName("test-folder");
+		createFile(folderRequest);
 	}
 
 	@Test
 	public void createFileData() throws Exception {
-		String url = "/api/files/";
+		String url = "/api/files";
 
-		
-		this.mvc.perform(multipart(url)
-				.part(new MockPart("file", "test.js", StreamUtils.copyToByteArray(testFile.getInputStream())))
+		MockMultipartFile filePart1 = new MockMultipartFile("file", "test.js", "text/plain",
+				StreamUtils.copyToByteArray(testFile.getInputStream()));
+
+		MockMultipartFile metaData1 = new MockMultipartFile("metaData", "", "application/json",
+				mapper.writeValueAsBytes(new FileDataRequest().setColor("red").setDir(false).setIcon("calendar-alt")
+						.setName("test.js")));
+
+		FileDataRequest folderRequest = new FileDataRequest().setColor("blue").setDir(true).setIcon("folder")
+				.setName("test-folder");
+
+		// upload a test file
+		this.mvc.perform(multipart(url + "/upload").file(metaData1).file(filePart1)
 				.with(SecurityMockMvcRequestPostProcessors.httpBasic("test", "test")))
 				.andExpect(status().is2xxSuccessful());
 
-		this.mvc.perform(get(url)).andExpect(status().is2xxSuccessful())
+		// assert the file was uploaded
+		this.mvc.perform(get(url + "/list")).andExpect(status().is2xxSuccessful())
 				.andExpect(MockMvcResultMatchers.jsonPath("$[0].name", Matchers.containsString("test.js")));
-		
 
-		this.mvc.perform(post(url + "/testFolder")).andExpect(status().is2xxSuccessful());
-		
+		// create a subfolder
+		FileDataResponse folderResponse = createFile(folderRequest);
 
-		this.mvc.perform(get(url)).andExpect(status().is2xxSuccessful())
+		// assert both file and folder exists in the root
+		this.mvc.perform(get(url + "/list")).andExpect(status().is2xxSuccessful())
 				.andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(2)));
 
-		this.mvc.perform(multipart(url + "/testFolder")
-				.part(new MockPart("file", "another.js", StreamUtils.copyToByteArray(testFile.getInputStream())))
+		// create a second file in the subfolder
+		MockMultipartFile metaData2 = new MockMultipartFile("metaData", "", "application/json",
+				mapper.writeValueAsBytes(new FileDataRequest().setColor("red").setDir(false).setName("another.js")
+						.setParent(folderResponse.getId())));
+		this.mvc.perform(multipart(url + "/upload").file(metaData2).file(filePart1)
 				.with(SecurityMockMvcRequestPostProcessors.httpBasic("test", "test")))
 				.andExpect(status().is2xxSuccessful());
 
-		this.mvc.perform(get(url + "/testFolder")).andExpect(status().is2xxSuccessful())
-		.andExpect(MockMvcResultMatchers.jsonPath("$[0].name", Matchers.containsString("another.js")));
+		this.mvc.perform(get(url + "/list/" + folderResponse.getId())).andExpect(status().is2xxSuccessful())
+				.andExpect(MockMvcResultMatchers.jsonPath("$[0].name", Matchers.containsString("another.js")));
+
+		// create a subfolder
+		FileDataRequest subFolderRequest = new FileDataRequest().setColor("green").setDir(true).setIcon("folder")
+				.setName("sub-folder").setParent(folderResponse.getId());
+		FileDataResponse subFolderResponse = createFile(subFolderRequest);
+
+		// create a file in the subfolder
+		MockMultipartFile metaData3 = new MockMultipartFile("metaData", "", "application/json",
+				mapper.writeValueAsBytes(new FileDataRequest().setColor("red").setDir(false).setName("third.js")
+						.setParent(subFolderResponse.getId())));
+		MvcResult thirdFileResponse = this.mvc
+				.perform(multipart(url + "/upload").file(metaData3).file(filePart1)
+						.with(SecurityMockMvcRequestPostProcessors.httpBasic("test", "test")))
+				.andExpect(status().is2xxSuccessful()).andReturn();
+
+		this.mvc.perform(get(url + "/list/" + subFolderResponse.getId())).andExpect(status().is2xxSuccessful())
+				.andExpect(MockMvcResultMatchers.jsonPath("$[0].name", Matchers.containsString("third.js")));
+
+		byte[] thirdFileBytes = thirdFileResponse.getResponse().getContentAsByteArray();
+
+		FileDataResponse thirdFile = mapper.readValue(thirdFileBytes, FileDataResponse.class);
+		this.mvc.perform(get(thirdFile.getDownloadUrl())).andExpect(status().is2xxSuccessful());
 
 	}
 
-	private File getTestFile() throws IOException {
-		return this.testFile.getFile();
+	private FileDataResponse createFile(FileDataRequest requestData)
+			throws URISyntaxException, JsonProcessingException {
+		String url = "/api/files/create";
+
+		RequestEntity request = RequestEntity.post(new URI(url)).contentType(MediaType.APPLICATION_JSON)
+				.body(mapper.writeValueAsBytes(requestData));
+		ResponseEntity<FileDataResponse> response = rest.withBasicAuth("test", "test").exchange(request,
+				FileDataResponse.class);
+		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(), "Should create a folder");
+		return response.getBody();
 	}
 
 	@Configuration

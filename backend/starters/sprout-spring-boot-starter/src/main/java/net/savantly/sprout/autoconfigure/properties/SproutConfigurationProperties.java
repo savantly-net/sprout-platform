@@ -32,6 +32,7 @@ public class SproutConfigurationProperties {
 	private Mvc mvc = new Mvc();
 	private Problem problem = new Problem();
 	private Hal hal = new Hal();
+	private Files files = new Files();
 	
 	/**
 	 * Additional UI properties that should be created for the default tenant
@@ -233,5 +234,11 @@ public class SproutConfigurationProperties {
 	@Setter
 	public static class Hal {
 		private boolean enable = false;
+	}
+	
+	@Getter
+	@Setter
+	public static class Files {
+		private String providerName = "jpaFileProvider";
 	}
 }

@@ -5,7 +5,7 @@ import java.time.ZonedDateTime;
 public interface FileData {
 	String getId();
 	String getName();
-	String getPath();
+	String getParent();
 	boolean isDir();
 	ZonedDateTime getModDate();
 	long getChildrenCount();

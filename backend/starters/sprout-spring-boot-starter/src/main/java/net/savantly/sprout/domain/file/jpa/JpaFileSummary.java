@@ -13,5 +13,5 @@ public interface JpaFileSummary {
 
 	String getThumbnailUrl();
 
-	String getPath();
+	String getParent();
 }

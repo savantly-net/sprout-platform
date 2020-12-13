@@ -6,13 +6,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.util.StreamUtils;
 
 import net.savantly.sprout.domain.file.FileData;
+import net.savantly.sprout.domain.file.FileDataRequest;
+import net.savantly.sprout.domain.file.FileDataResponse;
 import net.savantly.sprout.domain.file.FileProvider;
-import net.savantly.sprout.domain.file.SimpleFileData;
 
 @Transactional
 public class JpaFileProvider implements FileProvider {
@@ -25,43 +27,34 @@ public class JpaFileProvider implements FileProvider {
 
 	@Override
 	public List<FileData> getFilesByFolder(String path) {
-		return this.repository.findByPath(path).stream().map(f -> toDto(f)).collect(Collectors.toList());
+		return this.repository.findByParent(path).stream().map(f -> toDto(f)).collect(Collectors.toList());
 	}
 
 	@Override
-	public FileData storeFile(FileData metaData, InputStream data) {
+	public FileData storeFile(FileDataRequest metaData, InputStream data) {
 		JpaFile entity = toEntity(metaData, data);
 		repository.save(entity);
 		return toDto(entity);
 	}
 
 	@Override
-	public FileData createFolder(String path) {
-		String name = null;
-		String storedPath = null;
-		String[] pathParts = path.split("/");
-		if (pathParts.length < 1) {
-			throw new RuntimeException("path must contain new folder name");
-		} else if (pathParts.length < 2) {
-			name = pathParts[0];
-			storedPath = null;
-		} else {
-			name = pathParts[pathParts.length - 1];
-			storedPath = path.replaceAll(String.format("/%s$", name), "");
-		}
-
-		SimpleFileData fileData = new SimpleFileData().setDir(true).setName(name).setPath(storedPath);
-		JpaFile entity = createEntity(fileData, null);
+	public FileData createFile(FileDataRequest metaData) {
+		JpaFile entity = createEntity(metaData, null);
 		this.repository.save(entity);
 		return toDto(entity);
 
 	}
-	
-	private SimpleFileData toDto(JpaFileSummary file) {
-		return new SimpleFileData().setDir(file.isDir()).setId(file.getId()).setName(file.getName()).setPath(file.getPath());
+
+	public JpaFile getFile(String id) {
+		return this.repository.findById(id).orElseThrow(() -> new EntityNotFoundException());
 	}
 
-	private JpaFile toEntity(FileData metaData, InputStream data) {
+	private FileDataResponse toDto(JpaFileSummary file) {
+		return new FileDataResponse().setDir(file.isDir()).setId(file.getId()).setName(file.getName())
+				.setParent(file.getParent()).setDownloadUrl(String.format("/api/files/download/%s", file.getId()));
+	}
+
+	private JpaFile toEntity(FileDataRequest metaData, InputStream data) {
 		if (Objects.isNull(metaData.getId())) {
 			return createEntity(metaData, data);
 		} else {
@@ -69,9 +62,9 @@ public class JpaFileProvider implements FileProvider {
 		}
 	}
 
-	private JpaFile createEntity(FileData metaData, InputStream data) {
+	private JpaFile createEntity(FileDataRequest metaData, InputStream data) {
 		return new JpaFile().setColor(metaData.getColor()).setDir(metaData.isDir()).setIcon(metaData.getIcon())
-				.setName(metaData.getName()).setPath(metaData.getPath()).setBytes(readStream(data));
+				.setName(metaData.getName()).setParent(metaData.getParent()).setBytes(readStream(data));
 	}
 
 	private byte[] readStream(InputStream data) {
