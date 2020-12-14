@@ -20,12 +20,12 @@ It's opinionated, but the default configurations can be backed off - so you can 
 [https://sprout-web.herokuapp.com/](https://sprout-web.herokuapp.com/)  
 
 
-#### Screenshots 
+### Screenshots 
 
-![Sprout Web App](/img/hello-world.gif)  
-
+#### Default Home Dashboard
 
 ![Sprout Web App](/img/default.png)  
 
+#### Editing a Dashboard Panel
 
 ![Sprout Web App](/img/panel_edit.png)  

@@ -29,6 +29,12 @@ documentation:
     path: /get-started/guides/branding/
   - title: Menus
     path: /get-started/guides/menus/
+- sectiontitle: Features
+  section:
+  - title: Dashboard Management
+    path: /features/dashboards/
+  - title: File Manager
+    path: /features/file-manager/
 - sectiontitle: Reference
   section:
   - title: Overview

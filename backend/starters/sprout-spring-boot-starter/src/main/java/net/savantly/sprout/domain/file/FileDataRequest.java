@@ -1,5 +1,7 @@
 package net.savantly.sprout.domain.file;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -11,7 +13,8 @@ public class FileDataRequest {
 
 	private String id;
 	private String name;
-	private boolean dir;
+	@JsonProperty("isDir")
+	private boolean isDir;
 	private String color;
 	private String icon = "file";
 	private String parent;

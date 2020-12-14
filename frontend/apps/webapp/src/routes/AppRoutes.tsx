@@ -6,12 +6,13 @@ import ErrorBoundary from '../core/components/error/error-boundary';
 import PageNotFound from '../core/components/error/page-not-found';
 import Spinner from '../core/components/Spinner/Spinner';
 import DashboardProvider from '../features/dashboard/containers/DashboardProvider';
+import FileBrowserRoutes from '../features/files/FileBrowserRoutes';
+import { ManageDashboardsPage } from '../features/manage-dashboards/ManageDashboardsPage';
+import { PermissionsPage } from '../features/permissions/PermissionsPage';
 import AppRootPage from '../features/plugins/AppRootPage';
 import PluginListPage from '../features/plugins/PluginListPage';
 import PluginPage from '../features/plugins/PluginPage';
 import { DashboardRouteInfo, StoreState } from '../types';
-import { PermissionsPage } from '../features/permissions/PermissionsPage';
-import { ManageDashboardsPage } from '../features/manage-dashboards/ManageDashboardsPage';
 
 type OwnProps = {
   history: any;
@@ -41,6 +42,7 @@ const AppRoutes = ({ history }: AllProps) => {
         <Route path="/permissions" element={<PermissionsPage />} />
         <Route path="/plugins" element={<PluginListPage plugins={plugins} />} />
         <Route path="/plugins/:pluginId" element={<PluginPage pluginId="CHANGEME" path="CHANGEME" />} />
+        <Route path="/files/*" element={<FileBrowserRoutes />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Suspense>

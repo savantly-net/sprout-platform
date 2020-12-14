@@ -37,6 +37,8 @@
     "@types/uuid": "^8.3.0",
     "@welldone-software/why-did-you-render": "^4.3.2",
     "axios": "~0.20.0",
+    "chonky": "^2.1.0",
+    "chonky-icon-fontawesome": "^2.1.0",
     "classnames": "^2.2.6",
     "clipboard": "~2.0.6",
     "customize-cra": "^1.0.0",
@@ -84,9 +86,7 @@
     "tinycolor2": "^1.4.2",
     "typescript": "~3.9.7",
     "uuid": "~8.3.1",
-    "formik": "~2.2.0",
-    "chonky": "~2.1.0",
-    "chonky-icon-fontawesome": "~2.1.0"
+    "formik": "~2.2.0"
   },
   "resolutions": {
     "**/@typescript-eslint/eslint-plugin": "^4.1.1",

@@ -19,7 +19,9 @@ public class JpaFileApi {
 	@RequestMapping("/{id}")
 	public ResponseEntity<byte[]> downloadFile(@PathVariable("id") String id) {
 		JpaFile file = provider.getFile(id);
-		return ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM).body(file.getBytes());
+		String contentDisposition = String.format("attachment; filename=%s", file.getName());
+		return ResponseEntity.ok().header("Content-Disposition", contentDisposition)
+				.contentType(MediaType.APPLICATION_OCTET_STREAM).body(file.getBytes());
 	}
 
 }

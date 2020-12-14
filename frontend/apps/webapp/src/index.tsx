@@ -1,9 +1,13 @@
 import { AppEvents, standardEditorsRegistry, UrlQueryValue } from '@savantly/sprout-api';
 import { config, setLocationSrv } from '@savantly/sprout-runtime';
 import { getStandardOptionEditors } from '@savantly/sprout-ui';
+import { setChonkyDefaults } from 'chonky';
+import { ChonkyIconFA } from 'chonky-icon-fontawesome';
 import $ from 'jquery';
 import React from 'react';
+import 'react-datetime/css/react-datetime.css';
 import ReactDOM from 'react-dom';
+import 'react-mde/lib/styles/css/react-mde-all.css';
 import { Provider } from 'react-redux';
 import { AppContainer } from './AppContainer';
 import appEvents from './core/app_events';
@@ -12,12 +16,13 @@ import ErrorBoundary from './core/components/error/error-boundary';
 import locationSvc from './core/services/locationSvc';
 import { setViewModeBodyClass } from './core/utils/viewMode';
 import { builtInPluginMeta } from './features/plugins/built_in_plugins';
+import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { configureStore, history } from './store/configureStore';
 import { CoreEvents, KioskUrlValue } from './types';
-import 'react-datetime/css/react-datetime.css';
-import 'react-mde/lib/styles/css/react-mde-all.css';
-import './index.css';
+
+
+setChonkyDefaults({ iconComponent: ChonkyIconFA });
 
 const store = configureStore();
 const locationService = locationSvc(history);

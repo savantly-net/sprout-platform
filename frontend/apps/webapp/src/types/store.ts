@@ -9,6 +9,7 @@ import { AuthenticationState } from './authentication';
 import { DashboardState } from './dashboard';
 import { LocationState } from './location';
 import { PluginsState } from './plugins';
+import { FileState } from '../features/files/state';
 
 export interface StoreState {
   application: ApplicationState;
@@ -20,6 +21,7 @@ export interface StoreState {
   panelEditor: PanelEditorState;
   plugins: PluginsState;
   location: LocationState;
+  files: FileState;
 }
 
 /*

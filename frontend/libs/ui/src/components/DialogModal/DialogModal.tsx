@@ -12,7 +12,7 @@ export interface DialogModalCloseRespose<T> {
   value: T;
   helpers?: FormikHelpers<T>;
 }
-export interface DialogModalProps<T = any> {
+export interface DialogModalProps<T> {
   onClose: (response: DialogModalCloseRespose<T>) => void;
   initialValue: T;
   body: ComponentType<FormikProps<T>>;
@@ -38,7 +38,7 @@ export const DialogModal = ({
   className,
   buttonsComponent,
   size
-}: DialogModalProps) => {
+}: DialogModalProps<any>) => {
   const [state] = useState(initialValue);
 
   const _cancelClick = () => onClose({result: false, value: state});
@@ -68,8 +68,7 @@ export const DialogModal = ({
     <Formik
       initialValues={state}
       onSubmit={(values, helpers) => {
-        console.log('confirm clicked', values);
-        onClose({result: true, value: state, helpers: helpers});
+        onClose({result: true, value: values, helpers: helpers});
       }}
     >
       {(formProps) => (
@@ -95,11 +94,11 @@ DialogModal.defaultProps = {
   size: null
 };
 
-export const openDialog = (props: Omit<DialogModalProps, 'onClose'>) => {
-  return new Promise((resolve) => {
+export const openDialog = <T extends unknown>(props: Omit<DialogModalProps<T>, 'onClose'>)  => {
+  return new Promise<DialogModalCloseRespose<T>>((resolve) => {
     let el: HTMLDivElement | null = document.createElement('div');
 
-    const handleResolve = (result: any) => {
+    const handleResolve = (result: DialogModalCloseRespose<T>) => {
       if (el) {
         unmountComponentAtNode(el);
         el = null;

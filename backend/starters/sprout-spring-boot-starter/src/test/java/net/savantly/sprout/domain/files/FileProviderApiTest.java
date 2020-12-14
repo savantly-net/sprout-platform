@@ -1,5 +1,6 @@
 package net.savantly.sprout.domain.files;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -34,8 +35,8 @@ import org.springframework.util.StreamUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import net.savantly.sprout.domain.file.FileDataDto;
 import net.savantly.sprout.domain.file.FileDataRequest;
-import net.savantly.sprout.domain.file.FileDataResponse;
 import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -85,14 +86,14 @@ public class FileProviderApiTest {
 
 		// assert the file was uploaded
 		this.mvc.perform(get(url + "/list")).andExpect(status().is2xxSuccessful())
-				.andExpect(MockMvcResultMatchers.jsonPath("$[0].name", Matchers.containsString("test.js")));
+				.andExpect(MockMvcResultMatchers.jsonPath("$.children[0].name", Matchers.containsString("test.js")));
 
 		// create a subfolder
-		FileDataResponse folderResponse = createFile(folderRequest);
+		FileDataDto folderResponse = createFile(folderRequest);
 
 		// assert both file and folder exists in the root
 		this.mvc.perform(get(url + "/list")).andExpect(status().is2xxSuccessful())
-				.andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(2)));
+				.andExpect(MockMvcResultMatchers.jsonPath("$.children", Matchers.hasSize(2)));
 
 		// create a second file in the subfolder
 		MockMultipartFile metaData2 = new MockMultipartFile("metaData", "", "application/json",
@@ -103,12 +104,12 @@ public class FileProviderApiTest {
 				.andExpect(status().is2xxSuccessful());
 
 		this.mvc.perform(get(url + "/list/" + folderResponse.getId())).andExpect(status().is2xxSuccessful())
-				.andExpect(MockMvcResultMatchers.jsonPath("$[0].name", Matchers.containsString("another.js")));
+				.andExpect(MockMvcResultMatchers.jsonPath("$.children[0].name", Matchers.containsString("another.js")));
 
 		// create a subfolder
 		FileDataRequest subFolderRequest = new FileDataRequest().setColor("green").setDir(true).setIcon("folder")
 				.setName("sub-folder").setParent(folderResponse.getId());
-		FileDataResponse subFolderResponse = createFile(subFolderRequest);
+		FileDataDto subFolderResponse = createFile(subFolderRequest);
 
 		// create a file in the subfolder
 		MockMultipartFile metaData3 = new MockMultipartFile("metaData", "", "application/json",
@@ -120,23 +121,28 @@ public class FileProviderApiTest {
 				.andExpect(status().is2xxSuccessful()).andReturn();
 
 		this.mvc.perform(get(url + "/list/" + subFolderResponse.getId())).andExpect(status().is2xxSuccessful())
-				.andExpect(MockMvcResultMatchers.jsonPath("$[0].name", Matchers.containsString("third.js")));
+				.andExpect(MockMvcResultMatchers.jsonPath("$.children[0].name", Matchers.containsString("third.js")));
 
 		byte[] thirdFileBytes = thirdFileResponse.getResponse().getContentAsByteArray();
 
-		FileDataResponse thirdFile = mapper.readValue(thirdFileBytes, FileDataResponse.class);
+		FileDataDto thirdFile = mapper.readValue(thirdFileBytes, FileDataDto.class);
+		
+		// download using metadata url
 		this.mvc.perform(get(thirdFile.getDownloadUrl())).andExpect(status().is2xxSuccessful());
+		
+		// delete the file
+		this.mvc.perform(delete(url + "/list/" + thirdFile.getId())).andExpect(status().is2xxSuccessful());
 
 	}
 
-	private FileDataResponse createFile(FileDataRequest requestData)
+	private FileDataDto createFile(FileDataRequest requestData)
 			throws URISyntaxException, JsonProcessingException {
 		String url = "/api/files/create";
 
 		RequestEntity request = RequestEntity.post(new URI(url)).contentType(MediaType.APPLICATION_JSON)
 				.body(mapper.writeValueAsBytes(requestData));
-		ResponseEntity<FileDataResponse> response = rest.withBasicAuth("test", "test").exchange(request,
-				FileDataResponse.class);
+		ResponseEntity<FileDataDto> response = rest.withBasicAuth("test", "test").exchange(request,
+				FileDataDto.class);
 		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(), "Should create a folder");
 		return response.getBody();
 	}

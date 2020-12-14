@@ -1,11 +1,12 @@
 import { AnyAction, combineReducers } from 'redux';
+import sharedReducers from '.';
 import dashboardReducers from '../../features/dashboard/state/reducers';
+import { filesReducer } from '../../features/files/state';
 import importDashboardReducers from '../../features/manage-dashboards/state/reducers';
+import { navTreeReducer } from '../../features/navigation/navTree';
 import pluginReducers from '../../features/plugins/state/reducers';
 import { CleanUp, cleanUpAction } from '../actions/cleanUp';
-import sharedReducers from '.';
 import { locationReducer } from "../services/locationSvc";
-import { navTreeReducer } from '../../features/navigation/navTree';
 
 export const rootReducers = {
   ...sharedReducers,
@@ -13,7 +14,8 @@ export const rootReducers = {
   ...pluginReducers,
   ...importDashboardReducers,
   navTree: navTreeReducer,
-  location: locationReducer
+  location: locationReducer,
+  files: filesReducer,
 };
 
 const addedReducers = {};

@@ -54,10 +54,45 @@
         "safeForSimultaneousRushProcesses": true
     },
     {
+      "name": "docs",
+      "commandKind": "global",
+      "summary": "Starts the Documentation Jekyll server",
+      "shellCommand": "cd docs && bundle exec jekyll serve",
+      "safeForSimultaneousRushProcesses": true
+    },
+    {
+      "name": "docs:deploy",
+      "commandKind": "global",
+      "summary": "Deploy the documentation site",
+      "shellCommand": "./scripts/buildAndDeployDocs.sh",
+      "safeForSimultaneousRushProcesses": true
+    },
+    {
       "name": "start",
       "commandKind": "global",
       "summary": "Starts the front-end webapp",
       "shellCommand": "cd frontend/apps/webapp && npm run start",
+      "safeForSimultaneousRushProcesses": true
+    },
+    {
+      "name": "start:web",
+      "commandKind": "global",
+      "summary": "Starts the front-end webapp",
+      "shellCommand": "cd frontend/apps/webapp && npm run start",
+      "safeForSimultaneousRushProcesses": true
+    },
+    {
+      "name": "start:server",
+      "commandKind": "global",
+      "summary": "Starts the backend-end server",
+      "shellCommand": "./gradlew start",
+      "safeForSimultaneousRushProcesses": true
+    },
+    {
+      "name": "start:dev",
+      "commandKind": "global",
+      "summary": "Starts a test server from the sprout-spring-starter project that uses development mode features such as log levels and Spring devtools",
+      "shellCommand": "./gradlew :sprout-spring-starter:dev",
       "safeForSimultaneousRushProcesses": true
     },
     {

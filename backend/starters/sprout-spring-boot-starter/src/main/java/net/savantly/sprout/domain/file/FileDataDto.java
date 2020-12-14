@@ -4,6 +4,7 @@ import java.time.ZonedDateTime;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,11 +14,14 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @JsonInclude(value = Include.NON_NULL)
-public class FileDataResponse implements FileData {
+public class FileDataDto implements FileData {
 
 	private String id;
 	private String name;
-	private boolean dir;
+	private long size;
+	private String contentType;
+	@JsonProperty("isDir")
+	private boolean isDir;
 	private ZonedDateTime modDate;
 	private long childrenCount;
 	private String color;

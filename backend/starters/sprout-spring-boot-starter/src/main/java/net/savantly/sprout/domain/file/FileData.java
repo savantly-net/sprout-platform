@@ -13,5 +13,6 @@ public interface FileData {
 	String getIcon();
 	String getThumbnailUrl();
 	String getDownloadUrl();
+	long getSize();
 
 }

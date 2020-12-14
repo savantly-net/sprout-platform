@@ -4,7 +4,7 @@ public interface JpaFileSummary {
 	String getId();
 
 	String getName();
-	
+
 	boolean isDir();
 
 	String getColor();
@@ -14,4 +14,8 @@ public interface JpaFileSummary {
 	String getThumbnailUrl();
 
 	String getParent();
+
+	long getSize();
+
+	String getContentType();
 }

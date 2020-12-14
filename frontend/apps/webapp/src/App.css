@@ -1295,3 +1295,10 @@ ul.nav-tabs {
 .mde-preview {
   background-color: white;
 }
+
+
+/**** CHONKY File Browser *****/
+.main-view div.chonky-chonkyRoot {
+  border: none;
+  background-color: transparent;
+}

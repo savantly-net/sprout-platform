@@ -1,8 +1,15 @@
 export const defaultNavTree = [
     {
+      icon: 'folder',
+      id: 'files',
+      position: 20,
+      text: 'Files',
+      url: '/files'
+    },
+    {
       icon: 'cog',
       id: 'cfg',
-      sortWeight: -1400,
+      position: 1000,
       subTitle: 'Application Configuration',
       text: 'Configuration',
       authority: 'GENERAL_ADMIN',
@@ -29,6 +36,6 @@ export const defaultNavTree = [
           url: '/permissions'
         }
       ]
-    }
+    },
   ];
   

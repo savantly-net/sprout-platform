@@ -1,12 +1,12 @@
 package net.savantly.sprout.domain.file;
 
-import java.io.InputStream;
-import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface FileProvider {
 	
-	List<FileData> getFilesByFolder(String path);
-	FileData storeFile(FileDataRequest request, InputStream inputStream);
+	FileDataResponse getFilesByFolder(String path);
+	FileData storeFile(FileDataRequest request, MultipartFile file);
 	FileData createFile(FileDataRequest request);
+	void deleteFile(String id);
 
 }
