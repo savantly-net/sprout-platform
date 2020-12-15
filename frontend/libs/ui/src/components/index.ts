@@ -1,3 +1,4 @@
+export * from './CodeEditor/CodeEditor';
 export * from './ConfirmModal/ConfirmModal';
 export * from './DataTable/DataTable';
 export * from './DateField/DateField';
@@ -6,6 +7,7 @@ export * from './DialogModal/DialogModal';
 export * from './Entity';
 export * from './Form/Form';
 export * from './FormField/FormField';
+export * from './Handlebars/HandlebarsViewer';
 export * from './Icon/assets';
 export * from './Icon/Icon';
 export * from './LoadingIcon/LoadingIcon';

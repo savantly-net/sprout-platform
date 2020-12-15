@@ -60,7 +60,9 @@
     "react-mde": "~11.0.0",
     "react-markdown": "~5.0.3",
     "@rollup/plugin-json": "^4.1.0",
-    "react-datetime": "~3.0.4"
+    "react-datetime": "~3.0.4",
+    "react-ace": "~9.2.1",
+    "handlebars": "~4.7.6"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
@@ -69,11 +71,11 @@
     "@rollup/plugin-image": "2.0.4",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "@savantly/sprout-toolkit": "2.0.0-20",
-    "@storybook/addon-actions": "^6.0.27",
+    "@storybook/addon-actions": "^6.1.11",
     "@storybook/addon-docs": "5.3.21",
-    "@storybook/addon-essentials": "^6.0.27",
-    "@storybook/addon-links": "^6.0.27",
-    "@storybook/react": "^6.0.27",
+    "@storybook/addon-essentials": "^6.1.11",
+    "@storybook/addon-links": "^6.1.11",
+    "@storybook/react": "^6.1.11",
     "@types/classnames": "^2.2.10",
     "@types/jest": "^24.0.0",
     "@types/lodash": "^4.14.161",
@@ -102,6 +104,7 @@
     "typescript": "~3.9.7"
   },
   "peerDependencies": {
-    "react-redux": "^7.2.1"
+    "react-redux": "^7.2.1",
+    "ace-builds": "^1.4.6"
   }
 }

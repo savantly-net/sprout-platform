@@ -33,6 +33,8 @@ const buildCjsPackage = ({ env }) => {
     external: [
       '@savantly/sprout-api',
       '@reduxjs/toolkit',
+      'ace',
+      'ace-builds',
       'axios',
       'emotion',
       'formik',
