@@ -17,11 +17,12 @@ const textPanelMeta: PanelPluginMeta = {
   module: '/plugins/panel/text/module',
   info: {
     author: {
-      name: 'Grafana Labs'
+      name: 'Savantly'
     },
     description: 'A simple text panel',
     links: [],
     logos: {
+      icon: 'markdown',
       large: '/plugins/panel/text/img/icn-text-panel.svg',
       small: '/plugins/panel/text/img/icn-text-panel.svg'
     },
@@ -45,6 +46,7 @@ const iFramePanelMeta: PanelPluginMeta = {
     description: 'A simple iframe panel',
     links: [],
     logos: {
+      icon: 'far square',
       large: '/plugins/panel/iframe/img/icn-text-panel.svg',
       small: '/plugins/panel/iframe/img/icn-text-panel.svg'
     },
@@ -68,11 +70,12 @@ const queryPanelMeta: PanelPluginMeta = {
     description: 'A Panel that querys any URL with optional parameters',
     links: [],
     logos: {
+      icon: 'code',
       large: '/plugins/panel/query/img/icn-text-panel.svg',
       small: '/plugins/panel/query/img/icn-text-panel.svg'
     },
     screenshots: [],
-    updated: '2020-12-06',
+    updated: '2020-12-14',
     version: '0.0.1'
   },
   name: 'Query Panel',

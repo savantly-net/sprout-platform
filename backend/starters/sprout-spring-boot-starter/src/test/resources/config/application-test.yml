@@ -7,7 +7,7 @@ sprout:
       basic:
         users:
         - username: admin
-          password: test
+          password: changeme!
           email-address: test@savantly.net
           roles:
           - ADMIN

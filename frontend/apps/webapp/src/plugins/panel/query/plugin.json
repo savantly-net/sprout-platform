@@ -11,8 +11,7 @@
       "url": "https://savantly.net"
     },
     "logos": {
-      "small": "img/icn-text-panel.svg",
-      "large": "img/icn-text-panel.svg"
+      "icon": "code"
     }
   }
 }

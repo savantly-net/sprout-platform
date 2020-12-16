@@ -9,7 +9,7 @@ export const plugin = new PanelPlugin<QueryPanelOptions>(QueryPanel)
   .setPanelOptions((builder) => {
     builder.addTextInput({
       path: 'url',
-      name: 'url',
+      name: 'Url',
       description: 'URL of the content',
       defaultValue: ''
     });
@@ -18,6 +18,7 @@ export const plugin = new PanelPlugin<QueryPanelOptions>(QueryPanel)
       id: 'queryParameters',
       path: 'queryParameters',
       name: 'Parameters',
+      category: ['Advanced', 'Interactive Parameters'],
       defaultValue: {
         controls: []
       }
@@ -25,16 +26,19 @@ export const plugin = new PanelPlugin<QueryPanelOptions>(QueryPanel)
     builder.addBooleanSwitch({
       name: 'Use Template',
       path: 'useTemplate',
-    })
+      description: 'Use a handlebars template to transform the data',
+      category: ['Advanced', 'Transformation']
+    });
     builder.addCustomEditor({
       editor: CodeTemplateEditor,
       id: 'template',
       path: 'template',
       name: 'Handlebars Template',
+      category: ['Advanced', 'Templating'],
       defaultValue: {
         templateSource: ''
       },
-      showIf: (config => config.useTemplate)
+      showIf: (config) => config.useTemplate
     });
   })
   .setMigrationHandler(queryPanelMigrationHandler);

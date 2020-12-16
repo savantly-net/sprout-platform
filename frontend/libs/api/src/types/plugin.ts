@@ -106,6 +106,7 @@ export interface PluginMetaInfo {
   logos: {
     large: string;
     small: string;
+    icon?: string;
   };
   build?: PluginBuildInfo;
   screenshots: ScreenshotInfo[];

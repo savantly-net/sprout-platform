@@ -3,6 +3,7 @@ import { GrafanaTheme, PanelPluginMeta, PluginState } from '@savantly/sprout-api
 import { Badge, BadgeProps, styleMixins, stylesFactory, useTheme } from '@savantly/sprout-ui';
 import { css, cx } from 'emotion';
 import { selectors } from '@grafana/e2e-selectors';
+import { Icon } from '@sprout-platform/ui';
 
 interface Props {
   isCurrent: boolean;
@@ -32,7 +33,12 @@ const VizTypePickerPlugin: React.FC<Props> = ({ isCurrent, plugin, onClick, disa
           <div className={styles.name} title={plugin.name}>
             {plugin.name}
           </div>
-          <img className={styles.img} src={plugin.info.logos.small} />
+          {plugin.info.logos.icon && (
+            <Icon name={plugin.info.logos.icon} size='3x' />
+          )}
+          {!plugin.info.logos.icon && (
+            <img className={styles.img} src={plugin.info.logos.small} />
+          )}
         </div>
       </div>
       <div className={cx(styles.badge, disabled && styles.disabled)}>

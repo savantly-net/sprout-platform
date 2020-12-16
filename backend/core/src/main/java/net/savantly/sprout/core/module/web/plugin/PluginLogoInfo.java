@@ -10,4 +10,5 @@ public class PluginLogoInfo {
 
 	private String large;
 	private String small;
+	private String icon;
 }
