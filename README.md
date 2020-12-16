@@ -50,44 +50,33 @@ password: changeme!
 
 ## Examples
 
-#### Live Server Demo  
+### Live Server Demo  
+- username: admin  
+- password: changeme!  
+
 [https://sprout-server.herokuapp.com/](https://sprout-server.herokuapp.com/)  
 
-#### Live Client Demo
+### Live Client Demo
+- username: admin  
+- password: changeme!  
+
 [https://sprout-web.herokuapp.com/](https://sprout-web.herokuapp.com/)  
 
 
-#### Screenshots 
+### Screenshots 
 
-![Sprout Web App](./docs/img/hello-world.gif)  
-
+#### Default Website Landing Page
 
 ![Sprout Web App](./docs/img/default.png)  
 
+#### Editing a Panel 
+
+![Editing a Panel](./docs/img/examples/dashboard.gif)
+
+#### Panel Editor
 
 ![Sprout Web App](./docs/img/panel_edit.png)  
 
+#### File/Document Management
 
-## UI Port from Grafana 
-First - Many thanks to the Grafana developers, who have put tremendous effort into the UI and plugin toolkit.  
-
-The port from Grafana UI went like this - 
-- Copy the UI project into my workspace
-- Rip all the time-series related stuff out [woah!!!] =)
-- Rip all the Angular stuff out [oh man... so many red squiggly lines in my IDE]
-- Rip half my hair out
-- Rip out cool features that I don't have time to port right now =(
-- Monkey patch about 200 files
-- Rip the other half of my hair out
-- Connect the 'home' dashboard request to the server, and provide some mock data
-- Build some docker images. woohoo!
-
-
-## TODO
-This list is not comprehensive, but some high level tasks I'd like to tackle soon. 
-
-- [ ] Add a code editor to the Standard Editors [port Monaco stuff from Grafana?]
-- [X] Add Authentication screens to UI
-- [ ] Add lots of tests
-- [X] Add server hook for all the boot data the UI expects
-- [ ] Remove dependency on Grafana CSS
+![Editing a Panel](./docs/img/examples/file-manager.gif)
