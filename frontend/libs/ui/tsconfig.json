@@ -2,9 +2,9 @@
   "compilerOptions": {
     "baseUrl": "node_modules/@types",
     "declaration": true,
-    "declarationDir": "compiled",
+    "declarationDir": "dist",
     "declarationMap": true,
-    "outDir": "compiled",
+    "outDir": "dist",
     "paths": {
       "@sprout-platform/ui": ["."]
     },
