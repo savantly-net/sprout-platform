@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import { sproutApiSvc } from "../../core/services/sproutApiSvc";
 
 export interface Folder {
   id: string;
@@ -10,14 +10,14 @@ export interface Folder {
 
 export const folderService = {
   getFolders: () => {
-    return Axios.get<Folder[]>('/api/folders');
+    return sproutApiSvc.get<Folder[]>('/api/folders');
   },
   createFolder: (folder: Folder) => {
     console.log('creating folder: ', folder);
-    return Axios.post<Folder>('/api/folders', folder);
+    return sproutApiSvc.post<Folder>('/api/folders', folder);
   },
   deleteFolder: (id: string) => {
     console.log('deleting folder:', id);
-    return Axios.delete(`/api/folders/${id}`);
+    return sproutApiSvc.delete(`/api/folders/${id}`);
   }
 };

@@ -1,6 +1,6 @@
 import { renderMarkdown } from '@savantly/sprout-api';
-import axios from 'axios';
 import React, { PureComponent } from 'react';
+import { sproutApiSvc } from '../../services/sproutApiSvc';
 
 interface Props {
   plugin: {
@@ -20,7 +20,7 @@ export class PluginHelp extends PureComponent<Props, State> {
   state = {
     isError: false,
     isLoading: false,
-    help: '',
+    help: ''
   };
 
   componentDidMount(): void {
@@ -35,7 +35,7 @@ export class PluginHelp extends PureComponent<Props, State> {
     const { plugin, type } = this.props;
     this.setState({ isLoading: true });
 
-    axios
+    sproutApiSvc
       .get<string>(`/api/plugins/${plugin.id}/markdown/${type}`)
       .then((response) => {
         const helpHtml = renderMarkdown(response.data);
@@ -44,20 +44,20 @@ export class PluginHelp extends PureComponent<Props, State> {
           this.setState({
             isError: false,
             isLoading: false,
-            help: this.constructPlaceholderInfo(),
+            help: this.constructPlaceholderInfo()
           });
         } else {
           this.setState({
             isError: false,
             isLoading: false,
-            help: helpHtml,
+            help: helpHtml
           });
         }
       })
       .catch(() => {
         this.setState({
           isError: true,
-          isLoading: false,
+          isLoading: false
         });
       });
   };

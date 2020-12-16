@@ -1,5 +1,5 @@
 import { PluginMeta } from '@savantly/sprout-api';
-import Axios from 'axios';
+import { sproutApiSvc } from '../../core/services/sproutApiSvc';
 
 type PluginCache = {
   [key: string]: PluginMeta;
@@ -12,7 +12,7 @@ export function getPluginSettings(pluginId: string): Promise<PluginMeta> {
   if (v) {
     return Promise.resolve(v);
   }
-  return Axios
+  return sproutApiSvc
     .get(`/api/plugins/${pluginId}/settings`)
     .then((response) => {
       pluginInfoCache[pluginId] = response.data;

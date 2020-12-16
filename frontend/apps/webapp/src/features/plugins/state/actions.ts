@@ -1,15 +1,15 @@
 import { NavModelItem, PanelPlugin, PluginInclude, PluginIncludeType, PluginMeta } from '@savantly/sprout-api';
-import Axios from 'axios';
 import { addRootNavs } from '../../navigation/navTree';
 import { ThunkResult } from '../../../types';
 import { builtInPluginMeta } from '../built_in_plugins';
 import { loadPlugin } from '../PluginPage';
 import { importPanelPlugin } from '../plugin_loader';
 import { panelPluginLoaded, pluginsLoaded } from './reducers';
+import { sproutApiSvc } from '../../../core/services/sproutApiSvc';
 
 export function loadPlugins(): ThunkResult<void> {
   return async (dispatch) => {
-    const result = await Axios.get('/api/plugins', { params: { embedded: 0 } });
+    const result = await sproutApiSvc.get('/api/plugins', { params: { embedded: 0 } });
 
     const pluginMetas = result.data as PluginMeta[];
     // add built-in plugins

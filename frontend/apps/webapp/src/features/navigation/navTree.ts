@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NavModelItem } from '@savantly/sprout-api';
-import axios from 'axios';
 import { SERVER_API_URL } from '../../config/constants';
+import { sproutApiSvc } from '../../core/services/sproutApiSvc';
 import { defaultNavTree } from './defaultNavTree';
 
 interface ServerMenuItem {
@@ -41,7 +41,7 @@ const initialState: NavTreeState = {
 };
 
 export const loadNavTreeState = createAsyncThunk('navTree/load', async (arg, thunkAPI) => {
-  return axios.get<ServerMenuItem[]>(`${SERVER_API_URL}/api/public/menu`);
+  return sproutApiSvc.get<ServerMenuItem[]>(`${SERVER_API_URL}/api/public/menu`);
 });
 
 const navTreeSlice = createSlice({

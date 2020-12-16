@@ -1,12 +1,4 @@
-import axios from 'axios';
-import { SERVER_API_URL } from './constants';
-
-const TIMEOUT = 1 * 60 * 1000;
-axios.defaults.timeout = TIMEOUT;
-axios.defaults.baseURL = SERVER_API_URL;
-axios.defaults.headers = {
-  'X-Requested-With': 'XMLHttpRequest'
-};
+import { sproutApiSvc } from '../core/services/sproutApiSvc';
 
 const setupAxiosInterceptors = (onUnauthenticated: any) => {
   const onRequestSuccess = (config: any) => {
@@ -25,8 +17,8 @@ const setupAxiosInterceptors = (onUnauthenticated: any) => {
     return Promise.reject(err);
   };
 
-  axios.interceptors.response.use(onResponseSuccess, onResponseError);
-  axios.interceptors.request.use(onRequestSuccess);
+  sproutApiSvc.interceptors.response.use(onResponseSuccess, onResponseError);
+  sproutApiSvc.interceptors.request.use(onRequestSuccess);
 };
 
 export default setupAxiosInterceptors;

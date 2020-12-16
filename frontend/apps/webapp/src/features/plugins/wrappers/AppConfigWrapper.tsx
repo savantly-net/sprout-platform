@@ -5,7 +5,7 @@ import { css } from 'emotion';
 import cloneDeep from 'lodash/cloneDeep';
 import extend from 'lodash/extend';
 import React, { ComponentClass, PureComponent } from 'react';
-import Axios from 'axios';
+import { sproutApiSvc } from '../../../core/services/sproutApiSvc';
 
 interface Props {
   app: AppPlugin;
@@ -79,7 +79,7 @@ export class AppConfigCtrlWrapper extends PureComponent<Props, State> {
         },
         {}
       );
-      return Axios.post(`/api/plugins/${pluginId}/settings`, updateCmd);
+      return sproutApiSvc.post(`/api/plugins/${pluginId}/settings`, updateCmd);
   };
 
   enable = () => {

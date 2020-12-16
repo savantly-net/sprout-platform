@@ -1,8 +1,8 @@
 import { AppEvents, PluginMeta } from '@savantly/sprout-api';
-import axios from 'axios';
 import extend from 'lodash/extend';
 import React, { PureComponent } from 'react';
 import { appEvents } from '../../core/app_events';
+import { sproutApiSvc } from '../../core/services/sproutApiSvc';
 import { PluginDashboard } from '../../types';
 import DashboardsTable from '../datasources/DashboardsTable';
 
@@ -26,7 +26,7 @@ export class PluginDashboards extends PureComponent<Props, State> {
 
   async componentDidMount() {
     const pluginId = this.props.plugin.id;
-    axios.get<PluginDashboard[]>(`/api/plugins/${pluginId}/dashboards`).then((response) => {
+    sproutApiSvc.get<PluginDashboard[]>(`/api/plugins/${pluginId}/dashboards`).then((response) => {
       this.setState({ dashboards: response.data, loading: false });
     });
   }
@@ -62,7 +62,7 @@ export class PluginDashboards extends PureComponent<Props, State> {
       inputs: []
     };
 
-    return axios.post(`/api/dashboards/import`, installCmd)
+    return sproutApiSvc.post(`/api/dashboards/import`, installCmd)
       .then((res) => {
         appEvents.emit(AppEvents.alertSuccess, ['Dashboard Imported', dash.title]);
         extend(dash, res.data);
@@ -71,7 +71,7 @@ export class PluginDashboards extends PureComponent<Props, State> {
   };
 
   remove = (dash: PluginDashboard) => {
-    axios.delete('/api/dashboards/' + dash.importedUri)
+    sproutApiSvc.delete('/api/dashboards/' + dash.importedUri)
       .then(() => {
         dash.imported = false;
         this.setState({ dashboards: [...this.state.dashboards] });

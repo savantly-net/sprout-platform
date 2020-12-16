@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { SERVER_API_URL } from '../../config/constants';
 import { FolderDTO } from '../../types';
+import { sproutApiSvc } from './sproutApiSvc';
 
 const fixApiUrl = (url: string) => {
   if (url.startsWith('/')) {
@@ -12,15 +12,15 @@ const fixApiUrl = (url: string) => {
 
 export class BackendSrv {
   getDashboardBySlug(slug: string) {
-    return axios.get(fixApiUrl(`/api/dashboards/db/${slug}`));
+    return sproutApiSvc.get(fixApiUrl(`/api/dashboards/db/${slug}`));
   }
 
   getDashboardByUid(uid: string) {
-    return axios.get(fixApiUrl(`/api/dashboards/uid/${uid}`));
+    return sproutApiSvc.get(fixApiUrl(`/api/dashboards/uid/${uid}`));
   }
 
   getFolderByUid(uid: string) {
-    return axios.get<FolderDTO>(fixApiUrl(`/api/folders/${uid}`));
+    return sproutApiSvc.get<FolderDTO>(fixApiUrl(`/api/folders/${uid}`));
   }
 }
 

@@ -1,12 +1,14 @@
 // Libraries
 import { KeyValue, PanelProps } from '@savantly/sprout-api';
 import { CustomScrollbar, stylesFactory } from '@savantly/sprout-ui';
+import { HandlebarsViewer, LoadingIcon } from '@sprout-platform/ui';
 import { css, cx } from 'emotion';
 import { Field, Formik, useField, useFormikContext } from 'formik';
 import React, { Fragment, useState } from 'react';
 import Datetime from 'react-datetime';
-import { Button } from 'reactstrap';
+import { Alert, Button } from 'reactstrap';
 import { QueryParameterControl } from './editors/QueryParametersEditor';
+import axios from 'axios';
 // Types
 import { QueryPanelOptions } from './types';
 
@@ -110,11 +112,11 @@ const renderTextControl = (control: QueryParameterControl) => {
 };
 
 export const QueryPanel = (props: Props) => {
-  const { url, queryParameters } = props.options;
-
+  const { url, queryParameters, useTemplate, template } = props.options;
+  const [data, setData] = useState('');
+  const [error, setError] = useState('');
   const defaultState: KeyValue = {};
   const [state, setState] = useState(defaultState);
-
   const paramString = buildParamString(state);
 
   const getInitialValues = (): KeyValue => {
@@ -146,6 +148,38 @@ export const QueryPanel = (props: Props) => {
   };
 
   const styles = getStyles();
+
+  const loadData = () => {
+    axios
+      .get(getFullUrl(), {
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          Accept: 'application/json'
+        }
+      })
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((err) => {
+        setError(err.message || 'Failed to fetch data.');
+      });
+  };
+
+  const iframeOrTemplate = () => {
+    if (useTemplate && data) {
+      return <HandlebarsViewer data={data} templateSource={template.templateSource} />;
+    } else if (useTemplate) {
+      loadData();
+      return <LoadingIcon />;
+    } else {
+      return <iframe src={getFullUrl()} className={cx(styles.content)} />;
+    }
+  };
+
+  if (error) {
+    return <Alert color="warning">{error}</Alert>;
+  }
+
   return (
     <CustomScrollbar autoHeightMin="100%">
       {queryParameters.controls && queryParameters.controls.length > 0 && (
@@ -175,7 +209,7 @@ export const QueryPanel = (props: Props) => {
           <hr />
         </Fragment>
       )}
-      {url && <iframe src={getFullUrl()} className={cx(styles.content)} />}
+      {url && iframeOrTemplate()}
     </CustomScrollbar>
   );
 };

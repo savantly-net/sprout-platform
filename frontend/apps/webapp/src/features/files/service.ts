@@ -1,18 +1,18 @@
-import axios from 'axios';
 import { SERVER_API_URL } from '../../config/constants';
+import { sproutApiSvc } from '../../core/services/sproutApiSvc';
 import { FileDataRequest, FileDataResponse, FileMetaData } from './types';
 
 class FileService {
   getFilesByPath = (path?: string) => {
-    return axios.get<FileDataResponse>(`${SERVER_API_URL}/api/files/list/${path || ''}`);
+    return sproutApiSvc.get<FileDataResponse>(`${SERVER_API_URL}/api/files/list/${path || ''}`);
   };
 
   deleteFileByPath = (path?: string) => {
-    return axios.delete(`${SERVER_API_URL}/api/files/list/${path || ''}`);
+    return sproutApiSvc.delete(`${SERVER_API_URL}/api/files/list/${path || ''}`);
   };
 
   createFile = (request: FileDataRequest) => {
-    return axios.post<FileMetaData>(`${SERVER_API_URL}/api/files/create`, request);
+    return sproutApiSvc.post<FileMetaData>(`${SERVER_API_URL}/api/files/create`, request);
   };
 
   uploadFile = (request: FileDataRequest, file: any) => {
@@ -24,7 +24,7 @@ class FileService {
     fd.append('file', file);
     fd.append("metaData", metaData)
     console.log(fd);
-    return axios.post<FileMetaData>(`${SERVER_API_URL}/api/files/upload`, fd);
+    return sproutApiSvc.post<FileMetaData>(`${SERVER_API_URL}/api/files/upload`, fd);
   };
 }
 

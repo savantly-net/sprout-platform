@@ -1,9 +1,9 @@
 import { Story } from '@storybook/react/types-6-0';
-import React, { ComponentProps } from 'react';
+import React, { ComponentProps, ReactElement } from 'react';
 import { CodeEditor } from './CodeEditor';
 
 export default {
-  title: 'Code/CodeEditor',
+  title: 'CodeEditor',
   component: CodeEditor,
   argTypes: {
     mode: {
@@ -18,14 +18,20 @@ export default {
         options: ['light', 'dark']
       }
     }
-  }
+  },
+  decorators: [(storyFn: () => ReactElement) => <div>{storyFn()}</div>]
 };
 
-const Template: Story<ComponentProps<typeof CodeEditor>> = (args) => <CodeEditor {...args} />;
+const Template: Story<ComponentProps<typeof CodeEditor>> = (args) => (
+  <div>
+    <CodeEditor {...args} />
+  </div>
+);
 
 export const DefaultCodeEditor = Template.bind({});
 DefaultCodeEditor.args = {
-  onEditorChange: (value) => {
-    console.log(value);
+  value: '<div>{{foo}}</div>',
+  onChange: (value, event) => {
+    console.log(value, event);
   }
 };

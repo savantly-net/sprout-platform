@@ -1,5 +1,4 @@
 import { ErrorBoundaryAlert } from '@savantly/sprout-ui';
-import axios from 'axios';
 import React, { createRef, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -9,6 +8,7 @@ import { SERVER_API_URL } from './config/constants';
 import { SideMenu } from './core/components/sidemenu/SideMenu';
 import { updateAppSettings } from './core/reducers/application';
 import { getSession } from './core/reducers/authentication';
+import { sproutApiSvc } from './core/services/sproutApiSvc';
 import { initDevFeatures } from './dev';
 import { LoginPage } from './features/login/LoginPage';
 import { loadNavTreeState } from './features/navigation/navTree';
@@ -34,7 +34,7 @@ export const AppContainer = ({ theme }: { theme: string }) => {
     if (!isSessionFetched) {
       dispatch(getSession());
     } else {
-      axios
+      sproutApiSvc
         .get(`${SERVER_API_URL}/api/ui-properties`)
         .then((value) => {
           dispatch(updateAppSettings(value.data));
@@ -57,7 +57,7 @@ export const AppContainer = ({ theme }: { theme: string }) => {
           path="/*"
           element={
             <React.Fragment>
-              {(!isShowLogin && isSessionFetched) && <SideMenu></SideMenu>}
+              {!isShowLogin && isSessionFetched && <SideMenu></SideMenu>}
               <div ref={appElem} className="main-view">
                 <div className="scroll-canvas">
                   <ErrorBoundaryAlert style="page">

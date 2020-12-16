@@ -1,8 +1,7 @@
-// Services & Utils
-import axios from 'axios';
 // Actions
 import { notifyApp } from '../../../core/actions';
 import { createErrorNotification } from '../../../core/copy/appNotification';
+import { sproutApiSvc } from '../../../core/services/sproutApiSvc';
 // Types
 import {
   DashboardDTO,
@@ -36,7 +35,7 @@ async function fetchDashboard(
     switch (args.routeInfo) {
       case DashboardRouteInfo.Home: {
         // load home dash
-        const response = await axios.get('/api/dashboards/home');
+        const response = await sproutApiSvc.get('/api/dashboards/home');
         const dashDTO: DashboardDTO = response.data;
 
         args.navigate(`/d/${dashDTO.dashboard.uid}/`, { replace: true});

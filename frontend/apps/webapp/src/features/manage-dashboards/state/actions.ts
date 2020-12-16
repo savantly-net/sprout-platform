@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { getBackendSrv } from '../../../core/services/backend_srv';
+import { sproutApiSvc } from '../../../core/services/sproutApiSvc';
 import { DashboardDataDTO, DashboardDTO, FolderInfo, ThunkResult } from '../../../types';
 import { clearDashboard, setInputs, setJsonDashboard } from './reducers';
 
@@ -129,7 +129,7 @@ export interface SaveDashboardOptions {
 }
 
 export function saveDashboard(options: SaveDashboardOptions) {
-  return axios.post('/api/dashboards/db/', {
+  return sproutApiSvc.post('/api/dashboards/db/', {
     dashboard: options.dashboard,
     message: options.message ?? '',
     overwrite: options.overwrite ?? false,
@@ -138,15 +138,15 @@ export function saveDashboard(options: SaveDashboardOptions) {
 }
 
 function deleteFolder(uid: string, showSuccessAlert: boolean) {
-  return axios.delete(`/api/folders/${uid}`);
+  return sproutApiSvc.delete(`/api/folders/${uid}`);
 }
 
 export function createFolder(payload: any) {
-  return axios.post('/api/folders', payload);
+  return sproutApiSvc.post('/api/folders', payload);
 }
 
 export function deleteDashboard(uid: string, showSuccessAlert: boolean) {
-  return axios.delete(`/api/dashboards/uid/${uid}`);
+  return sproutApiSvc.delete(`/api/dashboards/uid/${uid}`);
 }
 
 function executeInOrder(tasks: any[]) {

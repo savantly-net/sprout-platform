@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "node_modules/@types",
     "declaration": true,
-    "declarationDir": "dist",
+    "declarationDir": "compiled",
     "declarationMap": true,
     "outDir": "compiled",
     "paths": {

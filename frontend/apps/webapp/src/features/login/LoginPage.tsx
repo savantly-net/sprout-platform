@@ -1,12 +1,12 @@
 import { Container } from '@savantly/sprout-ui';
 import { Form, FormField, OAuth2Login } from '@sprout-platform/ui';
-import axios from 'axios';
 import { css, cx } from 'emotion';
 import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Alert, Button, Col, Modal, ModalBody, Row } from 'reactstrap';
 import { login, logout } from '../../core/reducers/authentication';
+import { sproutApiSvc } from '../../core/services/sproutApiSvc';
 import { OAuthClientConfig, StoreState } from '../../types';
 
 export const LoginPage = ({ redirectUrl, showBasic }: { redirectUrl?: string; showBasic?: boolean }) => {
@@ -23,7 +23,7 @@ export const LoginPage = ({ redirectUrl, showBasic }: { redirectUrl?: string; sh
 
   useMemo(
     () =>
-      axios
+    sproutApiSvc
         .get('/api/authentication/oauth')
         .then((value) => {
           setOauthClients(value.data.clients);
@@ -42,7 +42,7 @@ export const LoginPage = ({ redirectUrl, showBasic }: { redirectUrl?: string; sh
   const submitLogin = async (creds: { username: string; password: string }) => {
     setError('');
     try {
-      await axios.post('/api/login', creds);
+      await sproutApiSvc.post('/api/login', creds);
       window.location.href = redirectTo;
     } catch (error) {
       console.error(error);

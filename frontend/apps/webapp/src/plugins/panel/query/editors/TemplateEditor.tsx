@@ -10,33 +10,28 @@ export interface CodeTemplateEditorConfiguration {
 export const CodeTemplateEditor: React.FC<
   StandardEditorProps<CodeTemplateEditorConfiguration, any, QueryPanelOptions>
 > = ({ value, onChange, context, item }) => {
-  const [state, setState] = useState(value.templateSource);
-  if (!state) {
-    console.log(`no value passed to editor`);
-  }
-
-  useEffect(() => {
-      //setState(value.templateSource);
-  }, [value]);
-
-  if (!state) {
-    return <LoadingIcon size="1x" />;
-  }
+  const [state, setState] = useState('');
+  console.log('state value', state);
 
   const updateConfig = (source: string) => {
-    //onChange({ templateSource: source });
+    console.log('calling onChange handler', source);
+    onChange({ templateSource: source });
   };
 
   return (
     <div className="gf-form-group">
       <div className="edit-tab-content">
         <CodeEditor
-          initialValue={state}
-          onEditorChange={(source) => {
+          name="query-panel-template-editor"
+          value={value.templateSource}
+          onChange={(source) => {
+            console.log('editor changed', source);
             //setState(source);
           }}
           onBlur={(e, editor) => {
-            //updateConfig(editor?.getValue() || '');
+            const currentValue = editor?.getValue();
+            console.log('onBlur', editor, currentValue);
+            updateConfig(currentValue|| '');
           }}
         />
       </div>
