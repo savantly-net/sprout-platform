@@ -22,7 +22,7 @@
     "bundle": "",
     "clean": "rimraf ./dist ./compiled",
     "typecheck": "tsc --noEmit",
-    "npm:publish": "cd dist && npm publish",
+    "npm:publish": "npm publish",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "chromatic": "chromatic",
