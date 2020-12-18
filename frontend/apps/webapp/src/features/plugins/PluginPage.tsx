@@ -1,6 +1,7 @@
 // Libraries
 // Types
 import {
+  AppNotificationSeverity,
   NavModel,
   NavModelItem,
   PluginDependencies,
@@ -21,7 +22,7 @@ import Page from '../../core/components/Page/Page';
 import { PluginHelp } from '../../core/components/PluginHelp/PluginHelp';
 import config from '../../core/config';
 import { getNotFoundNav } from '../../core/nav_model_srv';
-import { AppNotificationSeverity, CoreEvents, StoreState } from '../../types';
+import { CoreEvents, StoreState } from '../../types';
 import { PluginDashboards } from './PluginDashboards';
 import { getPluginSettings } from './PluginSettingsCache';
 import { importAppPlugin, importPanelPlugin } from './plugin_loader';

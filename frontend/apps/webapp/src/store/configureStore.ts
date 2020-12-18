@@ -11,6 +11,7 @@ import { initialAuthenticationState } from '../core/reducers/authentication';
 import { addReducer, rootReducers } from '../core/reducers/root';
 import { initialPanelEditorState } from '../features/dashboard/components/PanelEditor/state/reducers';
 import { initialDashboardState } from '../features/dashboard/state';
+import { issueStateProvider } from '../features/feedback/entity';
 import { defaultNavTree } from '../features/navigation/defaultNavTree';
 import { buildInitialState } from '../features/navigation/navModel';
 import { initialPluginState } from '../features/plugins/state/reducers';
@@ -56,7 +57,8 @@ export function configureStore() {
         navIndex: buildInitialState(),
         navTree: { items: defaultNavTree },
         panelEditor: initialPanelEditorState(),
-        plugins: initialPluginState
+        plugins: initialPluginState,
+        issues: issueStateProvider.props.initialState
       }
     },
     {
@@ -72,7 +74,8 @@ export function configureStore() {
         location: rootReducers.location,
         panelEditor: rootReducers.panelEditor,
         plugins: rootReducers.plugins,
-        files: rootReducers.files
+        files: rootReducers.files,
+        issues: rootReducers.issues
       }
     }
   );

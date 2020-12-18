@@ -15,9 +15,13 @@ const DropDownChild: FC<Props> = (props) => {
     margin-right: 0.3rem;
   `;
 
+  console.log('DropDownChild', child);
+  let useClickHandler = false;
   let useAnchor = false;
   let useNavLink = false;
-  if (child.url && child.url.startsWith('http')) {
+  if (child.onClick) {
+    useClickHandler = true;
+  } else if (child.url && child.url.startsWith('http')) {
     useAnchor = true;
   } else if (child.url) {
     useNavLink = true;
@@ -25,6 +29,12 @@ const DropDownChild: FC<Props> = (props) => {
 
   return (
     <li className={listItemClassName}>
+      {useClickHandler && (
+        <a href={child.url} onClick={child.onClick}>
+          {child.icon && <Icon name={child.icon as IconName} className={iconClassName} />}
+          {child.text}
+        </a>
+      )}
       {useNavLink && (
         <NavLink to={child.url || ''}>
           {child.icon && <Icon name={child.icon as IconName} className={iconClassName} />}

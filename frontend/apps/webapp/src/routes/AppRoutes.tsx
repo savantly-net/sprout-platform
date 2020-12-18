@@ -13,6 +13,7 @@ import AppRootPage from '../features/plugins/AppRootPage';
 import PluginListPage from '../features/plugins/PluginListPage';
 import PluginPage from '../features/plugins/PluginPage';
 import { DashboardRouteInfo, StoreState } from '../types';
+import IssueManager from '../features/feedback/IssueManager';
 
 type OwnProps = {
   history: any;
@@ -43,6 +44,7 @@ const AppRoutes = ({ history }: AllProps) => {
         <Route path="/plugins" element={<PluginListPage plugins={plugins} />} />
         <Route path="/plugins/:pluginId" element={<PluginPage pluginId="CHANGEME" path="CHANGEME" />} />
         <Route path="/files/*" element={<FileBrowserRoutes />} />
+        <Route path="/issues/*" element={<IssueManager />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Suspense>

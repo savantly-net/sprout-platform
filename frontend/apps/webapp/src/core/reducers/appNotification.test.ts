@@ -1,5 +1,5 @@
 import { appNotificationsReducer, clearAppNotification, notifyApp } from './appNotification';
-import { AppNotificationSeverity, AppNotificationTimeout } from '../../types';
+import { AppNotificationSeverity, AppNotificationTimeout } from '@savantly/sprout-api';
 
 describe('clear alert', () => {
   it('should filter alert', () => {

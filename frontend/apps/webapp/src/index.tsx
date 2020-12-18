@@ -1,4 +1,5 @@
-import { AppEvents, standardEditorsRegistry, UrlQueryValue } from '@savantly/sprout-api';
+import { AppEvents, eventBus, standardEditorsRegistry, UrlQueryValue } from '@savantly/sprout-api';
+import { BusProvider } from 'ts-bus/react';
 import { config, setLocationSrv } from '@savantly/sprout-runtime';
 import { getStandardOptionEditors } from '@savantly/sprout-ui';
 import { setChonkyDefaults } from 'chonky';
@@ -20,7 +21,6 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { configureStore, history } from './store/configureStore';
 import { CoreEvents, KioskUrlValue } from './types';
-
 
 setChonkyDefaults({ iconComponent: ChonkyIconFA });
 
@@ -171,9 +171,11 @@ body.on('click', (evt: JQuery.ClickEvent) => {
 ReactDOM.render(
   <React.Fragment>
     <ErrorBoundary>
-      <Provider store={store}>
-        <AppContainer theme={theme} />
-      </Provider>
+      <BusProvider value={eventBus}>
+        <Provider store={store}>
+          <AppContainer theme={theme} />
+        </Provider>
+      </BusProvider>
     </ErrorBoundary>
   </React.Fragment>,
   document.getElementById('root')

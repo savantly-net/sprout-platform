@@ -29,7 +29,7 @@ export interface EntityPageState<T> {
   error: string;
 }
 
-export class EntityPage<T> extends Component<EntityPageProps<T>, EntityPageState<T>> {
+export class EntityPage<T extends object> extends Component<EntityPageProps<T>, EntityPageState<T>> {
   constructor(props: EntityPageProps<T>) {
     super(props);
     this.save = this.save.bind(this);

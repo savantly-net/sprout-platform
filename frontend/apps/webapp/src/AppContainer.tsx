@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import App from './App';
 import './App.css';
 import { SERVER_API_URL } from './config/constants';
+import { AppNotificationProvider } from './core/components/AppNotificationProvider/AppNotificationProvider';
 import { SideMenu } from './core/components/sidemenu/SideMenu';
 import { updateAppSettings } from './core/reducers/application';
 import { getSession } from './core/reducers/authentication';
@@ -48,28 +49,30 @@ export const AppContainer = ({ theme }: { theme: string }) => {
   const appElem = createRef<HTMLDivElement>();
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/login">
-          <LoginPage redirectUrl="/" />
-        </Route>
-        <Route
-          path="/*"
-          element={
-            <React.Fragment>
-              {!isShowLogin && isSessionFetched && <SideMenu></SideMenu>}
-              <div ref={appElem} className="main-view">
-                <div className="scroll-canvas">
-                  <ErrorBoundaryAlert style="page">
-                    <App />
-                  </ErrorBoundaryAlert>
+    <AppNotificationProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login">
+            <LoginPage redirectUrl="/" />
+          </Route>
+          <Route
+            path="/*"
+            element={
+              <React.Fragment>
+                {!isShowLogin && isSessionFetched && <SideMenu></SideMenu>}
+                <div ref={appElem} className="main-view">
+                  <div className="scroll-canvas">
+                    <ErrorBoundaryAlert style="page">
+                      <App />
+                    </ErrorBoundaryAlert>
+                  </div>
                 </div>
-              </div>
-            </React.Fragment>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+              </React.Fragment>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </AppNotificationProvider>
   );
 };
 

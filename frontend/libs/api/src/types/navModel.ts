@@ -16,6 +16,7 @@ export interface NavModelItem {
     showOrgSwitcher?: boolean;
     authority?: string;
     position?: number;
+    onClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
   }
   
   /**

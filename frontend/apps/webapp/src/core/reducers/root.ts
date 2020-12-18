@@ -1,12 +1,13 @@
 import { AnyAction, combineReducers } from 'redux';
 import sharedReducers from '.';
 import dashboardReducers from '../../features/dashboard/state/reducers';
+import { issueStateProvider } from '../../features/feedback/entity';
 import { filesReducer } from '../../features/files/state';
 import importDashboardReducers from '../../features/manage-dashboards/state/reducers';
 import { navTreeReducer } from '../../features/navigation/navTree';
 import pluginReducers from '../../features/plugins/state/reducers';
 import { CleanUp, cleanUpAction } from '../actions/cleanUp';
-import { locationReducer } from "../services/locationSvc";
+import { locationReducer } from '../services/locationSvc';
 
 export const rootReducers = {
   ...sharedReducers,
@@ -16,6 +17,7 @@ export const rootReducers = {
   navTree: navTreeReducer,
   location: locationReducer,
   files: filesReducer,
+  issues: issueStateProvider.slice.reducer
 };
 
 const addedReducers = {};

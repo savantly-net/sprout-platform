@@ -3,9 +3,8 @@ import _ from 'lodash';
 import React, { PureComponent, ReactNode } from 'react';
 
 // Types
-import { AppNotificationSeverity } from '../../types';
 import { Alert } from '@savantly/sprout-ui';
-import { PanelProps, PanelPlugin, PluginType, PanelPluginMeta } from '@savantly/sprout-api';
+import { PanelProps, PanelPlugin, PluginType, PanelPluginMeta, AppNotificationSeverity } from '@savantly/sprout-api';
 
 interface Props {
   title: string;

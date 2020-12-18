@@ -1,5 +1,5 @@
 // Libraries
-import { UrlQueryValue } from '@savantly/sprout-api';
+import { UrlQueryValue , createErrorNotification} from '@savantly/sprout-api';
 import { getLocationSrv } from '@savantly/sprout-runtime';
 import { CustomScrollbar } from '@savantly/sprout-ui';
 // @ts-ignore
@@ -12,7 +12,6 @@ import { Branding } from '../../../core/components/Branding/Branding';
 import { LogFlags } from '../../../core/components/LifecycleLogging/LifecycleLogging';
 import { PrivateComponent } from '../../../core/components/PrivateComponent/PrivateComponent';
 // Services & Utils
-import { createErrorNotification } from '../../../core/copy/appNotification';
 import { LocationUpdateService } from '../../../core/services/locationSvc';
 // Types
 import { StoreState } from '../../../types';

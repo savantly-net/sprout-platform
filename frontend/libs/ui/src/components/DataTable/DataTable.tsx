@@ -1,12 +1,14 @@
 import { EntityState } from '@savantly/sprout-api';
 import React, { FC, Fragment, ReactElement } from 'react';
-import BootstrapTable, { BootstrapTableProps, ColumnDescription } from 'react-bootstrap-table-next';
+import BootstrapTable, { BootstrapTableProps, ColumnDescription as _ColumnDescription } from 'react-bootstrap-table-next';
 import { Alert, Button, ButtonGroup, Nav, Navbar, NavItem } from 'reactstrap';
 import { confirm, ConfirmModalProps } from '../ConfirmModal/ConfirmModal';
 import { Icon } from '../Icon/Icon';
 
-export interface DataTableColumnProviderProps<T> {
-  columnDescriptions: ColumnDescription[];
+export interface ColumnDescription<T extends object = any> extends _ColumnDescription<T> {}
+
+export interface DataTableColumnProviderProps<T extends object> {
+  columnDescriptions: ColumnDescription<T>[];
   onEditClick?: (row: T) => void;
   onDeleteClick?: (row: T) => void;
   onViewClick?: (row: T) => void;
@@ -15,7 +17,7 @@ export interface DataTableColumnProviderProps<T> {
   deleteModalProps?: ConfirmModalProps;
 }
 
-export class DataTableColumnProvider<T> {
+export class DataTableColumnProvider<T extends object> {
   private _onDeleteClick: (row: T) => void;
   private _showActionColumn: boolean;
   private props: DataTableColumnProviderProps<T>;
@@ -42,7 +44,7 @@ export class DataTableColumnProvider<T> {
   }
 
   getColumnDescriptions() {
-    const columns: ColumnDescription[] = [];
+    const columns: ColumnDescription<T>[] = [];
     columns.push(...this.props.columnDescriptions);
     if (this._showActionColumn) {
       columns.push({

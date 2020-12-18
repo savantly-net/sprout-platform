@@ -1,10 +1,10 @@
+import { AppNotificationSeverity } from '@savantly/sprout-api';
 import { Alert, Button, HorizontalGroup, Icon, VerticalGroup } from '@savantly/sprout-ui';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getMessageFromError } from '../../../core/utils/errors';
 import {
-  AppNotificationSeverity,
   DashboardInitError,
   DashboardInitPhase,
   DashboardRouteInfo,

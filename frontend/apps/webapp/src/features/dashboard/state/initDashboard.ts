@@ -1,6 +1,6 @@
 // Actions
 import { notifyApp } from '../../../core/actions';
-import { createErrorNotification } from '../../../core/copy/appNotification';
+import { createErrorNotification } from '@savantly/sprout-api';
 import { sproutApiSvc } from '../../../core/services/sproutApiSvc';
 // Types
 import {

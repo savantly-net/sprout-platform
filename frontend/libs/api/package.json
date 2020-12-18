@@ -33,7 +33,10 @@
     "tinycolor2": "^1.4.2",
     "xss": "1.0.6",
     "axios": "~0.20.0",
-    "@reduxjs/toolkit": "^1.4.0"
+    "@reduxjs/toolkit": "^1.4.0",
+    "ts-bus": "~2.3.1",
+    "uuid": "~8.3.1",
+    "@types/uuid": "^8.3.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.0.2",
