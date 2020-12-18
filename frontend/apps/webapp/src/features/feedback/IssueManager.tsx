@@ -13,6 +13,10 @@ const stateSelector = (state: StoreState) => state.issues;
 
 const columns: Array<ColumnDescription<EntityClass>> = [
   {
+    dataField: 'status',
+    text: 'Status'
+  },
+  {
     dataField: 'title',
     text: 'Title',
   },

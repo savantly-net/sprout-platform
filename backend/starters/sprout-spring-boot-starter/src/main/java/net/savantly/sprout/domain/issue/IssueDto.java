@@ -14,6 +14,7 @@ import net.savantly.sprout.domain.issue.comment.IssueCommentDto;
 public class IssueDto {
 
 	private String itemId;
+	private IssueState status = IssueState.OPEN;
 	private String title;
 	private String description;
 	private Set<String> tags = new HashSet<>();

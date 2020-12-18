@@ -40,17 +40,20 @@ public class IssueApi extends TenantedDtoController<Issue, IssueDto> {
 
 	@Override
 	protected Issue convert(IssueDto object) {
+		Issue entity = null;
 		if (Objects.nonNull(object.getItemId())) {
-			return this.repository.findByIdItemId(object.getItemId()).orElse(createEntity(object));
+			entity = this.repository.findByIdItemId(object.getItemId()).orElse(createEntity(object));
 		} else {
-			return createEntity(object);
+			entity = createEntity(object);
 		}
+		return updateEntity(entity, object);
 	}
+
 
 	@Override
 	protected IssueDto convert(Issue entity) {
 		return new IssueDto().setComments(convert(entity.getComments())).setDescription(entity.getDescription())
-				.setItemId(entity.getItemId()).setTags(entity.getTags()).setTitle(entity.getTitle());
+				.setItemId(entity.getItemId()).setTags(entity.getTags()).setTitle(entity.getTitle()).setStatus(entity.getStatus());
 	}
 
 	private Set<IssueCommentDto> convert(Set<IssueComment> comments) {
@@ -59,11 +62,16 @@ public class IssueApi extends TenantedDtoController<Issue, IssueDto> {
 
 	private Issue createEntity(IssueDto object) {
 		return new Issue().setDescription(object.getDescription()).setTags(object.getTags())
-				.setTitle(object.getTitle());
+				.setTitle(object.getTitle()).setStatus(object.getStatus());
 	}
 
 	private IssueComment createCommentEntity(Issue issue, IssueCommentDto dto) {
 		return new IssueComment().setIssueId(issue.getItemId()).setText(dto.getText());
+	}
+
+	private Issue updateEntity(Issue entity, IssueDto object) {
+		return entity.setDescription(object.getDescription()).setTags(object.getTags())
+				.setTitle(object.getTitle()).setStatus(object.getStatus());
 	}
 
 }

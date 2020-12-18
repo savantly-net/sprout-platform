@@ -22,6 +22,7 @@ import net.savantly.sprout.domain.issue.comment.IssueComment;
 @Accessors(chain = true)
 public class Issue extends TenantKeyedEntity {
 	
+	private IssueState status = IssueState.OPEN;
 	private String title;
 
 	@Column(length = 5000)

@@ -7,6 +7,7 @@ export interface IssueComment extends TenantedEntity {
 }
 
 export interface IssueEntity extends TenantedEntity {
+  status?: 'OPEN' | 'CLOSED';
   title?: string;
   description?: string;
   tags?: string[];
@@ -36,7 +37,9 @@ export const issueStateProvider = new EntityStateProvider<IssueEntity>({
   initialState: {
     isFetched: false,
     isFetching: false,
-    example: {}
+    example: {
+      status: 'OPEN'
+    }
   },
   stateKey: 'issues'
 });
