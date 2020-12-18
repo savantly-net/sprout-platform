@@ -50,7 +50,6 @@ export const AppNotificationProvider: FC = (props) => {
         z-index: 9999;
         v-align: middle;
       `,
-      'notification',
       'top-right'
     );
   };
@@ -58,7 +57,13 @@ export const AppNotificationProvider: FC = (props) => {
   const showToast = (notification: AppNotification) => {
     return (
       <div key={notification.id} className={determineStyle(notification)}>
-        <UncontrolledAlert color={determineColor(notification.severity)} title={notification.title}>
+        <UncontrolledAlert
+          className={css`
+            box-shadow: 0 0 12px #ccc;
+          `}
+          color={determineColor(notification.severity)}
+          title={notification.title}
+        >
           <div className="row">
             <Icon className="mr-1" name={notification.icon} />
             {notification.component || notification.text}
