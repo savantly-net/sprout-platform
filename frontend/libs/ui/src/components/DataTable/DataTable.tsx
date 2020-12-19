@@ -1,6 +1,10 @@
 import { EntityState } from '@savantly/sprout-api';
+import _ from 'lodash';
 import React, { FC, Fragment, ReactElement } from 'react';
-import BootstrapTable, { BootstrapTableProps, ColumnDescription as _ColumnDescription } from 'react-bootstrap-table-next';
+import BootstrapTable, {
+  BootstrapTableProps,
+  ColumnDescription as _ColumnDescription
+} from 'react-bootstrap-table-next';
 import { Alert, Button, ButtonGroup, Nav, Navbar, NavItem } from 'reactstrap';
 import { confirm, ConfirmModalProps } from '../ConfirmModal/ConfirmModal';
 import { Icon } from '../Icon/Icon';
@@ -102,6 +106,12 @@ export const DataTable: FC<DataTableProps<any>> = ({
   createButtonText = 'Create',
   ...rest
 }: DataTableProps<any>) => {
+  const list = [] as any[];
+  if (_.isArray(entityState.response)) {
+    list.push(...entityState.response);
+  } else if (entityState.response) {
+    list.push(...entityState.response.content);
+  }
   return (
     <div>
       <Fragment>
@@ -121,7 +131,7 @@ export const DataTable: FC<DataTableProps<any>> = ({
         </Navbar>
         <BootstrapTable
           keyField={keyField}
-          data={entityState.response?.content || []}
+          data={list}
           columns={columnProvider.getColumnDescriptions()}
           striped
           hover

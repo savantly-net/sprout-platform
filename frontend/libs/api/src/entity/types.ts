@@ -42,7 +42,7 @@ export interface TenantId {
   }
   
   export interface EntityState<T> {
-    response?: QueryResponse<T>;
+    response?: QueryResponse<T> | T[];
     error?: string;
     isFetching: boolean;
     isFetched: boolean;

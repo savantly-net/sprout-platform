@@ -1,5 +1,6 @@
 import { EntityState, EntityStateProvider, NavModel, NavModelItem, TenantedEntity } from '@savantly/sprout-api';
 import { css } from 'emotion';
+import _ from 'lodash';
 import React, { ReactElement, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
@@ -38,8 +39,14 @@ export const EntityItemIndexPage = ({
     if (!entityState.isFetched && !entityState.isFetching) {
       dispatch(entityStateProvider.loadState());
     } else {
-      if (!item && entityState.response && !entityState.response.empty) {
-        const found = entityState.response.content.filter((k) => k.itemId === itemId);
+      if (!item && entityState.response) {
+        const list = [] as TenantedEntity[];
+        if (_.isArray(entityState.response)) {
+          list.push(...entityState.response);
+        } else {
+          list.push(...entityState.response.content);
+        }
+        const found = list.filter((k) => k.itemId === itemId);
         if (found.length > 0) {
           setItem(found[0]);
         } else {
