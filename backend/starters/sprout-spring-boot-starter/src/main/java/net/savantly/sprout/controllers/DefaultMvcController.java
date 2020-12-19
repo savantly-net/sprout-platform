@@ -33,8 +33,8 @@ public class DefaultMvcController {
 	/**
 	 * Catch subfolder requests to redirect to admin/index view. 
 	 * This lets the SPA handle the routes
-	 * @param path
-	 * @return
+	 * @param path The path of the request
+	 * @return Always returns the admin/index view
 	 */
 	@GetMapping(path = {"/admin/", 
 			"/admin/" + nonStaticFilePattern, 

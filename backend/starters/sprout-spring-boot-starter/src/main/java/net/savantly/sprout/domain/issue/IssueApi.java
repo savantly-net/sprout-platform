@@ -1,6 +1,5 @@
 package net.savantly.sprout.domain.issue;
 
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,11 +18,8 @@ import net.savantly.sprout.rest.crud.TenantedDtoController;
 @RequestMapping("/api/issues")
 public class IssueApi extends TenantedDtoController<Issue, IssueDto> {
 
-	private TenantKeyedRepository<Issue> repository;
-
 	public IssueApi(TenantKeyedRepository<Issue> repository) {
 		super(repository);
-		this.repository = repository;
 	}
 
 	@PostMapping("/{itemId}/comment")
@@ -39,39 +35,30 @@ public class IssueApi extends TenantedDtoController<Issue, IssueDto> {
 	}
 
 	@Override
-	protected Issue convert(IssueDto object) {
-		Issue entity = null;
-		if (Objects.nonNull(object.getItemId())) {
-			entity = this.repository.findByIdItemId(object.getItemId()).orElse(createEntity(object));
-		} else {
-			entity = createEntity(object);
-		}
-		return updateEntity(entity, object);
-	}
-
-
-	@Override
 	protected IssueDto convert(Issue entity) {
 		return new IssueDto().setComments(convert(entity.getComments())).setDescription(entity.getDescription())
-				.setItemId(entity.getItemId()).setTags(entity.getTags()).setTitle(entity.getTitle()).setStatus(entity.getStatus());
+				.setItemId(entity.getItemId()).setTags(entity.getTags()).setTitle(entity.getTitle())
+				.setStatus(entity.getStatus());
 	}
 
 	private Set<IssueCommentDto> convert(Set<IssueComment> comments) {
 		return comments.stream().map(entity -> convert(entity)).collect(Collectors.toSet());
 	}
 
-	private Issue createEntity(IssueDto object) {
-		return new Issue().setDescription(object.getDescription()).setTags(object.getTags())
-				.setTitle(object.getTitle()).setStatus(object.getStatus());
+	@Override
+	protected Issue createEntity(IssueDto object) {
+		return new Issue().setDescription(object.getDescription()).setTags(object.getTags()).setTitle(object.getTitle())
+				.setStatus(object.getStatus());
 	}
 
 	private IssueComment createCommentEntity(Issue issue, IssueCommentDto dto) {
 		return new IssueComment().setIssueId(issue.getItemId()).setText(dto.getText());
 	}
 
-	private Issue updateEntity(Issue entity, IssueDto object) {
-		return entity.setDescription(object.getDescription()).setTags(object.getTags())
-				.setTitle(object.getTitle()).setStatus(object.getStatus());
+	@Override
+	protected Issue updateEntity(Issue entity, IssueDto object) {
+		return entity.setDescription(object.getDescription()).setTags(object.getTags()).setTitle(object.getTitle())
+				.setStatus(object.getStatus());
 	}
 
 }

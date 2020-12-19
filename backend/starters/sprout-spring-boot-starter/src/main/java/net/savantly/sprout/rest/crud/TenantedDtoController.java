@@ -18,12 +18,13 @@ import net.savantly.sprout.core.domain.tenant.TenantSupport;
 import net.savantly.sprout.data.repository.TenantKeyedRepository;
 
 /**
- * Specialized Rest Controller that converts a DTO to Entity and persists
+ * Specialized Rest Controller that provides standard paths, using standard http verbs for a CRUD interface.<br>
+ * The implementation should convert a DTO to Entity, and an Entity to DTO
  * 
  * @author jeremy branham
  *
- * @param <E>
- * @param <D>
+ * @param <E> The Entity Type
+ * @param <D> The DTO Type
  */
 public abstract class TenantedDtoController<E extends TenantSupport, D> {
 
@@ -33,55 +34,100 @@ public abstract class TenantedDtoController<E extends TenantSupport, D> {
 		this.repository = repository;
 	}
 
-	protected abstract E convert(D object);
-
-	protected abstract D convert(E entity);
-
-	@GetMapping
-	@PageableAsQueryParam
-	public ResponseEntity<Page<D>> getAll(Pageable pageable) {
-		return ResponseEntity.ok(repository.findAll(pageable).map(entity -> convert(entity)));
-	}
-
-	@GetMapping("/{itemId}")
-	public ResponseEntity<D> getByItemId(@PathVariable String itemId) {
-		return ResponseEntity.ok(convert(getObjectByItemId(itemId)));
-	}
-
-	@PostMapping
-	public ResponseEntity<D> create(@RequestBody D object) {
-		E entity = repository.save(convert(object));
-		return ResponseEntity.status(HttpStatus.CREATED).body(convert(entity));
-	}
-
-	@PutMapping("/{itemId}")
-	public ResponseEntity<D> update(@PathVariable String itemId, @RequestBody D object) {
-		E converted = convert(object);
-		E updatedObject = updateObject(getObjectByItemId(itemId), converted);
-		return ResponseEntity.ok(convert(repository.save(updatedObject)));
-	}
-
-	@DeleteMapping("/{itemId}")
-	public void deleteById(@PathVariable String itemId) {
-		repository.deleteByIdItemId(itemId);
-	}
+	/**
+	 * Create an entity instance from a DTO. The result is saved.
+	 * 
+	 * @param object The DTO to use for creating an entity
+	 * @return The entity to save
+	 */
+	protected abstract E createEntity(D object);
 
 	/**
 	 * Override this method to control the mapping of an updated object onto an
 	 * existing object<br>
 	 * The returned object will be persisted<br>
 	 * <br>
-	 * The default implementation just returns the updated object
+	 * If the DTO and Entity are the same type, you can return the object as-is<br>
 	 * 
-	 * @param existing the currently persisted object
-	 * @param updated  the updates received
+	 * @param entity the currently persisted object
+	 * @param object  the updates received
 	 * @return the object to save
 	 */
-	protected E updateObject(E existing, E updated) {
-		return updated;
+	protected abstract E updateEntity(E entity, D object);
+
+	/**
+	 * Override to convert a DTO to an entity.<br>
+	 * If the DTO and Entity are the same type, you can return the object as-is<br>
+	 * 
+	 * @param entity The entity to convert to a DTO
+	 * @return The DTO to return from the REST methods
+	 */
+	protected abstract D convert(E entity);
+
+	/**
+	 * Execute the findAll method on the repository, passing pageable query parameters if available.
+	 * @param pageable Paging Parameters
+	 * @return A Page of DTO objects
+	 */
+	@GetMapping
+	@PageableAsQueryParam
+	public ResponseEntity<Page<D>> getAll(Pageable pageable) {
+		return ResponseEntity.ok(repository.findAll(pageable).map(entity -> convert(entity)));
 	}
 
-	protected E getObjectByItemId(String id) {
-		return repository.findByIdItemId(id).orElseThrow(() -> new EntityNotFoundException("id: " + id));
+	/** 
+	 * Returns a single object by the itemId, or throws an exception if the object doesnt exist
+	 * 
+	 * @param itemId The Entity's itemId to search for
+	 * @return The found entity converted to a DTO
+	 */
+	@GetMapping("/{itemId}")
+	public ResponseEntity<D> getByItemId(@PathVariable String itemId) {
+		return ResponseEntity.ok(convert(getObjectByItemId(itemId)));
+	}
+
+	/**
+	 * Calls {@code createEntity} and saves the result.<br>
+	 * 
+	 * @param object The DTO to convert to an entity
+	 * @return The updated DTO
+	 */
+	@PostMapping
+	public ResponseEntity<D> create(@RequestBody D object) {
+		E entity = repository.save(createEntity(object));
+		return ResponseEntity.status(HttpStatus.CREATED).body(convert(entity));
+	}
+
+	/**
+	 * Calls {@code updateEntity} to updates an entity from the the DTO, and saves the result
+	 * 
+	 * @param itemId The entity's itemId to search for
+	 * @param object The value to update the entity with
+	 * @return The updated DTO
+	 */
+	@PutMapping("/{itemId}")
+	public ResponseEntity<D> update(@PathVariable String itemId, @RequestBody D object) {
+		E updatedObject = updateEntity(getObjectByItemId(itemId), object);
+		return ResponseEntity.ok(convert(repository.save(updatedObject)));
+	}
+
+	/**
+	 * Delete an entity by the itemId. Calls the deleteByIdItemId repository method.
+	 * 
+	 * @param itemId The enitiy's itemId to search for
+	 */
+	@DeleteMapping("/{itemId}")
+	public void deleteById(@PathVariable String itemId) {
+		repository.deleteByIdItemId(itemId);
+	}
+
+	/**
+	 * Find an entity by the itemId or throw an {@code EntityNotFoundException}
+	 * 
+	 * @param itemId The enitiy's itemId to search for
+	 * @return The found entity
+	 */
+	protected E getObjectByItemId(String itemId) {
+		return repository.findByIdItemId(itemId).orElseThrow(() -> new EntityNotFoundException("itemId: " + itemId));
 	}
 }
