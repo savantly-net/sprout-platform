@@ -20,7 +20,7 @@ export interface EntityReducerProps<T> {
 export class EntityStateProvider<T> {
   props: EntityReducerProps<T>;
   slice: Slice<EntityState<T>, SliceCaseReducers<EntityState<T>>, string>;
-  loadState: AsyncThunk<AxiosResponse<QueryResponse<T>>, void, any>;
+  loadState: AsyncThunk<AxiosResponse<QueryResponse<T> | T[]>, void, any>;
 
   constructor(props: EntityReducerProps<T>) {
     this.props = props;
@@ -46,7 +46,7 @@ export class EntityStateProvider<T> {
         );
         builder.addCase(
           this.loadState.fulfilled,
-          (state, action: PayloadAction<AxiosResponse<QueryResponse<T>>>): EntityState<T> => {
+          (state, action: PayloadAction<AxiosResponse<QueryResponse<T> | T[]>>): EntityState<T> => {
             return {
               ...state,
               response: action.payload.data,

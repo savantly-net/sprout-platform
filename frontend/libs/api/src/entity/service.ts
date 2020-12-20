@@ -8,7 +8,7 @@ export class BaseEntityService<T> {
   constructor(protected props: BaseEntityServiceProps<T>) {}
 
   load(config?: AxiosRequestConfig) {
-    return axios.get<QueryResponse<T>>(this.props.baseUrl, config);
+    return axios.get<QueryResponse<T> | T[]>(this.props.baseUrl, config);
   }
   getById(id: string, config?: AxiosRequestConfig) {
     return axios.get<T>(`${this.props.baseUrl}/${id}`, config);

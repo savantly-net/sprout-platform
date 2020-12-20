@@ -7,8 +7,8 @@ import { ProviderWrapper } from '../../util/mocks/provider';
 import { EntityManager } from './EntityManager';
 
 const NavMe = () => {
-  const navigtate = useNavigate();
-  return <Button onClick={() => navigtate('test/')}>click me</Button>;
+  const navigate = useNavigate();
+  return <Button onClick={() => navigate('test/')}>click me</Button>;
 };
 
 // This default export determines where your story goes in the story list
