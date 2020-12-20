@@ -20,7 +20,10 @@ set -e
 rush change
 rush check
 rush update
-rush build
+
+echo 'Building everything but the webapp. If the inter-project dependencies change, we may need to adjust these commands'
+rush build -t ui
+rush build -f sprout-runtime
 
 
 # keep track of the last executed command

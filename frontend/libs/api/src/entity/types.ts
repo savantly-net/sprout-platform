@@ -41,20 +41,19 @@ export interface QueryResponse<T> {
   empty: boolean;
 }
 
-export interface PagedEntityState<T> {
-  response?: QueryResponse<T>;
+export interface BaseEntityState<T> {
   error?: string;
   isFetching: boolean;
   isFetched: boolean;
   example: T;
 }
 
-export interface UnpagedEntityState<T> {
+export interface PagedEntityState<T> extends BaseEntityState<T> {
+  response?: QueryResponse<T>;
+}
+
+export interface UnpagedEntityState<T> extends BaseEntityState<T> {
   response?: T[];
-  error?: string;
-  isFetching: boolean;
-  isFetched: boolean;
-  example: T;
 }
 
 export interface EntityState<T> extends Omit<PagedEntityState<T>, 'response'>, Omit<UnpagedEntityState<T>, 'response'> {
