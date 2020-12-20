@@ -23,7 +23,7 @@ rush update
 
 echo 'Building everything but the webapp. If the inter-project dependencies change, we may need to adjust these commands'
 rush build -t ui
-rush build sprout-runtime
+rush build -t sprout-runtime
 
 
 # keep track of the last executed command
