@@ -12,8 +12,7 @@ export function setFileService(instance: FileService) {
 }
 
 /**
- * Used to retrieve the {@link LocationSrv} that can be used to automatically navigate
- * the user to a new place in Grafana.
+ * Used to retrieve the {@link FileService} 
  *
  * @public
  */

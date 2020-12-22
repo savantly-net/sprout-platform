@@ -11,7 +11,7 @@ export interface FileUploadButtonProps {
   /**
    * Restrict file types in browser. Default is everything.
    */
-  accept: string[];
+  accept?: string[];
   /**
    * Supply custom content for the button
    */
