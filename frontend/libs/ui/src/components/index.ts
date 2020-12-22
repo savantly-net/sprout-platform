@@ -5,6 +5,7 @@ export * from './DateField/DateField';
 export * from './DateTimeField/DateTimeField';
 export * from './DialogModal/DialogModal';
 export * from './Entity';
+export * from './FileUploadButton/FileUploadButton';
 export * from './Form/Form';
 export * from './FormField/FormField';
 export * from './Handlebars/HandlebarsViewer';

@@ -7,7 +7,7 @@ import { FormField } from '../FormField/FormField';
 
 // This default export determines where your story goes in the story list
 export default {
-  title: 'Form',
+  title: 'Form/Form',
   component: Form
 };
 

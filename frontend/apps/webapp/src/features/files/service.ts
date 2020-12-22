@@ -1,8 +1,10 @@
 import { SERVER_API_URL } from '../../config/constants';
 import { sproutApiSvc } from '../../core/services/sproutApiSvc';
 import { FileDataRequest, FileDataResponse, FileMetaData } from './types';
+import { FileService } from '@savantly/sprout-api'
+import { setFileService } from '@savantly/sprout-runtime';
 
-class FileService {
+class FileServiceImpl implements FileService {
   getFilesByPath = (path?: string) => {
     return sproutApiSvc.get<FileDataResponse>(`${SERVER_API_URL}/api/files/list/${path || ''}`);
   };
@@ -28,4 +30,5 @@ class FileService {
   };
 }
 
-export const fileService = new FileService();
+export const fileService = new FileServiceImpl();
+setFileService(fileService);

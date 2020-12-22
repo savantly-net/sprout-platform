@@ -2,6 +2,7 @@ export * from './datetime';
 export * from './entity';
 export * from './events';
 export * from './field';
+export * from './file';
 export * from './notification';
 export * from './types';
 export * from './text';

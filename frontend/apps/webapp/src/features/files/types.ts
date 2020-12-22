@@ -1,12 +1,31 @@
 import { FileData } from 'chonky';
 
-export interface FileMetaData extends FileData {
+export interface FileMetaData {
   id: string;
   parent?: string;
   downloadUrl?: string;
+  name: string;
+  ext?: string;
+  isDir?: boolean;
+  isHidden?: boolean;
+  isSymlink?: boolean;
+  isEncrypted?: boolean;
+  openable?: boolean;
+  selectable?: boolean;
+  draggable?: boolean;
+  droppable?: boolean;
+  dndOpenable?: boolean;
+  size?: number;
+  modDate?: Date | string;
+  childrenCount?: number;
+  color?: string;
+  icon?: string | any;
+  thumbnailUrl?: string;
+  folderChainIcon?: string | any;
+  [property: string]: any;
 }
 
-interface FolderChainItem {
+export interface FolderChainItem {
   id: string;
   name: string;
   isDir: boolean;
