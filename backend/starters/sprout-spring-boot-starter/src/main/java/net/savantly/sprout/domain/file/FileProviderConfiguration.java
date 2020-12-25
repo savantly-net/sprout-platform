@@ -6,9 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 import net.savantly.sprout.domain.file.jpa.JpaFileProviderConfiguration;
+import net.savantly.sprout.domain.file.s3.S3FileProviderConfiguration;
 
 @Configuration
-@Import(JpaFileProviderConfiguration.class)
+@Import({ JpaFileProviderConfiguration.class, S3FileProviderConfiguration.class })
 public class FileProviderConfiguration {
 
 	@Bean

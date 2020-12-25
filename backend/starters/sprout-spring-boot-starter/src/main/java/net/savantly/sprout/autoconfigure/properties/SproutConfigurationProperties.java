@@ -240,5 +240,13 @@ public class SproutConfigurationProperties {
 	@Setter
 	public static class Files {
 		private String providerName = "jpaFileProvider";
+		private S3 s3 = new S3();
+	}
+	
+	@Getter
+	@Setter
+	public static class S3 {
+		private String region = "us-east-2";
+		private String bucketName;
 	}
 }

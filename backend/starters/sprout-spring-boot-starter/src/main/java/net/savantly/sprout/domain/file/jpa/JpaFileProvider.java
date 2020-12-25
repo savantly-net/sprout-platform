@@ -142,6 +142,7 @@ public class JpaFileProvider implements FileProvider {
 				.setDir(metaData.isDir())
 				.setIcon(metaData.getIcon())
 				.setParent(metaData.getParent());
+		jpaFile.setId(metaData.getId());
 				
 		if (Objects.nonNull(file)) {
 			String name = file.getOriginalFilename();
