@@ -42,7 +42,7 @@ configurations {
 }
 
 dependencies {
-	api platform('software.amazon.awssdk:bom:2.14.3')
+	//api platform('software.amazon.awssdk:bom:2.14.3')
 	api project(':sprout-core')
 	
 	api 'org.freemarker:freemarker',
@@ -73,7 +73,7 @@ dependencies {
 		"com.fasterxml.jackson.module:jackson-module-afterburner",
 		'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.11.1',
 		'org.apache.httpcomponents:httpclient:4.5.13',
-		'software.amazon.awssdk:s3'
+		'software.amazon.awssdk:s3:2.14.3'
 			
 	compileOnly 'org.projectlombok:lombok',
 		'javax.interceptor:javax.interceptor-api:1.2'
