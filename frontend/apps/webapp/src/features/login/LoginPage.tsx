@@ -1,10 +1,10 @@
 import { Container } from '@savantly/sprout-ui';
 import { Form, FormField, OAuth2Login } from '@sprout-platform/ui';
 import { css, cx } from 'emotion';
-import React, { useMemo, useState } from 'react';
+import React, { Fragment, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Alert, Button, Col, Modal, ModalBody, Row } from 'reactstrap';
+import { Alert, Row } from 'reactstrap';
 import { login, logout } from '../../core/reducers/authentication';
 import { sproutApiSvc } from '../../core/services/sproutApiSvc';
 import { OAuthClientConfig, StoreState } from '../../types';
@@ -23,7 +23,7 @@ export const LoginPage = ({ redirectUrl, showBasic }: { redirectUrl?: string; sh
 
   useMemo(
     () =>
-    sproutApiSvc
+      sproutApiSvc
         .get('/api/authentication/oauth')
         .then((value) => {
           setOauthClients(value.data.clients);
@@ -52,9 +52,10 @@ export const LoginPage = ({ redirectUrl, showBasic }: { redirectUrl?: string; sh
 
   return (
     <Container grow={1}>
-      <Col
+      <div
         className={cx(
-          'align-middle',
+          'd-flex',
+          'align-items-center',
           'justify-content-around',
           css`
             height: 100vh;
@@ -62,19 +63,17 @@ export const LoginPage = ({ redirectUrl, showBasic }: { redirectUrl?: string; sh
           `
         )}
       >
-        <Row
-          className={cx(
-            'justify-content-center',
-            css`
-              margin: auto;
-            `
-          )}
-        >
-          <Button color="primary" onClick={toggle} style={{ marginBottom: '1rem' }}>
-            Login
-          </Button>
-          <Modal isOpen={modal} toggle={toggle}>
-            <ModalBody>
+        <div className="card">
+          <div className="card-header">Login</div>
+          <div className="card-body">
+            <Row
+              className={cx(
+                'justify-content-center',
+                css`
+                  margin: auto;
+                `
+              )}
+            >
               <Form
                 cancelText="Cancel"
                 initialValues={{
@@ -91,60 +90,72 @@ export const LoginPage = ({ redirectUrl, showBasic }: { redirectUrl?: string; sh
                 showSubmitButton
                 submitText="Login"
               >
-                <Row form tag="div" widths={['xs', 'sm', 'md', 'lg', 'xl']}>
+                <Fragment>
                   <FormField label="Username" name="username" />
                   <FormField label="Password" name="password" type={'password'} />
-                </Row>
+                </Fragment>
               </Form>
               {error && <Alert color="danger">{error}</Alert>}
-            </ModalBody>
-          </Modal>
-        </Row>
-        <Row
-          className={cx(
-            'justify-content-center',
-            css`
-              margin: auto;
-            `
-          )}
-        >
-          {authentication.errorMessage && <Alert>{authentication.errorMessage}</Alert>}
-          {showOAuth &&
-            oauthClients.map((c) => (
-              <OAuth2Login
-                key={c.name}
-                authorizationUrl={c.authorizationUrl}
-                clientId={c.clientId}
-                redirectUri={window.location.href}
-                responseType="token"
-                buttonText={c.displayName}
-                scope={c.scope}
-                className="btn btn-primary"
-                onFailure={(error) => {
-                  console.log(`failed authentication`, JSON.stringify(error));
-                  dispatch(
-                    login({
-                      errorMessage: error.message
-                    })
-                  );
-                }}
-                onSuccess={(data) => {
-                  console.log(`successful authentication. logging into web app.`, JSON.stringify(data));
-                  dispatch(
-                    login({
-                      accessToken: data.access_token
-                    })
-                  );
-                  if (redirectTo === '/login') {
-                    navigate('/');
-                  } else {
-                    navigate(redirectTo);
-                  }
-                }}
-              />
-            ))}
-        </Row>
-      </Col>
+            </Row>
+            <Row
+              className={cx(
+                'justify-content-center',
+                css`
+                  margin: auto;
+                `
+              )}
+            >
+              {authentication.errorMessage && <Alert>{authentication.errorMessage}</Alert>}
+              {showOAuth && (
+                <Fragment>
+                  <div>
+                    <span
+                      className={css`
+                        margin: auto;
+                      `}
+                    >
+                      -- OR --
+                    </span>
+                  </div>
+                  {oauthClients.map((c) => (
+                    <OAuth2Login
+                      key={c.name}
+                      authorizationUrl={c.authorizationUrl}
+                      clientId={c.clientId}
+                      redirectUri={window.location.href}
+                      responseType="token"
+                      buttonText={c.displayName}
+                      scope={c.scope}
+                      className="btn btn-primary"
+                      onFailure={(error) => {
+                        console.log(`failed authentication`, JSON.stringify(error));
+                        dispatch(
+                          login({
+                            errorMessage: error.message
+                          })
+                        );
+                      }}
+                      onSuccess={(data) => {
+                        console.log(`successful authentication. logging into web app.`, JSON.stringify(data));
+                        dispatch(
+                          login({
+                            accessToken: data.access_token
+                          })
+                        );
+                        if (redirectTo === '/login') {
+                          navigate('/');
+                        } else {
+                          navigate(redirectTo);
+                        }
+                      }}
+                    />
+                  ))}
+                </Fragment>
+              )}
+            </Row>
+          </div>
+        </div>
+      </div>
     </Container>
   );
 };

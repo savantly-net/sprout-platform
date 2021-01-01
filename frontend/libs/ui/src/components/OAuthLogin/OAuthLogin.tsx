@@ -4,6 +4,7 @@ import PopupWindow from '../../util/PopupWindow';
 import { toQuery } from '../../util/url';
 
 const defaultProps = {
+  autoLogin: false,
   buttonText: 'Login',
   scope: '',
   state: '',
@@ -15,6 +16,7 @@ const defaultProps = {
 type DefaultProps = Readonly<typeof defaultProps>;
 
 export type OAuth2LoginProps = {
+  autoLogin?: boolean;
   authorizationUrl: string;
   clientId: string;
   redirectUri: string;
@@ -92,6 +94,12 @@ export class OAuth2Login extends Component<OAuth2LoginProps> {
     popup.then(this.onSuccess)?.catch(this.onFailure);
   }
 
+  componentDidMount() {
+    if (this.props.autoLogin) {
+      this.onBtnClick();
+    }
+  }
+
   onRequest() {
     const { onRequest } = this.props;
     onRequest();
@@ -129,4 +137,3 @@ export class OAuth2Login extends Component<OAuth2LoginProps> {
     );
   }
 }
-

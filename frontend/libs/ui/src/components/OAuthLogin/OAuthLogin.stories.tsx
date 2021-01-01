@@ -24,3 +24,17 @@ Example.args = {
   onSuccess: (data) => console.log(data),
   onFailure: (error) => console.error(error)
 };
+
+export const AutoLogin = Template.bind({});
+AutoLogin.args = {
+  autoLogin: true,
+  authorizationUrl: 'https://savantly.mocklab.io/oauth/authorize',
+  redirectUri: window.location.href,
+  buttonText: 'Mocklab Login',
+  clientId: 'mocklab_oidc',
+  responseType: 'token',
+  scope: 'openid profile email',
+  className: 'btn btn-primary',
+  onSuccess: (data) => console.log(data),
+  onFailure: (error) => console.error(error)
+};

@@ -91,8 +91,8 @@
     {
       "name": "start:dev",
       "commandKind": "global",
-      "summary": "Starts a test server from the sprout-spring-starter project that uses development mode features such as log levels and Spring devtools",
-      "shellCommand": "./gradlew :sprout-spring-starter:dev",
+      "summary": "Starts a test server from the sprout-spring-boot-starter project that uses development mode features such as log levels and Spring devtools",
+      "shellCommand": "./gradlew :sprout-spring-boot-starter:dev",
       "safeForSimultaneousRushProcesses": true
     },
     {
