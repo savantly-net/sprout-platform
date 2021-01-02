@@ -120,6 +120,7 @@ export const LoginPage = ({ redirectUrl, showBasic }: { redirectUrl?: string; sh
                   {oauthClients.map((c) => (
                     <OAuth2Login
                       key={c.name}
+                      autoLogin={c.autoLogin}
                       authorizationUrl={c.authorizationUrl}
                       clientId={c.clientId}
                       redirectUri={window.location.href}

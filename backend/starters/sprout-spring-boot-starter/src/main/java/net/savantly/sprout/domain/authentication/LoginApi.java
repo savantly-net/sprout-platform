@@ -63,7 +63,8 @@ public class LoginApi {
 						.setRedirectUrl(c.getRedirectUrl())
 						.setScope(c.getScope())
 						.setTokenUrl(c.getTokenUrl())
-						.setUserInfoUrl(c.getUserInfoUrl()))
+						.setUserInfoUrl(c.getUserInfoUrl())
+						.setAutoLogin(c.isAutoLogin()))
 				.collect(Collectors.toList());
 		response.put("clients", implicitFlows);
 		return ResponseEntity.ok(response);

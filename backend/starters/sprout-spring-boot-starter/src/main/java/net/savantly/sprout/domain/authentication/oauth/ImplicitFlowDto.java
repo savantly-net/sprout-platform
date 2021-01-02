@@ -16,4 +16,5 @@ public class ImplicitFlowDto {
 	private String redirectUrl;
 	private String tokenUrl;
 	private String userInfoUrl;
+	private boolean autoLogin;
 }
