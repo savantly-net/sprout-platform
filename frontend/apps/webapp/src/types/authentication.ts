@@ -17,6 +17,7 @@ export interface AuthenticationUpdate {
 
 export interface OAuthClientConfig {
   name: string;
+  autoLogin?: boolean;
   displayName: string;
   issuerUri: string;
   clientId: string;
