@@ -35,6 +35,12 @@ documentation:
     path: /features/dashboards/
   - title: File Manager
     path: /features/file-manager/
+  - title: Menus
+    path: /features/menus/
+  - title: Feedback/Issue Management
+    path: /features/issues/
+  - title: Permissions
+    path: /features/permissions/
 - sectiontitle: Reference
   section:
   - title: Overview
