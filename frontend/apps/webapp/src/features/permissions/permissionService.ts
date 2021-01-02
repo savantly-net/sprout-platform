@@ -1,7 +1,7 @@
-import Axios from "axios"
+import Axios from 'axios';
 
 export interface Privilege {
-    name: string;
+  name: string;
 }
 
 export interface Role {
@@ -10,14 +10,14 @@ export interface Role {
 }
 
 export const permissionService = {
-    getRoles: () => {
-        return Axios.get<Role[]>('/api/permissions/role');
-    },
-    getPrivileges: () => {
-        return Axios.get<Privilege[]>('/api/permissions/privilege');
-    },
-    updatePermissions: (role: string, privileges: string[]) => {
-        console.log("updating permissions: ", role, privileges);
-        return Axios.put<Role>('/api/permissions/role', {role, privileges});
-    }
-}
+  getRoles: () => {
+    return Axios.get<Role[]>('/api/permissions/role');
+  },
+  getPrivileges: () => {
+    return Axios.get<Privilege[]>('/api/permissions/privilege');
+  },
+  updatePermissions: (role: string, privileges: string[]) => {
+    console.log('updating permissions: ', role, privileges);
+    return Axios.put<Role>('/api/permissions/role', { role, privileges });
+  }
+};

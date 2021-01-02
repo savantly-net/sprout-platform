@@ -56,6 +56,13 @@ export const defaultNavTree: NavModelItem[] = [
         url: '/plugins'
       },
       {
+        subTitle: 'Configure Menu',
+        icon: 'list',
+        id: 'appMenu',
+        text: 'Menu',
+        url: '/menu'
+      },
+      {
         subTitle: 'Configure Permissions',
         icon: 'lock',
         id: 'appPermissions',

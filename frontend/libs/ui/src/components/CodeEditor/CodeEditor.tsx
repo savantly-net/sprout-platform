@@ -7,6 +7,7 @@ import AceEditor, { IAceEditorProps } from 'react-ace';
 import 'ace-builds/src-min-noconflict/mode-handlebars';
 import 'ace-builds/src-min-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/mode-html';
+import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/theme-github';
 import 'ace-builds/src-noconflict/theme-monokai';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -23,7 +24,7 @@ ace.config.setModuleUrl(
   'https://cdn.jsdelivr.net/npm/ace-builds@1.4.3/src-noconflict/worker-javascript.js'
 );
 
-export type CodeEditorMode = 'html' | 'javascript' | 'handlebars';
+export type CodeEditorMode = 'html' | 'javascript' | 'handlebars' | 'json';
 export type CodeEditorTheme = 'light' | 'dark';
 
 export interface CodeEditorProps extends IAceEditorProps {

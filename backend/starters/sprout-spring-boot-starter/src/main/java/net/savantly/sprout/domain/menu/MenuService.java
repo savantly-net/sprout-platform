@@ -23,10 +23,27 @@ public class MenuService {
 		 this.menuContributors = menuContributors;
 	}
 	
+	/**
+	 * Gets the root menus with any contributions from plugins
+	 * @return
+	 */
 	public List<MenuDto> getRootMenus() {
 		List<MenuDto> dtos = toDto(this.repository.findRootMenus());
 		menuContributors.forEach(contributor -> contributor.contribute(dtos));
 		return dtos;
+	}
+
+	/**
+	 * Gets the root menus with optional contributions from plugins
+	 * @param withContributions Should plugin contributions be included?
+	 * @return
+	 */
+	public List<MenuDto> getRootMenus(boolean withContributions) {
+		if(withContributions) {
+			return getRootMenus();
+		} else {
+			return toDto(this.repository.findRootMenus());
+		}
 	}
 
 	public void upsertMenus(List<MenuDto> menus){
@@ -92,7 +109,12 @@ public class MenuService {
 			menu = new Menu().set_public(true).setDisplayText(m.getDisplayText()).setUrl(m.getUrl()).setName(m.getName());
 		} else {
 			menu = existing.get(0);
-			menu.set_public(true).setDisplayText(m.getDisplayText()).setUrl(m.getUrl()).setName(m.getName());
+			menu.set_public(true)
+				.setDisplayText(m.getDisplayText())
+				.setUrl(m.getUrl())
+				.setName(m.getName())
+				.setIcon(m.getIcon())
+				.setPosition(m.getPosition());
 			menuEntities.add(menu);
 		}
 		if (Objects.nonNull(parent)) {
