@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { FetchResponse } from '@savantly/sprout-runtime';
+import { AxiosResponse } from 'axios';
 import {
   AppForm,
   AppFormQueryState,
@@ -39,16 +39,16 @@ const formQuerySlice = createSlice({
     }),
     formQueryCompleted: (
       state: AppFormQueryState,
-      action: PayloadAction<FetchResponse<AppForm[]>>
+      action: PayloadAction<AxiosResponse<AppForm[]>>
     ): AppFormQueryState => ({
       ...state,
       isActive: false,
       error: '',
       forms: action.payload.data,
       pagination: {
-        numPages: Number(action.payload.headers.get('x-numPages') || '0'),
-        page: Number(action.payload.headers.get('x-page') || '0'),
-        total: Number(action.payload.headers.get('x-total') || '0'),
+        numPages: Number(action.payload.headers['x-numPages'] || '0'),
+        page: Number(action.payload.headers['x-page'] || '0'),
+        total: Number(action.payload.headers['x-total'] || '0'),
       },
     }),
     formQueryFailed: (state: AppFormQueryState, action: PayloadAction<{ error: string }>): AppFormQueryState => ({
@@ -113,15 +113,15 @@ const submissionQuerySlice = createSlice({
     }),
     submissionQueryCompleted: (
       state: AppFormSubmissionQueryState,
-      action: PayloadAction<FetchResponse<AppFormSubmissionDto[]>>
+      action: PayloadAction<AxiosResponse<AppFormSubmissionDto[]>>
     ): AppFormSubmissionQueryState => ({
       ...state,
       error: '',
       submissions: action.payload.data,
       pagination: {
-        numPages: Number(action.payload.headers.get('x-numPages') || '0'),
-        page: Number(action.payload.headers.get('x-page') || '0'),
-        total: Number(action.payload.headers.get('x-total') || '0'),
+        numPages: Number(action.payload.headers['x-numPages'] || '0'),
+        page: Number(action.payload.headers['x-page'] || '0'),
+        total: Number(action.payload.headers['x-total'] || '0'),
       },
       isActive: false,
     }),

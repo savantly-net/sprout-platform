@@ -1,8 +1,10 @@
 import { cx } from 'emotion';
 import { doGetForm } from 'plugin/pages/form/state/actions';
-import React, { Fragment, useMemo } from 'react';
-import { useDispatch } from 'react-redux';
+import { FormModuleRootState } from 'plugin/types';
+import React, { Fragment, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Route, Routes, useParams } from 'react-router-dom';
+import { useAppForm } from '../state';
 import { DeleteForm } from './DeleteForm';
 import { EditForm } from './EditForm';
 import { SubmissionIndex } from './submission';
@@ -26,18 +28,9 @@ const NavItem = ({ to, children }: { to: string; children: any }) => {
 
 export const FormItemIndex = () => {
   const formId = useParams().formId;
-  const dispatch = useDispatch();
 
   const toEnterData = './';
   const toViewData = './submission';
-
-  /* eslint-disable */
-  useMemo(() => {
-    if (formId) {
-      dispatch(doGetForm(formId, () => {}));
-    }
-  }, [formId]);
-  /* eslint-enable */
 
   return (
     <div>

@@ -25,7 +25,7 @@ export const FormsSubPageContainer = ({ path, onNavChanged, meta }: Props) => {
     const tabs: NavModelItem[] = [];
     tabs.push({
       text: 'Info',
-      icon: 'fa fa-fw fa-file-text-o',
+      icon: 'file-text',
       url: '',
       id: TAB_DEFAULT,
     });

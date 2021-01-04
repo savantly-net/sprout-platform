@@ -7,7 +7,6 @@ import _set from 'lodash/set';
 import { AppFormDto } from 'plugin/types';
 import React, { Fragment, useEffect, useReducer } from 'react';
 import { FormBuilder } from 'react-formio';
-import { Col, Row } from 'reactstrap';
 
 interface OwnProps {
   form: AppFormDto;
@@ -86,8 +85,8 @@ export const FormEdit = (props: OwnProps) => {
             <Fragment>
               <h5>Details</h5>
               <hr />
-              <Row form>
-                <Col md={3}>
+              <div className="row">
+                <div className="col">
                   <FormField
                     name="title"
                     type="text"
@@ -104,8 +103,8 @@ export const FormEdit = (props: OwnProps) => {
                     placeholder="path-to/form"
                     css={css({ input: { textTransform: 'lowercase', width: '120px' } })}
                   />
-                </Col>
-                <Col md={3}>
+                </div>
+                <div className="col">
                   <FormField as="select" name="display" label="Display as">
                     <option label="Form" value="form">
                       Form
@@ -122,13 +121,13 @@ export const FormEdit = (props: OwnProps) => {
                       Resource
                     </option>
                   </FormField>
-                </Col>
-              </Row>
-              <Row>
+                </div>
+              </div>
+              <div>
                 <h5>Components</h5>
                 <hr />
                 <FormBuilder key={values._id} form={values} options={options} builder={builder} onChange={formChange} />
-              </Row>
+              </div>
             </Fragment>
           );
         }}

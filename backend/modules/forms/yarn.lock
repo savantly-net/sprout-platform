@@ -1627,10 +1627,10 @@
     redux-thunk "^2.3.0"
     reselect "^4.0.0"
 
-"@savantly/sprout-api@2.0.0-28":
-  version "2.0.0-28"
-  resolved "https://registry.yarnpkg.com/@savantly/sprout-api/-/sprout-api-2.0.0-28.tgz#4c3f0f0866ad0c330a99f63f3958715afe633b2a"
-  integrity sha512-6R6IcxsRHttxk2r9XDtNRpH6QEXc3fqMQgTVHT0ehhmZMK3AcG4s2OeBVdXPhdVn5Wg+e0oYsEr/1Ir7T9FevA==
+"@savantly/sprout-api@2.0.0-29":
+  version "2.0.0-29"
+  resolved "https://registry.yarnpkg.com/@savantly/sprout-api/-/sprout-api-2.0.0-29.tgz#6684b7da732d1c397051973074f9080bacf60118"
+  integrity sha512-R8jBzEacINk431RbvIDQcLuGPJtIcnFpHfpiKJbTMQ7vBpyQlepztVPTJXLsvMbxBcW/y9NClta3aGvJ3HbuOA==
   dependencies:
     "@braintree/sanitize-url" "4.0.0"
     "@reduxjs/toolkit" "^1.4.0"
@@ -1647,26 +1647,26 @@
     uuid "~8.3.1"
     xss "1.0.6"
 
-"@savantly/sprout-runtime@2.0.0-28":
-  version "2.0.0-28"
-  resolved "https://registry.yarnpkg.com/@savantly/sprout-runtime/-/sprout-runtime-2.0.0-28.tgz#a24aad7545523d97649a31a1b155753a773c4798"
-  integrity sha512-th1HRDmZrErpIzjOi/wMKSg1MHEtgbb8SkKHPNt+bzb8wACGmVXzeRjwNAzhnRwgL44bqZUnKkE6w/zyGrNcpg==
+"@savantly/sprout-runtime@2.0.0-29":
+  version "2.0.0-29"
+  resolved "https://registry.yarnpkg.com/@savantly/sprout-runtime/-/sprout-runtime-2.0.0-29.tgz#bf495fb6a73ed3cc983c598d8e6d43a30cb5b7e8"
+  integrity sha512-7vPQ6ZqoCA3EhDxMbIYQJMWgZC+aRfaX5tt92hqY4Cei/i3/Y93/GbVGQkJjWk1VxSCq8tZTJEPQavP7cuaocQ==
   dependencies:
-    "@savantly/sprout-api" "2.0.0-28"
-    "@savantly/sprout-ui" "2.0.0-28"
+    "@savantly/sprout-api" "2.0.0-29"
+    "@savantly/sprout-ui" "2.0.0-29"
     axios "~0.20.0"
     systemjs "0.20.19"
     systemjs-plugin-css "0.1.37"
 
-"@savantly/sprout-toolkit@2.0.0-28":
-  version "2.0.0-28"
-  resolved "https://registry.yarnpkg.com/@savantly/sprout-toolkit/-/sprout-toolkit-2.0.0-28.tgz#2f4fd3cdadd58aaa7061bcf5025dc0a950f371d6"
-  integrity sha512-KpDSe4DTYWV5+N1fLz6qU+RxqaOf9gLvs0lfQea+VBCSP9f8B5MiMJeJddcVDPzQ8Hn9JF5w2D6vnxhQTblZ/g==
+"@savantly/sprout-toolkit@2.0.0-29":
+  version "2.0.0-29"
+  resolved "https://registry.yarnpkg.com/@savantly/sprout-toolkit/-/sprout-toolkit-2.0.0-29.tgz#b8b3dc8bc94c5d8885628d3823138b01167c1d1c"
+  integrity sha512-fpkI4633Buy+OijWoKxF8Y6EpT3igvj/6Xhb+LXD3D8M/v79A/ET6csVKRBcwstbCM2rmJsCLliPhPwgi4Y7nw==
   dependencies:
     "@babel/core" "^7.12.3"
     "@babel/preset-env" "^7.12.1"
     "@jest/core" "~26.5.2"
-    "@savantly/sprout-api" "2.0.0-28"
+    "@savantly/sprout-api" "2.0.0-29"
     "@savantly/sprout-tsconfig" "^1.0.0"
     "@types/command-exists" "^1.2.0"
     "@types/execa" "^0.9.0"
@@ -1751,16 +1751,16 @@
   resolved "https://registry.yarnpkg.com/@savantly/sprout-tsconfig/-/sprout-tsconfig-1.0.0.tgz#e8a95fc980158a58ad41a5d98fd423b90113480a"
   integrity sha512-1PhXb/RcVIi+jZdCrcKsQ2Fhb5EP7EfD6xOjct0VTYwbCvVkU3OmXPAi7dL8NlQtwSbAmmFGpX9/wLNedkGzDQ==
 
-"@savantly/sprout-ui@2.0.0-28":
-  version "2.0.0-28"
-  resolved "https://registry.yarnpkg.com/@savantly/sprout-ui/-/sprout-ui-2.0.0-28.tgz#57ea4ffcc663c8857751d96fa32f51f3f57eb5b5"
-  integrity sha512-V4XCydOntTtK9h5SPcvG4476vH/wxRuBr8Asln5NcKF5YJnGl7LX+4BO4IilOfuzdI1bEqGRmik/BC2Pmh3lKA==
+"@savantly/sprout-ui@2.0.0-29":
+  version "2.0.0-29"
+  resolved "https://registry.yarnpkg.com/@savantly/sprout-ui/-/sprout-ui-2.0.0-29.tgz#9ec34ade2939d7d4b8ba164da254a3fdfa6898e2"
+  integrity sha512-A/VsvDcrup5ibLfYn9NxLIhumByF99qGVrGTCDgGOOVpuSl7iggDQz9yKyBWqPzqbutzZD/Wx0YquZ7ZgFRbmw==
   dependencies:
     "@emotion/core" "^10.0.27"
     "@grafana/e2e-selectors" "^7.2.0"
     "@grafana/slate-react" "0.22.9-grafana"
     "@iconscout/react-unicons" "1.1.4"
-    "@savantly/sprout-api" "2.0.0-28"
+    "@savantly/sprout-api" "2.0.0-29"
     "@savantly/sprout-tsconfig" "^1.0.0"
     "@torkelo/react-select" "3.0.8"
     "@types/clipboard" "^2.0.1"
@@ -1832,10 +1832,10 @@
   resolved "https://registry.yarnpkg.com/@sphinxxxx/color-conversion/-/color-conversion-2.2.2.tgz#03ecc29279e3c0c832f6185a5bfa3497858ac8ca"
   integrity sha512-XExJS3cLqgrmNBIP3bBw6+1oQ1ksGjFh0+oClDKFYpCCqx/hlqwWO5KO/S63fzUo67SxI9dMrF0y5T/Ey7h8Zw==
 
-"@sprout-platform/ui@2.0.0-28":
-  version "2.0.0-28"
-  resolved "https://registry.yarnpkg.com/@sprout-platform/ui/-/ui-2.0.0-28.tgz#3864c4e2916b2b373ba76aef8951cd1ede35dd39"
-  integrity sha512-bQTmm3GaBjvh42LwtSI5L9TGR9EQC/KgTo8PdVd2jzl4ZONhO7aq8wRyctanjef60mTx+2wM6m3eVBS59ZwwZQ==
+"@sprout-platform/ui@2.0.0-29":
+  version "2.0.0-29"
+  resolved "https://registry.yarnpkg.com/@sprout-platform/ui/-/ui-2.0.0-29.tgz#8e919924c8a135d9b58e4f5072ed680b8e787c8d"
+  integrity sha512-CahgmuN5uk6Dp1wowhGwfQsAH7tgUQGGiHYF7VhWHMBL/khggK/rU50pXPwbHLxaytaWbT3zwENZW+dmuC+BQQ==
   dependencies:
     "@emotion/core" "^10.0.27"
     "@fortawesome/fontawesome-svg-core" "~1.2.32"
@@ -1844,7 +1844,7 @@
     "@fortawesome/free-solid-svg-icons" "~5.15.1"
     "@fortawesome/react-fontawesome" "~0.1.13"
     "@reduxjs/toolkit" "^1.4.0"
-    "@savantly/sprout-api" "2.0.0-28"
+    "@savantly/sprout-api" "2.0.0-29"
     "@savantly/sprout-tsconfig" "^1.0.0"
     axios "~0.20.0"
     bootstrap "~4.5.3"
