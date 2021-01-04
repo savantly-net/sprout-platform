@@ -1,6 +1,6 @@
-import { AxiosStatic } from 'axios';
+import { AxiosInstance } from 'axios';
 
-export interface ApiService extends AxiosStatic {}
+export interface ApiService extends AxiosInstance {}
 
 let singletonInstance: ApiService;
 
