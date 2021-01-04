@@ -15,14 +15,14 @@ import {
 } from '@savantly/sprout-api';
 import { Alert, Tooltip } from '@savantly/sprout-ui';
 import find from 'lodash/find';
-import React, { Component } from 'react';
+import React, { useMemo, useState } from 'react';
 import { connect } from 'react-redux';
-import { appEvents } from '../../core/app_events';
+import { useParams, useSearchParams } from 'react-router-dom';
 import Page from '../../core/components/Page/Page';
 import { PluginHelp } from '../../core/components/PluginHelp/PluginHelp';
 import config from '../../core/config';
 import { getNotFoundNav } from '../../core/nav_model_srv';
-import { CoreEvents, StoreState } from '../../types';
+import { StoreState } from '../../types';
 import { PluginDashboards } from './PluginDashboards';
 import { getPluginSettings } from './PluginSettingsCache';
 import { importAppPlugin, importPanelPlugin } from './plugin_loader';
@@ -59,87 +59,71 @@ export function loadPlugin(pluginId: string): Promise<SproutPlugin> {
   });
 }
 
-interface OwnProps {
-  pluginId: string;
-  path: string; // the URL path
-}
-interface ConnectedProps {
-  query: UrlQueryMap;
-}
-
-interface State {
-  loading: boolean;
-  plugin?: SproutPlugin;
-  nav: NavModel;
-  defaultPage: string; // The first configured one or readme
-}
-
 const PAGE_ID_README = 'readme';
 const PAGE_ID_DASHBOARDS = 'dashboards';
 
-class PluginPage extends Component<OwnProps & ConnectedProps, State> {
-  constructor(props: OwnProps & ConnectedProps) {
-    super(props);
-    this.state = {
-      loading: true,
-      nav: getLoadingNav(),
-      defaultPage: PAGE_ID_README
-    };
-  }
+const PluginPage = () => {
+  const [loading, setLoading] = useState(true);
+  const [nav, setNav] = useState(getLoadingNav());
+  const [defaultPage, setDefaultPage] = useState(PAGE_ID_README);
+  const [plugin, setPlugin] = useState(undefined as SproutPlugin | undefined);
+  const [fetchingPlugin, setFetchingPlugin] = useState(false);
+  const pluginId = useParams().pluginId;
+  const [q] = useSearchParams();
+  const qPage = q.get('page');
 
-  async componentDidMount() {
-    const { query, pluginId, path } = this.props;
-    const { appSubUrl } = config;
-
-    const plugin = await loadPlugin(pluginId);
-    if (!plugin) {
-      this.setState({
-        loading: false,
-        nav: getNotFoundNav()
-      });
-      return; // 404
-    }
-
-    // TODO: pass false for non-privileged user
-    const { defaultPage, nav } = getPluginTabsNav(plugin, appSubUrl, path, query, true);
-
-    this.setState({
-      loading: false,
-      plugin,
-      defaultPage,
-      nav
+  const getQuery = () => {
+    const query: UrlQueryMap = {};
+    q.forEach((val, key) => {
+      query.key = val;
     });
-  }
+    return query;
+  };
 
-  componentDidUpdate(prevProps: OwnProps & ConnectedProps) {
-    const prevPage = prevProps.query.page as string;
-    const page = this.props.query.page as string;
+  useMemo(() => {
+    if (!fetchingPlugin && !plugin) {
+      loadPlugin(pluginId)
+        .then((response) => {
+          setPlugin(response);
+        })
+        .catch((err) => {
+          setNav(getNotFoundNav());
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else if (!!plugin) {
+      const query = getQuery();
+      const { defaultPage, nav } = getPluginTabsNav(plugin, config.appSubUrl, '', query, true);
+      setDefaultPage(defaultPage);
+      setNav(nav);
+      setLoading(false);
+    }
+  }, [plugin, fetchingPlugin, q, setFetchingPlugin, setDefaultPage, setNav, setLoading]);
 
-    if (prevPage !== page) {
-      const { nav, defaultPage } = this.state;
-      const node = {
-        ...nav.node,
-        children: setActivePage(page, nav.node.children!, defaultPage)
-      };
-
-      this.setState({
-        nav: {
+  useMemo(() => {
+    if (!!plugin) {
+      if (qPage) {
+        const node = {
+          ...nav.node,
+          children: setActivePage(qPage, nav.node.children!, defaultPage)
+        };
+        setNav({
           node: node,
           main: node
-        }
-      });
+        });
+      }
     }
-  }
+  }, [plugin, q, nav, defaultPage, setNav]);
 
-  renderBody() {
-    const { plugin, nav } = this.state;
-    const { query } = this.props;
+  const renderBody = () => {
+    const query = getQuery();
 
     if (!plugin) {
       return <Alert severity={AppNotificationSeverity.Error} title="Plugin Not Found" />;
     }
 
-    const active = nav.main.children!.find((tab) => tab.active);
+    const active = nav.main.children && nav.main.children.find((tab) => tab.active);
     if (active) {
       // Find the current config tab
       if (plugin.configPages) {
@@ -159,16 +143,13 @@ class PluginPage extends Component<OwnProps & ConnectedProps, State> {
     }
 
     return <PluginHelp plugin={plugin.meta} type="help" />;
-  }
-
-  showUpdateInfo = () => {
-    appEvents.emit(CoreEvents.showModal, {
-      src: 'features/plugins/partials/update_instructions.html',
-      model: this.state.plugin!.meta
-    });
   };
 
-  renderVersionInfo(meta: PluginMeta) {
+  const showUpdateInfo = () => {
+    console.log('show update instructions');
+  };
+
+  const renderVersionInfo = (meta: PluginMeta) => {
     if (!meta.info.version) {
       return null;
     }
@@ -180,7 +161,7 @@ class PluginPage extends Component<OwnProps & ConnectedProps, State> {
         {meta.hasUpdate && (
           <div>
             <Tooltip content={meta.latestVersion!} theme="info" placement="top">
-              <a href="#" onClick={this.showUpdateInfo}>
+              <a href="#" onClick={showUpdateInfo}>
                 Update Available!
               </a>
             </Tooltip>
@@ -188,9 +169,9 @@ class PluginPage extends Component<OwnProps & ConnectedProps, State> {
         )}
       </section>
     );
-  }
+  };
 
-  renderSidebarIncludeBody(item: PluginInclude) {
+  const renderSidebarIncludeBody = (item: PluginInclude) => {
     if (item.type === PluginIncludeType.page) {
       return (
         <a href={item.path}>
@@ -205,9 +186,9 @@ class PluginPage extends Component<OwnProps & ConnectedProps, State> {
         {item.name}
       </>
     );
-  }
+  };
 
-  renderSidebarIncludes(includes?: PluginInclude[]) {
+  const renderSidebarIncludes = (includes?: PluginInclude[]) => {
     if (!includes || !includes.length) {
       return null;
     }
@@ -219,16 +200,16 @@ class PluginPage extends Component<OwnProps & ConnectedProps, State> {
           {includes.map((include) => {
             return (
               <li className="plugin-info-list-item" key={include.name}>
-                {this.renderSidebarIncludeBody(include)}
+                {renderSidebarIncludeBody(include)}
               </li>
             );
           })}
         </ul>
       </section>
     );
-  }
+  };
 
-  renderSidebarDependencies(dependencies?: PluginDependencies) {
+  const renderSidebarDependencies = (dependencies?: PluginDependencies) => {
     if (!dependencies) {
       return null;
     }
@@ -238,7 +219,7 @@ class PluginPage extends Component<OwnProps & ConnectedProps, State> {
         <h4>Dependencies</h4>
         <ul className="ui-list plugin-info-list">
           <li className="plugin-info-list-item">
-            <img src="/favicon.png" alt='favicon' />
+            <img src="/favicon.png" alt="favicon" />
             Sprout {dependencies.sproutVersion}
           </li>
           {dependencies.plugins &&
@@ -253,9 +234,9 @@ class PluginPage extends Component<OwnProps & ConnectedProps, State> {
         </ul>
       </section>
     );
-  }
+  };
 
-  renderSidebarLinks(info: PluginMetaInfo) {
+  const renderSidebarLinks = (info: PluginMetaInfo) => {
     if (!info.links || !info.links.length) {
       return null;
     }
@@ -276,49 +257,42 @@ class PluginPage extends Component<OwnProps & ConnectedProps, State> {
         </ul>
       </section>
     );
-  }
+  };
 
-  render() {
-    const { loading, nav, plugin } = this.state;
-
-    // TODO: get from context
-    const isAdmin = true;
-
-    return (
-      <Page navModel={nav}>
-        <Page.Contents isLoading={loading}>
-          {plugin && (
-            <div className="sidebar-container">
-              <div className="sidebar-content">
-                {plugin.loadError && (
-                  <Alert
-                    severity={AppNotificationSeverity.Error}
-                    title="Error Loading Plugin"
-                    children={
-                      <>
-                        Check the server startup logs for more information. <br />
-                        If this plugin was loaded from git, make sure it was compiled.
-                      </>
-                    }
-                  />
-                )}
-                {this.renderBody()}
-              </div>
-              <aside className="page-sidebar">
-                <section className="page-sidebar-section">
-                  {this.renderVersionInfo(plugin.meta)}
-                  {isAdmin && this.renderSidebarIncludes(plugin.meta.includes)}
-                  {this.renderSidebarDependencies(plugin.meta.dependencies)}
-                  {this.renderSidebarLinks(plugin.meta.info)}
-                </section>
-              </aside>
+  return (
+    <Page navModel={nav}>
+      <Page.Contents isLoading={loading}>
+        {plugin && (
+          <div className="sidebar-container">
+            <div className="sidebar-content">
+              {plugin.loadError && (
+                <Alert
+                  severity={AppNotificationSeverity.Error}
+                  title="Error Loading Plugin"
+                  children={
+                    <>
+                      Check the server startup logs for more information. <br />
+                      If this plugin was loaded from git, make sure it was compiled.
+                    </>
+                  }
+                />
+              )}
+              {renderBody()}
             </div>
-          )}
-        </Page.Contents>
-      </Page>
-    );
-  }
-}
+            <aside className="page-sidebar">
+              <section className="page-sidebar-section">
+                {renderVersionInfo(plugin.meta)}
+                {renderSidebarIncludes(plugin.meta.includes)}
+                {renderSidebarDependencies(plugin.meta.dependencies)}
+                {renderSidebarLinks(plugin.meta.info)}
+              </section>
+            </aside>
+          </div>
+        )}
+      </Page.Contents>
+    </Page>
+  );
+};
 
 function getPluginTabsNav(
   plugin: SproutPlugin,

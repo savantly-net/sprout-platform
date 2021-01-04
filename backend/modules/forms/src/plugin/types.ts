@@ -1,3 +1,5 @@
+import { QueryResponse } from '@savantly/sprout-api';
+
 type SeriesSize = 'sm' | 'md' | 'lg';
 
 export type FormDisplayType = 'form' | 'wizard';
@@ -33,35 +35,6 @@ export interface AppFormDto {
   components?: any[];
   modified?: string;
   created?: string;
-}
-
-export interface Sort {
-  sorted: boolean;
-  unsorted: boolean;
-  empty: boolean;
-}
-
-export interface Pageable {
-  sort: Sort;
-  offset: number;
-  pageNumber: number;
-  pageSize: number;
-  unpaged: boolean;
-  paged: boolean;
-}
-
-export interface QueryResponse<T> {
-  content: T[] | [];
-  pageable: Pageable;
-  totalPages: number;
-  totalElements: number;
-  last: boolean;
-  size: number;
-  numberOfElements: number;
-  number: number;
-  first: boolean;
-  sort: Sort;
-  empty: boolean;
 }
 
 export interface AppFormQueryResponse extends QueryResponse<AppForm> {}

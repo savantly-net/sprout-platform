@@ -44,7 +44,7 @@ const AppRoutes = ({ history }: AllProps) => {
         <Route path="/menu" element={<MenuAdminPage />} />
         <Route path="/permissions" element={<PermissionsPage />} />
         <Route path="/plugins" element={<PluginListPage plugins={plugins} />} />
-        <Route path="/plugins/:pluginId" element={<PluginPage pluginId="CHANGEME" path="CHANGEME" />} />
+        <Route path="/plugins/:pluginId" element={<PluginPage />} />
         <Route path="/files/*" element={<FileBrowserRoutes />} />
         <Route path="/issues/*" element={<IssueManager />} />
         <Route path="*" element={<PageNotFound />} />

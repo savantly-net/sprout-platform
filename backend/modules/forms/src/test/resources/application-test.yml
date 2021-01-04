@@ -2,8 +2,17 @@ sprout:
   cors:
     allowed-methods: GET, OPTIONS, PUT, POST, PATCH, DELETE
   security:
-    public-paths:
-    - /**
+    authorization:
+      public-paths:
+      - /**
+    authentication:
+      basic:
+        users:
+        - username: admin
+          password: changeme!
+          email-address: test@savantly.net
+          roles:
+          - ADMIN
 
 spring:
   datasource:
