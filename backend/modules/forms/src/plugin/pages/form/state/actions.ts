@@ -24,7 +24,7 @@ export const doQueryForms = (name: string, page = 1, done: (error: string, form:
   getApiService()
     .get<AppForm[]>(`${API_URL}/form`)
     .then(
-      (response) => {
+      response => {
         dispatch(formQueryCompleted(response));
         done('', response.data);
       },
@@ -41,7 +41,7 @@ export const doGetForm = (id: string, done: (error: string, form: AppForm | null
   dispatch(formInitStarted());
   getApiService()
     .get<AppForm>(`${API_URL}/form/${id}`)
-    .then((result) => {
+    .then(result => {
       dispatch(formInitCompleted(result.data));
       done('', result.data);
     })
@@ -57,7 +57,7 @@ export const doSaveForm = (form: AppFormDto, done: (error: string, form: AppForm
   dispatch(formInitStarted());
   getApiService()
     .post<AppFormDto>(`${API_URL}/form`, form)
-    .then((result) => {
+    .then(result => {
       dispatch(formInitCompleted(result.data));
       done('', result.data);
     })
@@ -73,7 +73,7 @@ export const doUpdateForm = (form: AppFormDto, done: (error: string, form: AppFo
   dispatch(formInitStarted());
   getApiService()
     .put<AppFormDto>(`${API_URL}/form/${form._id}`, form)
-    .then((result) => {
+    .then(result => {
       dispatch(formInitCompleted(result.data));
       done('', result.data);
     })
@@ -117,7 +117,7 @@ export const doQuerySubmissions = (
   getApiService()
     .get<AppFormSubmissionDto[]>(`${API_URL}/form/${formId}/submission`)
     .then(
-      (response) => {
+      response => {
         dispatch(submissionQueryCompleted(response));
         done('', response.data);
       },
@@ -134,7 +134,7 @@ export const doGetSubmission = (id: string, done: (error: string, form: AppFormS
   dispatch(submissionInitStarted());
   getApiService()
     .get<AppFormSubmissionDto>(`${API_URL}/data/${id}`)
-    .then((result) => {
+    .then(result => {
       dispatch(submissionInitCompleted(result.data));
       done('', result.data);
     })
@@ -156,7 +156,7 @@ export const doSaveSubmission = ({
   dispatch(formInitStarted);
   getApiService()
     .post<AppFormSubmissionDto>(`${API_URL}/form/${formId}/submission`, submission)
-    .then((result) => {
+    .then(result => {
       dispatch(submissionInitCompleted(result.data));
       done('', result.data);
     })
@@ -178,7 +178,7 @@ export const doUpdateSubmission = ({
   dispatch(formInitStarted);
   getApiService()
     .put<AppFormSubmissionDto>(`${API_URL}/forms/${formPath}/submission/${submission._id}`, submission)
-    .then((result) => {
+    .then(result => {
       dispatch(submissionInitCompleted(result.data));
       done('', result.data);
     })

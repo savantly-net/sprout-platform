@@ -39,7 +39,7 @@
     "@reduxjs/toolkit": "^1.4.0",
     "@savantly/sprout-api": "2.0.0-29",
     "@savantly/sprout-tsconfig": "^1.0.0",
-    "axios": "~0.20.0",
+    "axios": "~0.21.1",
     "bootstrap": "~4.5.3",
     "classnames": "^2.2.6",
     "emotion": "^10.0.27",

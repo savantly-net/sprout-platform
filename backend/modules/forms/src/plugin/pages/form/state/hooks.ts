@@ -31,7 +31,7 @@ export const useAppForm = (formId: string) => {
     return () => {
       isCancelled = true;
     };
-  }, [formId, getApiService, form]);
+  }, [formId, form]);
 
   return form;
 };
