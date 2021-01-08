@@ -108,7 +108,7 @@ dependencies:
   '@welldone-software/why-did-you-render': 4.3.2_react@16.14.0
   ace-builds: 1.4.12
   apache-arrow: 0.16.0
-  axios: 0.20.0
+  axios: 0.21.1
   babel-jest: 24.9.0_@babel+core@7.12.3
   babel-loader: 8.1.0_c469a5abc93aee6c0316d662800f35a3
   babel-plugin-angularjs-annotate: 0.10.0
@@ -9280,12 +9280,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-1uvKqKQta3KBxIz14F2v06AEHZ/dIoeKfbTRkK1E5oqjDnuEerLmYTgJB5AiQZHJcljpg1TuRzdjDR06qNk0DQ==
-  /axios/0.20.0:
+  /axios/0.21.1:
     dependencies:
       follow-redirects: 1.13.0
     dev: false
     resolution:
-      integrity: sha512-ANA4rr2BDcmmAQLOKft2fufrtuvlqR+cXNNinUmvfeSNCOF98PZL+7M/v1zIdGo7OLjEA9J2gXJL+j4zGsl0bA==
+      integrity: sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
   /axobject-query/2.2.0:
     dev: false
     resolution:
@@ -28839,8 +28839,9 @@ packages:
       '@types/rollup-plugin-visualizer': 2.6.0
       '@types/sinon': 7.5.2
       '@types/tinycolor2': 1.4.2
+      '@types/uuid': 8.3.0
       apache-arrow: 0.16.0
-      axios: 0.20.0
+      axios: 0.21.1
       lodash: 4.17.20
       marked: 1.2.2
       moment: 2.29.1
@@ -28858,11 +28859,12 @@ packages:
       ts-bus: 2.3.1_react@16.14.0
       tslib: 2.0.1
       typescript: 3.9.7
+      uuid: 8.3.1
       xss: 1.0.6
     dev: false
     name: '@rush-temp/sprout-api'
     resolution:
-      integrity: sha512-Q7Aad1bZv5BagE6GRhC46zVr7u+qtSnPHlboLxkXnQbH+JPPTIQjdYow3Cg4XEsOjU6ObJQiBnB3UuLgrEgKrQ==
+      integrity: sha512-bYlIS8+LyLpHhVcoAb1+R9rOQSAjjzLDmj29KjanOK0r3bSlEZctV7mrui/ln+Bz+noOYOTEudlLQECOGp+k3A==
       tarball: 'file:projects/sprout-api.tgz'
     version: 0.0.0
   'file:projects/sprout-runtime.tgz_0d72c3f12c6df4c05dbb05932998e461':
@@ -28873,7 +28875,7 @@ packages:
       '@rollup/plugin-node-resolve': 9.0.0_rollup@2.35.1
       '@types/lodash': 4.14.162
       '@types/react': 16.9.53
-      axios: 0.20.0
+      axios: 0.21.1
       eventemitter3: 4.0.7
       lodash: 4.17.20
       marked: 1.2.2
@@ -28892,7 +28894,7 @@ packages:
       '@types/node': '*'
       react-scripts: '*'
     resolution:
-      integrity: sha512-AODCsP0GNo3abdF6B2dPMm5QQpwsJxlWeLd73Rm/1UzyNEH/eE3n8jGH9sqEoeb8kuZr9QwTD073ol69om5HVg==
+      integrity: sha512-wdnE2S1Dl77Huyn6zC56F0GtiCPw+kObjK2jMjhD35bx7K9Xf0D2IBxfivds6MAYSeqToV3n1cs8mj+rr2QT3Q==
       tarball: 'file:projects/sprout-runtime.tgz'
     version: 0.0.0
   'file:projects/sprout-toolkit.tgz':
@@ -28918,7 +28920,7 @@ packages:
       '@types/webpack': 4.41.23
       '@typescript-eslint/eslint-plugin': 4.6.0_a8d3b40d4edec512180cbf99a8588c22
       '@typescript-eslint/parser': 4.6.0_eslint@7.12.0+typescript@4.0.2
-      axios: 0.20.0
+      axios: 0.21.1
       babel-jest: 24.9.0_@babel+core@7.12.3
       babel-loader: 8.1.0_3242416791c391b4f7f34e312d7c965b
       babel-plugin-angularjs-annotate: 0.10.0
@@ -28980,7 +28982,7 @@ packages:
     dev: false
     name: '@rush-temp/sprout-toolkit'
     resolution:
-      integrity: sha512-KY8YDvTtTwEhxn0I6rTbECySzaS/0ARcTd/XbdTu9OeEEhAja/SSgrxXdTWEi/ozqPWGMgWx0K5oFKupWmjAng==
+      integrity: sha512-kunjgFixDYCpO91O8ZBzwezaDjAn0s6Cy3NHFMC8qDEJ8IczzfuF7ZctMW7XOQ8dQ+VLIJ7xpyfhsALtVLUkAw==
       tarball: 'file:projects/sprout-toolkit.tgz'
     version: 0.0.0
   'file:projects/sprout-tsconfig.tgz':
@@ -29102,7 +29104,7 @@ packages:
       babel-loader: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-Wh3qAOG2qvIVfErZ2Am49mlxU2bE60mDi3Y9+hShWSnJnD4rbsdThWR0kzjCwNs3w7hLkK0u2a4nML922/zn1A==
+      integrity: sha512-U7h15iutEDxrkcJTKJ7D4jme2JQRZROVxwTGmnwLtty0zQSWdNYYfJRo52HsbiQy1JM6096aWDDD3QMAzhVolA==
       tarball: 'file:projects/sprout-ui.tgz'
     version: 0.0.0
   'file:projects/ui.tgz_ef55e9d64b9b2d922dc1720f14680ada':
@@ -29141,7 +29143,7 @@ packages:
       '@types/reactstrap': 8.5.2
       '@types/rollup-plugin-visualizer': 2.6.0
       ace-builds: 1.4.12
-      axios: 0.20.0
+      axios: 0.21.1
       babel-loader: 8.1.0_c469a5abc93aee6c0316d662800f35a3
       bootstrap: 4.5.3_jquery@3.5.1+popper.js@1.16.1
       chromatic: 5.2.0_@babel+core@7.12.3
@@ -29176,6 +29178,7 @@ packages:
       rollup-plugin-terser: 7.0.2_rollup@2.35.1
       rollup-plugin-typescript2: 0.26.0_rollup@2.35.1+typescript@3.9.7
       rollup-plugin-visualizer: 3.3.1_rollup@2.35.1
+      ts-bus: 2.3.1_react@16.14.0
       ts-jest: 26.4.2_jest@26.6.1+typescript@3.9.7
       ts-loader: 6.2.1_typescript@3.9.7
       tslib: 2.0.1
@@ -29194,7 +29197,7 @@ packages:
       ts-node: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-dh74GWqA6wJ7SVi3zj/n5in6ZvkUmHg0Digr3EtfclkpmptZvEws46Lhe6VO8Z/sW6KZ4W3B4gxrdc8bGBb5gg==
+      integrity: sha512-n4rNztMSg+ZUUnVnQBFJ/rTre7y732GJYvOK6QmAqOy7n4LiM+Oo8nelZE1PHtXNZjwVzwa3EX/bIgI1xehGYg==
       tarball: 'file:projects/ui.tgz'
     version: 0.0.0
   'file:projects/webapp.tgz_ts-node@8.8.1':
@@ -29231,7 +29234,7 @@ packages:
       '@types/uuid': 8.3.0
       '@welldone-software/why-did-you-render': 4.3.2_react@16.14.0
       ace-builds: 1.4.12
-      axios: 0.20.0
+      axios: 0.21.1
       chonky: 2.1.0_aad3bc13927d9d37b17b95eac6d777df
       chonky-icon-fontawesome: 2.1.0_aad3bc13927d9d37b17b95eac6d777df
       classnames: 2.2.6
@@ -29282,6 +29285,7 @@ packages:
       rxjs: 6.6.3
       tether-drop: 1.4.2
       tinycolor2: 1.4.2
+      ts-bus: 2.3.1_react@16.14.0
       typescript: 3.9.7
       uuid: 8.3.1
     dev: false
@@ -29290,7 +29294,7 @@ packages:
     peerDependencies:
       ts-node: '*'
     resolution:
-      integrity: sha512-Q2SMjKmF+d1aihywGFervTb2osPS/VrvyYJGWlrUJhfN61z6lYUBaId0OUgrIrpt1zUqsUSSIGFTNHUABspWfg==
+      integrity: sha512-zfr/6vMIoPyzGc0QKFj+H/825A9/t/zBF4net/wd0L8b7wK6B0x8UR9SHyWgyPiGoXdjx9wPIuWa+SRvW8s3gQ==
       tarball: 'file:projects/webapp.tgz'
     version: 0.0.0
 registry: ''
@@ -29404,7 +29408,7 @@ specifiers:
   '@welldone-software/why-did-you-render': ^4.3.2
   ace-builds: ^1.4.6
   apache-arrow: 0.16.0
-  axios: ~0.20.0
+  axios: ~0.21.1
   babel-jest: ^24.9.0
   babel-loader: ^8.1.0
   babel-plugin-angularjs-annotate: 0.10.0

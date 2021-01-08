@@ -15,6 +15,7 @@ import net.savantly.sprout.core.module.registration.SproutModuleRegistration;
 import net.savantly.sprout.core.module.registration.SproutModuleRegistrationRepository;
 import net.savantly.sprout.core.module.web.plugin.PluginMeta;
 import net.savantly.sprout.core.module.web.plugin.PluginType;
+import net.savantly.sprout.core.tenancy.TenantedPrimaryKey;
 import net.savantly.sprout.domain.plugin.PluginConfigurationDto;
 import net.savantly.sprout.domain.plugin.PluginConfigurationEntity;
 import net.savantly.sprout.domain.plugin.PluginConfigurationRepository;
@@ -90,7 +91,11 @@ public class PluginService {
 	private PluginConfigurationEntity getPluginConfiguration(String id) {
 		List<PluginConfigurationEntity> list = pluginConfigRepository.findByIdItemId(id);
 		if (list.isEmpty()) {
-			return new PluginConfigurationEntity();
+			PluginConfigurationEntity entity = new PluginConfigurationEntity();
+			TenantedPrimaryKey key = new TenantedPrimaryKey();
+			key.setItemId(id);
+			entity.setId(key);
+			return entity;
 		} else {
 			return list.get(0);
 		}
