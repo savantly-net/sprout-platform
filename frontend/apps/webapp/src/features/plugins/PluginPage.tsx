@@ -2,8 +2,10 @@
 // Types
 import {
   AppNotificationSeverity,
+  AppPluginMeta,
   NavModel,
   NavModelItem,
+  PluginConfigPage,
   PluginDependencies,
   PluginInclude,
   PluginIncludeType,
@@ -14,17 +16,19 @@ import {
   UrlQueryMap
 } from '@savantly/sprout-api';
 import { Alert, Tooltip } from '@savantly/sprout-ui';
+import { Icon } from '@sprout-platform/ui';
+import { css } from 'emotion';
 import find from 'lodash/find';
-import React, { useMemo, useState } from 'react';
+import React, { ComponentProps, Fragment, useMemo, useState } from 'react';
 import { connect } from 'react-redux';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { NavLink, Route, Routes, useParams, useSearchParams } from 'react-router-dom';
 import Page from '../../core/components/Page/Page';
 import { PluginHelp } from '../../core/components/PluginHelp/PluginHelp';
 import config from '../../core/config';
 import { getNotFoundNav } from '../../core/nav_model_srv';
 import { StoreState } from '../../types';
 import { PluginDashboards } from './PluginDashboards';
-import { getPluginSettings } from './PluginSettingsCache';
+import { getPluginSettings } from './PluginSettings';
 import { importAppPlugin, importPanelPlugin } from './plugin_loader';
 
 export function getLoadingNav(): NavModel {
@@ -41,7 +45,7 @@ export function getLoadingNav(): NavModel {
 export function loadPlugin(pluginId: string): Promise<SproutPlugin> {
   return getPluginSettings(pluginId).then((info) => {
     if (info.type === PluginType.app) {
-      return importAppPlugin(info) as any;
+      return importAppPlugin(info as AppPluginMeta) as any;
     }
     if (info.type === PluginType.panel) {
       return importPanelPlugin(pluginId).then((plugin) => {
@@ -106,7 +110,7 @@ const PluginPage = () => {
       if (qPage) {
         const node = {
           ...nav.node,
-          children: setActivePage(qPage, nav.node.children!, defaultPage)
+          children: setActivePage(qPage, nav.node?.children || [], defaultPage)
         };
         setNav({
           node: node,
@@ -149,14 +153,18 @@ const PluginPage = () => {
     console.log('show update instructions');
   };
 
+  const Section = (props: ComponentProps<any>) => {
+    return <section className="mb-2">{props.children}</section>;
+  };
+
   const renderVersionInfo = (meta: PluginMeta) => {
     if (!meta.info.version) {
       return null;
     }
 
     return (
-      <section className="page-sidebar-section">
-        <h4>Version</h4>
+      <Section>
+        <h5>Version</h5>
         <span>{meta.info.version}</span>
         {meta.hasUpdate && (
           <div>
@@ -167,7 +175,7 @@ const PluginPage = () => {
             </Tooltip>
           </div>
         )}
-      </section>
+      </Section>
     );
   };
 
@@ -194,19 +202,57 @@ const PluginPage = () => {
     }
 
     return (
-      <section className="page-sidebar-section">
-        <h4>Includes</h4>
-        <ul className="ui-list plugin-info-list">
+      <Section>
+        <h5>Includes</h5>
+        <ul>
           {includes.map((include) => {
             return (
-              <li className="plugin-info-list-item" key={include.name}>
+              <li className={linkListItemStyle} key={include.name}>
                 {renderSidebarIncludeBody(include)}
               </li>
             );
           })}
         </ul>
-      </section>
+      </Section>
     );
+  };
+
+  const renderConfigurationPageRoutes = (configPages: PluginConfigPage<PluginMeta<{}>>[] | undefined) => {
+    if (plugin && configPages) {
+      const routes = configPages.map((p) => {
+        const C = p.body;
+        return <Route key={p.id} path={`${p.id}/*`} element={<C plugin={plugin} query={{}} />} />;
+      });
+      return (
+        <Fragment>
+          <Routes>{routes}</Routes>
+        </Fragment>
+      );
+    }
+  };
+
+  const renderConfigurationPageLinks = (configPages: PluginConfigPage<PluginMeta<{}>>[] | undefined) => {
+    if (plugin && configPages) {
+      return (
+        <Section>
+          <h5>Configuration</h5>
+          <ul>
+            {configPages.map((p) => {
+              return (
+                <li className={linkListItemStyle} key={p.id}>
+                  {
+                    <NavLink key={p.id} to={`./${p.id}`}>
+                      <Icon name={p.icon || 'cog'} className="mr-1" />
+                      {p.title}
+                    </NavLink>
+                  }
+                </li>
+              );
+            })}
+          </ul>
+        </Section>
+      );
+    }
   };
 
   const renderSidebarDependencies = (dependencies?: PluginDependencies) => {
@@ -215,24 +261,24 @@ const PluginPage = () => {
     }
 
     return (
-      <section className="page-sidebar-section">
-        <h4>Dependencies</h4>
-        <ul className="ui-list plugin-info-list">
-          <li className="plugin-info-list-item">
-            <img src="/favicon.png" alt="favicon" />
+      <Section>
+        <h5>Dependencies</h5>
+        <ul>
+          <li className={linkListItemStyle}>
+            <img src="/favicon.png" alt="favicon" width="20px" className="mr-1" />
             Sprout {dependencies.sproutVersion}
           </li>
           {dependencies.plugins &&
             dependencies.plugins.map((plug) => {
               return (
-                <li className="plugin-info-list-item" key={plug.name}>
+                <li className={linkListItemStyle} key={plug.name}>
                   <i className={getPluginIcon(plug.type)} />
                   {plug.name} {plug.version}
                 </li>
               );
             })}
         </ul>
-      </section>
+      </Section>
     );
   };
 
@@ -242,55 +288,61 @@ const PluginPage = () => {
     }
 
     return (
-      <section className="page-sidebar-section">
-        <h4>Links</h4>
-        <ul className="ui-list">
+      <Section>
+        <h5>Links</h5>
+        <ul>
           {info.links.map((link) => {
             return (
-              <li key={link.url}>
-                <a href={link.url} className="external-link" target="_blank" rel="noopener noreferrer">
+              <li className={linkListItemStyle} key={link.url}>
+                <a href={link.url} target="_blank" rel="noopener noreferrer">
                   {link.name}
                 </a>
               </li>
             );
           })}
         </ul>
-      </section>
+      </Section>
     );
   };
 
   return (
-    <Page navModel={nav}>
-      <Page.Contents isLoading={loading}>
-        {plugin && (
-          <div className="sidebar-container">
-            <div className="sidebar-content">
-              {plugin.loadError && (
-                <Alert
-                  severity={AppNotificationSeverity.Error}
-                  title="Error Loading Plugin"
-                  children={
-                    <>
-                      Check the server startup logs for more information. <br />
-                      If this plugin was loaded from git, make sure it was compiled.
-                    </>
-                  }
-                />
-              )}
-              {renderBody()}
-            </div>
-            <aside className="page-sidebar">
-              <section className="page-sidebar-section">
-                {renderVersionInfo(plugin.meta)}
-                {renderSidebarIncludes(plugin.meta.includes)}
-                {renderSidebarDependencies(plugin.meta.dependencies)}
-                {renderSidebarLinks(plugin.meta.info)}
-              </section>
-            </aside>
-          </div>
-        )}
-      </Page.Contents>
-    </Page>
+    <Routes>
+      <Route>
+        <Page navModel={nav}>
+          <Page.Contents isLoading={loading}>
+            {plugin && (
+              <div className="d-flex">
+                <div className="col">
+                  {plugin.loadError && (
+                    <Alert
+                      severity={AppNotificationSeverity.Error}
+                      title="Error Loading Plugin"
+                      children={
+                        <>
+                          Check the server startup logs for more information. <br />
+                          If this plugin was loaded from git, make sure it was compiled.
+                        </>
+                      }
+                    />
+                  )}
+                  {renderBody()}
+                </div>
+                <aside className="col-3">
+                  <Section>
+                    {renderVersionInfo(plugin.meta)}
+                    {renderConfigurationPageLinks(plugin.configPages)}
+                    {renderSidebarIncludes(plugin.meta.includes)}
+                    {renderSidebarDependencies(plugin.meta.dependencies)}
+                    {renderSidebarLinks(plugin.meta.info)}
+                  </Section>
+                </aside>
+              </div>
+            )}
+          </Page.Contents>
+        </Page>
+      </Route>
+      <Routes>{plugin && renderConfigurationPageRoutes(plugin.configPages)}</Routes>
+    </Routes>
   );
 };
 
@@ -355,8 +407,7 @@ function getPluginTabsNav(
     img: `${meta.baseUrl}/${meta.info.logos.large}`,
     subTitle: meta.info.author.name,
     breadcrumbs: [{ title: 'Plugins', url: 'plugins' }],
-    url: `${appSubUrl}${path}`,
-    children: setActivePage(query.page as string, pages, defaultPage!)
+    url: `${appSubUrl}${path}`
   };
 
   return {
@@ -389,19 +440,23 @@ function setActivePage(pageId: string, pages: NavModelItem[], defaultPageId: str
 function getPluginIcon(type: string) {
   switch (type) {
     case 'datasource':
-      return 'gicon gicon-datasources';
+      return 'database';
     case 'panel':
-      return 'icon-gf icon-gf-panel';
+      return 'solar-panel';
     case 'app':
-      return 'icon-gf icon-gf-apps';
+      return 'apps';
     case 'page':
-      return 'icon-gf icon-gf-endpoint-tiny';
+      return 'file';
     case 'dashboard':
       return 'gicon gicon-dashboard';
     default:
       return 'icon-gf icon-gf-apps';
   }
 }
+
+const linkListItemStyle = css`
+  list-style: none;
+`;
 
 const mapStateToProps = (state: StoreState) => ({
   query: state.location.query

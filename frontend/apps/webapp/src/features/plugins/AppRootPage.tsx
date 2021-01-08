@@ -10,9 +10,8 @@ import PageLoader from '../../core/components/PageLoader/PageLoader';
 import { getExceptionNav, getNotFoundNav, getWarningNav } from '../../core/nav_model_srv';
 // Types
 import { StoreState } from '../../types';
-import { getPluginSettings } from './PluginSettingsCache';
+import { getPluginSettings } from './PluginSettings';
 import { importAppPlugin } from './plugin_loader';
-
 
 interface Props {
   slug?: string;
@@ -31,9 +30,7 @@ export function getAppPluginPageError(meta: AppPluginMeta) {
   return null;
 }
 
-const AppRootPage: FC<Props> = ({
-}) => {
-
+const AppRootPage: FC<Props> = ({}) => {
   const params = useParams();
   const [plugin, setPlugin] = useState<AppPlugin<KeyValue<any>> | null>();
   const [nav, setNav] = useState<NavModel | null>();
@@ -43,13 +40,14 @@ const AppRootPage: FC<Props> = ({
   useMemo(() => {
     try {
       getPluginSettings(params.pluginId).then((info) => {
-        const error = getAppPluginPageError(info as AppPluginMeta<KeyValue<any>>);
+        const pluginInfo = info as AppPluginMeta<KeyValue<any>>;
+        const error = getAppPluginPageError(pluginInfo);
         if (error) {
           appEvents.emit(AppEvents.alertError, [error]);
           setNav(getWarningNav(error));
           return null;
         }
-        importAppPlugin(info).then(app => {
+        importAppPlugin(pluginInfo).then((app) => {
           setPlugin(app);
           setLoading(false);
         });
@@ -69,7 +67,14 @@ const AppRootPage: FC<Props> = ({
     if (!plugin) {
       return <PageLoader />;
     } else if (plugin && plugin.root) {
-      return (<plugin.root meta={plugin.meta} query={urlUtil.getUrlSearchParams()} path={appPath} onNavChanged={onNavChanged} />);
+      return (
+        <plugin.root
+          meta={plugin.meta}
+          query={urlUtil.getUrlSearchParams()}
+          path={appPath}
+          onNavChanged={onNavChanged}
+        />
+      );
     } else {
       return (
         <Alert title="App Plugin Error" severity="error">
@@ -83,25 +88,17 @@ const AppRootPage: FC<Props> = ({
     if (nav) {
       return (
         <Page navModel={nav}>
-          <Page.Contents isLoading={loading}>
-            {element}
-          </Page.Contents>
+          <Page.Contents isLoading={loading}>{element}</Page.Contents>
         </Page>
       );
     } else {
       return element;
     }
-  }
+  };
 
-  return (
-    <>
-      {withPageWrapper(getRoot())}
-    </>
+  return <>{withPageWrapper(getRoot())}</>;
+};
 
-  );
-}
-
-const mapStateToProps = (state: StoreState) => ({
-});
+const mapStateToProps = (state: StoreState) => ({});
 
 export default connect(mapStateToProps)(AppRootPage);

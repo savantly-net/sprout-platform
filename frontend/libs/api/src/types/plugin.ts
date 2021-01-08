@@ -4,7 +4,7 @@ import { KeyValue } from './key-value';
 export enum PluginState {
   alpha = 'alpha', // Only included it `enable_alpha` is true
   beta = 'beta', // Will show a warning banner
-  deprecated = 'deprecated', // Will continue to work -- but not show up in the the options to add
+  deprecated = 'deprecated' // Will continue to work -- but not show up in the the options to add
 }
 
 export enum PluginType {
@@ -17,7 +17,7 @@ export enum PluginSignatureStatus {
   valid = 'valid', // signed and accurate MANIFEST
   invalid = 'invalid', // invalid signature
   modified = 'modified', // valid signature, but content mismatch
-  unsigned = 'unsigned', // no MANIFEST file
+  unsigned = 'unsigned' // no MANIFEST file
 }
 
 export interface PluginMeta<T extends KeyValue = {}> {

@@ -1,6 +1,7 @@
 package net.savantly.sprout.domain.plugin;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -56,7 +57,7 @@ public class PluginMetaBuilder {
 	@SuppressWarnings("unchecked")
 	private Map<String, Object> toMap(String jsonData) {
 		if(Objects.isNull(jsonData) || jsonData.isEmpty()) {
-			return null;
+			return new HashMap<String, Object>();
 		}
 		try {
 			return mapper.readValue(jsonData, Map.class);

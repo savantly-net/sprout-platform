@@ -12,9 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -30,6 +32,7 @@ import net.savantly.sprout.core.module.registration.SproutModuleRegistrationRepo
 import net.savantly.sprout.core.module.web.NavigationItem;
 import net.savantly.sprout.core.module.web.UIRoute;
 import net.savantly.sprout.core.module.web.plugin.PluginMeta;
+import net.savantly.sprout.domain.plugin.PluginConfigurationDto;
 import net.savantly.sprout.model.AdminUserInterfaceModel;
 import net.savantly.sprout.module.PluginService;
 
@@ -101,6 +104,11 @@ public class PluginsApi {
 	@GetMapping("/{id}/settings")
 	public PluginMeta getSproutModuleSettings(@PathVariable String id){
 		return this.pluginService.getPluginMetaByPluginId(id);
+	}
+
+	@PostMapping("/{id}/settings")
+	public PluginConfigurationDto getSproutModuleSettings(@PathVariable String id, @RequestBody PluginConfigurationDto updates) throws JsonProcessingException{
+		return this.pluginService.updatePluginConfiguration(id, updates);
 	}
 
 	@GetMapping("/{id}/markdown/{markdownType}")

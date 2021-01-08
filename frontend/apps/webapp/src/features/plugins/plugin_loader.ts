@@ -1,6 +1,6 @@
 import * as reduxToolkit from '@reduxjs/toolkit';
 import * as sproutApi from '@savantly/sprout-api';
-import { AppPlugin, PanelPlugin, PluginMeta } from '@savantly/sprout-api';
+import { AppPlugin, AppPluginMeta, PanelPlugin, PluginMeta } from '@savantly/sprout-api';
 import * as sproutRuntime from '@savantly/sprout-runtime';
 import { config, setPanelRegistrationService } from '@savantly/sprout-runtime';
 import * as sproutUi from '@savantly/sprout-ui';
@@ -20,6 +20,7 @@ import * as rxjs from 'rxjs';
 import * as rxjsOperators from 'rxjs/operators';
 import builtInPluginIndex from './built_in_plugins';
 import { getPanelPluginLoadError, getPanelPluginNotFound } from './PanelPluginError';
+import { updatePluginSettings } from './PluginSettings';
 
 // add cache busting
 const bust = `?_cache=${Date.now()}`;
@@ -94,10 +95,13 @@ export async function importPluginModule(path: string): Promise<any> {
   return sproutRuntime.SystemJS.import(path);
 }
 
-export function importAppPlugin(meta: PluginMeta): Promise<AppPlugin> {
+export function importAppPlugin(meta: AppPluginMeta): Promise<AppPlugin> {
   console.log(`importing app plugin:`);
   console.log(meta);
   return importPluginModule(meta.module).then((pluginExports) => {
+    meta.updateJsonData = (jsonData: any) => {
+      updatePluginSettings(meta.id, jsonData);
+    };
     const plugin = pluginExports.plugin ? (pluginExports.plugin as AppPlugin) : new AppPlugin();
     plugin.init(meta);
     plugin.meta = meta;
@@ -145,17 +149,17 @@ export function importPanelPlugin(id: string): Promise<PanelPlugin> {
 
 /**
  * inversion of control to allow plugins to dynamically register panels themselves.
- * 
+ *
  * @param panelPlugin A panel plugin to register
  */
 export const registerPanelPlugin = (panelPlugin: PanelPlugin) => {
   // If it's already loaded, don't do anything
-  if(config.panels[panelPlugin.meta.id]) {
-    return; 
+  if (config.panels[panelPlugin.meta.id]) {
+    return;
   }
   config.panels[panelPlugin.meta.id] = panelPlugin.meta;
   panelCache[panelPlugin.meta.id] = Promise.resolve(panelPlugin);
-}
+};
 
 setPanelRegistrationService({
   registerPanelPlugin

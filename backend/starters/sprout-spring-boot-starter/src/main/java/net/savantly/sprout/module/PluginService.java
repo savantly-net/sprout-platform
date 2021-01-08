@@ -8,23 +8,35 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import net.savantly.sprout.core.module.registration.SproutModuleRegistration;
 import net.savantly.sprout.core.module.registration.SproutModuleRegistrationRepository;
 import net.savantly.sprout.core.module.web.plugin.PluginMeta;
 import net.savantly.sprout.core.module.web.plugin.PluginType;
+import net.savantly.sprout.domain.plugin.PluginConfigurationDto;
+import net.savantly.sprout.domain.plugin.PluginConfigurationEntity;
+import net.savantly.sprout.domain.plugin.PluginConfigurationRepository;
 import net.savantly.sprout.domain.plugin.PluginMetaBuilder;
 
 public class PluginService {
 
 	private static final Logger log = LoggerFactory.getLogger(PluginService.class);
-	private SproutModuleRegistrationRepository registrationRepository;
-	private PluginMetaBuilder pluginMetaBuilder;
+	private final SproutModuleRegistrationRepository registrationRepository;
+	private final PluginMetaBuilder pluginMetaBuilder;
+	private final PluginConfigurationRepository pluginConfigRepository;
+	private final ObjectMapper mapper;
 
 	public PluginService(
 			SproutModuleRegistrationRepository registrationRepository, 
-			PluginMetaBuilder pluginMetaBuilder) {
+			PluginMetaBuilder pluginMetaBuilder,
+			PluginConfigurationRepository pluginConfigRepository, 
+			ObjectMapper mapper) {
 		this.pluginMetaBuilder = pluginMetaBuilder;
 		this.registrationRepository = registrationRepository;
+		this.pluginConfigRepository = pluginConfigRepository;
+		this.mapper = mapper;
 	}
 	
 	public List<PluginMeta> getAllPlugins(){
@@ -60,10 +72,27 @@ public class PluginService {
 		}
 		throw new PluginException("failed to get plugin meta info");
 	}
+	
+	public PluginConfigurationDto updatePluginConfiguration(String pluginId, PluginConfigurationDto dto) throws JsonProcessingException {
+		PluginConfigurationEntity entity = getPluginConfiguration(pluginId);
+		String jsonData = mapper.writeValueAsString(dto.getJsonData());
+		entity.setJsonData(jsonData);
+		pluginConfigRepository.save(entity);
+		return dto;
+	}
 
 	// TODO: Implement reading a markdown file from the module lib
 	// Maybe need to unpack the plugins/modules into a temp folder 
 	public String getPluginMarkdownByPluginId(String id, String markdownType) {
 		return "# Not Implemented Yet  \nTODO: Implement reading a markdown file from the module lib  \nMaybe need to unpack the plugins/modules into a temp folder";
+	}
+	
+	private PluginConfigurationEntity getPluginConfiguration(String id) {
+		List<PluginConfigurationEntity> list = pluginConfigRepository.findByIdItemId(id);
+		if (list.isEmpty()) {
+			return new PluginConfigurationEntity();
+		} else {
+			return list.get(0);
+		}
 	}
 }
