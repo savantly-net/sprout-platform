@@ -1,7 +1,7 @@
 import { EntityState, EntityStateProvider, NavModel, NavModelItem, TenantedEntity } from '@savantly/sprout-api';
 import { css } from 'emotion';
 import _ from 'lodash';
-import React, { ReactElement, useMemo, useState } from 'react';
+import React, { Fragment, ReactElement, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import { Alert } from 'reactstrap';
@@ -70,25 +70,26 @@ export const EntityItemIndexPage = ({
     node: navModelItem
   };
 
-  if (item) {
-    return (
-      <RoutedEntityPage model={navModel}>
-        <div
-          className={css`
-            display: flex;
-          `}
-        >
-          <NavLink to={`./edit`} className="btn btn-warning ml-auto">
-            <Icon name="pen" className="mr-1" />
-            <span>Edit</span>
-          </NavLink>
-        </div>
-        {entityViewer({ item })}
-      </RoutedEntityPage>
-    );
-  } else if (error) {
-    return <Alert color="warning">{error}</Alert>;
-  } else {
-    return <LoadingIcon />;
-  }
+  return (
+    <Fragment>
+      {!item && !error && <LoadingIcon />}
+      {item && (
+        <RoutedEntityPage model={navModel}>
+          <div
+            className={css`
+              display: flex;
+            `}
+          >
+            <NavLink to={`./edit`} className="btn btn-warning ml-auto">
+              <Icon name="pen" className="mr-1" />
+              <span>Edit</span>
+            </NavLink>
+          </div>
+          {entityViewer({ item })}
+        </RoutedEntityPage>
+      )}
+
+      {error && <Alert color="warning">{error}</Alert>}
+    </Fragment>
+  );
 };
