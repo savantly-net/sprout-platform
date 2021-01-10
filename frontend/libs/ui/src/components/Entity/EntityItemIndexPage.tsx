@@ -34,6 +34,7 @@ export const EntityItemIndexPage = ({
   const [item, setItem] = useState(undefined as ItemState);
   const [error, setError] = useState('');
   const dispatch = useDispatch();
+  const Viewer = entityViewer;
 
   useMemo(() => {
     if (!entityState.isFetched && !entityState.isFetching) {
@@ -85,7 +86,7 @@ export const EntityItemIndexPage = ({
               <span>Edit</span>
             </NavLink>
           </div>
-          {entityViewer({ item })}
+          <Viewer item={item} />
         </RoutedEntityPage>
       )}
 
