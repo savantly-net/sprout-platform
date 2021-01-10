@@ -1,8 +1,10 @@
 import React, { FC } from 'react';
-import { PluginMeta } from '@savantly/sprout-api';
+import { PluginMeta, PluginType } from '@savantly/sprout-api';
 import { PluginSignatureBadge } from './PluginSignatureBadge';
-import { Link } from 'react-router-dom';
-import { css } from 'emotion';
+import { Link, useNavigate } from 'react-router-dom';
+import { css, cx } from 'emotion';
+import { Icon } from '@sprout-platform/ui';
+import { Button, ButtonGroup } from 'reactstrap';
 
 interface Props {
   plugin: PluginMeta;
@@ -10,43 +12,52 @@ interface Props {
 
 const PluginListItem: FC<Props> = (props) => {
   const { plugin } = props;
+  const navigate = useNavigate();
 
   return (
-    <li>
-      <div>
-        <div>
-          <Link to={`./${plugin.id}/`}>Information</Link>
+    <div
+      className={cx(
+        'card',
+        'mb-3',
+        css`
+          min-width: 12rem;
+        `
+      )}
+    >
+      <img src={`${plugin.baseUrl}/${plugin.info.logos.large}`} className={'card-img-top'} />
+      <div className="card-body">
+        <h5 className="card-title">{plugin.name}</h5>
+        <div className="card-subtitle">
+          <small>
+            [{plugin.type}] {`By ${plugin.info.author.name}`}
+          </small>
         </div>
-        <div>
-          <Link to={`/a/${plugin.id}/`}>Application Page</Link>
-        </div>
-        <div className="card-item-header">
-          <div className="card-item-type">
-            <small>[{plugin.type}]</small>
-          </div>
-          <PluginSignatureBadge status={plugin.signature} />
-          {plugin.hasUpdate && (
-            <div className="card-item-notice">
-              <span bs-tooltip="plugin.latestVersion">Update available!</span>
-            </div>
-          )}
-        </div>
-        <div className="card-item-body">
-          <figure className="card-item-figure">
-            <img
-              src={`${plugin.baseUrl}/${plugin.info.logos.small}`}
-              className={css`
-                max-width: 50px;
-              `}
-            />
-          </figure>
-          <div className="card-item-details">
-            <div className="card-item-name">{plugin.name}</div>
-            <div className="card-item-sub-name">{`By ${plugin.info.author.name}`}</div>
-          </div>
-        </div>
+        <div className="card-text">{plugin.info.description}</div>
       </div>
-    </li>
+      <div className="card-footer d-flex justify-content-between">
+        {plugin.type == PluginType.app && (
+          <Button
+            className="btn btn-primary"
+            onClick={() => {
+              navigate(`/a/${plugin.id}/`);
+            }}
+          >
+            App
+          </Button>
+        )}
+        <small className="text-muted">
+          {plugin.hasUpdate && <span bs-tooltip="plugin.latestVersion">Update available!</span>}
+        </small>
+        <Button
+          className="btn btn-secondary"
+          onClick={() => {
+            navigate(`./${plugin.id}/`);
+          }}
+        >
+          <Icon name="cog" />
+        </Button>
+      </div>
+    </div>
   );
 };
 

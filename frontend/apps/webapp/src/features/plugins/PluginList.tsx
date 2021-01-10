@@ -6,16 +6,16 @@ interface Props {
   plugins: PluginMeta[];
 }
 
-const PluginList: FC<Props> = props => {
+const PluginList: FC<Props> = (props) => {
   const { plugins } = props;
 
   return (
-    <section className="card-section card-list-layout-list">
-      <ol className="card-list">
+    <section>
+      <div className="row card-deck">
         {plugins.map((plugin, index) => {
           return <PluginListItem plugin={plugin} key={`${plugin.name}-${index}`} />;
         })}
-      </ol>
+      </div>
     </section>
   );
 };
