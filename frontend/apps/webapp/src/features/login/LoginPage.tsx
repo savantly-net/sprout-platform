@@ -9,7 +9,7 @@ import { login, logout } from '../../core/reducers/authentication';
 import { sproutApiSvc } from '../../core/services/sproutApiSvc';
 import { OAuthClientConfig, StoreState } from '../../types';
 
-export const LoginPage = ({ redirectUrl, showBasic }: { redirectUrl?: string; showBasic?: boolean }) => {
+export const LoginPage = ({ redirectUrl }: { redirectUrl?: string }) => {
   const redirectTo = redirectUrl || '/';
   const once = true;
   const dispatch = useDispatch();
@@ -17,9 +17,6 @@ export const LoginPage = ({ redirectUrl, showBasic }: { redirectUrl?: string; sh
   const [oauthClients, setOauthClients] = useState(new Array<OAuthClientConfig>());
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const [modal, setModal] = useState(false);
-
-  const toggle = () => setModal(!modal);
 
   useMemo(
     () =>
@@ -97,11 +94,13 @@ export const LoginPage = ({ redirectUrl, showBasic }: { redirectUrl?: string; sh
               </Form>
               {error && <Alert color="danger">{error}</Alert>}
             </Row>
-            <Row
+            <div
               className={cx(
-                'justify-content-center',
+                'column',
+                'p2',
                 css`
                   margin: auto;
+                  text-align: center;
                 `
               )}
             >
@@ -144,7 +143,9 @@ export const LoginPage = ({ redirectUrl, showBasic }: { redirectUrl?: string; sh
                           })
                         );
                         if (redirectTo === '/login') {
-                          navigate('/');
+                          navigate('/', {
+                            replace: true
+                          });
                         } else {
                           navigate(redirectTo);
                         }
@@ -153,7 +154,7 @@ export const LoginPage = ({ redirectUrl, showBasic }: { redirectUrl?: string; sh
                   ))}
                 </Fragment>
               )}
-            </Row>
+            </div>
           </div>
         </div>
       </div>
