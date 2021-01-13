@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppPlugin, KeyValue, PanelPlugin, PluginMeta } from '@savantly/sprout-api';
+import { PanelPlugin, PluginMeta } from '@savantly/sprout-api';
 import { PluginsState } from '../../../types';
-import { PluginDashboard, PluginRoute } from '../../../types/plugins';
+import { PluginDashboard } from '../../../types/plugins';
 
 export const initialPluginState: PluginsState = {
   plugins: [],

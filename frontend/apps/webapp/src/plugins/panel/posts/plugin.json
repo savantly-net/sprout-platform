@@ -1,0 +1,18 @@
+{
+  "type": "panel",
+  "name": "Posts",
+  "id": "posts",
+
+  "skipDataQuery": true,
+
+  "info": {
+    "author": {
+      "name": "Savantly.net",
+      "url": "https://savantly.net"
+    },
+    "logos": {
+      "small": "img/icn-text-panel.svg",
+      "large": "img/icn-text-panel.svg"
+    }
+  }
+}
