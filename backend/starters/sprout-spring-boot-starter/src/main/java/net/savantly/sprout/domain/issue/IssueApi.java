@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import net.savantly.sprout.data.repository.TenantKeyedRepository;
+import net.savantly.sprout.core.tenancy.TenantKeyedRepository;
 import net.savantly.sprout.domain.issue.comment.IssueComment;
 import net.savantly.sprout.domain.issue.comment.IssueCommentDto;
 import net.savantly.sprout.rest.crud.TenantedDtoController;

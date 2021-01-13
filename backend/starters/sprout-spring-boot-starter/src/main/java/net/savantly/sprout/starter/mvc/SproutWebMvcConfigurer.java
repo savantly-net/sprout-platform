@@ -32,6 +32,7 @@ import net.savantly.sprout.domain.authentication.LoginApi;
 import net.savantly.sprout.domain.branding.BrandingApi;
 import net.savantly.sprout.domain.branding.DefaultBrandingApi;
 import net.savantly.sprout.domain.dashboard.DashboardConfiguration;
+import net.savantly.sprout.domain.feed.FeedConfiguration;
 import net.savantly.sprout.domain.folder.FolderConfiguration;
 import net.savantly.sprout.domain.menu.MenuConfiguration;
 import net.savantly.sprout.domain.permissions.PermissionsApi;
@@ -40,7 +41,12 @@ import net.savantly.sprout.module.PluginService;
 
 @Configuration
 @ImportAutoConfiguration({ WebMvcAutoConfiguration.class })
-@Import({DashboardConfiguration.class, UIPropertiesConfiguration.class, MenuConfiguration.class, FolderConfiguration.class})
+@Import({
+	DashboardConfiguration.class, 
+	FeedConfiguration.class,
+	UIPropertiesConfiguration.class, 
+	MenuConfiguration.class, 
+	FolderConfiguration.class})
 @RequiredArgsConstructor
 public class SproutWebMvcConfigurer implements WebMvcConfigurer {
 

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import net.savantly.sprout.core.domain.tenant.TenantSupport;
-import net.savantly.sprout.data.repository.TenantKeyedRepository;
+import net.savantly.sprout.core.tenancy.TenantKeyedRepository;
 
 /**
  * Specialized Rest Controller that provides standard paths, using standard http verbs for a CRUD interface.<br>
