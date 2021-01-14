@@ -122,7 +122,7 @@ export const LoginPage = ({ redirectUrl }: { redirectUrl?: string }) => {
                       autoLogin={c.autoLogin}
                       authorizationUrl={c.authorizationUrl}
                       clientId={c.clientId}
-                      redirectUri={window.location.href}
+                      redirectUri={window.location.origin}
                       responseType="token"
                       buttonText={c.displayName}
                       scope={c.scope}
@@ -143,9 +143,7 @@ export const LoginPage = ({ redirectUrl }: { redirectUrl?: string }) => {
                           })
                         );
                         if (redirectTo === '/login') {
-                          navigate('/', {
-                            replace: true
-                          });
+                          navigate('/');
                         } else {
                           navigate(redirectTo);
                         }

@@ -16,7 +16,7 @@ import software.amazon.awssdk.services.s3.S3Client;
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
-@ConditionalOnProperty(prefix = "sprout.files", name="provider", havingValue="s3FileProvider")
+@ConditionalOnProperty(prefix = "sprout.files", name="provider-name", havingValue="s3FileProvider")
 @Configuration
 @Getter @Setter
 @RequiredArgsConstructor

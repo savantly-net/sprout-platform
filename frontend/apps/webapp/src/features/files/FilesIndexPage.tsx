@@ -1,7 +1,7 @@
 import { confirm, FormField, openDialog } from '@sprout-platform/ui';
 import { ChonkyActions, FileBrowser, FileContextMenu, FileList, FileNavbar, FileToolbar } from 'chonky';
 import { css, cx } from 'emotion';
-import React, { Fragment, useMemo } from 'react';
+import React, { Fragment, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Alert } from 'reactstrap';
@@ -15,8 +15,20 @@ const FilesIndexPage = () => {
   const dispatch = useDispatch();
   const fileState = useSelector((state: StoreState) => state.files);
   const params = useParams();
-  const filePath = params['filePath'];
   const navigate = useNavigate();
+  const [filePath, setFilePath] = useState('');
+
+  console.log(params);
+
+  useMemo(() => {
+    const filePathStar = params['*'];
+    const filePathParam = params['filePath'];
+    let _filePath = '';
+    if (filePathParam) {
+      _filePath = filePathParam + filePathStar;
+    }
+    setFilePath(_filePath);
+  }, [filePath, params]);
 
   useMemo(() => {
     if (fileState.path !== filePath) {
@@ -62,7 +74,6 @@ const FilesIndexPage = () => {
       title: 'Upload File',
       body: (formikProps) => (
         <Fragment>
-          <FormField name="name" required />
           <div className="form-group col">
             <div className="custom-file">
               <input
@@ -72,7 +83,11 @@ const FilesIndexPage = () => {
                 type="file"
                 onChange={(event) => {
                   if (event.currentTarget.files) {
-                    formikProps.setFieldValue('file', event.currentTarget.files[0]);
+                    const file = event.currentTarget.files[0];
+                    formikProps.setFieldValue('file', file);
+                    if (file) {
+                      formikProps.setFieldValue('name', event.currentTarget.files[0].name);
+                    }
                   }
                 }}
                 className="custom-file-input"
@@ -80,6 +95,7 @@ const FilesIndexPage = () => {
               <label className="custom-file-label">{formikProps.values.file?.name || 'Choose file'}</label>
             </div>
           </div>
+          <FormField name="name" label="Name" />
         </Fragment>
       )
     }).then((dialogResult) => {

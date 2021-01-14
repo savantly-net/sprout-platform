@@ -22,7 +22,8 @@ const FileBrowserRoutes: FC<any> = () => {
       <PageHeader model={navModel} />
       <Routes>
         <Route path="/" element={<FilesIndexPage />} />
-        <Route path="/item/:filePath" element={<FilesIndexPage />} />
+        <Route path="/item/" element={<FilesIndexPage />} />
+        <Route path="/item/:filePath*" element={<FilesIndexPage />} />
       </Routes>
       <Outlet />
     </div>

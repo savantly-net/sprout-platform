@@ -2,19 +2,20 @@ package net.savantly.sprout.domain.file;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.HandlerMapping;
 
 @RestController
 @RequestMapping("/api/files")
@@ -26,13 +27,23 @@ public class FileProviderApi {
 		this.provider = provider;
 	}
 
-	@GetMapping(path = { "/list", "/list/{path:.*}" })
-	public ResponseEntity<FileDataResponse> listFiles(@PathVariable(value = "path", required = false) String path) {
+	@GetMapping(path = { "/list", "/list/**" })
+	public ResponseEntity<FileDataResponse> listFiles(HttpServletRequest request) {
+		String pathPrefix = "/list";
+		String requestedUri = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+		int beginIndex = requestedUri.indexOf(pathPrefix) + pathPrefix.length();
+		int endIndex = requestedUri.length();
+		String path = requestedUri.substring(beginIndex, endIndex);
 		return ResponseEntity.ok(this.provider.getFilesByFolder(path));
 	}
 
-	@DeleteMapping("/list/{path:.*}")
-	public void deleteFile(@PathVariable("path") String path) {
+	@DeleteMapping("/list/**")
+	public void deleteFile(HttpServletRequest request) {
+		String pathPrefix = "/list/";
+		String requestedUri = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+		int beginIndex = requestedUri.indexOf(pathPrefix) + pathPrefix.length();
+		int endIndex = requestedUri.length();
+		String path = requestedUri.substring(beginIndex, endIndex);
 		this.provider.deleteFile(path);
 	}
 
