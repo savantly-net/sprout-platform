@@ -23,6 +23,8 @@ import net.savantly.sprout.controllers.DefaultMvcController;
 import net.savantly.sprout.controllers.LoginController;
 import net.savantly.sprout.controllers.PluginsApi;
 import net.savantly.sprout.controllers.argument.TenantIdArgumentResolver;
+import net.savantly.sprout.converter.spring.DateToZonedDateTimeConverter;
+import net.savantly.sprout.converter.spring.ZonedDateTimeToDateConverter;
 import net.savantly.sprout.core.domain.privilege.PrivilegeRepository;
 import net.savantly.sprout.core.domain.role.RoleRepository;
 import net.savantly.sprout.core.domain.tenant.TenantRepository;
@@ -69,6 +71,8 @@ public class SproutWebMvcConfigurer implements WebMvcConfigurer {
 	public void addFormatters(FormatterRegistry registry) {
 		log.info("adding TenantIdArgumentResolver to the FormatterRegistry");
 		registry.addConverter(new TenantIdArgumentResolver(tenantRepo));
+		registry.addConverter(new DateToZonedDateTimeConverter());
+		registry.addConverter(new ZonedDateTimeToDateConverter());
 	}
 
 	@Override

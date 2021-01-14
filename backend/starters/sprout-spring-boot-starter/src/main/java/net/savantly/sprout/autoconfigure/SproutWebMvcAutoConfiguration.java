@@ -70,6 +70,8 @@ public class SproutWebMvcAutoConfiguration implements InitializingBean {
 
 		return resolver;
 	}
+	
+
 
 	@Override
 	public void afterPropertiesSet() throws Exception {

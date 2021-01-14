@@ -1,8 +1,10 @@
 package net.savantly.sprout.starter;
 
 import java.io.Serializable;
+import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.sql.DataSource;
 
@@ -20,6 +22,8 @@ import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.auditing.DateTimeProvider;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -27,12 +31,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import lombok.AllArgsConstructor;
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
 import net.savantly.sprout.core.domain.tenant.TenantSupport;
+import net.savantly.sprout.core.security.audit.SproutAuditorAware;
 import net.savantly.sprout.core.tenancy.TenantContext;
 
 @Configuration("sproutJpaConfiguration")
 @AutoConfigureAfter(HibernateJpaAutoConfiguration.class)
 @EnableConfigurationProperties({JpaProperties.class})
 @EnableJpaRepositories(basePackages = {"net.savantly.sprout.core", "net.savantly.sprout.domain"})
+@EnableJpaAuditing(dateTimeProviderRef = "auditingDateTimeProvider")
 @EntityScan
 @EnableTransactionManagement(mode = AdviceMode.ASPECTJ)
 @AllArgsConstructor
@@ -66,6 +72,16 @@ public class JpaConfiguration {
 		return factory.dataSource(dataSource).packages(packagesToScan).properties(jpaProperties).build();
 	}
 
+	
+	@Bean(name = "auditingDateTimeProvider")
+	public DateTimeProvider auditingDateTimeProvider() {
+		return () -> Optional.of(OffsetDateTime.now());
+	}
+
+	@Bean
+	public SproutAuditorAware sproutAuditorAware() {
+		return new SproutAuditorAware();
+	}
 	
 	public EmptyInterceptor hibernateInterceptor() {
 		return new EmptyInterceptor() {

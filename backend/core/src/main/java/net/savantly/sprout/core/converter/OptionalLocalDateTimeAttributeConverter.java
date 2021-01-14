@@ -1,4 +1,4 @@
-package net.savantly.sprout.core.domain;
+package net.savantly.sprout.core.converter;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

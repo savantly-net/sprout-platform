@@ -7,7 +7,7 @@ public interface FeedItem {
 
 	/**
 	 * @return
-	 * The source contributor, used as part of the key for association to comments<br/>
+	 * The source contributor, used as part of the key for association to comments<br>
 	 * This should never change, should be unique among feed contributors, and should be the same for all FeedItems produced by this contributor
 	 * 
 	 */
@@ -15,7 +15,7 @@ public interface FeedItem {
 	
 	/**
 	 * @return
-	 * An internal identifier that this contributor knows, and should be immutable <br/>
+	 * An internal identifier that this contributor knows, and should be immutable <br>
 	 * Used as part of the key and is referenced for association to comments
 	 */
 	String getId();

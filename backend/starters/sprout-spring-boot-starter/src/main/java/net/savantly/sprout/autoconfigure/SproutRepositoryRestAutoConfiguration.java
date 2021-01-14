@@ -41,6 +41,7 @@ public class SproutRepositoryRestAutoConfiguration {
 				.allowedHeaders(sproutConfiguration.getCors().getAllowedHeaders())
 				.allowedMethods(sproutConfiguration.getCors().getAllowedMethods())
 				.allowedOrigins(sproutConfiguration.getCors().getAllowedOrigins());
+			
 		}
 		
 		@Bean

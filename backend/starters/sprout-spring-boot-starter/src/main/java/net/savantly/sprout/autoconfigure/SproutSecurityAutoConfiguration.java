@@ -1,22 +1,17 @@
 package net.savantly.sprout.autoconfigure;
 
-import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.auditing.DateTimeProvider;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
-import net.savantly.sprout.core.security.audit.SproutAuditorAware;
 import net.savantly.sprout.core.security.users.SproutUserService;
 import net.savantly.sprout.starter.SproutWebSecurityConfiguration;
 import net.savantly.sprout.starter.security.SecurityCustomizer;
@@ -34,7 +29,6 @@ import net.savantly.sprout.starter.security.session.RedirectToOriginalUrlAuthent
 import net.savantly.sprout.starter.security.user.UserDetailsConfiguration;
 
 @Configuration
-@EnableJpaAuditing(dateTimeProviderRef = "auditingDateTimeProvider")
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Import({ SecurityProblemSupport.class, PermissionsConfiguration.class, OAuthAutoConfiguration.class,
 		JWTAutoConfiguration.class, BasicAuthAutoConfiguration.class, AnonymousAuthAutoConfiguration.class,
@@ -73,16 +67,6 @@ public class SproutSecurityAutoConfiguration {
 	@Bean
 	public CookieSecurityContextRepository securityContextRepository(SproutUserService userService) {
 		return new CookieSecurityContextRepository(props, userService);
-	}
-	
-	@Bean(name = "auditingDateTimeProvider")
-	  public DateTimeProvider dateTimeProvider() {
-	    return () -> Optional.of(OffsetDateTime.now());
-	  }
-
-	@Bean
-	public SproutAuditorAware sproutAuditorAware() {
-		return new SproutAuditorAware();
 	}
 	
 	@Bean
