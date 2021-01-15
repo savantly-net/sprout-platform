@@ -1,6 +1,7 @@
 package net.savantly.sprout.domain.branding;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,4 +27,7 @@ public interface BrandingApi {
 			MediaType.IMAGE_JPEG_VALUE, "image/apng", "image/bmp", 
 			"image/x-icon", "image/svg+xml", "image/tiff", "image/webp" })
 	byte[] getMiniLogo();
+	
+	@GetMapping(path = "/styles")
+	ResponseEntity<StyleMap> getStyles();
 }

@@ -6,6 +6,7 @@ import App from './App';
 import './App.css';
 import { SERVER_API_URL } from './config/constants';
 import { AppNotificationProvider } from './core/components/AppNotificationProvider/AppNotificationProvider';
+import { BrandingProvider } from './core/components/Branding/BrandingProvider';
 import { SideMenu } from './core/components/sidemenu/SideMenu';
 import { updateAppSettings } from './core/reducers/application';
 import { getSession } from './core/reducers/authentication';
@@ -58,7 +59,7 @@ export const AppContainer = ({ theme }: { theme: string }) => {
           <Route
             path="/*"
             element={
-              <React.Fragment>
+              <BrandingProvider>
                 {!isShowLogin && isSessionFetched && <SideMenu></SideMenu>}
                 <div ref={appElem} className="main-view">
                   <div className="scroll-canvas">
@@ -67,7 +68,7 @@ export const AppContainer = ({ theme }: { theme: string }) => {
                     </ErrorBoundaryAlert>
                   </div>
                 </div>
-              </React.Fragment>
+              </BrandingProvider>
             }
           />
         </Routes>

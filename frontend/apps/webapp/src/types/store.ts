@@ -1,6 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { NavIndex } from '@savantly/sprout-api';
 import { ThunkAction, ThunkDispatch as GenericThunkDispatch } from 'redux-thunk';
+import { BrandingState } from '../core/components/Branding/state/reducers';
 import { AppNotificationsState } from '../core/reducers/appNotification';
 import { PanelEditorState } from '../features/dashboard/components/PanelEditor/state/reducers';
 import { IssueEntityState } from '../features/feedback/entity';
@@ -24,6 +25,7 @@ export interface StoreState {
   location: LocationState;
   files: FileState;
   issues: IssueEntityState;
+  branding: BrandingState;
 }
 
 /*

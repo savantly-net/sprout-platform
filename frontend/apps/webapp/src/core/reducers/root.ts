@@ -7,6 +7,7 @@ import importDashboardReducers from '../../features/manage-dashboards/state/redu
 import { navTreeReducer } from '../../features/navigation/navTree';
 import pluginReducers from '../../features/plugins/state/reducers';
 import { CleanUp, cleanUpAction } from '../actions/cleanUp';
+import { brandingReducer } from '../components/Branding/state/reducers';
 import { locationReducer } from '../services/locationSvc';
 
 export const rootReducers = {
@@ -17,7 +18,8 @@ export const rootReducers = {
   navTree: navTreeReducer,
   location: locationReducer,
   files: filesReducer,
-  issues: issueStateProvider.slice.reducer
+  issues: issueStateProvider.slice.reducer,
+  branding: brandingReducer
 };
 
 const addedReducers = {};

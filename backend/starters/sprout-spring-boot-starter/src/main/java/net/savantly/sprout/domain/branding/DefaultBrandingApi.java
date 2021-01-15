@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
 
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
@@ -53,6 +54,11 @@ public class DefaultBrandingApi implements BrandingApi {
 			log.error("failed to get resource: {}", resourcePath, e);
 			return null;
 		}
+	}
+
+	@Override
+	public ResponseEntity<StyleMap> getStyles() {
+		return ResponseEntity.ok(props.getBranding().getStyles());
 	}
 
 }

@@ -6,6 +6,7 @@ import { createStore, IModuleStore } from 'redux-dynamic-modules';
 // Thunk extension allows us to use Thunk middleware in the module store.
 import { getThunkExtension } from 'redux-dynamic-modules-thunk';
 import { createLogger } from 'redux-logger';
+import { initialBrandingState } from '../core/components/Branding/state/reducers';
 import { applicationInitialState } from '../core/reducers/application';
 import { initialAuthenticationState } from '../core/reducers/authentication';
 import { addReducer, rootReducers } from '../core/reducers/root';
@@ -58,7 +59,8 @@ export function configureStore() {
         navTree: { items: defaultNavTree },
         panelEditor: initialPanelEditorState(),
         plugins: initialPluginState,
-        issues: issueStateProvider.props.initialState
+        issues: issueStateProvider.props.initialState,
+        branding: initialBrandingState,
       }
     },
     {
@@ -75,7 +77,8 @@ export function configureStore() {
         panelEditor: rootReducers.panelEditor,
         plugins: rootReducers.plugins,
         files: rootReducers.files,
-        issues: rootReducers.issues
+        issues: rootReducers.issues,
+        branding: rootReducers.branding
       }
     }
   );

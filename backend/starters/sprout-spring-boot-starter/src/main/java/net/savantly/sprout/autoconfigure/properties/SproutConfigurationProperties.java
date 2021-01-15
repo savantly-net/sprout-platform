@@ -14,6 +14,7 @@ import org.springframework.http.HttpMethod;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.savantly.sprout.domain.branding.StyleMap;
 import net.savantly.sprout.domain.menu.MenuDto;
 import net.savantly.sprout.domain.uiProperties.UIProperty;
 import net.savantly.sprout.starter.security.permissions.BootstrapPermission;
@@ -47,6 +48,7 @@ public class SproutConfigurationProperties {
 		private String logoResource = "classpath:/META-INF/resources/images/logo.png";
 		private String miniLogoUrl = "/api/public/brand/mini-logo";
 		private String miniLogoResource = "classpath:/META-INF/resources/images/favicon.png";
+		private StyleMap styles = new StyleMap();
 	}
 	
 	@Getter	@Setter
