@@ -7,6 +7,7 @@ import { useSearchParams } from 'react-router-dom';
 // Utils & Services
 import { appEvents } from '../../../../core/app_events';
 import { BackButton } from '../../../../core/components/BackButton/BackButton';
+import { PrivateComponent } from '../../../../core/components/PrivateComponent/PrivateComponent';
 import { CoreEvents } from '../../../../types';
 // Types
 import { DashboardModel } from '../../state';
@@ -227,16 +228,18 @@ const DashNav = (props: OwnProps) => {
   const { dashboard, isFullscreen } = props;
 
   return (
-    <div className="navbar">
-      {isFullscreen && renderBackButton()}
-      {renderDashboardTitleSearchButton()}
+    <PrivateComponent hasAnyAuthority={['GENERAL_ADMIN', 'DASHBOARD_EDIT']}>
+      <div className="navbar">
+        {isFullscreen && renderBackButton()}
+        {renderDashboardTitleSearchButton()}
 
-      <div className="navbar-buttons navbar-buttons--actions">{renderRightActionsButton()}</div>
+        <div className="navbar-buttons navbar-buttons--actions">{renderRightActionsButton()}</div>
 
-      <div className="navbar-buttons navbar-buttons--tv">
-        <DashNavButton tooltip="Cycle view mode" classSuffix="tv" icon="monitor" onClick={onToggleTVMode} />
+        <div className="navbar-buttons navbar-buttons--tv">
+          <DashNavButton tooltip="Cycle view mode" classSuffix="tv" icon="monitor" onClick={onToggleTVMode} />
+        </div>
       </div>
-    </div>
+    </PrivateComponent>
   );
 };
 

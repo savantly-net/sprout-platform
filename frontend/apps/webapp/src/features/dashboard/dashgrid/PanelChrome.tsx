@@ -1,24 +1,16 @@
 // Libraries
 import { selectors } from '@grafana/e2e-selectors';
+import { LoadingState, PanelData, PanelEvents, PanelPlugin, PanelPluginMeta } from '@savantly/sprout-api';
 import { ErrorBoundary } from '@savantly/sprout-ui';
-import {
-  LoadingState,
-  PanelData, PanelEvents,
-  PanelPlugin,
-  PanelPluginMeta
-} from '@savantly/sprout-api';
 import classNames from 'classnames';
 import React, { PureComponent } from 'react';
-// Utils & Services
-import config from '../../../core/config';
-import { PANEL_BORDER } from '../../../core/constants';
+import { PrivateComponent } from '../../../core/components/PrivateComponent/PrivateComponent';
+import { LocationUpdateService } from '../../../core/services/locationSvc';
 // Types
 import { DashboardModel, PanelModel } from '../state';
 // Components
 import { PanelHeader } from './PanelHeader/PanelHeader';
 import { PanelRenderer } from './PanelRenderer';
-import { getLocationSrv } from '@savantly/sprout-runtime';
-import { LocationUpdateService } from '../../../core/services/locationSvc';
 
 const DEFAULT_PLUGIN_ERROR = 'Error in plugin';
 
@@ -43,7 +35,6 @@ export interface State {
 }
 
 export class PanelChrome extends PureComponent<Props, State> {
-
   constructor(props: Props) {
     super(props);
 
@@ -53,12 +44,12 @@ export class PanelChrome extends PureComponent<Props, State> {
       refreshWhenInView: false,
       data: {
         state: LoadingState.NotStarted
-      },
+      }
     };
   }
-  
+
   static getDerivedStateFromError(error: Error) {
-    return {errorMessage: error.toString()}
+    return { errorMessage: error.toString() };
   }
 
   componentDidMount() {
@@ -176,22 +167,24 @@ export class PanelChrome extends PureComponent<Props, State> {
       'panel-container': true,
       'panel-container--absolute': true,
       'panel-container--transparent': transparent,
-      'panel-container--no-title': this.hasOverlayHeader(),
+      'panel-container--no-title': this.hasOverlayHeader()
     });
 
     return (
       <div className={containerClassNames} aria-label={selectors.components.Panels.Panel.containerByTitle(panel.title)}>
-        <PanelHeader
-          panel={panel}
-          dashboard={dashboard}
-          title={panel.title}
-          description={panel.description}
-          error={errorMessage}
-          isEditing={isEditing}
-          isViewing={isViewing}
-          data={data}
-          updateLocationService={updateLocation}
-        />
+        <PrivateComponent hasAnyAuthority={['GENERAL_ADMIN', 'DASHBOARD_EDIT']}>
+          <PanelHeader
+            panel={panel}
+            dashboard={dashboard}
+            title={panel.title}
+            description={panel.description}
+            error={errorMessage}
+            isEditing={isEditing}
+            isViewing={isViewing}
+            data={data}
+            updateLocationService={updateLocation}
+          />
+        </PrivateComponent>
         <ErrorBoundary>
           {({ error }) => {
             if (error) {
@@ -199,16 +192,17 @@ export class PanelChrome extends PureComponent<Props, State> {
               return null;
             } else {
               return (
-              <PanelRenderer
-                panel={panel}
-                plugin={this.props.plugin}
-                data={data}
-                hasOverlayHeader={this.hasOverlayHeader()}
-                height={height}
-                width={width}
-                renderCounter={this.state.renderCounter}
-                onOptionsChange={this.onOptionsChange}
-              ></PanelRenderer>)
+                <PanelRenderer
+                  panel={panel}
+                  plugin={this.props.plugin}
+                  data={data}
+                  hasOverlayHeader={this.hasOverlayHeader()}
+                  height={height}
+                  width={width}
+                  renderCounter={this.state.renderCounter}
+                  onOptionsChange={this.onOptionsChange}
+                ></PanelRenderer>
+              );
             }
           }}
         </ErrorBoundary>
