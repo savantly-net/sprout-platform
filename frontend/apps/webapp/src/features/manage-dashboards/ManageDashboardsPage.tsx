@@ -8,8 +8,6 @@ import { getNavModel } from '../../core/selectors/navModel';
 import { DashboardDTO, StoreState } from '../../types';
 import { dashboardService } from '../dashboard/services/dashboardService';
 
-const emptyDashboards: DashboardDTO[] = [];
-
 const DashboardList = ({ dashboards }: { dashboards: DashboardDTO[] }) => {
   const versionedList: { [id: string]: DashboardDTO[] } = {};
 
@@ -57,19 +55,23 @@ export const ManageDashboardsPage = () => {
   const navigate = useNavigate();
 
   const [error, setError] = useState('');
-  const [dashboards, setDashboards] = useState(emptyDashboards);
-  const once = 'once';
+  const [fetching, isFetching] = useState(false);
+  const [dashboards, setDashboards] = useState(undefined as DashboardDTO[] | undefined);
 
   useMemo(() => {
-    dashboardService
-      .getDashboardsByFolderId(null)
-      .then((response) => {
-        setDashboards(response.data);
-      })
-      .catch((err) => {
-        setError(err.detail || err.message || err.status);
-      });
-  }, [once]);
+    if (!fetching && !dashboards) {
+      isFetching(true);
+      dashboardService
+        .getDashboardsByFolderId(null)
+        .then((response) => {
+          setDashboards(response.data);
+        })
+        .catch((err) => {
+          setError(err.detail || err.message || err.status);
+        })
+        .finally(() => isFetching(false));
+    }
+  }, [fetching, dashboards]);
 
   return (
     <Page navModel={navModel}>

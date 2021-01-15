@@ -1,12 +1,11 @@
 // Libraries
-import { UrlQueryValue , createErrorNotification} from '@savantly/sprout-api';
+import { createErrorNotification, UrlQueryValue } from '@savantly/sprout-api';
 import { getLocationSrv } from '@savantly/sprout-runtime';
 import { CustomScrollbar } from '@savantly/sprout-ui';
 // @ts-ignore
 import $ from 'jquery';
 import React, { Component, MouseEvent } from 'react';
 import { connect } from 'react-redux';
-import { Prompt } from 'react-router-dom';
 import { notifyApp } from '../../../core/actions';
 import { Branding } from '../../../core/components/Branding/Branding';
 import { LogFlags } from '../../../core/components/LifecycleLogging/LifecycleLogging';
