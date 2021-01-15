@@ -51,6 +51,7 @@ export const LoginPage = ({ redirectUrl }: { redirectUrl?: string }) => {
     <Container grow={1}>
       <div
         className={cx(
+          'login-page',
           'd-flex',
           'align-items-center',
           'justify-content-around',

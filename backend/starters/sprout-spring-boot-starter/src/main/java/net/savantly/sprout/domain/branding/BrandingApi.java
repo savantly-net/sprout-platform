@@ -29,5 +29,7 @@ public interface BrandingApi {
 	byte[] getMiniLogo();
 	
 	@GetMapping(path = "/styles")
-	ResponseEntity<StyleMap> getStyles();
+	default ResponseEntity<StyleMap> getStyles() {
+		return ResponseEntity.ok(new StyleMap());
+	}
 }
