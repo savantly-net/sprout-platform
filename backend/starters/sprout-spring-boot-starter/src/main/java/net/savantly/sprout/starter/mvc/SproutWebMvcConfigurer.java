@@ -38,6 +38,7 @@ import net.savantly.sprout.domain.feed.FeedConfiguration;
 import net.savantly.sprout.domain.folder.FolderConfiguration;
 import net.savantly.sprout.domain.menu.MenuConfiguration;
 import net.savantly.sprout.domain.permissions.PermissionsApi;
+import net.savantly.sprout.domain.proxy.ProxyApi;
 import net.savantly.sprout.domain.uiProperties.UIPropertiesConfiguration;
 import net.savantly.sprout.module.PluginService;
 
@@ -121,5 +122,10 @@ public class SproutWebMvcConfigurer implements WebMvcConfigurer {
 		return new DefaultBrandingApi();
 	}
 	
+	@Bean
+	@ConditionalOnMissingBean
+	public ProxyApi defaultProxyApi(SproutConfigurationProperties props) {
+		return new ProxyApi(props);
+	}
 
 }

@@ -122,6 +122,7 @@ public class DashboardService {
 	
 	private Dashboard toEntity(DashboardDto dto) {
 		Dashboard entity = new Dashboard()
+			.setFolder(dto.getFolderId())
 			.setTitle(dto.getTitle())
 			.setEditable(dto.isEditable())
 			.setHideControls(dto.isHideControls())

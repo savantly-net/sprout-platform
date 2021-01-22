@@ -34,6 +34,7 @@ public class SproutConfigurationProperties {
 	private Problem problem = new Problem();
 	private Hal hal = new Hal();
 	private Files files = new Files();
+	private Proxy proxy = new Proxy();
 	
 	/**
 	 * Additional UI properties that should be created for the default tenant
@@ -251,5 +252,11 @@ public class SproutConfigurationProperties {
 	public static class S3 {
 		private String region = "us-east-2";
 		private String bucketName;
+	}
+	
+	@Getter
+	@Setter
+	public static class Proxy {
+		private List<String> allowedUris = new ArrayList<>();
 	}
 }

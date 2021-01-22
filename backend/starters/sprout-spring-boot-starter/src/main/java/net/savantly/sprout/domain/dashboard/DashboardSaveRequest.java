@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode
 public class DashboardSaveRequest {
 
-	private long folderId;
+	private String folderId;
 	private String message;
 	private boolean overwrite;
 	private DashboardDto dashboard;

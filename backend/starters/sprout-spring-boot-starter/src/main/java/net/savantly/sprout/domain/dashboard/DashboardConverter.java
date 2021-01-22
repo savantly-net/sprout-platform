@@ -29,6 +29,7 @@ public class DashboardConverter {
 	
 	public DashboardDtoWrapper convert(Dashboard entity) {
 		DashboardDto dto = new DashboardDto()
+				.setFolderId(entity.getFolder())
 				.setTitle(entity.getTitle())
 				.setEditable(entity.isEditable())
 				.setHideControls(entity.isHideControls())

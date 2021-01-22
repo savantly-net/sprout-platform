@@ -18,6 +18,7 @@ public class DashboardDto {
 	private String id;
 	private String uid;
 	private Long version;
+	private String folderId;
 	private String title;
 	private boolean editable;
 	private List<DashboardLink> links = new ArrayList<>();

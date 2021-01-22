@@ -1,14 +1,15 @@
 // Libraries
 import { KeyValue, PanelProps } from '@savantly/sprout-api';
 import { CustomScrollbar, stylesFactory } from '@savantly/sprout-ui';
-import { HandlebarsViewer, LoadingIcon } from '@sprout-platform/ui';
+import { HandlebarsViewer, LoadingIcon, MarkdownViewer } from '@sprout-platform/ui';
+import axios from 'axios';
 import { css, cx } from 'emotion';
 import { Field, Formik, useField, useFormikContext } from 'formik';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import Datetime from 'react-datetime';
 import { Alert, Button } from 'reactstrap';
+import { SERVER_API_URL } from '../../../config/constants';
 import { QueryParameterControl } from './editors/QueryParametersEditor';
-import axios from 'axios';
 // Types
 import { QueryPanelOptions } from './types';
 
@@ -111,13 +112,117 @@ const renderTextControl = (control: QueryParameterControl) => {
   );
 };
 
+const getFullUrl = (url: string, paramString: string) => {
+  const hasQuestionMark = url && url.includes('?');
+  const urlWithQuestionMark = hasQuestionMark ? url : url + '?';
+  return `${urlWithQuestionMark}${paramString}`;
+};
+
+// https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
+function validURL(str: string) {
+  var pattern = new RegExp(
+    '^(https?:\\/\\/)?' + // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+      '(\\#[-a-z\\d_]*)?$',
+    'i'
+  ); // fragment locator
+  return !!pattern.test(str);
+}
+
+const RenderData = ({
+  data,
+  useTemplate,
+  templateSource,
+  dataType
+}: {
+  data: any;
+  useTemplate: boolean;
+  templateSource: string;
+  dataType: string;
+}) => {
+  if (useTemplate && data) {
+    const _templateSource =
+      templateSource ||
+      `<div><h3>Define a template in the configuration</h3><p>data:</p><pre>${JSON.stringify(
+        { data }, // wrapping, so we may provide additional context in this object later
+        null,
+        2
+      )}</pre></div>`;
+    return <HandlebarsViewer data={{ data }} templateSource={_templateSource} />;
+  } else if (!useTemplate && data) {
+    let _data = data;
+    if (dataType) {
+      const match = dataType.toUpperCase().match(/JSON/);
+      if (match && match.length > 0) {
+        _data = JSON.stringify(data);
+      }
+    }
+    return <MarkdownViewer className={cx(getStyles().content)}>{_data}</MarkdownViewer>;
+  } else {
+    return <LoadingIcon />;
+  }
+};
+
+interface ProxyRequestPayload {
+  url: string;
+  headers: any;
+  method: string;
+}
 export const QueryPanel = (props: Props) => {
-  const { url, queryParameters, useTemplate, template } = props.options;
+  const { url, queryParameters, displayType, useTemplate, template, headers, useProxy } = props.options;
   const [data, setData] = useState('');
+  const [targetUrl, setTargetUrl] = useState('');
+  const [dataType, setDataType] = useState('');
+  const [payload, setPayload] = useState(undefined as undefined | ProxyRequestPayload);
   const [error, setError] = useState('');
   const defaultState: KeyValue = {};
   const [state, setState] = useState(defaultState);
   const paramString = buildParamString(state);
+
+  useMemo(() => {
+    if (url && (url.startsWith('/') || validURL(url))) {
+      if (useProxy) {
+        setTargetUrl(`${SERVER_API_URL}/api/proxy`);
+      } else {
+        const _targetUrl = getFullUrl(url, paramString);
+        setTargetUrl(_targetUrl);
+      }
+    }
+  }, [url, targetUrl, paramString]);
+
+  useMemo(() => {
+    if (useProxy && targetUrl) {
+      setPayload({
+        url: getFullUrl(url, paramString),
+        headers: JSON.parse(headers),
+        method: 'GET'
+      });
+    } else {
+      setPayload(undefined);
+    }
+  }, [useProxy, headers, targetUrl, url, paramString]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (targetUrl && displayType === 'RENDER') {
+        if (useProxy && payload) {
+          const result = await axios.post(targetUrl, payload);
+          setDataType(result.headers['content-type']);
+          setData(result.data);
+        } else if (!useProxy) {
+          const result = await axios.get(targetUrl, {
+            headers: headers ? JSON.parse(headers) : {}
+          });
+          setDataType(result.headers['content-type']);
+          setData(result.data);
+        }
+      }
+    };
+    fetchData();
+  }, [targetUrl, useProxy, displayType, payload, headers]);
 
   const getInitialValues = (): KeyValue => {
     const valueMap: KeyValue = {};
@@ -141,40 +246,7 @@ export const QueryPanel = (props: Props) => {
     return formControlList;
   };
 
-  const getFullUrl = () => {
-    const hasQuestionMark = url && url.includes('?');
-    const urlWithQuestionMark = hasQuestionMark ? url : url + '?';
-    return `${urlWithQuestionMark}${paramString}`;
-  };
-
   const styles = getStyles();
-
-  const loadData = () => {
-    axios
-      .get(getFullUrl(), {
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          Accept: 'application/json'
-        }
-      })
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((err) => {
-        setError(err.message || 'Failed to fetch data.');
-      });
-  };
-
-  const iframeOrTemplate = () => {
-    if (useTemplate && data) {
-      return <HandlebarsViewer data={data} templateSource={template.templateSource} />;
-    } else if (useTemplate) {
-      loadData();
-      return <LoadingIcon />;
-    } else {
-      return <iframe src={getFullUrl()} className={cx(styles.content)} />;
-    }
-  };
 
   if (error) {
     return <Alert color="warning">{error}</Alert>;
@@ -209,7 +281,15 @@ export const QueryPanel = (props: Props) => {
           <hr />
         </Fragment>
       )}
-      {url && iframeOrTemplate()}
+      {displayType === 'FRAME' && targetUrl && <iframe src={targetUrl} className={cx(styles.content)} />}
+      {displayType === 'RENDER' && targetUrl && (
+        <RenderData
+          data={data}
+          dataType={dataType}
+          templateSource={template.templateSource}
+          useTemplate={useTemplate}
+        />
+      )}
     </CustomScrollbar>
   );
 };
