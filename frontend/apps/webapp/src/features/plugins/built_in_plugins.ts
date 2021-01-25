@@ -1,16 +1,18 @@
-import { PanelPluginMeta, PluginMeta, PluginType } from '@savantly/sprout-api';
+import { PanelPluginMeta, PluginType } from '@savantly/sprout-api';
+import * as iframePanel from '../../plugins/panel/iframe/module';
+import * as postsPanel from '../../plugins/panel/posts/module';
+import * as queryPanel from '../../plugins/panel/query/module';
+import * as tablePanel from '../../plugins/panel/table/module';
 import * as textPanel from '../../plugins/panel/text/module';
 import * as welcomeBanner from '../../plugins/panel/welcome/module';
-import * as iframePanel from '../../plugins/panel/iframe/module';
-import * as queryPanel from '../../plugins/panel/query/module';
-import * as postsPanel from '../../plugins/panel/posts/module';
 
 const builtInPluginIndex: any = {
   '/plugins/panel/text/module': textPanel,
   '../../plugins/panel/welcome/module': welcomeBanner,
   '/plugins/panel/iframe/module': iframePanel,
   '/plugins/panel/query/module': queryPanel,
-  '/plugins/panel/posts/module': postsPanel
+  '/plugins/panel/posts/module': postsPanel,
+  '/plugins/panel/table/module': tablePanel
 };
 
 const textPanelMeta: PanelPluginMeta = {
@@ -109,11 +111,36 @@ const postsPanelMeta: PanelPluginMeta = {
   sort: 0
 };
 
+const tablePanelMeta: PanelPluginMeta = {
+  baseUrl: '/plugins/panel/table',
+  id: 'table',
+  module: '/plugins/panel/table/module',
+  info: {
+    author: {
+      name: 'Savantly'
+    },
+    description: 'A Panel that displays a table from remote data',
+    links: [],
+    logos: {
+      icon: 'table',
+      large: '/plugins/panel/table/img/icn-text-panel.svg',
+      small: '/plugins/panel/table/img/icn-text-panel.svg'
+    },
+    screenshots: [],
+    updated: '2021-01-26',
+    version: '0.0.1'
+  },
+  name: 'Table Panel',
+  type: PluginType.panel,
+  sort: 0
+};
+
 export const builtInPluginMeta = {
   text: textPanelMeta,
   iframe: iFramePanelMeta,
   query: queryPanelMeta,
-  posts: postsPanelMeta
+  posts: postsPanelMeta,
+  table: tablePanelMeta
 };
 
 export default builtInPluginIndex;

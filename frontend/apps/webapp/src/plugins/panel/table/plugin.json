@@ -1,0 +1,17 @@
+{
+  "type": "panel",
+  "name": "Table",
+  "id": "table",
+
+  "skipDataQuery": true,
+
+  "info": {
+    "author": {
+      "name": "Savantly",
+      "url": "https://savantly.net"
+    },
+    "logos": {
+      "icon": "table"
+    }
+  }
+}
