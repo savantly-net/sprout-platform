@@ -32,6 +32,9 @@ spring:
         ddl-auto: create-drop
   profiles:
     active: local
+  data:
+    rest:
+      default-page-size: 200
 
 
 management:
