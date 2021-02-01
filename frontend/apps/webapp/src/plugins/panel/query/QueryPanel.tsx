@@ -35,6 +35,7 @@ export const DateField = ({ ...props }) => {
       closeOnSelect={true}
       dateFormat="YYYY-MM-DD"
       timeFormat={false}
+      utc={true}
     />
   );
 };
