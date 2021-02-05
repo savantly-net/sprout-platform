@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.oauth2.jwt.Jwt;
 
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
@@ -14,6 +16,7 @@ import net.savantly.sprout.core.security.users.SproutUserService;
 
 public class DefaultJwtUserSynchronizer implements JwtUserSynchronizer {
 
+	private final static Logger log = LoggerFactory.getLogger(DefaultJwtUserSynchronizer.class);
 	private final SproutUserService userService;
 	private final SproutConfigurationProperties configProps;
 
@@ -33,8 +36,16 @@ public class DefaultJwtUserSynchronizer implements JwtUserSynchronizer {
 		final List<String> roles = Objects.nonNull(groupsFromJwt) ? groupsFromJwt : new ArrayList<>() ;
 
 		if (userService.usernameExists(username)) {
-			return userService.updateUser(new UserUpdateDto().setUsername(username).setFirstName(firstName)
-					.setLastName(lastName).setRoles(roles));
+			try {
+				// there could be a race condition if multiple requests are occuring at the same time
+				// so let's not crash if that happens
+				return userService.updateUser(new UserUpdateDto().setUsername(username).setFirstName(firstName)
+						.setLastName(lastName).setRoles(roles));
+			} catch (Exception e) {
+				log.warn("failed to update user. maybe a race condition?", e);
+				return userService.loadUserByUsername(username);
+			}
+			
 		} else {
 			return userService.createUser(username, UUID.randomUUID().toString(), username, roles);
 		}
