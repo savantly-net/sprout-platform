@@ -33,10 +33,19 @@ const NestedDropDown = ({ link, depth }: { link: NavModelItem; depth: number }) 
 
 const DropDownChild: FC<Props> = (props) => {
   const { child, depth } = props;
-  const listItemClassName = child.divider ? 'divider' : '';
+
+  const renderChildren = !!child.children && child.children.length > 0;
+  const listItemClassName = child.divider
+    ? 'divider'
+    : css`
+        display: ${renderChildren ? 'inline-flex' : 'block'};
+      `;
+  /*
   const anchorClassName = css`
     padding-left: ${(depth || 0) * 30 + 10}px !important;
   `;
+  */
+  const anchorClassName = css``;
   const iconClassName = css`
     margin-right: 0.3rem;
   `;
@@ -52,8 +61,6 @@ const DropDownChild: FC<Props> = (props) => {
   } else if (child.url) {
     useNavLink = true;
   }
-
-  const renderChildren = !!child.children && child.children.length > 0;
 
   return (
     <li className={listItemClassName}>
