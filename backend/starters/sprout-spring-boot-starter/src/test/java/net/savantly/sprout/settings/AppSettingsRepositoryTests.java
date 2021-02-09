@@ -14,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.web.servlet.MockMvc;
 
-@SpringBootTest
+@SpringBootTest(properties = {"sprout.hal.enable=true"})
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs(outputDir = "build/snippets")
 public class AppSettingsRepositoryTests {
