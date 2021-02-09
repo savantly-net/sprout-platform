@@ -11,12 +11,29 @@ It can be used headless, but a default UI is provided which is customizable via 
 
 It's opinionated, but the default configurations can be backed off - so you can use as much or as little as you want.  
 
+
+## Quick Start  
+
+Use the docker images to start an example server + web app.  
+`docker-compose up`  
+
+The example server creates a user -  
+username: admin  
+password: changeme!  
+
+
 ## Examples
 
-#### Live Server Demo  
+### Live Server Demo  
+- username: admin  
+- password: changeme!  
+
 [https://sprout-server.herokuapp.com/](https://sprout-server.herokuapp.com/)  
 
-#### Live Client Demo
+### Live Client Demo
+- username: admin  
+- password: changeme!  
+
 [https://sprout-web.herokuapp.com/](https://sprout-web.herokuapp.com/)  
 
 
