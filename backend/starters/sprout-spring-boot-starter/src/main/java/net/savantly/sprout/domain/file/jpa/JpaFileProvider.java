@@ -36,15 +36,13 @@ public class JpaFileProvider implements FileProvider {
 	@Override
 	public FileDataResponse getFilesByFolder(String path) {
 		FileDataDto parent = fakeRoot;
-		if (Objects.nonNull(path) && path.isEmpty()) {
-			path = null;
-		}
+
 		if (Objects.nonNull(path)) {
 			path = path.replace("/", "");
 		}
 		
 		final String key = path;
-		if (Objects.nonNull(key)) {
+		if (Objects.nonNull(key) && !path.isEmpty() && path.length() > 0) {
 			JpaFile parentFile = this.repository.findById(key).orElseThrow(()-> new EntityNotFoundException("path not found" + key));
 			parent = toDto(parentFile);
 		}
@@ -128,7 +126,7 @@ public class JpaFileProvider implements FileProvider {
 	 * @param position  The position to add the parent in
 	 */
 	private void addParentToFolderChain(String parentId, Set<FolderChainItem> folderChain, int position) {
-		if (Objects.nonNull(parentId)) {
+		if (Objects.nonNull(parentId) && !parentId.isEmpty() && !parentId.contentEquals("")) {
 			JpaFile parentFile = this.repository.findById(parentId)
 					.orElseThrow(() -> new EntityNotFoundException("parent is missing: " + parentId));
 			folderChain.add(new SimpleFolderChainItem().setId(parentFile.getId()).setName(parentFile.getName()).setPosition(position));

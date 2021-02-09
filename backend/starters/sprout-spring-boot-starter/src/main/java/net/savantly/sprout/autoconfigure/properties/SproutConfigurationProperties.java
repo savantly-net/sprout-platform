@@ -232,8 +232,6 @@ public class SproutConfigurationProperties {
 		private boolean enableTrace = false;
 	}
 
-	
-	/** NOT IMPLEMENTED **/
 	@Getter
 	@Setter
 	public static class Hal {

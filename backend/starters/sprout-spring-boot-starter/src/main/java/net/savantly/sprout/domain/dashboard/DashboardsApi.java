@@ -57,7 +57,8 @@ public class DashboardsApi {
 		return toSaveResponse(saved);
 	}
 	
-	@PreAuthorize("hasAuthority('DASHBOARD_READ')")
+	// Should we add this??
+	//@PreAuthorize("hasAuthority('DASHBOARD_READ')")
 	@GetMapping({"/uid/{uid}"})
 	public DashboardDtoWrapper getDashboard(@PathVariable("uid") String uid) {
 		DashboardDtoWrapper saved = this.service.getByUid(uid);

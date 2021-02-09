@@ -27,6 +27,10 @@ public class SproutRepositoryRestAutoConfiguration {
 
 		@Override
 		public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+			if (!sproutConfiguration.getHal().isEnable()) {
+				config.disableDefaultExposure();
+			}
+			
 			config.setReturnBodyOnCreate(true);
 			config.setReturnBodyForPutAndPost(true);
 			config.setBasePath("/api/repo");
