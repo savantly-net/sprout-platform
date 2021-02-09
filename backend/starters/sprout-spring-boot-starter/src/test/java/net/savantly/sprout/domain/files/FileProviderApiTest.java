@@ -85,7 +85,7 @@ public class FileProviderApiTest {
 				.andExpect(status().is2xxSuccessful());
 
 		// assert the file was uploaded
-		this.mvc.perform(get(url + "/list")).andExpect(status().is2xxSuccessful())
+		this.mvc.perform(get(url + "/list/")).andExpect(status().is2xxSuccessful())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.children[0].name", Matchers.containsString("test.js")));
 
 		// create a subfolder

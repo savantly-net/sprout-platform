@@ -37,15 +37,19 @@ public class JpaFileProvider implements FileProvider {
 	public FileDataResponse getFilesByFolder(String path) {
 		FileDataDto parent = fakeRoot;
 
+		if (Objects.nonNull(path) && (path.contentEquals("") || path.contentEquals("/") )) {
+			path = null;
+		}
 		if (Objects.nonNull(path)) {
 			path = path.replace("/", "");
 		}
 		
 		final String key = path;
-		if (Objects.nonNull(key) && !path.isEmpty() && path.length() > 0) {
+		if (Objects.nonNull(key) && !key.isEmpty() && key.length() > 0) {
 			JpaFile parentFile = this.repository.findById(key).orElseThrow(()-> new EntityNotFoundException("path not found" + key));
 			parent = toDto(parentFile);
 		}
+		
 		FileDataResponse response = toFileDataResponse(parent);
 		List<FileDataDto> children = this.repository.findByParent(path).stream().map(f -> toDto(f)).collect(Collectors.toList());
 		response.getChildren().addAll(children);
