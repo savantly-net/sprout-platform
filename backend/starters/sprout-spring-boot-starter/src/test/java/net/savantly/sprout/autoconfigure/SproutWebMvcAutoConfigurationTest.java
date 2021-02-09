@@ -65,13 +65,13 @@ public class SproutWebMvcAutoConfigurationTest {
 		
 		repository.saveAll(Arrays.asList(menu, menu2));
 		
-		MvcResult result = mvc.perform(get("/api/repo/menus/search/findRootMenus")).andExpect(status().isOk()).andReturn();
+		MvcResult result = mvc.perform(get("/api/menu")).andExpect(status().isOk()).andReturn();
 		
 		log.info(result.getResponse().getContentAsString());
 		
-		mvc.perform(delete("/api/repo/menus/" + menu2.getId()));
+		mvc.perform(delete("/api/menu/" + menu2.getId()));
 		
-		result = mvc.perform(get("/api/repo/menus/search/findRootMenus")).andExpect(status().isOk()).andReturn();
+		result = mvc.perform(get("/api/menu")).andExpect(status().isOk()).andReturn();
 		
 		log.info(result.getResponse().getContentAsString());
 	}
