@@ -73,6 +73,10 @@ public class MenuService {
 		repository.deleteAll(menusToDelete);
 	}
 	
+	public void deleteMenuById(String id) {
+		repository.deleteById(id);
+	}
+	
 	private List<MenuDto> toDto(List<Menu> menus) {
 		final List<MenuDto> dtos = new ArrayList<>();
 		menus.forEach(m -> {
