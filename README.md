@@ -71,7 +71,7 @@ password: changeme!
 
 #### Editing a Panel 
 
-![Editing a Panel](./docs/img/dashboards.gif)
+![Editing a Panel](./docs/img/examples/dashboards.gif)
 
 #### Panel Editor
 
