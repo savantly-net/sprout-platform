@@ -28,6 +28,7 @@ import net.savantly.sprout.converter.spring.ZonedDateTimeToDateConverter;
 import net.savantly.sprout.core.domain.privilege.PrivilegeRepository;
 import net.savantly.sprout.core.domain.role.RoleRepository;
 import net.savantly.sprout.core.domain.tenant.TenantRepository;
+import net.savantly.sprout.core.domain.user.repository.UserRepository;
 import net.savantly.sprout.core.module.registration.SproutModuleRegistrationRepository;
 import net.savantly.sprout.domain.account.AccountApi;
 import net.savantly.sprout.domain.authentication.LoginApi;
@@ -40,6 +41,7 @@ import net.savantly.sprout.domain.menu.MenuConfiguration;
 import net.savantly.sprout.domain.permissions.PermissionsApi;
 import net.savantly.sprout.domain.proxy.ProxyApi;
 import net.savantly.sprout.domain.uiProperties.UIPropertiesConfiguration;
+import net.savantly.sprout.domain.user.search.UserSearchApi;
 import net.savantly.sprout.module.PluginService;
 
 @Configuration
@@ -104,6 +106,11 @@ public class SproutWebMvcConfigurer implements WebMvcConfigurer {
 	@Bean
 	public AccountApi defaultAccountApi() {
 		return new AccountApi();
+	}
+	
+	@Bean
+	public UserSearchApi userSearchApi(UserRepository repo) {
+		return new UserSearchApi(repo);
 	}
 	
 	@Bean
