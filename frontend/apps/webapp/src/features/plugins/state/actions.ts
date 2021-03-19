@@ -20,7 +20,8 @@ export function loadPlugins(): ThunkResult<void> {
         id: id,
         text: pi.name,
         icon: pi.icon,
-        url: pi.path
+        url: pi.path,
+        authority: pi.role
       };
       if (pi.children && pi.children.length > 0) {
         navItem.children = [];
