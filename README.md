@@ -52,10 +52,10 @@ The back-end server uses a `module` system to add or modify functionality. A `mo
 
 You may notice, inspiration [and some code] for the user-interface came from Grafana - an excellent dashboard application.
 
-If there is specific feature you'd like, or if you experience a bug, please open an issue [here](https://github.com/savantly-net/sprout-platform/issues)  
+If there is a specific feature you'd like, or if you experience a bug, please open an issue [here](https://github.com/savantly-net/sprout-platform/issues)  
 
 If you're a develper, PRs are welcome!  
-If not, you can support this project by becoming a GitHub Project Sponsor, through [Patreon](https://www.patreon.com/savantly)  or PayPal
+If not, you can support this project by becoming a GitHub Project Sponsor, or through [Patreon](https://www.patreon.com/savantly),  or PayPal
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/Savantly)  
 
 
