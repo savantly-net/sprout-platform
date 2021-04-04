@@ -14,7 +14,7 @@ Similar to Ruby on Rails, Laravel, Django, and others - it facilitates rapid dev
 
 Similar to WordPress.  
 - You can use the Sprout Server Docker image as a "no code" solution  
-- Custom css or third party plugins/modues can be added without recompiling the server.  
+- Custom css or third party plugins/modules can be added without recompiling the server.  
 
 Similar to other headless CMS.  
 - It's 'head optional'.  
