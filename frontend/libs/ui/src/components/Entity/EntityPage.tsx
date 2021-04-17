@@ -44,8 +44,11 @@ export class EntityPage<T extends object> extends Component<EntityPageProps<T>, 
   save(values: T) {
     const { entityService } = this.props;
     return new Promise<AxiosResponse<T>>((resolve, reject) => {
-      entityService
-        .create(values)
+      //@ts-ignore
+      const isNew = values.new || !values.itemId;
+      //@ts-ignore
+      const savePromise = isNew ? entityService.create(values) : entityService.update(values.itemId, values);
+      savePromise
         .then((response) => {
           console.log('created', response.data);
           this.setState({
