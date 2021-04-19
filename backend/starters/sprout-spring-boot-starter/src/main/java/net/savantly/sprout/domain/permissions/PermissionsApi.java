@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +43,7 @@ public class PermissionsApi {
 	}
 
 	@PutMapping("/role")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<Role> updateRole(@RequestBody PermissionUpdateDto dto) {
 		Role role = roleOrThrow(dto.getRole());
 		Set<Privilege> privileges = dto.getPrivileges().stream().map(s -> privilegeOrThrow(s)).collect(Collectors.toSet());
@@ -55,11 +57,13 @@ public class PermissionsApi {
 	}
 
 	@PostMapping("/role/{name}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<Role> createRole(@PathVariable("name") String name) {
 		return ResponseEntity.ok(roleRepo.save(new Role().setName(name)));
 	}
 
 	@DeleteMapping("/role/{name}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<Void> deleteRole(@PathVariable("name") String name) {
 		Role role = roleOrThrow(name);
 		roleRepo.delete(role);
@@ -67,6 +71,7 @@ public class PermissionsApi {
 	}
 
 	@PostMapping("/role/{name}/{privilege}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<Role> addPrivilegeToRole(@PathVariable("name") String name,
 			@PathVariable("privilege") String privilege) {
 		Role role = roleOrThrow(name);
@@ -76,6 +81,7 @@ public class PermissionsApi {
 	}
 
 	@DeleteMapping("/role/{name}/{privilege}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<Role> removePrivilegeFromRole(@PathVariable("name") String name,
 			@PathVariable("privilege") String privilege) {
 		Role role = roleOrThrow(name);

@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,7 @@ public class FileProviderApi {
 		this.provider = provider;
 	}
 
+	@PreAuthorize("hasAuthority('FILES_READ')")
 	@GetMapping(path = { "/list", "/list/**" })
 	public ResponseEntity<FileDataResponse> listFiles(HttpServletRequest request) {
 		String pathPrefix = "/list";
@@ -37,6 +39,7 @@ public class FileProviderApi {
 		return ResponseEntity.ok(this.provider.getFilesByFolder(path));
 	}
 
+	@PreAuthorize("hasAuthority('FILES_DELETE')")
 	@DeleteMapping("/list/**")
 	public void deleteFile(HttpServletRequest request) {
 		String pathPrefix = "/list/";
@@ -47,11 +50,13 @@ public class FileProviderApi {
 		this.provider.deleteFile(path);
 	}
 
+	@PreAuthorize("hasAuthority('FILES_CREATE')")
 	@PostMapping(path = { "/create" })
 	public ResponseEntity<FileData> createFile(@RequestBody FileDataRequest request) {
 		return ResponseEntity.ok(this.provider.createFile(request));
 	}
 
+	@PreAuthorize("hasAuthority('FILES_CREATE')")
 	@PostMapping(path = { "/upload" }, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<FileData> uploadFile(@NotNull @RequestPart("file") MultipartFile file,
 			@RequestPart("metaData") FileDataRequest request) throws IOException {

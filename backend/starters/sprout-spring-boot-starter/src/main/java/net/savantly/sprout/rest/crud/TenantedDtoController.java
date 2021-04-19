@@ -7,6 +7,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,16 +66,28 @@ public abstract class TenantedDtoController<E extends TenantSupport, D> {
 	 * @return The DTO to return from the REST methods
 	 */
 	protected abstract D convert(E entity);
+	
+	/**
+	 * For safety, this method must be implemented to allow deleting by ID
+	 * 
+	 * @param itemId
+	 * @return
+	 */
+	protected boolean canDeleteById(String itemId) {
+		return false;
+	}
 
 	/**
-	 * Execute the findAll method on the repository, passing pageable query parameters if available.
+	 * Execute the findAll method on the repository, passing pageable query parameters if available. <br>
+	 * Warning: this doesn't filter the results for permission. <br>
+	 * 
 	 * @param pageable Paging Parameters
 	 * @return A Page of DTO objects
 	 */
 	@GetMapping
 	@PageableAsQueryParam
-	public ResponseEntity<Page<D>> getAll(Pageable pageable) {
-		return ResponseEntity.ok(repository.findAll(pageable).map(entity -> convert(entity)));
+	public Page<D> getAll(Pageable pageable) {
+		return repository.findAll(pageable).map(entity -> convert(entity));
 	}
 
 	/** 
@@ -82,8 +97,9 @@ public abstract class TenantedDtoController<E extends TenantSupport, D> {
 	 * @return The found entity converted to a DTO
 	 */
 	@GetMapping("/{itemId}")
-	public ResponseEntity<D> getByItemId(@PathVariable String itemId) {
-		return ResponseEntity.ok(convert(getObjectByItemId(itemId)));
+	@PostAuthorize("hasPermission(returnObject, 'READ') or hasAuthority('ADMIN')")
+	public D getByItemId(@PathVariable String itemId) {
+		return convert(getObjectByItemId(itemId));
 	}
 
 	/**
@@ -93,6 +109,7 @@ public abstract class TenantedDtoController<E extends TenantSupport, D> {
 	 * @return The updated DTO
 	 */
 	@PostMapping
+	@PreAuthorize("hasPermission(#object, 'CREATE') or hasAuthority('ADMIN')")
 	public ResponseEntity<D> create(@RequestBody D object) {
 		E entity = repository.save(createEntity(object));
 		return ResponseEntity.status(HttpStatus.CREATED).body(convert(entity));
@@ -106,6 +123,7 @@ public abstract class TenantedDtoController<E extends TenantSupport, D> {
 	 * @return The updated DTO
 	 */
 	@PutMapping("/{itemId}")
+	@PreAuthorize("hasPermission(#object, 'UPDATE') or hasAuthority('ADMIN')")
 	public ResponseEntity<D> update(@PathVariable String itemId, @RequestBody D object) {
 		E updatedObject = updateEntity(getObjectByItemId(itemId), object);
 		return ResponseEntity.ok(convert(repository.save(updatedObject)));
@@ -118,7 +136,9 @@ public abstract class TenantedDtoController<E extends TenantSupport, D> {
 	 */
 	@DeleteMapping("/{itemId}")
 	public void deleteById(@PathVariable String itemId) {
-		repository.deleteByIdItemId(itemId);
+		if (canDeleteById(itemId)) {
+			repository.deleteByIdItemId(itemId);
+		} else throw new AccessDeniedException("cannot delete this item");
 	}
 
 	/**

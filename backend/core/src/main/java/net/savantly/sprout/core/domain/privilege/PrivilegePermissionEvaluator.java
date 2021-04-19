@@ -1,6 +1,8 @@
 package net.savantly.sprout.core.domain.privilege;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.security.core.Authentication;
 
@@ -22,8 +24,11 @@ public class PrivilegePermissionEvaluator implements SproutPermissionEvaluator<P
     }
 
     @Override
-    public Class<Privilege> getEvaluationType() {
-        return Privilege.class;
-    }
+    public List<String> getEvaluationType() {
+		List<String> list = new ArrayList<>();
+		list.add(Privilege.class.getName());
+		list.add(Privilege.class.getName() + ".ID");
+		return list;
+	}
 
 }

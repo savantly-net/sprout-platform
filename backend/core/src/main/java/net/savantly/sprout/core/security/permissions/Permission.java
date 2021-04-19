@@ -1,6 +1,6 @@
 package net.savantly.sprout.core.security.permissions;
 
-public enum Permission implements java.security.acl.Permission{
+public enum Permission {
 	CREATE,
 	READ,
 	UPDATE,

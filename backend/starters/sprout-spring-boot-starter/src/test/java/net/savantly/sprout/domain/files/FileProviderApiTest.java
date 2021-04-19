@@ -25,6 +25,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -66,6 +67,7 @@ public class FileProviderApiTest {
 	}
 
 	@Test
+	@WithMockUser(authorities = {"FILES_CREATE", "FILES_DELETE"})
 	public void createFileData() throws Exception {
 		String url = "/api/files";
 

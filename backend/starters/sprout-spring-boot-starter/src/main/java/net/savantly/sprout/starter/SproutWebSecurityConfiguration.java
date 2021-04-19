@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,16 +32,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
 import net.savantly.sprout.starter.security.SecurityCustomizer;
+import net.savantly.sprout.starter.security.acls.AclMethodSecurityConfiguration;
 import net.savantly.sprout.starter.security.session.CookieSecurityContextRepository;
 import net.savantly.sprout.starter.security.session.LoginWithTargetUrlAuthenticationEntryPoint;
 import net.savantly.sprout.starter.security.session.RedirectToOriginalUrlAuthenticationSuccessHandler;
 import net.savantly.sprout.starter.security.session.SignedUserInfoCookie;
 
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(
-	prePostEnabled = true,
-	securedEnabled = true,
-	jsr250Enabled = true)
+@Import(AclMethodSecurityConfiguration.class)
 public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 	private final static Logger log = LoggerFactory.getLogger(SproutWebSecurityConfiguration.class);

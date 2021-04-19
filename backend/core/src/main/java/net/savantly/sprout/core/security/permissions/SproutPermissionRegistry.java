@@ -10,11 +10,13 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+@SuppressWarnings("rawtypes")
 public class SproutPermissionRegistry {
     
     private static final Logger log = LoggerFactory.getLogger(SproutPermissionRegistry.class);
     
-    private Map<Class<?>, SproutPermissionEvaluator<?>> permissionEvaluatorMap = new HashMap<>();
+	private Map<String, SproutPermissionEvaluator> permissionEvaluatorMap = new HashMap<>();
     
     Set<SproutPermissionEvaluator> evaluatorBeans = new HashSet<>();
     
@@ -25,35 +27,23 @@ public class SproutPermissionRegistry {
     @PostConstruct
     public void post(){
         evaluatorBeans.stream().forEach(e -> {
-            permissionEvaluatorMap.put(e.getEvaluationType(), e);
+        	e.getEvaluationType().stream().forEach(t -> {
+        		permissionEvaluatorMap.put((String) t, e);
+        	});
+            
         });
     }
     
-    public void addPermissionEvaluator(Class<?> type, SproutPermissionEvaluator<?> evaluator){
+    public void addPermissionEvaluator(String type, SproutPermissionEvaluator<?> evaluator){
         permissionEvaluatorMap.put(type, evaluator);
     }
     
-    public <T> SproutPermissionEvaluator<?> getPermissionEvaluator(Class<T> type){
+    public <T> SproutPermissionEvaluator getPermissionEvaluator(String type){
         return permissionEvaluatorMap.get(type);
     }
     
-    public <T> boolean containsPermissionEvaluator(Class<T> type){
-        return permissionEvaluatorMap.containsKey(type);
-    }
-
-    public boolean containsPermissionEvaluator(String targetType) {
-        try {
-            Class clazz = Class.forName(targetType);
-            return containsPermissionEvaluator(clazz);
-        } catch (ClassNotFoundException e) {
-            log.error(targetType);
-            return false;
-        }
-    }
-
-    public <T> SproutPermissionEvaluator<?> getPermissionEvaluator(String targetType) throws ClassNotFoundException {
-        Class clazz = Class.forName(targetType);
-        return getPermissionEvaluator(clazz);
+    public <T> boolean containsPermissionEvaluator(String type){
+    	return permissionEvaluatorMap.containsKey(type);
     }
 
 }

@@ -8,6 +8,9 @@ permissions:
   - DASHBOARD_READ
   - DASHBOARD_EDIT
   - DASHBOARD_DELETE
+  - FILES_CREATE
+  - FILES_READ
+  - FILES_DELETE
 - role: ANONYMOUS
   privileges:
   - DASHBOARD_READ

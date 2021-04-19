@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -46,6 +47,7 @@ public class SproutWebMvcAutoConfigurationTest {
 	}
 	
 	@Test
+	@WithMockUser(authorities = {"ADMIN"})
 	public void testMenuApi() throws Exception {
 		Set<String> roles = new HashSet<>();
 		roles.add("user");

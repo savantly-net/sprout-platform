@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
+import org.springframework.util.Assert;
 
 
 public class DelegatingPermissionEvaluator implements PermissionEvaluator {
@@ -22,10 +23,11 @@ public class DelegatingPermissionEvaluator implements PermissionEvaluator {
         throw new RuntimeException("Only call this method with an entity parameter.");
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({ "unchecked"})
     @Override
     public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
-        Class type = targetDomainObject.getClass();
+    	Assert.notNull(targetDomainObject, "the targetDomainObject is required");
+        String type = targetDomainObject.getClass().getName();
         if (registry.containsPermissionEvaluator(type)) {
             Permission permissionItem = getPermissionItem(permission);
             return registry.getPermissionEvaluator(type).hasPermission(authentication, targetDomainObject, permissionItem);
@@ -40,7 +42,7 @@ public class DelegatingPermissionEvaluator implements PermissionEvaluator {
             try {
                 Permission permissionItem = getPermissionItem(permission);
                 return registry.getPermissionEvaluator(targetType).hasPermission(authentication, targetId, targetType, permissionItem);
-            } catch (ClassNotFoundException e) {
+            } catch (Exception e) {
                 log.error("{}", e);
                 return false;
             }
@@ -56,8 +58,8 @@ public class DelegatingPermissionEvaluator implements PermissionEvaluator {
         } catch(Exception ex){
             log.error(ex.getMessage());
             throw new RuntimeException(String.format("Invalid permission: %s", permission));
-        }
-        
-    }
+		}
+
+	}
 
 }
