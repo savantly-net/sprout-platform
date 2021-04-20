@@ -1,6 +1,5 @@
-import { AppEvents, eventBus, standardEditorsRegistry, UrlQueryValue } from '@savantly/sprout-api';
-import { BusProvider } from 'ts-bus/react';
-import { config, setLocationSrv } from '@savantly/sprout-runtime';
+import { AppEvents, eventBus, standardEditorsRegistry, UrlQueryValue, UserContext } from '@savantly/sprout-api';
+import { config, setLocationSrv, setUserContextService } from '@savantly/sprout-runtime';
 import { getStandardOptionEditors } from '@savantly/sprout-ui';
 import { setChonkyDefaults } from 'chonky';
 import { ChonkyIconFA } from 'chonky-icon-fontawesome';
@@ -10,6 +9,7 @@ import 'react-datetime/css/react-datetime.css';
 import ReactDOM from 'react-dom';
 import 'react-mde/lib/styles/css/react-mde-all.css';
 import { Provider } from 'react-redux';
+import { BusProvider } from 'ts-bus/react';
 import { AppContainer } from './AppContainer';
 import appEvents from './core/app_events';
 //import { updateLocation } from "./core/actions";
@@ -25,9 +25,17 @@ import { CoreEvents, KioskUrlValue } from './types';
 setChonkyDefaults({ iconComponent: ChonkyIconFA });
 
 const store = configureStore();
-const locationService = locationSvc(history);
 
+/*** SET runtime services ***/
+const locationService = locationSvc(history);
 setLocationSrv(locationService);
+
+setUserContextService({
+  getUserContext: (): UserContext => {
+    return store.getState().authentication;
+  }
+})
+/*** END runtime services ***/
 
 const location = window.location;
 console.log(location);

@@ -1,3 +1,5 @@
+import { User } from '@savantly/sprout-api';
+
 export interface AuthenticationState {
   loading: boolean;
   isAuthenticated: boolean;
@@ -26,11 +28,4 @@ export interface OAuthClientConfig {
   redirectUrl: string;
   tokenUrl: string;
   userInfoUrl: string;
-}
-
-export interface User {
-  firstName?: string;
-  lastName?: string;
-  nickname?: string;
-  authorities: string[];
 }

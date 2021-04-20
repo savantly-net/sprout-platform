@@ -1,40 +1,24 @@
-import React, { PureComponent } from 'react';
-import { css } from 'emotion';
-import appEvents from '../../app_events';
 import { NavModelItem } from '@savantly/sprout-api';
 import { Icon, IconName } from '@savantly/sprout-ui';
-import { CoreEvents, User } from '../../../types';
+import { css } from 'emotion';
+import React, { PureComponent } from 'react';
+import { CoreEvents } from '../../../types';
+import appEvents from '../../app_events';
 import { getFooterLinks } from '../Footer/Footer';
 
 export interface Props {
   link: NavModelItem;
-  user: User;
 }
 
-interface State {
-  showSwitcherModal: boolean;
-}
-
-export default class BottomNavLinks extends PureComponent<Props, State> {
-  state: State = {
-    showSwitcherModal: false,
-  };
-
+export default class BottomNavLinks extends PureComponent<Props> {
   onOpenShortcuts = () => {
     appEvents.emit(CoreEvents.showModal, {
-      templateHtml: '<help-modal></help-modal>',
+      templateHtml: '<help-modal></help-modal>'
     });
   };
 
-  toggleSwitcherModal = () => {
-    this.setState(prevState => ({
-      showSwitcherModal: !prevState.showSwitcherModal,
-    }));
-  };
-
   render() {
-    const { link, user } = this.props;
-    const { showSwitcherModal } = this.state;
+    const { link } = this.props;
     const subMenuIconClassName = css`
       margin-right: 8px;
     `;

@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { User } from '@savantly/sprout-api';
 import axios, { AxiosRequestConfig } from 'axios';
 import { ACCESS_TOKEN_STORAGE_KEY, SERVER_API_URL } from '../../config/constants';
-import { AuthenticationState, AuthenticationUpdate, User } from '../../types';
+import { AuthenticationState, AuthenticationUpdate } from '../../types';
 import store from '../store';
 
 export const initialAuthenticationState: AuthenticationState = {

@@ -6,6 +6,7 @@ export * from './file';
 export * from './notification';
 export * from './types';
 export * from './text';
+export * from './user';
 export * from './utils';
 export * from './panel/panelPlugin';
 export * from './valueFormats';
