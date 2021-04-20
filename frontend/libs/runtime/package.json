@@ -1,6 +1,6 @@
 {
   "name": "@savantly/sprout-runtime",
-  "version": "2.0.0-36",
+  "version": "2.0.0-37",
   "description": "Runtime API for Sprout React applications",
   "scripts": {
     "build": "sprout-toolkit package:build --scope=runtime",
@@ -25,10 +25,10 @@
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
-    "@savantly/sprout-api": "2.0.0-36",
-    "@savantly/sprout-toolkit": "2.0.0-36",
+    "@savantly/sprout-api": "2.0.0-37",
+    "@savantly/sprout-toolkit": "2.0.0-37",
     "@savantly/sprout-tsconfig": "^1.0.0",
-    "@savantly/sprout-ui": "2.0.0-36",
+    "@savantly/sprout-ui": "2.0.0-37",
     "@types/lodash": "^4.14.161",
     "@types/react": "^16.9.49",
     "rollup": "2.35.1",
