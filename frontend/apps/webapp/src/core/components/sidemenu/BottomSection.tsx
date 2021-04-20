@@ -14,7 +14,7 @@ const BottomSection = () => {
     <div className="sidemenu__bottom">
       {!authentication.isAuthenticated && <SignIn />}
       {bottomNav.map((link, index) => {
-        return <BottomNavLinks link={link} user={authentication.user} key={`${link.url}-${index}`} />;
+        return <BottomNavLinks link={link} key={`${link.url}-${index}`} />;
       })}
     </div>
   );

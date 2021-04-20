@@ -1,7 +1,6 @@
 // Libraries
 // Types
 import {
-  AppNotificationSeverity,
   AppPluginMeta,
   NavModel,
   NavModelItem,
@@ -15,13 +14,14 @@ import {
   SproutPlugin,
   UrlQueryMap
 } from '@savantly/sprout-api';
-import { Alert, Tooltip } from '@savantly/sprout-ui';
+import { Tooltip } from '@savantly/sprout-ui';
 import { Icon } from '@sprout-platform/ui';
 import { css } from 'emotion';
 import find from 'lodash/find';
 import React, { ComponentProps, Fragment, useMemo, useState } from 'react';
 import { connect } from 'react-redux';
 import { NavLink, Route, Routes, useParams, useSearchParams } from 'react-router-dom';
+import { Alert } from 'reactstrap';
 import Page from '../../core/components/Page/Page';
 import { PluginHelp } from '../../core/components/PluginHelp/PluginHelp';
 import config from '../../core/config';
@@ -124,7 +124,7 @@ const PluginPage = () => {
     const query = getQuery();
 
     if (!plugin) {
-      return <Alert severity={AppNotificationSeverity.Error} title="Plugin Not Found" />;
+      return <Alert color="warning" title="Plugin Not Found" />;
     }
 
     const active = nav.main.children && nav.main.children.find((tab) => tab.active);
@@ -315,7 +315,7 @@ const PluginPage = () => {
                 <div className="col">
                   {plugin.loadError && (
                     <Alert
-                      severity={AppNotificationSeverity.Error}
+                      color="warning"
                       title="Error Loading Plugin"
                       children={
                         <>

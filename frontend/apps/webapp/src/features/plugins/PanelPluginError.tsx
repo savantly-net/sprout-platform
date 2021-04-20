@@ -1,10 +1,8 @@
 // Libraries
-import _ from 'lodash';
-import React, { PureComponent, ReactNode } from 'react';
-
 // Types
-import { Alert } from '@savantly/sprout-ui';
-import { PanelProps, PanelPlugin, PluginType, PanelPluginMeta, AppNotificationSeverity } from '@savantly/sprout-api';
+import { PanelPlugin, PanelPluginMeta, PanelProps, PluginType } from '@savantly/sprout-api';
+import React, { PureComponent, ReactNode } from 'react';
+import Alert from 'reactstrap/lib/Alert';
 
 interface Props {
   title: string;
@@ -21,12 +19,12 @@ class PanelPluginError extends PureComponent<Props> {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      height: '100%',
+      height: '100%'
     };
 
     return (
       <div style={style}>
-        <Alert severity={AppNotificationSeverity.Error} {...this.props} />
+        <Alert color="warning" {...this.props} />
       </div>
     );
   }
@@ -67,18 +65,18 @@ export function getPanelPluginNotFound(id: string): PanelPlugin {
     baseUrl: '',
     info: {
       author: {
-        name: '',
+        name: ''
       },
       description: '',
       links: [],
       logos: {
         large: '',
-        small: '',
+        small: ''
       },
       screenshots: [],
       updated: '',
-      version: '',
-    },
+      version: ''
+    }
   };
   return plugin;
 }

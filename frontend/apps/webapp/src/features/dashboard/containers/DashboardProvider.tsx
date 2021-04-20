@@ -1,8 +1,8 @@
-import { AppNotificationSeverity } from '@savantly/sprout-api';
-import { Alert, Button, HorizontalGroup, Icon, VerticalGroup } from '@savantly/sprout-ui';
+import { Button, HorizontalGroup, Icon, VerticalGroup } from '@savantly/sprout-ui';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Toast } from 'reactstrap';
 import { getMessageFromError } from '../../../core/utils/errors';
 import { DashboardInitError, DashboardInitPhase, DashboardRouteInfo, StoreState } from '../../../types';
 import { DashboardModel } from '../state/DashboardModel';
@@ -87,11 +87,9 @@ const DashboardProvider = ({ routeInfo, initDashboard, initError, initPhase, isI
 
     return (
       <div className="dashboard-loading">
-        <Alert
-          severity={AppNotificationSeverity.Error}
-          title={initError.message}
-          children={getMessageFromError(initError.error)}
-        />
+        <Toast title={initError.message} color="danger">
+          {getMessageFromError(initError.error)}
+        </Toast>
       </div>
     );
   };
