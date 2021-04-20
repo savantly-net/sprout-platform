@@ -16,7 +16,7 @@
     "@types/redux-devtools": "^3.0.47",
     "@types/redux-devtools-dock-monitor": "^1.1.33",
     "@types/redux-devtools-log-monitor": "^1.0.34",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap": "^4.3.1",
     "bosket": "^0.2.3",
     "brace": "^0.11.1",
