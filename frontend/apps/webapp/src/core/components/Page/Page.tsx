@@ -1,16 +1,15 @@
 // Libraries
-import React, { Component } from 'react';
-import { getTitleFromNavModel } from '../../selectors/navModel';
-
+import { NavModel } from '@savantly/sprout-api';
+import { CustomScrollbar } from '@savantly/sprout-ui';
 // Components
 import { PageHeader } from '@sprout-platform/ui';
-import { Footer } from '../Footer/Footer';
-import PageContents from './PageContents';
-import { CustomScrollbar } from '@savantly/sprout-ui';
-import { NavModel } from '@savantly/sprout-api';
 import { isEqual } from 'lodash';
+import React, { Component } from 'react';
+import { getTitleFromNavModel } from '../../selectors/navModel';
 import { Branding } from '../Branding/Branding';
 import ErrorBoundary from '../error/error-boundary';
+import { Footer } from '../Footer/Footer';
+import PageContents from './PageContents';
 
 interface Props {
   children: React.ReactNode;
@@ -55,7 +54,7 @@ class Page extends Component<Props> {
             </ErrorBoundary>
             {this.props.children}
             <ErrorBoundary>
-              <Footer /> 
+              <Footer />
             </ErrorBoundary>
           </div>
         </CustomScrollbar>

@@ -6,15 +6,21 @@ const authorize = (authorities: string[], hasAnyAuthorities?: string[]) => {
   if (!hasAnyAuthorities || hasAnyAuthorities.length === 0) {
     return true;
   } else {
-    if ( !authorities && hasAnyAuthorities.length !== 0) {
+    if (!authorities && hasAnyAuthorities.length !== 0) {
       return false;
     } else {
-        return hasAnyAuthorities.some((auth) => authorities.includes(auth));
+      return hasAnyAuthorities.some((auth) => authorities.includes(auth));
     }
   }
 };
 
-export const PrivateComponent = ({ hasAnyAuthority, children }: { hasAnyAuthority?: string[]; children: ReactNode }) => {
+export const PrivateComponent = ({
+  hasAnyAuthority,
+  children
+}: {
+  hasAnyAuthority?: string[];
+  children: ReactNode;
+}) => {
   const sessionHasBeenFetched = useSelector((state: StoreState) => state.authentication.sessionHasBeenFetched);
   const user = useSelector((state: StoreState) => state.authentication.user);
   const authorized = useMemo(() => {

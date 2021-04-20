@@ -4,17 +4,10 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getMessageFromError } from '../../../core/utils/errors';
-import {
-  DashboardInitError,
-  DashboardInitPhase,
-  DashboardRouteInfo,
-  StoreState
-} from '../../../types';
+import { DashboardInitError, DashboardInitPhase, DashboardRouteInfo, StoreState } from '../../../types';
 import { DashboardModel } from '../state/DashboardModel';
 import { initDashboard } from '../state/initDashboard';
 import DashboardPage from './DashboardPage'; /* webpackChunkName: "DashboardPage" */
-
-//const DashboardPage = SafeDynamicImport(import(/* webpackChunkName: "DashboardPage" */ './DashboardPage'));
 
 type OwnProps = {
   routeInfo?: DashboardRouteInfo;

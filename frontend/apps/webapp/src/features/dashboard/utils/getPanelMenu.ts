@@ -1,25 +1,22 @@
 import { PanelMenuItem } from '@savantly/sprout-api';
-import { getLocationSrv, LocationSrv } from '@savantly/sprout-runtime';
+import { getLocationSrv } from '@savantly/sprout-runtime';
 import { LocationUpdateService } from '../../../core/services/locationSvc';
-import { store } from '../../../store/store';
 import { DashboardModel } from '../state/DashboardModel';
 import { PanelModel } from '../state/PanelModel';
 import { copyPanel, duplicatePanel, removePanel } from './panel';
 
-
 export function getPanelMenu(
   locationSvc: LocationUpdateService,
   dashboard: DashboardModel,
-  panel: PanelModel,
+  panel: PanelModel
 ): PanelMenuItem[] {
-
   const onViewPanel = (event: React.MouseEvent<any>) => {
     event.preventDefault();
     locationSvc.update({
       query: {
-        viewPanel: panel.id,
+        viewPanel: panel.id
       },
-      partial: true,
+      partial: true
     });
   };
 
@@ -27,9 +24,9 @@ export function getPanelMenu(
     event.preventDefault();
     locationSvc.update({
       query: {
-        editPanel: panel.id,
+        editPanel: panel.id
       },
-      partial: true,
+      partial: true
     });
   };
 
@@ -38,8 +35,8 @@ export function getPanelMenu(
       partial: true,
       query: {
         inspect: panel.id,
-        inspectTab: tab,
-      },
+        inspectTab: tab
+      }
     });
   };
 
@@ -69,7 +66,7 @@ export function getPanelMenu(
       text: 'View',
       iconClassName: 'eye',
       onClick: onViewPanel,
-      shortcut: 'v',
+      shortcut: 'v'
     });
   }
 
@@ -78,7 +75,7 @@ export function getPanelMenu(
       text: 'Edit',
       iconClassName: 'edit',
       onClick: onEditPanel,
-      shortcut: 'e',
+      shortcut: 'e'
     });
   }
 
@@ -86,7 +83,7 @@ export function getPanelMenu(
 
   inspectMenu.push({
     text: 'Panel JSON',
-    onClick: (e: React.MouseEvent<any>) => onInspectPanel('json'),
+    onClick: (e: React.MouseEvent<any>) => onInspectPanel('json')
   });
 
   menu.push({
@@ -95,7 +92,7 @@ export function getPanelMenu(
     iconClassName: 'info-circle',
     onClick: (e: React.MouseEvent<any>) => onInspectPanel(),
     shortcut: 'i',
-    subMenu: inspectMenu,
+    subMenu: inspectMenu
   });
 
   const subMenu: PanelMenuItem[] = [];
@@ -104,12 +101,12 @@ export function getPanelMenu(
     subMenu.push({
       text: 'Duplicate',
       onClick: onDuplicatePanel,
-      shortcut: 'p d',
+      shortcut: 'p d'
     });
 
     subMenu.push({
       text: 'Copy',
-      onClick: onCopyPanel,
+      onClick: onCopyPanel
     });
   }
 
@@ -119,7 +116,7 @@ export function getPanelMenu(
       text: 'More...',
       iconClassName: 'cube',
       subMenu,
-      onClick: onMore,
+      onClick: onMore
     });
   }
 
@@ -130,7 +127,7 @@ export function getPanelMenu(
       text: 'Remove',
       iconClassName: 'trash-alt',
       onClick: onRemovePanel,
-      shortcut: 'p r',
+      shortcut: 'p r'
     });
   }
 

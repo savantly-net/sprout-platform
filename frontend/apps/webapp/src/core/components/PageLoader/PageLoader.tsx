@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
 import { LoadingPlaceholder } from '@savantly/sprout-ui';
+import React, { FC } from 'react';
 
 interface Props {
   pageName?: string;
