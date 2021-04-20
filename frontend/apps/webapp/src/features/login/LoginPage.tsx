@@ -3,7 +3,6 @@ import { Form, FormField, OAuth2Login } from '@sprout-platform/ui';
 import { css, cx } from 'emotion';
 import React, { Fragment, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { Alert, Row } from 'reactstrap';
 import { login, logout } from '../../core/reducers/authentication';
 import { sproutApiSvc } from '../../core/services/sproutApiSvc';
@@ -16,7 +15,6 @@ export const LoginPage = ({ redirectUrl }: { redirectUrl?: string }) => {
   const authentication = useSelector((store: StoreState) => store.authentication);
   const [oauthClients, setOauthClients] = useState(new Array<OAuthClientConfig>());
   const [error, setError] = useState('');
-  const navigate = useNavigate();
 
   useMemo(
     () =>
@@ -143,11 +141,6 @@ export const LoginPage = ({ redirectUrl }: { redirectUrl?: string }) => {
                             accessToken: data.access_token
                           })
                         );
-                        if (redirectTo === '/login') {
-                          navigate('/');
-                        } else {
-                          navigate(redirectTo);
-                        }
                       }}
                     />
                   ))}
