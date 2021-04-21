@@ -94,18 +94,15 @@ public class CookieSecurityContextRepository extends HttpSessionSecurityContextR
 
 	@Override
 	public void saveContext(SecurityContext context, HttpServletRequest request, HttpServletResponse response) {
-		if (hasJSessionId(request)) {
-			super.saveContext(context, request, response);
-			return;
-		} else {
-			if (SaveToCookieResponseWrapper.class.isAssignableFrom(response.getClass())) {
-				SaveToCookieResponseWrapper responseWrapper = (SaveToCookieResponseWrapper) response;
-				if (!responseWrapper.isContextSaved()) {
-					responseWrapper.saveContext(context);
-				}
-			} else {
-				log.debug("servlet response is not wrapped, so not saving to cookie: {}", response.getClass());
+		if (SaveToCookieResponseWrapper.class.isAssignableFrom(response.getClass())) {
+			SaveToCookieResponseWrapper responseWrapper = (SaveToCookieResponseWrapper) response;
+			if (!responseWrapper.isContextSaved()) {
+				responseWrapper.saveContext(context);
 			}
+		} else if (hasJSessionId(request)) {
+			super.saveContext(context, request, response);
+		} else {
+			log.debug("servlet response is not wrapped, so not saving to cookie: {}", response.getClass());
 		}
 	}
 
