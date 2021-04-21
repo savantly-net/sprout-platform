@@ -92,6 +92,7 @@ dependencies:
   '@types/react-window': 1.8.2
   '@types/reactstrap': 8.5.2
   '@types/redux-logger': 3.0.8
+  '@types/redux-mock-store': 1.0.2
   '@types/rimraf': 2.0.4
   '@types/rollup-plugin-visualizer': 2.6.0
   '@types/semver': 6.2.2
@@ -232,6 +233,7 @@ dependencies:
   redux-dynamic-modules-core: 5.2.3_redux@4.0.5
   redux-dynamic-modules-thunk: 5.2.3_10d382f56de41d280299389fae758380
   redux-logger: 3.0.6
+  redux-mock-store: 1.5.4
   redux-promise-middleware: 6.1.2_redux@4.0.5
   redux-thunk: 2.3.0
   replace-in-file: 4.3.1
@@ -7709,6 +7711,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-zM+cxiSw6nZtRbxpVp9SE3x/X77Z7e7YAfHD1NkxJyJbAGSXJGF0E9aqajZfPOa/sTYnuwutmlCldveExuCeLw==
+  /@types/redux-mock-store/1.0.2:
+    dependencies:
+      redux: 4.0.5
+    dev: false
+    resolution:
+      integrity: sha512-6LBtAQBN34i7SI5X+Qs4zpTEZO1tTDZ6sZ9fzFjYwTl3nLQXaBtwYdoV44CzNnyKu438xJ1lSIYyw0YMvunESw==
   /@types/relateurl/0.2.28:
     dev: false
     resolution:
@@ -18951,6 +18959,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-QVxEePK8wwEgwizhDtMib30+GOA=
+  /lodash.isplainobject/4.0.6:
+    dev: false
+    resolution:
+      integrity: sha1-fFJqUtibRcRcxpC4gWO+BJf1UMs=
   /lodash.memoize/4.1.2:
     dev: false
     resolution:
@@ -24089,6 +24101,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-91VZZvMJjzyIYExEnPC69XeCdL8=
+  /redux-mock-store/1.5.4:
+    dependencies:
+      lodash.isplainobject: 4.0.6
+    dev: false
+    resolution:
+      integrity: sha512-xmcA0O/tjCLXhh9Fuiq6pMrJCwFRaouA8436zcikdIpYWWCjU76CRk+i2bHx8EeiSiMGnB85/lZdU3wIJVXHTA==
   /redux-persist/4.10.2:
     dependencies:
       json-stringify-safe: 5.0.1
@@ -28815,7 +28833,7 @@ packages:
       '@types/node': '*'
       react-scripts: '*'
     resolution:
-      integrity: sha512-0cRRIX+w84F9snetPv7tqZz7qVSUdzyxy4lUf8W3XzUp2ppZHn/5PTLzHFe9pePEtxvaG7AKSd64uu2rpABL2w==
+      integrity: sha512-KKNhK5V0XYHnybVc/sanYTCBU8OIW3yOAQ99/8O93lYY9469d7zYwneukA54Pz0Yvx21K8XpMStSNJdvBiAOTQ==
       tarball: 'file:projects/sprout-runtime.tgz'
     version: 0.0.0
   'file:projects/sprout-toolkit.tgz':
@@ -28903,7 +28921,7 @@ packages:
     dev: false
     name: '@rush-temp/sprout-toolkit'
     resolution:
-      integrity: sha512-kH4BAzdqBNjj4Sra1w5+EA/kjQev9eAkCborPpTa0vYrMIZHrPoJ8Jzxau9c6aEuLvLFcjlBozxx6cptQIf6tA==
+      integrity: sha512-2FJk1rSWKi1wl0cidcpFk9CqI5UC2v5SA4vccBo9ylTc8sXy3l7Jxk5uvvSEdVE4cdsV3Wwk1Q6JJS/YLAmX4g==
       tarball: 'file:projects/sprout-toolkit.tgz'
     version: 0.0.0
   'file:projects/sprout-tsconfig.tgz':
@@ -29025,7 +29043,7 @@ packages:
       babel-loader: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-JXE30YHNf8ZGK4iB26Ma/4Iob7AaeyVLUYi+npCqgqmJaTPBXIxccfbwtTJVMx1qT39CRKdqIxx49b7sWMuLwA==
+      integrity: sha512-jnCITHHO956E0LyKmPwqBp2Q2Szj+B/UyzZpHGHGYSNBpPFG4iDiZDTVfsiEYXfvW6Gc21fGHUzx0RlBN1SMBg==
       tarball: 'file:projects/sprout-ui.tgz'
     version: 0.0.0
   'file:projects/ui.tgz_ef55e9d64b9b2d922dc1720f14680ada':
@@ -29118,7 +29136,7 @@ packages:
       ts-node: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-Zuleox5ZBWUfmCEb1Mz7ZGQc+FMGusyJ4GbEy6HH9iWZQscIAUI2WC1/D8Hkhq1hGw5HhJTQZii5iIx39EPoYw==
+      integrity: sha512-iEZTVLPvZmDb/wJsjgID4D3ygxKoeEVm9xTSqZlLgT6TJ2EGnC7i06aQ8GuipDTVGA0wWitxtBgWyAuNgY96Mw==
       tarball: 'file:projects/ui.tgz'
     version: 0.0.0
   'file:projects/webapp.tgz':
@@ -29150,6 +29168,7 @@ packages:
       '@types/react-virtualized-auto-sizer': 1.0.0
       '@types/reactstrap': 8.5.2
       '@types/redux-logger': 3.0.8
+      '@types/redux-mock-store': 1.0.2
       '@types/systemjs': 6.1.0
       '@types/tinycolor2': 1.4.2
       '@types/uuid': 8.3.0
@@ -29203,6 +29222,7 @@ packages:
       redux-dynamic-modules-core: 5.2.3_redux@4.0.5
       redux-dynamic-modules-thunk: 5.2.3_10d382f56de41d280299389fae758380
       redux-logger: 3.0.6
+      redux-mock-store: 1.5.4
       redux-promise-middleware: 6.1.2_redux@4.0.5
       redux-thunk: 2.3.0
       rxjs: 6.6.3
@@ -29214,7 +29234,7 @@ packages:
     dev: false
     name: '@rush-temp/webapp'
     resolution:
-      integrity: sha512-xk8/luQeSI8OD1gU1kw7dQIm08sTeVK9rxBRYRKM7mw6VbK6Pq0x2dR/dPzp9YH2wdeUi/gBgA0WjtTJ4kkM7g==
+      integrity: sha512-9/4Gkv3/rFuHSG0v/Tpa4wwdsjhCXAgOXNweJEzgDk7p4s2HAszJg6UnF7ZNDdfs8n5bGOqrRJs6GJHBXA/ODw==
       tarball: 'file:projects/webapp.tgz'
     version: 0.0.0
 registry: ''
@@ -29312,6 +29332,7 @@ specifiers:
   '@types/react-window': ^1.8.2
   '@types/reactstrap': ~8.5.2
   '@types/redux-logger': ^3.0.8
+  '@types/redux-mock-store': ~1.0.2
   '@types/rimraf': ^2.0.3
   '@types/rollup-plugin-visualizer': 2.6.0
   '@types/semver': ^6.0.0
@@ -29452,6 +29473,7 @@ specifiers:
   redux-dynamic-modules-core: ~5.2.3
   redux-dynamic-modules-thunk: ~5.2.3
   redux-logger: ^3.0.6
+  redux-mock-store: ~1.5.4
   redux-promise-middleware: ^6.1.2
   redux-thunk: ^2.3.0
   replace-in-file: ^4.1.0

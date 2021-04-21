@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrivateComponent doesnt render when the user lacks authority 1`] = `null`;
+
+exports[`PrivateComponent renders when the user has matching authority 1`] = `"true"`;
+
+exports[`PrivateComponent renders when there is no authority requirement 1`] = `"true"`;
