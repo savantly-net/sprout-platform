@@ -2,15 +2,18 @@ import React, { ReactNode, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { StoreState } from '../../../types';
 
-const authorize = (authorities: string[], hasAnyAuthorities?: string[]) => {
+const authorize = (authorities: string[], hasAnyAuthorities?: string[]): boolean => {
+  // if the authorized authority list is undefined or empty, then authorize the user
   if (!hasAnyAuthorities || hasAnyAuthorities.length === 0) {
     return true;
-  } else {
-    if (!authorities && hasAnyAuthorities.length !== 0) {
-      return false;
-    } else {
-      return hasAnyAuthorities.some((auth) => authorities.includes(auth));
-    }
+  }
+  // else if the user doesn't have any authorities, don't authorize them
+  else if (!authorities || authorities.length === 0) {
+    return false;
+  }
+  // else finally, check if the user has any of the required authorities
+  else {
+    return hasAnyAuthorities.some((auth) => authorities.includes(auth));
   }
 };
 
