@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
@@ -22,17 +23,21 @@ import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.auditing.DateTimeProvider;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.opentable.db.postgres.embedded.EmbeddedPostgres;
+
 import lombok.AllArgsConstructor;
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
 import net.savantly.sprout.core.domain.tenant.TenantSupport;
 import net.savantly.sprout.core.security.audit.SproutAuditorAware;
 import net.savantly.sprout.core.tenancy.TenantContext;
+import net.savantly.sprout.starter.migration.CoreDBMigrationConfiguration;
 
 @Configuration("sproutJpaConfiguration")
 @AutoConfigureAfter(HibernateJpaAutoConfiguration.class)
@@ -42,6 +47,7 @@ import net.savantly.sprout.core.tenancy.TenantContext;
 @EntityScan
 @EnableTransactionManagement(mode = AdviceMode.ASPECTJ)
 @AllArgsConstructor
+@Import(CoreDBMigrationConfiguration.class)
 public class JpaConfiguration {
 	
 	public static final String ENTITY_MANAGER_FACTORY_BEAN = "sproutEntityManagerFactory";
@@ -55,6 +61,15 @@ public class JpaConfiguration {
 		// System.setProperty("spring.jpa.hibernate.naming.physical-strategy",
 		// SchemaConfiguration.NAMING_STRATEGY);
 	}
+	
+	@Bean
+	@ConditionalOnMissingBean
+	@ConditionalOnProperty(name = "sprout.jpa.use-embedded-db")
+	public DataSource embeddedDataSource() throws Exception {
+        DataSource embeddedPostgresDS = EmbeddedPostgres.builder()
+                .start().getPostgresDatabase();
+        return embeddedPostgresDS;
+    }
 
 	@ConditionalOnMissingBean(name = "entityManagerFactory")
 	@Bean(name = {ENTITY_MANAGER_FACTORY_BEAN, "entityManagerFactory"})

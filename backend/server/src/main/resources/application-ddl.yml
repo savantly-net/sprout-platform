@@ -1,0 +1,14 @@
+spring:
+  flyway:
+    enabled: false
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+      javax:
+        persistence:
+          schema-generation:
+            create-source: metadata
+            scripts:
+              action: create
+              create-target: create.sql

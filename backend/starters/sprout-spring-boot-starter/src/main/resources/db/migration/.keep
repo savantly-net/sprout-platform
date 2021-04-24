@@ -1,0 +1,2 @@
+Empty directory required for spring+flyway autoconfig.
+We're providing a flyway migration bean, but in some tests the bean is not available so if this path is missing the app crashes

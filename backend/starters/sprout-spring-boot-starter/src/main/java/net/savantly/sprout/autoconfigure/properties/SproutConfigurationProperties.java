@@ -203,6 +203,7 @@ public class SproutConfigurationProperties {
 	@Setter
 	public static class Jpa {
 		private List<String> packagesToScan = new ArrayList<>();
+		private boolean useEmbeddedDb;
 	}
 	
 	@Getter

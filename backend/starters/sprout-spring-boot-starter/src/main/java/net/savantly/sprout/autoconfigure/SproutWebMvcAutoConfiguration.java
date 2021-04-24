@@ -30,7 +30,7 @@ import net.savantly.sprout.starter.tenancy.TenantInterceptor;
 
 @Configuration
 @AutoConfigureBefore({ WebMvcAutoConfiguration.class, SproutSecurityAutoConfiguration.class })
-@Import({ ModuleConfiguration.class, SproutWebMvcConfigurer.class, SpringDocConfigurer.class,
+@Import({ SproutWebMvcConfigurer.class, SpringDocConfigurer.class,
 		DateTimeFormatConfiguration.class, FileProviderConfiguration.class, IssueConfiguration.class })
 public class SproutWebMvcAutoConfiguration implements InitializingBean {
 

@@ -73,7 +73,9 @@ dependencies {
 		"com.fasterxml.jackson.module:jackson-module-afterburner",
 		'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.11.1',
 		'org.apache.httpcomponents:httpclient:4.5.13',
-		'software.amazon.awssdk:s3:2.14.3'
+		'software.amazon.awssdk:s3:2.14.3',
+		'com.opentable.components:otj-pg-embedded:0.13.1',
+		'org.flywaydb:flyway-core'
 			
 	compileOnly 'org.projectlombok:lombok',
 		'javax.interceptor:javax.interceptor-api:1.2'
