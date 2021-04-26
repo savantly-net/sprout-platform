@@ -3,6 +3,8 @@ package net.savantly.sprout.module.forms;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
@@ -39,6 +41,11 @@ public class FormsModuleConfiguration {
 				.formDefinitionRepository(formDefinitionRepository)
 				.mapper(mapper)
 				.build();
+	}
+	
+	@Bean
+	public SFDBMigration getSFDBMigration(DataSource dataSource) {
+		return new SFDBMigration(dataSource);
 	}
 
 }

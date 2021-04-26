@@ -21,7 +21,6 @@ public class FormsModule implements SproutWebModule {
 
 	public static final String version = "0.0.1";
 	protected static final String PLUGIN_ID = "savantly-forms-module";
-	
 	@Override
 	public String getId() {
 		return PLUGIN_ID;

@@ -20,7 +20,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.savantly.sprout.core.tenancy.TenantKeyedEntity;
 
-@Entity
+@Entity(name="SF_FORM_DEFINITION")
 @Getter @Setter
 @Accessors(chain = true)
 @Table(
@@ -32,26 +32,32 @@ import net.savantly.sprout.core.tenancy.TenantKeyedEntity;
 public class FormDefinition extends TenantKeyedEntity {
 
 	@Enumerated(EnumType.STRING)
+	@Column(name = "display")
 	private FormDisplayType display;
-	
+
+	@Column(name = "title")
 	private String title;
+	
+	@Column(name = "name")
 	private String name;
 	
 	@Column(name = "FORM_PATH")
 	private String path;
 
 	@Enumerated(EnumType.STRING)
+	@Column(name = "FORMTYPE")
 	private FormType formType;
 	
 	@ElementCollection()
+	@Column(name="tags")
 	private List<String> tags = new ArrayList<>();
 	
-	@Column(columnDefinition = "jsonb")
+	@Column(name="components", columnDefinition = "jsonb")
 	@Type(type = "jsonb")
 	@JsonRawValue
 	private String components;
 
-	@Column(columnDefinition = "jsonb")
+	@Column(name="settings", columnDefinition = "jsonb")
 	@Type(type = "jsonb")
 	@JsonRawValue
 	private String settings;
