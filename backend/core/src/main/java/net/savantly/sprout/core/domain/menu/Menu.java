@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,12 +28,13 @@ public class Menu extends TenantedPersistedDomainObject {
 	
 	private boolean _public;
 	
+	@Column(name="authority")
 	@ElementCollection(fetch=FetchType.EAGER)
-	@CollectionTable(name = "MENU_ROLES")
+	@CollectionTable(name = "MENU_AUTHORITIES")
 	@OrderColumn(name = "index_id")
-	private Set<String> roles = new HashSet<>();
+	private Set<String> authorities = new HashSet<>();
 	
-	private int position;
+	private int weight;
 	private boolean disabled;
 	private String icon;
 	private String parentName;

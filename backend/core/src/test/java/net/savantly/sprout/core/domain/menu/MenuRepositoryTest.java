@@ -17,18 +17,18 @@ public class MenuRepositoryTest {
 	
 	@Test
 	public void test() {
-		Set<String> roles = new HashSet<>();
-		roles.add("user");
+		Set<String> authz = new HashSet<>();
+		authz.add("user");
 		
 		Menu menu = new Menu();
 		menu.set_public(true);
 		menu.setDisplayText("a test");
-		menu.setRoles(roles);
+		menu.setAuthorities(authz);
 		
 		Menu menu2 = new Menu();
 		menu2.set_public(true);
 		menu2.setDisplayText("a test");
-		menu2.setRoles(roles);
+		menu2.setAuthorities(authz);
 		
 		HashSet<Menu> items = new HashSet<>();
 		items.add(menu2);

@@ -14,7 +14,7 @@ import net.savantly.sprout.core.domain.privilege.Privilege;
 import net.savantly.sprout.core.tenancy.TenantedPersistedDomainObject;
 
 @Getter @Setter
-@Entity
+@Entity(name="APP_ROLE")
 @Accessors(chain = true)
 public class Role extends TenantedPersistedDomainObject {
 	

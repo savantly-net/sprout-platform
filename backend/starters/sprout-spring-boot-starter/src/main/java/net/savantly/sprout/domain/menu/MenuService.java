@@ -92,7 +92,7 @@ public class MenuService {
 				.setParentName(menu.getParentName())
 				.setIcon(menu.getIcon())
 				.setUrl(menu.getUrl())
-				.setPosition(menu.getPosition());
+				.setWeight(menu.getWeight());
 	}
 
 	private List<MenuDto> getChildren(Menu menu) {
@@ -118,7 +118,7 @@ public class MenuService {
 				.setUrl(m.getUrl())
 				.setName(m.getName())
 				.setIcon(m.getIcon())
-				.setPosition(m.getPosition());
+				.setWeight(m.getWeight());
 			menuEntities.add(menu);
 		}
 		if (Objects.nonNull(parent)) {

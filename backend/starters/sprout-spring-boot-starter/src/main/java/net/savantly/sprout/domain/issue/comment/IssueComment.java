@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 import net.savantly.sprout.core.tenancy.TenantKeyedEntity;
 
 @Entity
-@Table(name = "issues")
+@Table(name = "ISSUE_COMMENTS")
 @Getter
 @Setter
 @Accessors(chain = true)
@@ -18,6 +18,6 @@ public class IssueComment extends TenantKeyedEntity  {
 	
 	private String issueId;
 
-	@Column(length = 5000)
+	@Column(name="text", length = 5000)
 	private String text;
 }

@@ -16,7 +16,7 @@ import net.savantly.sprout.core.tenancy.TenantKeyedEntity;
 import net.savantly.sprout.domain.issue.comment.IssueComment;
 
 @Entity
-@Table(name = "issues")
+@Table(name = "ISSUES")
 @Getter
 @Setter
 @Accessors(chain = true)

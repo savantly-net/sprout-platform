@@ -20,7 +20,7 @@ public class PluginInclude {
 	private String path;
 	private String icon;
 
-	private String role; // "Viewer", Admin, editor???
+	private String authority; // "Viewer", Admin, editor???
 	private String defaultNav;
 	private boolean addToNav;
 	private List<PluginInclude> children = new ArrayList<>();

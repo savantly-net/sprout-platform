@@ -1,3 +1,27 @@
+create table IF NOT EXISTS app_users (
+   item_id VARCHAR(42) not null,
+    TENANT_ID varchar(255) not null,
+    createdBy varchar(255),
+    createdDate timestamp,
+    lastModifiedBy varchar(255),
+    lastModifiedDate timestamp,
+    version bigint,
+    accountNonExpired boolean not null,
+    accountNonLocked boolean not null,
+    credentialsNonExpired boolean not null,
+    displayName varchar(255),
+    enabled boolean not null,
+    firstName varchar(255),
+    hidePrimaryEmailAddress boolean not null,
+    lastName varchar(255),
+    password varchar(60),
+    phoneNumber varchar(255),
+    username varchar(255),
+    organization_id VARCHAR(36),
+    primary key (item_id, TENANT_ID),
+	CONSTRAINT uk_username_tenant unique (username, TENANT_ID)
+);
+
 create table IF NOT EXISTS APP_EMAIL_ADDRESS (
    item_id VARCHAR(42) not null,
     TENANT_ID varchar(255) not null,
@@ -11,7 +35,11 @@ create table IF NOT EXISTS APP_EMAIL_ADDRESS (
     verified boolean not null,
     user_item_id VARCHAR(42),
     user_TENANT_ID varchar(255),
-    primary key (item_id, TENANT_ID)
+    PRIMARY KEY (item_id, tenant_id),
+    CONSTRAINT fk_app_users FOREIGN KEY (user_tenant_id, user_item_id)
+        REFERENCES app_users (tenant_id, item_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 );
 
 create table IF NOT EXISTS APP_ORGANIZATION (
@@ -39,65 +67,16 @@ create table IF NOT EXISTS APP_USER_EMAIL_ADDRESS (
     SproutUserEntity_TENANT_ID varchar(255) not null,
     emailAddresses_item_id VARCHAR(42) not null,
     emailAddresses_TENANT_ID varchar(255) not null,
-    primary key (SproutUserEntity_item_id, SproutUserEntity_TENANT_ID, emailAddresses_item_id, emailAddresses_TENANT_ID)
-);
-
-create table IF NOT EXISTS app_users (
-   item_id VARCHAR(42) not null,
-    TENANT_ID varchar(255) not null,
-    createdBy varchar(255),
-    createdDate timestamp,
-    lastModifiedBy varchar(255),
-    lastModifiedDate timestamp,
-    version bigint,
-    accountNonExpired boolean not null,
-    accountNonLocked boolean not null,
-    credentialsNonExpired boolean not null,
-    displayName varchar(255),
-    enabled boolean not null,
-    firstName varchar(255),
-    hidePrimaryEmailAddress boolean not null,
-    lastName varchar(255),
-    password varchar(60),
-    phoneNumber varchar(255),
-    username varchar(255),
-    organization_id VARCHAR(36),
-    primary key (item_id, TENANT_ID)
-);
-
-create table IF NOT EXISTS DASHBOARD_LINKS (
-   Dashboard_id varchar(255) not null,
-    Dashboard_ITEM_VERSION bigint not null,
-    href varchar(255),
-    target varchar(255),
-    title varchar(255),
-    index_id integer not null,
-    primary key (Dashboard_id, Dashboard_ITEM_VERSION, index_id)
-);
-
-create table IF NOT EXISTS DASHBOARD_PANELS (
-   Dashboard_id varchar(255) not null,
-    Dashboard_ITEM_VERSION bigint not null,
-    h integer not null,
-    w integer not null,
-    x integer not null,
-    y integer not null,
-    id integer not null,
-    options varchar(64000),
-    pluginVersion varchar(255),
-    title varchar(255),
-    transparent boolean not null,
-    panel_type varchar(255),
-    index_id integer not null,
-    primary key (Dashboard_id, Dashboard_ITEM_VERSION, index_id)
-);
-
-create table IF NOT EXISTS DASHBOARD_TAGS (
-   Dashboard_id varchar(255) not null,
-    Dashboard_ITEM_VERSION bigint not null,
-    tags varchar(255),
-    index_id integer not null,
-    primary key (Dashboard_id, Dashboard_ITEM_VERSION, index_id)
+    CONSTRAINT app_user_email_address_pkey PRIMARY KEY (sproutuserentity_item_id, sproutuserentity_tenant_id, emailaddresses_item_id, emailaddresses_tenant_id),
+    CONSTRAINT uk_user_email_address UNIQUE (emailaddresses_item_id, emailaddresses_tenant_id),
+    CONSTRAINT fk_email_addresses_app_users FOREIGN KEY (sproutuserentity_tenant_id, sproutuserentity_item_id)
+        REFERENCES app_users (tenant_id, item_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_email_addresses_app_email_address FOREIGN KEY (emailaddresses_item_id, emailaddresses_tenant_id)
+        REFERENCES app_email_address (item_id, tenant_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 );
 
 create table IF NOT EXISTS DASHBOARDS (
@@ -116,6 +95,51 @@ create table IF NOT EXISTS DASHBOARDS (
     title varchar(255),
     primary key (id, ITEM_VERSION)
 );
+
+create table IF NOT EXISTS DASHBOARD_LINKS (
+   Dashboard_id varchar(255) not null,
+    Dashboard_ITEM_VERSION bigint not null,
+    href varchar(255),
+    target varchar(255),
+    title varchar(255),
+    index_id integer not null,
+    primary key (Dashboard_id, Dashboard_ITEM_VERSION, index_id),
+	CONSTRAINT fk_dashboard_link_dashboard
+    	foreign key (Dashboard_id, Dashboard_ITEM_VERSION) 
+    	references DASHBOARDS
+);
+
+create table IF NOT EXISTS DASHBOARD_PANELS (
+   Dashboard_id varchar(255) not null,
+    Dashboard_ITEM_VERSION bigint not null,
+    h integer not null,
+    w integer not null,
+    x integer not null,
+    y integer not null,
+    id integer not null,
+    options varchar(64000),
+    pluginVersion varchar(255),
+    title varchar(255),
+    transparent boolean not null,
+    panel_type varchar(255),
+    index_id integer not null,
+    primary key (Dashboard_id, Dashboard_ITEM_VERSION, index_id),
+	CONSTRAINT fk_dashboard_panel_dashboard 
+    	foreign key (Dashboard_id, Dashboard_ITEM_VERSION) 
+   		references DASHBOARDS
+);
+
+create table IF NOT EXISTS DASHBOARD_TAGS (
+   Dashboard_id varchar(255) not null,
+    Dashboard_ITEM_VERSION bigint not null,
+    tags varchar(255),
+    index_id integer not null,
+    primary key (Dashboard_id, Dashboard_ITEM_VERSION, index_id),
+	CONSTRAINT fk_dashboard_tags_dashboard
+   		foreign key (Dashboard_id, Dashboard_ITEM_VERSION) 
+   		references DASHBOARDS
+);
+
 
 create table IF NOT EXISTS feed_comment (
    item_id VARCHAR(42) not null,
@@ -145,7 +169,10 @@ create table IF NOT EXISTS feed_post (
 create table IF NOT EXISTS FeedPost_tags (
    FeedPost_item_id VARCHAR(42) not null,
     FeedPost_TENANT_ID varchar(255) not null,
-    tags varchar(255)
+    tags varchar(255),
+	constraint fk_feedpost_tags_feedpost 
+   		foreign key (FeedPost_item_id, FeedPost_TENANT_ID) 
+   		references feed_post
 );
 
 create table IF NOT EXISTS files (
@@ -167,7 +194,8 @@ create table IF NOT EXISTS files (
     parent varchar(255),
     size bigint not null,
     thumbnailUrl varchar(255),
-    primary key (id)
+    primary key (id),
+	CONSTRAINT uk_name_parent_tenant unique (TENANT_ID, name, parent)
 );
 
 
@@ -188,10 +216,13 @@ create table IF NOT EXISTS Folder (
 create table IF NOT EXISTS Issue_tags (
    Issue_item_id VARCHAR(42) not null,
     Issue_TENANT_ID varchar(255) not null,
-    tags varchar(255)
+    tags varchar(255),
+	constraint fk_issue_tags_issues 
+   		foreign key (Issue_item_id, Issue_TENANT_ID) 
+   		references issues
 );
 
-create table IF NOT EXISTS issues (
+create table IF NOT EXISTS ISSUES (
    item_id VARCHAR(42) not null,
     TENANT_ID varchar(255) not null,
     createdBy varchar(255),
@@ -207,7 +238,19 @@ create table IF NOT EXISTS issues (
     primary key (item_id, TENANT_ID)
 );
 
-create table IF NOT EXISTS issues_issues (
+create table IF NOT EXISTS ISSUE_COMMENTS (
+   item_id VARCHAR(42) not null,
+    TENANT_ID varchar(255) not null,
+    createdBy varchar(255),
+    createdDate timestamp,
+    lastModifiedBy varchar(255),
+    lastModifiedDate timestamp,
+    version bigint,
+    text varchar(5000),
+    primary key (item_id, TENANT_ID),
+	CONSTRAINT uk_comment_tenant unique (comments_item_id, comments_TENANT_ID)
+);
+create table IF NOT EXISTS ISSUES_ISSUE_COMMENTS (
    Issue_item_id VARCHAR(42) not null,
     Issue_TENANT_ID varchar(255) not null,
     comments_item_id VARCHAR(42) not null,
@@ -231,22 +274,29 @@ create table IF NOT EXISTS MENU (
     parentName varchar(255),
     position integer not null,
     url varchar(255),
-    primary key (id)
+    primary key (id),
+	CONSTRAINT uk_name_tenant unique (TENANT_ID, name)
 );
 
-create table IF NOT EXISTS MENU_ROLES (
+create table IF NOT EXISTS MENU_AUTHORITIES (
    Menu_id VARCHAR(36) not null,
-    roles varchar(255)
+    authority varchar(255),
+	constraint fk_menu_authorites_menu 
+   		foreign key (Menu_id) 
+   		references MENU
 );
 
 create table IF NOT EXISTS persistent_audit_evt_data (
    event_id bigint not null,
     value varchar(255),
     name varchar(255) not null,
-    primary key (event_id, name)
+    primary key (event_id, name),
+	constraint fk_persistent_audit_evt_data_app_persistent_audit_event 
+   		foreign key (event_id) 
+   		references app_persistent_audit_event
 );
 
-create table IF NOT EXISTS PluginConfigurationEntity (
+create table IF NOT EXISTS PLUGIN_CONFIGURATION (
    item_id VARCHAR(42) not null,
     TENANT_ID varchar(255) not null,
     createdBy varchar(255),
@@ -254,12 +304,12 @@ create table IF NOT EXISTS PluginConfigurationEntity (
     lastModifiedBy varchar(255),
     lastModifiedDate timestamp,
     version bigint,
-    jsonData varchar(255),
-    secureJsonData varchar(255),
+    jsonData varchar(64000),
+    secureJsonData varchar(64000),
     primary key (item_id, TENANT_ID)
 );
 
-create table IF NOT EXISTS Privilege (
+create table IF NOT EXISTS APP_PRIVILEGE (
    id VARCHAR(36) not null,
     createdBy varchar(255),
     createdDate timestamp,
@@ -271,7 +321,7 @@ create table IF NOT EXISTS Privilege (
     primary key (id)
 );
 
-create table IF NOT EXISTS Role (
+create table IF NOT EXISTS APP_ROLE (
    id VARCHAR(36) not null,
     createdBy varchar(255),
     createdDate timestamp,
@@ -283,10 +333,16 @@ create table IF NOT EXISTS Role (
     primary key (id)
 );
 
-create table IF NOT EXISTS Role_Privilege (
-   Role_id VARCHAR(36) not null,
-    privileges_id VARCHAR(36) not null,
-    primary key (Role_id, privileges_id)
+create table IF NOT EXISTS APP_ROLE_PRIVILEGE (
+   app_role_id VARCHAR(36) not null,
+    app_privilege_id VARCHAR(36) not null,
+    primary key (app_role_id, app_privilege_id),
+	constraint fk_app_role_privilege_app_privilege 
+   		foreign key (app_privilege_id) 
+   		references APP_PRIVILEGE,
+	constraint fk_app_role_privilege_app_role 
+   		foreign key (app_role_id) 
+   		references APP_ROLE
 );
 
 create table IF NOT EXISTS sprout_module_registration (
@@ -315,7 +371,10 @@ create table IF NOT EXISTS TENANT (
 
 create table IF NOT EXISTS TenantEntity_aliases (
    TenantEntity_id VARCHAR(36) not null,
-    aliases varchar(255)
+    aliases varchar(255),
+	constraint fk_tenantentity_aliases_tenant 
+   		foreign key (TenantEntity_id) 
+   		references TENANT
 );
 
 create table IF NOT EXISTS UI_PROPERTIES (
@@ -329,122 +388,22 @@ create table IF NOT EXISTS UI_PROPERTIES (
     name varchar(255),
     value varchar(255),
     requiredPrivilege_id VARCHAR(36),
-    primary key (id)
+    primary key (id),
+	constraint fk_ui_properties_app_privilege 
+   		foreign key (requiredPrivilege_id) 
+   		references APP_PRIVILEGE
 );
 
-create table IF NOT EXISTS user_roles (
+create table IF NOT EXISTS user_app_role (
    user_id VARCHAR(42) not null,
     user_tenant_id varchar(255) not null,
-    roles_id VARCHAR(36) not null,
-    primary key (user_id, user_tenant_id, roles_id)
+    app_role_id VARCHAR(36) not null,
+    primary key (user_id, user_tenant_id, app_role_id),
+	constraint fk_user_app_role_app_role 
+   		foreign key (app_role_id) 
+   		references APP_ROLE,
+   	constraint fk_user_app_role_app_users
+   		foreign key (user_id, user_tenant_id) 
+   		references app_users
 );
 
-alter table APP_USER_EMAIL_ADDRESS 
-   add constraint UK_1i8bkjkxdjb9q46xwvonikwd8 unique (emailAddresses_item_id, emailAddresses_TENANT_ID);
-
-alter table app_users 
-   add constraint UK60o6p4pdoj2tuupbd6y8smwcy unique (username, TENANT_ID);
-
-alter table files 
-   add constraint UKo9racgrmlkfu9cmxeofsh13jl unique (TENANT_ID, name, parent);
-
-alter table issues_issues 
-   add constraint UK_m7n3w8r9savc148ni9c5dms1x unique (comments_item_id, comments_TENANT_ID);
-
-alter table MENU 
-   add constraint UKldby87m60spoygni5olvx5txr unique (TENANT_ID, name);
-
-alter table APP_EMAIL_ADDRESS 
-   add constraint FKr8pko96q9iq6k4qrcpshm9eyn 
-   foreign key (user_item_id, user_TENANT_ID) 
-   references app_users;
-
-alter table APP_USER_EMAIL_ADDRESS 
-   add constraint FKshhjjnsjvm5t7fegqv8t05qqk 
-   foreign key (emailAddresses_item_id, emailAddresses_TENANT_ID) 
-   references APP_EMAIL_ADDRESS;
-
-alter table APP_USER_EMAIL_ADDRESS 
-   add constraint FKn9t1dgn6o4eq9mruopr1wi75d 
-   foreign key (SproutUserEntity_item_id, SproutUserEntity_TENANT_ID) 
-   references app_users;
-
-alter table app_users 
-   add constraint FK3pg28g1cq66e219yi590o3l4m 
-   foreign key (organization_id) 
-   references APP_ORGANIZATION;
-
-alter table DASHBOARD_LINKS 
-   add constraint FK5f6xilpmolksttvptu8lq0uyx 
-   foreign key (Dashboard_id, Dashboard_ITEM_VERSION) 
-   references DASHBOARDS;
-
-alter table DASHBOARD_PANELS 
-   add constraint FK4mkfax4j58jn0q368t69n4pp7 
-   foreign key (Dashboard_id, Dashboard_ITEM_VERSION) 
-   references DASHBOARDS;
-
-alter table DASHBOARD_TAGS 
-   add constraint FKapkmpt6i6xyso1061l0naccgb 
-   foreign key (Dashboard_id, Dashboard_ITEM_VERSION) 
-   references DASHBOARDS;
-
-alter table FeedPost_tags 
-   add constraint FKiv3qrhp8crvit9ulahcvcctog 
-   foreign key (FeedPost_item_id, FeedPost_TENANT_ID) 
-   references feed_post;
-
-alter table Issue_tags 
-   add constraint FKn7ovf9geieippk4fudhtmt5od 
-   foreign key (Issue_item_id, Issue_TENANT_ID) 
-   references issues;
-
-alter table issues_issues 
-   add constraint FKgnp7niyg24gpvehx110s31o31 
-   foreign key (comments_item_id, comments_TENANT_ID) 
-   references issues;
-
-alter table issues_issues 
-   add constraint FK9mhobbsju5qiq0ma568d2qsin 
-   foreign key (Issue_item_id, Issue_TENANT_ID) 
-   references issues;
-
-alter table MENU_ROLES 
-   add constraint FKoxr7fc6rbtvlxcju9vlt2sgdh 
-   foreign key (Menu_id) 
-   references MENU;
-
-alter table persistent_audit_evt_data 
-   add constraint FK3kuydigdhhlxvwajobl45o0ep 
-   foreign key (event_id) 
-   references app_persistent_audit_event;
-
-alter table Role_Privilege 
-   add constraint FK1doaajt8shs4qv3y7scc3ipao 
-   foreign key (privileges_id) 
-   references Privilege;
-
-alter table Role_Privilege 
-   add constraint FKlc11r7a9hwn8471upun0jhqhd 
-   foreign key (Role_id) 
-   references ROLE;
-
-alter table TenantEntity_aliases 
-   add constraint FK52gloxy4ioo3nw74kou1grorq 
-   foreign key (TenantEntity_id) 
-   references TENANT;
-
-alter table UI_PROPERTIES 
-   add constraint FKl6id4gokwyhkiipy9tr6160u5 
-   foreign key (requiredPrivilege_id) 
-   references Privilege;
-
-alter table user_roles 
-   add constraint FKbcsalslurw33on7738rj3d8cp 
-   foreign key (roles_id) 
-   references ROLE;
-
-alter table user_roles 
-   add constraint FK4y73wrrbs05bqmk0h6s8uhxyi 
-   foreign key (user_id, user_tenant_id) 
-   references app_users;

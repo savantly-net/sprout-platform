@@ -12,7 +12,7 @@ import net.savantly.sprout.core.configuration.SproutConfiguration;
 import net.savantly.sprout.core.tenancy.TenantedPersistedDomainObject;
 
 @Getter @Setter
-@Entity
+@Entity(name="PRIVILEGE")
 @Accessors(chain = true)
 public class Privilege extends TenantedPersistedDomainObject implements GrantedAuthority{
 
