@@ -5,7 +5,10 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,12 +18,19 @@ import net.savantly.sprout.core.tenancy.TenantedPersistedDomainObject;
 
 @Getter @Setter
 @Entity(name="APP_ROLE")
+@Table(name="APP_ROLE")
 @Accessors(chain = true)
 public class Role extends TenantedPersistedDomainObject {
 	
 	private String name;
 
 	@ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="APP_ROLE_APP_PRIVILEGE",
+    joinColumns=
+        @JoinColumn(name="APP_ROLE_ID", referencedColumnName="ID"),
+    inverseJoinColumns=
+        @JoinColumn(name="APP_PRIVILEGE_ID", referencedColumnName="ID")
+    )
     private Set<Privilege> privileges = new HashSet<>();
 	
 

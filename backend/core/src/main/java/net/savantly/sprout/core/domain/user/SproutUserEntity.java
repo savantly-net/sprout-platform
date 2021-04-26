@@ -89,11 +89,13 @@ public class SproutUserEntity extends TenantKeyedEntity implements CredentialsCo
     private Set<EmailAddress> emailAddresses = new HashSet<>();
 	
 	@ManyToMany(fetch=FetchType.EAGER, targetEntity=Role.class, cascade = {CascadeType.REFRESH, CascadeType.MERGE})
-	@JoinTable(name = "user_roles",
+	@JoinTable(name = "app_user_app_role",
 	    joinColumns = {
 	    		@JoinColumn(name="user_id", referencedColumnName = "item_id"),
 	    		@JoinColumn(name="user_tenant_id", referencedColumnName = "tenant_id")
-	    		}
+	    		},
+	    inverseJoinColumns=
+	            @JoinColumn(name="app_role_id", referencedColumnName="ID")
 	)
     private Set<Role> roles = new HashSet<>();
 

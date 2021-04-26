@@ -213,15 +213,6 @@ create table IF NOT EXISTS Folder (
     primary key (item_id, TENANT_ID)
 );
 
-create table IF NOT EXISTS Issue_tags (
-   Issue_item_id VARCHAR(42) not null,
-    Issue_TENANT_ID varchar(255) not null,
-    tags varchar(255),
-	constraint fk_issue_tags_issues 
-   		foreign key (Issue_item_id, Issue_TENANT_ID) 
-   		references issues
-);
-
 create table IF NOT EXISTS ISSUES (
    item_id VARCHAR(42) not null,
     TENANT_ID varchar(255) not null,
@@ -238,6 +229,15 @@ create table IF NOT EXISTS ISSUES (
     primary key (item_id, TENANT_ID)
 );
 
+create table IF NOT EXISTS Issue_tags (
+   Issue_item_id VARCHAR(42) not null,
+    Issue_TENANT_ID varchar(255) not null,
+    tags varchar(255),
+	constraint fk_issue_tags_issues 
+   		foreign key (Issue_item_id, Issue_TENANT_ID) 
+   		references ISSUES
+);
+
 create table IF NOT EXISTS ISSUE_COMMENTS (
    item_id VARCHAR(42) not null,
     TENANT_ID varchar(255) not null,
@@ -248,7 +248,7 @@ create table IF NOT EXISTS ISSUE_COMMENTS (
     version bigint,
     text varchar(5000),
     primary key (item_id, TENANT_ID),
-	CONSTRAINT uk_comment_tenant unique (comments_item_id, comments_TENANT_ID)
+	CONSTRAINT uk_comment_tenant unique (item_id, TENANT_ID)
 );
 create table IF NOT EXISTS ISSUES_ISSUE_COMMENTS (
    Issue_item_id VARCHAR(42) not null,
@@ -333,7 +333,7 @@ create table IF NOT EXISTS APP_ROLE (
     primary key (id)
 );
 
-create table IF NOT EXISTS APP_ROLE_PRIVILEGE (
+create table IF NOT EXISTS APP_ROLE_APP_PRIVILEGE (
    app_role_id VARCHAR(36) not null,
     app_privilege_id VARCHAR(36) not null,
     primary key (app_role_id, app_privilege_id),
@@ -343,6 +343,19 @@ create table IF NOT EXISTS APP_ROLE_PRIVILEGE (
 	constraint fk_app_role_privilege_app_role 
    		foreign key (app_role_id) 
    		references APP_ROLE
+);
+
+create table IF NOT EXISTS app_user_app_role (
+   user_id VARCHAR(42) not null,
+    user_tenant_id varchar(255) not null,
+    app_role_id VARCHAR(36) not null,
+    primary key (user_id, user_tenant_id, app_role_id),
+	constraint fk_user_app_role_app_role 
+   		foreign key (app_role_id) 
+   		references APP_ROLE,
+   	constraint fk_user_app_role_app_users
+   		foreign key (user_id, user_tenant_id) 
+   		references app_users
 );
 
 create table IF NOT EXISTS sprout_module_registration (
@@ -394,16 +407,4 @@ create table IF NOT EXISTS UI_PROPERTIES (
    		references APP_PRIVILEGE
 );
 
-create table IF NOT EXISTS user_app_role (
-   user_id VARCHAR(42) not null,
-    user_tenant_id varchar(255) not null,
-    app_role_id VARCHAR(36) not null,
-    primary key (user_id, user_tenant_id, app_role_id),
-	constraint fk_user_app_role_app_role 
-   		foreign key (app_role_id) 
-   		references APP_ROLE,
-   	constraint fk_user_app_role_app_users
-   		foreign key (user_id, user_tenant_id) 
-   		references app_users
-);
 
