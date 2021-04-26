@@ -38,6 +38,7 @@ import net.savantly.sprout.domain.dashboard.DashboardConfiguration;
 import net.savantly.sprout.domain.feed.FeedConfiguration;
 import net.savantly.sprout.domain.folder.FolderConfiguration;
 import net.savantly.sprout.domain.menu.MenuConfiguration;
+import net.savantly.sprout.domain.panelsource.PanelSourceConfiguration;
 import net.savantly.sprout.domain.permissions.PermissionsApi;
 import net.savantly.sprout.domain.proxy.ProxyApi;
 import net.savantly.sprout.domain.uiProperties.UIPropertiesConfiguration;
@@ -51,7 +52,8 @@ import net.savantly.sprout.module.PluginService;
 	FeedConfiguration.class,
 	UIPropertiesConfiguration.class, 
 	MenuConfiguration.class, 
-	FolderConfiguration.class})
+	FolderConfiguration.class,
+	PanelSourceConfiguration.class})
 @RequiredArgsConstructor
 public class SproutWebMvcConfigurer implements WebMvcConfigurer {
 

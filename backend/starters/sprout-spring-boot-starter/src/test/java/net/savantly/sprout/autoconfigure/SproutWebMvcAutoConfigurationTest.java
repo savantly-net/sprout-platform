@@ -17,6 +17,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -28,6 +29,7 @@ import net.savantly.sprout.core.domain.menu.MenuRepository;
 
 @SpringBootTest
 @WebAppConfiguration
+@ActiveProfiles("test")
 public class SproutWebMvcAutoConfigurationTest {
 	
 	private static final Logger log = LoggerFactory.getLogger(SproutWebMvcAutoConfigurationTest.class);
@@ -55,13 +57,13 @@ public class SproutWebMvcAutoConfigurationTest {
 		Menu menu = new Menu();
 		menu.set_public(true);
 		menu.setDisplayText("a test");
-		menu.setRoles(roles);
+		menu.setAuthorities(roles);
 		menu.setName("menu1");
 		
 		Menu menu2 = new Menu();
 		menu2.set_public(true);
 		menu2.setDisplayText("a test");
-		menu2.setRoles(roles);
+		menu.setAuthorities(roles);
 		menu2.setParentName("menu1");
 		menu2.setName("menu2");
 		

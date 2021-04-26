@@ -2,12 +2,14 @@ logging:
   level:
     org.springframework.security.web: DEBUG
 sprout:
+  jpa:
+    use-embedded-db: true
   security:
     authentication:
       basic:
         users:
         - username: admin
-          password: changeme!
+          password: admin
           email-address: test@savantly.net
           roles:
           - ADMIN

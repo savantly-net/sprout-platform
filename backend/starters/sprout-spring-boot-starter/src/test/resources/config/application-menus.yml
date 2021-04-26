@@ -1,4 +1,6 @@
 sprout:
+  jpa:
+    use-embedded-db: true
   menus:
   - name: root1
     display-text: root-1

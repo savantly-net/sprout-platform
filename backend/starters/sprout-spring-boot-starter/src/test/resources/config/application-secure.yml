@@ -3,6 +3,8 @@ logging:
     org.springframework.web: DEBUG
     org.springframework.security.web.authentication: DEBUG
 sprout:
+  jpa:
+    use-embedded-db: true
   security:
     authentication:
       basic:

@@ -23,7 +23,7 @@ import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, properties = {"sprout.proxy.allowedUris[0]=.*savantly.net.*"})
 @IntegrationTest
-@ActiveProfiles("secure")
+@ActiveProfiles({"secure","test"})
 public class ProxyApiTest {
 
 	static final Logger log = LoggerFactory.getLogger(ProxyApiTest.class);
