@@ -106,6 +106,9 @@ jobs:
           CI: false
       
       - name: Build and release Server Projects
+        env:
+          OSSRH_USER: ${{ secrets.OSSRH_USER }}
+          OSSRH_USER_TOKEN: ${{ OSSRH_USER_TOKEN }}
         run: ./gradlew uploadArchives --stacktrace
 
       # Analyze
