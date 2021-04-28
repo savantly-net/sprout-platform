@@ -1,3 +1,6 @@
+logging:
+  level:
+    org.flywaydb: DEBUG
 sprout:
   cors:
     allowed-methods: GET, OPTIONS, PUT, POST, PATCH, DELETE

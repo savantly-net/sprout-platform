@@ -11,6 +11,13 @@ allprojects {
     apply plugin: "com.adarshr.test-logger"
     
 	ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
+	
+	testlogger {
+	    showStandardStreams true
+	    showPassedStandardStreams false
+	    showSkippedStandardStreams false
+	    showFailedStandardStreams true
+	}
 
     repositories {
 	    mavenCentral()

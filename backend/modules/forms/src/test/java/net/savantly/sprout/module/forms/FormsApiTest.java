@@ -11,6 +11,8 @@ import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,6 +33,8 @@ import net.savantly.sprout.module.forms.domain.definition.FormDefinitionDto;
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 public class FormsApiTest extends AbstractContainerBaseTest {
 	
+	private final static Logger log = LoggerFactory.getLogger(FormsApiTest.class);
+	
 	@Autowired
 	WebApplicationContext ctx;
 	@Autowired
@@ -46,6 +50,7 @@ public class FormsApiTest extends AbstractContainerBaseTest {
 		mvc = MockMvcBuilders
 				.webAppContextSetup(ctx)
 				.build();
+		log.info("running module install");
 		module.install();
 	}
 	
