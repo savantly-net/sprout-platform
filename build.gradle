@@ -13,9 +13,6 @@ allprojects {
 	ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 	
 	testlogger {
-	    showStandardStreams true
-	    showPassedStandardStreams false
-	    showSkippedStandardStreams false
 	    showFailedStandardStreams true
 	}
 
