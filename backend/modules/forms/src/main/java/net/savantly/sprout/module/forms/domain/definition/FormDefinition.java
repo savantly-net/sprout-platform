@@ -20,7 +20,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.savantly.sprout.core.tenancy.TenantKeyedEntity;
 
-@Entity(name="SF_FORM_DEFINITION")
+@Entity
 @Getter @Setter
 @Accessors(chain = true)
 @Table(
