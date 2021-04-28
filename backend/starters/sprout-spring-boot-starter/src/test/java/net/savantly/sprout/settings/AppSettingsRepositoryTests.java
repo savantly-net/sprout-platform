@@ -12,14 +12,14 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+
+import net.savantly.sprout.test.AbstractContainerBaseTest;
 
 @SpringBootTest(properties = {"sprout.hal.enable=true"})
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs(outputDir = "build/snippets")
-@ActiveProfiles("test")
-public class AppSettingsRepositoryTests {
+public class AppSettingsRepositoryTests extends AbstractContainerBaseTest {
 
 	@Autowired
 	private MockMvc mockMvc;

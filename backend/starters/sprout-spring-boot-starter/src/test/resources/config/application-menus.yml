@@ -1,7 +1,10 @@
 sprout:
-  jpa:
-    use-embedded-db: true
   menus:
+  - name: secret1
+    display-text: secret1
+    url: http://localhost/secret1
+    authorities:
+    - ADMIN
   - name: root1
     display-text: root-1
     url: http://localhost

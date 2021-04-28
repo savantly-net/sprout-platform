@@ -27,7 +27,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -38,13 +37,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.savantly.sprout.domain.file.FileDataDto;
 import net.savantly.sprout.domain.file.FileDataRequest;
+import net.savantly.sprout.test.AbstractContainerBaseTest;
 import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @IntegrationTest
-@ActiveProfiles("basicauth")
 @AutoConfigureMockMvc
-public class FileProviderApiTest {
+public class FileProviderApiTest extends AbstractContainerBaseTest {
 
 	@Autowired
 	TestRestTemplate rest;
@@ -57,6 +56,7 @@ public class FileProviderApiTest {
 
 	@Autowired
 	ObjectMapper mapper;
+	private final String userpass = "admin";
 
 	@Test
 	public void createFolder() throws URISyntaxException, JsonProcessingException {
@@ -83,7 +83,7 @@ public class FileProviderApiTest {
 
 		// upload a test file
 		this.mvc.perform(multipart(url + "/upload").file(metaData1).file(filePart1)
-				.with(SecurityMockMvcRequestPostProcessors.httpBasic("test", "test")))
+				.with(SecurityMockMvcRequestPostProcessors.httpBasic(userpass,userpass)))
 				.andExpect(status().is2xxSuccessful());
 
 		// assert the file was uploaded
@@ -102,7 +102,7 @@ public class FileProviderApiTest {
 				mapper.writeValueAsBytes(new FileDataRequest().setColor("red").setDir(false).setName("another.js")
 						.setParent(folderResponse.getId())));
 		this.mvc.perform(multipart(url + "/upload").file(metaData2).file(filePart1)
-				.with(SecurityMockMvcRequestPostProcessors.httpBasic("test", "test")))
+				.with(SecurityMockMvcRequestPostProcessors.httpBasic(userpass,userpass)))
 				.andExpect(status().is2xxSuccessful());
 
 		this.mvc.perform(get(url + "/list/" + folderResponse.getId())).andExpect(status().is2xxSuccessful())
@@ -119,7 +119,7 @@ public class FileProviderApiTest {
 						.setParent(subFolderResponse.getId())));
 		MvcResult thirdFileResponse = this.mvc
 				.perform(multipart(url + "/upload").file(metaData3).file(filePart1)
-						.with(SecurityMockMvcRequestPostProcessors.httpBasic("test", "test")))
+						.with(SecurityMockMvcRequestPostProcessors.httpBasic(userpass,userpass)))
 				.andExpect(status().is2xxSuccessful()).andReturn();
 
 		this.mvc.perform(get(url + "/list/" + subFolderResponse.getId())).andExpect(status().is2xxSuccessful())
@@ -143,7 +143,7 @@ public class FileProviderApiTest {
 
 		RequestEntity request = RequestEntity.post(new URI(url)).contentType(MediaType.APPLICATION_JSON)
 				.body(mapper.writeValueAsBytes(requestData));
-		ResponseEntity<FileDataDto> response = rest.withBasicAuth("test", "test").exchange(request,
+		ResponseEntity<FileDataDto> response = rest.withBasicAuth(userpass,userpass).exchange(request,
 				FileDataDto.class);
 		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(), "Should create a folder");
 		return response.getBody();

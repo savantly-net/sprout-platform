@@ -19,12 +19,13 @@ import org.springframework.test.context.ActiveProfiles;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import net.savantly.sprout.test.AbstractContainerBaseTest;
 import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @IntegrationTest
 @ActiveProfiles({"secure", "oauth"})
-public class DefaultAuthorizationConfigurerTest {
+public class DefaultAuthorizationConfigurerTest extends AbstractContainerBaseTest {
 	
 	@Autowired
 	ObjectMapper mapper;

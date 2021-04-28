@@ -27,13 +27,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.security.InvalidKeyException;
 import net.savantly.sprout.starter.security.oauth.OAuthAutoConfiguration;
+import net.savantly.sprout.test.AbstractContainerBaseTest;
 import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT,
 	properties = {"spring.security.oauth2.resourceserver.jwt.jwk-set-uri=https://savantly.mocklab.io/.well-known/jwks.json"})
 @IntegrationTest
 @ActiveProfiles("oauth")
-public class SecurityCustomizer_OAuthTest {
+public class SecurityCustomizer_OAuthTest extends AbstractContainerBaseTest {
 
 	private static final Logger log = LoggerFactory.getLogger(SecurityCustomizer_OAuthTest.class);
 

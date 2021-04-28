@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,17 +20,16 @@ import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.context.support.WithAnonymousUser;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import net.savantly.sprout.test.AbstractContainerBaseTest;
 import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 @IntegrationTest
-@ActiveProfiles("basicauth")
-public class SproutWebSecurityConfigurationTest {
+public class SproutWebSecurityConfigurationTest extends AbstractContainerBaseTest {
 
 	private static final Logger log = LoggerFactory.getLogger(SproutWebSecurityConfigurationTest.class);
 
@@ -42,6 +40,8 @@ public class SproutWebSecurityConfigurationTest {
 
 	@Autowired
 	TestRestTemplate rest;
+
+	private final String userpass = "admin";
 	
 	@BeforeAll
 	public static void beforeClass() {
@@ -92,8 +92,7 @@ public class SproutWebSecurityConfigurationTest {
 	@WithAnonymousUser
 	public void loadAdminPage() throws Exception {
 		String url = "/admin/";
-		// username / password comes from basicauth test profile config
-		ResponseEntity<String> response = rest.withBasicAuth("test", "test").getForEntity(url, String.class);
+		ResponseEntity<String> response = rest.withBasicAuth(userpass, userpass).getForEntity(url, String.class);
 		
 		log.info("{}", response.getBody());
 		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(), "Should succeed with basic auth");
@@ -101,7 +100,6 @@ public class SproutWebSecurityConfigurationTest {
 	
 	// TODO: Fix security testing admin
 	//@Test
-	//@WithUserDetails(value = "admin")
 	public void loadAdminRedirect() throws Exception {
 		String url = "/admin";
 		

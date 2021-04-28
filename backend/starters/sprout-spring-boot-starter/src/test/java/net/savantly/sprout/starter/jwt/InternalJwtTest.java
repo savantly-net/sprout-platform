@@ -31,11 +31,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.security.InvalidKeyException;
 import net.savantly.sprout.starter.security.jwt.TokenProvider;
+import net.savantly.sprout.test.AbstractContainerBaseTest;
 import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @IntegrationTest
-public class InternalJwtTest {
+public class InternalJwtTest extends AbstractContainerBaseTest {
 
 	private static final Logger log = LoggerFactory.getLogger(JWTAutoConfigurationTest.class);
 

@@ -19,12 +19,13 @@ import org.springframework.web.client.RestClientException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import net.savantly.sprout.test.AbstractContainerBaseTest;
 import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, properties = {"sprout.proxy.allowedUris[0]=.*savantly.net.*"})
 @IntegrationTest
-@ActiveProfiles({"secure","test"})
-public class ProxyApiTest {
+@ActiveProfiles({"secure"})
+public class ProxyApiTest extends AbstractContainerBaseTest {
 
 	static final Logger log = LoggerFactory.getLogger(ProxyApiTest.class);
 	@Autowired

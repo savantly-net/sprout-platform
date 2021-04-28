@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -30,12 +31,13 @@ import net.savantly.sprout.core.security.permissions.Permission;
 import net.savantly.sprout.core.security.permissions.SproutPermissionEvaluator;
 import net.savantly.sprout.core.tenancy.TenantedPrimaryKey;
 import net.savantly.sprout.starter.security.acls.AclMethodSecurityConfigurationTest.TestContext.ProtectedService;
+import net.savantly.sprout.test.AbstractContainerBaseTest;
 import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, properties = {
 		"sprout.jpa.packagesToScan=example.domain" })
 @IntegrationTest
-public class AclMethodSecurityConfigurationTest {
+public class AclMethodSecurityConfigurationTest extends AbstractContainerBaseTest {
 
 	@Autowired
 	ProtectedService service;
@@ -61,6 +63,11 @@ public class AclMethodSecurityConfigurationTest {
 		repo.save(o);
 		repo.flush();
 		return id;
+	}
+	
+	@BeforeEach
+	public void beforeEach() {
+		repo.deleteAll();
 	}
 
 	@Test

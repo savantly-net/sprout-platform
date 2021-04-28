@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    hikari:
+      minimum-idle: 1
+#    url: jdbc:tc:postgresql:12:///testdb
+#    username: sa
+#    password: sa
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+logging:
+  level:
+    org.springframework.security.web: DEBUG
+sprout:
+  security:
+    authentication:
+      basic:
+        users:
+        - username: admin
+          password: admin
+          email-address: admin@savantly.net
+          roles:
+          - ADMIN
+        - username: test
+          password: test
+          email-address: test@savantly.net
+          roles:
+          - TEST

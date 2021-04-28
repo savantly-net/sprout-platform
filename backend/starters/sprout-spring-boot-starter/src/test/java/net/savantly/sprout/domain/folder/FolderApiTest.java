@@ -16,22 +16,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ActiveProfiles;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import net.savantly.sprout.test.AbstractContainerBaseTest;
 import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @IntegrationTest
-@ActiveProfiles({ "basicauth" })
-public class FolderApiTest {
+public class FolderApiTest extends AbstractContainerBaseTest {
 
 	@Autowired
 	ObjectMapper mapper;
 	@Autowired
 	TestRestTemplate rest;
+	
+	private final String userpass = "admin";
 	
 	@Test
 	public void withAnonymousUser() throws Exception {
@@ -46,7 +47,7 @@ public class FolderApiTest {
 	}
 
 	@Test
-	public void withTestUser() throws Exception {
+	public void withAdminUser() throws Exception {
 
 		FolderDto root1 = createOne(new FolderDto().setIcon("cube").setName("root1"));
 
@@ -59,7 +60,7 @@ public class FolderApiTest {
 		String url = "/api/folders";
 
 		RequestEntity request = RequestEntity.get(new URI(url)).accept(MediaType.APPLICATION_JSON).build();
-		ResponseEntity<FolderList> response = rest.withBasicAuth("test", "test").exchange(request, FolderList.class);
+		ResponseEntity<FolderList> response = rest.withBasicAuth(userpass, userpass).exchange(request, FolderList.class);
 
 		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(), "Should get all folders");
 		Assertions.assertEquals(2,  response.getBody().size());
@@ -68,7 +69,7 @@ public class FolderApiTest {
 
 		
 		RequestEntity deleteRequest = RequestEntity.delete(new URI(url + "/" + root1.getId())).build();
-		ResponseEntity<Void> deleteResponse = rest.withBasicAuth("test", "test").exchange(deleteRequest, Void.class);
+		ResponseEntity<Void> deleteResponse = rest.withBasicAuth(userpass, userpass).exchange(deleteRequest, Void.class);
 		Assertions.assertEquals(HttpStatus.OK, deleteResponse.getStatusCode(), "Should delete");
 	}
 	
@@ -81,7 +82,7 @@ public class FolderApiTest {
 
 		RequestEntity request = RequestEntity.post(new URI(url)).contentType(MediaType.APPLICATION_JSON)
 				.body(mapper.writeValueAsString(dto));
-		ResponseEntity<FolderDto> response = rest.withBasicAuth("test", "test").exchange(request, FolderDto.class);
+		ResponseEntity<FolderDto> response = rest.withBasicAuth(userpass, userpass).exchange(request, FolderDto.class);
 
 		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(), "Should get account information");
 		Assertions.assertTrue(dto.getIcon().contentEquals(response.getBody().getIcon()));

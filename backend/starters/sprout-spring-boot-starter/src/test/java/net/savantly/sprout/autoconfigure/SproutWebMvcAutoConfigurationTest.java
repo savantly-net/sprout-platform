@@ -17,7 +17,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -26,11 +25,11 @@ import org.springframework.web.context.WebApplicationContext;
 
 import net.savantly.sprout.core.domain.menu.Menu;
 import net.savantly.sprout.core.domain.menu.MenuRepository;
+import net.savantly.sprout.test.AbstractContainerBaseTest;
 
 @SpringBootTest
 @WebAppConfiguration
-@ActiveProfiles("test")
-public class SproutWebMvcAutoConfigurationTest {
+public class SproutWebMvcAutoConfigurationTest extends AbstractContainerBaseTest {
 	
 	private static final Logger log = LoggerFactory.getLogger(SproutWebMvcAutoConfigurationTest.class);
 

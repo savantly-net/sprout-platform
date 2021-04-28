@@ -24,12 +24,13 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import net.savantly.sprout.test.AbstractContainerBaseTest;
 import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @IntegrationTest
-@ActiveProfiles({ "basicauth", "oauth" })
-public class SecurityConfigurationComboTest {
+@ActiveProfiles({ "oauth" })
+public class SecurityConfigurationComboTest extends AbstractContainerBaseTest {
 
 	private static final Logger log = LoggerFactory.getLogger(SproutWebSecurityConfigurationTest.class);
 
@@ -41,6 +42,8 @@ public class SecurityConfigurationComboTest {
 	@Autowired
 	TestRestTemplate rest;
 
+	private final String userpass = "admin";
+	
 	@Test
 	@WithAnonymousUser
 	public void loadRootPage() throws Exception {
@@ -86,7 +89,7 @@ public class SecurityConfigurationComboTest {
 	public void loadAdminPage() throws Exception {
 		String url = "/admin/";
 		// username / password comes from basicauth test profile config
-		ResponseEntity<String> response = rest.withBasicAuth("test", "test").getForEntity(url, String.class);
+		ResponseEntity<String> response = rest.withBasicAuth(userpass, userpass).getForEntity(url, String.class);
 		
 		log.info("{}", response.getBody());
 		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(), "Should succeed with basic auth");

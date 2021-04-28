@@ -19,13 +19,14 @@ import org.springframework.test.context.ActiveProfiles;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import net.savantly.sprout.test.AbstractContainerBaseTest;
 import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, properties = {
 		"spring.security.oauth2.resourceserver.jwt.jwk-set-uri=https://savantly.mocklab.io/.well-known/jwks.json" })
 @IntegrationTest
-@ActiveProfiles({ "basicauth", "oauth" })
-public class AccountApiTest {
+@ActiveProfiles({ "oauth" })
+public class AccountApiTest extends AbstractContainerBaseTest {
 
 	@Autowired
 	ObjectMapper mapper;

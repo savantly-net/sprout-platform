@@ -18,13 +18,14 @@ import org.springframework.core.io.Resource;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
+import net.savantly.sprout.test.AbstractContainerBaseTest;
 import net.savantly.sprout.test.IntegrationTest;
 
 
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 @IntegrationTest
 @Transactional
-public class DashboardServiceTest {
+public class DashboardServiceTest extends AbstractContainerBaseTest {
 
 	@Autowired
 	ObjectMapper mapper;

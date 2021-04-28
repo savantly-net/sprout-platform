@@ -27,11 +27,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.savantly.sprout.core.domain.organization.Organization;
 import net.savantly.sprout.core.domain.organization.OrganizationRepository;
+import net.savantly.sprout.test.AbstractContainerBaseTest;
 import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 @IntegrationTest
-public class PageAndSortControllerTest {
+public class PageAndSortControllerTest extends AbstractContainerBaseTest {
 
 	private static final Logger log = LoggerFactory.getLogger(PageAndSortControllerTest.class);
 	

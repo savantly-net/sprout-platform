@@ -3,30 +3,15 @@ logging:
     org.springframework.web: DEBUG
     org.springframework.security.web.authentication: DEBUG
 sprout:
-  jpa:
-    use-embedded-db: true
   security:
-    authentication:
-      basic:
-        users:
-        - username: admin
-          password: admin
-          email-address: admin@savantly.net
-          roles:
-          - ADMIN
-        - username: test
-          password: test
-          email-address: test@savantly.net
-          roles:
-          - TEST
     authorization:
       patterns:
         - path: /v3/api-docs
           expression:
-            GET: hasAuthority('GENERAL_ADMIN')
+            GET: hasAuthority('ADMIN')
         - path: /v3/api-docs/swagger-config
           expression:
-            GET: hasAuthority('GENERAL_ADMIN')
+            GET: hasAuthority('ADMIN')
         - path: /api/repo
           expression:
             GET: hasAuthority('SUPER')

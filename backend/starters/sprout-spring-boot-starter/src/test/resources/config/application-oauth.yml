@@ -3,8 +3,6 @@ logging:
     org.springframework.web.client.RestTemplate: DEBUG
 
 sprout:
-  jpa:
-    use-embedded-db: true
   security:
     authentication:
       oauth:

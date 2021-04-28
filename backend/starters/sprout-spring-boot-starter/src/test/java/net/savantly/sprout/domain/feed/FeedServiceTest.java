@@ -7,17 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.ActiveProfiles;
 
 import net.savantly.sprout.core.domain.feed.item.FeedItem;
 import net.savantly.sprout.domain.feed.post.FeedPostDto;
 import net.savantly.sprout.domain.feed.post.FeedPostService;
+import net.savantly.sprout.test.AbstractContainerBaseTest;
 import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest
 @IntegrationTest
-@ActiveProfiles("basicauth")
-public class FeedServiceTest {
+public class FeedServiceTest extends AbstractContainerBaseTest {
 
 	@Autowired
 	FeedService service;

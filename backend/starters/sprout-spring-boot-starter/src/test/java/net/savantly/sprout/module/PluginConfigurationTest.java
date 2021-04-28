@@ -15,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -34,10 +33,10 @@ import net.savantly.sprout.core.module.SproutModuleConfiguration;
 import net.savantly.sprout.core.module.SproutModuleExecutionResponse;
 import net.savantly.sprout.core.module.SproutWebModule;
 import net.savantly.sprout.module.PluginConfigurationTest.TestContext.ExampleController;
+import net.savantly.sprout.test.AbstractContainerBaseTest;
 
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
-public class PluginConfigurationTest {
+public class PluginConfigurationTest extends AbstractContainerBaseTest {
 
 	private static final Logger log = LoggerFactory.getLogger(PluginConfigurationTest.class);
 	private static final String EXAMPLE_MODULE_KEY = "example-module";

@@ -26,12 +26,13 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.security.InvalidKeyException;
+import net.savantly.sprout.test.AbstractContainerBaseTest;
 import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 @IntegrationTest
 @ActiveProfiles({"jwt"})
-public class JWTAutoConfigurationTest {
+public class JWTAutoConfigurationTest extends AbstractContainerBaseTest {
 
 	private static final Logger log = LoggerFactory.getLogger(JWTAutoConfigurationTest.class);
 

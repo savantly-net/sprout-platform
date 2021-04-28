@@ -11,15 +11,14 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ActiveProfiles;
 
 import net.savantly.sprout.autoconfigure.SproutAutoConfiguration;
 import net.savantly.sprout.core.module.web.plugin.PluginMeta;
 import net.savantly.sprout.core.module.web.plugin.PluginType;
+import net.savantly.sprout.test.AbstractContainerBaseTest;
 
 @SpringBootTest
-@ActiveProfiles("test")
-public class PluginMetaBuilderTest {
+public class PluginMetaBuilderTest extends AbstractContainerBaseTest {
 
 	@Autowired
 	PluginMetaBuilder metaBuilder;
