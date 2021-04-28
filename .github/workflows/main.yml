@@ -101,7 +101,7 @@ jobs:
 
       # Build the projects
       - name: Rush Client Projects
-        run: node common/scripts/install-run-rush.js build --verbose
+        run: node common/scripts/install-run-rush.js build -T webapp --verbose
         env:
           CI: false
       
