@@ -6,8 +6,12 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class PathUtil {
 
+	private static Logger log = LoggerFactory.getLogger(PathUtil.class);
 	private static String OS = null;
 
 	public static String getOsName() {
@@ -79,7 +83,7 @@ public class PathUtil {
 		try {
 			return new URL(path);
 		} catch (final MalformedURLException e) {
-			e.printStackTrace();
+			log.warn("failed to get class URL", e);
 			return null;
 		}
 	}
