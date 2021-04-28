@@ -7,8 +7,8 @@ import net.savantly.spring.fixture.Fixture;
 
 public class PrivilegeFixture extends AbstractBaseFixture<Privilege, PrivilegeRepository>{
 	
-	public static final String GENERAL_READ = "GENERAL_READ";
-	public static final String GENERAL_ADMIN = "GENERAL_ADMIN";
+	public static final String READ = "READ";
+	public static final String ADMIN = "ADMIN";
     
     PrivilegeRepository repository;
 
@@ -19,11 +19,11 @@ public class PrivilegeFixture extends AbstractBaseFixture<Privilege, PrivilegeRe
 
     @Override
     public void addEntities(List<Privilege> entityList) {
-        if(!repository.findById(GENERAL_READ).isPresent()){
-            entityList.add(create(GENERAL_READ));
+        if(!repository.findById(READ).isPresent()){
+            entityList.add(create(READ));
         }
-        if(!repository.findById(GENERAL_ADMIN).isPresent()){
-            entityList.add(create(GENERAL_ADMIN));
+        if(!repository.findById(ADMIN).isPresent()){
+            entityList.add(create(ADMIN));
         }
     }
 

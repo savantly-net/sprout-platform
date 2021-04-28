@@ -1,7 +1,7 @@
 permissions:
 - role: ADMIN
   privileges:
-  - GENERAL_ADMIN
+  - ADMIN
   - FOLDER_READ
   - FOLDER_CREATE
   - FOLDER_DELETE
@@ -11,6 +11,11 @@ permissions:
   - FILES_CREATE
   - FILES_READ
   - FILES_DELETE
+  - MENU_UPDATE
+  - MENU_DELETE
 - role: ANONYMOUS
   privileges:
   - DASHBOARD_READ
+- role: SYSTEM
+  privileges:
+  - ADMIN

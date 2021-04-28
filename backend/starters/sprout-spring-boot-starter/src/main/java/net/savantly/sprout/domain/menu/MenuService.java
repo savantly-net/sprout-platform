@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreFilter;
 
 import net.savantly.sprout.core.domain.menu.Menu;
 import net.savantly.sprout.core.domain.menu.MenuRepository;
@@ -27,6 +31,7 @@ public class MenuService {
 	 * Gets the root menus with any contributions from plugins
 	 * @return
 	 */
+	@PostFilter("hasPermission(filterObject, 'READ') or hasAuthority('ADMIN')")
 	public List<MenuDto> getRootMenus() {
 		List<MenuDto> dtos = toDto(this.repository.findRootMenus());
 		menuContributors.forEach(contributor -> contributor.contribute(dtos));
@@ -38,6 +43,7 @@ public class MenuService {
 	 * @param withContributions Should plugin contributions be included?
 	 * @return
 	 */
+	@PostFilter("hasPermission(filterObject, 'READ') or hasAuthority('ADMIN')")
 	public List<MenuDto> getRootMenus(boolean withContributions) {
 		if(withContributions) {
 			return getRootMenus();
@@ -46,6 +52,7 @@ public class MenuService {
 		}
 	}
 
+	@PreFilter("hasPermission(filterObject, 'UPDATE') or hasAuthority('ADMIN')")
 	public void upsertMenus(List<MenuDto> menus){
 		final List<Menu> menuEntities = new ArrayList<>();
 		menus.forEach(m -> {
@@ -62,6 +69,8 @@ public class MenuService {
 		repository.saveAll(menuEntities);
 	}
 
+	// TODO: use MENU_DELETE permission
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public void deleteMenu(String name) {
 		final List<Menu> foundMenus = repository.findByName(name);
 		final List<Menu> menusToDelete = new ArrayList<>();
@@ -72,7 +81,9 @@ public class MenuService {
 		}
 		repository.deleteAll(menusToDelete);
 	}
-	
+
+	// TODO: use MENU_DELETE permission
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public void deleteMenuById(String id) {
 		repository.deleteById(id);
 	}
@@ -92,7 +103,8 @@ public class MenuService {
 				.setParentName(menu.getParentName())
 				.setIcon(menu.getIcon())
 				.setUrl(menu.getUrl())
-				.setWeight(menu.getWeight());
+				.setWeight(menu.getWeight())
+				.setAuthorities(menu.getAuthorities().stream().collect(Collectors.toList()));
 	}
 
 	private List<MenuDto> getChildren(Menu menu) {
@@ -109,18 +121,20 @@ public class MenuService {
 		final List<Menu> existing = this.repository.findByName(m.getName());
 		Menu menu = null;
 		if (existing.isEmpty()) {
-			log.info("adding property from config: " + m.getName() + ":\"" + m.getUrl() + "\"");
-			menu = new Menu().set_public(true).setDisplayText(m.getDisplayText()).setUrl(m.getUrl()).setName(m.getName());
+			log.info("adding new menu: " + m.getName() + ":\"" + m.getUrl() + "\"");
+			menu = new Menu();
 		} else {
 			menu = existing.get(0);
-			menu.set_public(true)
-				.setDisplayText(m.getDisplayText())
-				.setUrl(m.getUrl())
-				.setName(m.getName())
-				.setIcon(m.getIcon())
-				.setWeight(m.getWeight());
-			menuEntities.add(menu);
 		}
+		menu.set_public(true)
+		.setDisplayText(m.getDisplayText())
+		.setUrl(m.getUrl())
+		.setName(m.getName())
+		.setIcon(m.getIcon())
+		.setWeight(m.getWeight())
+		.setAuthorities(m.getAuthorities().stream().collect(Collectors.toSet()));
+		//menuEntities.add(menu);
+	
 		if (Objects.nonNull(parent)) {
 			menu.setParentName(parent.getName());
 		}

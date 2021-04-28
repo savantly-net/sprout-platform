@@ -103,7 +103,7 @@ public class SproutConfigurationProperties {
 		/**
 		 * Additional permissions to bootstrap on application startup.
 		 */
-		private List<BootstrapPermission> bootstrapPermissions = Arrays.asList(new BootstrapPermission("ADMIN", Arrays.asList("GENERAL_ADMIN")));
+		private List<BootstrapPermission> bootstrapPermissions = Arrays.asList(new BootstrapPermission("ADMIN", Arrays.asList("ADMIN")));
 	}
 
 	

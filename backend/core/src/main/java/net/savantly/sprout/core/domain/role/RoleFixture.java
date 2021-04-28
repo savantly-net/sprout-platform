@@ -30,17 +30,17 @@ public class RoleFixture extends AbstractBaseFixture<Role, RoleRepository>{
     	
         if(repository.findByName(USER_ROLE).size() == 0){
         	Role role = new Role().setName(USER_ROLE);
-        	role.getPrivileges().add(getPrivilege(PrivilegeFixture.GENERAL_READ));
+        	role.getPrivileges().add(getPrivilege(PrivilegeFixture.READ));
             entityList.add(role);
         }
         if(repository.findByName(ADMIN_ROLE).size() == 0){
         	Role role = new Role().setName(ADMIN_ROLE);
-        	role.getPrivileges().add(getPrivilege(PrivilegeFixture.GENERAL_ADMIN));
+        	role.getPrivileges().add(getPrivilege(PrivilegeFixture.ADMIN));
             entityList.add(role);
         }
         if(repository.findByName(ANONYMOUS_ROLE).size() == 0){
         	Role role = new Role().setName(ANONYMOUS_ROLE);
-        	role.getPrivileges().add(getPrivilege(PrivilegeFixture.GENERAL_READ));
+        	role.getPrivileges().add(getPrivilege(PrivilegeFixture.READ));
             entityList.add(role);
         }
     }

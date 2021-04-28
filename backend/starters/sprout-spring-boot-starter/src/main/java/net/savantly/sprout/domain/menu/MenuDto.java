@@ -16,5 +16,6 @@ public class MenuDto {
 	private String parentName;
 	private String url;
 	private int weight;
+	private List<String> authorities = new ArrayList<>();
 	private List<MenuDto> children = new ArrayList<>();
 }

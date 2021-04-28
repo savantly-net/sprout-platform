@@ -24,4 +24,9 @@ public class MenuConfiguration {
 	public MenuService defaultMenuService(MenuRepository repository, List<MenuContributor> contributors) {
 		return new MenuService(repository, contributors);
 	}
+	
+	@Bean
+	public MenuDtoPermissionEvaluator defaultMenuDtoPermissionEvaluator() {
+		return new MenuDtoPermissionEvaluator();
+	}
 }
