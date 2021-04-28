@@ -1,6 +1,7 @@
 logging:
   level:
-    org.flywaydb: DEBUG
+    org.flywaydb: INFO
+    net.savantly.sprout.module.forms: DEBUG
 sprout:
   cors:
     allowed-methods: GET, OPTIONS, PUT, POST, PATCH, DELETE

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
@@ -23,9 +24,14 @@ import net.savantly.sprout.module.forms.domain.definition.FormDefinitionReposito
 @Data
 @SproutModuleConfiguration
 @ConfigurationProperties("sprout.plugins.forms")
-public class FormsModuleConfiguration {
+public class FormsModuleConfiguration implements InitializingBean {
 	
-	private List<String> restrictedFormPaths = Arrays.asList("form", "user", "role", "data");
+	private final DataSource dataSource;
+	private final List<String> restrictedFormPaths = Arrays.asList("form", "user", "role", "data");
+	
+	public FormsModuleConfiguration(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
 	
 	@Bean
 	public FormsApi savantlyFormsApi(FormService formService) {
@@ -42,12 +48,11 @@ public class FormsModuleConfiguration {
 				.mapper(mapper)
 				.build();
 	}
-	
-	@Bean
-	public SFDBMigration getSFDBMigration(DataSource dataSource) {
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
 		SFDBMigration migrator = new SFDBMigration(dataSource);
-		//migrator.migrate();
-		return migrator;
+		migrator.migrate();
 	}
 
 }

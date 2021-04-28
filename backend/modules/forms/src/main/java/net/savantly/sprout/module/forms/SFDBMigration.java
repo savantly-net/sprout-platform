@@ -20,10 +20,11 @@ public class SFDBMigration {
 		DataSource source = (DataSource) dataSource;
         Flyway flyway = Flyway.configure()
         		.dataSource(source)
-        		.locations(String.format("classpath:/sf/db/%s", getDbType(dataSource)))
+        		.locations(String.format("classpath:/net/savantly/sprout/module/forms/migrations/%s", getDbType(dataSource)))
         		// don't clean the db out!!!
         		.cleanDisabled(true)
         		.table(SCHEMA_VERSION_TABLE)
+        		.baselineDescription("initial version")
         		.baselineOnMigrate(true)
         		.baselineVersion("0")
         		.load();
