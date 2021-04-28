@@ -129,6 +129,12 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: ./gradlew :sprout-spring-boot-starter:sonarqube --info
 
+      - name: Analyze sprout-server
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_SERVER }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: ./gradlew :sprout-server:sonarqube --info
+
       - name: Analyze sprout-modules-forms
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FORMS }}
