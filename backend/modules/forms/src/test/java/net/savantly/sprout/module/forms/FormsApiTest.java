@@ -38,11 +38,15 @@ public class FormsApiTest extends AbstractContainerBaseTest {
 	
 	private MockMvc mvc;
 
+	@Autowired
+	FormsModule module;
+	
 	@BeforeEach
 	public void setup() {
 		mvc = MockMvcBuilders
 				.webAppContextSetup(ctx)
 				.build();
+		module.install();
 	}
 	
 	@Test
@@ -117,6 +121,6 @@ public class FormsApiTest extends AbstractContainerBaseTest {
 	@Configuration
 	@EnableAutoConfiguration
 	static class TestContext{
-		
+
 	}
 }

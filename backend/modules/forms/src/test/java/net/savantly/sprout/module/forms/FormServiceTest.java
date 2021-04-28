@@ -1,6 +1,7 @@
 package net.savantly.sprout.module.forms;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -23,6 +24,14 @@ public class FormServiceTest extends AbstractContainerBaseTest {
 	FormService service;
 	@Autowired
 	ObjectMapper mapper;
+	
+	@Autowired
+	FormsModule module;
+	
+	@BeforeEach
+	public void beforeEach() {
+		module.install();
+	}
 	
 
 	@Test

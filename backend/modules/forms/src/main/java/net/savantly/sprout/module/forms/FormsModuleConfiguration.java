@@ -45,7 +45,9 @@ public class FormsModuleConfiguration {
 	
 	@Bean
 	public SFDBMigration getSFDBMigration(DataSource dataSource) {
-		return new SFDBMigration(dataSource);
+		SFDBMigration migrator = new SFDBMigration(dataSource);
+		//migrator.migrate();
+		return migrator;
 	}
 
 }

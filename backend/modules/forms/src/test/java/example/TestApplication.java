@@ -17,7 +17,7 @@ import net.savantly.sprout.autoconfigure.SproutAutoConfiguration;
 public class TestApplication {
 	
     public static void main(String[] args) {
-    	System.setProperty("spring.profiles.active", "embedded");
+    	System.setProperty("spring.profiles.active", "test");
     	
         SpringApplication.run(TestApplication.class, args);
     }

@@ -3,13 +3,12 @@ package net.savantly.sprout.module.forms;
 import javax.sql.DataSource;
 
 import org.flywaydb.core.Flyway;
-import org.springframework.beans.factory.InitializingBean;
 
 import lombok.AllArgsConstructor;
 
 
 @AllArgsConstructor
-public class SFDBMigration implements InitializingBean {
+public class SFDBMigration {
 	
 	private static final String SCHEMA_VERSION_TABLE = "sf_schema_version";
 	private final DataSource dataSource;
@@ -31,11 +30,6 @@ public class SFDBMigration implements InitializingBean {
 	//TODO: detect correct db type
 	private String getDbType(DataSource dataSource2) {
 		return "postgres";
-	}
-
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		this.migrate();
 	}
 
 }
