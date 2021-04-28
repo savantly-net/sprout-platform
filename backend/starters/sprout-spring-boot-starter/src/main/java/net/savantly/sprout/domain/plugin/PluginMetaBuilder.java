@@ -41,8 +41,14 @@ public class PluginMetaBuilder {
 	}
 	
 	protected PluginMeta extractFromPluginJson(String resourceLocation) throws IOException {
+		PluginMeta pluginMeta = null;
 		Resource resource = this.resourceLoader.getResource(resourceLocation);
-		PluginMeta pluginMeta = mapper.readValue(resource.getInputStream(), PluginMeta.class);
+		if (resource.exists()) {
+			pluginMeta = mapper.readValue(resource.getInputStream(), PluginMeta.class);
+		} else {
+			log.warn("plugin metadata not found: {}", resourceLocation);
+			pluginMeta = new PluginMeta();
+		}
 		PluginConfigurationEntity pluginConfig = getPluginConfiguration(pluginMeta.getId());
 		pluginMeta.setBaseUrl("/api/plugins/" + pluginMeta.getId())
 			.setDefaultNavUrl("")
