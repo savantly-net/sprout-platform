@@ -17,7 +17,7 @@ import net.savantly.sprout.module.forms.domain.definition.FormDefinitionDto;
 
 @ActiveProfiles("test")
 @SpringBootTest
-public class FormServiceTest {
+public class FormServiceTest extends AbstractContainerBaseTest {
 	
 	@Autowired
 	FormService service;

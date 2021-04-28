@@ -29,7 +29,7 @@ import net.savantly.sprout.module.forms.domain.definition.FormDefinitionDto;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
-public class FormsApiTest {
+public class FormsApiTest extends AbstractContainerBaseTest {
 	
 	@Autowired
 	WebApplicationContext ctx;

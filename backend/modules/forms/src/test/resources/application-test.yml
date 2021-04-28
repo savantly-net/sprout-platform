@@ -1,6 +1,4 @@
 sprout:
-  jpa:
-    use-embedded-db: true
   cors:
     allowed-methods: GET, OPTIONS, PUT, POST, PATCH, DELETE
   security:
