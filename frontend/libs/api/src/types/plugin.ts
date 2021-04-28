@@ -72,7 +72,7 @@ export interface PluginInclude {
   name: string;
   path?: string;
   icon?: string;
-  role?: string; // "Viewer", Admin, editor???
+  authority?: string; // user must have this authority to see the item
   addToNav?: boolean; // Show in the sidebar... only if type=page?
   children?: PluginInclude[];
 }

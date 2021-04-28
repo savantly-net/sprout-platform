@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`authentication tests has failed login 1`] = `
+Object {
+  "authentication": Object {
+    "errorMessage": undefined,
+    "isAuthenticated": false,
+    "loading": false,
+    "loginError": false,
+    "logoutUrl": undefined,
+    "sessionFetchFailed": false,
+    "sessionHasBeenFetched": false,
+    "showLogin": false,
+    "user": Object {
+      "authorities": Array [],
+    },
+  },
+}
+`;
+
+exports[`authentication tests has successful login 1`] = `
+Object {
+  "authentication": Object {
+    "errorMessage": undefined,
+    "isAuthenticated": false,
+    "loading": false,
+    "loginError": false,
+    "logoutUrl": undefined,
+    "sessionFetchFailed": false,
+    "sessionHasBeenFetched": false,
+    "showLogin": false,
+    "user": Object {
+      "authorities": Array [],
+    },
+  },
+}
+`;

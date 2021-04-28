@@ -17,7 +17,7 @@ const TopSectionItem: FC<Props> = (props) => {
     return (
       <a className="sidemenu-link" href={link.url} target={link.target} onClick={onClick}>
         <span className="icon-circle sidemenu-icon">
-          <Icon name={link.icon as any} size="1x" />
+          <Icon name={link.icon || 'cube' as any} size="1x" />
           {link.img && <img src={link.img} />}
         </span>
       </a>

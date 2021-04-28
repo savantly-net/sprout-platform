@@ -5,7 +5,7 @@ import configureStore from 'redux-mock-store';
 import { AuthenticationState } from '../../../types';
 import { PrivateComponent } from './PrivateComponent';
 
-const mockAuthenticationState: AuthenticationState = {
+const sessionFetchedAuthState: AuthenticationState = {
   isAuthenticated: true,
   loading: false,
   loginError: false,
@@ -18,9 +18,22 @@ const mockAuthenticationState: AuthenticationState = {
   }
 };
 
+const sessionNOTFetchedAuthState: AuthenticationState = {
+  isAuthenticated: false,
+  loading: true,
+  loginError: false,
+  sessionFetchFailed: false,
+  sessionHasBeenFetched: false,
+  showLogin: false,
+  user: {
+    authorities: [],
+    name: 'anonymous'
+  }
+};
+
 const mockStore = configureStore([]);
 
-describe('PrivateComponent', () => {
+describe('PrivateComponent when session fetched', () => {
   let component: ReactTestRenderer;
   //let container: HTMLElement;
   let store: any;
@@ -28,7 +41,7 @@ describe('PrivateComponent', () => {
     // setup a DOM element as a render target
     //container = document.createElement('div');
     //document.body.appendChild(container);
-    store = mockStore({ authentication: mockAuthenticationState });
+    store = mockStore({ authentication: sessionFetchedAuthState });
   });
 
   afterEach(() => {
@@ -73,6 +86,43 @@ describe('PrivateComponent', () => {
     });
     const ss = component.toJSON();
     expect(ss).toBe('true');
+    expect(ss).toMatchSnapshot();
+  });
+});
+
+describe('PrivateComponent when session NOT fetched', () => {
+  let component: ReactTestRenderer;
+  let store: any;
+  beforeEach(() => {
+    store = mockStore({ authentication: sessionNOTFetchedAuthState });
+  });
+
+  afterEach(() => {
+  });
+
+  it('doesnt render if the session is not fetched, even if there is no authority requirement', () => {
+    act(() => {
+      component = create(
+        <Provider store={store}>
+          <PrivateComponent hasAnyAuthority={[]}>true</PrivateComponent>
+        </Provider>
+      );
+    });
+    const ss = component.toJSON();
+    expect(ss).not.toBe('true');
+    expect(ss).toMatchSnapshot();
+  });
+
+  it('doesnt render when the user lacks authority', () => {
+    act(() => {
+      component = create(
+        <Provider store={store}>
+          <PrivateComponent hasAnyAuthority={['ADMIN', 'FM_ADMIN']}>true</PrivateComponent>
+        </Provider>
+      );
+    });
+    const ss = component.toJSON();
+    expect(ss).not.toBe('true');
     expect(ss).toMatchSnapshot();
   });
 });

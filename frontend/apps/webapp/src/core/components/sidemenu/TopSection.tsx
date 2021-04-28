@@ -10,16 +10,18 @@ const TopSection: FC<any> = () => {
   const mainLinks = _.filter(navTree, (item) => !item.hideFromMenu).sort(
     (a, b) => (a?.position || 0) - (b?.position || 0)
   );
+  console.log(mainLinks);
 
   return (
     <div className="sidemenu__top">
       {/* <TopSectionItem link={searchLink} onClick={onOpenSearch} /> */}
       {mainLinks.map((link, index) => {
-        const authorities = link.authority ? [link.authority] : [];
         return (
-          <PrivateComponent hasAnyAuthority={authorities}>
-            <TopSectionItem link={link} key={`${link.id}-${index}`} />
-          </PrivateComponent>
+          (link.authority && (
+            <PrivateComponent hasAnyAuthority={[link.authority]} key={`pc-${link.id}-${index}`} >
+              <TopSectionItem link={link} key={`${link.id}-${index}`} />
+            </PrivateComponent>
+          )) || <TopSectionItem link={link} key={`${link.id}-${index}`} />
         );
       })}
     </div>

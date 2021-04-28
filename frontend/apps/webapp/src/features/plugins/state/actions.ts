@@ -21,7 +21,7 @@ export function loadPlugins(): ThunkResult<void> {
         text: pi.name,
         icon: pi.icon,
         url: pi.path,
-        authority: pi.role
+        authority: pi.authority
       };
       if (pi.children && pi.children.length > 0) {
         navItem.children = [];
