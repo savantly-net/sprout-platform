@@ -1,12 +1,14 @@
 plugins {
     id 'maven-publish'
     id 'signing'
+    id "com.adarshr.test-logger" version "3.0.0"
 }
 
 allprojects {
 	group = 'net.savantly.sprout'
     version = '2.0.0-SNAPSHOT'
     
+    apply plugin: "com.adarshr.test-logger"
     
 	ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
