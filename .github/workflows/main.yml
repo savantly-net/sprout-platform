@@ -105,8 +105,8 @@ jobs:
         env:
           CI: false
       
-      - name: Build Server Projects
-        run: ./gradlew build
+      - name: Build and release Server Projects
+        run: ./gradlew uploadArchives --stacktrace
 
       # Analyze
       - name: Analyze sprout-core
