@@ -120,21 +120,25 @@ jobs:
       - name: Analyze sprout-core
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_CORE }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: ./gradlew :sprout-core:sonarqube --info
 
       - name: Analyze sprout-spring-boot-starter
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_STARTER }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: ./gradlew :sprout-spring-boot-starter:sonarqube --info
 
       - name: Analyze sprout-server
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_SERVER }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: ./gradlew :sprout-server:sonarqube --info
 
       - name: Analyze sprout-modules-forms
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FORMS }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: ./gradlew :sprout-modules-forms:sonarqube --info
       
       # Build and deploy the UI components Storybook
