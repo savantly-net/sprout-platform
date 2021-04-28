@@ -12,6 +12,7 @@ on:
     tags:
       - 'v*.*.*'
     pull_request:
+      types: [opened, synchronize, reopened]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -74,18 +75,25 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
 
-      # Setup Java Environment
-      - uses: actions/setup-java@v1
+      # Setup Environments
+      - name: Setup Java
+        uses: actions/setup-java@v1
         with:
           java-version: '11' # The JDK version to make available on the path.
           java-package: jdk # (jre, jdk, or jdk+fx) - defaults to jdk
           architecture: x64 # (x64 or x86) - defaults to x64
-      
-      # Setup Node Environment
-      - uses: actions/setup-node@v2-beta
+      - name: Setup Node
+        uses: actions/setup-node@v2-beta
         with:
           node-version: '12'
+
       
       # Install Node dependencies
       - name: Rush Update
@@ -99,6 +107,27 @@ jobs:
       
       - name: Build Server Projects
         run: ./gradlew build
+
+      # Analyze
+      - name: Analyze sprout-core
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_CORE }}
+        run: ./gradlew :sprout-core:sonarqube --info
+
+      - name: Analyze sprout-spring-boot-starter
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_STARTER }}
+        run: ./gradlew :sprout-spring-boot-starter:sonarqube --info
+
+      - name: Analyze sprout-server
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_SERVER }}
+        run: ./gradlew :sprout-server:sonarqube --info
+
+      - name: Analyze sprout-modules-forms
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FORMS }}
+        run: ./gradlew :sprout-modules-forms:sonarqube --info
       
       # Build and deploy the UI components Storybook
       - name: Build Storybook

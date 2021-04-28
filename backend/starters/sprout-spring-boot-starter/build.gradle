@@ -15,7 +15,11 @@ archivesBaseName = name
 description = "A Spring Boot starter for Sprout Projects"
 sourceCompatibility = '1.8'
 
-//apply from: "${rootProject.projectDir}/gradle/sonar.gradle"
+ext {
+	sonarProjectKey = "savantly-net_sprout-platform_starter"
+}
+
+apply from: "${rootProject.projectDir}/gradle/sonar.gradle"
 apply from: "${rootProject.projectDir}/gradle/sonatype.gradle"
 
 // run `./gradlew :sprout-spring-boot-starter:dev -Psuspend=y` to suspend for debugger connection
@@ -89,7 +93,12 @@ dependencies {
 	}
 	testImplementation 'org.springframework.security:spring-security-test',
 		'com.h2database:h2',
-		'org.springframework.restdocs:spring-restdocs-mockmvc'
+		'org.springframework.restdocs:spring-restdocs-mockmvc',
+		'org.postgresql:postgresql'
+	
+	testCompile "org.testcontainers:testcontainers:1.15.3",
+		"org.testcontainers:junit-jupiter:1.15.3",
+		"org.testcontainers:postgresql:1.15.3"
 }
 
 test {

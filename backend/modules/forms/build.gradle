@@ -15,7 +15,11 @@ archivesBaseName = name
 description = "Provides Form integration APIs and UI components for the Sprout Platform"
 sourceCompatibility = '1.8'
 
-//apply from: '../../../gradle/sonar.gradle'
+ext {
+	sonarProjectKey = "savantly-net_sprout-platform_forms"
+}
+
+apply from: '../../../gradle/sonar.gradle'
 apply from: '../../../gradle/sonatype.gradle'
 
 repositories {
