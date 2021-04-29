@@ -43,7 +43,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
 
@@ -110,11 +110,20 @@ jobs:
         env:
           CI: false
       
-      - name: Build and release Server Projects
+      - name: Build Server Projects
+        run: ./gradlew build
+      - name: Release Server Projects
         env:
           OSSRH_USER: ${{ secrets.OSSRH_USER }}
           OSSRH_USER_TOKEN: ${{ secrets.OSSRH_USER_TOKEN }}
-        run: ./gradlew uploadArchives -Psigning.gnupg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
+        run: ./gradlew publish -Psigning.gnupg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
+      
+      - name: Cleanup Gradle Cache
+        # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
+        # Restoring these files from a GitHub Actions cache might cause problems for future builds.
+        run: |
+          rm -f ~/.gradle/caches/modules-2/modules-2.lock
+          rm -f ~/.gradle/caches/modules-2/gc.properties
 
       # Analyze
       - name: Analyze sprout-core
