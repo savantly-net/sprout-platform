@@ -25,8 +25,8 @@ public interface WidgetDataProvider {
 	Optional<WidgetData> getDataById(String id);
 	
 	/**
-	 * Gets a lightweight list of data available from this provider;
+	 * Gets a list of data available from this provider;
 	 * @return
 	 */
-	Collection<WidgetDataListItem> getDataList();
+	Collection<WidgetData> getDataList();
 }

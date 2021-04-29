@@ -1,5 +1,7 @@
 package net.savantly.sprout.domain.widget.data;
 
+import java.util.function.Supplier;
+
 /**
  * Implementations provide a generalized payload of data, that can be consumed by API callers.<br>
  * Especially from web front ends, where the data may be rendered or otherwise consumed.<br>
@@ -26,8 +28,8 @@ public interface WidgetData {
 	WidgetDataType getDataType();
 	
 	/**
-	 * The actual data 
+	 * A supplier of the actual data 
 	 * @return
 	 */
-	Object getData();
+	Supplier<Object> getDataSupplier();
 }

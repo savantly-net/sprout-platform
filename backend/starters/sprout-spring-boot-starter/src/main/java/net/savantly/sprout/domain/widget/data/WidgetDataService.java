@@ -25,7 +25,7 @@ public class WidgetDataService {
 		}
 	}
 	
-	public Collection<WidgetDataListItem> getDataList(String widgetDataSourceType) {
+	public Collection<WidgetData> getDataList(String widgetDataSourceType) {
 		if(this.providers.containsKey(widgetDataSourceType)) {
 			return this.providers.get(widgetDataSourceType).getDataList();
 		} else {
