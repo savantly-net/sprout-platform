@@ -16,6 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import net.savantly.sprout.core.domain.feed.item.FeedItem;
 import net.savantly.sprout.domain.feed.post.FeedPostDto;
 import net.savantly.sprout.domain.feed.post.FeedPostService;
+import net.savantly.sprout.starter.migration.CoreDBMigrationConfiguration;
 import net.savantly.sprout.starter.security.context.SproutSecurityContext;
 import net.savantly.sprout.starter.security.context.SproutSecurityContextImpl;
 import net.savantly.sprout.test.AbstractContainerBaseTest;
@@ -42,7 +43,7 @@ public class FeedServiceTest extends AbstractContainerBaseTest {
 	}
 
 	@TestConfiguration
-	@Import(FeedConfiguration.class)
+	@Import({CoreDBMigrationConfiguration.class, FeedConfiguration.class})
 	@EnableJpaRepositories(basePackages = "net.savantly.sprout.core.domain.feed")
 	@EntityScan(basePackages = {"net.savantly.sprout.core.domain.feed"})
 	static class TestContext {
