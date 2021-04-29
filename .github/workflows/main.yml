@@ -106,7 +106,7 @@ jobs:
 
       # Build the projects
       - name: Rush Client Projects
-        run: node common/scripts/install-run-rush.js build --info
+        run: node common/scripts/install-run-rush.js build --verbose
         env:
           DISABLE_ESLINT_PLUGIN: true
           CI: false
