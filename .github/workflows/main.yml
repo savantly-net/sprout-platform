@@ -112,12 +112,6 @@ jobs:
       
       - name: Build Server Projects
         run: ./gradlew build
-      - name: Release Server Projects
-        env:
-          OSSRH_USER: ${{ secrets.OSSRH_USER }}
-          OSSRH_USER_TOKEN: ${{ secrets.OSSRH_USER_TOKEN }}
-          GITHUB_TOKEN: ${{ github.token }}
-        run: ./gradlew publish -Psigning.gnupg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
       
       - name: Cleanup Gradle Cache
         # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
@@ -125,6 +119,13 @@ jobs:
         run: |
           rm -f ~/.gradle/caches/modules-2/modules-2.lock
           rm -f ~/.gradle/caches/modules-2/gc.properties
+
+      - name: Release Server Projects
+        env:
+          OSSRH_USER: ${{ secrets.OSSRH_USER }}
+          OSSRH_USER_TOKEN: ${{ secrets.OSSRH_USER_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: ./gradlew publish -Psigning.gnupg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
 
       # Analyze
       - name: Analyze sprout-core
