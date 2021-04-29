@@ -258,8 +258,12 @@ jobs:
           echo ::set-output name=version::${VERSION}
           echo ::set-output name=tags::${TAGS}
           echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+
+      - name: Build Webapp
+        id: build_web_app
+        run: cd ./frontend/apps/webapp && yarn build || 0
       
-      # Build and push server docker image
+      # Build and push web docker image
       - name: Build and push Webapp Image
         id: docker_build_webapp
         uses: docker/build-push-action@v2
