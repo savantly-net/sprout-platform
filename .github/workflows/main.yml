@@ -106,9 +106,8 @@ jobs:
 
       # Build the projects
       - name: Rush Client Projects
-        run: node common/scripts/install-run-rush.js build --verbose
+        run: node common/scripts/install-run-rush.js build -T webapp --verbose
         env:
-          DISABLE_ESLINT_PLUGIN: true
           CI: false
       
       - name: Build Server Projects
@@ -259,6 +258,10 @@ jobs:
           echo ::set-output name=version::${VERSION}
           echo ::set-output name=tags::${TAGS}
           echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+
+      - name: Build Webapp
+        id: build_web_app
+        run: cd ./frontend/apps/webapp && yarn build || echo 0
       
       # Build and push web docker image
       - name: Build and push Webapp Image
