@@ -34,7 +34,7 @@ public class WidgetDataServiceTest {
 		registration.registerWidgetData(widgetData );
 		
 		Collection<WidgetData> res = service.getDataList(DefaultWidgetDataSource.DEFAULT_WIDGET_DATA_SOURCE);
-		Assertions.assertEquals(1, res.size());
+		Assertions.assertEquals(2, res.size(), "the built-in widget + the new widget");
 		WidgetData item = res.stream().findFirst().get();
 		Assertions.assertEquals(widgetData, item);
 		Assertions.assertEquals("id", item.getId());
