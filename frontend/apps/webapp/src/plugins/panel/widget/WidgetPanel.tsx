@@ -5,14 +5,22 @@ import { LoadingIcon, MarkdownViewer } from '@sprout-platform/ui';
 import { css, cx } from 'emotion';
 import React from 'react';
 import { useWidgetDataById } from './api/widgetApi';
-import { WidgetPanelOptions } from './types';
+import { WidgetDataType, WidgetPanelOptions } from './types';
 
 interface Props extends PanelProps<WidgetPanelOptions> {}
 
 // TODO: change rendering based on data type
-const RenderData = ({ data, dataType }: { data: any; dataType: string }) => {
+const RenderData = ({ data, dataType }: { data: any; dataType: WidgetDataType }) => {
   if (data) {
-    return <MarkdownViewer className={cx(getStyles().content)}>{data}</MarkdownViewer>;
+    if (dataType === 'MARKDOWN' || dataType === 'MARKUP') {
+      return (
+        <MarkdownViewer className={cx(getStyles().content)} allowDangerousHtml={true}>
+          {data}
+        </MarkdownViewer>
+      );
+    } else {
+      return <pre className={cx(getStyles().content)}>{data}</pre>;
+    }
   } else {
     return <LoadingIcon />;
   }
