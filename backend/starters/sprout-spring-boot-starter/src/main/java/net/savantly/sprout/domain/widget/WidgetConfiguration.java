@@ -7,12 +7,14 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.ResourceLoader;
 
 import net.savantly.sprout.domain.widget.data.WidgetDataApi;
 import net.savantly.sprout.domain.widget.data.WidgetDataProvider;
 import net.savantly.sprout.domain.widget.data.WidgetDataService;
 import net.savantly.sprout.domain.widget.data.impl.DefaultWidgetDataProvider;
 import net.savantly.sprout.domain.widget.data.impl.DefaultWidgetDataRegistration;
+import net.savantly.sprout.domain.widget.data.resource.ResourceWidgetDataFactory;
 import net.savantly.sprout.domain.widget.dataSource.WidgetDataSource;
 import net.savantly.sprout.domain.widget.dataSource.WidgetDataSourceApi;
 import net.savantly.sprout.domain.widget.dataSource.WidgetDataSourceService;
@@ -50,13 +52,18 @@ public class WidgetConfiguration {
 	}
 	
 	@Bean
-	public DefaultWidgetDataRegistration defaultWidgetDataRegistration() {
-		return new DefaultWidgetDataRegistration();
+	public DefaultWidgetDataRegistration defaultWidgetDataRegistration(ResourceWidgetDataFactory dataFactory) {
+		return new DefaultWidgetDataRegistration(dataFactory);
 	}
 	
 	@Bean
 	@Primary
 	public WidgetDataProvider defaultWidgetDataProvider(DefaultWidgetDataRegistration registration) {
 		return new DefaultWidgetDataProvider(registration);
+	}
+	
+	@Bean
+	public ResourceWidgetDataFactory defaultResourceWidgetDataFactory(ResourceLoader resourceLoader) {
+		return new ResourceWidgetDataFactory(resourceLoader);
 	}
 }

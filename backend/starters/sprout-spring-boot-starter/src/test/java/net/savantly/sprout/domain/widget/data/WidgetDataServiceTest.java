@@ -1,4 +1,4 @@
-package net.savantly.sprout.domain.widget;
+package net.savantly.sprout.domain.widget.data;
 
 import java.util.Collection;
 
@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import net.savantly.sprout.domain.widget.WidgetConfiguration;
 import net.savantly.sprout.domain.widget.data.WidgetData;
 import net.savantly.sprout.domain.widget.data.WidgetDataService;
 import net.savantly.sprout.domain.widget.data.WidgetDataType;
