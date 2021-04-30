@@ -1,6 +1,7 @@
 package net.savantly.sprout.domain.widget.data.resource;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,16 +28,16 @@ public class ResourceWidgetDataFactory {
 			.setName(name)
 			.setDataType(dataType)
 			.setDataSupplier(() -> {
-				return resourceToBytes(this.resourceLoader.getResource(resourcePath));
+				return resourceToString(this.resourceLoader.getResource(resourcePath));
 			});
 	}
 	
-	private byte[] resourceToBytes(Resource resource) {
+	private String resourceToString(Resource resource) {
 		try {
-			return StreamUtils.copyToByteArray(resource.getInputStream());
+			return StreamUtils.copyToString(resource.getInputStream(), Charset.defaultCharset());
 		} catch (IOException e) {
 			log.error("trouble serving the file: {}", resource.getFilename());
-			return "error: check logs".getBytes();
+			return "error: check logs";
 		}
 	}
 }

@@ -58,7 +58,7 @@ configurations {
 
 dependencies {
 	implementation project(':sprout-spring-boot-starter')
-	implementation 'com.h2database:h2'
+	//implementation 'com.h2database:h2'
 	
 	//runtimeOnly project(':sprout-admin')
 	//runtimeOnly project(':web:sprout-web-ui')

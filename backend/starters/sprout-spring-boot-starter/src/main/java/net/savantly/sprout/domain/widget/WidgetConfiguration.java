@@ -12,6 +12,7 @@ import org.springframework.core.io.ResourceLoader;
 import net.savantly.sprout.domain.widget.data.WidgetDataApi;
 import net.savantly.sprout.domain.widget.data.WidgetDataProvider;
 import net.savantly.sprout.domain.widget.data.WidgetDataService;
+import net.savantly.sprout.domain.widget.data.WidgetDataType;
 import net.savantly.sprout.domain.widget.data.impl.DefaultWidgetDataProvider;
 import net.savantly.sprout.domain.widget.data.impl.DefaultWidgetDataRegistration;
 import net.savantly.sprout.domain.widget.data.resource.ResourceWidgetDataFactory;
@@ -53,7 +54,9 @@ public class WidgetConfiguration {
 	
 	@Bean
 	public DefaultWidgetDataRegistration defaultWidgetDataRegistration(ResourceWidgetDataFactory dataFactory) {
-		return new DefaultWidgetDataRegistration(dataFactory);
+		DefaultWidgetDataRegistration reg = new DefaultWidgetDataRegistration(dataFactory);
+		reg.fromResource("hello", "Hello World", WidgetDataType.MARKDOWN, "classpath:/META-INF/templates/widget/index.html");
+		return reg;
 	}
 	
 	@Bean

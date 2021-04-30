@@ -25,7 +25,7 @@ public class ResourceWidgetDataFactoryTest {
 		Assertions.assertEquals(name, data.getName());
 		Assertions.assertEquals(dataType, data.getDataType());
 		
-		Assertions.assertEquals("The Root Index Page", new String((byte[])data.getDataSupplier().get()));
+		Assertions.assertEquals("The Root Index Page", data.getDataSupplier().get());
 	}
 	
 	@Test
@@ -43,6 +43,6 @@ public class ResourceWidgetDataFactoryTest {
 		Assertions.assertEquals(name, data.getName());
 		Assertions.assertEquals(dataType, data.getDataType());
 		
-		Assertions.assertTrue((new String((byte[])data.getDataSupplier().get())).contains("error"));
+		Assertions.assertTrue(((String)data.getDataSupplier().get()).contains("error"));
 	}
 }

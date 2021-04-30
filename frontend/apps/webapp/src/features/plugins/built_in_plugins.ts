@@ -5,6 +5,7 @@ import * as queryPanel from '../../plugins/panel/query/module';
 import * as tablePanel from '../../plugins/panel/table/module';
 import * as textPanel from '../../plugins/panel/text/module';
 import * as welcomeBanner from '../../plugins/panel/welcome/module';
+import * as widgetPanel from '../../plugins/panel/widget/module';
 
 const builtInPluginIndex: any = {
   '/plugins/panel/text/module': textPanel,
@@ -12,7 +13,8 @@ const builtInPluginIndex: any = {
   '/plugins/panel/iframe/module': iframePanel,
   '/plugins/panel/query/module': queryPanel,
   '/plugins/panel/posts/module': postsPanel,
-  '/plugins/panel/table/module': tablePanel
+  '/plugins/panel/table/module': tablePanel,
+  '/plugins/panel/widget/module': widgetPanel
 };
 
 const textPanelMeta: PanelPluginMeta = {
@@ -135,12 +137,37 @@ const tablePanelMeta: PanelPluginMeta = {
   sort: 0
 };
 
+const widgetPanelMeta: PanelPluginMeta = {
+  baseUrl: '/plugins/panel/widget',
+  id: 'widget',
+  module: '/plugins/panel/widget/module',
+  info: {
+    author: {
+      name: 'Savantly'
+    },
+    description: 'A Panel that displays widget data registered on the server',
+    links: [],
+    logos: {
+      icon: 'cog',
+      large: '/plugins/panel/table/img/icn-text-panel.svg',
+      small: '/plugins/panel/table/img/icn-text-panel.svg'
+    },
+    screenshots: [],
+    updated: '2021-04-28',
+    version: '0.0.1'
+  },
+  name: 'Widget Panel',
+  type: PluginType.panel,
+  sort: 0
+};
+
 export const builtInPluginMeta = {
   text: textPanelMeta,
   iframe: iFramePanelMeta,
   query: queryPanelMeta,
   posts: postsPanelMeta,
-  table: tablePanelMeta
+  table: tablePanelMeta,
+  widget: widgetPanelMeta
 };
 
 export default builtInPluginIndex;

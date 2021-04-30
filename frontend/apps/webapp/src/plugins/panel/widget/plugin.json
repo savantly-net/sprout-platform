@@ -1,0 +1,17 @@
+{
+  "type": "panel",
+  "name": "Widget",
+  "id": "widget",
+
+  "skipDataQuery": true,
+
+  "info": {
+    "author": {
+      "name": "Savantly",
+      "url": "https://savantly.net"
+    },
+    "logos": {
+      "icon": "cog"
+    }
+  }
+}
