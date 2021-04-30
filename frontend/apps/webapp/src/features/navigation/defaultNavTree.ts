@@ -39,7 +39,7 @@ export const defaultNavTree: NavModelItem[] = [
     position: 1000,
     subTitle: 'Application Configuration',
     text: 'Configuration',
-    authority: 'GENERAL_ADMIN',
+    authority: 'ADMIN',
     children: [
       {
         icon: 'sitemap',

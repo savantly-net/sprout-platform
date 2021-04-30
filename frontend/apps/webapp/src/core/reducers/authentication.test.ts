@@ -30,7 +30,6 @@ describe('authentication tests', () => {
           'DASHBOARD_EDIT',
           'FILES_DELETE',
           'FOLDER_CREATE',
-          'GENERAL_ADMIN',
           'FOLDER_DELETE',
           'offline_access',
           'FOLDER_READ',

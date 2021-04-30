@@ -228,7 +228,7 @@ const DashNav = (props: OwnProps) => {
   const { dashboard, isFullscreen } = props;
 
   return (
-    <PrivateComponent hasAnyAuthority={['GENERAL_ADMIN', 'DASHBOARD_EDIT']}>
+    <PrivateComponent hasAnyAuthority={['ADMIN', 'DASHBOARD_EDIT']}>
       <div className="navbar">
         {isFullscreen && renderBackButton()}
         {renderDashboardTitleSearchButton()}

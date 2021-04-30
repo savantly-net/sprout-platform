@@ -172,7 +172,7 @@ export class PanelChrome extends PureComponent<Props, State> {
 
     return (
       <div className={containerClassNames} aria-label={selectors.components.Panels.Panel.containerByTitle(panel.title)}>
-        <PrivateComponent hasAnyAuthority={['GENERAL_ADMIN', 'DASHBOARD_EDIT']}>
+        <PrivateComponent hasAnyAuthority={['ADMIN', 'DASHBOARD_EDIT']}>
           <PanelHeader
             panel={panel}
             dashboard={dashboard}

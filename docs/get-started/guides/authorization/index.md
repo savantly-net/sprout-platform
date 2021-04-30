@@ -6,7 +6,7 @@ description: Learn how to configure authorization for the Sprout UI and Server
 In addition to the `pre/post` authorization annotations that Spring provides, you may also configure authorizations using Spring's expression language.  
 The configuration uses `ant` style path matching and http method matching.  
 
-This example restritcs GET access to everything under `/reports` to users that have an authority of `GENERAL_ADMIN` or `GENERAL_READ`.  
+This example restritcs GET access to everything under `/reports` to users that have an authority of `ADMIN` or `GENERAL_READ`.  
 It also has a catch all expression that restricts access to everything under `/api` to users that have the role `EVERYONE`.  
 
 ```
@@ -16,7 +16,7 @@ sprout:
       patterns:
         - path: /reports/**
           expression:
-            GET: hasAnyAuthority('GENERAL_ADMIN', 'GENERAL_READ')
+            GET: hasAnyAuthority('ADMIN', 'GENERAL_READ')
         - path: /api/**
           expression:
             GET: hasRole('EVERYONE')
