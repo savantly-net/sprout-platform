@@ -272,7 +272,7 @@ create table IF NOT EXISTS MENU (
     icon varchar(255),
     name varchar(255),
     parentName varchar(255),
-    position integer not null,
+    weight integer not null,
     url varchar(255),
     primary key (id),
 	CONSTRAINT uk_name_tenant unique (TENANT_ID, name)
