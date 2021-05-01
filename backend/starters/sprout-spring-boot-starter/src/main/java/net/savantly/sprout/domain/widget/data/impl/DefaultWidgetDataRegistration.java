@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import net.savantly.sprout.domain.widget.data.WidgetData;
 import net.savantly.sprout.domain.widget.data.WidgetDataType;
-import net.savantly.sprout.domain.widget.data.resource.ResourceWidgetDataFactory;
+import net.savantly.sprout.domain.widget.data.factory.ResourceWidgetDataFactory;
 
 /**
  * Register widget data for the DefaultWidgetDataProvider

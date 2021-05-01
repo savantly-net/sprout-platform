@@ -13,13 +13,14 @@ import net.savantly.sprout.domain.widget.data.WidgetDataApi;
 import net.savantly.sprout.domain.widget.data.WidgetDataProvider;
 import net.savantly.sprout.domain.widget.data.WidgetDataService;
 import net.savantly.sprout.domain.widget.data.WidgetDataType;
+import net.savantly.sprout.domain.widget.data.factory.ResourceWidgetDataFactory;
 import net.savantly.sprout.domain.widget.data.impl.DefaultWidgetDataProvider;
 import net.savantly.sprout.domain.widget.data.impl.DefaultWidgetDataRegistration;
-import net.savantly.sprout.domain.widget.data.resource.ResourceWidgetDataFactory;
 import net.savantly.sprout.domain.widget.dataSource.WidgetDataSource;
 import net.savantly.sprout.domain.widget.dataSource.WidgetDataSourceApi;
 import net.savantly.sprout.domain.widget.dataSource.WidgetDataSourceService;
 import net.savantly.sprout.domain.widget.dataSource.impl.DefaultWidgetDataSource;
+import net.savantly.sprout.starter.template.TemplateRenderer;
 
 @Configuration
 public class WidgetConfiguration {
@@ -66,7 +67,7 @@ public class WidgetConfiguration {
 	}
 	
 	@Bean
-	public ResourceWidgetDataFactory defaultResourceWidgetDataFactory(ResourceLoader resourceLoader) {
-		return new ResourceWidgetDataFactory(resourceLoader);
+	public ResourceWidgetDataFactory defaultResourceWidgetDataFactory(ResourceLoader resourceLoader, TemplateRenderer widgetDataRenderer) {
+		return new ResourceWidgetDataFactory(resourceLoader, widgetDataRenderer);
 	}
 }
