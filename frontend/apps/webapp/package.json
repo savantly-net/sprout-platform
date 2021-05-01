@@ -11,7 +11,7 @@
     "@savantly/sprout-ui": "2.0.0-37",
     "@sprout-platform/ui": "2.0.0-37",
     "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
+    "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^7.1.2",
     "@types/classnames": "^2.2.10",
     "@types/enzyme": "^3.10.7",
@@ -105,7 +105,8 @@
     "moxios": "~0.4.0",
     "@types/moxios": "~0.4.11",
     "sinon": "8.1.1",
-    "@types/sinon": "^7.5.2"
+    "@types/sinon": "^7.5.2",
+    "@types/testing-library__react": "~10.2.0"
   },
   "resolutions": {
     "**/@typescript-eslint/eslint-plugin": "^4.1.1",

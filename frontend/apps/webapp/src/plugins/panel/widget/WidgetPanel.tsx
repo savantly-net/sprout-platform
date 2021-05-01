@@ -9,9 +9,20 @@ import { WidgetDataType, WidgetPanelOptions } from './types';
 
 interface Props extends PanelProps<WidgetPanelOptions> {}
 
-// TODO: change rendering based on data type
+export const WidgetPanel = (props: Props) => {
+  const { dataId, dataSourceId } = props.options;
+  const widgetData = useWidgetDataById(dataSourceId, dataId);
+
+  return (
+    <CustomScrollbar autoHeightMin="100%">
+      {widgetData && <RenderData data={widgetData.data} dataType={widgetData.dataType} />}
+    </CustomScrollbar>
+  );
+};
+
 const RenderData = ({ data, dataType }: { data: any; dataType: WidgetDataType }) => {
   if (data) {
+    console.log(`got data: ${data}`);
     if (dataType === 'MARKUP') {
       return <RawHTML>{data}</RawHTML>;
     } else if (dataType === 'MARKDOWN') {
@@ -26,17 +37,6 @@ const RenderData = ({ data, dataType }: { data: any; dataType: WidgetDataType })
   } else {
     return <LoadingIcon />;
   }
-};
-
-export const WidgetPanel = (props: Props) => {
-  const { dataId, dataSourceId } = props.options;
-  const widgetData = useWidgetDataById(dataSourceId, dataId);
-
-  return (
-    <CustomScrollbar autoHeightMin="100%">
-      {widgetData && <RenderData data={widgetData.data} dataType={widgetData.dataType} />}
-    </CustomScrollbar>
-  );
 };
 
 export const RawHTML = ({ children, ...rest }: { children: any }) =>
