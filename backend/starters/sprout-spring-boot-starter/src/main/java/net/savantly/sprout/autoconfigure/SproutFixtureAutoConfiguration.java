@@ -24,6 +24,7 @@ import net.savantly.sprout.core.domain.role.Role;
 import net.savantly.sprout.core.domain.role.RoleFixture;
 import net.savantly.sprout.core.domain.role.RoleRepository;
 import net.savantly.sprout.core.security.FakeContext;
+import net.savantly.sprout.core.tenancy.TenantContext;
 
 @Configuration
 @AutoConfigureAfter(JpaRepositoriesAutoConfiguration.class)
@@ -51,7 +52,8 @@ public class SproutFixtureAutoConfiguration {
 	
     @PostConstruct
     public void installFixtures() {
-    	Privilege adminPrivilege = privilegeRepository.findByName("ADMIN").stream().findFirst().orElse(createAdminPrivilege());
+    	Privilege adminPrivilege = privilegeRepository
+    			.findByNameAndTenantId("ADMIN", TenantContext.getCurrentTenant()).stream().findFirst().orElse(createAdminPrivilege());
     	ensureSystemRoleExists(adminPrivilege);
     	FakeContext fakeContext = new FakeContext();
         fakeContext.create(this.roleRepository);

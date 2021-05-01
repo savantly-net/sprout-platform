@@ -23,6 +23,7 @@ import net.savantly.sprout.core.domain.privilege.Privilege;
 import net.savantly.sprout.core.domain.privilege.PrivilegeRepository;
 import net.savantly.sprout.core.domain.role.Role;
 import net.savantly.sprout.core.domain.role.RoleRepository;
+import net.savantly.sprout.core.tenancy.TenantContext;
 
 @RequestMapping("/api/permissions")
 @RestController
@@ -96,7 +97,7 @@ public class PermissionsApi {
 	}
 
 	private Privilege privilegeOrThrow(String name) {
-		return privilegeRepo.findByName(name).stream().findFirst().orElseThrow(
+		return privilegeRepo.findByNameAndTenantId(name, TenantContext.getCurrentTenant()).stream().findFirst().orElseThrow(
 				() -> Problem.builder().withDetail("privilege not found").withStatus(Status.BAD_REQUEST).build());
 	}
 

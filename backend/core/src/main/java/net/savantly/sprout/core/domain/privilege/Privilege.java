@@ -3,6 +3,7 @@ package net.savantly.sprout.core.domain.privilege;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 import org.springframework.security.core.GrantedAuthority;
 
@@ -14,7 +15,7 @@ import net.savantly.sprout.core.tenancy.TenantedPersistedDomainObject;
 
 @Getter @Setter
 @Entity(name="APP_PRIVILEGE")
-@Table(name="APP_PRIVILEGE")
+@Table(name="APP_PRIVILEGE", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "tenant_id"})})
 @Accessors(chain = true)
 public class Privilege extends TenantedPersistedDomainObject implements GrantedAuthority{
 
