@@ -12,7 +12,9 @@ interface Props extends PanelProps<WidgetPanelOptions> {}
 // TODO: change rendering based on data type
 const RenderData = ({ data, dataType }: { data: any; dataType: WidgetDataType }) => {
   if (data) {
-    if (dataType === 'MARKDOWN' || dataType === 'MARKUP') {
+    if (dataType === 'MARKUP') {
+      return <RawHTML>{data}</RawHTML>;
+    } else if (dataType === 'MARKDOWN') {
       return (
         <MarkdownViewer className={cx(getStyles().content)} allowDangerousHtml={true}>
           {data}
@@ -36,6 +38,14 @@ export const WidgetPanel = (props: Props) => {
     </CustomScrollbar>
   );
 };
+
+export const RawHTML = ({ children, ...rest }: { children: any }) =>
+  React.createElement('div', {
+    dangerouslySetInnerHTML: {
+      __html: children
+    },
+    ...rest
+  });
 
 const getStyles = stylesFactory(() => {
   return {

@@ -8,7 +8,7 @@ export const WidgetApi = {
   },
 
   getWidgetDataById: (dataSourceId: string, dataId: string) => {
-    return getApiService().get<WidgetData>(`/api/widget-data/${dataSourceId}/${dataId}`);
+    return getApiService().get<any>(`/api/widget-data/${dataSourceId}/${dataId}`);
   }
 };
 
@@ -43,8 +43,13 @@ export const useWidgetDataById = (dataSourceId?: string, dataId?: string) => {
     if (!state && !fetching && dataSourceId && dataId) {
       setFetching(true);
       WidgetApi.getWidgetDataById(dataSourceId, dataId)
-        .then((data) => {
-          setState(data.data);
+        .then((response) => {
+          setState({
+            id: response.headers['widget-id'],
+            name: response.headers['widget-name'],
+            dataType: response.headers['widget-data-type'],
+            data: response.data
+          });
         })
         .catch((err) => {
           console.error(`failed to get data for datasource: ${dataSourceId}, id: ${dataId}`, err);
