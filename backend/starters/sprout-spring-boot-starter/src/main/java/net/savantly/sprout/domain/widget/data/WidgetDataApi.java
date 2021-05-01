@@ -39,7 +39,7 @@ public class WidgetDataApi {
 				.header("widget-data-type", d.getDataType().name())
 				.header("widget-id", d.getId())
 				.header("widget-name", d.getName())
-				.build();
+				.body(d.getDataSupplier().get());
 
 		} else {
 			throw new EntityNotFoundProblem(widgetDataSourceType, widgetDataId);
