@@ -36,6 +36,7 @@ public class WidgetDataApi {
 			final WidgetData d = widgetData.get();
 			return ResponseEntity.ok()
 				.contentType(determineContentType(d.getDataType()))
+				.header("widget-data-type", d.getDataType().name())
 				.header("widget-id", d.getId())
 				.header("widget-name", d.getName())
 				.build();
