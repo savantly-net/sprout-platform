@@ -33,7 +33,7 @@ public class WidgetDataServiceTest {
 			.setName("name")
 			.setDataSupplier(() -> "#TITLE");
 		
-		registration.registerWidgetData(widgetData );
+		registration.put(widgetData );
 		
 		Collection<WidgetData> res = service.getDataList(DefaultWidgetDataSource.DEFAULT_WIDGET_DATA_SOURCE);
 		Assertions.assertEquals(2, res.size(), "the built-in widget + the new widget");

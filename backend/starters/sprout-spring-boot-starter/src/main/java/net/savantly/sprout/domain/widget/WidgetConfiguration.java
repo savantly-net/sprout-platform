@@ -56,7 +56,7 @@ public class WidgetConfiguration {
 	@Bean
 	public DefaultWidgetDataRegistration defaultWidgetDataRegistration(ResourceWidgetDataFactory dataFactory) {
 		DefaultWidgetDataRegistration reg = new DefaultWidgetDataRegistration(dataFactory);
-		reg.fromResource("hello", "Hello World", WidgetDataType.MARKDOWN, "classpath:/META-INF/templates/widget/index.html");
+		reg.put("hello", "Hello World", WidgetDataType.MARKDOWN, "classpath:/META-INF/templates/widget/index.html");
 		return reg;
 	}
 	
