@@ -3,6 +3,7 @@ package net.savantly.sprout.domain.widget.data.factory;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,6 +71,27 @@ public class ResourceWidgetDataFactory {
 			.setDataType(dataType)
 			.setDataSupplier(() -> {
 				return this.renderer.render(templateName, model);
+			});
+	}
+	
+	/**
+	 * Create a {@link WidgetData} from a {@link Resource} URI<br>
+	 * Uses the default {@link TemplateRenderer}
+	 * 
+	 * @param id The ID to use for this WidgetData
+	 * @param name The name to display for this WidgetData
+	 * @param dataType The {@link WidgetDataType} this WidgetData supplies
+	 * @param templateName The name of the view to lookup and apply the model to
+	 * @param modelSupplier A supplier for the model to apply for rendering. Allows the model to be calculated per request.
+	 * @return A new <code>WidgetData</code>
+	 */
+	public SimpleWidgetData createWidgetDataFromView(String id, String name, WidgetDataType dataType, String templateName, Supplier<Map<String, Object>> modelSupplier) {
+		return new SimpleWidgetData()
+			.setId(id)
+			.setName(name)
+			.setDataType(dataType)
+			.setDataSupplier(() -> {
+				return this.renderer.render(templateName, modelSupplier.get());
 			});
 	}
 	
