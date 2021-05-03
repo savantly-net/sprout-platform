@@ -14,6 +14,7 @@ import net.savantly.spring.fixture.util.RandomGenerator;
 import net.savantly.sprout.core.domain.role.Role;
 import net.savantly.sprout.core.domain.role.RoleRepository;
 import net.savantly.sprout.core.domain.user.SproutUserEntity;
+import net.savantly.sprout.core.tenancy.TenantContext;
 
 public class FakeContext {
     
@@ -22,7 +23,7 @@ public class FakeContext {
 
     public void create(RoleRepository roleRepo) {
     	Set<Role> roles = new HashSet<>();
-    	roles.add(roleRepo.findByName("SYSTEM").stream().findFirst().orElseThrow(() -> new RuntimeException("There is no SYSTEM role")));
+    	roles.add(roleRepo.findByNameAndTenantId("SYSTEM", TenantContext.getCurrentTenant()).stream().findFirst().orElseThrow(() -> new RuntimeException("There is no SYSTEM role")));
         SproutUserEntity user = new SproutUserEntity("system", RandomGenerator.getRandomAlphaNumericString(20), "system", "user", roles);
         FakeAuthentication auth = new FakeAuthentication(user);
         SecurityContextHolder.getContext().setAuthentication(auth);

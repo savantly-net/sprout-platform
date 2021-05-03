@@ -15,6 +15,8 @@ public interface RoleRepository extends TenantedJpaRepository<Role, String>{
 	
 	List<Role> findByName(String name);
 
+	List<Role> findByNameAndTenantId(String name, String tenantId);
+
 	@Query("SELECT r FROM APP_ROLE r WHERE r.name = :name")
 	List<DefaultRoleProjection> includePrivilegesByName(@Param("name") String name);
 

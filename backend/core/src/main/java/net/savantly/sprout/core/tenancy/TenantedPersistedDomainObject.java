@@ -12,7 +12,7 @@ import net.savantly.sprout.core.domain.PersistedDomainObject;
 import net.savantly.sprout.core.domain.tenant.TenantSupport;
 
 @FilterDef(name = "tenantFilter", parameters = {@ParamDef(name = "tenantId", type = "string")})
-@Filter(name = "tenantFilter", condition = "tenant_id = :tenantId")
+@Filter(name = "tenantFilter", condition = "TENANT_ID = :tenantId")
 @MappedSuperclass
 public abstract class TenantedPersistedDomainObject extends PersistedDomainObject implements TenantSupport  {
 

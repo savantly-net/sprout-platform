@@ -6,10 +6,10 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
 import org.springframework.context.ApplicationContext;
@@ -28,16 +28,29 @@ import net.savantly.sprout.core.tenancy.TenantContext;
 
 @Configuration
 @AutoConfigureAfter(JpaRepositoriesAutoConfiguration.class)
+@Transactional
 public class SproutFixtureAutoConfiguration {
 	
 	private static final Logger log = LoggerFactory.getLogger(SproutFixtureAutoConfiguration.class);
 	
-    @Autowired
-	ApplicationContext ctx;
-    @Autowired
-    private RoleRepository roleRepository;   
-    @Autowired
-    private PrivilegeRepository privilegeRepository;
+    final private ApplicationContext ctx;
+    final private RoleRepository roleRepository;   
+    final private PrivilegeRepository privilegeRepository;
+    
+    public SproutFixtureAutoConfiguration(ApplicationContext ctx, RoleRepository roleRepository, PrivilegeRepository privilegeRepository) {
+		this.ctx = ctx;
+		this.roleRepository = roleRepository;
+		this.privilegeRepository = privilegeRepository;
+
+		// There's a race when testing, so let's not abort
+		try {
+    	Privilege adminPrivilege = privilegeRepository
+    			.findByNameAndTenantId("ADMIN", TenantContext.getCurrentTenant()).stream().findFirst().orElse(createAdminPrivilege());
+    	ensureSystemRoleExists(adminPrivilege);
+		} catch (Exception ex) {
+			log.warn("failed to insert admin privilege and/or role", ex);
+		}
+	}
 	
 	@Bean
 	public RoleFixture roleFixture(PrivilegeFixture privilegeFixture, PrivilegeRepository privilegeRepository) {
@@ -52,17 +65,13 @@ public class SproutFixtureAutoConfiguration {
 	
     @PostConstruct
     public void installFixtures() {
-    	Privilege adminPrivilege = privilegeRepository
-    			.findByNameAndTenantId("ADMIN", TenantContext.getCurrentTenant()).stream().findFirst().orElse(createAdminPrivilege());
-    	ensureSystemRoleExists(adminPrivilege);
     	FakeContext fakeContext = new FakeContext();
         fakeContext.create(this.roleRepository);
         for (Fixture<?> fixture : getFixtures()) {
         	try {
         		fixture.install();
         	} catch (Exception ex) {
-        		log.error("could not install fixture", ex);
-        		throw ex;
+        		log.warn("could not install fixture", ex);
         	}
         }
     }
