@@ -25,9 +25,9 @@ export const WidgetDataSelector: React.FC<StandardEditorProps<string, any, Widge
             onChange(event.target.value);
           }}
         >
+          <option></option>
           {availableData.map((d) => (
             <Fragment>
-              <option></option>
               <option value={d.id}>{d.name}</option>
             </Fragment>
           ))}
