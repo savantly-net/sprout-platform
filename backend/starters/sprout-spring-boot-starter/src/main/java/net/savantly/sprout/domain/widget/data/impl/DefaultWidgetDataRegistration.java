@@ -2,6 +2,7 @@ package net.savantly.sprout.domain.widget.data.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import net.savantly.sprout.domain.widget.data.WidgetData;
 import net.savantly.sprout.domain.widget.data.WidgetDataType;
@@ -46,6 +47,21 @@ public class DefaultWidgetDataRegistration extends HashMap<String, WidgetData> {
 	 */
 	public void put(String id, String name, WidgetDataType dataType, String viewName, Map<String, Object> model) {
 		put(this.resourceDataFactory.createWidgetDataFromView(id, name, dataType, viewName, model));
+	}
+	
+	/**
+	 * Convenience method for adding a widget that uses a registered view + model<br> 
+	 * The view must be registered to use it here. <br>
+	 * This happens automatically if the template file is placed in an expected location.<br>
+	 * <br>
+	 * @param id The ID of the widget
+	 * @param name The display name of the widget
+	 * @param dataType The type of data the widget returns
+	 * @param viewName The name of the view to render
+	 * @param modelSupplier A supplier of the model that's applied to the view
+	 */
+	public void put(String id, String name, WidgetDataType dataType, String viewName, Supplier<Map<String, Object>> modelSupplier) {
+		put(this.resourceDataFactory.createWidgetDataFromView(id, name, dataType, viewName, modelSupplier));
 	}
 
 	/**
