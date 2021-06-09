@@ -3,6 +3,9 @@ title: Sprout Development
 description: Learn how to develop and contribute to the Sprout Platform
 ---
 
+
+## Overview
+
 If you're a Java, React, or Grafana developer, you'll be familiar with the tooling. 
 
 The UI was bootstrapped using `create-react-app`  
@@ -12,6 +15,8 @@ The component library is made of general React components that can be used in yo
 `npm install @sprout-platform/ui`  
 Storybook is used to document and demo the UI component library.  
 It's published [here](https://master--5f96ec613d800900227e3b76.chromatic.com)  
+
+## Backend Development 
 
 To get started developing Sprout -  
 - Clone this project 
@@ -27,7 +32,38 @@ It's not production ready yet, but should be by Q1 2021.
 The main backend code is located in the Sprout Starter project.  
 Read more about the [Sprout Starter](./backend/starters/sprout-spring-boot-starter)
 
+
+## Frontend Development
+
 The front-end uses the [Rush Stack](https://rushstack.io/) for build orchestration. [./frontend/apps/webapp](./frontend/apps/webapp) 
+
+To get started, ensure rush is installed.  
+`npm install -g @microsoft/rush`  
+
+#### setup
+Install web dependencies -  
+`rush install`  
+
+#### backend
+The frontend web app requires a backend server to be running.  
+You can start the server with a rush command -  
+`rush start:server`  
+
+Or with docker -  
+`docker compose -f ./backend/docker-compose.yml up`  
+
+Or you can build and run the backend using Gradle -   
+`./gradlew :sprout-server:bootRun`  
+
+#### frontend
+
+Once the application server is running, you can start the web application -  
+`rush start:web`  
+
+The api requests from the web app should now be proxied to `localhost:8080`  
+Make changes to the main web app in [./frontend/apps/webapp](./frontend/apps/webapp) 
+
+## Rush
 
 To get all the available commands, use `rush -h` on the command line in the root of the project.   
 
