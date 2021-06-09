@@ -1,0 +1,23 @@
+version: "3"
+services:
+
+  server:
+    image: savantly/sprout-server:edge
+    environment: 
+      - PORT=9090
+      - SPROUT_JPA_USE_EMBEDDED_DB=FALSE
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://sprout_db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=sprout
+      - SPRING_DATASOURCE_PASSWORD=sprout
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+    ports:
+      - 8080:9090
+    depends_on: 
+    - sprout_db
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=sprout
+      - POSTGRES_USER=sprout
