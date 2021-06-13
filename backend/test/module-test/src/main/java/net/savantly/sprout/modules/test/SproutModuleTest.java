@@ -22,12 +22,6 @@ public class SproutModuleTest<T extends SproutModule> {
 	}
 	
 	@Test
-	public void testModuleInstallation() {
-		module.install();
-		module.uninstall();
-	}
-	
-	@Test
 	public void propertiesSmokeTest() {
 		module.getClass();
 		module.getDescription();

@@ -50,8 +50,6 @@ public class FormsApiTest extends AbstractContainerBaseTest {
 		mvc = MockMvcBuilders
 				.webAppContextSetup(ctx)
 				.build();
-		log.info("running module install");
-		module.install();
 	}
 	
 	@Test

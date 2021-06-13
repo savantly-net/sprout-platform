@@ -1,6 +1,6 @@
 sprout:
   jpa:
-    use-embedded-db: true
+    use-embedded-db: false
     packages-to-scan:
     - net.savantly.sprout.server.domain
   security:

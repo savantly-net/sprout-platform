@@ -7,9 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.WebApplicationContext;
 
-import net.savantly.sprout.core.module.SimpleSproutModuleExecutionResponse;
 import net.savantly.sprout.core.module.SproutModuleConfiguration;
-import net.savantly.sprout.core.module.SproutModuleExecutionResponse;
 import net.savantly.sprout.core.module.SproutWebModule;
 
 public class TestSproutModuleTest extends SproutModuleTest<TestSproutModuleTest.ExampleModule> {
@@ -44,16 +42,6 @@ public class TestSproutModuleTest extends SproutModuleTest<TestSproutModuleTest.
 		}
 
 		@Override
-		public SproutModuleExecutionResponse install() {
-			return new SimpleSproutModuleExecutionResponse(true, 0, "Install completed");
-		}
-
-		@Override
-		public SproutModuleExecutionResponse uninstall() {
-			return new SimpleSproutModuleExecutionResponse(true, 0, "Uninstall completed");
-		}
-
-		@Override
 		public String getDescription() {
 			return "example module";
 		}
@@ -64,7 +52,7 @@ public class TestSproutModuleTest extends SproutModuleTest<TestSproutModuleTest.
 		}
 
 		@Override
-		public String getPluginInformationMarkup() {
+		public String getPluginInformationContent() {
 			return "test";
 		}
 

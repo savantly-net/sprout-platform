@@ -16,10 +16,10 @@ public class PluginMeta {
 	private String id;
 	private boolean preload;
 	private String name;
-	private PluginType type;
+	private PluginType type = PluginType.panel;
 	private PluginMetaInfo info;
 	private PluginInclude includes[];
-	private PluginState state;
+	private PluginState state = PluginState.alpha;
 
 	// System.load & relative URLS
 	private String module;
@@ -38,4 +38,5 @@ public class PluginMeta {
 	private String latestVersion;
 	private boolean pinned;
 	private PluginSignatureStatus signature;
+
 }

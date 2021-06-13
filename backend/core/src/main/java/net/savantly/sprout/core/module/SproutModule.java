@@ -3,8 +3,8 @@ package net.savantly.sprout.core.module;
 public interface SproutModule {
 
 	/**
-	 * The ID of the plugin. This is used on the client for navigation.
-	 * Should be in the format '{org}-{pluginName}'
+	 * The ID of the plugin. This is used on the client for navigation.<br>
+	 * Should be in the format '{org}-{pluginName}'<br>
 	 * @return
 	 */
 	String getId();
@@ -26,20 +26,4 @@ public interface SproutModule {
 	 * @return
 	 */
 	String getDescription();
-	
-	/**
-	 * TODO: Not sure if this is necessary since modules can provide their own UI and APIs
-	 * @return
-	 */
-	default SproutModuleExecutionResponse install() {
-		return new SimpleSproutModuleExecutionResponse(true, 0, "nothing to install");
-	}
-	
-	/**
-	 * TODO: Not sure if this is necessary since modules can provide their own UI and APIs
-	 * @return
-	 */
-	default SproutModuleExecutionResponse uninstall() {
-		return new SimpleSproutModuleExecutionResponse(true, 0, "nothing to uninstall");
-	}
 }

@@ -7,10 +7,12 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import net.savantly.sprout.core.module.SproutWebModule;
 import net.savantly.sprout.core.module.registration.SproutModuleRegistration;
 import net.savantly.sprout.core.module.registration.SproutModuleRegistrationRepository;
 import net.savantly.sprout.core.module.web.plugin.PluginMeta;
@@ -19,22 +21,21 @@ import net.savantly.sprout.core.tenancy.TenantedPrimaryKey;
 import net.savantly.sprout.domain.plugin.PluginConfigurationDto;
 import net.savantly.sprout.domain.plugin.PluginConfigurationEntity;
 import net.savantly.sprout.domain.plugin.PluginConfigurationRepository;
-import net.savantly.sprout.domain.plugin.PluginMetaBuilder;
 
 public class PluginService {
 
 	private static final Logger log = LoggerFactory.getLogger(PluginService.class);
+	private final ApplicationContext context;
 	private final SproutModuleRegistrationRepository registrationRepository;
-	private final PluginMetaBuilder pluginMetaBuilder;
 	private final PluginConfigurationRepository pluginConfigRepository;
 	private final ObjectMapper mapper;
 
 	public PluginService(
-			SproutModuleRegistrationRepository registrationRepository, 
-			PluginMetaBuilder pluginMetaBuilder,
+			ApplicationContext context,
+			SproutModuleRegistrationRepository registrationRepository,
 			PluginConfigurationRepository pluginConfigRepository, 
 			ObjectMapper mapper) {
-		this.pluginMetaBuilder = pluginMetaBuilder;
+		this.context = context;
 		this.registrationRepository = registrationRepository;
 		this.pluginConfigRepository = pluginConfigRepository;
 		this.mapper = mapper;
@@ -42,15 +43,15 @@ public class PluginService {
 	
 	public List<PluginMeta> getAllPlugins(){
 		return this.registrationRepository.findAllByIsPlugin(true).stream().map(p -> {
-			Optional<PluginMeta> opt = pluginMetaBuilder.buildMeta(p);
+			Optional<PluginMeta> opt = getPluginMeta(p.getId());
 			return opt.isPresent() ? opt.get() : null;
 		}).filter(p -> Objects.nonNull(p)).collect(Collectors.toList());
 	}
-	
+
 	public List<PluginMeta> getAppPlugins(){
 		return this.registrationRepository.findAllByIsPlugin(true).stream()
 				.filter(p -> p.getPluginType().equals(PluginType.app)).map(p -> {
-			Optional<PluginMeta> opt = pluginMetaBuilder.buildMeta(p);
+			Optional<PluginMeta> opt = this.getPluginMeta(p.getId());
 			return opt.isPresent() ? opt.get() : null;
 		}).filter(p -> Objects.nonNull(p)).collect(Collectors.toList());
 	}
@@ -58,7 +59,7 @@ public class PluginService {
 	public List<PluginMeta> getPanelPlugins(){
 		return this.registrationRepository.findAllByIsPlugin(true).stream()
 				.filter(p -> p.getPluginType().equals(PluginType.panel)).map(p -> {
-			Optional<PluginMeta> opt = pluginMetaBuilder.buildMeta(p);
+			Optional<PluginMeta> opt = this.getPluginMeta(p.getId());
 			return opt.isPresent() ? opt.get() : null;
 		}).filter(p -> Objects.nonNull(p)).collect(Collectors.toList());
 	}
@@ -66,7 +67,7 @@ public class PluginService {
 	public PluginMeta getPluginMetaByPluginId(String id) {
 		Optional<SproutModuleRegistration> opt = this.registrationRepository.findById(id);
 		if (opt.isPresent()) {
-			Optional<PluginMeta> optMeta = this.pluginMetaBuilder.buildMeta(opt.get());
+			Optional<PluginMeta> optMeta = this.getPluginMeta(id);
 			if (optMeta.isPresent()) {
 				return optMeta.get();
 			}
@@ -82,10 +83,36 @@ public class PluginService {
 		return dto;
 	}
 
-	// TODO: Implement reading a markdown file from the module lib
-	// Maybe need to unpack the plugins/modules into a temp folder 
+	// TODO: might need to have multiple types of docs to return
 	public String getPluginMarkdownByPluginId(String id, String markdownType) {
-		return "# Not Implemented Yet  \nTODO: Implement reading a markdown file from the module lib  \nMaybe need to unpack the plugins/modules into a temp folder";
+		Optional<SproutWebModule> m = getSproutWebModule(id);
+		if (m.isPresent()) {
+			return m.get().getPluginInformationContent();
+		} else {
+			return "<h1>id</h1><p>No information avaiable.</p>";
+		}
+	}
+	
+	private Optional<PluginMeta> getPluginMeta(String id) {
+		Optional<SproutWebModule> m = getSproutWebModule(id);
+		if (m.isPresent()) {
+			return Optional.of(m.get().getPluginMeta());
+		}
+		return Optional.empty();
+	}
+	
+	private Optional<SproutWebModule> getSproutWebModule(String id) {
+		Optional<SproutModuleRegistration> registration = this.registrationRepository.findById(id);
+		
+		if(registration.isPresent() && this.context.containsBean(registration.get().getBeanName())) {
+			Object bean = this.context.getBean(registration.get().getBeanName());
+			if (SproutWebModule.class.isAssignableFrom(bean.getClass())) {
+				return Optional.ofNullable(((SproutWebModule) bean));
+			} else {
+				log.error("the bean is not a SproutWebModule, id: %s, beanName: %s", id, registration.get().getBeanName());
+			}
+		}
+		return Optional.empty();
 	}
 	
 	private PluginConfigurationEntity getPluginConfiguration(String id) {

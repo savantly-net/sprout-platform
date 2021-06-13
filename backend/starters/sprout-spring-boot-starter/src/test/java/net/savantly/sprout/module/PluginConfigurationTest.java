@@ -27,10 +27,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.savantly.sprout.autoconfigure.SproutAutoConfiguration;
 import net.savantly.sprout.controllers.PluginsApi;
-import net.savantly.sprout.core.module.SimpleSproutModuleExecutionResponse;
 import net.savantly.sprout.core.module.SproutModule;
 import net.savantly.sprout.core.module.SproutModuleConfiguration;
-import net.savantly.sprout.core.module.SproutModuleExecutionResponse;
 import net.savantly.sprout.core.module.SproutWebModule;
 import net.savantly.sprout.module.PluginConfigurationTest.TestContext.ExampleController;
 import net.savantly.sprout.test.AbstractContainerBaseTest;
@@ -129,16 +127,6 @@ public class PluginConfigurationTest extends AbstractContainerBaseTest {
 			}
 
 			@Override
-			public SproutModuleExecutionResponse install() {
-				return new SimpleSproutModuleExecutionResponse(true, 0, "Install completed");
-			}
-
-			@Override
-			public SproutModuleExecutionResponse uninstall() {
-				return new SimpleSproutModuleExecutionResponse(true, 0, "Uninstall completed");
-			}
-
-			@Override
 			public String getDescription() {
 				return "example module";
 			}
@@ -149,14 +137,8 @@ public class PluginConfigurationTest extends AbstractContainerBaseTest {
 			}
 
 			@Override
-			public String getPluginInformationMarkup() {
+			public String getPluginInformationContent() {
 				return "test";
-			}
-			
-			// Overriding because this example implementation is not packaged
-			@Override
-			public String getPluginJsonPath() {
-				return "classpath:/plugins/plugin.json";
 			}
 
 		};

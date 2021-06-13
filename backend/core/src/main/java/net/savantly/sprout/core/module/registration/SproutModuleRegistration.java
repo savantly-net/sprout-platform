@@ -23,9 +23,8 @@ public class SproutModuleRegistration {
 	private String description;
 	@Column(name = "version")
 	private String version;
-	private boolean enabled;
-	private boolean installed;
 	private boolean isPlugin;
-	private String pluginJsonPath;
 	private PluginType pluginType;
+	
+	private String beanName;
 }

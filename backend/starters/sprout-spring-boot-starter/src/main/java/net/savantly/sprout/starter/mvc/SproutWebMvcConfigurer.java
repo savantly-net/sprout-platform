@@ -102,7 +102,7 @@ public class SproutWebMvcConfigurer implements WebMvcConfigurer {
 	@Bean
 	public PluginsApi defaultPluginsApi(SproutModuleRegistrationRepository registrationRepository, ObjectMapper mapper,
 			PluginService pluginService) {
-		return new PluginsApi(registrationRepository, mapper, pluginService);
+		return new PluginsApi(mapper, pluginService);
 	}
 	
 	@Bean
