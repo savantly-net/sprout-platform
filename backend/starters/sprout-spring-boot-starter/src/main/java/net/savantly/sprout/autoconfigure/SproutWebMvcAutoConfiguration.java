@@ -12,9 +12,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.handler.MappedInterceptor;
 
 import net.savantly.sprout.core.domain.tenant.TenantRepository;
-import net.savantly.sprout.domain.file.FileProviderConfiguration;
-import net.savantly.sprout.domain.issue.IssueConfiguration;
-import net.savantly.sprout.domain.widget.WidgetConfiguration;
 import net.savantly.sprout.starter.DateTimeFormatConfiguration;
 import net.savantly.sprout.starter.SpringDocConfigurer;
 import net.savantly.sprout.starter.freemarker.FreemarkerConfiguration;
@@ -23,9 +20,11 @@ import net.savantly.sprout.starter.tenancy.TenantInterceptor;
 
 @Configuration
 @AutoConfigureBefore({ WebMvcAutoConfiguration.class, SproutSecurityAutoConfiguration.class })
-@Import({ SproutWebMvcConfigurer.class, SpringDocConfigurer.class,
-		DateTimeFormatConfiguration.class, FileProviderConfiguration.class, IssueConfiguration.class, 
-		WidgetConfiguration.class, FreemarkerConfiguration.class })
+@Import({ 
+	SproutWebMvcConfigurer.class, 
+	SpringDocConfigurer.class,
+	DateTimeFormatConfiguration.class, 
+	FreemarkerConfiguration.class })
 public class SproutWebMvcAutoConfiguration implements InitializingBean {
 
 	private static final Logger log = LoggerFactory.getLogger(SproutWebMvcAutoConfiguration.class);

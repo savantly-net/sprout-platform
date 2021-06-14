@@ -3,12 +3,10 @@ package net.savantly.sprout.starter.mvc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -25,35 +23,12 @@ import net.savantly.sprout.controllers.PluginsApi;
 import net.savantly.sprout.controllers.argument.TenantIdArgumentResolver;
 import net.savantly.sprout.converter.spring.DateToZonedDateTimeConverter;
 import net.savantly.sprout.converter.spring.ZonedDateTimeToDateConverter;
-import net.savantly.sprout.core.domain.privilege.PrivilegeRepository;
-import net.savantly.sprout.core.domain.role.RoleRepository;
 import net.savantly.sprout.core.domain.tenant.TenantRepository;
-import net.savantly.sprout.core.domain.user.repository.UserRepository;
 import net.savantly.sprout.core.module.registration.SproutModuleRegistrationRepository;
-import net.savantly.sprout.domain.account.AccountApi;
-import net.savantly.sprout.domain.authentication.LoginApi;
-import net.savantly.sprout.domain.branding.BrandingApi;
-import net.savantly.sprout.domain.branding.DefaultBrandingApi;
-import net.savantly.sprout.domain.dashboard.DashboardConfiguration;
-import net.savantly.sprout.domain.feed.FeedConfiguration;
-import net.savantly.sprout.domain.folder.FolderConfiguration;
-import net.savantly.sprout.domain.menu.MenuConfiguration;
-import net.savantly.sprout.domain.permissions.PermissionsApi;
-import net.savantly.sprout.domain.proxy.ProxyApi;
-import net.savantly.sprout.domain.uiProperties.UIPropertiesConfiguration;
-import net.savantly.sprout.domain.user.search.UserSearchApi;
-import net.savantly.sprout.domain.widget.WidgetConfiguration;
 import net.savantly.sprout.module.PluginService;
 
 @Configuration
 @ImportAutoConfiguration({ WebMvcAutoConfiguration.class })
-@Import({
-	DashboardConfiguration.class, 
-	FeedConfiguration.class,
-	UIPropertiesConfiguration.class, 
-	MenuConfiguration.class, 
-	FolderConfiguration.class,
-	WidgetConfiguration.class})
 @RequiredArgsConstructor
 public class SproutWebMvcConfigurer implements WebMvcConfigurer {
 
@@ -105,36 +80,4 @@ public class SproutWebMvcConfigurer implements WebMvcConfigurer {
 		return new PluginsApi(mapper, pluginService);
 	}
 	
-	@Bean
-	public AccountApi defaultAccountApi() {
-		return new AccountApi();
-	}
-	
-	@Bean
-	public UserSearchApi userSearchApi(UserRepository repo) {
-		return new UserSearchApi(repo);
-	}
-	
-	@Bean
-	public LoginApi defaultLoginApi() {
-		return new LoginApi();
-	}
-	
-	@Bean
-	public PermissionsApi permissionsApi(RoleRepository roleRepo, PrivilegeRepository privilegeRepo) {
-		return new PermissionsApi(roleRepo, privilegeRepo);
-	}
-	
-	@Bean
-	@ConditionalOnMissingBean
-	public BrandingApi defaultBrandingApi() {
-		return new DefaultBrandingApi();
-	}
-	
-	@Bean
-	@ConditionalOnMissingBean
-	public ProxyApi defaultProxyApi(SproutConfigurationProperties props) {
-		return new ProxyApi(props);
-	}
-
 }

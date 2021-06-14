@@ -35,6 +35,7 @@ public class SproutConfigurationProperties {
 	private Hal hal = new Hal();
 	private Files files = new Files();
 	private Proxy proxy = new Proxy();
+	private Mail mail = new Mail();
 	
 	/**
 	 * Additional UI properties that should be created for the default tenant
@@ -257,5 +258,11 @@ public class SproutConfigurationProperties {
 	@Setter
 	public static class Proxy {
 		private List<String> allowedUris = new ArrayList<>();
+	}
+	
+	@Getter
+	@Setter
+	public static class Mail {
+		private String from;
 	}
 }
