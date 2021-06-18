@@ -361,13 +361,11 @@ create table IF NOT EXISTS app_user_app_role (
 create table IF NOT EXISTS sprout_module_registration (
    id CHAR(100) not null,
     description varchar(255),
-    enabled boolean not null,
-    installed boolean not null,
     isPlugin boolean not null,
     name varchar(255),
-    pluginJsonPath varchar(255),
     pluginType integer,
     version varchar(255),
+    beanName varchar(255),
     primary key (id)
 );
 
