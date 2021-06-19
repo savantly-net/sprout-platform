@@ -16,7 +16,7 @@ public class CoreDBMigrationConfiguration {
 		return (flyway) -> {};
 	}
 	
-	@Bean
+	@Bean("CoreDBMigrator")
 	@ConditionalOnMissingBean
 	public CoreDBMigrator defaultCoreDBMigrator(DataSource dataSource) {
 		return new DefaultCoreDBMigrator(dataSource);
