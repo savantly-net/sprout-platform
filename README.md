@@ -1,10 +1,18 @@
 # sprout-platform  
-![CI](https://github.com/savantly-net/sprout-platform/workflows/CI/badge.svg)
+Platform Build  
+![CI](https://github.com/savantly-net/sprout-platform/workflows/CI/badge.svg)  
+Sprout Core  
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=savantly-net_sprout-platform_core&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=savantly-net_sprout-platform_core) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=savantly-net_sprout-platform_core&metric=security_rating)](https://sonarcloud.io/dashboard?id=savantly-net_sprout-platform_core) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=savantly-net_sprout-platform_core&metric=coverage)](https://sonarcloud.io/dashboard?id=savantly-net_sprout-platform_core)  
+Sprout Spring Boot Starter  
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=savantly-net_sprout-platform_starter&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=savantly-net_sprout-platform_starter) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=savantly-net_sprout-platform_starter&metric=security_rating)](https://sonarcloud.io/dashboard?id=savantly-net_sprout-platform_starter) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=savantly-net_sprout-platform_starter&metric=coverage)](https://sonarcloud.io/dashboard?id=savantly-net_sprout-platform_starter)  
+Sprout Server  
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=savantly-net_sprout-platform_server&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=savantly-net_sprout-platform_server) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=savantly-net_sprout-platform_server&metric=security_rating)](https://sonarcloud.io/dashboard?id=savantly-net_sprout-platform_server) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=savantly-net_sprout-platform_server&metric=coverage)](https://sonarcloud.io/dashboard?id=savantly-net_sprout-platform_server)
 
-![Sprout Web App](./docs/img/favicon.png)  
 
 This software uses an Open Source Initiative approved license.  
-![Open Source Initiative](./docs/img/osi_standard_logo_small.png)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)  
+![Sprout Web App](./docs/img/favicon.png) ![Open Source Initiative](./docs/img/osi_standard_logo_small.png)
+
 
 ## What is Sprout?  
 Sprout is a web application framework, different than the dozens that already exist.  
