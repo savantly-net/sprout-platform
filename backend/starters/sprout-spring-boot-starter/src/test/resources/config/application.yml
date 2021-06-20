@@ -1,7 +1,7 @@
 spring:
-  datasource:
-    hikari:
-      minimum-idle: 1
+#  datasource:
+#    hikari:
+#      minimum-idle: 1
 #    url: jdbc:tc:postgresql:12:///testdb
 #    username: sa
 #    password: sa

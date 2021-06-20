@@ -26,6 +26,6 @@ public abstract class AbstractContainerBaseTest {
 		registry.add("spring.datasource.url", DB_CONTAINER::getJdbcUrl);
 		registry.add("spring.datasource.username", () -> username);
 		registry.add("spring.datasource.password", () -> password);
-		registry.add("spring.jpa.hibernate.ddl-auto", () -> "create-drop");
+		//registry.add("spring.jpa.hibernate.ddl-auto", () -> "create-drop");
 	}
 }
