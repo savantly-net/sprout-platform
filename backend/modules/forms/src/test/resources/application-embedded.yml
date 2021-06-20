@@ -1,3 +1,0 @@
-sprout:
-  jpa:
-    use-embedded-db: true

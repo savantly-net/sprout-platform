@@ -17,3 +17,11 @@ sprout:
           email-address: test@savantly.net
           roles:
           - ADMIN
+spring:
+  flyway:
+    enabled: false
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+    generate-ddl: false
