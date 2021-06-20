@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' apply false
+	id 'org.springframework.boot'
 	id 'io.spring.dependency-management'
 	id 'java'
 	id 'java-library'
@@ -22,20 +22,32 @@ ext {
 apply from: "${rootProject.projectDir}/gradle/sonar.gradle"
 apply from: "${rootProject.projectDir}/gradle/sonatype.gradle"
 
-// run `./gradlew :sprout-spring-boot-starter:dev -Psuspend=y` to suspend for debugger connection
+sourceSets {
+    dev {
+        java {
+            compileClasspath += main.compileClasspath
+            runtimeClasspath += main.runtimeClasspath
+            srcDirs += ['src/dev/java', 'src/dev/resources']
+        }
+    }
+}
+
+// run `./gradlew :sprout-spring-boot-starter:bootRun -Psuspend=y` to suspend for debugger connection
 def suspend = project.ext.properties.suspend
 if(!suspend) {
 	suspend = 'n'
 }
-task dev(type: JavaExec) {
-    group = "Execution"
-    description = "Run the test app class with JavaExecTask"
-    classpath = sourceSets.test.runtimeClasspath
-    classpath += sourceSets.main.runtimeClasspath
-    main = 'example.TestApplication'
+bootRun {
+	main = 'example.DevApplication'
+    classpath = sourceSets.dev.runtimeClasspath
+	sourceResources sourceSets.main
     jvmArgs=[
   	  "-agentlib:jdwp=transport=dt_socket,server=y,suspend=$suspend,address=18080"
     ]
+}
+
+bootJar {
+    enabled = false
 }
 
 configurations {

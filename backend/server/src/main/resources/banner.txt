@@ -1,8 +1,14 @@
 
- _______  _______  ______    _______  __   __  _______ 
-|       ||       ||    _ |  |       ||  | |  ||       |
-|  _____||    _  ||   | ||  |   _   ||  | |  ||_     _|
-| |_____ |   |_| ||   |_||_ |  | |  ||  |_|  |  |   |  
-|_____  ||    ___||    __  ||  |_|  ||       |  |   |  
- _____| ||   |    |   |  | ||       ||       |  |   |  
-|_______||___|    |___|  |_||_______||_______|  |___|  
+${AnsiColor.GREEN} _______  _______  ______    _______  __   __  _______   
+${AnsiColor.GREEN}|       ||       ||    _ |  |       ||  | |  ||       |  
+${AnsiColor.GREEN}|  _____||    _  ||   | ||  |   _   ||  | |  ||_     _|  
+${AnsiColor.GREEN}| |_____ |   |_| ||   |_||_ |  | |  ||  |_|  |  |   |    
+${AnsiColor.GREEN}|_____  ||    ___||    __  ||  |_|  ||       |  |   |    
+${AnsiColor.GREEN} _____| ||   |    |   |  | ||       ||       |  |   |     
+${AnsiColor.GREEN}|_______||___|    |___|  |_||_______||_______|  |___|     
+
+${AnsiColor.GREEN}https://www.linkedin.com/in/jeremybranham/
+${AnsiColor.BLUE}Savantly.net
+
+${AnsiColor.DEFAULT}
+${AnsiBackground.DEFAULT}

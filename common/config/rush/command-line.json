@@ -85,14 +85,21 @@
       "name": "start:server",
       "commandKind": "global",
       "summary": "Starts the backend-end server",
-      "shellCommand": "./gradlew start",
+      "shellCommand": "./gradlew :sprout-server:dev",
       "safeForSimultaneousRushProcesses": true
     },
     {
       "name": "start:dev",
       "commandKind": "global",
-      "summary": "Starts a test server from the sprout-spring-boot-starter project that uses development mode features such as log levels and Spring devtools",
-      "shellCommand": "./gradlew :sprout-spring-boot-starter:dev",
+      "summary": "Starts a development server from the sprout-spring-boot-starter project that uses development mode features such as log levels and Spring devtools",
+      "shellCommand": "./gradlew :sprout-spring-boot-starter:bootRun",
+      "safeForSimultaneousRushProcesses": true
+    },
+    {
+      "name": "start:dev-watch",
+      "commandKind": "global",
+      "summary": "Continuously compiles the spring boot starter to trigger 'live reload' when using `start:dev`",
+      "shellCommand": "./gradlew :sprout-spring-boot-starter:compileJava --continuous",
       "safeForSimultaneousRushProcesses": true
     },
     {

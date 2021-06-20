@@ -35,7 +35,8 @@ import net.savantly.sprout.test.AbstractContainerBaseTest;
 import net.savantly.sprout.test.IntegrationTest;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, properties = {
-		"sprout.jpa.packagesToScan=example.domain" })
+		"sprout.jpa.packagesToScan=example.domain",
+		"sprout.jpa.generate-ddl=true"})
 @IntegrationTest
 public class AclMethodSecurityConfigurationTest extends AbstractContainerBaseTest {
 

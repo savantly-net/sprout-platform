@@ -1,14 +1,5 @@
 version: "3"
 services:
-
-  webapp:
-    image: savantly/sprout-webapp:edge
-    container_name: sprout_webapp
-    ports:
-      - 3000:4000
-    environment: 
-      - PORT=4000
-      - SPROUT_API_URL=http://localhost:8080
   
   db:
     image: postgres:12

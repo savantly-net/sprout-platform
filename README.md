@@ -68,6 +68,33 @@ The example server creates a user -
 username: admin  
 password: changeme!  
 
+## Full Stack Development
+
+From the root of the project -  
+Start the DB using Docker Compose  
+
+```
+docker compose -f backend/server/docker-compose.yml up 
+```
+
+Optionally, in another terminal, run continuous compilation for the sprout-spring-boot-starter Java project -  
+
+```
+rush start:dev-watch
+```
+
+In another terminal, start Sprout in dev mode -  
+
+```
+rush start:dev
+```
+
+In another terminal start the web app -  
+
+```
+rush start:web
+```
+
 
 ## Examples
 
