@@ -65,7 +65,18 @@ Each of these interfaces have default implementations that can be extended, or r
 `OidcUserService` receives an `OidcUserRequest` and produces an `OAuth2User`.  
 
 ## JWT
-TODO
+The backend server application uses standard Spring Authentication properties.  
+Example of JWT configuration in the application.properties -  
+
+```
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://my-keycloak:9090/auth/realms/my-realm/protocol/openid-connect/certs
+```
 
 ## Cookie
-TODO
+TODO: Improve Documentation  
+After logging in, a session cookie is established to provide authentication when requesting static resources from a static site, such as the Sprout Web UI.  

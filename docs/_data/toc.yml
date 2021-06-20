@@ -41,6 +41,10 @@ documentation:
     path: /features/issues/
   - title: Permissions
     path: /features/permissions/
+- sectiontitle: Modules
+  section:
+  - title: Overview
+    path: /modules/
 - sectiontitle: Reference
   section:
   - title: Overview

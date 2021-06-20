@@ -30,7 +30,7 @@ public interface SproutWebModule extends SproutModule {
 	static ResourceLoader resourceLoader = new DefaultResourceLoader();
 
 	default PluginMeta getPluginMeta() {
-		String resourceLocation = String.format("classpath:/public/api/plugins/%s/plugin.json", getId());
+		String resourceLocation = String.format("classpath:public/api/plugins/%s/plugin.json", getId());
 		PluginMeta pluginMeta = null;
 		Resource resource = resourceLoader.getResource(resourceLocation);
 		if (resource.exists()) {
@@ -41,7 +41,7 @@ public interface SproutWebModule extends SproutModule {
 				pluginMeta = new PluginMeta().setId(getId()).setName(getName());
 			}
 		} else {
-			log.warn("plugin metadata not found: {}", resourceLocation);
+			log.error("plugin metadata not found: {}", resourceLocation);
 			pluginMeta = new PluginMeta().setId(getId()).setName(getName());
 		}
 		String baseUrl = String.format("/api/plugins/%s", pluginMeta.getId());

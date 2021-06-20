@@ -89,6 +89,13 @@
       "safeForSimultaneousRushProcesses": true
     },
     {
+      "name": "start:db",
+      "commandKind": "global",
+      "summary": "Starts the postgres DB",
+      "shellCommand": "docker compose -f backend/server/docker-compose.yml up",
+      "safeForSimultaneousRushProcesses": true
+    },
+    {
       "name": "start:dev",
       "commandKind": "global",
       "summary": "Starts a development server from the sprout-spring-boot-starter project that uses development mode features such as log levels and Spring devtools",

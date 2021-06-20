@@ -24,15 +24,15 @@ const PluginListItem: FC<Props> = (props) => {
         `
       )}
     >
-      <img src={`${plugin.baseUrl}/${plugin.info.logos.large}`} className={'card-img-top'} />
+      <img src={`${plugin.baseUrl}/${plugin.info?.logos?.large}`} className={'card-img-top'} />
       <div className="card-body">
         <h5 className="card-title">{plugin.name}</h5>
         <div className="card-subtitle">
           <small>
-            [{plugin.type}] {`By ${plugin.info.author.name}`}
+            [{plugin.type}] {`By ${plugin.info?.author.name}`}
           </small>
         </div>
-        <div className="card-text">{plugin.info.description}</div>
+        <div className="card-text">{plugin.info?.description}</div>
       </div>
       <div className="card-footer d-flex justify-content-between">
         {plugin.type == PluginType.app && (

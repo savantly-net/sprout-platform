@@ -15,7 +15,7 @@ sprout:
       - path: /api/plugins**
         expression:
           GET: permitAll
-      - path: /api/dashboards**
+      - path: /api/dashboards/**
         expression:
           GET: permitAll
 
@@ -30,8 +30,6 @@ spring:
       hibernate:
         format_sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-  profiles:
-    active: local
   data:
     rest:
       default-page-size: 200

@@ -6,7 +6,6 @@ services:
     container_name: example_sprout_server
     environment: 
       - PORT=9090
-      - SPROUT_JPA_USE_EMBEDDED_DB=FALSE
       - SPRING_DATASOURCE_URL=jdbc:postgresql://sprout_db:5432/postgres
       - SPRING_DATASOURCE_USERNAME=sprout
       - SPRING_DATASOURCE_PASSWORD=sprout

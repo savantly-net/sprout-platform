@@ -13,7 +13,7 @@ import org.springframework.util.FileCopyUtils;
 
 import net.savantly.sprout.core.module.SproutWebModule;
 
-@Configuration
+@Configuration(FormsModule.PLUGIN_ID)
 @EnableJpaRepositories
 @EntityScan
 @Import(FormsModuleConfiguration.class)

@@ -7,14 +7,20 @@ This library uses the Formio React library, and implements a partial Formio serv
 
 ## Dev Quickstart
 Checkout the source code, and from the project root -  
+Start the DB using Docker Compose *or* `rush start:db`    
 
-- build the project  
-`./gradlew build`  
+```
+docker compose -f backend/server/docker-compose.yml up 
+```
 
 - start the dev sprout server  
-`./gradlew :sprout-modules-forms:dev`  
+`./gradlew :sprout-modules-forms:bootRun`
+  
 The server is now running on `localhost:8080`  
-Spring Dev tools are used, to hot reload any application code changes without restarting the server.  
+
+To continuously compile for application live-reload, start in another terminal session    
+`./gradlew :sprout-modules-forms:compileJava --continuous`
+
 
 - start the dev web server -  
 `rush start`  
@@ -28,7 +34,7 @@ If client code changes are made, the files are re-packed and the sprout test ser
 
 
 ## Docker 
-You can start a fullly functional platform by using the included docker-compose.yml file.  
+You can start a fully functional platform by using the included docker-compose.yml file.  
 First build the module -  
 `.gradlew :sprout-modules-forms:build`  
 
@@ -44,3 +50,26 @@ The following services are available -
 | Sprout Web | http://localhost:3000 |
 | Adminer [DB UI] | http://localhost:8081 |
 
+
+## Screenshots  
+
+List Forms -  
+![List Forms](./docs/list_forms.png)  
+
+Edit Field -  
+![Edit Field](./docs/edit_field.png)  
+
+Edit Form -  
+![Edit Form](./docs/edit_form.png)  
+
+Enter Data -  
+![Enter Data](./docs/enter_data.png)  
+
+View Data -  
+![View Data](./docs/view_data.png)  
+
+Edit Form Complex -  
+![Edit Form Complex](./docs/edit_form_complex.png)  
+
+Enter Data Complex -  
+![Enter Data Complex](./docs/enter_data_complex.png)  
