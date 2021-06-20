@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.savantly.sprout.core.tenancy.TenantContext;
 import net.savantly.sprout.core.tenancy.TenantedPrimaryKey;
 import net.savantly.sprout.domain.issue.comment.IssueCommentDto;
 import net.savantly.sprout.domain.issue.comment.IssueCommentService;
@@ -29,6 +30,7 @@ public class IssueApi extends EasyController<IssueDto, Issue, TenantedPrimaryKey
 	protected TenantedPrimaryKey stringToID(String string) {
 		TenantedPrimaryKey id = new TenantedPrimaryKey();
 		id.setItemId(string);
+		id.setTenantId(TenantContext.getCurrentTenant());
 		return id;
 	}
 

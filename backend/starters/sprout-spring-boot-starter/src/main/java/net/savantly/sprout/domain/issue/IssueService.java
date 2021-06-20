@@ -14,4 +14,11 @@ public class IssueService extends EasyService<IssueDto, Issue, TenantedPrimaryKe
 		super(repository, dtoConverter, entityConverter);
 	}
 
+	@Override
+	protected Issue mapUpdates(Issue existing, IssueDto updates) {
+		return existing.setDescription(updates.getDescription())
+			.setStatus(updates.getStatus())
+			.setTags(updates.getTags())
+			.setTitle(updates.getTitle());
+	}
 }
