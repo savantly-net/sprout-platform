@@ -1,6 +1,7 @@
 package net.savantly.sprout.core.security.permissions;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +27,10 @@ public class DelegatingPermissionEvaluator implements PermissionEvaluator {
     @SuppressWarnings({ "unchecked"})
     @Override
     public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
-    	Assert.notNull(targetDomainObject, "the targetDomainObject is required");
+    	if (Objects.isNull(targetDomainObject)) {
+    		return true;
+    	}
+    	//Assert.notNull(targetDomainObject, "the targetDomainObject is required");
         String type = targetDomainObject.getClass().getName();
         if (registry.containsPermissionEvaluator(type)) {
             Permission permissionItem = getPermissionItem(permission);

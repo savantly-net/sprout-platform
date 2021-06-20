@@ -39,6 +39,9 @@ task dev(type: JavaExec) {
 }
 
 configurations {
+	all {
+		exclude group: 'com.h2database'
+	}
     developmentOnly
     runtimeClasspath {
         extendsFrom developmentOnly

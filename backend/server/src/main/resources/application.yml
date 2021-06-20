@@ -1,6 +1,5 @@
 sprout:
   jpa:
-    use-embedded-db: false
     packages-to-scan:
     - net.savantly.sprout.server.domain
   security:
@@ -30,11 +29,17 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
   profiles:
     active: local
   data:
     rest:
       default-page-size: 200
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sprout
+    username: sprout
+    password: sprout
+    driver-class-name: org.postgresql.Driver
 
 
 management:
