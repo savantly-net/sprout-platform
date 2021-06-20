@@ -72,7 +72,7 @@ public abstract class EasyController<DTO, ENTITY, ID, S extends EasyService<DTO,
 	 */
 	@PutMapping("/{itemId}")
 	public ResponseEntity<DTO> update(@PathVariable String itemId, @RequestBody DTO object) {
-		return ResponseEntity.ok(service.updateOne(object));
+		return ResponseEntity.ok(service.updateOne(stringToID(itemId), object));
 	}
 
 	/**

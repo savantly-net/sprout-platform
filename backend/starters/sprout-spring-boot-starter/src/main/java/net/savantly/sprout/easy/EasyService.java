@@ -1,8 +1,14 @@
 package net.savantly.sprout.easy;
 
+import java.lang.reflect.Field;
 import java.util.Objects;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,9 +22,13 @@ import net.savantly.sprout.starter.problem.EntityNotFoundProblem;
 
 public abstract class EasyService<D, E, ID, R extends PagingAndSortingRepository<E, ID>> {
 	
+	protected static final Logger log = LoggerFactory.getLogger(EasyService.class);
 	protected R repository;
 	protected final Converter<D, E> dtoConverter;
 	protected final Converter<E, D> entityConverter;
+	
+	@PersistenceContext
+	protected EntityManager em;
 	
 	/**
 	 * Create an EasyService using the supplied repository with custom converters. 
@@ -63,7 +73,7 @@ public abstract class EasyService<D, E, ID, R extends PagingAndSortingRepository
 		if (item.isPresent()) {
 			return entityConverter.convert(item.get());
 		} else {
-			throw new EntityNotFoundProblem(this.getClass().getTypeParameters()[1].getTypeName(), itemId.toString());
+			throw new EntityNotFoundProblem("item", itemId.toString());
 		}
 	}
 
@@ -87,9 +97,15 @@ public abstract class EasyService<D, E, ID, R extends PagingAndSortingRepository
 	 * @return
 	 */
 	@PreAuthorize("hasPermission(#object, 'UPDATE') or hasAuthority('ADMIN')")
-	public D updateOne(D object) {
-		E saved = repository.save(mapUpdates(object));
-		return entityConverter.convert(saved);
+	public D updateOne(ID id, D object) {
+		Optional<E> optExisting = repository.findById(id);
+		if (optExisting.isPresent()) {
+			E existing = optExisting.get();
+			E saved = repository.save(mapUpdates(existing, object));
+			return entityConverter.convert(saved);
+		} else {
+			throw new EntityNotFoundProblem("item", id.toString());
+		}
 	}
 
 	/**
@@ -106,8 +122,20 @@ public abstract class EasyService<D, E, ID, R extends PagingAndSortingRepository
 	 * @param updates
 	 * @return Entity to save
 	 */
-	protected E mapUpdates(D updates) {
-		return dtoConverter.convert(updates);
+	protected E mapUpdates(E existing, D updates) {
+		E converted = dtoConverter.convert(updates);
+		em.detach(converted);
+		try {
+			Field[] fields = converted.getClass().getFields();
+			for (Field field : fields) {
+				if (!field.getName().contentEquals("createdBy") && !field.getName().contentEquals("createdDate")) {
+					field.set(existing, field.get(converted));
+				}
+			}
+		} catch (Exception e) {
+			log.error("failed to map updates on to existing entity", e);
+		}
+		return existing;
 	}
 
 }
