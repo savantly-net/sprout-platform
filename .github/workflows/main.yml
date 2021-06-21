@@ -109,7 +109,7 @@ jobs:
           CI: false
       
       - name: Build Server Projects
-        run: ./gradlew build
+        run: ./gradlew clean && ./gradlew build
       
       - name: Cleanup Gradle Cache
         # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
