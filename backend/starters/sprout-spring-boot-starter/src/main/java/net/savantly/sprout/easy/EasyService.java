@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 
 import org.slf4j.Logger;
@@ -17,8 +18,6 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.fasterxml.jackson.databind.util.Converter;
-
-import net.savantly.sprout.starter.problem.EntityNotFoundProblem;
 
 public abstract class EasyService<D, E, ID, R extends PagingAndSortingRepository<E, ID>> {
 	
@@ -68,12 +67,12 @@ public abstract class EasyService<D, E, ID, R extends PagingAndSortingRepository
 	 * @return
 	 */
 	@PostAuthorize("hasPermission(returnObject, 'READ') or hasAuthority('ADMIN')")
-	public D getById(ID itemId) {
+	public Optional<D> getById(ID itemId) {
 		Optional<E> item = repository.findById(itemId);
 		if (item.isPresent()) {
-			return entityConverter.convert(item.get());
+			return Optional.of(entityConverter.convert(item.get()));
 		} else {
-			throw new EntityNotFoundProblem("item", itemId.toString());
+			return Optional.empty();
 		}
 	}
 
@@ -104,7 +103,7 @@ public abstract class EasyService<D, E, ID, R extends PagingAndSortingRepository
 			E saved = repository.save(mapUpdates(existing, object));
 			return entityConverter.convert(saved);
 		} else {
-			throw new EntityNotFoundProblem("item", id.toString());
+			throw new EntityNotFoundException("item not found with id: " + id);
 		}
 	}
 

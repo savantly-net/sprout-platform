@@ -1,5 +1,7 @@
 package net.savantly.sprout.easy;
 
+import java.util.Optional;
+
 import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,8 +50,8 @@ public abstract class EasyController<DTO, ENTITY, ID, S extends EasyService<DTO,
 	 * @return The found item
 	 */
 	@GetMapping("/{itemId}")
-	public DTO getById(@PathVariable String itemId) {
-		return service.getById(stringToID(itemId));
+	public ResponseEntity<DTO> getById(@PathVariable String itemId) {
+		return ResponseEntity.of(service.getById(stringToID(itemId)));
 	}
 
 	/**
@@ -82,9 +84,13 @@ public abstract class EasyController<DTO, ENTITY, ID, S extends EasyService<DTO,
 	 */
 	@DeleteMapping("/{itemId}")
 	public ResponseEntity<Void> deleteById(@PathVariable String itemId) {
-		DTO item = service.getById(stringToID(itemId));
-		service.deleteItem(item);
-		return ResponseEntity.accepted().build();
+		Optional<DTO> opt = service.getById(stringToID(itemId));
+		if (opt.isPresent()) {
+			service.deleteItem(opt.get());
+			return ResponseEntity.accepted().build();
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
 }
