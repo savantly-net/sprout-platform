@@ -14,6 +14,7 @@ public abstract class AbstractContainerBaseTest {
 			.withDatabaseName(dbName)
 			.withUsername(username)
 			.withPassword(password)
+			.withCommand("postgres -N 300")
 			//.withReuse(true)
 			;
 
