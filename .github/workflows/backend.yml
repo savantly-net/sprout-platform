@@ -103,7 +103,9 @@ jobs:
           OSSRH_USER: ${{ secrets.OSSRH_USER }}
           OSSRH_USER_TOKEN: ${{ secrets.OSSRH_USER_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}
-        run: ./gradlew publish -Psigning.gnupg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
+        # skip signing
+        run: ./gradlew publish 
+        #run: ./gradlew publish -Psigning.gnupg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
 
       # Analyze
       - name: Analyze sprout-core
