@@ -1,8 +1,5 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/sprout
-    username: sprout
-    password: sprout
     driver-class-name: org.postgresql.Driver
   jpa:
     properties:
