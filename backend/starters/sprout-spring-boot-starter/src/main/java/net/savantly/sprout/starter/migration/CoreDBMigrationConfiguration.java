@@ -17,7 +17,7 @@ public class CoreDBMigrationConfiguration {
 	}
 	
 	@Bean("CoreDBMigrator")
-	@ConditionalOnMissingBean
+	@ConditionalOnMissingBean(name = "CoreDBMigrator")
 	public CoreDBMigrator defaultCoreDBMigrator(DataSource dataSource) {
 		return new DefaultCoreDBMigrator(dataSource);
 	}
