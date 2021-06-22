@@ -6,39 +6,41 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
+
+import javax.persistence.EntityManagerFactory;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
+
+import com.fasterxml.jackson.databind.util.Converter;
+import com.fasterxml.jackson.databind.util.StdConverter;
 
 import example.domain.ProtectedApi;
 import example.domain.ProtectedObject;
-import example.domain.ProtectedObjectRepo;
+import example.domain.ProtectedObjectRepository;
+import example.domain.ProtectedService;
+import net.savantly.sprout.core.security.permissions.DelegatingPermissionEvaluator;
 import net.savantly.sprout.core.security.permissions.Permission;
 import net.savantly.sprout.core.security.permissions.SproutPermissionEvaluator;
-import net.savantly.sprout.core.tenancy.TenantedPrimaryKey;
-import net.savantly.sprout.starter.security.acls.AclMethodSecurityConfigurationTest.TestContext.ProtectedService;
-import net.savantly.sprout.test.AbstractContainerBaseTest;
-import net.savantly.sprout.test.IntegrationTest;
+import net.savantly.sprout.core.security.permissions.SproutPermissionRegistry;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, properties = {
-		"sprout.jpa.packagesToScan=example.domain",
-		"sprout.jpa.generate-ddl=true"})
-@IntegrationTest
-public class AclMethodSecurityConfigurationTest extends AbstractContainerBaseTest {
+@SpringJUnitWebConfig
+@WebMvcTest
+public class AclMethodSecurityConfigurationTest {
 
 	@Autowired
 	ProtectedService service;
@@ -46,8 +48,10 @@ public class AclMethodSecurityConfigurationTest extends AbstractContainerBaseTes
 	@Autowired
 	ProtectedApi api;
 
-	@Autowired
-	ProtectedObjectRepo repo;
+	@MockBean
+	ProtectedObjectRepository repo;
+	@MockBean
+	EntityManagerFactory emf;
 
 	private static String notok = "notok";
 
@@ -57,32 +61,30 @@ public class AclMethodSecurityConfigurationTest extends AbstractContainerBaseTes
 	}
 
 	private String createOneWithId(String id) {
-		ProtectedObject o = repo.findByIdItemId(id).orElse(new ProtectedObject());
-		TenantedPrimaryKey oid = new TenantedPrimaryKey();
-		oid.setItemId(id);
-		o.setId(oid);
+		ProtectedObject o = repo.findById(id).orElse(new ProtectedObject());
+		o.setId(id);
 		repo.save(o);
-		repo.flush();
 		return id;
 	}
 	
 	@BeforeEach
 	public void beforeEach() {
 		repo.deleteAll();
+		Mockito.when(repo.findById(Mockito.anyString())).thenReturn(Optional.of(new ProtectedObject()));
 	}
 
 	@Test
 	@WithMockUser(username = "me")
 	public void givenNoRole_ServiceShouldFailToCreate() {
 		assertThrows(AccessDeniedException.class, () -> {
-			service.create(new ProtectedObject());
+			service.createOne(new ProtectedObject());
 		});
 	}
 
 	@Test
 	@WithMockUser(username = "me", authorities = { "CREATE" })
 	public void givenCreateRole_ServiceShouldSucceed() {
-		service.create(new ProtectedObject());
+		service.createOne(new ProtectedObject());
 	}
 
 	@Test
@@ -100,16 +102,10 @@ public class AclMethodSecurityConfigurationTest extends AbstractContainerBaseTes
 	}
 
 	@Test
-	@WithMockUser(username = "me", authorities = { "UPDATE" })
-	public void givenUpdateRole_ApiShouldSucceed() {
-		api.update(createOneWithId(), new ProtectedObject());
-	}
-
-	@Test
 	@WithMockUser(username = "me", authorities = { "READ" })
 	public void givenOffLimitsId_ApiShouldFailToRead() {
 		assertThrows(AccessDeniedException.class, () -> {
-			api.getByItemId(createOneWithId(notok));
+			api.getById(createOneWithId(notok));
 		});
 	}
 
@@ -122,7 +118,7 @@ public class AclMethodSecurityConfigurationTest extends AbstractContainerBaseTes
 	}
 
 	@Test
-	@WithMockUser(username = "me", authorities = { "CREATE", "DELETE" })
+	@WithMockUser(username = "me", authorities = { "READ", "CREATE", "DELETE" })
 	public void givenDeleteRole_ApiShouldSucceed() {
 		api.deleteById(createOneWithId());
 	}
@@ -130,20 +126,23 @@ public class AclMethodSecurityConfigurationTest extends AbstractContainerBaseTes
 	@Test
 	@WithMockUser(username = "me", authorities = { "READ" })
 	public void givenReadRole_ApiShouldSucceed() {
-		api.getByItemId(createOneWithId());
+		api.getById(createOneWithId());
 	}
 
-	@Test
-	@WithMockUser(username = "other", authorities = { "READ" })
-	public void givenReadRole_EvaluatorWontGetCalled() {
-		api.getAll(Pageable.unpaged());
-	}
 
-	@Configuration
-	@EnableAutoConfiguration
-	@EnableJpaRepositories({ "example.domain" })
-	@EntityScan({ "example.domain" })
+	@SpringBootConfiguration
+	@Import(AclMethodSecurityConfiguration.class)
 	static class TestContext {
+		
+		@Bean
+		public SproutPermissionRegistry sproutPermissionRegistry(Set<SproutPermissionEvaluator> evaluatorBeans) {
+			return new SproutPermissionRegistry(evaluatorBeans);
+		}
+		
+		@Bean
+		public DelegatingPermissionEvaluator delegatingPermissionEvaluator(SproutPermissionRegistry registry) {
+			return new DelegatingPermissionEvaluator(registry);
+		}
 
 		@Bean
 		public SproutPermissionEvaluator<ProtectedObject> exampleSproutPermissionEvaluator() {
@@ -185,7 +184,7 @@ public class AclMethodSecurityConfigurationTest extends AbstractContainerBaseTes
 						return true;
 					} else if (Objects.nonNull(object) && object.getClass().isAssignableFrom(ProtectedObject.class)) {
 						ProtectedObject o = ((ProtectedObject) object);
-						if (Objects.nonNull(o.getId()) && o.getItemId().contentEquals(notok)) {
+						if (Objects.nonNull(o.getId()) && o.getId().contentEquals(notok)) {
 							return true;
 						}
 					}
@@ -203,22 +202,25 @@ public class AclMethodSecurityConfigurationTest extends AbstractContainerBaseTes
 
 			};
 		}
-
+		
 		@Bean
-		public ProtectedService protectedService() {
-			return new ProtectedService();
+		public Converter<ProtectedObject, ProtectedObject> ProtectedObjectConverter() {
+			return new StdConverter<ProtectedObject, ProtectedObject>() {
+				@Override
+				public ProtectedObject convert(ProtectedObject value) {
+					return value;
+				}
+			};
 		}
 
 		@Bean
-		public ProtectedApi protectedApi(ProtectedObjectRepo repository) {
-			return new ProtectedApi(repository);
+		public ProtectedService protectedService(ProtectedObjectRepository repo) {
+			return new ProtectedService(repo, ProtectedObjectConverter(), ProtectedObjectConverter());
 		}
 
-		static class ProtectedService {
-			@PreAuthorize("hasPermission(#object, 'CREATE')")
-			public ProtectedObject create(ProtectedObject object) {
-				return object;
-			}
+		@Bean
+		public ProtectedApi protectedApi(ProtectedService service) {
+			return new ProtectedApi(service);
 		}
 
 	}

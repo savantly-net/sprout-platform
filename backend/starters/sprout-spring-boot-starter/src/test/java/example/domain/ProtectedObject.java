@@ -1,10 +1,19 @@
 package example.domain;
 
 import javax.persistence.Entity;
-
-import net.savantly.sprout.core.tenancy.TenantKeyedEntity;
+import javax.persistence.Id;
 
 @Entity
-public class ProtectedObject extends TenantKeyedEntity {
-	String name = "test";
+public class ProtectedObject {
+
+	@Id
+	private String id;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 }

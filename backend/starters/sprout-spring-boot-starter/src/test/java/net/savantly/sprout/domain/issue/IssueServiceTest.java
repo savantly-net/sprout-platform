@@ -7,12 +7,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.EntityManagerFactory;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
@@ -32,6 +35,9 @@ import net.savantly.sprout.starter.security.acls.AclMethodSecurityConfiguration;
 
 @SpringJUnitConfig
 public class IssueServiceTest {
+	
+	@MockBean
+	EntityManagerFactory emf;
 
 	@Autowired
 	IssueRepository repo;
