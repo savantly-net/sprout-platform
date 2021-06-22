@@ -50,10 +50,11 @@ bootJar {
     enabled = false
 }
 
+jar {
+  onlyIf { true }
+}
+
 configurations {
-	all {
-		exclude group: 'com.h2database'
-	}
     developmentOnly
     runtimeClasspath {
         extendsFrom developmentOnly
@@ -108,7 +109,7 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	testImplementation 'org.springframework.security:spring-security-test',
-		//'com.h2database:h2',// need to create sql init scripts for H2
+		'com.h2database:h2',// need to create sql init scripts for H2
 		'org.springframework.restdocs:spring-restdocs-mockmvc',
 		'org.postgresql:postgresql'
 	
