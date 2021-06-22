@@ -66,7 +66,7 @@ public abstract class EasyService<D, E, ID, R extends PagingAndSortingRepository
 	 * @param itemId
 	 * @return
 	 */
-	@PostAuthorize("hasPermission(returnObject, 'READ') or hasAuthority('ADMIN')")
+	@PostAuthorize("returnObject.isPresent() && hasPermission(returnObject.get(), 'READ') or hasAuthority('ADMIN')")
 	public Optional<D> getById(ID itemId) {
 		Optional<E> item = repository.findById(itemId);
 		if (item.isPresent()) {
@@ -90,7 +90,7 @@ public abstract class EasyService<D, E, ID, R extends PagingAndSortingRepository
 
 	/**
 	 * Calls permission evaluator before updating<br>
-	 * Override {@link #mapUpdates(Object)} to control mapping of DTO onto existing Entity
+	 * Override {@link #mapUpdates(Object, Object)} to control mapping of DTO onto existing Entity
 	 * 
 	 * @param object
 	 * @return
@@ -117,7 +117,7 @@ public abstract class EasyService<D, E, ID, R extends PagingAndSortingRepository
 	}
 	
 	/**
-	 * Override {@link #mapUpdates(Object)} to control mapping of DTO onto existing Entity
+	 * Override {@link #mapUpdates(Object, Object)} to control mapping of DTO onto existing Entity
 	 * @param updates
 	 * @return Entity to save
 	 */
