@@ -1,0 +1,6 @@
+spring:
+  flyway:
+    enabled: false
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: true
