@@ -6,6 +6,7 @@ import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
+import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
@@ -35,6 +36,7 @@ public abstract class AbstractAuditableDomainObject<ID extends Serializable> imp
 	private @Nullable ZonedDateTime lastModifiedDate;
 
 	@Override
+	@Column(name = "createdby")
 	public Optional<String> getCreatedBy() {
 		return Optional.ofNullable(createdBy);
 	}
@@ -45,6 +47,7 @@ public abstract class AbstractAuditableDomainObject<ID extends Serializable> imp
 	}
 
 	@Override
+	@Column(name = "createddate")
 	public Optional<ZonedDateTime> getCreatedDate() {
 		return Optional.ofNullable(createdDate);
 	}
@@ -60,6 +63,7 @@ public abstract class AbstractAuditableDomainObject<ID extends Serializable> imp
 	}
 
 	@Override
+	@Column(name = "lastmodifiedby")
 	public Optional<String> getLastModifiedBy() {
 		return Optional.ofNullable(lastModifiedBy);
 	}
@@ -70,6 +74,7 @@ public abstract class AbstractAuditableDomainObject<ID extends Serializable> imp
 	}
 
 	@Override
+	@Column(name = "lastmodifieddate")
 	public Optional<ZonedDateTime> getLastModifiedDate() {
 		return Optional.ofNullable(lastModifiedDate);
 	}
