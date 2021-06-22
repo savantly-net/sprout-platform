@@ -2,16 +2,20 @@ package net.savantly.sprout.starter.migration;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
-import net.savantly.sprout.autoconfigure.SproutAutoConfiguration;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-@SpringBootTest
+import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
+import net.savantly.sprout.starter.JpaConfiguration;
+import net.savantly.sprout.test.AbstractContainerBaseTest;
+
+@DataJpaTest
 @ActiveProfiles("postgresddl")
-public class PostgresDDLGeneration {
+public class PostgresDDLGeneration extends AbstractContainerBaseTest {
 
 	@Test
 	public void test() {
@@ -20,8 +24,27 @@ public class PostgresDDLGeneration {
 	
 	@Configuration
 	@EnableAutoConfiguration
-	@Import(SproutAutoConfiguration.class)
 	static class TestContext{
+		
+		@Bean
+		public SproutConfigurationProperties props() {
+			return new SproutConfigurationProperties();
+		}
+		
+		@Bean
+		public ObjectMapper mapper() {
+			return new ObjectMapper();
+		}
+		
+		@Bean("CoreDBMigrator")
+		public CoreDBMigrator fakeMigrator() {
+			return new CoreDBMigrator() {};
+		}
+		
+		@Bean
+		public JpaConfiguration JpaConfiguration(SproutConfigurationProperties props) {
+			return new JpaConfiguration(props);
+		}
 		
 	}
 }
