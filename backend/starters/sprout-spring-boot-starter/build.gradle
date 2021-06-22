@@ -51,7 +51,7 @@ bootJar {
 }
 
 jar {
-  onlyIf { true }
+    enabled = true
 }
 
 configurations {

@@ -79,6 +79,10 @@ bootJar {
     enabled = false
 }
 
+jar {
+    enabled = true
+}
+
 dependencyCheck {
 	analyzers {
 		nodeEnabled=false
