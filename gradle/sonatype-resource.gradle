@@ -9,6 +9,10 @@ signing {
     sign configurations.archives
 }
 
+tasks.withType(Sign) {
+    onlyIf { isReleaseVersion }
+}
+
 // try using the publishing goal
 publishing {
   repositories {
