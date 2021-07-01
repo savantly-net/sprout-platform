@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Import GPG key
         id: import_gpg
-        uses: crazy-max/ghaction-import-gpg@v3
+        uses: crazy-max/ghaction-import-gpg@v3.1.0
         with:
           gpg-private-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
           passphrase: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
