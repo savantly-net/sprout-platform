@@ -106,7 +106,15 @@
     "@types/moxios": "~0.4.11",
     "sinon": "8.1.1",
     "@types/sinon": "^7.5.2",
-    "@types/testing-library__react": "~10.2.0"
+    "@types/testing-library__react": "~10.2.0",
+    "react-pro-sidebar": "~0.6.0",
+    "framer-motion": "^4",
+    "@chakra-ui/icons": "~1.0.14",
+    "@chakra-ui/system": "~1.7.1",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "@chakra-ui/react": "~1.6.5",
+    "react-icons": "~4.2.0"
   },
   "resolutions": {
     "**/@typescript-eslint/eslint-plugin": "^4.1.1",
