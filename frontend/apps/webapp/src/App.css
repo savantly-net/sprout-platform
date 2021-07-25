@@ -347,10 +347,6 @@ ul.nav-tabs {
   flex-grow: 1;
 }
 
-.sidemenu__bottom {
-  padding-bottom: 16px;
-}
-
 .sidemenu__top,
 .sidemenu__bottom {
   display: none;

@@ -97,6 +97,14 @@ In another terminal, start Sprout in dev mode -
 rush start:dev
 ```
 
+If this is the first time you're running sprout, run the following commands:
+
+```
+rush install
+rush build
+
+```
+
 In another terminal start the web app -  
 
 ```

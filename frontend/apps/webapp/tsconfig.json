@@ -17,7 +17,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react",
+    "allowUnreachableCode": true,
   },
   "include": [
     "src", "../libs/api/dist/index.d.ts", "../libs/sprout-ui/dist/index.d.ts"
