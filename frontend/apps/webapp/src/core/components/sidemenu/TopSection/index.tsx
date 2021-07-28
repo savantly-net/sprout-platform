@@ -4,7 +4,7 @@ import { ProSidebar, Menu, MenuItem, SubMenu, SidebarContent, SidebarHeader } fr
 import { useSelector } from 'react-redux';
 import { StoreState } from '../../../../types';
 import { filter } from 'lodash';
-import TopSectionItemNew from './TopSectionItemNew';
+import TopSectionItem from './TopSectionItem';
 import { HamburgerIcon } from '@chakra-ui/icons';
 
 import 'react-pro-sidebar/dist/css/styles.css';
@@ -45,7 +45,7 @@ const TopSectionNew: FC<any> = () => {
         <SidebarContent>
           <Menu iconShape="circle" popperArrow={true}>
             {mainLinks.map((link) => {
-              return <TopSectionItemNew key={link.id} link={link} firstChild={true} />;
+              return <TopSectionItem key={link.id} link={link} firstChild={true} />;
             })}
           </Menu>
         </SidebarContent>

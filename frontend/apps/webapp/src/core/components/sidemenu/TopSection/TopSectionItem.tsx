@@ -46,7 +46,7 @@ const TopSectionItem: FC<Props> = (props) => {
           icon={<Icon name={link.icon || ('cube' as any)} size="1x" />}
           firstchild={firstChild}
         >
-          {link.children.map((child) => (
+          {(link.children || []).map((child) => (
             <TopSectionItem key={child.id} link={child} />
           ))}
         </SubMenu>
@@ -54,7 +54,7 @@ const TopSectionItem: FC<Props> = (props) => {
     </>
   );
 
-  return link.authority ? <PrivateComponent>{linkTag}</PrivateComponent> : linkTag;
+  return link.authority ? <PrivateComponent hasAnyAuthority={[link.authority]}>{linkTag}</PrivateComponent> : linkTag;
 };
 
 export default TopSectionItem;
