@@ -114,7 +114,11 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@chakra-ui/react": "~1.6.5",
-    "react-icons": "~4.2.0"
+    "react-icons": "~4.2.0",
+    "react-beautiful-dnd": "13.0.0",
+    "@types/react-beautiful-dnd": "12.1.2",
+    "focus-visible": "~5.2.0",
+    "@emotion/core": "^10.0.27"
   },
   "resolutions": {
     "**/@typescript-eslint/eslint-plugin": "^4.1.1",
@@ -143,12 +147,16 @@
     ]
   },
   "jest": {
-    "snapshotSerializers": ["enzyme-to-json/serializer"],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
     "collectCoverageFrom": [
       "**/*.{ts,tsx}",
       "!**/node_modules/**",
       "!**/vendor/**"
     ],
-    "coverageReporters": ["text"]
+    "coverageReporters": [
+      "text"
+    ]
   }
 }

@@ -7,9 +7,11 @@ import { Alert } from 'reactstrap';
 import Page from '../../core/components/Page/Page';
 import { getNavModel } from '../../core/selectors/navModel';
 import { StoreState } from '../../types';
+import DragAndDropMenuBuilder from './DragAndDropMenuBuilder';
 import { menuAdminService, MenuDto } from './menuAdminService';
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 
-type internalMenuItemsStateType = MenuDto[] | undefined;
+export type internalMenuItemsStateType = MenuDto[] | undefined;
 
 const CodeEditorField = (props: { name: string }) => {
   // this will return field props for an <input />
@@ -53,6 +55,12 @@ export const MenuAdminPage = () => {
     }
   }, [fetchingMenus, menuItems, menuAdminService, fetchError]);
 
+  const [tabIndex, setTabIndex] = React.useState(0);
+
+  const handleTabsChange = (index: number) => {
+    setTabIndex(index);
+  };
+
   return (
     <Page navModel={navModel}>
       <Page.Contents>
@@ -66,9 +74,8 @@ export const MenuAdminPage = () => {
                 submitText="Save"
                 initialValues={{ menuJson: JSON.stringify(menuItems, null, 2) }}
                 onSubmit={(values, helpers) => {
-                  console.log('submitted', values);
                   menuAdminService
-                    .updateMenus(JSON.parse(values.menuJson))
+                    .updateMenus(tabIndex === 0 ? menuItems : JSON.parse(values.menuJson))
                     .then((response) => {
                       publishSuccessNotification('Saved', 'Saved menu');
                     })
@@ -81,7 +88,22 @@ export const MenuAdminPage = () => {
                     });
                 }}
               >
-                {(props) => <CodeEditorField name="menuJson" />}
+                <Tabs align="center" index={tabIndex} onChange={handleTabsChange}>
+                  <TabList>
+                    <Tab>Drag'n'Drop</Tab>
+                    <Tab>Advanced</Tab>
+                  </TabList>
+                  <TabPanels>
+                    <TabPanel>
+                      {menuItems && <DragAndDropMenuBuilder menuItems={menuItems} setMenuItems={setMenuItems} />}
+                    </TabPanel>
+                    <TabPanel>
+                      <p>
+                        <CodeEditorField name="menuJson" />
+                      </p>
+                    </TabPanel>
+                  </TabPanels>
+                </Tabs>
               </Form>
             </Fragment>
           )}

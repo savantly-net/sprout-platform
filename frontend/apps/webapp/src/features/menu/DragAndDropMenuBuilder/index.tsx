@@ -1,0 +1,193 @@
+import React, { useState } from 'react';
+import { internalMenuItemsStateType } from '../MenuAdminPage';
+import { MenuDto } from '../menuAdminService';
+import { DragDropContext } from 'react-beautiful-dnd';
+import { useFormikContext } from 'formik';
+
+import './styles.scss';
+import DroppableMenuList from './DroppableMenuList';
+
+interface Props {
+  menuItems: internalMenuItemsStateType;
+  setMenuItems: (menuItems: internalMenuItemsStateType) => void;
+}
+
+type DragEndHandler = (result: any) => void;
+
+export type UpdateMenuItemHandler = (fullIndex: string, menu: MenuDto) => void;
+
+const DragAndDropMenuBuilder = ({ menuItems = [], setMenuItems }: Props) => {
+  const { submitForm } = useFormikContext();
+  const [placeholderProps, setPlaceholderProps] = useState({});
+
+  const getList = (id: string) => {
+    const fullIndex = id.split('-')[1];
+    if (!fullIndex) {
+      return menuItems;
+    }
+
+    const item = resolveFullIndex(fullIndex);
+
+    if (!item.children) {
+      item.children = [];
+    }
+
+    return item.children;
+  };
+
+  const resolveFullIndex = (fullIndex: string) => {
+    if (!fullIndex) {
+      return { children: menuItems };
+    }
+    let item = { children: menuItems };
+
+    for (const idx of fullIndex.split('.')) {
+      item = item.children?.[parseInt(idx, 10)];
+    }
+
+    return item;
+  };
+
+  const addItemToList = (list: MenuDto[], idx: number, item: MenuDto) => {
+    list.splice(idx, 0, item);
+    return list;
+  };
+
+  const removeItemFromList = (list: MenuDto[], idx: number) => {
+    const [item] = list.splice(idx, 1);
+    return item;
+  };
+
+  const onDragEnd: DragEndHandler = (result: any) => {
+    setPlaceholderProps({});
+    if (!result.destination) {
+      return;
+    }
+
+    if (
+      result.destination.droppableId === result.source.droppableId &&
+      result.destination.index === result.source.index
+    ) {
+      // Returning as it is a same position drop
+      return;
+    }
+
+    const sourceList = getList(result.source.droppableId);
+    const destinationList = getList(result.destination.droppableId);
+
+    const item = removeItemFromList(sourceList, result.source.index);
+    addItemToList(destinationList, result.destination.index, item);
+
+    setMenuItems(menuItems);
+  };
+
+  const onDragStart = (event: any) => {
+    const draggedDOM = getDraggedDom(event.draggableId);
+
+    if (!draggedDOM) {
+      return;
+    }
+
+    const { clientHeight, clientWidth } = draggedDOM;
+    const sourceIndex = event.source.index;
+    var clientY =
+      parseFloat(window.getComputedStyle(draggedDOM.parentNode).paddingTop) +
+      [...draggedDOM.parentNode.children].slice(0, sourceIndex).reduce((total, curr) => {
+        const style = curr.currentStyle || window.getComputedStyle(curr);
+        const marginBottom = parseFloat(style.marginBottom);
+        return total + curr.clientHeight + marginBottom;
+      }, 0);
+
+    setPlaceholderProps({
+      clientHeight,
+      clientWidth,
+      clientY,
+      clientX: parseFloat(window.getComputedStyle(draggedDOM.parentNode).paddingLeft)
+    });
+  };
+
+  const onDragUpdate = (event: any) => {
+    if (!event.destination) {
+      return;
+    }
+
+    const draggedDOM = getDraggedDom(event.draggableId);
+
+    if (!draggedDOM) {
+      return;
+    }
+
+    const { clientHeight, clientWidth } = draggedDOM;
+    const destinationIndex = event.destination.index;
+    const sourceIndex = event.source.index;
+
+    const childrenArray = [...getDestinationDom(event.destination.droppableId)?.children]; // [...draggedDOM.parentNode.children];
+    const movedItem = childrenArray[sourceIndex];
+    if (event.destination.droppableId === event.source.droppableId) {
+      childrenArray.splice(sourceIndex, 1);
+    }
+
+    const updatedArray = [
+      ...childrenArray.slice(0, destinationIndex),
+      movedItem,
+      ...childrenArray.slice(destinationIndex + 1)
+    ];
+
+    var clientY =
+      parseFloat(window.getComputedStyle(draggedDOM.parentNode).paddingTop) +
+      updatedArray.slice(0, destinationIndex).reduce((total, curr) => {
+        const style = curr.currentStyle || window.getComputedStyle(curr);
+        const marginBottom = parseFloat(style.marginBottom);
+        return total + curr.clientHeight + marginBottom;
+      }, 0);
+
+    setPlaceholderProps({
+      clientHeight,
+      clientWidth,
+      clientY,
+      clientX: parseFloat(window.getComputedStyle(draggedDOM.parentNode).paddingLeft)
+    });
+  };
+
+  const getDraggedDom = (draggableId: string) => {
+    const domQuery = `[data-rbd-drag-handle-draggable-id='${draggableId}']`;
+    const draggedDOM = document.querySelector(domQuery);
+
+    return draggedDOM;
+  };
+
+  const getDestinationDom = (droppableId: string) => {
+    const domQuery = `[data-rbd-droppable-id='${droppableId}']`;
+    const draggedDOM = document.querySelector(domQuery);
+
+    return draggedDOM;
+  };
+
+  const updateMenuAtIndex: UpdateMenuItemHandler = (fullIndex, menu) => {
+    const parentFullIndex = fullIndex.substring(0, fullIndex.lastIndexOf('.'));
+    const parentItem = resolveFullIndex(parentFullIndex);
+    parentItem.children[parseInt(fullIndex.substring(fullIndex.lastIndexOf('.') + 1))] = menu;
+    const updatedMenuItems = [...menuItems];
+    setMenuItems(updatedMenuItems);
+    setTimeout(() => {
+      submitForm();
+    }, 0);
+  };
+
+  return (
+    <div className="DragAndDropMenuBuilder">
+      <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart} onDragUpdate={onDragUpdate}>
+        <DroppableMenuList
+          menuList={menuItems}
+          updateMenuAtIndex={updateMenuAtIndex}
+          fullIndex={''}
+          isRoot={true}
+          placeholderProps={placeholderProps}
+          setPlaceholderProps={setPlaceholderProps}
+        />
+      </DragDropContext>
+    </div>
+  );
+};
+
+export default DragAndDropMenuBuilder;

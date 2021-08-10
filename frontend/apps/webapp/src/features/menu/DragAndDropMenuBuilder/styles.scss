@@ -1,0 +1,7 @@
+.DragAndDropMenuBuilder {
+  width: 100%;
+  .draggingOver {
+     border: 1px solid var(--chakra-colors-gray-300);
+     background: var(--chakra-colors-gray-50);
+  }
+}

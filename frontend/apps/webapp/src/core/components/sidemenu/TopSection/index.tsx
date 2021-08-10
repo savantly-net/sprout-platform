@@ -27,6 +27,8 @@ const TopSectionNew: FC<any> = () => {
     setCollapsed(true);
   }, [isMobile]);
 
+  console.log('mainLinks', mainLinks);
+
   return (
     <>
       {isMobile ? (
