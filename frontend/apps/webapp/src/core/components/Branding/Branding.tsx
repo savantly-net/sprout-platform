@@ -4,6 +4,7 @@ import { css, cx } from 'emotion';
 export interface BrandComponentProps {
   className?: string;
   width?: number;
+  onClick?: () => void;
   children?: JSX.Element | JSX.Element[];
 }
 
@@ -29,8 +30,8 @@ export const LoginBackground: FC<BrandComponentProps> = ({ className, children }
   return <div className={cx(background, className)}>{children}</div>;
 };
 
-export const MenuLogo: FC<BrandComponentProps> = ({ className, width }) => {
-  return <img className={className} src="/api/public/brand/favicon" alt="Sprout" width={width} />;
+export const MenuLogo: FC<BrandComponentProps> = ({ className, width, ...props }) => {
+  return <img className={className} src="/api/public/brand/favicon" alt="Sprout" width={width} {...props} />;
 };
 
 export const AppTitle = 'Sprout';
