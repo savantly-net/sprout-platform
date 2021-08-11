@@ -1,0 +1,16 @@
+.DroppableMenuList {
+    width: 125px;
+    margin: 0 0 6px 80px;
+    position: relative;
+
+    &__droppable {
+      min-height: 10px;
+    }
+
+    &__placeholder {
+      position: absolute;
+      border-radius: 3px;
+      border: dotted 1px var(--chakra-colors-gray-400);
+      background-color: var(--chakra-colors-gray-200);
+    }
+  }

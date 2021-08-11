@@ -1,5 +1,6 @@
 import { ModalRoot, ModalsProvider, Spinner } from '@savantly/sprout-ui';
 import { confirm } from '@sprout-platform/ui';
+import { ChakraProvider } from '@chakra-ui/react';
 import { uniqueId } from 'lodash';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +17,20 @@ import { LoginPage } from './features/login/LoginPage';
 import AppRoutes from './routes/AppRoutes';
 import { history } from './store/configureStore';
 import { StoreState } from './types';
+import { Global, css } from '@emotion/core';
+import 'focus-visible/dist/focus-visible';
+
+const GlobalStyles = css`
+  /*
+    This will hide the focus indicator if the element receives focus    via the mouse,
+    but it will still show up on keyboard focus.
+  */
+  .js-focus-visible :focus:not([data-focus-visible-added]) {
+    outline: none;
+    box-shadow: none;
+  }
+`;
+
 export const App = () => {
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
     initDevFeatures();
@@ -64,13 +79,16 @@ export const App = () => {
   };
 
   return (
-    <ThemeProvider>
-      <ModalsProvider>
-        {orRenderSprinner()}
-        <ModalProxy key={uniqueId()} />
-        <ModalRoot />
-      </ModalsProvider>
-    </ThemeProvider>
+    <ChakraProvider>
+      <Global styles={GlobalStyles} />
+      <ThemeProvider>
+        <ModalsProvider>
+          {orRenderSprinner()}
+          <ModalProxy key={uniqueId()} />
+          <ModalRoot />
+        </ModalsProvider>
+      </ThemeProvider>
+    </ChakraProvider>
   );
 };
 
