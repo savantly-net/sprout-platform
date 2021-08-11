@@ -1,40 +1,20 @@
-import { Icon } from '@savantly/sprout-ui';
-import React from 'react';
+import React, { useState } from 'react';
 import { CoreEvents } from '../../../types';
 import appEvents from '../../app_events';
 import config from '../../config';
-import { Branding } from '../Branding/Branding';
+import useDevice from '../../hooks/useDevice';
 import BottomSection from './BottomSection';
 import TopSection from './TopSection';
 
 const homeUrl = config.appSubUrl || '/';
 
 export const SideMenu = () => {
-  const toggleSideMenuSmallBreakpoint = () => {
-    appEvents.emit(CoreEvents.toggleSidemenuMobile);
-  };
+  const { isMobile } = useDevice();
+  const [collapsed, setCollapsed] = useState(!isMobile);
 
-  if (false) {
-    return (
-      <div className="sidemenu">
-        <a href={homeUrl} className="sidemenu__logo" key="logo">
-          <Branding.MenuLogo />
-        </a>
-        <div className="sidemenu__logo_small_breakpoint" onClick={toggleSideMenuSmallBreakpoint} key="hamburger">
-          <Icon name="bars" size="xl" />
-          <span className="sidemenu__close">
-            <Icon name="times" />
-            &nbsp;Close
-          </span>
-        </div>
-        <TopSection key="topsection" />
-        <BottomSection key="bottomsection" />
-      </div>
-    );
-  }
   return (
     <div className="sidemenu1">
-      <TopSection key="topsection" />
+      <TopSection key="topsection" collapsed={collapsed} setCollapsed={setCollapsed} />
       <BottomSection key="bottomsection" />
     </div>
   );

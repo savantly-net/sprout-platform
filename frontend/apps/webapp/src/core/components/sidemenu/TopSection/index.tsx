@@ -12,14 +12,13 @@ import './style.scss';
 import { Branding } from '../../Branding/Branding';
 import useDevice from '../../../hooks/useDevice';
 
-const TopSectionNew: FC<any> = () => {
+const TopSection: FC<any> = ({ collapsed, setCollapsed }) => {
   const navTree = useSelector((state: StoreState) => state.navTree.items);
   const mainLinks = filter(navTree, (item) => !item.hideFromMenu).sort(
     (a, b) => (a?.position || 0) - (b?.position || 0)
   );
   const { isMobile } = useDevice();
   const [toggled, onToggle] = useState(false);
-  const [collapsed, setCollapsed] = useState(!isMobile);
   useEffect(() => {
     if (isMobile) {
       return setCollapsed(false);
@@ -39,9 +38,7 @@ const TopSectionNew: FC<any> = () => {
       <ProSidebar collapsed={collapsed} breakPoint="md" toggled={toggled} onToggle={onToggle}>
         <SidebarHeader>
           <span className="TopSection__logoContainer">
-            <NavLink to={'/'}>
-              <Branding.MenuLogo width={30} />
-            </NavLink>
+            <Branding.MenuLogo width={30} onClick={!isMobile ? () => setCollapsed(!collapsed) : null} />
           </span>
         </SidebarHeader>
         <SidebarContent>
@@ -56,4 +53,4 @@ const TopSectionNew: FC<any> = () => {
   );
 };
 
-export default TopSectionNew;
+export default TopSection;
