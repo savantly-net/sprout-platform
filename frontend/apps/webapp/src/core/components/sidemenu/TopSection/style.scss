@@ -2,7 +2,7 @@
   position: absolute;
   top: 10px;
   left: 10px;
-  z-index: 1000;
+  z-index: 10000;
 }
 
 .TopSection__logoContainer {
@@ -14,4 +14,16 @@
   img {
     cursor: pointer;
   }
+}
+
+.pro-sidebar .pro-menu .pro-menu-item.pro-sub-menu .pro-inner-list-item .pro-inner-item > .pro-icon-wrapper {
+  display: block;
+}
+
+.pro-sidebar .pro-menu .pro-menu-item.pro-sub-menu .pro-inner-list-item .pro-inner-item .pro-arrow-wrapper {
+  display: block;
+}
+
+.pro-sidebar .pro-menu .pro-menu-item.pro-sub-menu .pro-inner-list-item .pro-inner-item:before {
+  display: none;
 }

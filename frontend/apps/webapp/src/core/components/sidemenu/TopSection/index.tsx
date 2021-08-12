@@ -31,14 +31,14 @@ const TopSection: FC<any> = ({ collapsed, setCollapsed }) => {
   return (
     <>
       {isMobile ? (
-        <div className="TopSection__mobileMenuIcon">
-          <HamburgerIcon w={20} h={20} onClick={() => onToggle(true)} />
+        <div className="TopSection__mobileMenuIcon" onClick={() => onToggle(true)}>
+          <HamburgerIcon w={20} h={20} />
         </div>
       ) : null}
       <ProSidebar collapsed={collapsed} breakPoint="md" toggled={toggled} onToggle={onToggle}>
         <SidebarHeader>
           <span className="TopSection__logoContainer">
-            <Branding.MenuLogo width={30} onClick={!isMobile ? () => setCollapsed(!collapsed) : null} />
+            <Branding.MenuLogo width={30} onClick={() => !isMobile && setCollapsed(!collapsed)} />
           </span>
         </SidebarHeader>
         <SidebarContent>
