@@ -8,7 +8,6 @@ import net.savantly.spring.fixture.AbstractBaseFixture;
 import net.savantly.spring.fixture.Fixture;
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties.BasicCreds;
-import net.savantly.sprout.core.domain.role.RoleFixture;
 import net.savantly.sprout.core.domain.user.SproutUserEntity;
 import net.savantly.sprout.core.domain.user.repository.UserRepository;
 import net.savantly.sprout.core.security.users.SproutUserService;

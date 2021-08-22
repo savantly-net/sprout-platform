@@ -24,6 +24,8 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
@@ -48,7 +50,8 @@ import net.savantly.sprout.core.tenancy.TenantKeyedEntity;
 @Table(name = "app_users", uniqueConstraints = {@UniqueConstraint(columnNames = {"username", "tenant_id"})})
 public class SproutUserEntity extends TenantKeyedEntity implements CredentialsContainer, SproutUser {
 
-    private static final long serialVersionUID = 6629698068044899330L;
+	private static final long serialVersionUID = 6629698068044899330L;
+	private static final Logger log = LoggerFactory.getLogger(SproutUserEntity.class);
 
     // ~ Instance fields
     // ================================================================================================
@@ -223,7 +226,27 @@ public class SproutUserEntity extends TenantKeyedEntity implements CredentialsCo
         		}
         	});
         });
-        return sortAuthorities(privileges);
+        SortedSet<GrantedAuthority> sorted = sortAuthorities(privileges);
+        if (log.isDebugEnabled()) {
+        	StringBuilder sb = new StringBuilder("username: " + this.username + ", authorities: ");
+        	if (!sorted.isEmpty()) {
+                sb.append("Granted Authorities: ");
+
+                boolean first = true;
+                for (GrantedAuthority auth : getAuthorities()) {
+                    if (!first) {
+                        sb.append(",");
+                    }
+                    first = false;
+
+                    sb.append(auth);
+                }
+            } else {
+                sb.append("Not granted any authorities");
+            }
+        	log.debug(sb.toString());
+        }
+        return sorted;
     }
 
     @Transient
