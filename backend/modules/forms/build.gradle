@@ -133,11 +133,3 @@ clean {
     delete 'dist'
     delete 'build'
 }
-
-publishing {
-	publications {
-		maven(MavenPublication) {
-			from(components.java)
-		}
-	}
-}

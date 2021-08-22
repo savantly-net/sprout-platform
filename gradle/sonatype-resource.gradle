@@ -1,91 +1,85 @@
-ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
-ext.doSign = project.hasProperty('doSign') ? project.doSign : false
 ext.ossrhUsername = System.getenv('OSSRH_USER') ? System.getenv('OSSRH_USER') : (project.hasProperty('ossrhUsername') ? project.ossrhUsername : '')
 ext.ossrhPassword = System.getenv('OSSRH_USER_TOKEN') ? System.getenv('OSSRH_USER_TOKEN') : (project.hasProperty('ossrhPassword') ? project.ossrhPassword : '')
 
+ext.versionPostfix = project.hasProperty('versionPostfix') ? project.versionPostfix : 'SNAPSHOT'
+version = '2.0.0-' + versionPostfix
+
+ext.isReleaseVersion = !version.toString().endsWith("-SNAPSHOT")
+
 signing {
-	required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") && doSign }
+    required {
+        // signing is required if this is a release version and the artifacts are to be published
+        isReleaseVersion && tasks.withType(PublishToMavenRepository).find {
+             gradle.taskGraph.hasTask it
+        }
+    }
     useGpgCmd()
-    sign configurations.archives
+    sign publishing.publications
 }
 
 tasks.withType(Sign) {
-    onlyIf { isReleaseVersion }
+	onlyIf { isReleaseVersion }
 }
 
-// try using the publishing goal
+// Build, sign, and upload
 publishing {
+    publications {
+      mavenJava(MavenPublication) {
+          from components.java
+          afterEvaluate {
+              artifactId = 'franchise-manager'
+		  }
+          versionMapping {
+              usage('java-api') {
+                  fromResolutionOf('runtimeClasspath')
+              }
+              usage('java-runtime') {
+                  fromResolutionResult()
+              }
+          }
+          pom {
+            name project.name
+            packaging 'jar'
+            description project.description
+            url 'https://github.com/savantly-net/sprout-platform'
+
+            scm {
+                connection 'scm:git:ssh://github.com/savantly-net/sprout-platform.git'
+                developerConnection 'scm:git:ssh://github.com/savantly-net/sprout-platform.git'
+                url 'https://github.com/savantly-net/sprout-platform/tree/master'
+            }
+
+            licenses {
+                license {
+                    name 'The Apache License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                }
+            }
+
+            developers {
+                developer {
+                    name 'Jeremy Branham'
+                    email 'Jeremy@Savantly.net'
+                    organization {
+                    	name 'savantly.net'
+                    	url 'http://savantly.net'
+                    }
+                    organizationUrl 'https://github.com/savantly-net/'
+                }
+            }
+        }
+     }
+  }
   repositories {
     maven {
       name = "OSSRH"
-      url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
       credentials {
         username = ossrhUsername
         password = ossrhPassword
       }
+      def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+      def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+      url = isReleaseVersion ? releasesRepoUrl: snapshotsRepoUrl 
     }
-    /*
-    maven {
-      name = "GitHubPackages"
-      url = "https://maven.pkg.github.com/savantly-net/sprout-platform"
-      credentials {
-        username = System.getenv("GITHUB_ACTOR")
-        password = System.getenv("GITHUB_TOKEN")
-      }
-    } */
   }
-}
-
-
-// Build, sign, and upload
-uploadArchives {
-	dependsOn build
-    repositories {
-        mavenDeployer {
-
-            // Sign POM
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-            // Destination
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
-
-            // Add required metadata to POM
-            pom.project {
-                name project.name
-                packaging 'jar'
-                description project.description
-                url 'https://github.com/savantly-net/sprout-platform'
-
-                scm {
-                    connection 'scm:git:ssh://github.com/savantly-net/sprout-platform.git'
-                    developerConnection 'scm:git:ssh://github.com/savantly-net/sprout-platform.git'
-                    url 'https://github.com/savantly-net/sprout-platform/tree/master'
-                }
-
-                licenses {
-                    license {
-                        name 'The Apache License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-
-                developers {
-                    developer {
-                        name 'Jeremy Branham'
-                        email 'Jeremy@Savantly.net'
-                        organization {
-                        	name 'savantly.net'
-                        	url 'http://savantly.net'
-                        }
-                        organizationUrl 'https://github.com/savantly-net/'
-                    }
-                }
-            }
-        }
-    }
 }
