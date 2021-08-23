@@ -23,6 +23,7 @@ tasks.withType(Sign) {
 
 // Build, sign, and upload
 publishing {
+/*
     publications {
       mavenJava(MavenPublication) {
           from components.java
@@ -82,4 +83,5 @@ publishing {
       url = isReleaseVersion ? releasesRepoUrl: snapshotsRepoUrl 
     }
   }
+  */
 }

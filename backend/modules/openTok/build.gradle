@@ -10,7 +10,6 @@ plugins {
 	id 'java'
 	id 'java-library'
 	id 'signing'
-	id 'maven'
  	id 'jacoco'
  	id 'org.sonarqube'
 	id "org.owasp.dependencycheck" version "5.3.1"
