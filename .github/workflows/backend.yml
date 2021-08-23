@@ -104,7 +104,7 @@ jobs:
           OSSRH_USER_TOKEN: ${{ secrets.OSSRH_USER_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          ./gradlew :fm-module:publish \
+          ./gradlew publish \
           -PversionPostfix=SNAPSHOT \
           -Psigning.gnupg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }} \
           -Psigning.gnupg.keyName=$(gpg --list-secret-keys --keyid-format LONG | grep "sec" | awk -F'[/ ]' '{print $5}' | head -n 1)
