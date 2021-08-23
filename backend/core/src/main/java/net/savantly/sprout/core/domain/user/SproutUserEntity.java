@@ -233,7 +233,7 @@ public class SproutUserEntity extends TenantKeyedEntity implements CredentialsCo
                 sb.append("Granted Authorities: ");
 
                 boolean first = true;
-                for (GrantedAuthority auth : getAuthorities()) {
+                for (GrantedAuthority auth : sorted) {
                     if (!first) {
                         sb.append(",");
                     }
