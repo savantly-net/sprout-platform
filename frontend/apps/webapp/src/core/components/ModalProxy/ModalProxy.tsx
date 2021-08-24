@@ -9,7 +9,7 @@ interface OwnProps {}
 interface OwnState {
   component: ReactElement<any, any> | null;
 }
-export class ModalProxy extends LifecycleLogging<OwnProps, OwnState> {
+export class ModalProxy extends React.Component<OwnProps, OwnState> {
   ref: Ref<any>;
   constructor(props: OwnProps) {
     super(props, {

@@ -4,6 +4,7 @@ import { sproutApiSvc } from '../../core/services/sproutApiSvc';
 
 export interface IssueComment extends TenantedEntity {
   text: string;
+  tags?: string[];
 }
 
 export interface IssueEntity extends TenantedEntity {
