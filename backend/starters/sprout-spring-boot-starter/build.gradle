@@ -4,7 +4,6 @@ plugins {
 	id 'java'
 	id 'java-library'
 	id 'signing'
-	id 'maven'
  	id 'jacoco'
  	id 'org.sonarqube'
 	id "org.owasp.dependencycheck" version "6.2.2"
@@ -113,7 +112,7 @@ dependencies {
 		'org.springframework.restdocs:spring-restdocs-mockmvc',
 		'org.postgresql:postgresql'
 	
-	testCompile "org.testcontainers:testcontainers:1.15.3",
+	testImplementation "org.testcontainers:testcontainers:1.15.3",
 		"org.testcontainers:junit-jupiter:1.15.3",
 		"org.testcontainers:postgresql:1.15.3"
 }

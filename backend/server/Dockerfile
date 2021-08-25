@@ -1,6 +1,6 @@
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR /build
-COPY build/libs/sprout-server-*.jar app.jar
+COPY build/libs/sprout-server.jar app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
 
 FROM adoptopenjdk:11-jre-hotspot

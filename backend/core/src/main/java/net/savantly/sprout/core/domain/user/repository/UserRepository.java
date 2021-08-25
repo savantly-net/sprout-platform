@@ -1,6 +1,7 @@
 package net.savantly.sprout.core.domain.user.repository;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
@@ -12,7 +13,7 @@ import net.savantly.sprout.core.tenancy.TenantedPrimaryKey;
 
 @Repository
 @RepositoryRestResource(path="users", collectionResourceRel="users")
-public interface UserRepository extends TenantedJpaRepository<SproutUserEntity, TenantedPrimaryKey> {
+public interface UserRepository extends TenantedJpaRepository<SproutUserEntity, TenantedPrimaryKey>, CrudRepository<SproutUserEntity, TenantedPrimaryKey> {
 
 	ProfileProjection findProfileFirstByUsername(String username);
 	ProfileProjection findProfileById(String id);
