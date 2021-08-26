@@ -55,7 +55,7 @@ export default class LifecycleLogging<P = {}, S = {}, SS = any> extends React.Co
   constructor(props: any, flags: LogFlags) {
     super(props);
     this.cycleNum = 1;
-    this.flags = flags || {};
+    this.flags = flags;
     console.log(`#${this.cycleNum}.1 constructor(props)
   - Start of cycle #${this.cycleNum}
   - replaces getInitialState()
