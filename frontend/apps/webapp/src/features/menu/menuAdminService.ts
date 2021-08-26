@@ -8,6 +8,8 @@ export interface MenuDto {
   url: string;
   position: number;
   children: MenuDto[];
+  authorities: string[];
+  weight?: number;
 }
 
 export const menuAdminService = {

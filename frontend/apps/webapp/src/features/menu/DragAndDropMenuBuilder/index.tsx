@@ -6,6 +6,7 @@ import { useFormikContext } from 'formik';
 
 import './styles.scss';
 import DroppableMenuList from './DroppableMenuList';
+import AddMenuItem from './AddMenuItem';
 
 interface Props {
   menuItems: internalMenuItemsStateType;
@@ -174,8 +175,20 @@ const DragAndDropMenuBuilder = ({ menuItems = [], setMenuItems }: Props) => {
     }, 0);
   };
 
+  const onNewMenuItem = (menu: MenuDto) => {
+    const updatedMenuItems = [...menuItems];
+    updatedMenuItems.push(menu);
+    setMenuItems(updatedMenuItems);
+    setTimeout(() => {
+      submitForm();
+    }, 0);
+  };
+
   return (
     <div className="DragAndDropMenuBuilder">
+      <div className="DragAndDropMenuBuilder__AddButtonWrapper">
+        <AddMenuItem onSave={onNewMenuItem} />
+      </div>
       <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart} onDragUpdate={onDragUpdate}>
         <DroppableMenuList
           menuList={menuItems}

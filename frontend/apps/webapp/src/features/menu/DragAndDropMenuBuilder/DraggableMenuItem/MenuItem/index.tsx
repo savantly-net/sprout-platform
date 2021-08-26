@@ -10,26 +10,34 @@ import './styles.scss';
 interface Props {
   menu: MenuDto;
   onUpdate: (menu: MenuDto) => void;
+  disableCollapse?: boolean;
+  saveButtonText?: string;
+  editorTitle?: string;
 }
 
 const MenuItem = (props: Props) => {
   const {
     menu: { name, icon, displayText, url, weight, authorities, children },
-    onUpdate
+    onUpdate,
+    disableCollapse = false,
+    saveButtonText = 'Save',
+    editorTitle
   } = props;
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(!disableCollapse);
 
   return (
     <div className={cx('MenuItem')}>
       <div className="MenuItem__header">
-        <span>{displayText}</span>
-        <IconButton
-          variant="ghost"
-          onClick={() => setCollapsed(!collapsed)}
-          aria-label={collapsed ? 'Expand' : 'Collapse'}
-          size="sm"
-          icon={collapsed ? <TriangleDownIcon /> : <TriangleUpIcon />}
-        />
+        <span>{editorTitle || displayText}</span>
+        {!disableCollapse && (
+          <IconButton
+            variant="ghost"
+            onClick={() => setCollapsed(!collapsed)}
+            aria-label={collapsed ? 'Expand' : 'Collapse'}
+            size="sm"
+            icon={collapsed ? <TriangleDownIcon /> : <TriangleUpIcon />}
+          />
+        )}
       </div>
       <div className={cx('MenuItem__body', { collapsed })}>
         <div className={cx('MenuItem__body__content')}>
@@ -73,7 +81,7 @@ const MenuItem = (props: Props) => {
                   </label>
                 </div>
               </label>
-              <Button type="submit">Submit</Button>
+              <Button type="submit">{saveButtonText}</Button>
             </Form>
           </Formik>
         </div>
