@@ -4,28 +4,34 @@ import { Field, Form, Formik, FormikProps } from 'formik';
 import React, { Fragment, useState } from 'react';
 import { Prompt, useNavigate } from 'react-router-dom';
 import { Alert, Button } from 'reactstrap';
+import FormikSelect from '../../../core/components/FormikSelect';
+import FormikTags from '../../../core/components/FormikTags';
+import FormikTextArea from '../../../core/components/FormikTextArea';
+import FormikTextInput from '../../../core/components/FormikTextInput';
 import {
   IssueEntity as EntityClass,
   issueEntityService as service,
   issueStateProvider as stateProvider
 } from '../entity';
 
+const statusOptions = [{ value: 'OPEN' }, { value: 'CLOSED' }];
+
 export const IssueEntityEditor = ({ item, afterSave }: ItemEditorProps<EntityClass>) => {
   const navigate = useNavigate();
-  const [itemState] = useState(item || stateProvider.props.initialState.example);
   const [error, setError] = useState('');
+  console.log('item', item);
 
   return (
     <Fragment>
       {error && <Alert color="danger">{error}</Alert>}
       <Formik
-        initialValues={itemState}
-        validate={(values) => {
+        initialValues={item}
+        validate={(values: EntityClass) => {
           const errors: any = {};
           return errors;
         }}
         validateOnBlur={true}
-        onSubmit={(values, helpers) => {
+        onSubmit={(values: EntityClass, helpers: any) => {
           const promiseToSave = values.itemId ? service.update(values.itemId, values) : service.create(values);
           promiseToSave
             .then((response) => {
@@ -53,8 +59,10 @@ export const IssueEntityEditor = ({ item, afterSave }: ItemEditorProps<EntityCla
                 Save
               </Button>
             </div>
-            <FormField name="title" label="Title" wrapperProps={wrapperProps} />
-            <Field className="form-control" as="textarea" name="description" placeholder="Description" />
+            <Field name="title" label="Title" component={FormikTextInput} />
+            <Field name="description" component={FormikTextArea} label="Description" />
+            <Field name="status" component={FormikSelect} options={statusOptions} label="Status" />
+            <Field name="tags" component={FormikTags} label="Tags" />
           </Form>
         )}
       </Formik>

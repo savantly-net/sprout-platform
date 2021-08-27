@@ -4,8 +4,9 @@
 import { Formik, FormikHelpers, FormikProps } from 'formik';
 import React, { ComponentType, ReactElement, useState } from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
-import { ThemeColor } from '../../types';
+import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import { Button, ChakraProvider } from '@chakra-ui/react';
+import { ThemeColor } from '@sprout-platform/ui';
 
 export interface DialogModalCloseRespose<T> {
   result: boolean;
@@ -26,7 +27,7 @@ export interface DialogModalProps<T> {
   size?: string;
 }
 
-export const DialogModal = ({
+export const ChakraDialogModal = ({
   onClose,
   initialValue,
   body,
@@ -41,7 +42,7 @@ export const DialogModal = ({
 }: DialogModalProps<any>) => {
   const [state] = useState(initialValue);
 
-  const _cancelClick = () => onClose({result: false, value: state});
+  const _cancelClick = () => onClose({ result: false, value: state });
   const Body = body;
 
   const buttonsContent = (formProps: FormikProps<typeof initialValue>) => {
@@ -52,11 +53,11 @@ export const DialogModal = ({
       return (
         <>
           {cancelText && (
-            <Button color={cancelColor} onClick={_cancelClick}>
+            <Button colorScheme={cancelColor} onClick={_cancelClick}>
               {cancelText}
             </Button>
           )}{' '}
-          <Button type="submit" color={confirmColor} onClick={() => formProps.submitForm()}>
+          <Button type="submit" colorScheme={confirmColor} onClick={() => formProps.submitForm()}>
             {confirmText}
           </Button>
         </>
@@ -68,7 +69,7 @@ export const DialogModal = ({
     <Formik
       initialValues={state}
       onSubmit={(values, helpers) => {
-        onClose({result: true, value: values, helpers: helpers});
+        onClose({ result: true, value: values, helpers: helpers });
       }}
     >
       {(formProps) => (
@@ -84,17 +85,17 @@ export const DialogModal = ({
   );
 };
 
-DialogModal.defaultProps = {
+ChakraDialogModal.defaultProps = {
   confirmText: 'Ok',
   cancelText: 'Cancel',
-  confirmColor: 'primary',
-  cancelColor: '',
+  confirmColor: 'blue',
+  cancelColor: 'gray',
   className: '',
   buttonsComponent: null,
   size: null
 };
 
-export const openDialog = <T extends unknown>(props: Omit<DialogModalProps<T>, 'onClose'>) => {
+export const openChakraDialog = <T extends unknown>(props: Omit<DialogModalProps<T>, 'onClose'>) => {
   return new Promise<DialogModalCloseRespose<T>>((resolve) => {
     let el: HTMLDivElement | null = document.createElement('div');
 
@@ -106,6 +107,11 @@ export const openDialog = <T extends unknown>(props: Omit<DialogModalProps<T>, '
       }
     };
 
-    render(<DialogModal {...props} onClose={handleResolve} />, el);
+    render(
+      <ChakraProvider>
+        <ChakraDialogModal {...props} onClose={handleResolve} />
+      </ChakraProvider>,
+      el
+    );
   });
 };

@@ -106,12 +106,21 @@ export const DataTable: FC<DataTableProps<any>> = ({
   createButtonText = 'Create',
   ...rest
 }: DataTableProps<any>) => {
-  const list = [] as any[];
+  let list = [] as any[];
   if (_.isArray(entityState.response)) {
     list.push(...entityState.response);
   } else if (entityState.response) {
     list.push(...entityState.response.content);
   }
+  list = list.map((row) => {
+    const newRow = { ...row };
+    Object.keys(row).forEach((key) => {
+      if (Array.isArray(row[key])) {
+        newRow[key] = row[key].join(', ');
+      }
+    });
+    return newRow;
+  });
   return (
     <div>
       <Fragment>
