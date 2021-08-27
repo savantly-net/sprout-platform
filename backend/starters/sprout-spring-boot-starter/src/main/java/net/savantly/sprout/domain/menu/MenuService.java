@@ -104,6 +104,7 @@ public class MenuService {
 				.setIcon(menu.getIcon())
 				.setUrl(menu.getUrl())
 				.setWeight(menu.getWeight())
+				.setId(menu.getId())
 				.setAuthorities(menu.getAuthorities().stream().collect(Collectors.toList()));
 	}
 

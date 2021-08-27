@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 @Getter @Setter
 @Accessors(chain = true)
 public class MenuDto {
+	private String id;
 	private String name;
 	private String icon = "apps";
 	private String displayText;

@@ -2,19 +2,19 @@
 // https://github.com/algm/reactstrap-confirm/blob/master/src/components/ConfirmModal.js
 
 import { Formik, FormikHelpers, FormikProps } from 'formik';
-import React, { ComponentType, ReactElement, useState } from 'react';
+import React, { FunctionComponent, ComponentType, ReactElement, useState } from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import { Button, ChakraProvider } from '@chakra-ui/react';
 import { ThemeColor } from '@sprout-platform/ui';
 
-export interface DialogModalCloseRespose<T> {
+export interface DialogModalCloseResponse<T> {
   result: boolean;
   value: T;
   helpers?: FormikHelpers<T>;
 }
 export interface DialogModalProps<T> {
-  onClose: (response: DialogModalCloseRespose<T>) => void;
+  onClose: (response: DialogModalCloseResponse<T>) => void;
   initialValue: T;
   body: ComponentType<FormikProps<T>>;
   title?: string | ReactElement;
@@ -23,7 +23,9 @@ export interface DialogModalProps<T> {
   confirmColor?: ThemeColor;
   cancelColor?: ThemeColor;
   className?: string;
-  buttonsComponent?: ComponentType<{ onClose: (response: DialogModalCloseRespose<T>) => void }>;
+  buttonsComponent?:
+    | ComponentType<{ onClose: (response: DialogModalCloseResponse<T>) => void }>
+    | FunctionComponent<{ onClose: (response: DialogModalCloseResponse<T>) => void }>;
   size?: string;
 }
 
@@ -96,10 +98,10 @@ ChakraDialogModal.defaultProps = {
 };
 
 export const openChakraDialog = <T extends unknown>(props: Omit<DialogModalProps<T>, 'onClose'>) => {
-  return new Promise<DialogModalCloseRespose<T>>((resolve) => {
+  return new Promise<DialogModalCloseResponse<T>>((resolve) => {
     let el: HTMLDivElement | null = document.createElement('div');
 
-    const handleResolve = (result: DialogModalCloseRespose<T>) => {
+    const handleResolve = (result: DialogModalCloseResponse<T>) => {
       if (el) {
         unmountComponentAtNode(el);
         el = null;

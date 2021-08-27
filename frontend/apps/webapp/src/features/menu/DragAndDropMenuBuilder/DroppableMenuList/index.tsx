@@ -4,7 +4,7 @@ import { isEmpty } from 'lodash';
 import { Droppable } from 'react-beautiful-dnd';
 import DraggableMenuItem from '../DraggableMenuItem';
 import { MenuDto } from '../../menuAdminService';
-import { UpdateMenuItemHandler } from '..';
+import { DeleteMenuItemHandler, UpdateMenuItemHandler } from '..';
 
 import './styles.scss';
 
@@ -12,6 +12,7 @@ interface DroppableMenuListProps {
   menuList: MenuDto[];
   fullIndex: string;
   updateMenuAtIndex: UpdateMenuItemHandler;
+  deleteMenuAtIndex: DeleteMenuItemHandler;
   isRoot?: boolean;
   placeholderProps: any;
   setPlaceholderProps: (props: any) => void;
@@ -21,6 +22,7 @@ const DroppableMenuList = ({
   fullIndex,
   menuList,
   updateMenuAtIndex,
+  deleteMenuAtIndex,
   isRoot,
   placeholderProps,
   setPlaceholderProps
@@ -44,6 +46,7 @@ const DroppableMenuList = ({
                 index={idx}
                 fullIndex={`${fullIndex}${!isRoot ? '.' : ''}${idx}`}
                 updateMenuAtIndex={updateMenuAtIndex}
+                deleteMenuAtIndex={deleteMenuAtIndex}
                 placeholderProps={placeholderProps}
                 setPlaceholderProps={setPlaceholderProps}
               />

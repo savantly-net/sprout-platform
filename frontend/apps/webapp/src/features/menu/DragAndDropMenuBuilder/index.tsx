@@ -6,17 +6,27 @@ import { useFormikContext } from 'formik';
 
 import './styles.scss';
 import DroppableMenuList from './DroppableMenuList';
+import AddMenuItem from './AddMenuItem';
+import { DialogModalCloseResponse, openChakraDialog } from '../../../core/components/ChakraDialogModal';
+import { confirm } from '@sprout-platform/ui';
 
 interface Props {
   menuItems: internalMenuItemsStateType;
   setMenuItems: (menuItems: internalMenuItemsStateType) => void;
+  deleteMenuItem: (menuItem: MenuDto) => void;
+}
+
+interface DeleteConfirmationProps {
+  onClose: (response: DialogModalCloseResponse<boolean>) => void;
 }
 
 type DragEndHandler = (result: any) => void;
 
 export type UpdateMenuItemHandler = (fullIndex: string, menu: MenuDto) => void;
 
-const DragAndDropMenuBuilder = ({ menuItems = [], setMenuItems }: Props) => {
+export type DeleteMenuItemHandler = (fullIndex: string) => void;
+
+const DragAndDropMenuBuilder = ({ menuItems = [], setMenuItems, deleteMenuItem }: Props) => {
   const { submitForm } = useFormikContext();
   const [placeholderProps, setPlaceholderProps] = useState({});
 
@@ -163,6 +173,23 @@ const DragAndDropMenuBuilder = ({ menuItems = [], setMenuItems }: Props) => {
     return draggedDOM;
   };
 
+  const deleteMenuAtIndex: DeleteMenuItemHandler = async (fullIndex) => {
+    const response = await confirm({
+      message: 'Deleting will delete this menu item and all its children, Do you want to proceed?',
+      title: 'Are you sure?',
+      confirmText: 'Yes',
+      cancelText: 'Cancel'
+    });
+    if (!response) {
+      return;
+    }
+    const parentFullIndex = fullIndex.substring(0, fullIndex.lastIndexOf('.'));
+    const parentItem = resolveFullIndex(parentFullIndex);
+    const requiredIndex = parseInt(fullIndex.substring(fullIndex.lastIndexOf('.') + 1));
+    const toBeDeletedMenuItem = parentItem.children[requiredIndex];
+    deleteMenuItem(toBeDeletedMenuItem);
+  };
+
   const updateMenuAtIndex: UpdateMenuItemHandler = (fullIndex, menu) => {
     const parentFullIndex = fullIndex.substring(0, fullIndex.lastIndexOf('.'));
     const parentItem = resolveFullIndex(parentFullIndex);
@@ -174,12 +201,22 @@ const DragAndDropMenuBuilder = ({ menuItems = [], setMenuItems }: Props) => {
     }, 0);
   };
 
+  const onNewMenuItem = (menu: MenuDto) => {
+    const updatedMenuItems = [...menuItems];
+    updatedMenuItems.push(menu);
+    setMenuItems(updatedMenuItems);
+  };
+
   return (
     <div className="DragAndDropMenuBuilder">
+      <div className="DragAndDropMenuBuilder__AddButtonWrapper">
+        <AddMenuItem onSave={onNewMenuItem} />
+      </div>
       <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart} onDragUpdate={onDragUpdate}>
         <DroppableMenuList
           menuList={menuItems}
           updateMenuAtIndex={updateMenuAtIndex}
+          deleteMenuAtIndex={deleteMenuAtIndex}
           fullIndex={''}
           isRoot={true}
           placeholderProps={placeholderProps}
