@@ -69,7 +69,6 @@ const AddMenuItem = ({ onSave }: Props) => {
   });
   const toast = useToast();
   const onSubmit = (menu: MenuDto) => {
-    console.log('onUpdate', menu);
     onSave(menu);
     toast({
       title: 'Menu Item created.',

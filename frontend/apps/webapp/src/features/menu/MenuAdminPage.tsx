@@ -41,17 +41,26 @@ export const MenuAdminPage = () => {
 
   const [error, setError] = useState('');
 
+  const fetchMenuItems = async () => {
+    setFetchingMenus(true);
+    menuAdminService.getMenus().then((response) => {
+      if (response.status !== 200) {
+        setFetchError('Failed to fetch menus');
+      } else {
+        setMenuItems(response.data);
+        setFetchingMenus(false);
+      }
+    });
+  };
+
+  const deleteMenuItem = async (menuItem: MenuDto) => {
+    const response = await menuAdminService.deleteMenu(menuItem);
+    fetchMenuItems();
+  };
+
   useMemo(() => {
     if (!menuItems && !fetchingMenus && !fetchError) {
-      setFetchingMenus(true);
-      menuAdminService.getMenus().then((response) => {
-        if (response.status !== 200) {
-          setFetchError('Failed to fetch menus');
-        } else {
-          setMenuItems(response.data);
-          setFetchingMenus(false);
-        }
-      });
+      fetchMenuItems();
     }
   }, [fetchingMenus, menuItems, menuAdminService, fetchError]);
 
@@ -95,7 +104,13 @@ export const MenuAdminPage = () => {
                   </TabList>
                   <TabPanels>
                     <TabPanel>
-                      {menuItems && <DragAndDropMenuBuilder menuItems={menuItems} setMenuItems={setMenuItems} />}
+                      {menuItems && (
+                        <DragAndDropMenuBuilder
+                          menuItems={menuItems}
+                          setMenuItems={setMenuItems}
+                          deleteMenuItem={deleteMenuItem}
+                        />
+                      )}
                     </TabPanel>
                     <TabPanel>
                       <p>
