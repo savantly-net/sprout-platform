@@ -18,9 +18,13 @@ const TopSectionItem: FC<Props> = (props) => {
 
   const leafNode = (
     <MenuItem icon={<Icon name={link.icon || ('cube' as any)} size="1x" />}>
-      <NavLink to={link.url || '/'} onClick={onClick}>
-        {link.text}
-      </NavLink>
+      {link.onClick ? (
+        <span onClick={link.onClick}>{link.text}</span>
+      ) : (
+        <NavLink to={link.url || '/'} onClick={onClick}>
+          {link.text}
+        </NavLink>
+      )}
     </MenuItem>
   );
 
