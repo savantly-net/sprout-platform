@@ -1,4 +1,5 @@
 import React, { ReactNode, useMemo } from 'react';
+import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { StoreState } from '../../../types';
 
@@ -13,7 +14,9 @@ const authorize = (authorities: string[], hasAnyAuthorities?: string[]): boolean
   }
   // else finally, check if the user has any of the required authorities
   else {
-    return hasAnyAuthorities.some((auth) => authorities.includes(auth));
+    return hasAnyAuthorities.some((auth) =>
+      authorities.some((authority) => authority.toLowerCase() === auth.toLowerCase())
+    );
   }
 };
 
@@ -30,6 +33,10 @@ export const PrivateComponent = ({
     console.log(`authorizing for private component: `, user, hasAnyAuthority);
     return sessionHasBeenFetched && authorize(user.authorities, hasAnyAuthority);
   }, [sessionHasBeenFetched, user]);
+
+  if (!authorized) {
+    return <Navigate to="/login" />;
+  }
 
   return <React.Fragment>{authorized && children}</React.Fragment>;
 };
