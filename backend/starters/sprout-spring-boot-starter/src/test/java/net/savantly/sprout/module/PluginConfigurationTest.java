@@ -1,6 +1,6 @@
 package net.savantly.sprout.module;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Assertions;
@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -89,8 +90,12 @@ public class PluginConfigurationTest extends AbstractContainerBaseTest {
 
 	@Test
 	public void testPluginControllerForSettings() throws Exception {
+		mvc.perform(post("/api/plugins/"+EXAMPLE_MODULE_KEY+"/settings").content("{\"jsonData\":{\"test\":\"value\"}}")
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 		MvcResult result = mvc.perform(get("/api/plugins/"+EXAMPLE_MODULE_KEY+"/settings")).andExpect(status().isOk()).andReturn();
 		String content = result.getResponse().getContentAsString();
+		JsonNode jsonNode = mapper.readTree(content);
+		Assertions.assertTrue(jsonNode.at("/jsonData").has("test"), "the test property should be in the jsonData payload: " + content);
 	}
 	
 	

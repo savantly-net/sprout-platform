@@ -98,7 +98,7 @@ public class PluginService {
 		if (m.isPresent()) {
 			PluginMeta pluginMeta = m.get().getPluginMeta();
 			PluginConfigurationEntity pluginConfig = getPluginConfiguration(id);
-			if (Objects.nonNull(pluginConfig)) {
+			if (Objects.nonNull(pluginConfig) && Objects.nonNull(pluginConfig.getJsonData())) {
 				try {
 					pluginMeta.setJsonData(mapper.readerForMapOf(String.class).readValue(pluginConfig.getJsonData()));
 				} catch (JsonProcessingException e) {
