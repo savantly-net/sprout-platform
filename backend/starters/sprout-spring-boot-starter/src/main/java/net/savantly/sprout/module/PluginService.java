@@ -96,7 +96,17 @@ public class PluginService {
 	private Optional<PluginMeta> getPluginMeta(String id) {
 		Optional<SproutWebModule> m = getSproutWebModule(id);
 		if (m.isPresent()) {
-			return Optional.of(m.get().getPluginMeta());
+			PluginMeta pluginMeta = m.get().getPluginMeta();
+			PluginConfigurationEntity pluginConfig = getPluginConfiguration(id);
+			if (Objects.nonNull(pluginConfig)) {
+				try {
+					pluginMeta.setJsonData(mapper.readerForMapOf(String.class).readValue(pluginConfig.getJsonData()));
+				} catch (JsonProcessingException e) {
+					log.error("failed to read plugin configuration jsonData. check the value stored in the database.", e);
+				}
+			}
+			
+			return Optional.of(pluginMeta);
 		}
 		return Optional.empty();
 	}
