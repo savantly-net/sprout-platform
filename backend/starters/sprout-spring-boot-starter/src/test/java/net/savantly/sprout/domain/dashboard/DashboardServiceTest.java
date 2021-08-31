@@ -55,12 +55,6 @@ public class DashboardServiceTest extends AbstractContainerBaseTest {
 		DashboardDtoWrapper savedDto = this.service.saveDashboard(dto);
 		
 		Assertions.assertEquals(home.getDashboard().getVersion()+1, savedDto.getDashboard().getVersion());
-
-		DashboardDtoWrapper thirdTime = this.service.getHomeDashboard();
-		Assertions.assertEquals(home.getDashboard().getId(), thirdTime.getDashboard().getId());
-		Assertions.assertEquals(savedDto.getDashboard().getVersion(), thirdTime.getDashboard().getVersion());
-		Assertions.assertEquals(savedDto.getDashboard().getUid(), thirdTime.getDashboard().getUid());
-		
 	}
 	
 	@Test
