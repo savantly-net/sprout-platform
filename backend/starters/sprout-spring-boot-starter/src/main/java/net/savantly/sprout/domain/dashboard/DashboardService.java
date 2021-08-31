@@ -63,6 +63,14 @@ public class DashboardService {
 		Dashboard entity = this.repo.save(tempEntity);
 		return dashboardConverter.convert(entity);
 	}
+
+	public Boolean setCurrentVersionForId(String id, Long version) {
+		List<Dashboard> dashboardSearchResult = this.repo.findByIdId(id);
+		dashboardSearchResult.stream().forEach(d -> {
+			this.repo.setCurrentVersionForId(d.getId().getVersion() == version, d.getId());
+		});
+		return true;
+	}
 	
 	public DashboardDtoWrapper getByUid(String uid) {
 		Dashboard entity = this.repo.getOne((VersionedId) converter.fromRequestId(uid, Dashboard.class));
@@ -80,11 +88,23 @@ public class DashboardService {
 			return dashboardConverter.convert(entity.get());
 		}
 	}
+
+	public DashboardDtoWrapper getCurrentById(String id) {
+		List<Dashboard> dashboardSearchResult = this.repo.findByIdId(id);
+		if(dashboardSearchResult.size() == 0) {
+			throw notFound(id);
+		} else if(dashboardSearchResult.size() == 1) {
+			return dashboardConverter.convert(dashboardSearchResult.get(0));
+		} else {
+			Optional<Dashboard> entity = dashboardSearchResult.stream().filter(d -> d.isCurrentVersion()).findAny();
+			return dashboardConverter.convert(entity.get());
+		}
+	}
 	
 	public DashboardDtoWrapper getHomeDashboard() {
 		Optional<UIProperty> prop = this.uiProps.getUIPropertyByName(WellKnownUIProp.HOME_DASHBOARD_ID);
 		if(prop.isPresent()) {
-			return getLatestById(prop.get().getValue());
+			return getCurrentById(prop.get().getValue());
 		} else {
 			Dashboard dashboard = addHomeDashboard();
 			return dashboardConverter.convert(dashboard);
@@ -126,7 +146,9 @@ public class DashboardService {
 			.setTitle(dto.getTitle())
 			.setEditable(dto.isEditable())
 			.setHideControls(dto.isHideControls())
+			.setCurrentVersion(dto.isCurrentVersion())
 			.setLinks(dto.getLinks())
+			.setMessage(dto.getMessage())
 			.setPanels(dto.getPanels().stream().map(p -> {
 				try {
 					return this.panelService.fromDto(p);

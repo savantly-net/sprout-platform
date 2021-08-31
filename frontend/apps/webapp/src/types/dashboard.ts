@@ -41,6 +41,8 @@ export interface DashboardDataDTO {
   deleted: boolean;
   editable: boolean;
   hideControls: boolean;
+  currentVersion: boolean;
+  message?: string;
   links: any[];
   panels: PanelModel<any>;
   schemaVersion: number;

@@ -33,6 +33,8 @@ public class DashboardConverter {
 				.setTitle(entity.getTitle())
 				.setEditable(entity.isEditable())
 				.setHideControls(entity.isHideControls())
+				.setCurrentVersion(entity.isCurrentVersion())
+				.setMessage(entity.getMessage())
 				.setLinks(entity.getLinks())
 				.setPanels(entity.getPanels().stream().map(p -> {
 					try {

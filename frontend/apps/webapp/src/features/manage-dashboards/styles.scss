@@ -1,0 +1,18 @@
+.DashboardList{
+  &__versionLine {
+    display: flex;
+
+    &__useVersion {
+      cursor: pointer;
+      
+      &:hover {
+        text-decoration: underline;
+        line-height: 1;
+      }
+    }
+  }
+
+  &__activeVersion {
+    font-weight: bold;
+  }
+}

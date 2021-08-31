@@ -53,6 +53,8 @@ public class Dashboard extends TenantedVersionedDomainObject {
 	private List<String> tags = new ArrayList<String>();
 	
 	private boolean hideControls;
+	private boolean currentVersion;
+	private String message;
 	
 	@PrePersist
 	public void prePersist() {

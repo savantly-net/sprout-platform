@@ -1,5 +1,6 @@
 import { css } from 'emotion';
 import React, { useMemo, useState } from 'react';
+import cx from 'classnames';
 import { useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Alert, Button } from 'reactstrap';
@@ -8,7 +9,18 @@ import { getNavModel } from '../../core/selectors/navModel';
 import { DashboardDTO, StoreState } from '../../types';
 import { dashboardService } from '../dashboard/services/dashboardService';
 
-const DashboardList = ({ dashboards }: { dashboards: DashboardDTO[] }) => {
+import './styles.scss';
+import { setCurrentVersion } from './state/actions';
+
+type SetCurrentVersionHandler = (id: string, version: number) => void;
+
+const DashboardList = ({
+  dashboards,
+  onSetCurrentVersion
+}: {
+  dashboards: DashboardDTO[];
+  onSetCurrentVersion: SetCurrentVersionHandler;
+}) => {
   const versionedList: { [id: string]: DashboardDTO[] } = {};
 
   // add keys
@@ -35,13 +47,37 @@ const DashboardList = ({ dashboards }: { dashboards: DashboardDTO[] }) => {
             <tr key={k}>
               <td>{versionedList[k][0].dashboard.title}</td>
               <td>
-                {versionedList[k].map((d) => (
-                  <div key={d.dashboard.uid}>
-                    <NavLink to={`/d/${d.dashboard.uid}`}>
-                      version {d.dashboard.version} ({d.dashboard.title})
-                    </NavLink>
-                  </div>
-                ))}
+                {versionedList[k]
+                  .sort(
+                    ({ dashboard: { version: versionA } }, { dashboard: { version: versionB } }) => versionA - versionB
+                  )
+                  .map((d) => (
+                    <div
+                      key={d.dashboard.uid}
+                      className={cx('DashboardList__versionLine', {
+                        DashboardList__activeVersion: d.dashboard.currentVersion
+                      })}
+                    >
+                      <NavLink to={`/d/${d.dashboard.uid}`}>
+                        version {d.dashboard.version} - {d.dashboard.message}
+                      </NavLink>
+                      &nbsp;
+                      {d.dashboard.currentVersion ? (
+                        <p>(Current)</p>
+                      ) : (
+                        <p>
+                          (
+                          <span
+                            className="DashboardList__versionLine__useVersion"
+                            onClick={() => onSetCurrentVersion(d.dashboard.id, d.dashboard.version)}
+                          >
+                            Use this version
+                          </span>
+                          )
+                        </p>
+                      )}
+                    </div>
+                  ))}
               </td>
             </tr>
           ))}
@@ -58,8 +94,8 @@ export const ManageDashboardsPage = () => {
   const [fetching, isFetching] = useState(false);
   const [dashboards, setDashboards] = useState(undefined as DashboardDTO[] | undefined);
 
-  useMemo(() => {
-    if (!fetching && !dashboards) {
+  const fetchDashboards = async (force = false) => {
+    if (!fetching && (force || !dashboards)) {
       isFetching(true);
       dashboardService
         .getDashboardsByFolderId(null)
@@ -71,7 +107,16 @@ export const ManageDashboardsPage = () => {
         })
         .finally(() => isFetching(false));
     }
+  };
+
+  useMemo(() => {
+    fetchDashboards();
   }, [fetching, dashboards]);
+
+  const onSetCurrentVersion: SetCurrentVersionHandler = async (id, version) => {
+    await setCurrentVersion(id, version);
+    await fetchDashboards(true);
+  };
 
   return (
     <Page navModel={navModel}>
@@ -94,7 +139,7 @@ export const ManageDashboardsPage = () => {
               Create Dashboard
             </Button>
           </div>
-          {dashboards && <DashboardList dashboards={dashboards} />}
+          {dashboards && <DashboardList dashboards={dashboards} onSetCurrentVersion={onSetCurrentVersion} />}
         </>
       </Page.Contents>
     </Page>

@@ -145,6 +145,10 @@ export function createFolder(payload: any) {
   return sproutApiSvc.post('/api/folders', payload);
 }
 
+export function setCurrentVersion(uid: string, version: number) {
+  return sproutApiSvc.post(`/api/dashboards/db/set-current/${uid}/${version}`);
+}
+
 export function deleteDashboard(uid: string, showSuccessAlert: boolean) {
   return sproutApiSvc.delete(`/api/dashboards/uid/${uid}`);
 }

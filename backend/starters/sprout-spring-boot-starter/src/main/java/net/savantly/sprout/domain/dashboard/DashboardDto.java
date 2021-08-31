@@ -26,5 +26,7 @@ public class DashboardDto {
 	private long schemaVersion;
 	private List<String> tags = new ArrayList<String>();
 	private boolean hideControls;
+	private boolean currentVersion;
+	private String message;
 	private boolean deleted;
 }
