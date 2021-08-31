@@ -3,11 +3,12 @@ import React, { useMemo, useState } from 'react';
 import cx from 'classnames';
 import { useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Alert, Button } from 'reactstrap';
+import { Alert } from 'reactstrap';
 import Page from '../../core/components/Page/Page';
 import { getNavModel } from '../../core/selectors/navModel';
 import { DashboardDTO, StoreState } from '../../types';
 import { dashboardService } from '../dashboard/services/dashboardService';
+import { Table, Thead, Tbody, Tr, Th, Td, Button, Text } from '@chakra-ui/react';
 
 import './styles.scss';
 import { setCurrentVersion } from './state/actions';
@@ -34,55 +35,64 @@ const DashboardList = ({
   });
 
   return (
-    <table className="table table-striped">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>ID</th>
-        </tr>
-      </thead>
-      <tbody>
+    <Table>
+      <Thead>
+        <Tr>
+          <Th>Title</Th>
+          <Th>Versions</Th>
+        </Tr>
+      </Thead>
+      <Tbody>
         {versionedList &&
           Object.keys(versionedList).map((k) => (
-            <tr key={k}>
-              <td>{versionedList[k][0].dashboard.title}</td>
-              <td>
-                {versionedList[k]
-                  .sort(
-                    ({ dashboard: { version: versionA } }, { dashboard: { version: versionB } }) => versionA - versionB
-                  )
-                  .map((d) => (
-                    <div
-                      key={d.dashboard.uid}
-                      className={cx('DashboardList__versionLine', {
-                        DashboardList__activeVersion: d.dashboard.currentVersion
-                      })}
-                    >
-                      <NavLink to={`/d/${d.dashboard.uid}`}>
-                        version {d.dashboard.version} - {d.dashboard.message}
-                      </NavLink>
-                      &nbsp;
-                      {d.dashboard.currentVersion ? (
-                        <p>(Current)</p>
-                      ) : (
-                        <p>
-                          (
-                          <span
-                            className="DashboardList__versionLine__useVersion"
-                            onClick={() => onSetCurrentVersion(d.dashboard.id, d.dashboard.version)}
-                          >
-                            Use this version
-                          </span>
-                          )
-                        </p>
-                      )}
-                    </div>
-                  ))}
-              </td>
-            </tr>
+            <Tr key={k}>
+              <Td>{versionedList[k][0].dashboard.title}</Td>
+              <Td>
+                <Table size="sm">
+                  <Thead>
+                    <Tr>
+                      <Td>Version</Td>
+                      <Td>Message</Td>
+                      <Td>Actions</Td>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {versionedList[k]
+                      .sort(
+                        ({ dashboard: { version: versionA } }, { dashboard: { version: versionB } }) =>
+                          versionA - versionB
+                      )
+                      .map((d) => (
+                        <Tr
+                          className={cx('DashboardList__versionLine', {
+                            DashboardList__activeVersion: d.dashboard.currentVersion
+                          })}
+                        >
+                          <Td>{d.dashboard.version}</Td>
+                          <Td>{d.dashboard.message || 'NA'}</Td>
+                          <Td>
+                            {d.dashboard.currentVersion ? (
+                              <Button disabled size="xs">
+                                Active Version
+                              </Button>
+                            ) : (
+                              <Button
+                                size="xs"
+                                onClick={() => onSetCurrentVersion(d.dashboard.id, d.dashboard.version)}
+                              >
+                                Use this version
+                              </Button>
+                            )}
+                          </Td>
+                        </Tr>
+                      ))}
+                  </Tbody>
+                </Table>
+              </Td>
+            </Tr>
           ))}
-      </tbody>
-    </table>
+      </Tbody>
+    </Table>
   );
 };
 

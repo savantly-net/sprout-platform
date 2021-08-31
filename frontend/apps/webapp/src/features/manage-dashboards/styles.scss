@@ -1,15 +1,6 @@
 .DashboardList{
   &__versionLine {
-    display: flex;
-
-    &__useVersion {
-      cursor: pointer;
-      
-      &:hover {
-        text-decoration: underline;
-        line-height: 1;
-      }
-    }
+    height: 41px;
   }
 
   &__activeVersion {
