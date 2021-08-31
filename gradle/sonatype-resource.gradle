@@ -2,7 +2,7 @@ ext.ossrhUsername = System.getenv('OSSRH_USER') ? System.getenv('OSSRH_USER') : 
 ext.ossrhPassword = System.getenv('OSSRH_USER_TOKEN') ? System.getenv('OSSRH_USER_TOKEN') : (project.hasProperty('ossrhPassword') ? project.ossrhPassword : '')
 
 ext.versionPostfix = project.hasProperty('versionPostfix') ? project.versionPostfix : 'SNAPSHOT'
-version = '2.0.0-' + versionPostfix
+project.version = '2.0.0-' + versionPostfix
 
 ext.isReleaseVersion = !version.toString().endsWith("-SNAPSHOT")
 
@@ -21,67 +21,53 @@ tasks.withType(Sign) {
 	onlyIf { isReleaseVersion }
 }
 
-// Build, sign, and upload
+// Build, sign, and upload89
 publishing {
-/*
     publications {
-      mavenJava(MavenPublication) {
-          from components.java
-          afterEvaluate {
-              artifactId = 'franchise-manager'
-		  }
-          versionMapping {
-              usage('java-api') {
-                  fromResolutionOf('runtimeClasspath')
-              }
-              usage('java-runtime') {
-                  fromResolutionResult()
-              }
-          }
-          pom {
-            name project.name
-            packaging 'jar'
-            description project.description
-            url 'https://github.com/savantly-net/sprout-platform'
+        mavenJava(MavenPublication) {
+            from components.java
+            pom {
+                name = project.name
+                description = project.description
+                url = 'https://github.com/savantly-net/sprout-platform'
 
-            scm {
-                connection 'scm:git:ssh://github.com/savantly-net/sprout-platform.git'
-                developerConnection 'scm:git:ssh://github.com/savantly-net/sprout-platform.git'
-                url 'https://github.com/savantly-net/sprout-platform/tree/master'
-            }
-
-            licenses {
-                license {
-                    name 'The Apache License, Version 2.0'
-                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                scm {
+                    connection = 'scm:git:ssh://github.com/savantly-net/sprout-platform.git'
+                    developerConnection = 'scm:git:ssh://github.com/savantly-net/sprout-platform.git'
+                    url = 'https://github.com/savantly-net/sprout-platform/tree/master'
                 }
-            }
 
-            developers {
-                developer {
-                    name 'Jeremy Branham'
-                    email 'Jeremy@Savantly.net'
-                    organization {
-                    	name 'savantly.net'
-                    	url 'http://savantly.net'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
                     }
-                    organizationUrl 'https://github.com/savantly-net/'
+                }
+
+                developers {
+                    developer {
+                        name = 'Jeremy Branham'
+                        email = 'Jeremy@Savantly.net'
+                        organization {
+                            name = 'savantly.net'
+                            url = 'http://savantly.net'
+                        }
+                        organizationUrl = 'https://github.com/savantly-net/'
+                    }
                 }
             }
         }
-     }
-  }
-  repositories {
-    maven {
-      name = "OSSRH"
-      credentials {
-        username = ossrhUsername
-        password = ossrhPassword
-      }
-      def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-      def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
-      url = isReleaseVersion ? releasesRepoUrl: snapshotsRepoUrl 
     }
-  }
-  */
+	repositories {
+		maven {
+			name = "OSSRH"
+			credentials {
+				username = ossrhUsername
+				password = ossrhPassword
+			}
+			def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+			def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+			url = isReleaseVersion ? releasesRepoUrl: snapshotsRepoUrl 
+		}
+	}
 }

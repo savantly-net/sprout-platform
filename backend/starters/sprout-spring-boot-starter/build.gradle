@@ -3,7 +3,6 @@ plugins {
 	id 'io.spring.dependency-management'
 	id 'java'
 	id 'java-library'
-	id 'signing'
  	id 'jacoco'
  	id 'org.sonarqube'
 	id "org.owasp.dependencycheck" version "6.2.2"
