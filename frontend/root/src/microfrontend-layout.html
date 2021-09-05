@@ -1,0 +1,25 @@
+<single-spa-router>
+  <!--
+
+    This is the single-spa Layout Definition for your microfrontends.
+    See https://single-spa.js.org/docs/layout-definition/ for more information.
+
+  -->
+
+
+  <nav>
+    <application name="@sprout-platform/sidebar"></application>
+  </nav>
+  <!-- Example layouts you might find helpful:
+  <route path="settings">
+    <application name="@org/settings"></application>
+  </route>
+
+  -->
+
+  <main>
+    <route default>
+      <application name="@sprout-platform/dashboard"></application>
+    </route>
+  </main>
+</single-spa-router>

@@ -15,56 +15,42 @@ The front-end UI of Sprout is a `React` application and can load plugins that ex
 
 ### Create a new plugin
 
-The UI plugin system is forked from the Grafana plugin system, but without Angular or time-series functionality.  
-Please refer to Grafana's tutorials for [plugin development](https://grafana.com/tutorials/build-a-panel-plugin) until Sprout plugin tutorials are available.  
-_Looking for documentation contributions. Submit PRs if you'd like to help_
+TODO
 
+# Micro-frontends POC
 
-```bash
-npm install -g @savantly/sprout-toolkit
-mkdir myplugin && cd myplugin
-sprout-toolkit plugin:create
+A proof of concept using [single-spa](https://single-spa.js.org/)  
 
-# answer a few questions, and your plugin is ready.
+Key points - 
+- each feature in the app can be developed and tested in isolation
+- using 'layouts', we can implement the layout data in json, and generate a layout from the server - which allows us to dynamically add micro-applications/routes at runtime. This also let's us load plugins without requiring them to be packaged in a `jar` for the backend to parse. Some sprout modules may still need jars if they provide server functionality. 
+- module mapping allows us to develop locally for a plugin, while pulling the others from remote location, or any combination of those
+- using [cross micro frontend imports](https://single-spa.js.org/docs/recommended-setup/#cross-microfrontend-imports) let's us abstract common/shared functionality into modules that can be consumed from any plugin. Could be great for services like "toast notifications" or adding context to the menu. 
+
+Until we have some deployed packages or a way to link locally, for development - each micro-frontend needs to be running locally.  
+
+Open 3 terminals -  
+
+Terminal 1  
+```
+cd ./apps/sidebar
+pnpm install
+pnpm start -- --port 8500
 ```
 
-Example output from plugin creation - 
-```bash
-? Select plugin type Panel Plugin
-✔ Fetching plugin template...
-? Plugin name MyTestPlugin
-? Organization (used as part of plugin ID) savantly
-? Description A test panel plugin
-? Keywords (separated by comma) savantly, sprout, plugin, panel, example
-? Author (Jeremy Branham) Yes
-? Your URL (i.e. organisation url) https://savantly.net
-
-    Your plugin details
-    ---
-    Name:  MyTestPlugin
-    ID:  savantly-my-test-plugin
-    Description:  A test panel plugin
-    Keywords:  [ 'savantly', 'sprout', 'plugin', 'panel', 'example' ]
-    Author:  Jeremy Branham
-    Organisation:  savantly
-    Website:  https://savantly.net
-
-? Is that ok? Yes
-✔ Saving package.json and plugin.json files
-✔ Cleaning
-
-    Congrats! You have just created Sprout Panel Plugin.
-
-    Sprout Panel Plugin tutorial: https://grafana.com/tutorials/build-a-panel-plugin
-    Learn more about Grafana Plugins at https://grafana.com/docs/grafana/latest/plugins/developing/development/
+Terminal 2  
+```
+cd ./apps/dashboard
+pnpm install
+pnpm start -- --port 8501
 ```
 
-Install dependencies -  
-`npm install`  
-or  
-`yarn`  
+Terminal 3  
+This is the root config that's responsible for wiring up the imported modules.  
+```
+cd ./root
+pnpm install
+pnpm start
+```
 
-Build -  
-`npm run build`  
-or  
-`yarn build`  
+
