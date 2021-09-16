@@ -38,6 +38,8 @@ const pluginDevRunner: TaskRunner<PluginBundleOptions> = async options => {
     return yarnlink();
   }
 
+  options = {...options, minimize: true}
+
   if (options.watch) {
     await bundleFn(options);
   } else {

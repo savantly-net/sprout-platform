@@ -8,15 +8,17 @@ export interface PluginBundleOptions {
   production?: boolean;
   yarnlink?: boolean;
   outputFolder?: string;
+  minimize?: boolean;
 }
 
 // export const bundlePlugin = useSpinner<PluginBundleOptions>('Bundle plugin', ({ watch }) => {
-export const bundlePlugin = async ({ watch, production, outputFolder }: PluginBundleOptions) => {
+export const bundlePlugin = async ({ watch, production, outputFolder, minimize }: PluginBundleOptions) => {
   const compiler = webpack(
     await loadWebpackConfig({
       watch,
       production,
       outputFolder,
+      minimize,
     })
   );
 

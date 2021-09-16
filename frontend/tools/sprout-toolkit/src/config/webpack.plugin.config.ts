@@ -19,6 +19,7 @@ export interface WebpackConfigurationOptions {
   watch?: boolean;
   production?: boolean;
   outputFolder?: string;
+  minimize?: boolean;
 }
 type WebpackConfigurationGetter = (options: WebpackConfigurationOptions) => Promise<webpack.Configuration>;
 export type CustomWebpackConfigurationGetter = (
@@ -141,6 +142,11 @@ const getBaseWebpackConfig: WebpackConfigurationGetter = async options => {
     optimization.minimizer = [new TerserPlugin({ sourceMap: true }), new OptimizeCssAssetsPlugin()];
   } else if (options.watch) {
     plugins.push(new HtmlWebpackPlugin());
+  }
+
+  if (!options.production && options.minimize) {
+    optimization.minimize = true;
+    optimization.minimizer = [new TerserPlugin({ sourceMap: true })];
   }
 
   return {
