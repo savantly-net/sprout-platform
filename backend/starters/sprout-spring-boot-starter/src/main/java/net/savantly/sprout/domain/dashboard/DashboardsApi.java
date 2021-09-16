@@ -56,6 +56,12 @@ public class DashboardsApi {
 		DashboardDtoWrapper saved = this.service.saveDashboard(dto);
 		return toSaveResponse(saved);
 	}
+
+	@PreAuthorize("hasAuthority('DASHBOARD_EDIT')")
+	@PostMapping("/db/set-current/{id}/{version}")
+	public Boolean setCurrentVersionForId(@PathVariable("id") String id, @PathVariable("version") Long version) {
+		return this.service.setCurrentVersionForId(id, version);
+	}
 	
 	// Should we add this??
 	//@PreAuthorize("hasAuthority('DASHBOARD_READ')")

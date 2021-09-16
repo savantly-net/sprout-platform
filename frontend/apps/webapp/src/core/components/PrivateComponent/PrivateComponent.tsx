@@ -31,6 +31,7 @@ export const PrivateComponent = ({
   const user = useSelector((state: StoreState) => state.authentication.user);
   const authorized = useMemo(() => {
     console.log(`authorizing for private component: `, user, hasAnyAuthority);
+    console.log('sessionHasBeenFetched', sessionHasBeenFetched);
     return sessionHasBeenFetched && authorize(user.authorities, hasAnyAuthority);
   }, [sessionHasBeenFetched, user]);
 

@@ -1,14 +1,27 @@
 import { css } from 'emotion';
 import React, { useMemo, useState } from 'react';
+import cx from 'classnames';
 import { useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Alert, Button } from 'reactstrap';
+import { Alert } from 'reactstrap';
 import Page from '../../core/components/Page/Page';
 import { getNavModel } from '../../core/selectors/navModel';
 import { DashboardDTO, StoreState } from '../../types';
 import { dashboardService } from '../dashboard/services/dashboardService';
+import { Table, Thead, Tbody, Tr, Th, Td, Button, Text } from '@chakra-ui/react';
 
-const DashboardList = ({ dashboards }: { dashboards: DashboardDTO[] }) => {
+import './styles.scss';
+import { setCurrentVersion } from './state/actions';
+
+type SetCurrentVersionHandler = (id: string, version: number) => void;
+
+const DashboardList = ({
+  dashboards,
+  onSetCurrentVersion
+}: {
+  dashboards: DashboardDTO[];
+  onSetCurrentVersion: SetCurrentVersionHandler;
+}) => {
   const versionedList: { [id: string]: DashboardDTO[] } = {};
 
   // add keys
@@ -22,31 +35,64 @@ const DashboardList = ({ dashboards }: { dashboards: DashboardDTO[] }) => {
   });
 
   return (
-    <table className="table table-striped">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>ID</th>
-        </tr>
-      </thead>
-      <tbody>
+    <Table>
+      <Thead>
+        <Tr>
+          <Th>Title</Th>
+          <Th>Versions</Th>
+        </Tr>
+      </Thead>
+      <Tbody>
         {versionedList &&
           Object.keys(versionedList).map((k) => (
-            <tr key={k}>
-              <td>{versionedList[k][0].dashboard.title}</td>
-              <td>
-                {versionedList[k].map((d) => (
-                  <div key={d.dashboard.uid}>
-                    <NavLink to={`/d/${d.dashboard.uid}`}>
-                      version {d.dashboard.version} ({d.dashboard.title})
-                    </NavLink>
-                  </div>
-                ))}
-              </td>
-            </tr>
+            <Tr key={k}>
+              <Td>{versionedList[k][0].dashboard.title}</Td>
+              <Td>
+                <Table size="sm">
+                  <Thead>
+                    <Tr>
+                      <Td>Version</Td>
+                      <Td>Message</Td>
+                      <Td>Actions</Td>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {versionedList[k]
+                      .sort(
+                        ({ dashboard: { version: versionA } }, { dashboard: { version: versionB } }) =>
+                          versionA - versionB
+                      )
+                      .map((d) => (
+                        <Tr
+                          className={cx('DashboardList__versionLine', {
+                            DashboardList__activeVersion: d.dashboard.currentVersion
+                          })}
+                        >
+                          <Td>{d.dashboard.version}</Td>
+                          <Td>{d.dashboard.message || 'NA'}</Td>
+                          <Td>
+                            {d.dashboard.currentVersion ? (
+                              <Button disabled size="xs">
+                                Active Version
+                              </Button>
+                            ) : (
+                              <Button
+                                size="xs"
+                                onClick={() => onSetCurrentVersion(d.dashboard.id, d.dashboard.version)}
+                              >
+                                Use this version
+                              </Button>
+                            )}
+                          </Td>
+                        </Tr>
+                      ))}
+                  </Tbody>
+                </Table>
+              </Td>
+            </Tr>
           ))}
-      </tbody>
-    </table>
+      </Tbody>
+    </Table>
   );
 };
 
@@ -58,8 +104,8 @@ export const ManageDashboardsPage = () => {
   const [fetching, isFetching] = useState(false);
   const [dashboards, setDashboards] = useState(undefined as DashboardDTO[] | undefined);
 
-  useMemo(() => {
-    if (!fetching && !dashboards) {
+  const fetchDashboards = async (force = false) => {
+    if (!fetching && (force || !dashboards)) {
       isFetching(true);
       dashboardService
         .getDashboardsByFolderId(null)
@@ -71,7 +117,16 @@ export const ManageDashboardsPage = () => {
         })
         .finally(() => isFetching(false));
     }
+  };
+
+  useMemo(() => {
+    fetchDashboards();
   }, [fetching, dashboards]);
+
+  const onSetCurrentVersion: SetCurrentVersionHandler = async (id, version) => {
+    await setCurrentVersion(id, version);
+    await fetchDashboards(true);
+  };
 
   return (
     <Page navModel={navModel}>
@@ -94,7 +149,7 @@ export const ManageDashboardsPage = () => {
               Create Dashboard
             </Button>
           </div>
-          {dashboards && <DashboardList dashboards={dashboards} />}
+          {dashboards && <DashboardList dashboards={dashboards} onSetCurrentVersion={onSetCurrentVersion} />}
         </>
       </Page.Contents>
     </Page>

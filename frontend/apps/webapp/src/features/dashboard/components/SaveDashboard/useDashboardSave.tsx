@@ -10,11 +10,11 @@ import { DashboardModel } from '../../state';
 import { SaveDashboardOptions } from './types';
 
 const saveDashboard = async (saveModel: any, options: SaveDashboardOptions, dashboard: DashboardModel) => {
-  let folderId = options.folderId;
+  let { folderId, message } = options;
   if (folderId === undefined) {
     folderId = dashboard.meta.folderId || saveModel.folderId;
   }
-  return await saveDashboardApiCall({ ...options, folderId, dashboard: saveModel });
+  return await saveDashboardApiCall({ ...options, folderId, dashboard: { ...saveModel, message } });
 };
 
 export const useDashboardSave = (dashboard: DashboardModel) => {
