@@ -268,7 +268,8 @@ dependencies:
   slate: 0.47.8_immutable@3.8.2
   storybook-dark-mode: 0.6.1_@storybook+theming@5.3.21
   style-loader: 0.23.1
-  systemjs: 0.20.19
+  systemjs: 0.21.6
+  systemjs-plugin-babel: 0.0.25
   systemjs-plugin-css: 0.1.37
   terser-webpack-plugin: 2.3.8_webpack@4.42.0
   tether-drop: 1.4.2
@@ -27977,14 +27978,18 @@ packages:
       node: '>= 0.12'
     resolution:
       integrity: sha512-2CW5SU4/Ki1cYOOHcL2cXK4rxSg5hCU1TwZ7X4euKhV9VnfqKslh7T6/UyKkubA8cq2tOmsOv7m3ZUmQslBRuw==
+  /systemjs-plugin-babel/0.0.25:
+    dev: false
+    resolution:
+      integrity: sha512-RMKSizWWlw4+IpDB385ugxn7Owd9W+HEtjYDQ6yO1FpsnER/vk6FbXRweUF+mvRi6EHgk8vDdUdtui7ReDwX3w==
   /systemjs-plugin-css/0.1.37:
     dev: false
     resolution:
       integrity: sha512-wCGG62zYXuOlNji5FlBjeMFAnLeAO/HQmFg+8UBX/mlHoAKLHlGFYRstlhGKibRU2oxk/BH9DaihOuhhNLi7Kg==
-  /systemjs/0.20.19:
+  /systemjs/0.21.6:
     dev: false
     resolution:
-      integrity: sha512-H/rKwNEEyej/+IhkmFNmKFyJul8tbH/muiPq5TyNoVTwsGhUjRsN3NlFnFQUvFXA3+GQmsXkCNXU6QKPl779aw==
+      integrity: sha512-R+5S9eV9vcQgWOoS4D87joZ4xkFJHb19ZsyKY07D1+VBDE9bwYcU+KXE0r5XlDA8mFoJGyuWDbfrNoh90JsA8g==
   /table-layout/0.4.5:
     dependencies:
       array-back: 2.0.0
@@ -30601,7 +30606,7 @@ packages:
       rollup-plugin-sourcemaps: 0.6.3_01a65659e93fc017771bf8fb4219d53d
       rollup-plugin-terser: 7.0.2_rollup@2.35.1
       rxjs: 6.6.3
-      systemjs: 0.20.19
+      systemjs: 0.21.6
       systemjs-plugin-css: 0.1.37
       typescript: 3.9.7
     dev: false
@@ -30611,7 +30616,7 @@ packages:
       '@types/node': '*'
       react-scripts: '*'
     resolution:
-      integrity: sha512-bsfHbx6ZFFxN9OhxINHyo+TJnDKVh3pPj07cOjyWkURhFu6npV54nwTm2ftaDoGLTVRqsg8ZvQK2jTMieT1l6A==
+      integrity: sha512-NuytrLumZ5ooVvnFZAW+5w+dR8fLFocZ6aHJe+33NyRMt4KCxC+mAmEobXB+7b9Ea0ZCe2/jRr3Z8Hxu5Xy3zw==
       tarball: 'file:projects/sprout-runtime.tgz'
     version: 0.0.0
   'file:projects/sprout-toolkit.tgz':
@@ -31027,6 +31032,7 @@ packages:
       redux-thunk: 2.3.0
       rxjs: 6.6.3
       sinon: 8.1.1
+      systemjs-plugin-babel: 0.0.25
       tether-drop: 1.4.2
       tinycolor2: 1.4.2
       ts-bus: 2.3.1_react@16.14.0
@@ -31038,7 +31044,7 @@ packages:
     peerDependencies:
       '@babel/core': '*'
     resolution:
-      integrity: sha512-1rtwTQw7ZrpqZkf7pZ7RJ5HgQxpHR6w7xa0ZmJhGb3c2Yw1M85v8vWFuBoEt3WhIt5hPTyEPN8BtwhM6boU5Tw==
+      integrity: sha512-PFQgwuYKEQU1YzIwUc1lHqOVgdzVwl+9OLfx4Sabf5HWf0caUGBbJXBM2ctBJepTrcsUJmV75H4jgPRjWWtUGw==
       tarball: 'file:projects/webapp.tgz'
     version: 0.0.0
 registry: ''
@@ -31312,7 +31318,8 @@ specifiers:
   slate: 0.47.8
   storybook-dark-mode: 0.6.1
   style-loader: ^0.23.1
-  systemjs: 0.20.19
+  systemjs: ^0.21.5
+  systemjs-plugin-babel: ~0.0.25
   systemjs-plugin-css: 0.1.37
   terser-webpack-plugin: ^2.3.4
   tether-drop: ^1.4.2
