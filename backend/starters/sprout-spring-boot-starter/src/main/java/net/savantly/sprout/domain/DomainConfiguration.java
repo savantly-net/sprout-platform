@@ -17,6 +17,7 @@ import net.savantly.sprout.domain.dashboard.DashboardConfiguration;
 import net.savantly.sprout.domain.feed.FeedConfiguration;
 import net.savantly.sprout.domain.file.FileProviderConfiguration;
 import net.savantly.sprout.domain.folder.FolderConfiguration;
+import net.savantly.sprout.domain.home.HomePageConfiguration;
 import net.savantly.sprout.domain.issue.IssueConfiguration;
 import net.savantly.sprout.domain.mail.MailConfiguration;
 import net.savantly.sprout.domain.menu.MenuConfiguration;
@@ -32,6 +33,7 @@ import net.savantly.sprout.domain.widget.WidgetConfiguration;
 	FeedConfiguration.class, 
 	FileProviderConfiguration.class,
 	FolderConfiguration.class,
+	HomePageConfiguration.class,
 	IssueConfiguration.class, 
 	UIPropertiesConfiguration.class, 
 	MailConfiguration.class,

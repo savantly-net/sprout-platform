@@ -6,15 +6,16 @@ import ErrorBoundary from '../core/components/error/error-boundary';
 import PageNotFound from '../core/components/error/page-not-found';
 import Spinner from '../core/components/Spinner/Spinner';
 import DashboardProvider from '../features/dashboard/containers/DashboardProvider';
+import IssueManager from '../features/feedback/IssueManager';
 import FileBrowserRoutes from '../features/files/FileBrowserRoutes';
+import { HomePage } from '../features/home/HomePage';
 import { ManageDashboardsPage } from '../features/manage-dashboards/ManageDashboardsPage';
+import { MenuAdminPage } from '../features/menu/MenuAdminPage';
 import { PermissionsPage } from '../features/permissions/PermissionsPage';
 import AppRootPage from '../features/plugins/AppRootPage';
 import PluginListPage from '../features/plugins/PluginListPage';
 import PluginPage from '../features/plugins/PluginPage';
 import { DashboardRouteInfo, StoreState } from '../types';
-import IssueManager from '../features/feedback/IssueManager';
-import { MenuAdminPage } from '../features/menu/MenuAdminPage';
 
 type OwnProps = {
   history: any;
@@ -28,7 +29,7 @@ const AppRoutes = ({ history }: AllProps) => {
   return (
     <Suspense fallback={<Spinner />}>
       <Routes>
-        <Route path="/" element={<DashboardProvider routeInfo={DashboardRouteInfo.Home} />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/d/:uid" element={<DashboardProvider routeInfo={DashboardRouteInfo.Normal} />} />
         <Route path="/d/:uid/:slug" element={<DashboardProvider routeInfo={DashboardRouteInfo.Normal} />} />
         <Route path="/dashboards/new" element={<DashboardProvider routeInfo={DashboardRouteInfo.New} />} />
