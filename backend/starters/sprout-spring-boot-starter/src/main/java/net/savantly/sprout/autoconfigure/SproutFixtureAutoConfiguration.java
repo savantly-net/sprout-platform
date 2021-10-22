@@ -82,7 +82,7 @@ public class SproutFixtureAutoConfiguration {
 	}
 
 	private void ensureSystemRoleExists(Privilege adminPrivilege) {
-		this.roleRepository.findByName("SYSTEM").stream().findFirst().orElse(createSystemRole(adminPrivilege));
+		this.roleRepository.findByName("SYSTEM").stream().findFirst().orElse(createSystemRole(adminPrivilege));//NOSONAR
 	}
 
 	private Role createSystemRole(Privilege adminPrivilege) {

@@ -60,7 +60,7 @@ public class S3FileProvider implements FileProvider {
 		result.commonPrefixes().forEach(f -> {
 			FileDataDto folder = new FileDataDto().setDir(true).setId(f.prefix()).setName(lastSegment(f.prefix()));
 			ListObjectsV2Response folderObjects = listObjectsByPath(f.prefix());
-			folder.setChildrenCount(folderObjects.contents().size()-1);
+			folder.setChildrenCount(folderObjects.contents().size()-1l);
 			response.getChildren().add(folder);
 		});
 

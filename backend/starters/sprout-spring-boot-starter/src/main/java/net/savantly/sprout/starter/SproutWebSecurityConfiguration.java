@@ -105,7 +105,7 @@ public class SproutWebSecurityConfiguration extends WebSecurityConfigurerAdapter
         	// deactivate session creation
         	.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
-            .csrf().disable()
+            .csrf().disable() //NOSONAR
             .cors().and().rememberMe()
         //.and()
         	// deactivate RequestCache and append originally requested URL as query parameter to login form request
