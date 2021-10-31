@@ -2,6 +2,7 @@ package net.savantly.sprout.domain.file.jpa;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +17,7 @@ public class JpaFileApi {
 		this.provider = provider;
 	}
 
-	@RequestMapping("/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<byte[]> downloadFile(@PathVariable("id") String id) {
 		JpaFile file = provider.getFile(id);
 		String contentDisposition = String.format("attachment; filename=%s", file.getName());

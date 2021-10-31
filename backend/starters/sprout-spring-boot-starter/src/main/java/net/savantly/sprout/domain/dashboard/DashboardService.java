@@ -67,7 +67,7 @@ public class DashboardService {
 	public Boolean setCurrentVersionForId(String id, Long version) {
 		List<Dashboard> dashboardSearchResult = this.repo.findByIdId(id);
 		dashboardSearchResult.stream().forEach(d -> {
-			this.repo.setCurrentVersionForId(d.getId().getVersion() == version, d.getId());
+			this.repo.setCurrentVersionForId(d.getId().getVersion().equals(version), d.getId());
 		});
 		return true;
 	}
@@ -79,25 +79,31 @@ public class DashboardService {
 
 	public DashboardDtoWrapper getLatestById(String id) {
 		List<Dashboard> dashboardSearchResult = this.repo.findByIdId(id);
-		if(dashboardSearchResult.size() == 0) {
+		if(dashboardSearchResult.isEmpty()) {
 			throw notFound(id);
 		} else if(dashboardSearchResult.size() == 1) {
 			return dashboardConverter.convert(dashboardSearchResult.get(0));
 		} else {
 			Optional<Dashboard> entity = dashboardSearchResult.stream().max((d1, d2) -> d1.getId().getVersion().compareTo(d2.getId().getVersion()));
-			return dashboardConverter.convert(entity.get());
+			if (entity.isPresent()) {
+				return dashboardConverter.convert(entity.get());
+			}
+			throw notFound(id);
 		}
 	}
 
 	public DashboardDtoWrapper getCurrentById(String id) {
 		List<Dashboard> dashboardSearchResult = this.repo.findByIdId(id);
-		if(dashboardSearchResult.size() == 0) {
+		if(dashboardSearchResult.isEmpty()) {
 			throw notFound(id);
 		} else if(dashboardSearchResult.size() == 1) {
 			return dashboardConverter.convert(dashboardSearchResult.get(0));
 		} else {
-			Optional<Dashboard> entity = dashboardSearchResult.stream().filter(d -> d.isCurrentVersion()).findAny();
-			return dashboardConverter.convert(entity.get());
+			Optional<Dashboard> entity = dashboardSearchResult.stream().filter(Dashboard::isCurrentVersion).findAny();
+			if (entity.isPresent()) {
+				return dashboardConverter.convert(entity.get());
+			}
+			throw notFound(id);
 		}
 	}
 	

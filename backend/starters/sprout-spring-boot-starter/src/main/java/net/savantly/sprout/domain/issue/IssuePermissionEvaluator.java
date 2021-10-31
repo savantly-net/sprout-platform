@@ -42,9 +42,14 @@ public class IssuePermissionEvaluator implements SproutPermissionEvaluator<Issue
 
 	private boolean isOwner(Issue targetDomainObject) {
 		Optional<String> currentUserId = SproutSecurityContext.getCurrentUserId();
-		return Objects.nonNull(targetDomainObject) && targetDomainObject.getCreatedBy().isPresent()
-				&& currentUserId.isPresent()
-				&& currentUserId.get().contentEquals(targetDomainObject.getCreatedBy().get());
+		if (Objects.nonNull(targetDomainObject) && currentUserId.isPresent() ) {
+			Optional<String> createdBy = targetDomainObject.getCreatedBy();
+			if (createdBy.isPresent()) {
+				return currentUserId.get().contentEquals(createdBy.get());
+			}
+		}
+		
+		return false;
 	}
 
 	@Override

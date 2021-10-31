@@ -142,6 +142,7 @@ public class CookieSecurityContextRepository extends HttpSessionSecurityContextR
 	}
 
 	private SproutUser createUserInfo(Cookie cookie) throws CookieVerificationFailedException {
+		cookie.setSecure(true);
 		UserDto user = new SignedUserInfoCookie(cookie, cookieHmacKey).getUserInfo();
 		if (userService.usernameExists(user.getName())) {
 			return userService.loadUserByUsername(user.getName());

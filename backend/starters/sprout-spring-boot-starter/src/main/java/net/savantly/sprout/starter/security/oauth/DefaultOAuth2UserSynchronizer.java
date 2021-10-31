@@ -3,6 +3,7 @@ package net.savantly.sprout.starter.security.oauth;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -49,7 +50,7 @@ public class DefaultOAuth2UserSynchronizer implements OAuth2UserSynchronizer {
 	private List<String> extractRoles(OAuth2User user) {
 		List<String> roles = new ArrayList<>();
 		Object groupAttribute = user.getAttribute("groups");
-		if(Collection.class.isAssignableFrom(groupAttribute.getClass())) {
+		if(Objects.nonNull(groupAttribute) && Collection.class.isAssignableFrom(groupAttribute.getClass())) {
 			((Collection)groupAttribute).stream().forEach(g -> {
 				if (String.class.isAssignableFrom(g.getClass())) {
 					roles.add(g.toString());

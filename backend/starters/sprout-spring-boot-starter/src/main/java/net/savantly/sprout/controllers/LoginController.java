@@ -12,7 +12,7 @@ import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -27,7 +27,7 @@ public class LoginController {
 		this.context = context;
 	}
 
-	@RequestMapping("/login")
+	@GetMapping("/login")
 	public ModelAndView getLoginPage() {
 		Map<String, Object> model = new HashMap<>();
 		model.put("authorizationBaseUri",
