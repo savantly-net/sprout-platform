@@ -20,11 +20,19 @@ const authorize = (authorities: string[], hasAnyAuthorities?: string[]): boolean
   }
 };
 
+/**
+ * 
+ * @param hasAnyAuthority if the current user has any of these authorities, the element will be displayed
+ * @param redirect will redirect the unauthroized users to the login page when true
+ * @returns 
+ */
 export const PrivateComponent = ({
   hasAnyAuthority,
+  redirect,
   children
 }: {
   hasAnyAuthority?: string[];
+  redirect: boolean;
   children: ReactNode;
 }) => {
   const sessionHasBeenFetched = useSelector((state: StoreState) => state.authentication.sessionHasBeenFetched);
@@ -35,7 +43,7 @@ export const PrivateComponent = ({
     return sessionHasBeenFetched && authorize(user.authorities, hasAnyAuthority);
   }, [sessionHasBeenFetched, user]);
 
-  if (!authorized) {
+  if (!authorized && redirect) {
     return <Navigate to="/login" />;
   }
 
