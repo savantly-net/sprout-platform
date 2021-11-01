@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "webapp",
+      "comment": "Allow an optional redirect parameter when rendering a PrivateComponent",
+      "type": "none"
+    }
+  ],
+  "packageName": "webapp",
+  "email": "Jeremy@Savantly.net"
+}
