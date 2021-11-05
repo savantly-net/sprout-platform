@@ -20,9 +20,9 @@ const CustomLink = ({ item, onClick }: { item: NavModelItem; onClick?: () => voi
       </NavLink>
     );
   } else if (item.renderMode == 'EXTERNAL') {
-    return <a href={item.url} target={'_blank'} />;
+    return <a href={item.url} target={'_blank'}>{item.text}</a>;
   }
-  const encodedUrl = encodeURI(item.url || '/');
+  const encodedUrl = encodeURIComponent(item.url || '/');
   return <NavLink to={`/embedded/${item.renderMode}/${encodedUrl}`}>{item.text}</NavLink>;
 };
 

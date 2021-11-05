@@ -18,11 +18,17 @@ const EmbeddedContentViewer = ({ url }: { url: string }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(url);
-      if (response.status >= 400) {
-        publishErrorNotification('Failed to fetch content');
+      try {
+        const response = await axios.get(url);
+        console.log(response);
+        if (!(response.status < 400)) {
+          publishErrorNotification('Failed to fetch content');
+          setData(`<h1 class="warning">Failed to get content:</h1> <p>${response.data}</p>`);
+        }
+        setData(response.data);
+      } catch (e) {
+        setData(`<h1 class="warning">Failed to get content:</h1> <p>${JSON.stringify(e)}</p>`);
       }
-      setData(response.data);
     };
     fetchData();
   }, [url]);
@@ -47,7 +53,7 @@ export const RemoteContentViewer = () => {
   const renderMode = params['renderMode'];
   const encodedUri = params['encodedUri'];
 
-  let url = decodeURI(encodedUri);
+  let url = decodeURIComponent(encodedUri);
 
   if (renderMode == 'FRAME') {
     return (

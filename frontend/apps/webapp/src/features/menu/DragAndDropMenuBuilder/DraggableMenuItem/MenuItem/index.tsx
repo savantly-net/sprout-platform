@@ -1,6 +1,6 @@
 import { DeleteIcon, TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
 import { Button, IconButton } from '@chakra-ui/react';
-import { FormField } from '@savantly/sprout-ui/dist/components/FormField/FormField';
+import { FormField } from '@sprout-platform/ui';
 import cx from 'classnames';
 import { Field, Form, Formik } from 'formik';
 import React, { useState } from 'react';
@@ -90,8 +90,13 @@ const MenuItem = (props: Props) => {
               </label>
               <label className="MenuItem__body__content__form__item__label">
                 <span>Render Mode</span>
-                <FormField name="renderMode" label="Render Mode" />
-                <Field className="MenuItem__body__content__form__item" name="weight" type="number" autocomplete="off" />
+                <Field className="MenuItem__body__content__form__item" name="renderMode" as="select" autocomplete="off">
+                  <option>INTERNAL</option>
+                  <option>EXTERNAL</option>
+                  <option>EMBED</option>
+                  <option>FRAME</option>
+                  <option>JSON</option>
+                </Field>
               </label>
               <label className="MenuItem__body__content__form__item__label">
                 <span>Authorities</span>
