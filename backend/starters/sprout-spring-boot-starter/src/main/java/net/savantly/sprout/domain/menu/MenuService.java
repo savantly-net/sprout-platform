@@ -105,7 +105,8 @@ public class MenuService {
 				.setUrl(menu.getUrl())
 				.setWeight(menu.getWeight())
 				.setId(menu.getId())
-				.setAuthorities(menu.getAuthorities().stream().collect(Collectors.toList()));
+				.setAuthorities(menu.getAuthorities().stream().collect(Collectors.toList()))
+				.setRenderMode(menu.getRenderMode());
 	}
 
 	private List<MenuDto> getChildren(Menu menu) {
@@ -133,7 +134,8 @@ public class MenuService {
 		.setName(m.getName())
 		.setIcon(m.getIcon())
 		.setWeight(m.getWeight())
-		.setAuthorities(m.getAuthorities().stream().collect(Collectors.toSet()));
+		.setAuthorities(m.getAuthorities().stream().collect(Collectors.toSet()))
+		.setRenderMode(m.getRenderMode());
 		//menuEntities.add(menu);
 	
 		if (Objects.nonNull(parent)) {

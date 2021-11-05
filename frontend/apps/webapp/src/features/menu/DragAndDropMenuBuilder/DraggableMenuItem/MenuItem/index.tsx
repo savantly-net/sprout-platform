@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { DeleteIcon, TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
+import { Button, IconButton } from '@chakra-ui/react';
+import { FormField } from '@savantly/sprout-ui/dist/components/FormField/FormField';
 import cx from 'classnames';
+import { Field, Form, Formik } from 'formik';
+import React, { useState } from 'react';
 import { MenuDto } from '../../../menuAdminService';
-import { TriangleDownIcon, TriangleUpIcon, DeleteIcon } from '@chakra-ui/icons';
-import { IconButton, Button } from '@chakra-ui/react';
-import { Formik, Field, Form } from 'formik';
-
 import './styles.scss';
 
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
 
 const MenuItem = (props: Props) => {
   const {
-    menu: { name, icon, displayText, url, weight, authorities, children },
+    menu: { name, icon, displayText, url, weight, authorities, children, position, renderMode, parentName },
     onUpdate,
     onDelete,
     disableCollapse = false,
@@ -37,7 +37,7 @@ const MenuItem = (props: Props) => {
           {!disableDelete && (
             <IconButton
               variant="ghost"
-              onClick={() => onDelete()}
+              onClick={() => onDelete && onDelete()}
               aria-label="Delete menu item"
               size="sm"
               icon={<DeleteIcon />}
@@ -57,7 +57,7 @@ const MenuItem = (props: Props) => {
       <div className={cx('MenuItem__body', { collapsed })}>
         <div className={cx('MenuItem__body__content')}>
           <Formik
-            initialValues={{ name, icon, displayText, url, weight, authorities }}
+            initialValues={{ name, icon, displayText, url, weight, authorities, position, renderMode, parentName }}
             onSubmit={async (values: MenuDto) => {
               await onUpdate({ ...values, children });
             }}
@@ -86,6 +86,11 @@ const MenuItem = (props: Props) => {
               </label>
               <label className="MenuItem__body__content__form__item__label">
                 <span>Weight</span>
+                <Field className="MenuItem__body__content__form__item" name="weight" type="number" autocomplete="off" />
+              </label>
+              <label className="MenuItem__body__content__form__item__label">
+                <span>Render Mode</span>
+                <FormField name="renderMode" label="Render Mode" />
                 <Field className="MenuItem__body__content__form__item" name="weight" type="number" autocomplete="off" />
               </label>
               <label className="MenuItem__body__content__form__item__label">

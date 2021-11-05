@@ -1,5 +1,6 @@
 import { ComponentClass } from 'react';
 import { KeyValue } from './key-value';
+import { NavModelItemRenderMode } from './navModel';
 
 export enum PluginState {
   alpha = 'alpha', // Only included it `enable_alpha` is true
@@ -75,6 +76,7 @@ export interface PluginInclude {
   authority?: string; // user must have this authority to see the item
   addToNav?: boolean; // Show in the sidebar... only if type=page?
   children?: PluginInclude[];
+  renderMode?: NavModelItemRenderMode;
 }
 
 interface PluginMetaInfoLink {

@@ -1,11 +1,11 @@
 import { NavModelItem, PanelPlugin, PluginInclude, PluginIncludeType, PluginMeta } from '@savantly/sprout-api';
-import { addRootNavs } from '../../navigation/navTree';
+import { sproutApiSvc } from '../../../core/services/sproutApiSvc';
 import { ThunkResult } from '../../../types';
+import { addRootNavs } from '../../navigation/navTree';
 import { builtInPluginMeta } from '../built_in_plugins';
 import { loadPlugin } from '../PluginPage';
 import { importPanelPlugin } from '../plugin_loader';
 import { panelPluginLoaded, pluginsLoaded } from './reducers';
-import { sproutApiSvc } from '../../../core/services/sproutApiSvc';
 
 export function loadPlugins(): ThunkResult<void> {
   return async (dispatch) => {
@@ -21,7 +21,8 @@ export function loadPlugins(): ThunkResult<void> {
         text: pi.name,
         icon: pi.icon,
         url: pi.path,
-        authority: pi.authority
+        authority: pi.authority,
+        renderMode: pi.renderMode
       };
       if (pi.children && pi.children.length > 0) {
         navItem.children = [];

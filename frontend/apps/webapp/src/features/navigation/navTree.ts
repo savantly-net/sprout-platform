@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { NavModelItem } from '@savantly/sprout-api';
+import { NavModelItem, NavModelItemRenderMode } from '@savantly/sprout-api';
 import { SERVER_API_URL } from '../../config/constants';
 import { sproutApiSvc } from '../../core/services/sproutApiSvc';
 import { defaultNavTree } from './defaultNavTree';
@@ -7,10 +7,11 @@ import { defaultNavTree } from './defaultNavTree';
 interface ServerMenuItem {
   name: string;
   displayText: string;
-  icon: string;
+  icon: string | any;
   url: string;
   children: ServerMenuItem[];
   position: number;
+  renderMode: NavModelItemRenderMode;
 }
 
 function toNavModel(menuItem: ServerMenuItem): NavModelItem {
@@ -22,7 +23,8 @@ function toNavModel(menuItem: ServerMenuItem): NavModelItem {
     children: menuItem.children.map((m) => {
       return toNavModel(m);
     }),
-    position: menuItem.position
+    position: menuItem.position,
+    renderMode: menuItem.renderMode
   };
 }
 

@@ -1,6 +1,6 @@
 import { NavModel, NavModelBreadcrumb, NavModelItem } from '@savantly/sprout-api';
 import { css } from 'emotion';
-import React, { FormEvent } from 'react';
+import React, { FormEvent, ReactElement } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Nav, NavItem } from 'reactstrap';
 import { IconName } from '../../types';
@@ -64,6 +64,14 @@ const Navigation = ({ children }: { children: NavModelItem[] }) => {
     return children[index] ? children[index].url || '' : '';
   };
 
+  const getIcon = (icon?: string | Element | ReactElement) => {
+    if (typeof icon == 'string') {
+      return <Icon name={icon || ('' as IconName)} className="mr-1" />;
+    } else {
+      return icon;
+    }
+  };
+
   return (
     <div>
       <SelectNav customCss="page-header__select-nav" children={children} />
@@ -73,7 +81,7 @@ const Navigation = ({ children }: { children: NavModelItem[] }) => {
             !child.hideFromTabs && (
               <NavItem key={`child-${index}`}>
                 <NavLink className="nav-link" to={goToUrl(index)}>
-                  <Icon name={child.icon || '' as IconName} className="mr-1" />
+                  {getIcon(child.icon)}
                   {child.text}
                 </NavLink>
               </NavItem>
@@ -112,21 +120,24 @@ export class PageHeader extends React.Component<Props, any> {
     return <h1 className="page-header__title">{breadcrumbsResult}</h1>;
   }
 
+  getIcon = (icon?: string | Element | ReactElement, iconClassName?: string) => {
+    if (typeof icon == 'string') {
+      return <Icon name={icon || ('apps' as IconName)} size="3x" className={iconClassName} />;
+    } else {
+      return icon;
+    }
+  };
+
   renderHeaderTitle(main: NavModelItem) {
-    const iconClassName =
-      main.icon === 'grafana'
-        ? css`
-            margin-top: 12px;
-          `
-        : css`
-            margin-top: 14px;
-          `;
+    const iconClassName = css`
+      margin-top: 14px;
+    `;
 
     return (
       <div className="page-header__inner">
         <span className="page-header__logo">
           {/*  */}
-          {main.icon && <Icon name={main.icon || 'apps' as IconName} size="3x" className={iconClassName} />}
+          {main.icon && this.getIcon(main.icon, iconClassName)}
           {main.img && <img alt="logo" className="page-header__img" src={main.img} />}
         </span>
 
