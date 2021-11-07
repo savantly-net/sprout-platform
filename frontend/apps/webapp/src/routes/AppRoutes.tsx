@@ -44,7 +44,7 @@ const AppRoutes = ({ history }: AllProps) => {
           }
         />
         <Route
-          path="/embedded/:renderMode/:encodedUri"
+          path="/embedded/:renderMode"
           element={
             <ErrorBoundary>
               <RemoteContentViewer />

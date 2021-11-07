@@ -119,7 +119,8 @@
     "@types/react-beautiful-dnd": "12.1.2",
     "focus-visible": "~5.2.0",
     "@emotion/core": "^10.0.27",
-    "react-focus-lock": "~2.5.2"
+    "react-focus-lock": "~2.5.2",
+    "query-string": "~7.0.1"
   },
   "resolutions": {
     "**/@typescript-eslint/eslint-plugin": "^4.1.1",

@@ -23,7 +23,7 @@ const CustomLink = ({ item, onClick }: { item: NavModelItem; onClick?: () => voi
     return <a href={item.url} target={'_blank'}>{item.text}</a>;
   }
   const encodedUrl = encodeURIComponent(item.url || '/');
-  return <NavLink to={`/embedded/${item.renderMode}/${encodedUrl}`}>{item.text}</NavLink>;
+  return <NavLink to={`/embedded/${item.renderMode}?encodedUrl=${encodedUrl}`}>{item.text}</NavLink>;
 };
 
 const TopSectionItem: FC<Props> = (props) => {

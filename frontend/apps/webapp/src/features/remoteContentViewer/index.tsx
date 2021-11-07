@@ -1,9 +1,12 @@
 import { publishErrorNotification } from '@savantly/sprout-api';
+import { Alert } from '@savantly/sprout-ui';
 import { LoadingIcon, MarkdownViewer } from '@sprout-platform/ui';
 import axios from 'axios';
 import { css } from 'emotion';
+import _ from 'lodash';
+import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { SERVER_API_URL } from '../../config/constants';
 
 function isUriSafe(uri: string) {
@@ -25,7 +28,8 @@ const EmbeddedContentViewer = ({ url }: { url: string }) => {
           publishErrorNotification('Failed to fetch content');
           setData(`<h1 class="warning">Failed to get content:</h1> <p>${response.data}</p>`);
         }
-        setData(response.data);
+        const newLinesRemoved = response.data.replace(/[\n|\r]/g, "");
+        setData(newLinesRemoved);
       } catch (e) {
         setData(`<h1 class="warning">Failed to get content:</h1> <p>${JSON.stringify(e)}</p>`);
       }
@@ -49,11 +53,21 @@ const EmbeddedContentViewer = ({ url }: { url: string }) => {
 };
 
 export const RemoteContentViewer = () => {
+  const location = useLocation();
+  const qParams = queryString.parse(location.search);
+
   const params = useParams();
   const renderMode = params['renderMode'];
-  const encodedUri = params['encodedUri'];
 
-  let url = decodeURIComponent(encodedUri);
+  console.log('query params');
+  console.log(qParams);
+
+  const encodedUrlParams = qParams['encodedUrl'];
+  if (!encodedUrlParams || _.isArray(encodedUrlParams)) {
+    return <Alert title="Missing Parameter">Missing encodedUrl query string parameter.</Alert>;
+  }
+
+  const url = decodeURIComponent(encodedUrlParams);
 
   if (renderMode == 'FRAME') {
     return (
