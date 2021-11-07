@@ -15,10 +15,10 @@ include ':sprout-server'
 //include 'web:sprout-web-ui'
 //include ':sprout-modules-content'
 //include ':sprout-modules-openTok'
-include ':sprout-modules-example-panel'
-include ':sprout-modules-newsfeed'
-include ':sprout-modules-forms'
-include ':sprout-module-test'
+//include ':sprout-modules-example-panel'
+//include ':sprout-modules-newsfeed'
+//include ':sprout-modules-forms'
+//include ':sprout-module-test'
 
 project(':sprout-core').projectDir = file('backend/core')
 project(':sprout-spring-boot-starter').projectDir = file('backend/starters/sprout-spring-boot-starter')
@@ -26,7 +26,7 @@ project(':sprout-server').projectDir = file('backend/server')
 //project(':sprout-admin').projectDir = file('web/admin')
 //project(':sprout-modules-content').projectDir = file('backend/modules/content')
 //project(':sprout-modules-openTok').projectDir = file('backend/modules/openTok')
-project(':sprout-modules-example-panel').projectDir = file('backend/modules/example-panel')
-project(':sprout-modules-newsfeed').projectDir = file('backend/modules/newsfeed')
-project(':sprout-modules-forms').projectDir = file('backend/modules/forms')
-project(':sprout-module-test').projectDir = file('backend/test/module-test')
+//project(':sprout-modules-example-panel').projectDir = file('backend/modules/example-panel')
+//project(':sprout-modules-newsfeed').projectDir = file('backend/modules/newsfeed')
+//project(':sprout-modules-forms').projectDir = file('backend/modules/forms')
+//project(':sprout-module-test').projectDir = file('backend/test/module-test')
