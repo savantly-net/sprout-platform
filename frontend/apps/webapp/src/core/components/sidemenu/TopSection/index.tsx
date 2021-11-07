@@ -1,16 +1,14 @@
-import React, { FC, useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
-import { ProSidebar, Menu, MenuItem, SubMenu, SidebarContent, SidebarHeader } from 'react-pro-sidebar';
+import { HamburgerIcon } from '@chakra-ui/icons';
+import { filter } from 'lodash';
+import React, { FC, useEffect, useState } from 'react';
+import { Menu, ProSidebar, SidebarContent, SidebarHeader } from 'react-pro-sidebar';
+import 'react-pro-sidebar/dist/css/styles.css';
 import { useSelector } from 'react-redux';
 import { StoreState } from '../../../../types';
-import { filter } from 'lodash';
-import TopSectionItem from './TopSectionItem';
-import { HamburgerIcon } from '@chakra-ui/icons';
-
-import 'react-pro-sidebar/dist/css/styles.css';
-import './style.scss';
-import { Branding } from '../../Branding/Branding';
 import useDevice from '../../../hooks/useDevice';
+import { Branding } from '../../Branding/Branding';
+import './style.scss';
+import TopSectionItem from './TopSectionItem';
 
 const TopSection: FC<any> = ({ collapsed, setCollapsed }) => {
   const navTree = useSelector((state: StoreState) => state.navTree.items);
@@ -37,12 +35,15 @@ const TopSection: FC<any> = ({ collapsed, setCollapsed }) => {
       ) : null}
       <ProSidebar collapsed={collapsed} breakPoint="md" toggled={toggled} onToggle={onToggle}>
         <SidebarHeader>
-          <span className="TopSection__logoContainer">
-            <Branding.MenuLogo width={30} onClick={() => !isMobile && setCollapsed(!collapsed)} />
+          <span className="TopSection__logoContainer" onClick={() => !isMobile && setCollapsed(!collapsed)}>
+            <HamburgerIcon w={20} h={20} />
           </span>
         </SidebarHeader>
         <SidebarContent>
-          <Menu iconShape="circle" popperArrow={true}>
+          <Menu iconShape="round" popperArrow={true}>
+            <TopSectionItem key={'home'} link={{ text: 'Home', target: '/', icon: <Branding.MenuLogo /> }}>
+              <Branding.MenuLogo width={30} />{' '}
+            </TopSectionItem>
             {mainLinks.map((link) => {
               return <TopSectionItem key={link.id} link={link} firstChild={true} />;
             })}

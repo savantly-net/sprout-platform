@@ -39,5 +39,6 @@ public class Menu extends TenantedPersistedDomainObject {
 	private String icon;
 	private String parentName;
 	private String url;
+	private MenuItemRenderMode renderMode = MenuItemRenderMode.INTERNAL;
 
 }

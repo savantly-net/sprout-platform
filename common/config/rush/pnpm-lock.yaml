@@ -198,6 +198,7 @@ dependencies:
   prettier: 1.19.1
   pretty-format: 25.1.0
   puppeteer-core: 1.18.1
+  query-string: 7.0.1
   rc-cascader: 1.0.1_react-dom@16.14.0+react@16.14.0
   rc-drawer: 3.1.3_react@16.14.0
   rc-slider: 9.3.1_react-dom@16.14.0+react@16.14.0
@@ -269,7 +270,6 @@ dependencies:
   storybook-dark-mode: 0.6.1_@storybook+theming@5.3.21
   style-loader: 0.23.1
   systemjs: 0.21.6
-  systemjs-plugin-babel: 0.0.25
   systemjs-plugin-css: 0.1.37
   terser-webpack-plugin: 2.3.8_webpack@4.42.0
   tether-drop: 1.4.2
@@ -15586,6 +15586,12 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-qOo9F+dMUmC2Lcb4BbVvnKJxTPjCm+RRpe4gDuGrzkL7mEVl/djYSu2OdQ2Pa302N4oqkSg9ir6jaLWJ2USVpQ==
+  /filter-obj/1.1.0:
+    dev: false
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha1-mzERErxsYSehbgFsbF1/GeCAXFs=
   /finalhandler/1.1.2:
     dependencies:
       debug: 2.6.9
@@ -23919,6 +23925,17 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-u7aTucqRXCMlFbIosaArYJBD2+s=
+  /query-string/7.0.1:
+    dependencies:
+      decode-uri-component: 0.2.0
+      filter-obj: 1.1.0
+      split-on-first: 1.1.0
+      strict-uri-encode: 2.0.0
+    dev: false
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-uIw3iRvHnk9to1blJCG3BTc+Ro56CBowJXKmNNAm3RulvPBzWLRqKSiiDk+IplJhsydwtuNMHi8UGQFcCLVfkA==
   /querystring-es3/0.2.1:
     dev: false
     engines:
@@ -27371,6 +27388,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-zWccsGdSwivKM3Di8zREC+T8YuI=
+  /split-on-first/1.1.0:
+    dev: false
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-43ZssAJaMusuKWL8sKUBQXHWOpq8d6CfN/u1p4gUzfJkM05C8rxTmYrkIPTXapZpORA6LkkzcUulJ8FqA7Uudw==
   /split-string/3.1.0:
     dependencies:
       extend-shallow: 3.0.2
@@ -27549,6 +27572,12 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-J5siXfHVgrH1TmWt3UNS4Y+qBxM=
+  /strict-uri-encode/2.0.0:
+    dev: false
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-ucczDHBChi9rFC3CdLvMWGbONUY=
   /string-hash/1.1.3:
     dev: false
     resolution:
@@ -30616,7 +30645,7 @@ packages:
       '@types/node': '*'
       react-scripts: '*'
     resolution:
-      integrity: sha512-NuytrLumZ5ooVvnFZAW+5w+dR8fLFocZ6aHJe+33NyRMt4KCxC+mAmEobXB+7b9Ea0ZCe2/jRr3Z8Hxu5Xy3zw==
+      integrity: sha512-Xa9gYuNoaXeFVhqdzTP5xRnlF712thoHA9b16QPI+zM9dPry+39zuKpzyR3EMgQ2ePzQOlK0L9fpXZTCDb8C6Q==
       tarball: 'file:projects/sprout-runtime.tgz'
     version: 0.0.0
   'file:projects/sprout-toolkit.tgz':
@@ -30704,7 +30733,7 @@ packages:
     dev: false
     name: '@rush-temp/sprout-toolkit'
     resolution:
-      integrity: sha512-2FJk1rSWKi1wl0cidcpFk9CqI5UC2v5SA4vccBo9ylTc8sXy3l7Jxk5uvvSEdVE4cdsV3Wwk1Q6JJS/YLAmX4g==
+      integrity: sha512-wjBoslHr+IAuYI3akDo1oTlwvUGZHSS6PMesNx1TpUFn/gmvTGid1dWRU/X/xstzvH0+hS8B5ocWzobn5LPqqg==
       tarball: 'file:projects/sprout-toolkit.tgz'
     version: 0.0.0
   'file:projects/sprout-tsconfig.tgz':
@@ -30826,7 +30855,7 @@ packages:
       babel-loader: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-jnCITHHO956E0LyKmPwqBp2Q2Szj+B/UyzZpHGHGYSNBpPFG4iDiZDTVfsiEYXfvW6Gc21fGHUzx0RlBN1SMBg==
+      integrity: sha512-Bjvye/u6rQLLl+4m3CE2ejLzF/zOsVRBcQfbTbsPTeNOGr2c+0OAE1k2E4fwpt/HJm/P9k4FD2/7x0lyoh7nsA==
       tarball: 'file:projects/sprout-ui.tgz'
     version: 0.0.0
   'file:projects/ui.tgz_ef55e9d64b9b2d922dc1720f14680ada':
@@ -30919,7 +30948,7 @@ packages:
       ts-node: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-iEZTVLPvZmDb/wJsjgID4D3ygxKoeEVm9xTSqZlLgT6TJ2EGnC7i06aQ8GuipDTVGA0wWitxtBgWyAuNgY96Mw==
+      integrity: sha512-XRxuM9cnMzK3u9MOypl7h/cLi9Oq6ghsTP4U38QGwFCdxc1TKzIIdUQFq6AK2rlMExotN7QUYj6Cno4c8KSSvA==
       tarball: 'file:projects/ui.tgz'
     version: 0.0.0
   'file:projects/webapp.tgz_@babel+core@7.12.3':
@@ -30995,6 +31024,7 @@ packages:
       moment: 2.29.1
       moxios: 0.4.0_axios@0.21.1
       node-sass: 4.14.1
+      query-string: 7.0.1
       react: 16.14.0
       react-app-rewired: 2.1.6_react-scripts@3.4.3
       react-beautiful-dnd: 13.0.0_react-dom@16.14.0+react@16.14.0
@@ -31044,7 +31074,7 @@ packages:
     peerDependencies:
       '@babel/core': '*'
     resolution:
-      integrity: sha512-PFQgwuYKEQU1YzIwUc1lHqOVgdzVwl+9OLfx4Sabf5HWf0caUGBbJXBM2ctBJepTrcsUJmV75H4jgPRjWWtUGw==
+      integrity: sha512-4nCSqPpgGUo0bObd/Jcdmd4zjA3QxFhlf3HLX7Re9Xn3ttD5LBN9ixyZrC7n0Zu+1t+aRRso2NzcApMcpz82dg==
       tarball: 'file:projects/webapp.tgz'
     version: 0.0.0
 registry: ''
@@ -31248,6 +31278,7 @@ specifiers:
   prettier: ^1.19.1
   pretty-format: 25.1.0
   puppeteer-core: 1.18.1
+  query-string: ~7.0.1
   rc-cascader: 1.0.1
   rc-drawer: 3.1.3
   rc-slider: 9.3.1
@@ -31319,7 +31350,6 @@ specifiers:
   storybook-dark-mode: 0.6.1
   style-loader: ^0.23.1
   systemjs: ^0.21.5
-  systemjs-plugin-babel: ~0.0.25
   systemjs-plugin-css: 0.1.37
   terser-webpack-plugin: ^2.3.4
   tether-drop: ^1.4.2

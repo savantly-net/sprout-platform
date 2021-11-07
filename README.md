@@ -144,3 +144,8 @@ rush start:web
 #### File/Document Management
 
 ![Editing a Panel](./docs/img/examples/file-manager.gif)
+
+
+## Build/Release  
+
+See the [./scripts/](./scripts)

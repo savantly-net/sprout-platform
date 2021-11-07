@@ -1,15 +1,15 @@
 {
   "name": "webapp",
-  "version": "2.0.0-37",
+  "version": "2.0.0-38",
   "private": true,
   "dependencies": {
     "@grafana/e2e-selectors": "^7.2.0",
     "@redux-offline/redux-offline": "~2.6.0",
     "@reduxjs/toolkit": "^1.4.0",
-    "@savantly/sprout-api": "2.0.0-37",
-    "@savantly/sprout-runtime": "2.0.0-37",
-    "@savantly/sprout-ui": "2.0.0-37",
-    "@sprout-platform/ui": "2.0.0-37",
+    "@savantly/sprout-api": "2.0.0-38",
+    "@savantly/sprout-runtime": "2.0.0-38",
+    "@savantly/sprout-ui": "2.0.0-38",
+    "@sprout-platform/ui": "2.0.0-38",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^7.1.2",
@@ -119,7 +119,8 @@
     "@types/react-beautiful-dnd": "12.1.2",
     "focus-visible": "~5.2.0",
     "@emotion/core": "^10.0.27",
-    "react-focus-lock": "~2.5.2"
+    "react-focus-lock": "~2.5.2",
+    "query-string": "~7.0.1"
   },
   "resolutions": {
     "**/@typescript-eslint/eslint-plugin": "^4.1.1",

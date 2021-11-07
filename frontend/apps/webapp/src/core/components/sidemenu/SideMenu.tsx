@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
-import { CoreEvents } from '../../../types';
-import appEvents from '../../app_events';
-import config from '../../config';
 import useDevice from '../../hooks/useDevice';
 import BottomSection from './BottomSection';
 import TopSection from './TopSection';
-
-const homeUrl = config.appSubUrl || '/';
 
 export const SideMenu = () => {
   const { isMobile } = useDevice();

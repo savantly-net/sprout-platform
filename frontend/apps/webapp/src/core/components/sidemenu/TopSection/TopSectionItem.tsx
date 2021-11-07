@@ -1,10 +1,10 @@
 import { NavModelItem } from '@savantly/sprout-api';
-import { MenuItem, SubMenu } from 'react-pro-sidebar';
-import React, { FC } from 'react';
-import { NavLink } from 'react-router-dom';
-import { PrivateComponent } from '../../PrivateComponent/PrivateComponent';
 import { Icon } from '@sprout-platform/ui';
+import React, { FC } from 'react';
+import { MenuItem, SubMenu } from 'react-pro-sidebar';
+import { NavLink } from 'react-router-dom';
 import useDevice from '../../../hooks/useDevice';
+import { PrivateComponent } from '../../PrivateComponent/PrivateComponent';
 
 export interface Props {
   link: NavModelItem;
@@ -12,19 +12,35 @@ export interface Props {
   firstChild?: boolean;
 }
 
+const CustomLink = ({ item, onClick }: { item: NavModelItem; onClick?: () => void }) => {
+  if (!item.renderMode || item.renderMode == 'INTERNAL') {
+    return (
+      <NavLink to={item.url || '/'} onClick={onClick}>
+        {item.text}
+      </NavLink>
+    );
+  } else if (item.renderMode == 'EXTERNAL') {
+    return <a href={item.url} target={'_blank'}>{item.text}</a>;
+  }
+  const encodedUrl = encodeURIComponent(item.url || '/');
+  return <NavLink to={`/embedded/${item.renderMode}?encodedUrl=${encodedUrl}`}>{item.text}</NavLink>;
+};
+
 const TopSectionItem: FC<Props> = (props) => {
   const { link, onClick, firstChild } = props;
   const { isMobile } = useDevice();
 
+  const getIcon = (icon: any) => {
+    if (typeof icon == 'string') {
+      return <Icon name={icon || ('cube' as any)} size="1x" />;
+    } else {
+      return icon || ('cube' as any);
+    }
+  };
+
   const leafNode = (
-    <MenuItem icon={<Icon name={link.icon || ('cube' as any)} size="1x" />}>
-      {link.onClick ? (
-        <span onClick={link.onClick}>{link.text}</span>
-      ) : (
-        <NavLink to={link.url || '/'} onClick={onClick}>
-          {link.text}
-        </NavLink>
-      )}
+    <MenuItem icon={getIcon(link.icon)}>
+      {link.onClick ? <span onClick={link.onClick}>{link.text}</span> : <CustomLink item={link} onClick={onClick} />}
     </MenuItem>
   );
 
@@ -36,20 +52,12 @@ const TopSectionItem: FC<Props> = (props) => {
         isMobile || !firstChild ? (
           leafNode
         ) : (
-          <SubMenu
-            title={link.text}
-            icon={<Icon name={link.icon || ('cube' as any)} size="1x" />}
-            firstchild={firstChild}
-          >
+          <SubMenu title={link.text} icon={getIcon(link.icon)} firstchild={firstChild}>
             {leafNode}
           </SubMenu>
         )
       ) : (
-        <SubMenu
-          title={link.text}
-          icon={<Icon name={link.icon || ('cube' as any)} size="1x" />}
-          firstchild={firstChild}
-        >
+        <SubMenu title={link.text} icon={getIcon(link.icon)} firstchild={firstChild}>
           {(link.children || []).map((child) => (
             <TopSectionItem key={child.id} link={child} />
           ))}
@@ -58,7 +66,13 @@ const TopSectionItem: FC<Props> = (props) => {
     </>
   );
 
-  return link.authority ? <PrivateComponent hasAnyAuthority={[link.authority]}>{linkTag}</PrivateComponent> : linkTag;
+  return link.authority ? (
+    <PrivateComponent redirect={false} hasAnyAuthority={[link.authority]}>
+      {linkTag}
+    </PrivateComponent>
+  ) : (
+    linkTag
+  );
 };
 
 export default TopSectionItem;

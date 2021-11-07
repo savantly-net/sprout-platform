@@ -6,6 +6,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.savantly.sprout.core.domain.menu.MenuItemRenderMode;
 
 @Getter @Setter
 @Accessors(chain = true)
@@ -19,4 +20,5 @@ public class MenuDto {
 	private int weight;
 	private List<String> authorities = new ArrayList<>();
 	private List<MenuDto> children = new ArrayList<>();
+	private MenuItemRenderMode renderMode = MenuItemRenderMode.INTERNAL;
 }

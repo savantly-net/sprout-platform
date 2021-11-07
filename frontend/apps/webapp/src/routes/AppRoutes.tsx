@@ -15,6 +15,7 @@ import { PermissionsPage } from '../features/permissions/PermissionsPage';
 import AppRootPage from '../features/plugins/AppRootPage';
 import PluginListPage from '../features/plugins/PluginListPage';
 import PluginPage from '../features/plugins/PluginPage';
+import { RemoteContentViewer } from '../features/remoteContentViewer';
 import { DashboardRouteInfo, StoreState } from '../types';
 
 type OwnProps = {
@@ -39,6 +40,14 @@ const AppRoutes = ({ history }: AllProps) => {
           element={
             <ErrorBoundary>
               <AppRootPage />
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/embedded/:renderMode"
+          element={
+            <ErrorBoundary>
+              <RemoteContentViewer />
             </ErrorBoundary>
           }
         />

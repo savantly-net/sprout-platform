@@ -1,3 +1,4 @@
+import { NavModelItemRenderMode } from '@savantly/sprout-api';
 import Axios from 'axios';
 
 export interface MenuDto {
@@ -5,12 +6,13 @@ export interface MenuDto {
   name: string;
   icon: string;
   displayText: string;
-  parentName: string;
+  parentName?: string;
   url: string;
   position: number;
   children: MenuDto[];
   authorities: string[];
   weight?: number;
+  renderMode?: NavModelItemRenderMode;
 }
 
 export const menuAdminService = {

@@ -79,11 +79,15 @@ export const EntityItemIndexPage = ({
           <div
             className={css`
               display: flex;
+              justify-content: end;
             `}
           >
-            <NavLink to={`./edit`} className="btn btn-warning ml-auto">
+            <NavLink to={`./edit`} className="btn btn-warning ml-1">
               <Icon name="pen" className="mr-1" />
               <span>Edit</span>
+            </NavLink>
+            <NavLink to={`./../..`} className="btn btn-info ml-1">
+              <span>Back to list</span>
             </NavLink>
           </div>
           <Viewer item={item} />

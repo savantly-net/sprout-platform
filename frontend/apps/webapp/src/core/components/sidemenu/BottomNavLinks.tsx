@@ -1,5 +1,5 @@
 import { NavModelItem } from '@savantly/sprout-api';
-import { Icon, IconName } from '@savantly/sprout-ui';
+import { Icon } from '@savantly/sprout-ui';
 import { css } from 'emotion';
 import React, { PureComponent } from 'react';
 import { CoreEvents } from '../../../types';
@@ -15,6 +15,14 @@ export default class BottomNavLinks extends PureComponent<Props> {
     appEvents.emit(CoreEvents.showModal, {
       templateHtml: '<help-modal></help-modal>'
     });
+  };
+
+  getIcon = (icon: any, className?: string) => {
+    if (typeof icon == 'string') {
+      return <Icon name={icon || ('cube' as any)} size="xl" className={className} />;
+    } else {
+      return icon || ('cube' as any);
+    }
   };
 
   render() {
@@ -33,7 +41,7 @@ export default class BottomNavLinks extends PureComponent<Props> {
       <div className="sidemenu-item dropdown dropup">
         <a href={link.url} className="sidemenu-link" target={link.target}>
           <span className="icon-circle sidemenu-icon">
-            {link.icon && <Icon name={link.icon as IconName} size="xl" />}
+            {link.icon && this.getIcon(link.icon)}
             {link.img && <img src={link.img} />}
           </span>
         </a>
@@ -48,7 +56,7 @@ export default class BottomNavLinks extends PureComponent<Props> {
             return (
               <li key={`${child.text}-${index}`}>
                 <a href={child.url} target={child.target} rel="noopener">
-                  {child.icon && <Icon name={child.icon as IconName} className={subMenuIconClassName} />}
+                  {child.icon && this.getIcon(child.icon, subMenuIconClassName)}
                   {child.text}
                 </a>
               </li>
