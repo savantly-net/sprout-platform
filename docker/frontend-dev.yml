@@ -1,0 +1,23 @@
+version: "3"
+services:
+
+  server:
+    image: savantly/sprout-server:edge
+    container_name: fe_dev_sprout_server
+    environment: 
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://fe_dev_sprout_db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=sprout
+      - SPRING_DATASOURCE_PASSWORD=sprout
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+    ports:
+      - 8080:8080
+    depends_on: 
+    - fe_dev_sprout_db
+
+  db:
+    container_name: fe_dev_sprout_db
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=sprout
+      - POSTGRES_USER=sprout

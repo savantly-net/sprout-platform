@@ -76,6 +76,37 @@ The example server creates a user -
 username: admin  
 password: changeme!  
 
+## Frontend Development 
+
+If this is the first time you're running sprout, run the following commands:
+
+```
+rush install
+rush build
+
+```
+
+From the root of the project -  
+Start the DB and Sprout Server using Docker Compose  
+
+```
+docker compose -f docker/frontend-dev.yml up
+```
+
+In another terminal start the web app -  
+
+```
+rush start:web
+```
+
+Open the browser to http://localhost:3000  to access the web application.  
+Use the login `admin` with password `admin` 
+
+Changes to the React app source code will reload the browser automatically.  
+
+The web app source code is located here -  [./frontend/apps/webapp](./frontend/apps/webapp)
+
+
 ## Full Stack Development
 
 From the root of the project -  
