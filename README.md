@@ -100,7 +100,7 @@ rush start:web
 ```
 
 Open the browser to http://localhost:3000  to access the web application.  
-Use the login `admin` with password `admin` 
+Use the login `admin` with password `changeme!` 
 
 Changes to the React app source code will reload the browser automatically.  
 
