@@ -19,6 +19,7 @@
     "noEmit": true,
     "jsx": "react",
     "allowUnreachableCode": true,
+    "downlevelIteration": true
   },
   "include": [
     "src", "../libs/api/dist/index.d.ts", "../libs/sprout-ui/dist/index.d.ts"
