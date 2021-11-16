@@ -101,9 +101,10 @@ const DragAndDropMenuBuilder = ({ menuItems = [], setMenuItems, deleteMenuItem }
     const { clientHeight, clientWidth } = draggedDOM;
     const sourceIndex = event.source.index;
     var clientY =
-      parseFloat(window.getComputedStyle(draggedDOM.parentNode).paddingTop) +
-      [...draggedDOM.parentNode.children].slice(0, sourceIndex).reduce((total, curr) => {
-        const style = curr.currentStyle || window.getComputedStyle(curr);
+      // ts-ignore
+      parseFloat(window.getComputedStyle(draggedDOM.parentNode as Element || <div/>).paddingTop) +
+      [...draggedDOM.parentNode?.children || []].slice(0, sourceIndex).reduce((total, curr) => {
+        const style = (curr as any).currentStyle || window.getComputedStyle(curr);
         const marginBottom = parseFloat(style.marginBottom);
         return total + curr.clientHeight + marginBottom;
       }, 0);
@@ -112,7 +113,7 @@ const DragAndDropMenuBuilder = ({ menuItems = [], setMenuItems, deleteMenuItem }
       clientHeight,
       clientWidth,
       clientY,
-      clientX: parseFloat(window.getComputedStyle(draggedDOM.parentNode).paddingLeft)
+      clientX: parseFloat(window.getComputedStyle(draggedDOM.parentNode as Element || <div/>).paddingLeft)
     });
   };
 
@@ -131,7 +132,7 @@ const DragAndDropMenuBuilder = ({ menuItems = [], setMenuItems, deleteMenuItem }
     const destinationIndex = event.destination.index;
     const sourceIndex = event.source.index;
 
-    const childrenArray = [...getDestinationDom(event.destination.droppableId)?.children]; // [...draggedDOM.parentNode.children];
+    const childrenArray = [...getDestinationDom(event.destination.droppableId)?.children || []]; // [...draggedDOM.parentNode.children];
     const movedItem = childrenArray[sourceIndex];
     if (event.destination.droppableId === event.source.droppableId) {
       childrenArray.splice(sourceIndex, 1);
@@ -144,9 +145,9 @@ const DragAndDropMenuBuilder = ({ menuItems = [], setMenuItems, deleteMenuItem }
     ];
 
     var clientY =
-      parseFloat(window.getComputedStyle(draggedDOM.parentNode).paddingTop) +
+      parseFloat(window.getComputedStyle(draggedDOM.parentNode as Element || <div/>).paddingTop) +
       updatedArray.slice(0, destinationIndex).reduce((total, curr) => {
-        const style = curr.currentStyle || window.getComputedStyle(curr);
+        const style = (curr as any).currentStyle || window.getComputedStyle(curr);
         const marginBottom = parseFloat(style.marginBottom);
         return total + curr.clientHeight + marginBottom;
       }, 0);
@@ -155,7 +156,7 @@ const DragAndDropMenuBuilder = ({ menuItems = [], setMenuItems, deleteMenuItem }
       clientHeight,
       clientWidth,
       clientY,
-      clientX: parseFloat(window.getComputedStyle(draggedDOM.parentNode).paddingLeft)
+      clientX: parseFloat(window.getComputedStyle(draggedDOM.parentNode as Element || <div/>).paddingLeft)
     });
   };
 

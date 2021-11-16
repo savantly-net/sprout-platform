@@ -1,4 +1,4 @@
-import { FormField, ItemEditorProps } from '@sprout-platform/ui';
+import { ItemEditorProps } from '@sprout-platform/ui';
 import { css } from 'emotion';
 import { Field, Form, Formik, FormikProps } from 'formik';
 import React, { Fragment, useState } from 'react';
@@ -25,7 +25,7 @@ export const IssueEntityEditor = ({ item, afterSave }: ItemEditorProps<EntityCla
     <Fragment>
       {error && <Alert color="danger">{error}</Alert>}
       <Formik
-        initialValues={item}
+        initialValues={item || stateProvider.props.initialState.example}
         validate={(values: EntityClass) => {
           const errors: any = {};
           return errors;
