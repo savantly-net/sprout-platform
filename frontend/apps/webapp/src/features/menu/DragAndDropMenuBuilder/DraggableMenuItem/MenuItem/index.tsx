@@ -57,7 +57,7 @@ const MenuItem = (props: Props) => {
       <div className={cx('MenuItem__body', { collapsed })}>
         <div className={cx('MenuItem__body__content')}>
           <Formik
-            initialValues={{ name, icon, displayText, url, weight, authorities, position, renderMode, parentName }}
+            initialValues={{ name, icon, displayText, url, weight, authorities, position, renderMode, parentName, children }}
             onSubmit={async (values: MenuDto) => {
               await onUpdate({ ...values, children });
             }}
