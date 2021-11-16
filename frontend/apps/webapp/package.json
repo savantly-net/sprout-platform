@@ -113,7 +113,7 @@
     "@chakra-ui/system": "~1.7.1",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
-    "@chakra-ui/react": "~1.6.5",
+    "@chakra-ui/react": "~1.7.1",
     "react-icons": "~4.2.0",
     "react-beautiful-dnd": "13.0.0",
     "@types/react-beautiful-dnd": "12.1.2",
@@ -131,7 +131,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "clean": "rimraf ./build"
+    "clean": "rimraf ./build",
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "lint-fix": "yarn run lint -- --fix"
   },
   "eslintConfig": {
     "extends": "react-app"
