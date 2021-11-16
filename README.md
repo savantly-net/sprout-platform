@@ -86,6 +86,8 @@ rush build
 
 ```
 
+If running the backend remotely, you may set the environment variable `SERVER_API_URL` to the sprout api host. 
+Otherwise, running the backend locally
 From the root of the project -  
 Start the DB and Sprout Server using Docker Compose  
 
