@@ -32,7 +32,7 @@ export const PrivateComponent = ({
   children
 }: {
   hasAnyAuthority?: string[];
-  redirect: boolean;
+  redirect?: boolean;
   children: ReactNode;
 }) => {
   const sessionHasBeenFetched = useSelector((state: StoreState) => state.authentication.sessionHasBeenFetched);
