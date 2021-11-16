@@ -1,7 +1,9 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
+const apiHost = process.env('SERVER_API_URL') || 'http://localhost:8080';
+
 const proxyMiddleware = createProxyMiddleware({
-    target: 'http://localhost:8080',
+    target: apiHost,
     changeOrigin: true,
   });
 
