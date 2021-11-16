@@ -76,18 +76,39 @@ The example server creates a user -
 username: admin  
 password: changeme!  
 
-## Frontend Development 
+## Development 
+
+*Required Software*
+- [node js](https://nodejs.org/en/download/)
+- [rush js](https://rushjs.io/)
+- [JDK 8+](https://adoptopenjdk.net/installation.html)
+
+If developing on Windows, it's recommended to use WSL2 with Docker Desktop  
+[Install Docker Desktop and WSL2](https://docs.docker.com/desktop/windows/wsl/)
+Be sure to read the section about [using vscode from inside linux](https://docs.docker.com/desktop/windows/wsl/#develop-with-docker-and-wsl-2)
+
+### Frontend Development 
 
 If this is the first time you're running sprout, run the following commands:
 
 ```
-rush install
+rush update
 rush build
 
 ```
 
+#### Remote backend
 If running the backend remotely, you may set the environment variable `SERVER_API_URL` to the sprout api host. 
-Otherwise, running the backend locally
+Example using the demo server - 
+```
+# *nix
+export SERVER_API_URL=https://sprout-server.herokuapp.com/
+# windows
+SET SERVER_API_URL=https://sprout-server.herokuapp.com/
+```
+
+#### Local backend
+You can also run the backend locally
 From the root of the project -  
 Start the DB and Sprout Server using Docker Compose  
 
@@ -95,6 +116,7 @@ Start the DB and Sprout Server using Docker Compose
 docker compose -f docker/frontend-dev.yml up
 ```
 
+#### Start frontend dev server
 In another terminal start the web app -  
 
 ```
@@ -109,7 +131,7 @@ Changes to the React app source code will reload the browser automatically.
 The web app source code is located here -  [./frontend/apps/webapp](./frontend/apps/webapp)
 
 
-## Full Stack Development
+### Full Stack Development
 
 From the root of the project -  
 Start the DB using Docker Compose  
@@ -133,7 +155,7 @@ rush start:dev
 If this is the first time you're running sprout, run the following commands:
 
 ```
-rush install
+rush update
 rush build
 
 ```
