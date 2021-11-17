@@ -18,8 +18,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "npm run compile && npm run bundle && node postBuild.js",
+    "build": "npm run compile && npm run copyStatic && npm run bundle && node postBuild.js",
     "compile": "tsc -p tsconfig.build.json",
+    "copyStatic": "node copyStatic.js",
     "bundle": "rollup -c rollup.config.ts --silent",
     "clean": "rimraf ./dist ./compiled",
     "docsExtract": "mkdir -p ../../reports/docs && api-extractor run 2>&1 | tee ../../reports/docs/$(basename $(pwd)).log",
@@ -123,6 +124,7 @@
     "@types/slate-plain-serializer": "^0.7.0",
     "@types/tinycolor2": "^1.4.2",
     "common-tags": "^1.8.0",
+    "globby": "^10.0.1",
     "pretty-format": "25.1.0",
     "react-docgen-typescript-loader": "3.7.1",
     "react-test-renderer": "16.13.1",
