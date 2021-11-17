@@ -3,8 +3,9 @@
   "version": "2.0.0-39",
   "description": "Runtime API for Sprout React applications",
   "scripts": {
-    "build": "sprout-toolkit package:build --scope=runtime",
-    "bundle": "rollup -c rollup.config.ts",
+    "build": "npm run compile && npm run bundle && node postBuild.js",
+    "compile": "tsc -p tsconfig.build.json",
+    "bundle": "rollup -c rollup.config.ts --silent",
     "clean": "rimraf ./dist ./compiled",
     "npm:publish": "cd dist && npm publish"
   },
@@ -26,7 +27,6 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "@savantly/sprout-api": "2.0.0-39",
-    "@savantly/sprout-toolkit": "2.0.0-39",
     "@savantly/sprout-tsconfig": "^1.0.0",
     "@savantly/sprout-ui": "2.0.0-39",
     "@types/lodash": "^4.14.161",

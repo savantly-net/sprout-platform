@@ -13,13 +13,14 @@
   "repository": {
     "type": "git",
     "url": "http://github.com/savantly/sprout-platform.git",
-    "directory": "web/sprout-react/packages/sprout-ui"
+    "directory": "frontend/libs/sprout-ui"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "sprout-toolkit package:build --scope=sprout-ui",
-    "bundle": "rollup -c rollup.config.ts",
+    "build": "npm run compile && npm run bundle && node postBuild.js",
+    "compile": "tsc -p tsconfig.build.json",
+    "bundle": "rollup -c rollup.config.ts --silent",
     "clean": "rimraf ./dist ./compiled",
     "docsExtract": "mkdir -p ../../reports/docs && api-extractor run 2>&1 | tee ../../reports/docs/$(basename $(pwd)).log",
     "storybook": "start-storybook -p 9001 -c .storybook -s .storybook/static",
@@ -89,7 +90,6 @@
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-image": "2.0.4",
     "@rollup/plugin-node-resolve": "^9.0.0",
-    "@savantly/sprout-toolkit": "2.0.0-39",
     "@storybook/addon-actions": "5.3.21",
     "@storybook/addon-docs": "5.3.21",
     "@storybook/addon-info": "5.3.21",

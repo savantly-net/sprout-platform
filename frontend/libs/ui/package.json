@@ -64,7 +64,6 @@
     "@babel/preset-react": "~7.12.1",
     "@jest/types": "~26.6.1",
     "@mdx-js/loader": "~1.6.22",
-    "@savantly/sprout-toolkit": "2.0.0-39",
     "@storybook/addon-actions": "^6.1.11",
     "@storybook/addon-docs": "5.3.21",
     "@storybook/addon-essentials": "^6.1.11",
