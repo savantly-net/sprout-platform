@@ -54,6 +54,20 @@
         "safeForSimultaneousRushProcesses": true
     },
     {
+      "name": "lint",
+      "commandKind": "global",
+      "summary": "Report linting errors",
+      "shellCommand": "cd frontend/apps/webapp && npm run lint",
+      "safeForSimultaneousRushProcesses": true
+    },
+    {
+      "name": "lint-fix",
+      "commandKind": "global",
+      "summary": "Try to automatically fix linting errors",
+      "shellCommand": "cd frontend/apps/webapp && npm run lint-fix",
+      "safeForSimultaneousRushProcesses": true
+    },
+    {
       "name": "docs",
       "commandKind": "global",
       "summary": "Starts the Documentation Jekyll server",
