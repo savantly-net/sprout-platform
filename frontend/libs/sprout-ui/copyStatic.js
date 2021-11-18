@@ -2,15 +2,20 @@ const fs = require('fs');
 const path = require('path');
 const globby = require('globby');
 
-const pkgPath = path.join(__dirname, 'package.json');
 
-const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+const moveStaticFiles = async () => {
 
-const moveStaticFiles = async (pkg, cwd) => {
-    const staticFiles = await globby(path.resolve(process.cwd(), 'src/**/*.+(png|svg|gif|jpg)'));
+    const posixCwd = path.posix.normalize(__dirname, '.').replace(/\\/g, '/');
+    console.log(`cwd: ${posixCwd}`);
+
+    const globPattern = path.posix.join(posixCwd, 'src', '**', '*.+(png|svg|gif|jpg)');
+
+    console.log(`globPattern: ${globPattern}`);
+    const staticFiles = await globby(globPattern);
+    console.log(`copying static files ${staticFiles}`);
     const promises = staticFiles.map(file => {
         return new Promise((resolve, reject) => {
-            fs.copyFile(file, `${cwd}/compiled/${file.replace(`${cwd}/src`, '')}`, (err) => {
+            fs.copyFile(file, `${posixCwd}/compiled/${file.replace(`${posixCwd}/src`, '')}`, (err) => {
                 if (err) {
                     reject(err);
                     return;
@@ -22,5 +27,4 @@ const moveStaticFiles = async (pkg, cwd) => {
     await Promise.all(promises);
 };
 
-cwd = path.resolve(__dirname, `.`);
-moveStaticFiles(pkg, cwd);
+moveStaticFiles();
