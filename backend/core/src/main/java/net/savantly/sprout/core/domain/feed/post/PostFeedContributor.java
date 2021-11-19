@@ -30,7 +30,7 @@ public class PostFeedContributor implements FeedContributor {
 				.setBody(p.getBody())
 				.setCreatedBy(p.getCreatedBy().orElse("post"))
 				.setCreatedDate(p.getCreatedDate().orElse(ZonedDateTime.now()))
-				.setId(p.getItemId())
+				.setId(p.getId())
 				.setSource(SOURCE)
 				.setTags(p.getTags());
 	}

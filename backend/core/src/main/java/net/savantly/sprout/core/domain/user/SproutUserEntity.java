@@ -14,6 +14,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -39,23 +40,23 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.savantly.sprout.core.domain.PersistedDomainObject;
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
 import net.savantly.sprout.core.domain.organization.Organization;
 import net.savantly.sprout.core.domain.role.Role;
 import net.savantly.sprout.core.security.MD5Util;
-import net.savantly.sprout.core.tenancy.TenantKeyedEntity;
 
 @Getter @Setter
 @Entity
 @Table(name = "app_users", uniqueConstraints = {@UniqueConstraint(columnNames = {"username", "tenant_id"})})
-public class SproutUserEntity extends TenantKeyedEntity implements CredentialsContainer, SproutUser {
+public class SproutUserEntity extends PersistedDomainObject  implements CredentialsContainer, SproutUser {
 
 	private static final long serialVersionUID = 6629698068044899330L;
 	private static final Logger log = LoggerFactory.getLogger(SproutUserEntity.class);
 
     // ~ Instance fields
     // ================================================================================================
-
+	
     @JsonIgnore
 	@Column(length=60)
     private String password;

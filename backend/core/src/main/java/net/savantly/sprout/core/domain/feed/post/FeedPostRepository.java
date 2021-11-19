@@ -1,7 +1,7 @@
 package net.savantly.sprout.core.domain.feed.post;
 
-import net.savantly.sprout.core.tenancy.TenantKeyedRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface FeedPostRepository extends TenantKeyedRepository<FeedPost> {
+public interface FeedPostRepository extends JpaRepository<FeedPost,String> {
 
 }

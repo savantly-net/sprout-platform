@@ -18,7 +18,6 @@ import net.savantly.sprout.core.domain.user.SproutUser;
 import net.savantly.sprout.core.domain.user.SproutUserEntity;
 import net.savantly.sprout.core.domain.user.UserUpdateDto;
 import net.savantly.sprout.core.domain.user.repository.UserRepository;
-import net.savantly.sprout.core.tenancy.TenantContext;
 
 @Transactional
 public class SproutUserServiceImpl implements SproutUserService {
@@ -79,7 +78,7 @@ public class SproutUserServiceImpl implements SproutUserService {
 	}
 
 	private Role getRole(String roleName) {
-		Optional<Role> role = roleRepository.findByNameAndTenantId(roleName, TenantContext.getCurrentTenant()).stream().findFirst();
+		Optional<Role> role = roleRepository.findByName(roleName).stream().findFirst();
 		if(role.isPresent()) {
 			return role.get();
 		} else {

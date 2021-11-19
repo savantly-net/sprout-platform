@@ -14,14 +14,14 @@ import javax.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.savantly.sprout.core.domain.PersistedDomainObject;
 import net.savantly.sprout.core.domain.privilege.Privilege;
-import net.savantly.sprout.core.tenancy.TenantedPersistedDomainObject;
 
 @Getter @Setter
 @Entity(name="APP_ROLE")
 @Table(name="APP_ROLE", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "tenant_id"})})
 @Accessors(chain = true)
-public class Role extends TenantedPersistedDomainObject {
+public class Role extends PersistedDomainObject{
 	
 	private String name;
 

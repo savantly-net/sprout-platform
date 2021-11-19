@@ -9,13 +9,13 @@ import javax.persistence.Table;
 
 import org.springframework.util.Assert;
 
+import net.savantly.sprout.core.domain.PersistedDomainObject;
 import net.savantly.sprout.core.domain.user.SproutUser;
 import net.savantly.sprout.core.domain.user.SproutUserEntity;
-import net.savantly.sprout.core.tenancy.TenantKeyedEntity;
 
 @Entity
 @Table(name="APP_EMAIL_ADDRESS")
-public class EmailAddress extends TenantKeyedEntity implements Serializable{
+public class EmailAddress extends PersistedDomainObject implements Serializable{
 
     private static final long serialVersionUID = 1L;
 

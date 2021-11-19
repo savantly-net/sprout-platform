@@ -11,13 +11,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.savantly.sprout.core.configuration.SproutConfiguration;
-import net.savantly.sprout.core.tenancy.TenantedPersistedDomainObject;
+import net.savantly.sprout.core.domain.PersistedDomainObject;
 
 @Getter @Setter
 @Entity(name="APP_PRIVILEGE")
 @Table(name="APP_PRIVILEGE", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "tenant_id"})})
 @Accessors(chain = true)
-public class Privilege extends TenantedPersistedDomainObject implements GrantedAuthority{
+public class Privilege extends PersistedDomainObject implements GrantedAuthority{
 
 	private static final long serialVersionUID = SproutConfiguration.serialVersionUID;
 	

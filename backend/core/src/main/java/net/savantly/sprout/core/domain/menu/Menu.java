@@ -15,13 +15,13 @@ import javax.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.savantly.sprout.core.tenancy.TenantedPersistedDomainObject;
+import net.savantly.sprout.core.domain.PersistedDomainObject;
 
 @Entity
 @Table(name="MENU", uniqueConstraints = {@UniqueConstraint(columnNames = {"tenant_id", "name"})})
 @Getter @Setter
 @Accessors(chain = true)
-public class Menu extends TenantedPersistedDomainObject {
+public class Menu extends PersistedDomainObject {
 	
 	private String displayText;
 	private String name;

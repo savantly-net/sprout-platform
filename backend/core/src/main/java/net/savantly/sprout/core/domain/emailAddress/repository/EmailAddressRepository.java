@@ -2,11 +2,11 @@ package net.savantly.sprout.core.domain.emailAddress.repository;
 
 import java.util.List;
 
-import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
-import net.savantly.sprout.core.tenancy.TenantedJpaRepository;
-import net.savantly.sprout.core.tenancy.TenantedPrimaryKey;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface EmailAddressRepository extends TenantedJpaRepository<EmailAddress, TenantedPrimaryKey> {
+import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
+
+public interface EmailAddressRepository extends JpaRepository<EmailAddress, String> {
 
 	List<EmailAddress> findByEmailAddress(String emailAddress);
 

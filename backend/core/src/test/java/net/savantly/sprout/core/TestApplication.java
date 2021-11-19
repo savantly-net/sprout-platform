@@ -6,8 +6,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import net.savantly.sprout.core.tenancy.TenantedRepositoryAspect;
-
 @SpringBootApplication
 @EnableAspectJAutoProxy
 @SuppressWarnings("deprecation")
@@ -18,9 +16,4 @@ public class TestApplication {
 		return NoOpPasswordEncoder.getInstance();
 	}
 	
-	@Bean
-	public TenantedRepositoryAspect tenantedRepositoryAspect() {
-		return new TenantedRepositoryAspect();
-	}
-
 }

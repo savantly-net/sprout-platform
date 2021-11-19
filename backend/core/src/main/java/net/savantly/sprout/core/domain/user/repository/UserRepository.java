@@ -8,12 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import net.savantly.sprout.core.domain.user.SproutUser;
 import net.savantly.sprout.core.domain.user.SproutUserEntity;
-import net.savantly.sprout.core.tenancy.TenantedJpaRepository;
-import net.savantly.sprout.core.tenancy.TenantedPrimaryKey;
 
 @Repository
 @RepositoryRestResource(path="users", collectionResourceRel="users")
-public interface UserRepository extends TenantedJpaRepository<SproutUserEntity, TenantedPrimaryKey>, CrudRepository<SproutUserEntity, TenantedPrimaryKey> {
+public interface UserRepository extends  CrudRepository<SproutUserEntity, String> {
 
 	ProfileProjection findProfileFirstByUsername(String username);
 	ProfileProjection findProfileById(String id);

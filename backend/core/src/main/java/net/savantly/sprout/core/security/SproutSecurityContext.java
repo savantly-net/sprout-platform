@@ -18,9 +18,9 @@ public class SproutSecurityContext {
 
         if (authentication != null && authentication.isAuthenticated()) {
             if(authentication.getDetails() != null && authentication.getDetails().getClass().isAssignableFrom(SproutUserEntity.class)){
-            	result = ((SproutUserEntity) authentication.getDetails()).getItemId();
+            	result = ((SproutUserEntity) authentication.getDetails()).getId();
             } else if(authentication.getPrincipal() != null && authentication.getPrincipal().getClass().isAssignableFrom(SproutUserEntity.class)){
-            	result = ((SproutUserEntity) authentication.getPrincipal()).getItemId();
+            	result = ((SproutUserEntity) authentication.getPrincipal()).getId();
             } else {
             	result = (SproutUser.anonymousUser()).getUsername();
             }

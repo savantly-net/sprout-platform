@@ -7,7 +7,6 @@ import net.savantly.spring.fixture.Fixture;
 import net.savantly.sprout.core.domain.privilege.Privilege;
 import net.savantly.sprout.core.domain.privilege.PrivilegeFixture;
 import net.savantly.sprout.core.domain.privilege.PrivilegeRepository;
-import net.savantly.sprout.core.tenancy.TenantContext;
 
 public class RoleFixture extends AbstractBaseFixture<Role, RoleRepository>{
 
@@ -29,17 +28,17 @@ public class RoleFixture extends AbstractBaseFixture<Role, RoleRepository>{
     @Override
     public void addEntities(List<Role> entityList) {
     	
-        if(repository.findByNameAndTenantId(USER_ROLE, TenantContext.getCurrentTenant()).size() == 0){
+        if(repository.findByName(USER_ROLE).size() == 0){
         	Role role = new Role().setName(USER_ROLE);
         	role.getPrivileges().add(getPrivilege(PrivilegeFixture.READ));
             entityList.add(role);
         }
-        if(repository.findByNameAndTenantId(ADMIN_ROLE, TenantContext.getCurrentTenant()).size() == 0){
+        if(repository.findByName(ADMIN_ROLE).size() == 0){
         	Role role = new Role().setName(ADMIN_ROLE);
         	role.getPrivileges().add(getPrivilege(PrivilegeFixture.ADMIN));
             entityList.add(role);
         }
-        if(repository.findByNameAndTenantId(ANONYMOUS_ROLE, TenantContext.getCurrentTenant()).size() == 0){
+        if(repository.findByName(ANONYMOUS_ROLE).size() == 0){
         	Role role = new Role().setName(ANONYMOUS_ROLE);
         	role.getPrivileges().add(getPrivilege(PrivilegeFixture.READ));
             entityList.add(role);

@@ -7,12 +7,12 @@ import javax.validation.constraints.Size;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.savantly.sprout.core.tenancy.TenantKeyedEntity;
+import net.savantly.sprout.core.domain.PersistedDomainObject;
 
 @Entity
 @Getter @Setter
 @Table(name = "feed_comment")
-public class FeedItemComment extends TenantKeyedEntity {
+public class FeedItemComment extends PersistedDomainObject {
 	
 	private String feedItemId;
 
