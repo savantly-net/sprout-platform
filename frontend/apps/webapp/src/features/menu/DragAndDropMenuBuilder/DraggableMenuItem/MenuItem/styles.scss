@@ -1,22 +1,25 @@
 .MenuItem {
-  width: 260px;
+  width: 100%;
+  // max-width: 525px;
   border: 1px solid var(--chakra-colors-gray-300);
-  margin-bottom: 5px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 8px;
   overflow: auto;
 
   .MenuItem__header {
     font-weight: bold;
     background: var(--chakra-colors-gray-100);
-    border: 1px solid #ddd;
+    // border: 1px solid #ddd;
     display: flex;
     padding: 5px 10px;
     justify-content: space-between;
     align-items: center;
-    height: 40px;
+    min-height: 40px;
 
-    &:hover {
-      border: 1px solid var(--chakra-colors-gray-400);
-    }
+    // &:hover {
+    //   border: 1px solid var(--chakra-colors-gray-400);
+    // }
     
     &__actions {
       

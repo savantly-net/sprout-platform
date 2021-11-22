@@ -1,4 +1,4 @@
-import { DeleteIcon, TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
+import { DeleteIcon, AddIcon, MinusIcon,TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
 import { Button, IconButton } from '@chakra-ui/react';
 import { FormField } from '@sprout-platform/ui';
 import cx from 'classnames';
@@ -10,9 +10,11 @@ import './styles.scss';
 interface Props {
   menu: MenuDto;
   onUpdate: (menu: MenuDto) => void;
+  onExpand?: (type: boolean) => void;
   onDelete?: () => void;
   disableCollapse?: boolean;
   disableDelete?: boolean;
+  disableExpand?: boolean;
   saveButtonText?: string;
   editorTitle?: string;
 }
@@ -22,17 +24,27 @@ const MenuItem = (props: Props) => {
     menu: { name, icon, displayText, url, weight, authorities, children, position, renderMode, parentName },
     onUpdate,
     onDelete,
+    onExpand,
     disableCollapse = false,
     disableDelete = false,
+    disableExpand,
     saveButtonText = 'Save',
     editorTitle
   } = props;
   const [collapsed, setCollapsed] = useState(!disableCollapse);
-
+   
   return (
     <div className={cx('MenuItem')}>
       <div className="MenuItem__header">
-        <span>{editorTitle || displayText}</span>
+        <span>{props.menu.children.length > 0 && (
+            <IconButton
+              variant="outline"
+              onClick={() => onExpand && onExpand(!disableExpand)}
+              aria-label={!disableExpand ? "show sub menu " : "Hide sub menu "}
+              size="xs"
+              icon={!disableExpand ? <AddIcon /> : <MinusIcon />}
+            />
+          )} {editorTitle || displayText}</span>
         <div className="MenuItem__header__actions">
           {!disableDelete && (
             <IconButton
@@ -42,7 +54,7 @@ const MenuItem = (props: Props) => {
               size="sm"
               icon={<DeleteIcon />}
             />
-          )}
+          )} 
           {!disableCollapse && (
             <IconButton
               variant="ghost"
