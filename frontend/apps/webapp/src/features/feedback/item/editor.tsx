@@ -70,8 +70,8 @@ export const IssueEntityEditor = ({ item, afterSave }: ItemEditorProps<EntityCla
   );
 };
 
-const wrapperProps = {
-  className: css`
-    padding: 0;
-  `
-};
+// const wrapperProps = {
+//   className: css`
+//     padding: 0;
+//   `
+// };

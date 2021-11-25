@@ -42,7 +42,7 @@ export default class BottomNavLinks extends PureComponent<Props> {
         <a href={link.url} className="sidemenu-link" target={link.target}>
           <span className="icon-circle sidemenu-icon">
             {link.icon && this.getIcon(link.icon)}
-            {link.img && <img src={link.img} />}
+            {link.img && <img src={link.img} alt="no-image" />}
           </span>
         </a>
         <ul className="dropdown-menu dropdown-menu--sidemenu" role="menu">
@@ -65,7 +65,7 @@ export default class BottomNavLinks extends PureComponent<Props> {
 
           {link.id === 'help' && (
             <li key="keyboard-shortcuts">
-              <a onClick={() => this.onOpenShortcuts()}>
+              <a onClick={() => this.onOpenShortcuts()} href="javascript:;" rel="noopener">
                 <Icon name="keyboard" className={subMenuIconClassName} /> Keyboard shortcuts
               </a>
             </li>

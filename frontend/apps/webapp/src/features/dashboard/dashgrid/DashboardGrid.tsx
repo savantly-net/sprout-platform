@@ -1,5 +1,5 @@
 // Libaries
-import React, { Component, PureComponent } from 'react';
+import React, { Component } from 'react';
 import ReactGridLayout, { ItemCallback } from 'react-grid-layout';
 import classNames from 'classnames';
 // @ts-ignore
@@ -16,7 +16,7 @@ import { DashboardModel, PanelModel } from '../state';
 import { CoreEvents } from '../../../types';
 import { panelAdded, panelRemoved } from '../state/PanelModel';
 import { LocationUpdateService } from '../../../core/services/locationSvc';
-import { Spinner } from 'reactstrap';
+// import { Spinner } from 'reactstrap';
 
 let lastGridWidth = 1200;
 let ignoreNextWidthChange = false;

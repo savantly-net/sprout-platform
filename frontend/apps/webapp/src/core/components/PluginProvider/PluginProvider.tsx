@@ -10,7 +10,7 @@ export const PluginProvider: React.FC = ({ children }) => {
   const authentication = useSelector((state: StoreState) => state.authentication.isAuthenticated);
   useMemo(() => {
     dispatch(loadPlugins());
-  }, [ref, authentication]);
+  }, [ref, authentication,dispatch]);
 
   return <React.Fragment>{children}</React.Fragment>;
 };

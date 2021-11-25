@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardBody } from 'reactstrap';
-import { Text, Heading, Divider, Stack, FormLabel, Table, Thead, Tr, Tbody, Td, Th, Tag } from '@chakra-ui/react';
+import { Heading, Divider, Stack, Table, Thead, Tr, Tbody, Td, Th, Tag } from '@chakra-ui/react';
 import { IssueEntity as EntityClass } from '../entity';
 
 export const IssueEntityViewer = ({ item }: { item: EntityClass }) => {

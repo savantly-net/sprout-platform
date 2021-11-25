@@ -1,5 +1,5 @@
-import { PluginMeta, PanelPlugin, AppPlugin, KeyValue, AppRootProps } from '@savantly/sprout-api';
-import { ComponentClass, ReactNode } from 'react';
+import { PluginMeta, PanelPlugin, AppRootProps } from '@savantly/sprout-api';
+import { ComponentClass } from 'react';
 
 export interface PluginDashboard {
   dashboardId: number;

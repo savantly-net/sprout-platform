@@ -28,7 +28,8 @@ const FilesIndexPage = () => {
       _filePath = filePathParam + filePathStar;
     }
     setFilePath(_filePath);
-  }, [filePath, params]);
+  }, [params]);
+  // }, [filePath, params]);
 
   useMemo(() => {
     if (fileState.path !== filePath) {

@@ -69,11 +69,12 @@ export const RemoteContentViewer = () => {
 
   const url = decodeURIComponent(encodedUrlParams);
 
-  if (renderMode == 'FRAME') {
+  if (renderMode === 'FRAME') {
     return (
       <div className="d-flex column">
         <iframe
           src={url}
+          title="remove content viewer"
           className={css`
             height: 100vh;
             width: 100vw;
@@ -82,9 +83,9 @@ export const RemoteContentViewer = () => {
         />
       </div>
     );
-  } else if (renderMode == 'JSON') {
+  } else if (renderMode === 'JSON') {
     return <p>Not Implemented Yet</p>;
-  } else if (renderMode == 'EMBED') {
+  } else if (renderMode === 'EMBED') {
     if (!isUriSafe(url)) {
       return <h1 className="danger">Not loading unsafe uri</h1>;
     }
@@ -95,15 +96,15 @@ export const RemoteContentViewer = () => {
 };
 
 // https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
-function validURL(str: string) {
-  var pattern = new RegExp(
-    '^(https?:\\/\\/)?' + // protocol
-      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-      '(\\#[-a-z\\d_]*)?$',
-    'i'
-  ); // fragment locator
-  return !!pattern.test(str);
-}
+// function validURL(str: string) {
+//   var pattern = new RegExp(
+//     '^(https?:\\/\\/)?' + // protocol
+//       '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+//       '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+//       '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+//       '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+//       '(\\#[-a-z\\d_]*)?$',
+//     'i'
+//   ); // fragment locator
+//   return !!pattern.test(str);
+// }

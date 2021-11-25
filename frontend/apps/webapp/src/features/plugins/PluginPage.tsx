@@ -169,7 +169,7 @@ const PluginPage = () => {
         {meta.hasUpdate && (
           <div>
             <Tooltip content={meta.latestVersion!} theme="info" placement="top">
-              <a href="#" onClick={showUpdateInfo}>
+              <a href="javascript:;" onClick={showUpdateInfo}>
                 Update Available!
               </a>
             </Tooltip>

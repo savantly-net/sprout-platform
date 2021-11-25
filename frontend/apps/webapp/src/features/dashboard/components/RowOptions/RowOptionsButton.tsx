@@ -20,6 +20,7 @@ export const RowOptionsButton: FC<RowOptionsButtonProps> = ({title, onUpdate }) 
       {({ showModal, hideModal }) => {
         return (
           <a
+          href="javascript:;"
             className="pointer"
             onClick={() => {
               showModal(RowOptionsModal, { title, onDismiss: hideModal, onUpdate: onUpdateChange(hideModal) });

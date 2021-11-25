@@ -2,13 +2,13 @@ import { css } from 'emotion';
 import React, { useMemo, useState } from 'react';
 import cx from 'classnames';
 import { useSelector } from 'react-redux';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Alert } from 'reactstrap';
 import Page from '../../core/components/Page/Page';
 import { getNavModel } from '../../core/selectors/navModel';
 import { DashboardDTO, StoreState } from '../../types';
 import { dashboardService } from '../dashboard/services/dashboardService';
-import { Table, Thead, Tbody, Tr, Th, Td, Button, Text } from '@chakra-ui/react';
+import { Table, Thead, Tbody, Tr, Th, Td, Button } from '@chakra-ui/react';
 
 import './styles.scss';
 import { setCurrentVersion } from './state/actions';

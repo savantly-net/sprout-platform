@@ -13,14 +13,14 @@ export interface Props {
 }
 
 const CustomLink = ({ item, onClick }: { item: NavModelItem; onClick?: () => void }) => {
-  if (!item.renderMode || item.renderMode == 'INTERNAL') {
+  if (!item.renderMode || item.renderMode === 'INTERNAL') {
     return (
       <NavLink to={item.url || '/'} onClick={onClick}>
         {item.text}
       </NavLink>
     );
-  } else if (item.renderMode == 'EXTERNAL') {
-    return <a href={item.url} target={'_blank'}>{item.text}</a>;
+  } else if (item.renderMode === 'EXTERNAL') {
+    return <a href={item.url} rel="noopener noreferrer"  target={'_blank'}>{item.text}</a>;
   }
   const encodedUrl = encodeURIComponent(item.url || '/');
   return <NavLink to={`/embedded/${item.renderMode}?encodedUrl=${encodedUrl}`}>{item.text}</NavLink>;

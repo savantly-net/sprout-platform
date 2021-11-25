@@ -52,6 +52,7 @@ interface DispatchProps {
 }
 
 type Props = OwnProps & ConnectedProps & DispatchProps;
+type EditorStyles = ReturnType<typeof getStyles>;
 
 export class PanelEditorUnconnected extends PureComponent<Props> {
 
@@ -195,7 +196,9 @@ export class PanelEditorUnconnected extends PureComponent<Props> {
   }
 
   renderPanelToolbar(styles: EditorStyles) {
-    const { dashboard, uiState } = this.props;
+    // const { dashboard, uiState } = this.props;
+    const { uiState } = this.props;
+    
     return (
       <div className={styles.panelToolbar}>
         <HorizontalGroup justify={'flex-end'} align="flex-start">
@@ -456,4 +459,3 @@ export const getStyles = stylesFactory((theme: GrafanaTheme, props: Props) => {
   };
 });
 
-type EditorStyles = ReturnType<typeof getStyles>;

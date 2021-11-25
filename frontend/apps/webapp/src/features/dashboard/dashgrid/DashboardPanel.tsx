@@ -30,7 +30,7 @@ export const DashboardPanel: FC<DashboardPanelProps> = (props: DashboardPanelPro
     if (!panelState.plugin) {
       dispatch(initDashboardPanel(props.panel));
     }
-  }, [panelState]);
+  }, [panelState,props,dispatch]);
 
   const onMouseEnter = () => {
     props.dashboard.setPanelFocus(props.panel.id);

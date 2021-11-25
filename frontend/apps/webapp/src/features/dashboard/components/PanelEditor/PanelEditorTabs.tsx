@@ -15,8 +15,7 @@ interface PanelEditorTabsProps {
 
 export const PanelEditorTabs: React.FC<PanelEditorTabsProps> = ({ panel, dashboard, tabs, onChangeTab }) => {
   const styles = getPanelEditorTabsStyles();
-  const activeTab = tabs.find(item => item.active)!;
-
+  // const activeTab = tabs.find(item => item.active)!;
 
   if (tabs.length === 0) {
     return null;

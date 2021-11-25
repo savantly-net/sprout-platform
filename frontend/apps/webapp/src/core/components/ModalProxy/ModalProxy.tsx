@@ -3,7 +3,7 @@ import React, { createRef, ReactElement, Ref } from 'react';
 import { CoreEvents } from '../../../types';
 import appEvents from '../../app_events';
 import { ThemeProvider } from '../../utils/ConfigProvider';
-import LifecycleLogging from '../LifecycleLogging/LifecycleLogging';
+// import LifecycleLogging from '../LifecycleLogging/LifecycleLogging';
 
 interface OwnProps {}
 interface OwnState {

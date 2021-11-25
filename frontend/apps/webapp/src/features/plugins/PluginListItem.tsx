@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { PluginMeta, PluginType } from '@savantly/sprout-api';
-import { PluginSignatureBadge } from './PluginSignatureBadge';
-import { Link, useNavigate } from 'react-router-dom';
+// import { PluginSignatureBadge } from './PluginSignatureBadge';
+import { useNavigate } from 'react-router-dom';
 import { css, cx } from 'emotion';
 import { Icon } from '@sprout-platform/ui';
-import { Button, ButtonGroup } from 'reactstrap';
+import { Button } from 'reactstrap';
 
 interface Props {
   plugin: PluginMeta;
@@ -24,7 +24,7 @@ const PluginListItem: FC<Props> = (props) => {
         `
       )}
     >
-      <img src={`${plugin.baseUrl}/${plugin.info?.logos?.large}`} className={'card-img-top'} />
+      <img alt="no-image" src={`${plugin.baseUrl}/${plugin.info?.logos?.large}`} className={'card-img-top'} />
       <div className="card-body">
         <h5 className="card-title">{plugin.name}</h5>
         <div className="card-subtitle">
@@ -35,7 +35,7 @@ const PluginListItem: FC<Props> = (props) => {
         <div className="card-text">{plugin.info?.description}</div>
       </div>
       <div className="card-footer d-flex justify-content-between">
-        {plugin.type == PluginType.app && (
+        {plugin.type === PluginType.app && (
           <Button
             className="btn btn-primary"
             onClick={() => {

@@ -22,7 +22,7 @@ const TopSection: FC<any> = ({ collapsed, setCollapsed }) => {
       return setCollapsed(false);
     }
     setCollapsed(true);
-  }, [isMobile]);
+  }, [isMobile,setCollapsed]);
 
   console.log('mainLinks', mainLinks);
 

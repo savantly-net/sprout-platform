@@ -1,6 +1,6 @@
 import * as reduxToolkit from '@reduxjs/toolkit';
 import * as sproutApi from '@savantly/sprout-api';
-import { AppPlugin, AppPluginMeta, PanelPlugin, PluginMeta } from '@savantly/sprout-api';
+import { AppPlugin, AppPluginMeta, PanelPlugin } from '@savantly/sprout-api';
 import * as sproutRuntime from '@savantly/sprout-runtime';
 import { config, setPanelRegistrationService } from '@savantly/sprout-runtime';
 import * as sproutUi from '@savantly/sprout-ui';

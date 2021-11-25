@@ -4,9 +4,9 @@ import { FormControl, FormLabel, Input } from '@chakra-ui/react';
 
 import './styles.scss';
 
-interface Props {
-  label?: string;
-}
+// interface Props {
+//   label?: string;
+// }
 
 const FormikTextInput: React.FC<FieldProps> = ({ field, form }) => (
   <FormControl>

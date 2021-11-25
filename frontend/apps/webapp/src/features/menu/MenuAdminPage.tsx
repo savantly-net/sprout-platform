@@ -54,7 +54,8 @@ export const MenuAdminPage = () => {
   };
 
   const deleteMenuItem = async (menuItem: MenuDto) => {
-    const response = await menuAdminService.deleteMenu(menuItem);
+    // const response = await menuAdminService.deleteMenu(menuItem);
+    await menuAdminService.deleteMenu(menuItem);
     fetchMenuItems();
   };
 
@@ -62,7 +63,7 @@ export const MenuAdminPage = () => {
     if (!menuItems && !fetchingMenus && !fetchError) {
       fetchMenuItems();
     }
-  }, [fetchingMenus, menuItems, menuAdminService, fetchError]);
+  }, [fetchingMenus, menuItems, fetchError]);
 
   const [tabIndex, setTabIndex] = React.useState(0);
 

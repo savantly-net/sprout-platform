@@ -28,7 +28,7 @@ export const LoginPage = ({ redirectUrl }: { redirectUrl?: string }) => {
           setError(failed.message);
           dispatch(logout());
         }),
-    [once]
+    [once,dispatch]
   );
 
   console.log(oauthClients);

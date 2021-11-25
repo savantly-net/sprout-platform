@@ -23,7 +23,7 @@ export class DashboardLoaderSrv {
       backendSrv
       .getDashboardByUid(uid)
       .then((result: AxiosResponse<DashboardDTO>) => {
-        if (result.status != 200) {
+        if (result.status !== 200) {
           throw new Error('Dashboard not found');
         }
         resolve(result.data);

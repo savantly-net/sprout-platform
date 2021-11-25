@@ -52,7 +52,7 @@ export const VisualizationTabUnconnected = React.forwardRef<HTMLInputElement, Pr
           }
         }
       },
-      [onPluginTypeChange]
+      [onPluginTypeChange,plugin]
     );
 
     const suffix =
