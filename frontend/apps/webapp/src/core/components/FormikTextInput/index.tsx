@@ -12,7 +12,7 @@ const FormikTextInput: React.FC<FieldProps> = ({ field, form }) => (
   <FormControl>
     <FormLabel className="FormikTextInput__label">{field.name}</FormLabel>
     <Input
-      placeholder="Issue Description"
+      placeholder="Issue Title"
       onChange={(e: any) => form.setFieldValue(field.name, e.target.value)}
       onBlur={field.onBlur}
       name={field.name}

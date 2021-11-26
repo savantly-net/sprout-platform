@@ -1,4 +1,4 @@
-import { EntityState, EntityStateProvider, NavModel, NavModelItem, TenantedEntity } from '@savantly/sprout-api';
+import { EntityState, EntityStateProvider, NavModel, NavModelItem, TenantedEntity,BaseEntityService } from '@savantly/sprout-api';
 import { css } from 'emotion';
 import _ from 'lodash';
 import React, { Fragment, ReactElement, useMemo, useState } from 'react';
@@ -17,6 +17,7 @@ export interface EntityItemIndexPageProps<E> {
   entityState: EntityState<E>;
   entityStateProvider: EntityStateProvider<E>;
   entityViewer: ({ item }: { item: E }) => ReactElement;
+  entityService: BaseEntityService<E>;
 }
 
 export const EntityItemIndexPage = ({
@@ -25,7 +26,8 @@ export const EntityItemIndexPage = ({
   iconProvider,
   entityState,
   entityStateProvider,
-  entityViewer
+  entityViewer,
+  entityService
 }: EntityItemIndexPageProps<any>) => {
   type ItemState = TenantedEntity | undefined;
   const params = useParams();
@@ -35,27 +37,37 @@ export const EntityItemIndexPage = ({
   const [error, setError] = useState('');
   const dispatch = useDispatch();
   const Viewer = entityViewer;
-
+  
   useMemo(() => {
     if (!entityState.isFetched && !entityState.isFetching) {
       dispatch(entityStateProvider.loadState());
     } else {
-      if (!item && entityState.response) {
-        const list = [] as TenantedEntity[];
-        if (_.isArray(entityState.response)) {
-          list.push(...entityState.response);
-        } else {
-          list.push(...entityState.response.content);
-        }
-        const found = list.filter((k) => k.itemId === itemId);
-        if (found.length > 0) {
-          setItem(found[0]);
-        } else {
-          setError('Item not found');
-        }
-      } else if (entityState.error) {
-        setError(entityState.error);
+      if (!item){
+        entityService.getById(itemId)
+        .then((response:any) => {
+          setItem(response.data);
+          setError('');
+        })
+        .catch((err:any) => {
+          setError('Item not found..');
+        });
       }
+      // if (!item && entityState.response) {
+      //   const list = [] as TenantedEntity[];
+      //   if (_.isArray(entityState.response)) {
+      //     list.push(...entityState.response);
+      //   } else {
+      //     list.push(...entityState.response.content);
+      //   }
+      //   const found = list.filter((k) => k.itemId === itemId);
+      //   if (found.length > 0) {
+      //     setItem(found[0]);
+      //   } else {
+      //     setError('Item not found');
+      //   }
+      // } else if (entityState.error) {
+      //   setError(entityState.error);
+      // }
     }
   }, [entityState, item, itemId, dispatch]);
 
@@ -82,7 +94,7 @@ export const EntityItemIndexPage = ({
               justify-content: end;
             `}
           >
-            <NavLink to={`./edit`} className="btn btn-warning ml-1">
+            <NavLink to={`./edit`}  onClick={() => {setItem(undefined)}} className="btn btn-warning ml-1">
               <Icon name="pen" className="mr-1" />
               <span>Edit</span>
             </NavLink>
