@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import cx from 'classnames';
 import { isEmpty } from 'lodash';
 import { Droppable } from 'react-beautiful-dnd';
 import DraggableMenuItem from '../DraggableMenuItem';
 import { MenuDto } from '../../menuAdminService';
 import { DeleteMenuItemHandler, UpdateMenuItemHandler } from '..';
-
 import './styles.scss';
 
 interface DroppableMenuListProps {
@@ -28,6 +27,8 @@ const DroppableMenuList = ({
   setPlaceholderProps
 }: DroppableMenuListProps) => {
   const droppableId = `menuList-${fullIndex}`;
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="DroppableMenuList">
       <Droppable droppableId={droppableId}>
@@ -40,16 +41,16 @@ const DroppableMenuList = ({
             })}
           >
             {(menuList || []).map((menu, idx) => (
-              <DraggableMenuItem
-                menu={menu}
-                key={menu.name}
-                index={idx}
-                fullIndex={`${fullIndex}${!isRoot ? '.' : ''}${idx}`}
-                updateMenuAtIndex={updateMenuAtIndex}
-                deleteMenuAtIndex={deleteMenuAtIndex}
-                placeholderProps={placeholderProps}
-                setPlaceholderProps={setPlaceholderProps}
-              />
+                 <DraggableMenuItem
+                    menu={menu}
+                    key={menu.name}
+                    index={idx}
+                    fullIndex={`${fullIndex}${!isRoot ? '.' : ''}${idx}`}
+                    updateMenuAtIndex={updateMenuAtIndex}
+                    deleteMenuAtIndex={deleteMenuAtIndex}
+                    placeholderProps={placeholderProps}
+                    setPlaceholderProps={setPlaceholderProps}
+                  />
             ))}
             {provided.placeholder}
             {!isEmpty(placeholderProps) && snapshot.isDraggingOver ? (

@@ -87,6 +87,7 @@ export const MenuAdminPage = () => {
                     .updateMenus(tabIndex === 0 ? menuItems : JSON.parse(values.menuJson))
                     .then((response) => {
                       publishSuccessNotification('Saved', 'Saved menu');
+                      fetchMenuItems();
                     })
                     .catch((err) => {
                       setError(err.message || 'Failed to save');

@@ -1,11 +1,12 @@
+.DragAndDropMenuBuilder{
+  text-align: left;
+}
 .DroppableMenuList {
-    width: 125px;
-    margin: 0 0 6px 80px;
+    padding: 0 0 0px 16px;
+    margin-left: 16px;
     position: relative;
-
-    &__droppable {
-      min-height: 10px;
-    }
+    border-left: 1px solid #ccc;
+    max-width: 600px;
 
     &__placeholder {
       position: absolute;
@@ -13,4 +14,36 @@
       border: dotted 1px var(--chakra-colors-gray-400);
       background-color: var(--chakra-colors-gray-200);
     }
+  }
+
+  .DraggableMenuItem{
+    &.active{
+      & > .MenuItem{
+        .MenuItem__header{
+          background: #1d1d1d;
+          color: #fff;
+          .MenuItem__header__actions{
+            button{
+              &:hover{
+                background: unset;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .chakra-popover__popper{
+    .chakra-popover__content{
+      .MenuItem {
+        .MenuItem__body__content__form__item{
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .saveBtn{
+    margin-left: 12px;
   }

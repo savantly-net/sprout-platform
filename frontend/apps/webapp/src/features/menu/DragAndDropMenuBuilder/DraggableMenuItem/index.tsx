@@ -9,7 +9,6 @@ import DroppableMenuList from '../DroppableMenuList';
 
 import Collapse from 'react-bootstrap/Collapse';
 import './styles.scss';
-import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import { IconButton } from '@chakra-ui/react';
 
 interface DraggableMenuItemProps {
@@ -38,11 +37,6 @@ const DraggableMenuItem = ({
     <>
       {menu.children && menu.children.length > 0 ? (
         <>
-         
-          {/* <IconButton onClick={() => setOpen(!open)} 
-              aria-controls={`sub-manu-${menu.children[0].id}`} aria-expanded={open}
-              variant="outline" aria-label="View sub menu" size="xs" icon={ !open ? <AddIcon /> : <MinusIcon />} /> */}
-
           <Draggable key={menu.name} draggableId={draggableId} index={index}>
             {(provided: any, draggableSnapshot: any) => (
               <div
@@ -51,12 +45,10 @@ const DraggableMenuItem = ({
                 {...provided.dragHandleProps}
                 style={provided.draggableProps.style}
                 className={`DraggableMenuItem ${open ? 'active' : ''}`}>
-                {/* className={cx('DraggableMenuItem')}> */}
                 {menu.name ? (
                   <MenuItem
                     menu={menu}
                     onExpand={() => setOpen(!open)}
-                    // onExpand={(open) => setOpen(!open)}
                     disableExpand={open}
                     onUpdate={(menu) => updateMenuAtIndex(fullIndex, menu)}
                     onDelete={() => deleteMenuAtIndex(fullIndex)}
