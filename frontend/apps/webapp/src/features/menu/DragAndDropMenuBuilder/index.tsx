@@ -214,8 +214,6 @@ const DragAndDropMenuBuilder = ({ menuItems = [], setMenuItems, deleteMenuItem,t
     setMenuItems(updatedMenuItems);
   };
   const submitFormData= () => {
-    console.log(tabIndex, " tabIndex")
-    console.log(menuItems, " menuItems")
     menuAdminService
     .updateMenus( menuItems)
     .then((response) => {

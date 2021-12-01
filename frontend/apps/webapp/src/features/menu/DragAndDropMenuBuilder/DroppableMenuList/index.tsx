@@ -44,8 +44,6 @@ const DroppableMenuList = ({
           >
             {(menuList || []).map((menu, idx) => (
               <>
-              {/* {console.log(idx, " idx")}
-              {console.log(menu.name, " menu.name")} */}
                  <DraggableMenuItem
                     menu={menu}
                     key={menu.name}

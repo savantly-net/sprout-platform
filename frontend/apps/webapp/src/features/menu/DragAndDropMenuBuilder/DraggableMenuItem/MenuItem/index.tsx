@@ -8,7 +8,6 @@ import {
   ChevronRightIcon,
   MinusIcon
 } from '@chakra-ui/icons';
-
 import { Button, IconButton } from '@chakra-ui/react';
 import cx from 'classnames';
 import { Field, Form, Formik } from 'formik';
