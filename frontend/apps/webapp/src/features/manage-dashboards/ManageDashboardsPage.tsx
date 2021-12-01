@@ -2,7 +2,7 @@ import { css } from 'emotion';
 import React, { useMemo, useState } from 'react';
 import cx from 'classnames';
 import { useSelector } from 'react-redux';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate,Link } from 'react-router-dom';
 import { Alert } from 'reactstrap';
 import Page from '../../core/components/Page/Page';
 import { getNavModel } from '../../core/selectors/navModel';
@@ -68,7 +68,7 @@ const DashboardList = ({
                             DashboardList__activeVersion: d.dashboard.currentVersion
                           })}
                         >
-                          <Td>{d.dashboard.version}</Td>
+                          <Td><Link to={'/d/'+d.dashboard.uid}>{d.dashboard.version}</Link></Td>
                           <Td>{d.dashboard.message || 'NA'}</Td>
                           <Td>
                             {d.dashboard.currentVersion ? (
