@@ -3,17 +3,22 @@ import { internalMenuItemsStateType } from '../MenuAdminPage';
 import { MenuDto } from '../menuAdminService';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { useFormikContext } from 'formik';
-
+import { Button } from '@chakra-ui/react';
 import './styles.scss';
 import DroppableMenuList from './DroppableMenuList';
 import AddMenuItem from './AddMenuItem';
 import { DialogModalCloseResponse, openChakraDialog } from '../../../core/components/ChakraDialogModal';
 import { confirm } from '@sprout-platform/ui';
+// import {FileIcon} from '@chakra-ui/icons';
+import { MdSave } from 'react-icons/md'
+import { menuAdminService } from '../menuAdminService';
+import { publishErrorNotification, publishSuccessNotification } from '@savantly/sprout-api';
 
 interface Props {
   menuItems: internalMenuItemsStateType;
   setMenuItems: (menuItems: internalMenuItemsStateType) => void;
   deleteMenuItem: (menuItem: MenuDto) => void;
+  tabIndex: number;
 }
 
 interface DeleteConfirmationProps {
@@ -26,7 +31,7 @@ export type UpdateMenuItemHandler = (fullIndex: string, menu: MenuDto) => void;
 
 export type DeleteMenuItemHandler = (fullIndex: string) => void;
 
-const DragAndDropMenuBuilder = ({ menuItems = [], setMenuItems, deleteMenuItem }: Props) => {
+const DragAndDropMenuBuilder = ({ menuItems = [], setMenuItems, deleteMenuItem,tabIndex }: Props) => {
   const { submitForm } = useFormikContext();
   const [placeholderProps, setPlaceholderProps] = useState({});
 
@@ -201,17 +206,37 @@ const DragAndDropMenuBuilder = ({ menuItems = [], setMenuItems, deleteMenuItem }
       submitForm();
     }, 0);
   };
+  const [error, setError] = useState('');
 
   const onNewMenuItem = (menu: MenuDto) => {
     const updatedMenuItems = [...menuItems];
     updatedMenuItems.push(menu);
     setMenuItems(updatedMenuItems);
   };
+  const submitFormData= () => {
+    console.log(tabIndex, " tabIndex")
+    console.log(menuItems, " menuItems")
+    menuAdminService
+    .updateMenus( menuItems)
+    .then((response) => {
+      publishSuccessNotification('Saved', 'Saved menu');
+      // fetchMenuItems();
+    })
+    .catch((err) => {
+      setError(err.message || 'Failed to save');
+      publishErrorNotification('Failed to save', err);
+    })
+    .finally(() => {
+      // helpers.setSubmitting(false);
+    });
 
+  }
   return (
     <div className="DragAndDropMenuBuilder">
       <div className="DragAndDropMenuBuilder__AddButtonWrapper">
-        <AddMenuItem onSave={onNewMenuItem} />
+      <AddMenuItem onSave={onNewMenuItem} />
+        <Button onClick={() => {submitFormData()}} 
+        variant='outline' leftIcon={<MdSave />}  className="saveBtn ml-2" size="sm">Save Menu</Button>
       </div>
       <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart} onDragUpdate={onDragUpdate}>
         <DroppableMenuList
