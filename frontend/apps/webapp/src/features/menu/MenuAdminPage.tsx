@@ -50,6 +50,8 @@ export const MenuAdminPage = () => {
         let sortArray  = response.data;
         if(sortArray.length > 0){
           setMenuItems(sortArray.sort((next:any , prev:any) => (next.weight - prev.weight)));
+        }else{
+          setMenuItems(response.data);
         }
         // setMenuItems(response.data);
         setFetchingMenus(false);

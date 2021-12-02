@@ -33,7 +33,6 @@ const DraggableMenuItem = ({
   menu.weight = Number(index) +1;
   const draggableId = `menuItem-${fullIndex}`;
   const [open, setOpen] = useState(false);
-  console.log(menu.weight , " menu.weight")
   return (
     <>
       {menu.children && menu.children.length > 0 ? (
