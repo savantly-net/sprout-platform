@@ -49,25 +49,9 @@ export const EntityItemIndexPage = ({
           setError('');
         })
         .catch((err:any) => {
-          setError('Item not found..');
+          setError('Item not found!');
         });
       }
-      // if (!item && entityState.response) {
-      //   const list = [] as TenantedEntity[];
-      //   if (_.isArray(entityState.response)) {
-      //     list.push(...entityState.response);
-      //   } else {
-      //     list.push(...entityState.response.content);
-      //   }
-      //   const found = list.filter((k) => k.itemId === itemId);
-      //   if (found.length > 0) {
-      //     setItem(found[0]);
-      //   } else {
-      //     setError('Item not found');
-      //   }
-      // } else if (entityState.error) {
-      //   setError(entityState.error);
-      // }
     }
   }, [entityState, item, itemId, dispatch]);
 
