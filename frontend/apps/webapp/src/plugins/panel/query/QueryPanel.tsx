@@ -179,7 +179,6 @@ export const QueryPanel = (props: Props) => {
   const [dataType, setDataType] = useState('');
   const [payload, setPayload] = useState(undefined as undefined | ProxyRequestPayload);
   const [error] = useState('');
-  // const [error, setError] = useState('');
   const defaultState: KeyValue = {};
   const [state, setState] = useState(defaultState);
   const paramString = buildParamString(state);

@@ -1,6 +1,5 @@
 import { DeleteIcon, TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
 import { Button, IconButton } from '@chakra-ui/react';
-// import { FormField } from '@sprout-platform/ui';
 import cx from 'classnames';
 import { Field, Form, Formik } from 'formik';
 import React, { useState } from 'react';

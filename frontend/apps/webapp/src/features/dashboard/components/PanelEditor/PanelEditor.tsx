@@ -196,7 +196,6 @@ export class PanelEditorUnconnected extends PureComponent<Props> {
   }
 
   renderPanelToolbar(styles: EditorStyles) {
-    // const { dashboard, uiState } = this.props;
     const { uiState } = this.props;
     
     return (

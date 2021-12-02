@@ -15,20 +15,6 @@ interface ServerMenuItem {
   renderMode: NavModelItemRenderMode;
 }
 
-// function toNavModel(menuItem: ServerMenuItem): NavModelItem {
-//   return {
-//     id: menuItem.name,
-//     text: menuItem.displayText,
-//     icon: menuItem.icon || 'cube',
-//     url: menuItem.url,
-//     children: menuItem.children.map((m) => {
-//       return toNavModel(m);
-//     }),
-//     position: menuItem.position,
-//     renderMode: menuItem.renderMode
-//   };
-// }
-
 function navModelItemFromWritableDraft(draft: WritableDraft<NavModelItem>): NavModelItem {
   return {
     text: draft.text,

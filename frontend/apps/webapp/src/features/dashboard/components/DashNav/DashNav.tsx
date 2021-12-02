@@ -226,7 +226,6 @@ const DashNav = (props: OwnProps) => {
   };
 
   const { isFullscreen } = props;
-  // const { dashboard, isFullscreen } = props;
 
   return (
     <PrivateComponent hasAnyAuthority={['ADMIN', 'DASHBOARD_EDIT']}>

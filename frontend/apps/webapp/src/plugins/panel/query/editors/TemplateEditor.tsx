@@ -10,8 +10,6 @@ export interface CodeTemplateEditorConfiguration {
 export const CodeTemplateEditor: React.FC<
   StandardEditorProps<CodeTemplateEditorConfiguration, any, QueryPanelOptions>
 > = ({ value, onChange }) => {
-  // const [state, setState] = useState('');
-  // console.log('state value', state);
 
   const updateConfig = (source: string) => {
     console.log('calling onChange handler', source);

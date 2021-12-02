@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { PluginMeta, PluginType } from '@savantly/sprout-api';
-// import { PluginSignatureBadge } from './PluginSignatureBadge';
 import { useNavigate } from 'react-router-dom';
 import { css, cx } from 'emotion';
 import { Icon } from '@sprout-platform/ui';

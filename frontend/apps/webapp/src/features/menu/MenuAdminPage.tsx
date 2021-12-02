@@ -54,7 +54,6 @@ export const MenuAdminPage = () => {
   };
 
   const deleteMenuItem = async (menuItem: MenuDto) => {
-    // const response = await menuAdminService.deleteMenu(menuItem);
     await menuAdminService.deleteMenu(menuItem);
     fetchMenuItems();
   };

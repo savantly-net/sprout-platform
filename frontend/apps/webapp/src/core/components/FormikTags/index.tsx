@@ -1,6 +1,5 @@
 import { FieldProps } from 'formik';
 import React from 'react';
-// import { Select } from '@chakra-ui/react';
 import {
   Box,
   FormControl,
@@ -20,7 +19,6 @@ import {
   PopoverArrow,
   PopoverCloseButton,
   useDisclosure,
-  // Portal
 } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 import FocusLock from 'react-focus-lock';

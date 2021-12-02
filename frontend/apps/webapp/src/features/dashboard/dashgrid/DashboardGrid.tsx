@@ -16,7 +16,6 @@ import { DashboardModel, PanelModel } from '../state';
 import { CoreEvents } from '../../../types';
 import { panelAdded, panelRemoved } from '../state/PanelModel';
 import { LocationUpdateService } from '../../../core/services/locationSvc';
-// import { Spinner } from 'reactstrap';
 
 let lastGridWidth = 1200;
 let ignoreNextWidthChange = false;
