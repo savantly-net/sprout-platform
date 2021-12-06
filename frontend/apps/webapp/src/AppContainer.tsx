@@ -30,7 +30,7 @@ export const AppContainer = ({ theme }: { theme: string }) => {
     if (!navTreeState.fetched && !navTreeState.fetching && !navTreeState.error) {
       dispatch(loadNavTreeState());
     }
-  }, [navTreeState]);
+  }, [navTreeState,dispatch]);
 
   useMemo(() => {
     if (!isSessionFetched) {
@@ -45,7 +45,7 @@ export const AppContainer = ({ theme }: { theme: string }) => {
           console.error(failed);
         });
     }
-  }, [isSessionFetched]);
+  }, [isSessionFetched,dispatch]);
 
   const appElem = createRef<HTMLDivElement>();
 

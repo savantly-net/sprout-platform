@@ -1,7 +1,6 @@
 import memoizeOne from 'memoize-one';
 import { PanelPlugin, urlUtil } from '@savantly/sprout-api';
 import { PanelEditorTab, PanelEditorTabId } from '../types';
-import { getConfig } from '../../../../../core/config';
 
 export const getPanelEditorTabs = memoizeOne((plugin?: PanelPlugin) => {
   const tabs: PanelEditorTab[] = [];

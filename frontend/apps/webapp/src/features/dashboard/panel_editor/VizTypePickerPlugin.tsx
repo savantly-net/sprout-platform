@@ -37,7 +37,7 @@ const VizTypePickerPlugin: React.FC<Props> = ({ isCurrent, plugin, onClick, disa
             <Icon name={plugin.info.logos.icon} size='3x' />
           )}
           {!plugin.info.logos.icon && (
-            <img className={styles.img} src={plugin.info.logos.small} />
+            <img alt="no-image" className={styles.img} src={plugin.info.logos.small} />
           )}
         </div>
       </div>

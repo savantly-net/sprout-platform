@@ -7,17 +7,12 @@ import { useFormikContext } from 'formik';
 import './styles.scss';
 import DroppableMenuList from './DroppableMenuList';
 import AddMenuItem from './AddMenuItem';
-import { DialogModalCloseResponse, openChakraDialog } from '../../../core/components/ChakraDialogModal';
 import { confirm } from '@sprout-platform/ui';
 
 interface Props {
   menuItems: internalMenuItemsStateType;
   setMenuItems: (menuItems: internalMenuItemsStateType) => void;
   deleteMenuItem: (menuItem: MenuDto) => void;
-}
-
-interface DeleteConfirmationProps {
-  onClose: (response: DialogModalCloseResponse<boolean>) => void;
 }
 
 type DragEndHandler = (result: any) => void;

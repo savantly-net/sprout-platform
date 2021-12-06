@@ -25,10 +25,10 @@ export const SaveDashboardErrorProxy: React.FC<SaveDashboardErrorProxyProps> = (
   const { onDashboardSave } = useDashboardSave(dashboard);
 
   useEffect(() => {
-    if (error.data && isHandledError(error.data.status)) {
+    if (error?.data && isHandledError(error?.data?.status)) {
       error.isHandled = true;
     }
-  }, []);
+  }, [error]);
 
   return (
     <>

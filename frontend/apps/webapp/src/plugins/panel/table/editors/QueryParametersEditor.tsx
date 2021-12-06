@@ -40,7 +40,7 @@ const initialParameterControl: QueryParameterControl = {
 export const QueryParametersEditor: React.FC<
   StandardEditorProps<QueryParametersConfiguration, any, TablePanelOptions>
 > = ({ value, onChange, context, item }) => {
-  const [state, setState] = useState(value);
+  const [state] = useState(value);
 
   if (!state) {
     console.log(`no value passed to editor`);

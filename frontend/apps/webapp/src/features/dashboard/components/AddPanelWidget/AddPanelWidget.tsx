@@ -16,7 +16,6 @@ import { LS_PANEL_COPY_KEY } from '../../../../core/constants';
 import { css, cx, keyframes } from 'emotion';
 import { GrafanaTheme } from '@savantly/sprout-api';
 import tinycolor from 'tinycolor2';
-import { LocationUpdateService } from '../../../../core/services/locationSvc';
 
 export type PanelPluginInfo = { id: any; defaults: { gridPos: { w: any; h: any }; title: any } };
 

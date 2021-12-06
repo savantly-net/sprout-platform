@@ -14,6 +14,11 @@ export const initialDashboardState: DashboardState = {
   initError: null
 };
 
+export interface PanelModelAndPluginReadyPayload {
+  panelId: number;
+  plugin: PanelPlugin;
+}
+
 const dashbardSlice = createSlice({
   name: 'dashboard',
   initialState: initialDashboardState,
@@ -78,10 +83,6 @@ export function updatePanelState(state: DashboardState, panelId: number, ps: Par
   }
 }
 
-export interface PanelModelAndPluginReadyPayload {
-  panelId: number;
-  plugin: PanelPlugin;
-}
 
 export const {
   dashboardInitFetching,

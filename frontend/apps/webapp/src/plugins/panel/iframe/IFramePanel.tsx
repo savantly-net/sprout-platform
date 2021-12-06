@@ -14,7 +14,7 @@ export const IFramePanel = (props: Props) => {
     const styles = getStyles();
     return (
       <CustomScrollbar autoHeightMin="100%">
-        <iframe src={url} className={cx(styles.content)} />
+        <iframe src={url} title="iframe panel" className={cx(styles.content)} />
       </CustomScrollbar>
     );
 }

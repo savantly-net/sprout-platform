@@ -1,7 +1,7 @@
 import { FieldProps } from 'formik';
 import React from 'react';
 import { Select } from '@chakra-ui/react';
-import { FormControl, FormLabel, FormErrorMessage, FormHelperText } from '@chakra-ui/react';
+import { FormControl, FormLabel } from '@chakra-ui/react';
 
 import './styles.scss';
 

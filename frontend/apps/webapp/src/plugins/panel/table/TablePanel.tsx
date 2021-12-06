@@ -1,6 +1,6 @@
 // Libraries
 import { KeyValue, PanelProps } from '@savantly/sprout-api';
-import { CustomScrollbar, stylesFactory } from '@savantly/sprout-ui';
+import { CustomScrollbar } from '@savantly/sprout-ui';
 import { HandlebarsViewer, LoadingIcon } from '@sprout-platform/ui';
 import axios from 'axios';
 import { css, cx } from 'emotion';
@@ -19,7 +19,7 @@ import { TablePanelOptions } from './types';
 interface Props extends PanelProps<TablePanelOptions> {}
 
 const DateField = ({ ...props }) => {
-  const { setFieldValue, values } = useFormikContext();
+  const { setFieldValue } = useFormikContext();
   const [field] = useField(props as any);
   return (
     <Datetime
@@ -219,7 +219,7 @@ export const TablePanel = (props: Props) => {
   const [targetUrl, setTargetUrl] = useState('');
   const [dataType, setDataType] = useState('');
   const [payload, setPayload] = useState(undefined as undefined | ProxyRequestPayload);
-  const [error, setError] = useState('');
+  const [error] = useState('');
   const defaultState: KeyValue = {};
   const [state, setState] = useState(defaultState);
   const paramString = buildParamString(state);
@@ -233,7 +233,7 @@ export const TablePanel = (props: Props) => {
         setTargetUrl(_targetUrl);
       }
     }
-  }, [url, targetUrl, paramString]);
+  }, [url, paramString,useProxy]);
 
   useMemo(() => {
     if (useProxy && targetUrl) {
@@ -288,8 +288,6 @@ export const TablePanel = (props: Props) => {
     return formControlList;
   };
 
-  const styles = getStyles();
-
   if (error) {
     return <Alert color="warning">{error}</Alert>;
   }
@@ -330,12 +328,3 @@ export const TablePanel = (props: Props) => {
     </CustomScrollbar>
   );
 };
-
-const getStyles = stylesFactory(() => {
-  return {
-    content: css`
-      height: 100%;
-      border: none;
-    `
-  };
-});

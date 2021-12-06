@@ -1,9 +1,7 @@
-import axios, { AxiosResponse } from 'axios';
 import React, { FC, Fragment, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { StoreState } from '../../../types';
-import { StyleMatchType } from './brandingService';
 import { loadBrandingStyleMaps } from './state/reducers';
 
 const addStyle = (stylePath: string) => {
@@ -31,7 +29,7 @@ export const BrandingProvider: FC = (props) => {
     if (!brandingState.fetched && !brandingState.loading) {
       dispatch(loadBrandingStyleMaps());
     }
-  }, [brandingState]);
+  }, [brandingState,dispatch]);
 
   useMemo(() => {
     if (brandingState && brandingState.fetched && !brandingState.error) {

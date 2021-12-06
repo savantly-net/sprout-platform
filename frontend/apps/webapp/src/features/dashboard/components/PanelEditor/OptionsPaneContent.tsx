@@ -17,7 +17,7 @@ interface Props {
   onPanelOptionsChanged: (options: any) => void;
   onPanelConfigChange: (configKey: string, value: any) => void;
 }
-
+type OptionsPaneStyles = ReturnType<typeof getStyles>;
 export const OptionsPaneContent: React.FC<Props> = ({
   plugin,
   panel,
@@ -247,4 +247,4 @@ const getStyles = stylesFactory((theme: GrafanaTheme) => {
   };
 });
 
-type OptionsPaneStyles = ReturnType<typeof getStyles>;
+

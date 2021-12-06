@@ -16,7 +16,7 @@ import { QueryPanelOptions } from './types';
 interface Props extends PanelProps<QueryPanelOptions> {}
 
 export const DateField = ({ ...props }) => {
-  const { setFieldValue, values } = useFormikContext();
+  const { setFieldValue } = useFormikContext();
   const [field] = useField(props as any);
   return (
     <Datetime
@@ -178,7 +178,7 @@ export const QueryPanel = (props: Props) => {
   const [targetUrl, setTargetUrl] = useState('');
   const [dataType, setDataType] = useState('');
   const [payload, setPayload] = useState(undefined as undefined | ProxyRequestPayload);
-  const [error, setError] = useState('');
+  const [error] = useState('');
   const defaultState: KeyValue = {};
   const [state, setState] = useState(defaultState);
   const paramString = buildParamString(state);
@@ -192,7 +192,7 @@ export const QueryPanel = (props: Props) => {
         setTargetUrl(_targetUrl);
       }
     }
-  }, [url, targetUrl, paramString]);
+  }, [url, targetUrl, paramString,useProxy]);
 
   useMemo(() => {
     if (useProxy && targetUrl) {
@@ -282,7 +282,7 @@ export const QueryPanel = (props: Props) => {
           <hr />
         </Fragment>
       )}
-      {displayType === 'FRAME' && targetUrl && <iframe src={targetUrl} className={cx(styles.content)} />}
+      {displayType === 'FRAME' && targetUrl && <iframe title="query panel iframe" src={targetUrl} className={cx(styles.content)} />}
       {displayType === 'RENDER' && targetUrl && (
         <RenderData
           data={data}

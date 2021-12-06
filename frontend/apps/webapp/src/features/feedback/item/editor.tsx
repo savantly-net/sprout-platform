@@ -69,9 +69,3 @@ export const IssueEntityEditor = ({ item, afterSave }: ItemEditorProps<EntityCla
     </Fragment>
   );
 };
-
-const wrapperProps = {
-  className: css`
-    padding: 0;
-  `
-};

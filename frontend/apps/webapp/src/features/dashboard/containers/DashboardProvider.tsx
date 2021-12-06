@@ -26,10 +26,6 @@ type DispatchProps = {
 
 type AllProps = OwnProps & StateProps & DispatchProps;
 
-type OwnState = {
-  showLoadingState: boolean;
-};
-
 const mapStateToProps = (state: StoreState): StateProps => ({
   initPhase: state.dashboard.initPhase,
   isInitSlow: state.dashboard.isInitSlow,

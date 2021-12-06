@@ -21,12 +21,12 @@ export const HomePage = () => {
 
   if (!homePageState) {
     return <Spinner />;
-  } else if (homePageState.dataType == 'MARKDOWN') {
+  } else if (homePageState.dataType === 'MARKDOWN') {
     return <MarkdownViewer>{homePageState.data}</MarkdownViewer>;
-  } else if (homePageState.dataType == 'MARKUP') {
+  } else if (homePageState.dataType === 'MARKUP') {
     return <MarkdownViewer allowDangerousHtml={true}>{homePageState.data}</MarkdownViewer>;
-  } else if (homePageState.dataType == 'URL') {
-    return <iframe className={iframeFullPage} src={homePageState.data}></iframe>;
+  } else if (homePageState.dataType === 'URL') {
+    return <iframe title="home page iframe" className={iframeFullPage} src={homePageState.data}></iframe>;
   } else {
     return <h1>Unknown hompage data type</h1>;
   }

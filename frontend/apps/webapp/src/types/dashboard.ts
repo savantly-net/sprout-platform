@@ -1,10 +1,20 @@
 import { PanelModel, PanelPlugin } from '@savantly/sprout-api';
 import { DashboardModel } from '../features/dashboard/state/DashboardModel';
 
-export interface DashboardDTO {
-  redirectUri?: string;
-  dashboard: DashboardDataDTO;
-  meta: DashboardMeta;
+export interface DashboardDataDTO {
+  uid: string;
+  id: string;
+  title: string;
+  deleted: boolean;
+  editable: boolean;
+  hideControls: boolean;
+  currentVersion: boolean;
+  message?: string;
+  links: any[];
+  panels: PanelModel<any>;
+  schemaVersion: number;
+  version: number;
+  tags: string[];
 }
 
 export interface DashboardMeta {
@@ -34,20 +44,10 @@ export interface DashboardMeta {
   updatedBy?: string;
 }
 
-export interface DashboardDataDTO {
-  uid: string;
-  id: string;
-  title: string;
-  deleted: boolean;
-  editable: boolean;
-  hideControls: boolean;
-  currentVersion: boolean;
-  message?: string;
-  links: any[];
-  panels: PanelModel<any>;
-  schemaVersion: number;
-  version: number;
-  tags: string[];
+export interface DashboardDTO {
+  redirectUri?: string;
+  dashboard: DashboardDataDTO;
+  meta: DashboardMeta;
 }
 
 export enum DashboardRouteInfo {

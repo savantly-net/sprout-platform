@@ -20,7 +20,7 @@ interface Props {
 const AddMenuItem = ({ onSave }: Props) => {
   const { onOpen, onClose, isOpen } = useDisclosure();
   const firstFieldRef = React.useRef(null);
-  const [menu, setMenu] = useState<MenuDto>({
+  const [menu] = useState<MenuDto>({
     name: '',
     icon: '',
     displayText: '',

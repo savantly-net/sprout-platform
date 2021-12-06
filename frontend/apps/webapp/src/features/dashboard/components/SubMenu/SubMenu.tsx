@@ -38,8 +38,6 @@ class SubMenuUnConnected extends PureComponent<Props> {
   };
 
   render() {
-    const { dashboard } = this.props;
-
     if (!this.isSubMenuVisible()) {
       return null;
     }

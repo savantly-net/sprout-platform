@@ -30,7 +30,7 @@ export const useWidgetData = (dataSourceId?: string) => {
           setFetching(false);
         });
     }
-  }, [dataSourceId]);
+  }, [dataSourceId,fetching,state]);
 
   return state;
 };

@@ -69,7 +69,7 @@ const PermissionsTable = ({
         name: roles[0].name
       });
     }
-  }, [roles]);
+  }, [roles,rolePrivileges]);
 
   /* SET SELECTED USER PRIVILAGES */
   const getSelectedRolePrivilage = (result: any) => {
@@ -87,7 +87,7 @@ const PermissionsTable = ({
                 <ul className={cx('ul.card-body', css`list-style: none`)}>
                   {roles &&
                     roles.map((r, index) => (
-                      <li key={index}><button onClick={() => getSelectedRolePrivilage(r)} className={cx(defaultButton, (rolePrivileges?.name == r.name) ? slectedButton : '')}>{r.name}</button></li>
+                      <li key={index}><button onClick={() => getSelectedRolePrivilage(r)} className={cx(defaultButton, (rolePrivileges?.name === r.name) ? slectedButton : '')}>{r.name}</button></li>
                     ))}
                 </ul>
               </div>
@@ -96,7 +96,7 @@ const PermissionsTable = ({
         }
         {roles
           && roles.map((role, index) => {
-            if (role.name != rolePrivileges.name) {
+            if (role.name !== rolePrivileges.name) {
               return null;
             }
             return (

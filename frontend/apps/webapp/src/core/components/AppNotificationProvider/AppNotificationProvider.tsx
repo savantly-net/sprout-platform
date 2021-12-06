@@ -28,7 +28,7 @@ export const AppNotificationProvider: FC = (props) => {
         dispatch(clearAppNotification(n.id));
       }, n.timeout);
     });
-  }, [appNotifications]);
+  }, [dispatch,appNotifications]);
 
   const determineColor = (severity: AppNotificationSeverity): ThemeColor => {
     switch (severity) {

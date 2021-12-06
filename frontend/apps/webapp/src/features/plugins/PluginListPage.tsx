@@ -14,12 +14,6 @@ export interface Props {
 class PluginListPage extends PureComponent<Props> {
   render() {
     const { navModel, plugins } = this.props;
-
-    const linkButton = {
-      href: 'https://savantly-net.github.io/sprout-platform',
-      title: 'Find more plugins'
-    };
-
     return (
       <Page navModel={navModel}>
         <Page.Contents>
