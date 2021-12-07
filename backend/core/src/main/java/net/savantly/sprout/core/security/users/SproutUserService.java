@@ -14,6 +14,7 @@ public interface SproutUserService extends UserDetailsService {
     SproutUser loadByEmailAddress(String emailAddress);
     SproutUser loadUserByUsername(String username) throws UsernameNotFoundException;
     SproutUser createUser(String username, String password, String emailAddress, Collection<String> roles);
+    SproutUser createUser(String username, String password, String emailAddress, String firstName, String lastName, Collection<String> roles);
     SproutUser updateUser(UserUpdateDto user);
     boolean emailAddressExists(String email);
     void updatePassword(SproutUser user, String clearText);

@@ -57,10 +57,17 @@ public class SproutUserServiceImpl implements SproutUserService {
 
 	@Override
 	public SproutUser createUser(String username, String password, String emailAddress, Collection<String> roles) {
+		return createUser(username, password, emailAddress, null, null, roles);
+	}
+
+	@Override
+	public SproutUser createUser(String username, String password, String emailAddress, String firstName, String lastName, Collection<String> roles) {
 		Set<Role> authorities = roles.parallelStream().map(r -> getRole(r)).collect(Collectors.toSet());
 		SproutUserEntity userDetails = new SproutUserEntity(username, password, null, null, authorities);
 		userDetails.setDisplayName(username);
 		userDetails.setPassword(encoder.encode(password));
+		userDetails.setFirstName(firstName);
+		userDetails.setLastName(lastName);
 
 		if (getEmailAddress(emailAddress).isPresent()) {
 			throw new RuntimeException("email is already registered");
