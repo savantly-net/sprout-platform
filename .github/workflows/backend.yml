@@ -1,4 +1,4 @@
-name: CI
+name: Backend
 
 # Suppress Spinner because it appears as warnings
 env:
