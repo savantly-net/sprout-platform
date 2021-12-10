@@ -11,24 +11,32 @@ import net.savantly.sprout.core.domain.user.UserUpdateDto;
 import net.savantly.sprout.core.domain.user.repository.UserRepository;
 import net.savantly.sprout.core.security.users.SproutUserService;
 
+@PreAuthorize("hasAuthority('ADMIN')")
 @RequiredArgsConstructor
 public class UserAdminService {
     
     private final SproutUserService userService;
     private final UserRepository userRepo;
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     public List<SproutUser> getAllUsers() {
         return userRepo.findAll().stream().map(u -> (SproutUser)u).collect(Collectors.toList());
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     public SproutUser createUser(UserCreateDto dto) {
         return userService.createUser(dto.getUsername(), dto.getPassword(), dto.getEmailAddress(), dto.getFirstName(), dto.getLastName(), dto.getRoles());
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     public SproutUser updateUser(UserUpdateDto dto) {
         return userService.updateUser(dto);
+    }
+
+    public SproutUser getUserByUsername(String username) {
+        return userService.loadUserByUsername(username);
+    }
+
+    public SproutUser updateUserPassword(String username, String password) {
+        SproutUser user = userService.loadUserByUsername(username);
+        userService.updatePassword(user, password);
+        return user;
     }
 }

@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -108,9 +109,13 @@ public class SproutUserServiceImpl implements SproutUserService {
 	@Override
 	public SproutUser updateUser(UserUpdateDto user) {
 		SproutUserEntity entity = userRepository.findOneByUsername(user.getUsername());
-		entity.setFirstName(user.getFirstName());
-		entity.setLastName(user.getLastName());
-		entity.setRoles(user.getRoles().stream().map(r -> getRole(r)).collect(Collectors.toSet()));
+		
+		ifValuePresent(user.getFirstName(), v -> entity.setFirstName(v));
+		ifValuePresent(user.getLastName(), v -> entity.setLastName(v));
+
+		if (Objects.nonNull(user.getRoles()) && !user.getRoles().isEmpty()) {
+			entity.setRoles(user.getRoles().stream().map(r -> getRole(r)).collect(Collectors.toSet()));
+		}
 		/*
 		entity.setAccountNonExpired(user.isAccountNonExpired());
 		entity.setAccountNonLocked(user.isAccountNonLocked());
@@ -125,6 +130,12 @@ public class SproutUserServiceImpl implements SproutUserService {
 		entity.setPrimaryEmailAddress(user.getPrimaryEmailAddress());
 		*/
 		return userRepository.save(entity);
+	}
+
+	private <T> void ifValuePresent(T value, Consumer<T> consumer) {
+		if (Objects.nonNull(value)) {
+			consumer.accept(value);
+		}
 	}
 
 	@Override
