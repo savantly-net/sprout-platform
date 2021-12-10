@@ -78,6 +78,7 @@ export const EntityManager = ({
             entityState={entityState}
             entityStateProvider={entityStateProvider}
             entityViewer={entityViewer}
+            entityService={entityService}
           />
         }
       />
