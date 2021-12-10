@@ -19,6 +19,7 @@ export interface DataTableColumnProviderProps<T extends object> {
   showActionColumn?: boolean;
   extraActions?: (row: T) => ReactElement;
   deleteModalProps?: ConfirmModalProps;
+  featureName?:  string;
 }
 
 export class DataTableColumnProvider<T extends object> {
@@ -50,6 +51,7 @@ export class DataTableColumnProvider<T extends object> {
   getColumnDescriptions() {
     const columns: ColumnDescription<T>[] = [];
     columns.push(...this.props.columnDescriptions);
+
     if (this._showActionColumn) {
       columns.push({
         dataField: 'actions',
@@ -65,12 +67,12 @@ export class DataTableColumnProvider<T extends object> {
                 </Button>
               )}
               {this.props.onEditClick && (
-                <Button onClick={() => this.props.onEditClick && this.props.onEditClick(row)} color="warning">
+                <Button className='ml-1' onClick={() => this.props.onEditClick && this.props.onEditClick(row)} color="warning">
                   <Icon name="pen" />
                 </Button>
               )}
-              {this.props.onDeleteClick && (
-                <Button onClick={() => this._onDeleteClick(row)} color="danger">
+              {this.props.onDeleteClick && this.props.featureName !== 'user' && (
+                <Button className='ml-1' onClick={() => this._onDeleteClick(row)} color="danger">
                   <Icon name="trash-alt" />
                 </Button>
               )}

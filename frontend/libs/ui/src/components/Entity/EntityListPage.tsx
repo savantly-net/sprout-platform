@@ -4,7 +4,7 @@ import {
   EntityStateProvider,
   NavModel,
   NavModelItem,
-  TenantedEntity
+  TenantedEntity,
 } from '@savantly/sprout-api';
 import React, { useMemo } from 'react';
 import { ColumnDescription } from 'react-bootstrap-table-next';
@@ -22,6 +22,7 @@ export interface EntityListPageProps<E extends TenantedEntity = any> {
   entityService: BaseEntityService<E>;
   entityStateProvider: EntityStateProvider<E>;
   entityStateSelector: (state: any) => EntityState<E>;
+  featureName?: string;
 }
 
 export const EntityListPage = ({
@@ -31,7 +32,8 @@ export const EntityListPage = ({
   iconProvider,
   entityService,
   entityStateProvider,
-  entityStateSelector
+  entityStateSelector,
+  featureName
 }: EntityListPageProps<any>) => {
   const state = useSelector(entityStateSelector);
   const dispatch = useDispatch();
@@ -54,7 +56,6 @@ export const EntityListPage = ({
     main: navModelItem,
     node: navModelItem
   };
-
   return (
     <RoutedEntityPage model={navModel}>
       <div>
@@ -63,11 +64,16 @@ export const EntityListPage = ({
           columnProvider={
             new DataTableColumnProvider<any>({
               columnDescriptions: [...entityListColumns],
+              featureName: featureName,
               deleteModalProps: {
                 onClose: (result) => {}
               },
               onEditClick: (row) => {
-                navigate(`./item/${row.itemId}/edit`);
+                if(featureName === 'user'){
+                  navigate(`./item/${row.username}/edit`);
+                }else{
+                  navigate(`./item/${row.itemId}/edit`);
+                }
               },
               onDeleteClick: (row) => {
                 if (row.itemId) {
@@ -78,6 +84,11 @@ export const EntityListPage = ({
               },
               onViewClick: (row) => {
                 navigate(`./item/${row.itemId}`);
+                // if(featureName === 'user'){
+                //   navigate(`./item/${row.username}/edit`);
+                // }else{
+                //   navigate(`./item/${row.itemId}/edit`);
+                // }
               }
             })
           }

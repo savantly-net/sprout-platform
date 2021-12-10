@@ -2,36 +2,48 @@ import { EntityManager, EntityPageName, ColumnDescription } from '@sprout-platfo
 import React from 'react';
 import { StoreState } from '../../types';
 import {
-  IssueEntity as EntityClass,
-  issueEntityService as service,
-  issueStateProvider as stateProvider,
+  UserEntity as EntityClass,
+  userEntityService as service,
+  userStateProvider as stateProvider,
 } from './entity';
-import { IssueEntityEditor as Editor } from './item/editor';
-import { IssueEntityViewer as Viewer } from './item/viewer';
+import { UserEntityEditor as Editor } from './item/editor';
+import { UserEntityViewer as Viewer } from './item/viewer';
+import { getNavModel } from '../../core/selectors/navModel';
+import { useSelector } from 'react-redux';
 
 const stateSelector = (state: StoreState) => state.issues;
 
 const columns: Array<ColumnDescription<EntityClass>> = [
   {
-    dataField: 'status',
-    text: 'Status'
+    dataField: 'firstName',
+    text: 'First Name'
+  }, 
+  {
+    dataField: 'lastName',
+    text: 'Last Name'
   },
   {
-    dataField: 'title',
-    text: 'Title',
+    dataField: 'username',
+    text: 'User Name'
   },
   {
-    dataField: 'description',
-    text: 'Description',
+    dataField: 'emailAddress',
+    text: 'Email Address'
   },
   {
-    dataField: 'tags',
-    text: 'Tags',
+    dataField: 'displayName',
+    text: 'Display Name',
   },
+
 ];
 
 const IndexPage = () => {
+  const navModel = useSelector((state: StoreState) => getNavModel(state.navIndex, 'userManagement'));
+
+
   return (
+    // <Page navModel={navModel}>
+    //   <Page.Contents> 
     <EntityManager
       entityEditor={Editor}
       entityListColumns={columns}
@@ -40,16 +52,16 @@ const IndexPage = () => {
       entityStateSelector={stateSelector}
       entityViewer={Viewer}
       iconProvider={({ item, pageName }: { item?: EntityClass; pageName: EntityPageName }) => {
-        return 'exclamation-circle';
+        return 'user-circle';
       }}
       subTitleProvider={({ item, pageName }: { item?: EntityClass; pageName: EntityPageName }) => {
         switch (pageName) {
           case 'create':
-            return 'Create a new issue';
+            return 'Create a new User';
           case 'edit':
             return '';
           case 'list':
-            return 'Manage the issues';
+            return 'Manage the Users';
           case 'view':
             return '';
           default:
@@ -59,19 +71,21 @@ const IndexPage = () => {
       titleProvider={({ item, pageName }: { item?: EntityClass; pageName: EntityPageName }) => {
         switch (pageName) {
           case 'create':
-            return 'Create an Issue';
+            return 'Create an User';
           case 'edit':
-            return `Editing the Issue: ${item?.title}`;
+            return `Editing the User: ${item?.username}`;
           case 'list':
-            return 'All Issues';
+            return 'All Users';
           case 'view':
-            return item?.title || '';
+            return item?.username || '';
           default:
             return '';
         }
       }}
-      featureName={'issue'}
+      featureName={'user'}
     />
+     //   </Page.Contents>
+    // </Page>
   );
 };
 
