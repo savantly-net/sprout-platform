@@ -1,6 +1,7 @@
 .DragAndDropMenuBuilder{
   text-align: left;
 }
+
 .DroppableMenuList {
     padding: 0 0 0px 16px;
     margin-left: 16px;
@@ -9,7 +10,7 @@
     max-width: 600px;
     &__droppable {
       min-height: 10px;
-      padding: 5px;
+      padding: 10px  0px 10px 0px;
     }
     &__placeholder {
       position: absolute;

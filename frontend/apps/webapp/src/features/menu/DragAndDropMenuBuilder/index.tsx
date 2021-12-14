@@ -94,6 +94,7 @@ const DragAndDropMenuBuilder = ({ menuItems = [], setMenuItems, deleteMenuItem,t
     addItemToList(destinationList, result.destination.index, item);
 
     setMenuItems(menuItems);
+    submitFormData();
   };
 
   const onDragStart = (event: any) => {
@@ -212,24 +213,10 @@ const DragAndDropMenuBuilder = ({ menuItems = [], setMenuItems, deleteMenuItem,t
     const updatedMenuItems = [...menuItems];
     updatedMenuItems.push(menu);
     setMenuItems(updatedMenuItems);
+      submitForm();
   };
   const submitFormData= () => {
-    console.log(tabIndex, " tabIndex")
-    console.log(menuItems, " menuItems")
-    menuAdminService
-    .updateMenus( menuItems)
-    .then((response) => {
-      publishSuccessNotification('Saved', 'Saved menu');
-      // fetchMenuItems();
-    })
-    .catch((err) => {
-      setError(err.message || 'Failed to save');
-      publishErrorNotification('Failed to save', err);
-    })
-    .finally(() => {
-      // helpers.setSubmitting(false);
-    });
-
+      submitForm();
   }
   return (
     <div className="DragAndDropMenuBuilder">
