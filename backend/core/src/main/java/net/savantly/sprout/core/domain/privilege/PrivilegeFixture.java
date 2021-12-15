@@ -5,7 +5,7 @@ import java.util.List;
 import net.savantly.spring.fixture.AbstractBaseFixture;
 import net.savantly.spring.fixture.Fixture;
 
-public class PrivilegeFixture extends AbstractBaseFixture<Privilege, PrivilegeRepository>{
+public class PrivilegeFixture extends AbstractBaseFixture<PrivilegeEntity, PrivilegeRepository>{
 	
 	public static final String READ = "READ";
 	public static final String ADMIN = "ADMIN";
@@ -18,7 +18,7 @@ public class PrivilegeFixture extends AbstractBaseFixture<Privilege, PrivilegeRe
     }
 
     @Override
-    public void addEntities(List<Privilege> entityList) {
+    public void addEntities(List<PrivilegeEntity> entityList) {
         if(!repository.findById(READ).isPresent()){
             entityList.add(create(READ));
         }
@@ -27,8 +27,8 @@ public class PrivilegeFixture extends AbstractBaseFixture<Privilege, PrivilegeRe
         }
     }
 
-    private Privilege create(String name) {
-    	Privilege priv = new Privilege().setName(name);
+    private PrivilegeEntity create(String name) {
+    	PrivilegeEntity priv = new PrivilegeEntity().setName(name);
     	priv.setId(name);
     	return priv;
 	}

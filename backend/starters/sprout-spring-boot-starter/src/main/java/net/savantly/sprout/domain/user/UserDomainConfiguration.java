@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import net.savantly.sprout.core.domain.user.repository.UserRepository;
 import net.savantly.sprout.core.security.users.SproutUserService;
 import net.savantly.sprout.domain.user.admin.UserAdminApi;
-import net.savantly.sprout.domain.user.admin.UserAdminService;
+import net.savantly.sprout.domain.user.admin.UserAdminServiceImpl;
 import net.savantly.sprout.domain.user.search.UserSearchApi;
 
 @Configuration
@@ -15,14 +15,14 @@ public class UserDomainConfiguration {
     
     @Bean
 	@ConditionalOnMissingBean
-    public UserAdminApi userAdminApi(UserAdminService userAdminService) {
+    public UserAdminApi userAdminApi(UserAdminServiceImpl userAdminService) {
         return new UserAdminApi(userAdminService);
     }
 
     @Bean
 	@ConditionalOnMissingBean
-    public UserAdminService userAdminService(SproutUserService userService, UserRepository userRepo) {
-        return new UserAdminService(userService, userRepo);
+    public UserAdminServiceImpl userAdminService(SproutUserService userService, UserRepository userRepo) {
+        return new UserAdminServiceImpl(userService, userRepo);
     }
 
     @Bean

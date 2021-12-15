@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.savantly.authorization.service.PermissionProvider;
-import net.savantly.sprout.core.domain.role.Role;
+import net.savantly.sprout.core.domain.role.RoleEntity;
 import net.savantly.sprout.core.domain.role.RoleRepository;
 
 public class DefaultPermissionProvider implements PermissionProvider {
@@ -23,7 +23,7 @@ public class DefaultPermissionProvider implements PermissionProvider {
 
 	@Override
 	public List<String> getEffectivePermissions(String role) {
-		List<Role> found = this.roles.findByName(role);
+		List<RoleEntity> found = this.roles.findByName(role);
 		if(found.size() > 1) {
 			log.error("Found more than 1 role by name: " + role + ". Likely due to result from more than 1 tenant. This shouldn't happen");
 		} else if (found.size() == 1) {

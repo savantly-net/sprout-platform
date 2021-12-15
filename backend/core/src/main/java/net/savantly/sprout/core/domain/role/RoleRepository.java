@@ -11,11 +11,11 @@ import net.savantly.sprout.core.tenancy.TenantedJpaRepository;
 
 @Repository
 @RepositoryRestResource(excerptProjection=DefaultRoleProjection.class)
-public interface RoleRepository extends TenantedJpaRepository<Role, String>{
+public interface RoleRepository extends TenantedJpaRepository<RoleEntity, String>{
 	
-	List<Role> findByName(String name);
+	List<RoleEntity> findByName(String name);
 
-	List<Role> findByNameAndTenantId(String name, String tenantId);
+	List<RoleEntity> findByNameAndTenantId(String name, String tenantId);
 
 	@Query("SELECT r FROM APP_ROLE r WHERE r.name = :name")
 	List<DefaultRoleProjection> includePrivilegesByName(@Param("name") String name);

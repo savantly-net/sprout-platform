@@ -11,7 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import net.savantly.spring.fixture.util.RandomGenerator;
-import net.savantly.sprout.core.domain.role.Role;
+import net.savantly.sprout.core.domain.role.RoleEntity;
 import net.savantly.sprout.core.domain.role.RoleRepository;
 import net.savantly.sprout.core.domain.user.SproutUserEntity;
 import net.savantly.sprout.core.tenancy.TenantContext;
@@ -22,7 +22,7 @@ public class FakeContext {
     
 
     public void create(RoleRepository roleRepo) {
-    	Set<Role> roles = new HashSet<>();
+    	Set<RoleEntity> roles = new HashSet<>();
     	roles.add(roleRepo.findByNameAndTenantId("SYSTEM", TenantContext.getCurrentTenant()).stream().findFirst().orElseThrow(() -> new RuntimeException("There is no SYSTEM role")));
         SproutUserEntity user = new SproutUserEntity("system", RandomGenerator.getRandomAlphaNumericString(20), "system", "user", roles);
         FakeAuthentication auth = new FakeAuthentication(user);

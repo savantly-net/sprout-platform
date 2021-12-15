@@ -32,13 +32,13 @@ public class UserAdminApi {
 		return ResponseEntity.ok(userAdminService.getAllUsers());
 	}
 
-    @Operation(summary = "Get a single User by username")
-    @GetMapping(path = "/{username}")
-	public ResponseEntity<SproutUser> getUserByUsername(@PathVariable("username") String username) {
-		return ResponseEntity.ok(userAdminService.getUserByUsername(username));
+    @Operation(summary = "Get a single User by ID")
+    @GetMapping(path = "/{userid}")
+	public ResponseEntity<SproutUser> getUserByUsername(@PathVariable("userid") String userid) {
+		return ResponseEntity.ok(userAdminService.getUserByUserId(userid));
 	}
 
-    @Operation(summary = "Creates a new User give the payload")
+    @Operation(summary = "Creates a new User given the payload")
     @PostMapping
     public ResponseEntity<SproutUser> createUser(@RequestBody UserCreateDto dto) {
         final SproutUser user = userAdminService.createUser(dto);
@@ -53,10 +53,10 @@ public class UserAdminApi {
     }
     
     @Operation(summary = "Updates an existing user's password'")
-    @PutMapping(path = "/{username}/password")
-    public ResponseEntity<SproutUser> updateUserPassword(@PathVariable("username") String username, @RequestBody String password) {
-        final SproutUser user = userAdminService.updateUserPassword(username, password);
-        return ResponseEntity.ok(user);
+    @PutMapping(path = "/{userid}/password")
+    public ResponseEntity<SproutUser> updateUserPassword(@PathVariable("userid") String userid, @RequestBody UserPasswordUpdateDto input) {
+        SproutUser user = userAdminService.getUserByUserId(userid);
+        return ResponseEntity.ok(userAdminService.updateUserPassword(user, input.getPassword()));
     }
 
 }

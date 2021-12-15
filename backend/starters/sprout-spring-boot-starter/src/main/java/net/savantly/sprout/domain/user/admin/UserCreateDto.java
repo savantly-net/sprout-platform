@@ -8,14 +8,15 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Accessors(chain = true)
 public class UserCreateDto {
     
     @NotNull
     private String username;
-    private String displayName;
     private String firstName;
     private String lastName;
     @NotNull

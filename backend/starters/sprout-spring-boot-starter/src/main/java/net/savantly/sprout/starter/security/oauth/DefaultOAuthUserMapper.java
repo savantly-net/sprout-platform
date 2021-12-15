@@ -34,6 +34,11 @@ public class DefaultOAuthUserMapper implements OAuthUserMapper {
 			private static final long serialVersionUID = 1L;
 
 			@Override
+			public String getUuid() {
+				return sproutUser.getUuid();
+			}
+
+			@Override
 			public String getName() {
 				return user.getName();
 			}
@@ -89,7 +94,7 @@ public class DefaultOAuthUserMapper implements OAuthUserMapper {
 			}
 
 			@Override
-			public Set<Role> getRoles() {
+			public Set<? extends Role> getRoles() {
 				return sproutUser.getRoles();
 			}
 

@@ -17,10 +17,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import net.savantly.spring.fixture.Fixture;
-import net.savantly.sprout.core.domain.privilege.Privilege;
+import net.savantly.sprout.core.domain.privilege.PrivilegeEntity;
 import net.savantly.sprout.core.domain.privilege.PrivilegeFixture;
 import net.savantly.sprout.core.domain.privilege.PrivilegeRepository;
-import net.savantly.sprout.core.domain.role.Role;
+import net.savantly.sprout.core.domain.role.RoleEntity;
 import net.savantly.sprout.core.domain.role.RoleFixture;
 import net.savantly.sprout.core.domain.role.RoleRepository;
 import net.savantly.sprout.core.security.FakeContext;
@@ -44,7 +44,7 @@ public class SproutFixtureAutoConfiguration {
 
 		// There's a race when testing, so let's not abort
 		try {
-    	Privilege adminPrivilege = privilegeRepository
+    	PrivilegeEntity adminPrivilege = privilegeRepository
     			.findByNameAndTenantId("ADMIN", TenantContext.getCurrentTenant()).stream().findFirst().orElse(createAdminPrivilege());
     	ensureSystemRoleExists(adminPrivilege);
 		} catch (Exception ex) {
@@ -76,19 +76,19 @@ public class SproutFixtureAutoConfiguration {
         }
     }
     
-    private Privilege createAdminPrivilege() {
-    	Privilege p = new Privilege().setName("ADMIN");
+    private PrivilegeEntity createAdminPrivilege() {
+    	PrivilegeEntity p = new PrivilegeEntity().setName("ADMIN");
     	return this.privilegeRepository.save(p);
 	}
 
-	private void ensureSystemRoleExists(Privilege adminPrivilege) {
+	private void ensureSystemRoleExists(PrivilegeEntity adminPrivilege) {
 		this.roleRepository.findByName("SYSTEM").stream().findFirst().orElse(createSystemRole(adminPrivilege));//NOSONAR
 	}
 
-	private Role createSystemRole(Privilege adminPrivilege) {
-		Set<Privilege> privileges = new HashSet<>();
+	private RoleEntity createSystemRole(PrivilegeEntity adminPrivilege) {
+		Set<PrivilegeEntity> privileges = new HashSet<>();
 		privileges.add(adminPrivilege);
-		Role systemRole = new Role().setName("SYSTEM").setPrivileges(privileges);
+		RoleEntity systemRole = new RoleEntity().setName("SYSTEM").setPrivileges(privileges);
 		return this.roleRepository.save(systemRole);
 	}
 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.SortedSet;
@@ -41,7 +42,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.savantly.sprout.core.domain.emailAddress.EmailAddress;
 import net.savantly.sprout.core.domain.organization.Organization;
-import net.savantly.sprout.core.domain.role.Role;
+import net.savantly.sprout.core.domain.role.RoleEntity;
 import net.savantly.sprout.core.security.MD5Util;
 import net.savantly.sprout.core.tenancy.TenantKeyedEntity;
 
@@ -91,7 +92,7 @@ public class SproutUserEntity extends TenantKeyedEntity implements CredentialsCo
     @CollectionTable(name="APP_USER_EMAIL_ADDRESS")
     private Set<EmailAddress> emailAddresses = new HashSet<>();
 	
-	@ManyToMany(fetch=FetchType.EAGER, targetEntity=Role.class, cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+	@ManyToMany(fetch=FetchType.EAGER, targetEntity=RoleEntity.class, cascade = {CascadeType.REFRESH, CascadeType.MERGE})
 	@JoinTable(name = "app_user_app_role",
 	    joinColumns = {
 	    		@JoinColumn(name="user_id", referencedColumnName = "item_id"),
@@ -100,8 +101,7 @@ public class SproutUserEntity extends TenantKeyedEntity implements CredentialsCo
 	    inverseJoinColumns=
 	            @JoinColumn(name="app_role_id", referencedColumnName="ID")
 	)
-    private Set<Role> roles = new HashSet<>();
-
+    private Set<RoleEntity> roles = new HashSet<>();
 
 	@JsonDeserialize
     @Transient
@@ -114,13 +114,13 @@ public class SproutUserEntity extends TenantKeyedEntity implements CredentialsCo
     }
 
     public SproutUserEntity(String username, String password, String firstName, String lastName) {
-        this(username, password, firstName, lastName, true, true, true, true, new HashSet<Role>());
+        this(username, password, firstName, lastName, true, true, true, true, new HashSet<RoleEntity>());
     }
 
     /**
      * Calls the more complex constructor with all boolean arguments set to {@code true}.
      */
-    public SproutUserEntity(String username, String password, String firstName, String lastName, Set<Role> roles) {
+    public SproutUserEntity(String username, String password, String firstName, String lastName, Set<RoleEntity> roles) {
         this(username, password, firstName, lastName, true, true, true, true, roles);
     }
 
@@ -143,7 +143,7 @@ public class SproutUserEntity extends TenantKeyedEntity implements CredentialsCo
      * @throws IllegalArgumentException if a <code>null</code> value was passed either as
      * a parameter or as an element in the <code>GrantedAuthority</code> collection
      */
-    public SproutUserEntity(String username, String password, String firstName, String lastName, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Set<Role> roles) {
+    public SproutUserEntity(String username, String password, String firstName, String lastName, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Set<RoleEntity> roles) {
 
         // if (((username == null) || "".equals(username)) || (password == null)) {
         // throw new IllegalArgumentException(
@@ -163,6 +163,15 @@ public class SproutUserEntity extends TenantKeyedEntity implements CredentialsCo
 
     // ~ Methods
     // ========================================================================================================
+
+    @Transient
+    public String getUuid() {
+        if (Objects.nonNull(this.getId())){
+            return this.getItemId();
+        } else {
+            return null;
+        }
+    }
 
     public void eraseCredentials() {
         password = null;
@@ -208,7 +217,7 @@ public class SproutUserEntity extends TenantKeyedEntity implements CredentialsCo
     // Rich domain methods
     // ************************
     
-    public SproutUserEntity addRole(Role role) {
+    public SproutUserEntity addRole(RoleEntity role) {
     	this.roles.add(role);
     	return this;
     }
@@ -259,7 +268,9 @@ public class SproutUserEntity extends TenantKeyedEntity implements CredentialsCo
     }
 
     public void setPrimaryEmailAddress(EmailAddress primaryEmailAddress) {
-        primaryEmailAddress.setPrimary(true);
+        if (Objects.nonNull(primaryEmailAddress)) {
+            primaryEmailAddress.setPrimary(true);
+        }
     }
 
     @Override
