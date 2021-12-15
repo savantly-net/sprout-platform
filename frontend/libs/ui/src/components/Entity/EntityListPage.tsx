@@ -69,11 +69,7 @@ export const EntityListPage = ({
                 onClose: (result) => {}
               },
               onEditClick: (row) => {
-                if(featureName === 'user'){
-                  navigate(`./item/${row.username}/edit`);
-                }else{
                   navigate(`./item/${row.itemId}/edit`);
-                }
               },
               onDeleteClick: (row) => {
                 if (row.itemId) {
@@ -83,12 +79,7 @@ export const EntityListPage = ({
                 }
               },
               onViewClick: (row) => {
-                navigate(`./item/${row.itemId}`);
-                // if(featureName === 'user'){
-                //   navigate(`./item/${row.username}/edit`);
-                // }else{
-                //   navigate(`./item/${row.itemId}/edit`);
-                // }
+                navigate(`./item/${row.itemId}`); 
               }
             })
           }
