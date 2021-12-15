@@ -47,7 +47,13 @@ export const MenuAdminPage = () => {
       if (response.status !== 200) {
         setFetchError('Failed to fetch menus');
       } else {
-        setMenuItems(response.data);
+        let sortArray  = response.data;
+        if(sortArray.length > 0){
+          setMenuItems(sortArray.sort((next:any , prev:any) => (next.weight - prev.weight)));
+        }else{
+          setMenuItems(response.data);
+        }
+        // setMenuItems(response.data);
         setFetchingMenus(false);
       }
     });
@@ -87,6 +93,7 @@ export const MenuAdminPage = () => {
                     .updateMenus(tabIndex === 0 ? menuItems : JSON.parse(values.menuJson))
                     .then((response) => {
                       publishSuccessNotification('Saved', 'Saved menu');
+                      fetchMenuItems();
                     })
                     .catch((err) => {
                       setError(err.message || 'Failed to save');
@@ -107,6 +114,7 @@ export const MenuAdminPage = () => {
                       {menuItems && (
                         <DragAndDropMenuBuilder
                           menuItems={menuItems}
+                          tabIndex={tabIndex}
                           setMenuItems={setMenuItems}
                           deleteMenuItem={deleteMenuItem}
                         />
