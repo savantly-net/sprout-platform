@@ -61,7 +61,7 @@ export const UserEntityEditor = ({ item, afterSave }: ItemEditorProps<EntityClas
         onSubmit={(values: EntityClass, helpers: any) => {
           values.roles= (!values.roles) ? [values.roles] : ['ADMIN']
           // const promiseToSave = values.itemId ? service.update(values.itemId, result) : service.create(result);
-          const promiseToSave = values.itemId ? service.update(values.itemId, values) : service.create(values);
+          const promiseToSave = values.itemId ? service.updateV2(values.itemId, values) : service.create(values);
           promiseToSave.then((response) => {
               helpers.setSubmitting(false);
               helpers.resetForm();
