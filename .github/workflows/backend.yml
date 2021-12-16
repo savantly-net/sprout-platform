@@ -205,3 +205,13 @@ jobs:
             org.opencontainers.image.licenses=${{ fromJson(steps.repo.outputs.result).license.spdx_id }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
+
+      - name: Login to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ""
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          justlogin: true
+      - name: Deploy to Heroku
+        run: ./scripts/deployHeroku.sh
