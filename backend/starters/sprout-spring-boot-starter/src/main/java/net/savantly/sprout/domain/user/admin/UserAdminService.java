@@ -11,7 +11,7 @@ public interface UserAdminService {
 
     SproutUser createUser(UserCreateDto dto);
 
-    SproutUser updateUser(UserUpdateDto dto);
+    SproutUser updateUser(String userId, UserUpdateDto dto);
 
     SproutUser getUserByUserId(String userId);
 

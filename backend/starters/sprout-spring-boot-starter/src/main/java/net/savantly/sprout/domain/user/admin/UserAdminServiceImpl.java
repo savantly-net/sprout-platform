@@ -28,8 +28,14 @@ public class UserAdminServiceImpl implements UserAdminService {
         return userService.createUser(dto.getUsername(), dto.getPassword(), dto.getEmailAddress(), dto.getFirstName(), dto.getLastName(), dto.getRoles());
     }
 
-    public SproutUser updateUser(UserUpdateDto dto) {
-        return userService.updateUser(dto);
+    public SproutUser updateUser(String userId, UserUpdateDto dto) {
+        try {
+            SproutUser user = userService.loadUserByUserId(userId);
+            dto.setUsername(user.getUsername());
+            return userService.updateUser(dto);
+        } catch (UserIdNotFoundException e) {
+            throw new EntityNotFoundProblem(SproutUser.class.getName(), userId);
+        }
     }
 
     public SproutUser getUserByUserId(String userId) {

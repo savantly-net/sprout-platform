@@ -46,9 +46,9 @@ public class UserAdminApi {
     }
 
     @Operation(summary = "Updates an existing user with the given payload")
-    @PutMapping
-    public ResponseEntity<SproutUser> updateUser(@RequestBody UserUpdateDto dto) {
-        final SproutUser user = userAdminService.updateUser(dto);
+    @PutMapping(path = "/{userid}")
+    public ResponseEntity<SproutUser> updateUser(@PathVariable("userid") String userid, @RequestBody UserUpdateDto dto) {
+        final SproutUser user = userAdminService.updateUser(userid, dto);
         return ResponseEntity.ok(user);
     }
     

@@ -25,6 +25,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 
 import net.savantly.sprout.core.domain.user.SproutUserDto;
+import net.savantly.sprout.core.domain.user.UserUpdateDto;
 import net.savantly.sprout.test.AbstractContainerBaseTest;
 import net.savantly.sprout.test.IntegrationTest;
 
@@ -70,6 +71,28 @@ public class UserAdminApiTest extends AbstractContainerBaseTest {
         Assertions.assertEquals(body.getUsername(), response.getBody().getUsername());
         return response.getBody();
 	}
+
+    @Test
+    public void testUpdateUser() throws JsonProcessingException {
+        SproutUserDto user = testCreateUser();
+        String newFirstName = "a new first name";
+
+        UserUpdateDto dto = new UserUpdateDto();
+        dto.setFirstName(newFirstName);
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("content-type", "application/json");
+        HttpEntity<UserUpdateDto> requestEntity = new HttpEntity<UserUpdateDto>(dto, headers);
+
+		ResponseEntity<SproutUserDto> response = authenticatedRest()
+            .exchange("/api/admin/users/" + user.getUuid(), HttpMethod.PUT, requestEntity, SproutUserDto.class);
+
+        Assertions.assertEquals(200, response.getStatusCodeValue());
+        Assertions.assertEquals(user.getDisplayName(), response.getBody().getDisplayName());
+        Assertions.assertEquals(newFirstName, response.getBody().getFirstName());
+        Assertions.assertEquals(user.getLastName(), response.getBody().getLastName());
+        Assertions.assertEquals(user.getUsername(), response.getBody().getUsername());
+    }
 
     @Test
     public void testGetSingleUser() throws JsonProcessingException {
