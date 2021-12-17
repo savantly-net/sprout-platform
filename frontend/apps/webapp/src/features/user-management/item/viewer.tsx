@@ -44,28 +44,13 @@ export const UserEntityViewer = ({ item }: { item: EntityClass }) => {
 
             <Tr>
               <Td>Roles</Td>
-              <Td>{item.displayName}</Td>
-            </Tr>
-            
-            {/* <Tr>
-              <Td>Tags</Td>
               <Td>
-                {item.tags?.map((tag) => (
-                  <Tag key={tag}>{tag}</Tag>
-                ))}
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>Comments</Td>
-              <Td>
-                {item.comments &&
-                  item.comments.map((c) => (
-                    <Card>
-                      <CardBody>{c.text}</CardBody>
-                    </Card>
+                {item.roles &&
+                  item.roles.map((c:any) => (
+                    <Tag key={c.name}>{c.name}</Tag>
                   ))}
               </Td>
-            </Tr> */}
+            </Tr>
           </Tbody>
         </Table>
       </Stack>

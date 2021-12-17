@@ -33,10 +33,12 @@ export const UserEntityEditor = ({ item, afterSave }: ItemEditorProps<EntityClas
         initialValues={storeResult || stateProvider.props.initialState.example}
         validate={(values: EntityClass) => {
           const errors: any = {};
+          console.log("item?.itemId", item?.itemId)
           const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-          if (!values.emailAddress) {
+          if (!values.emailAddress && item?.itemId == undefined) {
             errors.emailAddress = 'Email address cannot be blank!';
-          } else if (!regex.test(values.emailAddress)) {
+          }  
+          if (values?.emailAddress && item?.itemId == undefined && !regex.test(values?.emailAddress)) {
             errors.emailAddress = 'Invalid email format';
           }
           if (!values.password && item?.itemId == '') {
@@ -59,15 +61,15 @@ export const UserEntityEditor = ({ item, afterSave }: ItemEditorProps<EntityClas
         validateOnChange={true}
         validateOnBlur={true}
         onSubmit={(values: EntityClass, helpers: any) => {
-          values.roles= (!values.roles) ? [values.roles] : ['ADMIN']
+          values.roles= (!values.roles) ?  ['ADMIN'] : [values.roles]
           // const promiseToSave = values.itemId ? service.update(values.itemId, result) : service.create(result);
-          const promiseToSave = values.itemId ? service.updateV2(values.itemId, values) : service.create(values);
-          promiseToSave.then((response) => {
+          const promiseToSave = values.itemId ? service.update(values.itemId, values) : service.create(values);
+          promiseToSave.then((response:any) => {
               helpers.setSubmitting(false);
               helpers.resetForm();
               afterSave(response.data, helpers);
             })
-            .catch((err) => {
+            .catch((err:any) => {
               setError(err.message || err.detail || 'An error occurred while saving.');
             });
         }}
@@ -85,18 +87,27 @@ export const UserEntityEditor = ({ item, afterSave }: ItemEditorProps<EntityClas
             </div>
             <Field name="username" label="User Name" type="text" placeholder="User Name" component={FormikCommonTextInput} />
             {props.errors.username ? <div className={css({color: 'red', fontSize: '12px;', marginBottom: '5px;'})}>{props.errors.username}</div> : null}
+            {item?.itemId === '' || item?.itemId === undefined && (
+            <>
             <Field name="displayName" label="Display Name" type="text" component={FormikCommonTextInput} />
             {props.errors.displayName ? <div className={css({color: 'red', fontSize: '12px;', marginBottom: '5px;'})}>{props.errors.displayName}</div> : null}
+            </>
+            )}
             <Field name="firstName" label="First Name" type="text" component={FormikCommonTextInput} />
             {props.errors.firstName ? <div className={css({color: 'red', fontSize: '12px;', marginBottom: '5px;'})}>{props.errors.firstName}</div> : null}
             <Field name="lastName" label="Last Name" type="text" component={FormikCommonTextInput} />
             {props.errors.lastName ? <div className={css({color: 'red', fontSize: '12px;', marginBottom: '5px;'})}>{props.errors.lastName}</div> : null}
+            {item?.itemId === '' || item?.itemId === undefined && (
+            <>
             <Field name="emailAddress" label="Email Address" type="text" required component={FormikCommonTextInput} />
             {props.errors.emailAddress ? <div className={css({color: 'red', fontSize: '12px;', marginBottom: '5px;'})}>{props.errors.emailAddress}</div> : null}
             <Field name="password" type="password" label="Password" component={FormikCommonTextInput} />
             {props.errors.password ? <div className={css({color: 'red', fontSize: '12px;', marginBottom: '5px;'})}>{props.errors.password}</div> : null}
+            </>
+            )}
             <Field name="roles" component={FormikSelect} options={roleOptions} label="Roles" />
             {/* <Field name="roles" component={FormikMultiSelect} isMulti={true} options={roleOptions} label="Roles" /> */}
+            
           </Form>
         )}
       </Formik>
