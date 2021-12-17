@@ -26,21 +26,6 @@ export const openFeedbackModal = () => {
     body: () => <FeedbackForm />
   }).then((response) => {
     if (response.result) {
-      // console.log('response.result', response.value);
-      // userEntityService
-      //   .create({
-      //     username: `Feedback: ${window.location.pathname}`,
-      //     displayName: `Feedback: ${window.location.pathname}`,
-      //     // description: response.value.text,
-      //     // tags: response.value.tags
-      //   })
-      //   .then((response) => {
-      //     const notification = createSuccessNotification('Feedback Submitted', 'Thank you for the feedback!');
-      //     eventBus.publish(eventNotification(notification));
-      //   })
-      //   .catch((err) => {
-      //     console.error(err);
-      //   });
     }
   });
 };

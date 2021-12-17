@@ -42,8 +42,6 @@ const IndexPage = () => {
 
 
   return (
-    // <Page navModel={navModel}>
-    //   <Page.Contents> 
     <EntityManager
       entityEditor={Editor}
       entityListColumns={columns}
@@ -84,8 +82,6 @@ const IndexPage = () => {
       }}
       featureName={'user'}
     />
-     //   </Page.Contents>
-    // </Page>
   );
 };
 

@@ -3,7 +3,6 @@ import { SERVER_API_URL } from '../../config/constants';
 import { sproutApiSvc } from '../../core/services/sproutApiSvc';
 
 export interface UserRoles extends TenantedEntity {
-  // text: string;
   privileges?: string[];
 }
 
@@ -14,9 +13,7 @@ export interface UserEntity extends TenantedEntity {
   lastName?: string;
   emailAddress?: string;
   password?: string;
-  roles?: any 
-  // roles?: (string[] | undefined)[] 
-  // roles?: string;
+  roles?: any
 }
 
 export type UserEntityState = EntityState<UserEntity>;
@@ -25,7 +22,6 @@ class UserEntityService extends BaseEntityService<UserEntity> {
   constructor() {
     super({
       baseUrl: `${SERVER_API_URL}/api/admin/users`
-      // baseUrl: `${SERVER_API_URL}/api/users`
     });
   }
 
@@ -43,12 +39,7 @@ export const userStateProvider = new EntityStateProvider<UserEntity>({
   initialState: {
     isFetched: false,
     isFetching: false,
-    example: {
-      // emailAddress :"",
-      // username :"",
-      // displayName :"",
-      // 'roles':['ADMIN']
-    }
+    example: {}
   },
   stateKey: 'issues'
 });

@@ -62,7 +62,6 @@ export const UserEntityEditor = ({ item, afterSave }: ItemEditorProps<EntityClas
         validateOnBlur={true}
         onSubmit={(values: EntityClass, helpers: any) => {
           values.roles= (!values.roles) ?  ['ADMIN'] : [values.roles]
-          // const promiseToSave = values.itemId ? service.update(values.itemId, result) : service.create(result);
           const promiseToSave = values.itemId ? service.update(values.itemId, values) : service.create(values);
           promiseToSave.then((response:any) => {
               helpers.setSubmitting(false);
@@ -106,8 +105,6 @@ export const UserEntityEditor = ({ item, afterSave }: ItemEditorProps<EntityClas
             </>
             )}
             <Field name="roles" component={FormikSelect} options={roleOptions} label="Roles" />
-            {/* <Field name="roles" component={FormikMultiSelect} isMulti={true} options={roleOptions} label="Roles" /> */}
-            
           </Form>
         )}
       </Formik>
