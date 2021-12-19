@@ -61,11 +61,11 @@ const navTreeSlice = createSlice({
   reducers: {
     addRootNav: (state: WritableDraft<NavTreeState>, action: PayloadAction<NavModelItem>): NavTreeState => ({
       ...state,
-      items: state.items.map(d => navModelItemFromWritableDraft(d))
+      items: state.items.map(d => navModelItemFromWritableDraft(d)).concat(action.payload)
     }),
     addRootNavs: (state, action: PayloadAction<NavModelItem[]>): NavTreeState => ({
       ...state,
-      items: state.items.map(d => navModelItemFromWritableDraft(d))
+      items: state.items.map(d => navModelItemFromWritableDraft(d)).concat(action.payload)
     }),
     updateNavTree: (state, action: PayloadAction<NavModelItem[]>): NavTreeState => ({
       ...state,
