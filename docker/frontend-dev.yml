@@ -2,7 +2,7 @@ version: "3"
 services:
 
   server:
-    image: savantly/sprout-server:edge
+    image: savantly/sprout-server:latest
     container_name: fe_dev_sprout_server
     environment: 
       - SPRING_DATASOURCE_URL=jdbc:postgresql://fe_dev_sprout_db:5432/postgres

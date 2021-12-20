@@ -8,6 +8,10 @@ env:
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+    paths:
+      - '*'
+      - 'common/**'
+      - 'frontend/**'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -78,12 +82,6 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar
 
       # Setup Environments
-      - name: Setup Java
-        uses: actions/setup-java@v1
-        with:
-          java-version: '11' # The JDK version to make available on the path.
-          java-package: jdk # (jre, jdk, or jdk+fx) - defaults to jdk
-          architecture: x64 # (x64 or x86) - defaults to x64
       - name: Setup Node
         uses: actions/setup-node@v2.4.1
         with:
@@ -99,9 +97,6 @@ jobs:
         run: node common/scripts/install-run-rush.js build -T webapp --verbose
         env:
           CI: false
-      
-      - name: Build Server Projects
-        run: ./gradlew build
       
       - name: Cleanup Gradle Cache
         # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
