@@ -8,11 +8,10 @@ env:
 on:
   push:
     branches:
-      - 'master'
-    tags:
-      - 'v*.*.*'
+      - 'master' 
     paths:
       - '*'
+      - '.github/workflows/backend.yml'
       - 'common/**'
       - 'backend/**'
 

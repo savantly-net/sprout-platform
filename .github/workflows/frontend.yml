@@ -9,10 +9,9 @@ on:
   push:
     branches:
       - 'master'
-    tags:
-      - 'v*.*.*'
     paths:
       - '*'
+      - '.github/workflows/frontend.yml'
       - 'common/**'
       - 'frontend/**'
 

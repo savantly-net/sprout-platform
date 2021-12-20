@@ -1,4 +1,4 @@
-name: Pull Requests
+name: Backend PR
 
 # Suppress Spinner because it appears as warnings
 env:
@@ -10,6 +10,7 @@ on:
     types: [opened, synchronize, reopened]
     paths:
       - '*'
+      - '.github/workflows/backend-pr.yml'
       - 'common/**'
       - 'backend/**'
 

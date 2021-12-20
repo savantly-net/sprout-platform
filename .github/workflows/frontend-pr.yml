@@ -10,6 +10,7 @@ on:
     types: [opened, synchronize, reopened]
     paths:
       - '*'
+      - '.github/workflows/frontend-pr.yml'
       - 'common/**'
       - 'frontend/**'
 
