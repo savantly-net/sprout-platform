@@ -10,7 +10,7 @@ export interface MenuDto {
   url: string;
   position: number;
   children: MenuDto[];
-  authorities: string[];
+  authorities: any[];
   weight?: number;
   renderMode?: NavModelItemRenderMode;
 }

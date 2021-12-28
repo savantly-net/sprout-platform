@@ -2,9 +2,7 @@ import {
   DeleteIcon,
   AddIcon,
   ChevronDownIcon,
-  TriangleDownIcon,
   SettingsIcon,
-  TriangleUpIcon,
   ChevronRightIcon,
   MinusIcon
 } from '@chakra-ui/icons';
@@ -12,8 +10,9 @@ import {
 import { Button, IconButton } from '@chakra-ui/react';
 import cx from 'classnames';
 import { Field, Form, Formik } from 'formik';
-import React, { useState,Component } from 'react';
+import React, { useState, useMemo } from 'react';
 import { MenuDto } from '../../../menuAdminService';
+import { permissionService } from '../../../../permissions/permissionService';
 import './styles.scss';
 
 interface Props {
@@ -44,11 +43,22 @@ const MenuItem = (props: Props) => {
   } = props;
   const [collapsed, setCollapsed] = useState(!disableCollapse);
   const [collapsedForAdd, setCollapsedForAdd] = useState(disableCollapseForAdd);
-  const options = [
-    { value: 1, label: 'role1' },
-    { value: 4, label: 'role2' },
-    { value: 2, label: 'role3' }
-  ]
+  const [privileges, setPrivileges] = useState<any>([]);
+  const [error, setError] = useState('');
+
+  useMemo(() => {
+    if (Object.keys(privileges).length === 0) {
+      permissionService
+        .getPrivileges()
+        .then((response) => {
+          setPrivileges(response.data);
+        })
+        .catch((err) => {
+          setError(err.detail || err.message || err.status);
+        });
+    }
+  }, [privileges]);
+
   return (
     <div className={cx('MenuItem')}>
       <div className="MenuItem__header">
@@ -72,7 +82,6 @@ const MenuItem = (props: Props) => {
               aria-label={collapsed ? 'Expand' : 'Collapse'}
               size="sm"
               icon={collapsed ? <SettingsIcon /> : <SettingsIcon />}
-              // icon={collapsed ? <TriangleDownIcon /> : <TriangleUpIcon />}
             />
           )}
 
@@ -111,9 +120,14 @@ const MenuItem = (props: Props) => {
               children
             }}
             onSubmit={async (values: MenuDto, { resetForm }) => {
+              console.log(values, ' valuesvalues');
+              values.authorities = (values.authorities.length > 0 ) ? [values.authorities] : [];
               await onUpdate({ ...values, children });
               resetForm();
             }}
+            validateOnChange={true}
+            validateOnBlur={true}
+            enableReinitialize={true}
           >
             <Form className="MenuItem__body__content__form">
               <label className="MenuItem__body__content__form__item__label">
@@ -144,6 +158,9 @@ const MenuItem = (props: Props) => {
               <label className="MenuItem__body__content__form__item__label">
                 <span>Render Mode</span>
                 <Field className="MenuItem__body__content__form__item" name="renderMode" as="select" autocomplete="off">
+                  <option disabled selected>
+                    Select Render Mode
+                  </option>
                   <option>INTERNAL</option>
                   <option>EXTERNAL</option>
                   <option>EMBED</option>
@@ -153,14 +170,17 @@ const MenuItem = (props: Props) => {
               </label>
               <label className="MenuItem__body__content__form__item__label">
                 <span>Authorities</span>
-                <div className="MenuItem__body__content__form__item__checkboxGroup"
-                  role="group" aria-labelledby="checkbox-group" >
-                  <label>
-                    <Field type="checkbox" name="authorities" value="Admin" />
-                    Admin
-                  </label>
-                </div>
-              </label>  
+                <Field className="MenuItem__body__content__form__item" name="authorities" as="select" autocomplete="off">
+                  <option selected>
+                    Select Authorities
+                  </option>
+                  {privileges.map((auths: any) => (
+                    <option value={auths.authority} key={auths.id}>
+                      {auths.authority}
+                    </option>
+                  ))}
+                </Field>
+              </label>
               <Button type="submit">{saveButtonText}</Button>
             </Form>
           </Formik>
@@ -172,19 +192,20 @@ const MenuItem = (props: Props) => {
             <div className={cx('MenuItem__body__content')}>
               <Formik
                 initialValues={{
-                  name:'',
-                  icon:'',
-                  displayText:'',
-                  url:'',
-                  weight:undefined,
-                  authorities:[],
-                  position:0,
+                  name: '',
+                  icon: '',
+                  displayText: '',
+                  url: '',
+                  weight: undefined,
+                  authorities: [],
+                  position: 0,
                   renderMode,
-                  parentName:'',
-                  children:[]
+                  parentName: '',
+                  children: []
                 }}
                 onSubmit={async (values: MenuDto, { resetForm }) => {
-                  children.push(values)
+                  values.authorities = (values.authorities.length > 0 ) ? [values.authorities] : [];
+                  children.push(values);
                   await onUpdate({ ...props.menu, children });
                   resetForm();
                 }}
@@ -237,16 +258,16 @@ const MenuItem = (props: Props) => {
                   </label>
                   <label className="MenuItem__body__content__form__item__label">
                     <span>Authorities</span>
-                    <div
-                      className="MenuItem__body__content__form__item__checkboxGroup"
-                      role="group"
-                      aria-labelledby="checkbox-group"
-                    >
-                      <label>
-                        <Field type="checkbox" name="authorities" value="Admin" />
-                        Admin
-                      </label>
-                    </div>
+                    <Field className="MenuItem__body__content__form__item" name="authorities" as="select" autocomplete="off">
+                      <option selected>
+                        Select Authorities
+                      </option>
+                      {privileges.map((auths: any) => (
+                        <option value={auths.authority} key={auths.id}>
+                          {auths.authority}
+                        </option>
+                      ))}
+                    </Field>
                   </label>
                   <Button type="submit">{saveButtonText}</Button>
                 </Form>
