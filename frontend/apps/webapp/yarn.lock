@@ -2656,10 +2656,10 @@
     lodash "^4.17.15"
     lodash-es "^4.17.15"
 
-"@savantly/sprout-api@2.0.0-38":
-  version "2.0.0-38"
-  resolved "https://registry.yarnpkg.com/@savantly/sprout-api/-/sprout-api-2.0.0-38.tgz#d8425fb95bb48a65ce5582349f61cd21e040a32b"
-  integrity sha512-k2X42zd89S2ZKSSylDE/k72a/dUbfZA/VpcdYgYiEq0mhVBAuXXL4eJHAs5aEqpq+P/UNDPJKt0xk5TWEXnJCg==
+"@savantly/sprout-api@2.0.0-39":
+  version "2.0.0-39"
+  resolved "https://registry.yarnpkg.com/@savantly/sprout-api/-/sprout-api-2.0.0-39.tgz#56e22b8af3ebed8fa705e3ea9bd26f90b1c8fa76"
+  integrity sha512-Nokm7lHdRYFTemclBGUP/oFcGQjiJnme/ZC8BhMvMKbR4obnqOADVeZVSrDNx/zf/VYqyoMlJtjDg8aEcdTGcg==
   dependencies:
     "@braintree/sanitize-url" "4.0.0"
     "@reduxjs/toolkit" "^1.4.0"
@@ -2676,13 +2676,13 @@
     uuid "~8.3.1"
     xss "1.0.6"
 
-"@savantly/sprout-runtime@2.0.0-38":
-  version "2.0.0-38"
-  resolved "https://registry.yarnpkg.com/@savantly/sprout-runtime/-/sprout-runtime-2.0.0-38.tgz#0b26f20dedc9d77de30906a0c744bfc0927d4b7d"
-  integrity sha512-LdBbcznLIKDNcTmHkycy5beIi3oYebfYqEeKjV9gOu/pQYCUx4OG/FbzOEJ8DtCj3TBmwO1gmuitc0EncmuY/A==
+"@savantly/sprout-runtime@2.0.0-39":
+  version "2.0.0-39"
+  resolved "https://registry.yarnpkg.com/@savantly/sprout-runtime/-/sprout-runtime-2.0.0-39.tgz#4c84c3c9bfa8451b5e66f501ade19d16407de96c"
+  integrity sha512-5/EylK01+2HDe1qcsTXOeMQtuuilD/PAnGxP/67/2ZMmIN1ojFiPrJUw+2vZ2rKvOgbeDeltLi8yf6Y9FUhaiA==
   dependencies:
-    "@savantly/sprout-api" "2.0.0-38"
-    "@savantly/sprout-ui" "2.0.0-38"
+    "@savantly/sprout-api" "2.0.0-39"
+    "@savantly/sprout-ui" "2.0.0-39"
     axios "~0.21.1"
     systemjs "^0.21.5"
     systemjs-plugin-css "0.1.37"
@@ -2692,16 +2692,16 @@
   resolved "https://registry.yarnpkg.com/@savantly/sprout-tsconfig/-/sprout-tsconfig-1.0.0.tgz#e8a95fc980158a58ad41a5d98fd423b90113480a"
   integrity sha512-1PhXb/RcVIi+jZdCrcKsQ2Fhb5EP7EfD6xOjct0VTYwbCvVkU3OmXPAi7dL8NlQtwSbAmmFGpX9/wLNedkGzDQ==
 
-"@savantly/sprout-ui@2.0.0-38":
-  version "2.0.0-38"
-  resolved "https://registry.yarnpkg.com/@savantly/sprout-ui/-/sprout-ui-2.0.0-38.tgz#d0d0c60bc99da2a8a593f775e99aeec8f1e680ef"
-  integrity sha512-Knd1BYjizAbx8435Ihi3kc57a8IOSkjeMBJY0zeR0lCbB7ntMG19IacjUtNUMH4Xc3HXVvDpY4A+zA1DgifJhQ==
+"@savantly/sprout-ui@2.0.0-39":
+  version "2.0.0-39"
+  resolved "https://registry.yarnpkg.com/@savantly/sprout-ui/-/sprout-ui-2.0.0-39.tgz#919c70683bdb95d22c181fa332fa5ea5c60c2783"
+  integrity sha512-D4NKg6mMJCa9p0KLhkeCnt7FoFedh3OAgI4ce4YNFoRX2fS737tyZQyuG1+Jo37fRBxColCosgglC8ST3TgYGw==
   dependencies:
     "@emotion/core" "^10.0.27"
     "@grafana/e2e-selectors" "^7.2.0"
     "@grafana/slate-react" "0.22.9-grafana"
     "@iconscout/react-unicons" "1.1.4"
-    "@savantly/sprout-api" "2.0.0-38"
+    "@savantly/sprout-api" "2.0.0-39"
     "@savantly/sprout-tsconfig" "^1.0.0"
     "@torkelo/react-select" "3.0.8"
     "@types/clipboard" "^2.0.1"
@@ -2783,10 +2783,10 @@
   resolved "https://registry.yarnpkg.com/@sinonjs/text-encoding/-/text-encoding-0.7.1.tgz#8da5c6530915653f3a1f38fd5f101d8c3f8079c5"
   integrity sha512-+iTbntw2IZPb/anVDbypzfQa+ay64MW0Zo8aJ8gZPWMMK6/OubMVb6lUPMagqjOPnmtauXnFCACVl3O7ogjeqQ==
 
-"@sprout-platform/ui@2.0.0-38":
-  version "2.0.0-38"
-  resolved "https://registry.yarnpkg.com/@sprout-platform/ui/-/ui-2.0.0-38.tgz#71bc8d6fa29e813bf16e7474887b2c6dd28912b7"
-  integrity sha512-cJobHNHowvmcG5R97SKNZ+5UgOrxq0qw7F0RzmAB1ix4dIXqqkgi55FtVxCYouG3RME+xVUSRu49GCa2AHZYFw==
+"@sprout-platform/ui@2.0.0-39":
+  version "2.0.0-39"
+  resolved "https://registry.yarnpkg.com/@sprout-platform/ui/-/ui-2.0.0-39.tgz#cede97583d6f3f9b630c8f1355cd0bf589b81c16"
+  integrity sha512-vkuUsfEc72PF8eSvgcU1l/cnV3n4Lw++0CSKAtGRPuLHVJXnCf6ChXgyrkM3zSMmoqKYk2P/rMhoCC+UGvmzbw==
   dependencies:
     "@emotion/core" "^10.0.27"
     "@fortawesome/fontawesome-svg-core" "~1.2.32"
@@ -2795,7 +2795,7 @@
     "@fortawesome/free-solid-svg-icons" "~5.15.1"
     "@fortawesome/react-fontawesome" "~0.1.13"
     "@reduxjs/toolkit" "^1.4.0"
-    "@savantly/sprout-api" "2.0.0-38"
+    "@savantly/sprout-api" "2.0.0-39"
     "@savantly/sprout-tsconfig" "^1.0.0"
     axios "~0.21.1"
     bootstrap "~4.5.3"
@@ -16028,9 +16028,9 @@ tmp@^0.0.33:
     os-tmpdir "~1.0.2"
 
 tmpl@1.0.x:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/tmpl/-/tmpl-1.0.4.tgz#23640dd7b42d00433911140820e5cf440e521dd1"
-  integrity sha1-I2QN17QtAEM5ERQIIOXPRA5SHdE=
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/tmpl/-/tmpl-1.0.5.tgz#8683e0b902bb9c20c4f726e3c0b69f36518c07cc"
+  integrity sha512-3f0uOEAQwIqGuWW2MVzYg8fV/QNnc/IpuJNG837rLuczAaLVHslWHZQj4IGiEl5Hs3kkbhwL9Ab7Hrsmuj+Smw==
 
 to-arraybuffer@^1.0.0:
   version "1.0.1"
