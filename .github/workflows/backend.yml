@@ -34,8 +34,7 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
-            const ownerAndRepo = ${{ context.github }}.repository.split('/')
-            const repo = await github.rest.repos.get({owner: ownerAndRepo[0], repo: ownerAndRepo[1]})
+            const repo = await github.rest.repos.get({owner: context.repo.owner, repo: context.repo.repo})
             return repo.data
 
       # Caching
