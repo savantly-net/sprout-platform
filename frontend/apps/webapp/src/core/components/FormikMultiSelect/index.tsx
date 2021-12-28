@@ -10,17 +10,20 @@ interface Props {
   label: string;
 }
 
-const FormikSelect: React.FC<FieldProps & Props> = ({ label, options, field, form }) => (
+const FormikMultiSelect: React.FC<FieldProps & Props> = ({ label, options, field, form }) => (
   <FormControl>
+    {/* {console.log(field, " ssssssssss")}
+    {console.log(options, " options")} */}
     <FormLabel className="FormikSelect__label">{label || field.name}</FormLabel>
-    <Select
+    <Select isMulti
       name={field.name}
-      value={field.value}
-      // value={options ? options.find((option) => option.value === field.value) : ''}
+      // selectedOptionColor="SYSTEM" 
+      value={options ? options.find((option) => option.value === field.value) : console.log(field.value, "sss")}
       onChange={(option: any) => form.setFieldValue(field.name, option.target.value)}
       // onChange={(option: any) => form.setFieldValue(field.name, option.value)}
       onBlur={field.onBlur}
-      width="max-content" >
+      width="max-content"
+    >
       {options.map(({ value }) => (
         <option value={value} key={value}>
           {value}
@@ -30,4 +33,4 @@ const FormikSelect: React.FC<FieldProps & Props> = ({ label, options, field, for
   </FormControl>
 );
 
-export default FormikSelect;
+export default FormikMultiSelect;

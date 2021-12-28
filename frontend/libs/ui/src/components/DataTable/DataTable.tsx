@@ -30,15 +30,11 @@ export class DataTableColumnProvider<T extends object> {
     this.props = props;
     this._showActionColumn = this.props.showActionColumn === undefined ? true : this.props.showActionColumn;
 
-    const deleteClick =
-      props.onDeleteClick ||
-      ((row) => {
-        console.log('delete clicked', JSON.stringify(row));
-      });
+    const deleteClick = props.onDeleteClick;
 
     this._onDeleteClick = (row) => {
       confirm(props.deleteModalProps || { onClose: () => {} }).then((result) => {
-        if (result) {
+        if (result && deleteClick) {
           deleteClick(row);
         } else {
           console.log('canceled', JSON.stringify(row));
@@ -50,6 +46,7 @@ export class DataTableColumnProvider<T extends object> {
   getColumnDescriptions() {
     const columns: ColumnDescription<T>[] = [];
     columns.push(...this.props.columnDescriptions);
+
     if (this._showActionColumn) {
       columns.push({
         dataField: 'actions',
@@ -65,12 +62,12 @@ export class DataTableColumnProvider<T extends object> {
                 </Button>
               )}
               {this.props.onEditClick && (
-                <Button onClick={() => this.props.onEditClick && this.props.onEditClick(row)} color="warning">
+                <Button className='ml-1' onClick={() => this.props.onEditClick && this.props.onEditClick(row)} color="warning">
                   <Icon name="pen" />
                 </Button>
               )}
               {this.props.onDeleteClick && (
-                <Button onClick={() => this._onDeleteClick(row)} color="danger">
+                <Button className='ml-1' onClick={() => this._onDeleteClick(row)} color="danger">
                   <Icon name="trash-alt" />
                 </Button>
               )}

@@ -4,7 +4,7 @@ import {
   EntityStateProvider,
   NavModel,
   NavModelItem,
-  TenantedEntity
+  TenantedEntity,
 } from '@savantly/sprout-api';
 import React, { useMemo } from 'react';
 import { ColumnDescription } from 'react-bootstrap-table-next';
@@ -54,7 +54,6 @@ export const EntityListPage = ({
     main: navModelItem,
     node: navModelItem
   };
-
   return (
     <RoutedEntityPage model={navModel}>
       <div>
@@ -67,7 +66,7 @@ export const EntityListPage = ({
                 onClose: (result) => {}
               },
               onEditClick: (row) => {
-                navigate(`./item/${row.itemId}/edit`);
+                  navigate(`./item/${row.itemId}/edit`);
               },
               onDeleteClick: (row) => {
                 if (row.itemId) {
@@ -77,7 +76,7 @@ export const EntityListPage = ({
                 }
               },
               onViewClick: (row) => {
-                navigate(`./item/${row.itemId}`);
+                navigate(`./item/${row.itemId}`); 
               }
             })
           }
