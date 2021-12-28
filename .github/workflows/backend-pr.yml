@@ -25,16 +25,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0 # Required to retrieve git history
-      
-      # Get repo metadata so we can use it in the build scripts
-      - name: Repo metadata
-        id: repo
-        uses: actions/github-script@v5
-        with:
-          script: |
-            const repo = await github.repos.get(context.repo)
-            return repo.data
+          fetch-depth: 0 # Required to retrieve git history 
 
       # Caching
       - name: Cache Gradle deps
