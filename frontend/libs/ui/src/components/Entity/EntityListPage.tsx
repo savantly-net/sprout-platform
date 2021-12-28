@@ -22,7 +22,6 @@ export interface EntityListPageProps<E extends TenantedEntity = any> {
   entityService: BaseEntityService<E>;
   entityStateProvider: EntityStateProvider<E>;
   entityStateSelector: (state: any) => EntityState<E>;
-  featureName?: string;
 }
 
 export const EntityListPage = ({
@@ -32,8 +31,7 @@ export const EntityListPage = ({
   iconProvider,
   entityService,
   entityStateProvider,
-  entityStateSelector,
-  featureName
+  entityStateSelector
 }: EntityListPageProps<any>) => {
   const state = useSelector(entityStateSelector);
   const dispatch = useDispatch();
@@ -64,7 +62,6 @@ export const EntityListPage = ({
           columnProvider={
             new DataTableColumnProvider<any>({
               columnDescriptions: [...entityListColumns],
-              featureName: featureName,
               deleteModalProps: {
                 onClose: (result) => {}
               },

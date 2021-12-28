@@ -19,7 +19,6 @@ export interface DataTableColumnProviderProps<T extends object> {
   showActionColumn?: boolean;
   extraActions?: (row: T) => ReactElement;
   deleteModalProps?: ConfirmModalProps;
-  featureName?:  string;
 }
 
 export class DataTableColumnProvider<T extends object> {
@@ -31,15 +30,11 @@ export class DataTableColumnProvider<T extends object> {
     this.props = props;
     this._showActionColumn = this.props.showActionColumn === undefined ? true : this.props.showActionColumn;
 
-    const deleteClick =
-      props.onDeleteClick ||
-      ((row) => {
-        console.log('delete clicked', JSON.stringify(row));
-      });
+    const deleteClick = props.onDeleteClick;
 
     this._onDeleteClick = (row) => {
       confirm(props.deleteModalProps || { onClose: () => {} }).then((result) => {
-        if (result) {
+        if (result && deleteClick) {
           deleteClick(row);
         } else {
           console.log('canceled', JSON.stringify(row));
@@ -71,7 +66,7 @@ export class DataTableColumnProvider<T extends object> {
                   <Icon name="pen" />
                 </Button>
               )}
-              {this.props.onDeleteClick && this.props.featureName !== 'user' && (
+              {this.props.onDeleteClick && (
                 <Button className='ml-1' onClick={() => this._onDeleteClick(row)} color="danger">
                   <Icon name="trash-alt" />
                 </Button>

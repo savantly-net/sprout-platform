@@ -70,7 +70,6 @@ const IndexPage = () => {
             return '';
         }
       }}
-      featureName={'issue'}
     />
   );
 };

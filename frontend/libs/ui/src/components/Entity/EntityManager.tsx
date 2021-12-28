@@ -38,8 +38,7 @@ export const EntityManager = ({
   entityStateProvider,
   entityStateSelector,
   entityEditor,
-  entityViewer,
-  featureName
+  entityViewer
 }: EntityIndexPageProps<any>) => {
   const entityState = useSelector(entityStateSelector);
   return (
@@ -55,7 +54,6 @@ export const EntityManager = ({
             iconProvider={iconProvider}
             subTitleProvider={subTitleProvider}
             titleProvider={titleProvider}
-            featureName={featureName}
           />
         }
       />
