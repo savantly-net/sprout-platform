@@ -43,7 +43,7 @@ export const IssueEntityEditor = ({ item, afterSave }: ItemEditorProps<EntityCla
               publishSuccessNotification('Saved', message);
             })
             .catch((err) => {
-              publishErrorNotification('Failed to save permissions ', err);
+              publishErrorNotification('Failed to save issue ', err);
               setError(err.message || err.detail || 'An error occurred while saving.');
             });
         }}
