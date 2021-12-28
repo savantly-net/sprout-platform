@@ -13,6 +13,7 @@ import {
   issueEntityService as service,
   issueStateProvider as stateProvider
 } from '../entity';
+import { publishSuccessNotification,publishErrorNotification } from '@savantly/sprout-api';
 
 const statusOptions = [{ value: 'OPEN' }, { value: 'CLOSED' }];
 
@@ -38,8 +39,11 @@ export const IssueEntityEditor = ({ item, afterSave }: ItemEditorProps<EntityCla
               helpers.setSubmitting(false);
               helpers.resetForm();
               afterSave(response.data, helpers);
+              const message= values.itemId ? 'Issues updated successfully!' : 'Issues added successfully!';
+              publishSuccessNotification('Saved', message);
             })
             .catch((err) => {
+              publishErrorNotification('Failed to save issue ', err);
               setError(err.message || err.detail || 'An error occurred while saving.');
             });
         }}
