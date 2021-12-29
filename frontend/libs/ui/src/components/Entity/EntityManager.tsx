@@ -26,7 +26,6 @@ export interface EntityIndexPageProps<E extends TenantedEntity = any> {
     afterSave: (values: E, helpers: FormikHelpers<E>) => void;
   }) => ReactElement;
   entityViewer: ({ item }: { item: E }) => ReactElement;
-  featureName?: string;
 }
 
 export const EntityManager = ({
