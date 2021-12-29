@@ -30,15 +30,11 @@ export class DataTableColumnProvider<T extends object> {
     this.props = props;
     this._showActionColumn = this.props.showActionColumn === undefined ? true : this.props.showActionColumn;
 
-    const deleteClick =
-      props.onDeleteClick ||
-      ((row) => {
-        console.log('delete clicked', JSON.stringify(row));
-      });
+    const deleteClick = props.onDeleteClick;
 
     this._onDeleteClick = (row) => {
       confirm(props.deleteModalProps || { onClose: () => {} }).then((result) => {
-        if (result) {
+        if (result && deleteClick) {
           deleteClick(row);
         } else {
           console.log('canceled', JSON.stringify(row));
