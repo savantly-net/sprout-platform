@@ -21,7 +21,6 @@ export interface EntityPageProps<T> {
   columndescriptions: ColumnDescription[];
   onDeleteError: (error: AxiosResponse<any>) => void;
   afterDelete: () => void;
-  featureName: string;
 }
 
 export interface EntityPageState<T> {

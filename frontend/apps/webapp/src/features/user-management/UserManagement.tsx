@@ -80,7 +80,6 @@ const IndexPage = () => {
             return '';
         }
       }}
-      featureName={'user'}
     />
   );
 };

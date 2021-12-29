@@ -9,7 +9,7 @@ import FormikSelect from '../../../core/components/FormikSelect';
 import FormikTextInput from '../../../core/components/FormikTextInput';
 import FormikCommonTextInput from '../../../core/components/FormikCommonTextInput';
 import { UserEntity as EntityClass, userEntityService as service, userStateProvider as stateProvider } from '../entity';
-
+import { publishErrorNotification, publishSuccessNotification } from '@savantly/sprout-api';
 const roleOptions = [{ value: 'ADMIN' }, { value: 'ANONYMOUS' }, { value: 'SYSTEM' }];
 
 export const UserEntityEditor = ({ item, afterSave }: ItemEditorProps<EntityClass>) => {
@@ -66,9 +66,12 @@ export const UserEntityEditor = ({ item, afterSave }: ItemEditorProps<EntityClas
           promiseToSave.then((response:any) => {
               helpers.setSubmitting(false);
               helpers.resetForm();
+              const message = (values.itemId ? 'User updated successfully!' : 'User created successfully!')
+              publishSuccessNotification('Saved', message);
               afterSave(response.data, helpers);
             })
             .catch((err:any) => {
+              publishErrorNotification('Error', err.message || err.detail || 'An error occurred while saving.');
               setError(err.message || err.detail || 'An error occurred while saving.');
             });
         }}
