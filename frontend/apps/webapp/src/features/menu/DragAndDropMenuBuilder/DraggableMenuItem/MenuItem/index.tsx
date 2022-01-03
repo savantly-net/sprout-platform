@@ -1,11 +1,4 @@
-import {
-  DeleteIcon,
-  AddIcon,
-  ChevronDownIcon,
-  SettingsIcon,
-  ChevronRightIcon,
-  MinusIcon
-} from '@chakra-ui/icons';
+import { DeleteIcon, AddIcon, ChevronDownIcon, SettingsIcon, ChevronRightIcon, MinusIcon } from '@chakra-ui/icons';
 
 import { Button, IconButton } from '@chakra-ui/react';
 import cx from 'classnames';
@@ -120,8 +113,7 @@ const MenuItem = (props: Props) => {
               children
             }}
             onSubmit={async (values: MenuDto, { resetForm }) => {
-              console.log(values, ' valuesvalues');
-              values.authorities = (values.authorities.length > 0 ) ? [values.authorities] : [];
+              values.authorities = [values.authorities.toString()];
               await onUpdate({ ...values, children });
               resetForm();
             }}
@@ -132,11 +124,11 @@ const MenuItem = (props: Props) => {
             <Form className="MenuItem__body__content__form">
               <label className="MenuItem__body__content__form__item__label">
                 <span>Name</span>
-                <Field className="MenuItem__body__content__form__item" name="name" type="text" autocomplete="off" />
+                <Field className="MenuItem__body__content__form__item" name="name" type="text" autoComplete="off" />
               </label>
               <label className="MenuItem__body__content__form__item__label">
                 <span>Icon</span>
-                <Field className="MenuItem__body__content__form__item" name="icon" type="text" autocomplete="off" />
+                <Field className="MenuItem__body__content__form__item" name="icon" type="text" autoComplete="off" />
               </label>
               <label className="MenuItem__body__content__form__item__label">
                 <span>Display Text</span>
@@ -144,20 +136,20 @@ const MenuItem = (props: Props) => {
                   className="MenuItem__body__content__form__item"
                   name="displayText"
                   type="text"
-                  autocomplete="off"
+                  autoComplete="off"
                 />
               </label>
               <label className="MenuItem__body__content__form__item__label">
                 <span>URL</span>
-                <Field className="MenuItem__body__content__form__item" name="url" type="text" autocomplete="off" />
+                <Field className="MenuItem__body__content__form__item" name="url" type="text" autoComplete="off" />
               </label>
               <label className="MenuItem__body__content__form__item__label">
                 <span>Weight</span>
-                <Field className="MenuItem__body__content__form__item" name="weight" type="number" autocomplete="off" />
+                <Field className="MenuItem__body__content__form__item" name="weight" type="number" autoComplete="off" />
               </label>
               <label className="MenuItem__body__content__form__item__label">
                 <span>Render Mode</span>
-                <Field className="MenuItem__body__content__form__item" name="renderMode" as="select" autocomplete="off">
+                <Field className="MenuItem__body__content__form__item" name="renderMode" as="select" autoComplete="off">
                   <option disabled selected>
                     Select Render Mode
                   </option>
@@ -170,10 +162,8 @@ const MenuItem = (props: Props) => {
               </label>
               <label className="MenuItem__body__content__form__item__label">
                 <span>Authorities</span>
-                <Field className="MenuItem__body__content__form__item" name="authorities" as="select" autocomplete="off">
-                  <option selected>
-                    Select Authorities
-                  </option>
+                <Field className="MenuItem__body__content__form__item" name="authorities" as="select" autoComplete="off">
+                  <option selected>Select Authorities</option>
                   {privileges.map((auths: any) => (
                     <option value={auths.authority} key={auths.id}>
                       {auths.authority}
@@ -204,7 +194,8 @@ const MenuItem = (props: Props) => {
                   children: []
                 }}
                 onSubmit={async (values: MenuDto, { resetForm }) => {
-                  values.authorities = (values.authorities.length > 0 ) ? [values.authorities] : [];
+                  values.authorities = [values.authorities.toString()];
+                  // values.authorities = (values.authorities.length > 0 ) ? [values.authorities] : [];
                   children.push(values);
                   await onUpdate({ ...props.menu, children });
                   resetForm();
@@ -213,11 +204,11 @@ const MenuItem = (props: Props) => {
                 <Form className="MenuItem__body__content__form">
                   <label className="MenuItem__body__content__form__item__label">
                     <span>Name</span>
-                    <Field className="MenuItem__body__content__form__item" name="name" type="text" autocomplete="off" />
+                    <Field className="MenuItem__body__content__form__item" name="name" type="text" autoComplete="off" />
                   </label>
                   <label className="MenuItem__body__content__form__item__label">
                     <span>Icon</span>
-                    <Field className="MenuItem__body__content__form__item" name="icon" type="text" autocomplete="off" />
+                    <Field className="MenuItem__body__content__form__item" name="icon" type="text" autoComplete="off" />
                   </label>
                   <label className="MenuItem__body__content__form__item__label">
                     <span>Display Text</span>
@@ -225,12 +216,12 @@ const MenuItem = (props: Props) => {
                       className="MenuItem__body__content__form__item"
                       name="displayText"
                       type="text"
-                      autocomplete="off"
+                      autoComplete="off"
                     />
                   </label>
                   <label className="MenuItem__body__content__form__item__label">
                     <span>URL</span>
-                    <Field className="MenuItem__body__content__form__item" name="url" type="text" autocomplete="off" />
+                    <Field className="MenuItem__body__content__form__item" name="url" type="text" autoComplete="off" />
                   </label>
                   <label className="MenuItem__body__content__form__item__label">
                     <span>Weight</span>
@@ -238,7 +229,7 @@ const MenuItem = (props: Props) => {
                       className="MenuItem__body__content__form__item"
                       name="weight"
                       type="number"
-                      autocomplete="off"
+                      autoComplete="off"
                     />
                   </label>
                   <label className="MenuItem__body__content__form__item__label">
@@ -247,7 +238,7 @@ const MenuItem = (props: Props) => {
                       className="MenuItem__body__content__form__item"
                       name="renderMode"
                       as="select"
-                      autocomplete="off"
+                      autoComplete="off"
                     >
                       <option>INTERNAL</option>
                       <option>EXTERNAL</option>
@@ -258,10 +249,13 @@ const MenuItem = (props: Props) => {
                   </label>
                   <label className="MenuItem__body__content__form__item__label">
                     <span>Authorities</span>
-                    <Field className="MenuItem__body__content__form__item" name="authorities" as="select" autocomplete="off">
-                      <option selected>
-                        Select Authorities
-                      </option>
+                    <Field
+                      className="MenuItem__body__content__form__item"
+                      name="authorities"
+                      as="select"
+                      autoComplete="off"
+                    >
+                      <option selected>Select Authorities</option>
                       {privileges.map((auths: any) => (
                         <option value={auths.authority} key={auths.id}>
                           {auths.authority}
