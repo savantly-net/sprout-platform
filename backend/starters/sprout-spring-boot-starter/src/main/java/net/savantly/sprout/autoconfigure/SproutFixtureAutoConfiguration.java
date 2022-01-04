@@ -24,7 +24,6 @@ import net.savantly.sprout.core.domain.role.Role;
 import net.savantly.sprout.core.domain.role.RoleFixture;
 import net.savantly.sprout.core.domain.role.RoleRepository;
 import net.savantly.sprout.core.security.FakeContext;
-import net.savantly.sprout.core.tenancy.TenantContext;
 
 @Configuration
 @AutoConfigureAfter(JpaRepositoriesAutoConfiguration.class)
@@ -45,7 +44,7 @@ public class SproutFixtureAutoConfiguration {
 		// There's a race when testing, so let's not abort
 		try {
     	Privilege adminPrivilege = privilegeRepository
-    			.findByNameAndTenantId("ADMIN", TenantContext.getCurrentTenant()).stream().findFirst().orElse(createAdminPrivilege());
+    			.findByName("ADMIN");
     	ensureSystemRoleExists(adminPrivilege);
 		} catch (Exception ex) {
 			log.warn("failed to insert admin privilege and/or role", ex);

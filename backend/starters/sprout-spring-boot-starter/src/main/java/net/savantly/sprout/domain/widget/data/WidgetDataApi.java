@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.savantly.sprout.starter.problem.EntityNotFoundProblem;
+import reactor.core.publisher.Flux;
 
 @RestController
 @RequestMapping("/api/widget-data")
@@ -21,10 +22,10 @@ public class WidgetDataApi {
 	public WidgetDataApi(WidgetDataService service) {
 		this.service = service;
 	}
-	
+
 	@GetMapping("/{widgetDataSourceType}")
-	public Collection<WidgetData> getDataList(@PathVariable("widgetDataSourceType") String widgetDataSourceType) {
-		return service.getDataList(widgetDataSourceType);
+	public Flux<WidgetData> getDataList(@PathVariable("widgetDataSourceType") String widgetDataSourceType) {
+		return Flux.fromIterable(service.getDataList(widgetDataSourceType));
 	}
 	
 	@GetMapping("/{widgetDataSourceType}/{widgetDataId}")

@@ -2,11 +2,10 @@ package net.savantly.sprout.domain.folder;
 
 import javax.transaction.Transactional;
 
-import net.savantly.sprout.core.tenancy.TenantedJpaRepository;
-import net.savantly.sprout.core.tenancy.TenantedPrimaryKey;
+import org.springframework.data.repository.CrudRepository;
 
-public interface FolderRepository extends TenantedJpaRepository<Folder, TenantedPrimaryKey> {
+public interface FolderRepository extends CrudRepository<Folder, String> {
 
 	@Transactional
-	void deleteByIdItemId(String itemId);
+	void deleteById(String itemId);
 }

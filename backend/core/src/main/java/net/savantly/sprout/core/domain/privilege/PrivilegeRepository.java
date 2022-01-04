@@ -12,5 +12,6 @@ import net.savantly.sprout.core.domain.PersistedDomainObjectRepository;
 @Repository
 public interface PrivilegeRepository extends PersistedDomainObjectRepository<Privilege>{
 
-	List<Privilege> findByNameAndTenantId(@Param("name") String name, @Param("tenantId") String tenantId);
+	//	List<Privilege> findByNameAndTenantId(@Param("name") String name, @Param("tenantId") String tenantId);
+	Privilege findByName(@Param("name") String name);
 }

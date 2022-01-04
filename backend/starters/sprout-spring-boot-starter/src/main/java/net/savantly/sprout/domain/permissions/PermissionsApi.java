@@ -23,7 +23,8 @@ import net.savantly.sprout.core.domain.privilege.Privilege;
 import net.savantly.sprout.core.domain.privilege.PrivilegeRepository;
 import net.savantly.sprout.core.domain.role.Role;
 import net.savantly.sprout.core.domain.role.RoleRepository;
-import net.savantly.sprout.core.tenancy.TenantContext;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RequestMapping("/api/permissions")
 @RestController
@@ -38,29 +39,37 @@ public class PermissionsApi {
 		this.privilegeRepo = privilegeRepo;
 	}
 
-	@GetMapping("/role")
-	public ResponseEntity<List<Role>> getRoles() {
-		return ResponseEntity.ok(roleRepo.findAll());
-	}
+//	@GetMapping("/role")
+//	public ResponseEntity<List<Role>> getRoles() {
+//		return ResponseEntity.ok(roleRepo.findAll());
+//	}
 
 	@PutMapping("/role")
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public ResponseEntity<Role> updateRole(@RequestBody PermissionUpdateDto dto) {
+	public ResponseEntity<Mono<Role>> updateRole(@RequestBody PermissionUpdateDto dto) {
 		Role role = roleOrThrow(dto.getRole());
 		Set<Privilege> privileges = dto.getPrivileges().stream().map(s -> privilegeOrThrow(s)).collect(Collectors.toSet());
 		role.setPrivileges(privileges);
-		return ResponseEntity.ok(roleRepo.save(role));
-	}
-	
-	@GetMapping("/privilege")
-	public ResponseEntity<Iterable<Privilege>> getPrivileges() {
-		return ResponseEntity.ok(privilegeRepo.findAll());
+		return ResponseEntity.ok(Mono.just(roleRepo.save(role)));
 	}
 
+	/*@GetMapping("/privilege")
+	public ResponseEntity<Iterable<Privilege>> getPrivileges()
+	{
+		return ResponseEntity.ok(privilegeRepo.findAll());
+	}*/
+
+	@GetMapping("/privilege")
+	public ResponseEntity<Flux<Privilege>> getPrivileges()
+	{
+
+		Flux<Privilege> privilegeFlux =  Flux.defer(() -> Flux.fromIterable(privilegeRepo.findAll()));
+		return ResponseEntity.ok(privilegeFlux);
+	}
 	@PostMapping("/role/{name}")
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public ResponseEntity<Role> createRole(@PathVariable("name") String name) {
-		return ResponseEntity.ok(roleRepo.save(new Role().setName(name)));
+	public ResponseEntity<Mono<Role>> createRole(@PathVariable("name") String name) {
+		return ResponseEntity.ok(Mono.just(roleRepo.save(new Role().setName(name))));
 	}
 
 	@DeleteMapping("/role/{name}")
@@ -73,32 +82,33 @@ public class PermissionsApi {
 
 	@PostMapping("/role/{name}/{privilege}")
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public ResponseEntity<Role> addPrivilegeToRole(@PathVariable("name") String name,
-			@PathVariable("privilege") String privilege) {
+	public ResponseEntity<Mono<Role>> addPrivilegeToRole(@PathVariable("name") String name,
+														 @PathVariable("privilege") String privilege) {
 		Role role = roleOrThrow(name);
 		Privilege privilegeEntity = privilegeOrThrow(privilege);
 		role.getPrivileges().add(privilegeEntity);
-		return ResponseEntity.ok(role);
+		return ResponseEntity.ok(Mono.just(role));
 	}
 
 	@DeleteMapping("/role/{name}/{privilege}")
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public ResponseEntity<Role> removePrivilegeFromRole(@PathVariable("name") String name,
-			@PathVariable("privilege") String privilege) {
+	public ResponseEntity<Mono<Role>> removePrivilegeFromRole(@PathVariable("name") String name,
+															  @PathVariable("privilege") String privilege) {
 		Role role = roleOrThrow(name);
 		Privilege privilegeEntity = privilegeOrThrow(privilege);
 		role.getPrivileges().remove(privilegeEntity);
-		return ResponseEntity.ok(role);
+		return ResponseEntity.ok(Mono.just(role));
 	}
-	
+
 	private Role roleOrThrow(String name) {
 		return roleRepo.findByName(name).stream().findFirst().orElseThrow(
 				() -> Problem.builder().withDetail("role not found").withStatus(Status.BAD_REQUEST).build());
 	}
 
 	private Privilege privilegeOrThrow(String name) {
-		return privilegeRepo.findByNameAndTenantId(name, TenantContext.getCurrentTenant()).stream().findFirst().orElseThrow(
-				() -> Problem.builder().withDetail("privilege not found").withStatus(Status.BAD_REQUEST).build());
+//		return privilegeRepo.findByNameAndTenantId(name).stream().findFirst().orElseThrow(
+//				() -> Problem.builder().withDetail("privilege not found").withStatus(Status.BAD_REQUEST).build());
+		return null;
 	}
 
 }

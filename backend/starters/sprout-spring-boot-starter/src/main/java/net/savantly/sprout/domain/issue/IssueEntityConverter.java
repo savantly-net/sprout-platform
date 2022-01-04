@@ -8,7 +8,7 @@ public class IssueEntityConverter extends StdConverter<Issue, IssueDto> {
 	public IssueDto convert(Issue value) {
 		return new IssueDto()
 				.setDescription(value.getDescription())
-				.setItemId(value.getItemId())
+//				.setItemId(value.getItemId())
 				.setStatus(value.getStatus())
 				.setTags(value.getTags())
 				.setTitle(value.getTitle());

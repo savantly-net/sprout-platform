@@ -13,18 +13,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import net.savantly.sprout.core.domain.user.SproutUser;
 import net.savantly.sprout.model.user.UserDto;
+import reactor.core.publisher.Mono;
 
 @RequestMapping("/api/account")
 @RestController
 public class AccountApi {
-
 	@GetMapping
-	public ResponseEntity<UserDto> getAccountInfo() {
+	public ResponseEntity<Mono<UserDto>> getAccountInfo() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (Objects.isNull(auth)) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		} else {
-			return ResponseEntity.ok(toDto(auth));
+			return ResponseEntity.ok(Mono.just(toDto(auth)));
 		}
 	}
 

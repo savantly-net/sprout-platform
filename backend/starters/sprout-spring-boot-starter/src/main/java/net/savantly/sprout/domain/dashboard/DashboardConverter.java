@@ -15,18 +15,18 @@ import net.savantly.sprout.domain.dashboard.panel.PanelService;
 
 @Transactional
 public class DashboardConverter {
-	private final static Logger log = LoggerFactory.getLogger(DashboardConverter.class);
+	private static final Logger log = LoggerFactory.getLogger(DashboardConverter.class);
 
 	private final PanelService panelService;
-	
+
 	public DashboardConverter(PanelService panelService) {
 		this.panelService = panelService;
 	}
-	
+
 	public List<DashboardDtoWrapper> convert(List<Dashboard> entities) {
 		return entities.stream().map(d -> convert(d)).collect(Collectors.toList());
 	}
-	
+
 	public DashboardDtoWrapper convert(Dashboard entity) {
 		DashboardDto dto = new DashboardDto()
 				.setFolderId(entity.getFolder())
@@ -40,17 +40,17 @@ public class DashboardConverter {
 					try {
 						return this.panelService.toDto(p);
 					} catch (JsonProcessingException e) {
-						log.warn("invalid panel definition: " + p.toString());
+						log.warn("invalid panel definition: {}", p);
 					}
 					return null;
 				}).filter(p -> Objects.nonNull(p)).collect(Collectors.toList()))
 				.setSchemaVersion(entity.getSchemaVersion())
 				.setTags(entity.getTags())
-				.setId(entity.getId().getId())
-				.setUid(entity.getUid())
-				.setVersion(entity.getId().getVersion())
+				.setId(entity.getId())
+//				.setUid(entity.getUid())
+				.setVersion(entity.getVersion())
 				.setDeleted(entity.isDeleted());
-			return new DashboardDtoWrapper()
+		return new DashboardDtoWrapper()
 				.setDashboard(dto)
 				.setMeta(createMetaData(dto));
 	}
@@ -59,7 +59,7 @@ public class DashboardConverter {
 	// TODO: Get actual meta-data
 	private DashboardMeta createMetaData(DashboardDto dto) {
 		DashboardMeta meta = new DashboardMeta();
+		log.warn(dto.toString());
 		return meta;
 	}
-
 }

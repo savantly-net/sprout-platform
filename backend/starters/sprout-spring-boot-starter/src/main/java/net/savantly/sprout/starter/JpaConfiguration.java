@@ -34,9 +34,7 @@ import com.opentable.db.postgres.embedded.EmbeddedPostgres;
 
 import lombok.AllArgsConstructor;
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
-import net.savantly.sprout.core.domain.tenant.TenantSupport;
 import net.savantly.sprout.core.security.audit.SproutAuditorAware;
-import net.savantly.sprout.core.tenancy.TenantContext;
 import net.savantly.sprout.starter.migration.CoreDBMigrationConfiguration;
 
 @Configuration("sproutJpaConfiguration")
@@ -49,9 +47,9 @@ import net.savantly.sprout.starter.migration.CoreDBMigrationConfiguration;
 @AllArgsConstructor
 @Import(CoreDBMigrationConfiguration.class)
 public class JpaConfiguration {
-	
+
 	public static final String ENTITY_MANAGER_FACTORY_BEAN = "sproutEntityManagerFactory";
-	
+
 	private final String basePackagesToScan = "net.savantly.sprout.**";
 
 	private final Logger log = LoggerFactory.getLogger(JpaConfiguration.class);
@@ -61,7 +59,7 @@ public class JpaConfiguration {
 		// System.setProperty("spring.jpa.hibernate.naming.physical-strategy",
 		// SchemaConfiguration.NAMING_STRATEGY);
 	}
-	
+
 	@Bean
 	@ConditionalOnMissingBean
 	@ConditionalOnProperty(name = "sprout.jpa.use-embedded-db")
@@ -87,7 +85,7 @@ public class JpaConfiguration {
 		return factory.dataSource(dataSource).packages(packagesToScan).properties(jpaProperties).build();
 	}
 
-	
+
 	@Bean(name = "auditingDateTimeProvider")
 	public DateTimeProvider auditingDateTimeProvider() {
 		return () -> Optional.of(OffsetDateTime.now());
@@ -97,38 +95,38 @@ public class JpaConfiguration {
 	public SproutAuditorAware sproutAuditorAware() {
 		return new SproutAuditorAware();
 	}
-	
+
 	public EmptyInterceptor hibernateInterceptor() {
 		return new EmptyInterceptor() {
 
 			@Override
 			public boolean onSave(Object entity, Serializable id, Object[] state, String[] propertyNames,
 					Type[] types) {
-				if (entity instanceof TenantSupport) {
+				/*if (entity instanceof TenantSupport) {
 					final String tenantId = TenantContext.getCurrentTenant();
 					log.debug("[save] Updating the entity " + id + " with tenant information: " + tenantId);
 					((TenantSupport) entity).setTenantId(TenantContext.getCurrentTenant());
-				}
+				}*/
 				return false;
 			}
 
 			@Override
 			public void onDelete(Object entity, Serializable id, Object[] state, String[] propertyNames, Type[] types) {
-				if (entity instanceof TenantSupport) {
+				/*if (entity instanceof TenantSupport) {
 					final String tenantId = TenantContext.getCurrentTenant();
 					log.debug("[delete] Updating the entity " + id + " with tenant information: " + tenantId);
 					((TenantSupport) entity).setTenantId(tenantId);
-				}
+				}*/
 			}
 
 			@Override
 			public boolean onFlushDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState,
 					String[] propertyNames, Type[] types) {
-				if (entity instanceof TenantSupport) {
+			/*	if (entity instanceof TenantSupport) {
 					final String tenantId = TenantContext.getCurrentTenant();
 					log.debug("[flush-dirty] Updating the entity " + id + " with tenant information: " + tenantId);
 					((TenantSupport) entity).setTenantId(tenantId);
-				}
+				}*/
 				return false;
 			}
 

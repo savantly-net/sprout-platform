@@ -29,11 +29,14 @@ import net.savantly.sprout.domain.uiProperties.UIProperty;
 import net.savantly.sprout.domain.uiProperties.UIPropertyService;
 import net.savantly.sprout.domain.uiProperties.WellKnownUIProp;
 import net.savantly.sprout.starter.versioning.VersionedObjectBackendIdConverter;
+import org.springframework.transaction.support.TransactionTemplate;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service
 @Transactional
 public class DashboardService {
-	
+
 	private final static Logger log = LoggerFactory.getLogger(DashboardService.class);
 	private final String defaultDashboardResourcePath = "classpath:/META-INF/dashboards/home.json";
 
@@ -53,78 +56,105 @@ public class DashboardService {
 	private VersionedObjectBackendIdConverter converter;
 	@Autowired
 	private DashboardConverter dashboardConverter;
-	
+	@Autowired
+	private TransactionTemplate transactionTemplate;
+
+
 	public DashboardDtoWrapper saveDashboard(DashboardSaveRequest dto) {
 		Dashboard tempEntity = fromDto(dto);
 		if(this.repo.existsById(tempEntity.getId())) {
 			// bump the version
-			tempEntity.getId().setVersion(tempEntity.getId().getVersion()+1);
+			tempEntity.setVersion(tempEntity.getVersion()+1);
 		}
 		Dashboard entity = this.repo.save(tempEntity);
 		return dashboardConverter.convert(entity);
+
+//		return Mono.fromCallable(() -> transactionTemplate.execute(status -> {
+//			Dashboard entity1 = this.repo.save(tempEntity);
+//			return dashboardConverter.convert(entity1);
+//		}));
+
 	}
 
 	public Boolean setCurrentVersionForId(String id, Long version) {
-		List<Dashboard> dashboardSearchResult = this.repo.findByIdId(id);
-		dashboardSearchResult.stream().forEach(d -> {
-			this.repo.setCurrentVersionForId(d.getId().getVersion().equals(version), d.getId());
-		});
+//		List<Dashboard> dashboardSearchResult = this.repo.findByIdId(id);
+		Dashboard dashboardSearchResult = this.repo.findById(id).orElse(new Dashboard());
+//		dashboardSearchResult.stream().forEach(d -> {
+		StringVersionedId stringVersionedId = new StringVersionedId();
+		stringVersionedId.setId(dashboardSearchResult.getId());
+//			this.repo.setCurrentVersionForId(d.getVersion().equals(version), d.getId());
+		this.repo.setCurrentVersionForId(dashboardSearchResult.getVersion().equals(version), stringVersionedId);
+//		});
 		return true;
 	}
-	
+
 	public DashboardDtoWrapper getByUid(String uid) {
-		Dashboard entity = this.repo.getOne((VersionedId) converter.fromRequestId(uid, Dashboard.class));
-		return dashboardConverter.convert(entity);
+//		Dashboard entity = this.repo.getOne((VersionedId) converter.fromRequestId(uid, Dashboard.class));
+		//Dashboard entity = this.repo.getOne(uid);
+		//return dashboardConverter.convert(entity);
+		return null;
 	}
 
 	public DashboardDtoWrapper getLatestById(String id) {
-		List<Dashboard> dashboardSearchResult = this.repo.findByIdId(id);
-		if(dashboardSearchResult.isEmpty()) {
+//		List<Dashboard> dashboardSearchResult = this.repo.findByIdId(id);
+		Dashboard dashboardSearchResult = this.repo.findById(id).orElse(new Dashboard());
+		if(dashboardSearchResult == null) {
 			throw notFound(id);
-		} else if(dashboardSearchResult.size() == 1) {
-			return dashboardConverter.convert(dashboardSearchResult.get(0));
+		} else if(dashboardSearchResult != null) {
+			return dashboardConverter.convert(dashboardSearchResult);
 		} else {
-			Optional<Dashboard> entity = dashboardSearchResult.stream().max((d1, d2) -> d1.getId().getVersion().compareTo(d2.getId().getVersion()));
-			if (entity.isPresent()) {
-				return dashboardConverter.convert(entity.get());
-			}
+//			Optional<Dashboard> entity = dashboardSearchResult.stream().max(Comparator.comparing(PersistedDomainObject::getVersion));
+//			if (entity.isPresent()) {
+//				return dashboardConverter.convert(entity.get());
+//			}
 			throw notFound(id);
 		}
 	}
 
 	public DashboardDtoWrapper getCurrentById(String id) {
-		List<Dashboard> dashboardSearchResult = this.repo.findByIdId(id);
-		if(dashboardSearchResult.isEmpty()) {
+//		List<Dashboard> dashboardSearchResult = this.repo.findByIdId(id);
+		Dashboard dashboardSearchResult = this.repo.findById(id).orElse(new Dashboard());
+		if(dashboardSearchResult == null) {
 			throw notFound(id);
-		} else if(dashboardSearchResult.size() == 1) {
-			return dashboardConverter.convert(dashboardSearchResult.get(0));
+		} else if(dashboardSearchResult != null) {
+			return dashboardConverter.convert(dashboardSearchResult);
 		} else {
-			Optional<Dashboard> entity = dashboardSearchResult.stream().filter(Dashboard::isCurrentVersion).findAny();
-			if (entity.isPresent()) {
-				return dashboardConverter.convert(entity.get());
-			}
+//			Optional<Dashboard> entity = dashboardSearchResult.stream().filter(Dashboard::isCurrentVersion).findAny();
+//			if (entity.isPresent()) {
+//				return dashboardConverter.convert(entity.get());
+//			}
 			throw notFound(id);
 		}
 	}
-	
-	public DashboardDtoWrapper getHomeDashboard() {
+
+	public Mono<DashboardDtoWrapper> getHomeDashboard() {
 		Optional<UIProperty> prop = this.uiProps.getUIPropertyByName(WellKnownUIProp.HOME_DASHBOARD_ID);
+
+		//Mono<UIProperty> propertyMono = this.uiProps.getUIPropertyByName(WellKnownUIProp.HOME_DASHBOARD_ID);
+
 		if(prop.isPresent()) {
-			return getCurrentById(prop.get().getValue());
+			Mono<DashboardDtoWrapper> mono = Mono.just(getCurrentById(prop.get().getValue()));
+			return mono;
+			//return getCurrentById(prop.get().getValue());
 		} else {
 			Dashboard dashboard = addHomeDashboard();
-			return dashboardConverter.convert(dashboard);
+			Mono<DashboardDtoWrapper> mono = Mono.just(dashboardConverter.convert(dashboard));
+			return mono;
+			//return dashboardConverter.convert(dashboard);
+
 		}
 	}
-	
-	public List<DashboardDtoWrapper> getDashboardsByFolder(String folder) {
-		return dashboardConverter.convert(this.repo.findByFolder(folder));
+
+	public Flux<DashboardDtoWrapper> getDashboardsByFolder(String folder) {
+		List<Dashboard> dashboards = this.repo.findByFolder(folder);
+		Flux<Dashboard> dashboardFlux = Flux.defer(() -> Flux.fromIterable(dashboards));
+		return dashboardFlux.map(dashboardConverter::convert);
 	}
-	
+
 	public Resource getDefaultHomeDashboard() throws JsonParseException, JsonMappingException, IOException {
 		return resourceLoader.getResource(defaultDashboardResourcePath);
 	}
-	
+
 	public Dashboard addHomeDashboard() {
 		Resource resource = resourceLoader.getResource(props.getDashboards().getHome());
 		try {
@@ -133,8 +163,11 @@ public class DashboardService {
 				resource = getDefaultHomeDashboard();
 			}
 			Dashboard dashboard = toEntity(mapper.readValue(resource.getInputStream(), DashboardDto.class));
-			dashboard = this.repo.saveAndFlush(dashboard);
-			StringVersionedId id = dashboard.getId();
+			dashboard = this.repo.save(dashboard);
+			StringVersionedId stringVersionedId = new StringVersionedId();
+			stringVersionedId.setId(dashboard.getId());
+			StringVersionedId id = stringVersionedId;
+//			StringVersionedId id = dashboard.getId();
 			uiProps.saveUIProperty(WellKnownUIProp.HOME_DASHBOARD_ID, id.getId());
 			return dashboard;
 		} catch (JsonParseException e) {
@@ -145,29 +178,29 @@ public class DashboardService {
 			throw new RuntimeException("there was an IO exception reading the home dashboard resource: " + props.getDashboards().getHome(), e);
 		}
 	}
-	
+
 	private Dashboard toEntity(DashboardDto dto) {
 		Dashboard entity = new Dashboard()
-			.setFolder(dto.getFolderId())
-			.setTitle(dto.getTitle())
-			.setEditable(dto.isEditable())
-			.setHideControls(dto.isHideControls())
-			.setCurrentVersion(dto.isCurrentVersion())
-			.setLinks(dto.getLinks())
-			.setMessage(dto.getMessage())
-			.setPanels(dto.getPanels().stream().map(p -> {
-				try {
-					return this.panelService.fromDto(p);
-				} catch (JsonProcessingException e) {
-					log.warn("invalid panel definition: " + p.toString());
-				}
-				return null;
-			}).filter(p -> Objects.nonNull(p)).collect(Collectors.toList()))
-			.setSchemaVersion(dto.getSchemaVersion())
-			.setTags(dto.getTags())
-			.setDeleted(dto.isDeleted());
+				.setFolder(dto.getFolderId())
+				.setTitle(dto.getTitle())
+				.setEditable(dto.isEditable())
+				.setHideControls(dto.isHideControls())
+				.setCurrentVersion(dto.isCurrentVersion())
+				.setLinks(dto.getLinks())
+				.setMessage(dto.getMessage())
+				.setPanels(dto.getPanels().stream().map(p -> {
+					try {
+						return this.panelService.fromDto(p);
+					} catch (JsonProcessingException e) {
+						log.warn("invalid panel definition: " + p.toString());
+					}
+					return null;
+				}).filter(p -> Objects.nonNull(p)).collect(Collectors.toList()))
+				.setSchemaVersion(dto.getSchemaVersion())
+				.setTags(dto.getTags())
+				.setDeleted(dto.isDeleted());
 
-		entity.setId(new StringVersionedId().setId(dto.getId()).setVersion(dto.getVersion()));
+		entity.setId(new StringVersionedId().setId(dto.getId()).setVersion(dto.getVersion()).toString());
 		return entity;
 	}
 

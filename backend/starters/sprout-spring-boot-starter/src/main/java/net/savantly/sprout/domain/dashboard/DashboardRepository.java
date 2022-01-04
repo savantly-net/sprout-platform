@@ -9,11 +9,11 @@ import org.springframework.data.jpa.repository.Modifying;
 
 import net.savantly.sprout.core.domain.versioning.StringVersionedId;
 
-import net.savantly.sprout.core.tenancy.TenantedVersionedDomainObjectRepository;
 import net.savantly.sprout.domain.dashboard.projection.DashboardSummary;
+import org.springframework.data.repository.CrudRepository;
 
-public interface DashboardRepository extends TenantedVersionedDomainObjectRepository<Dashboard> {
-	List<Dashboard> findByIdId(String id);
+public interface DashboardRepository extends CrudRepository<Dashboard,String> {
+//	Dashboard findById(String id);
 
 	List<Dashboard> findByFolder(String id);
 

@@ -25,6 +25,9 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 
+import com.vladmihalcea.hibernate.type.json.JsonStringType;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.CredentialsContainer;
@@ -48,7 +51,9 @@ import net.savantly.sprout.core.security.MD5Util;
 
 @Getter @Setter
 @Entity
-@Table(name = "app_users", uniqueConstraints = {@UniqueConstraint(columnNames = {"username", "tenant_id"})})
+//@Table(name = "app_users", uniqueConstraints = {@UniqueConstraint(columnNames = {"username", "tenant_id"})})
+@Table(name = "app_users", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
+@TypeDef(name = "json", typeClass = JsonStringType.class)
 public class SproutUserEntity extends PersistedDomainObject  implements CredentialsContainer, SproutUser {
 
 	private static final long serialVersionUID = 6629698068044899330L;
@@ -95,12 +100,14 @@ public class SproutUserEntity extends PersistedDomainObject  implements Credenti
 	@ManyToMany(fetch=FetchType.EAGER, targetEntity=Role.class, cascade = {CascadeType.REFRESH, CascadeType.MERGE})
 	@JoinTable(name = "app_user_app_role",
 	    joinColumns = {
-	    		@JoinColumn(name="user_id", referencedColumnName = "item_id"),
-	    		@JoinColumn(name="user_tenant_id", referencedColumnName = "tenant_id")
+	    		@JoinColumn(name="user_id", referencedColumnName = "id"),
+//	    		@JoinColumn(name="user_tenant_id", referencedColumnName = "tenant_id")
 	    		},
 	    inverseJoinColumns=
 	            @JoinColumn(name="app_role_id", referencedColumnName="ID")
 	)
+    @Column(columnDefinition = "json")
+    @Type(type = "json")
     private Set<Role> roles = new HashSet<>();
 
 

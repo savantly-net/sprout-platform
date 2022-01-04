@@ -9,14 +9,13 @@ import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguratio
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.handler.MappedInterceptor;
 
-import net.savantly.sprout.core.domain.tenant.TenantRepository;
 import net.savantly.sprout.starter.DateTimeFormatConfiguration;
 import net.savantly.sprout.starter.SpringDocConfigurer;
 import net.savantly.sprout.starter.freemarker.FreemarkerConfiguration;
 import net.savantly.sprout.starter.mvc.SproutWebMvcConfigurer;
-import net.savantly.sprout.starter.tenancy.TenantInterceptor;
 
 @Configuration
 @AutoConfigureBefore({ WebMvcAutoConfiguration.class, SproutSecurityAutoConfiguration.class })
@@ -29,12 +28,10 @@ public class SproutWebMvcAutoConfiguration implements InitializingBean {
 
 	private static final Logger log = LoggerFactory.getLogger(SproutWebMvcAutoConfiguration.class);
 
-	@Autowired
-	TenantRepository tenants;
 
 	@Bean
 	public MappedInterceptor myMappedInterceptor() {
-		return new MappedInterceptor(new String[] { "/**" }, new TenantInterceptor(tenants));
+		return new MappedInterceptor(new String[] { "/**" }, (HandlerInterceptor) null);
 	}
 	
 	@Override

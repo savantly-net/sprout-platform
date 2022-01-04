@@ -2,12 +2,12 @@ package net.savantly.sprout.domain.issue.comment;
 
 import java.util.List;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.CrudRepository;
 
-import net.savantly.sprout.core.tenancy.TenantedPrimaryKey;
 
-public interface IssueCommentRepository extends PagingAndSortingRepository<IssueComment, TenantedPrimaryKey> {
-	
+public interface IssueCommentRepository extends CrudRepository<IssueComment, String> {
+
 	List<IssueComment> findByIssueId(String issueId);
 
 }
+

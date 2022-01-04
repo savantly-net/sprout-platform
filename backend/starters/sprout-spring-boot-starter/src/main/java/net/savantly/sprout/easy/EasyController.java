@@ -29,7 +29,7 @@ public abstract class EasyController<DTO, ENTITY, ID, S extends EasyService<DTO,
 	 * @param string
 	 * @return
 	 */
-	protected abstract ID stringToID(String string);
+	/*protected abstract ID stringToID(String string);*/
 
 	/**
 	 * Execute the findAll method on the EasyService instance, passing pageable query parameters if available. <br>
@@ -51,7 +51,7 @@ public abstract class EasyController<DTO, ENTITY, ID, S extends EasyService<DTO,
 	 */
 	@GetMapping("/{itemId}")
 	public ResponseEntity<DTO> getById(@PathVariable String itemId) {
-		return ResponseEntity.of(service.getById(stringToID(itemId)));
+		return ResponseEntity.of(service.getById((ID) itemId));
 	}
 
 	/**
@@ -74,7 +74,7 @@ public abstract class EasyController<DTO, ENTITY, ID, S extends EasyService<DTO,
 	 */
 	@PutMapping("/{itemId}")
 	public ResponseEntity<DTO> update(@PathVariable String itemId, @RequestBody DTO object) {
-		return ResponseEntity.ok(service.updateOne(stringToID(itemId), object));
+		return ResponseEntity.ok(service.updateOne((ID)itemId, object));
 	}
 
 	/**
@@ -84,7 +84,7 @@ public abstract class EasyController<DTO, ENTITY, ID, S extends EasyService<DTO,
 	 */
 	@DeleteMapping("/{itemId}")
 	public ResponseEntity<Void> deleteById(@PathVariable String itemId) {
-		Optional<DTO> opt = service.getById(stringToID(itemId));
+		Optional<DTO> opt = service.getById((ID)itemId);
 		if (opt.isPresent()) {
 			service.deleteItem(opt.get());
 			return ResponseEntity.accepted().build();

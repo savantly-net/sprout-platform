@@ -6,11 +6,11 @@ import javax.validation.constraints.Size;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.savantly.sprout.core.tenancy.TenantKeyedEntity;
+import net.savantly.sprout.core.domain.PersistedDomainObject;
 
 @Entity(name = "PLUGIN_CONFIGURATION")
 @Getter @Setter
-public class PluginConfigurationEntity extends TenantKeyedEntity {
+public class PluginConfigurationEntity extends PersistedDomainObject {
 
 	@Size(max = 64000)
 	@Column(length = 64000)

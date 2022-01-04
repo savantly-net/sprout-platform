@@ -23,7 +23,7 @@ import net.savantly.sprout.core.domain.privilege.Privilege;
 import net.savantly.sprout.core.domain.privilege.PrivilegeRepository;
 import net.savantly.sprout.core.domain.role.Role;
 import net.savantly.sprout.core.domain.role.RoleRepository;
-import net.savantly.sprout.core.tenancy.TenantContext;
+
 
 @Transactional
 public class PermissionsFixture extends AbstractBaseFixture<Role, RoleRepository> {
@@ -73,9 +73,10 @@ public class PermissionsFixture extends AbstractBaseFixture<Role, RoleRepository
 	}
 	
 	private Privilege addPrivilegeIfMissing(String name) {
-		Optional<Privilege> maybe = privilegeRepo.findByNameAndTenantId(name, TenantContext.getCurrentTenant()).stream().findFirst();
-		if (maybe.isPresent()) {
-			return maybe.get();
+//		Optional<Privilege> maybe = privilegeRepo.findByNameAndTenantId(name, TenantContext.getCurrentTenant()).stream().findFirst();
+		Privilege maybe = privilegeRepo.findByName(name);
+		if (maybe != null) {
+			return maybe;
 		} else {
 			return privilegeRepo.save(new Privilege().setName(name));
 		}

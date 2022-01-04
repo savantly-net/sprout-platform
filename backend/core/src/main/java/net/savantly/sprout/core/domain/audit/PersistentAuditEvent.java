@@ -1,5 +1,9 @@
 package net.savantly.sprout.core.domain.audit;
 
+import com.vladmihalcea.hibernate.type.json.JsonStringType;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashMap;
@@ -19,6 +23,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "app_persistent_audit_event")
+@TypeDef(name = "json", typeClass = JsonStringType.class)
 public class PersistentAuditEvent implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,6 +47,7 @@ public class PersistentAuditEvent implements Serializable {
     @MapKeyColumn(name = "name")
     @Column(name = "value")
     @CollectionTable(name = "persistent_audit_evt_data", joinColumns=@JoinColumn(name="event_id"))
+    @Type(type = "json")
     private Map<String, String> data = new HashMap<>();
 
     public Long getId() {

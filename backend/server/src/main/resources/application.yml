@@ -1,44 +1,58 @@
 sprout:
   jpa:
     packages-to-scan:
-    - net.savantly.sprout.server.domain
+      - net.savantly.sprout.server.domain
   security:
     authentication:
       basic:
         users:
-        - username: admin
-          password: changeme!
-          email-address: example@savantly.net
-          roles: ADMIN
+          - username: admin
+            password: changeme!
+            email-address: example@savantly.net
+            roles: ADMIN
     authorization:
       patterns:
-      - path: /api/plugins**
-        expression:
-          GET: permitAll
-      - path: /api/dashboards/**
-        expression:
-          GET: permitAll
+        - path: /api/plugins**
+          expression:
+            GET: permitAll
+        - path: /api/dashboards/**
+          expression:
+            GET: permitAll
 
 spring:
+  flyway:
+    enabled: false
   banner:
     location: banner.txt
   mvc:
     log-request-details: true
   jpa:
-    generate-ddl: false
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
+    #   database-platform: org.hibernate.dialect.H2Dialect
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   data:
     rest:
       default-page-size: 200
+  #  datasource:
+  #    url: jdbc:h2:mem:mydb
+  #    driverClassName: org.h2.Driver
+  #    username: sa
+  #    password:
+  #
+  #  h2:
+  #    console.enabled: true
+
   datasource:
-    url: jdbc:postgresql://localhost:5432/sprout
-    username: sprout
+    #url: jdbc:postgresql://localhost:5433/sprout
+    url: jdbc:postgresql://localhost:5432/sprout   #sprout server
+    username: postgres
     password: sprout
     driver-class-name: org.postgresql.Driver
-
 
 management:
   endpoints:

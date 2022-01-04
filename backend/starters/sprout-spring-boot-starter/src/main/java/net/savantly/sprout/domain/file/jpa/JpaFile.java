@@ -16,16 +16,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.savantly.sprout.core.tenancy.TenantedPersistedDomainObject;
+import net.savantly.sprout.core.domain.PersistedDomainObject;
 import net.savantly.sprout.domain.file.FileData;
 import net.savantly.sprout.domain.file.FolderChainItem;
 
 @Entity
-@Table(name = "files", uniqueConstraints = { @UniqueConstraint(columnNames = { "tenant_id", "name", "parent" }) })
+@Table(name = "files")
+//@Table(name = "files", uniqueConstraints = { @UniqueConstraint(columnNames = { "tenant_id", "name", "parent" }) })
 @Getter
 @Setter
 @Accessors(chain = true)
-public class JpaFile extends TenantedPersistedDomainObject implements FileData, JpaFileSummary {
+public class JpaFile extends PersistedDomainObject implements FileData, JpaFileSummary {
 
 	@NotNull
 	private String name;

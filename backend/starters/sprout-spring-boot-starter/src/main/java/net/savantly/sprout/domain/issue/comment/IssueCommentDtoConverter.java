@@ -2,7 +2,6 @@ package net.savantly.sprout.domain.issue.comment;
 
 import com.fasterxml.jackson.databind.util.StdConverter;
 
-import net.savantly.sprout.core.tenancy.TenantedPrimaryKey;
 
 public class IssueCommentDtoConverter extends StdConverter<IssueCommentDto, IssueComment> {
 
@@ -11,8 +10,8 @@ public class IssueCommentDtoConverter extends StdConverter<IssueCommentDto, Issu
 		IssueComment item = new IssueComment()
 				.setIssueId(value.getIssueId())
 				.setText(value.getText());
-		TenantedPrimaryKey id = new TenantedPrimaryKey();
-		item.setId(id);
+		/*TenantedPrimaryKey id = new TenantedPrimaryKey();
+		item.setId(id);*/
 		return item;
 	}
 

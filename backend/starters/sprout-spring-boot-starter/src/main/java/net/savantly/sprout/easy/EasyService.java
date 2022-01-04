@@ -1,6 +1,7 @@
 package net.savantly.sprout.easy;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -11,16 +12,19 @@ import javax.persistence.PersistenceContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.fasterxml.jackson.databind.util.Converter;
 
-public abstract class EasyService<D, E, ID, R extends PagingAndSortingRepository<E, ID>> {
-	
+//public abstract class EasyService<D, E, ID, R extends PagingAndSortingRepository<E, ID>> {
+public abstract class EasyService<D, E, ID, R extends CrudRepository<E, ID>> {
+
 	protected static final Logger log = LoggerFactory.getLogger(EasyService.class);
 	protected R repository;
 	protected final Converter<D, E> dtoConverter;
@@ -57,8 +61,11 @@ public abstract class EasyService<D, E, ID, R extends PagingAndSortingRepository
 		if (Objects.isNull(pageable)) {
 			pageable = PageRequest.of(0, 50);
 		}
-		return repository.findAll(pageable).map(entityConverter::convert);
-	}
+
+		List<D> d = (List<D>) repository.findAll();
+		Page<D> pages = new PageImpl<>(d, pageable, d.size());
+		//return repository.findAll(pageable).map(entityConverter::convert);
+		return pages;	}
 
 	/**
 	 * Calls permission evaluator after fetching.

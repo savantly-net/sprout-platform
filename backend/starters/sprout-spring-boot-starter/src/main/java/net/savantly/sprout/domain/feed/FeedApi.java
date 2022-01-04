@@ -18,6 +18,8 @@ import lombok.RequiredArgsConstructor;
 import net.savantly.sprout.core.domain.feed.item.FeedItem;
 import net.savantly.sprout.domain.feed.post.FeedPostDto;
 import net.savantly.sprout.domain.feed.post.FeedPostService;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/feed")
@@ -28,7 +30,7 @@ public class FeedApi {
 	private final FeedPostService postService;
 
 	@GetMapping
-	public ResponseEntity<List<FeedItem>> getFeedItems(
+	public ResponseEntity<Flux<FeedItem>> getFeedItems(
 			@RequestParam(name = "beforeDate", required = false) ZonedDateTime beforeDate,
 			@RequestParam(name = "maxItems", defaultValue = "50") int maxItems) {
 		if (Objects.isNull(beforeDate)) {
@@ -36,12 +38,12 @@ public class FeedApi {
 		}
 		return ResponseEntity.ok(feedService.findItemsBeforeDate(beforeDate, maxItems));
 	}
-	
+
 	@PostMapping("/post")
-	public ResponseEntity<FeedItem> createPost(@RequestBody FeedPostDto dto) {
+	public ResponseEntity<Mono<FeedItem>> createPost(@RequestBody FeedPostDto dto) {
 		return ResponseEntity.ok(postService.createPost(dto));
 	}
-	
+
 	@DeleteMapping("/post/{itemId}")
 	public ResponseEntity<Void> createPost(@PathVariable String itemId) {
 		postService.deletePost(itemId);

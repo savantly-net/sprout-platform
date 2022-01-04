@@ -2,14 +2,13 @@ package net.savantly.sprout.domain.issue;
 
 import com.fasterxml.jackson.databind.util.Converter;
 
-import net.savantly.sprout.core.tenancy.TenantedPrimaryKey;
 import net.savantly.sprout.easy.EasyService;
 
-public class IssueService extends EasyService<IssueDto, Issue, TenantedPrimaryKey, IssueRepository> {
+public class IssueService extends EasyService<IssueDto, Issue, String, IssueRepository> {
 
 	public IssueService(
 			IssueRepository repository,
-			Converter<IssueDto, Issue> dtoConverter, 
+			Converter<IssueDto, Issue> dtoConverter,
 			Converter<Issue, IssueDto> entityConverter) {
 		super(repository, dtoConverter, entityConverter);
 	}
@@ -17,8 +16,8 @@ public class IssueService extends EasyService<IssueDto, Issue, TenantedPrimaryKe
 	@Override
 	protected Issue mapUpdates(Issue existing, IssueDto updates) {
 		return existing.setDescription(updates.getDescription())
-			.setStatus(updates.getStatus())
-			.setTags(updates.getTags())
-			.setTitle(updates.getTitle());
+				.setStatus(updates.getStatus())
+				.setTags(updates.getTags())
+				.setTitle(updates.getTitle());
 	}
 }

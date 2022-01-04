@@ -13,27 +13,31 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/folders")
 @Transactional
 public class FolderApi {
 
+
 	private final FolderService service;
-	
+
 	public FolderApi(FolderService service) {
 		this.service = service;
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<List<FolderDto>> getFolders() {
-		List<FolderDto> folders = service.getFolders();
+	public ResponseEntity<Flux<FolderDto>> getFolders() {
+		Flux<FolderDto> folders = service.getFolders();
 		return ResponseEntity.ok(folders);
 	}
-	
+
+
 	@PostMapping
 	@PreAuthorize("hasAuthority('FOLDER_CREATE')")
-	public ResponseEntity<FolderDto> createFolder(@RequestBody FolderDto dto) {
+	public ResponseEntity<Mono<FolderDto>> createFolder(@RequestBody FolderDto dto) {
 		return ResponseEntity.ok(service.createFolder(dto));
 	}
 
@@ -43,5 +47,6 @@ public class FolderApi {
 		service.deleteFolder(id);
 		return ResponseEntity.ok().build();
 	}
-	
+
+
 }

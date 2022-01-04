@@ -1,7 +1,8 @@
 package net.savantly.sprout.domain.issue;
 
-import net.savantly.sprout.core.tenancy.TenantKeyedRepository;
 
-public interface IssueRepository extends TenantKeyedRepository<Issue> {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface IssueRepository extends JpaRepository<Issue,String> {
 
 }

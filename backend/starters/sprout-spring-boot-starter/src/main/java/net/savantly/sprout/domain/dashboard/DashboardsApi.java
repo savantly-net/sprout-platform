@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RequestMapping("/api/dashboards")
 @RestController
@@ -37,22 +39,22 @@ public class DashboardsApi {
 
 	@PreAuthorize("hasAuthority('DASHBOARD_READ')")
 	@GetMapping({"/folder/", "/folder/{folder}"})
-	public ResponseEntity<List<DashboardDtoWrapper>> getDashboards(@PathVariable(name = "folder", required = false) String folder) throws IOException{
-	    return ResponseEntity.ok()
-	            .contentType(MediaType.APPLICATION_JSON)
-	            .body(service.getDashboardsByFolder(folder));
+	public ResponseEntity<Flux<DashboardDtoWrapper>> getDashboards(@PathVariable(name = "folder", required = false) String folder) throws IOException{
+		return ResponseEntity.ok()
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(service.getDashboardsByFolder(folder));
 	}
-	
+
 	@GetMapping("/home")
-	public ResponseEntity<DashboardDtoWrapper> getHome() throws IOException{
-	    return ResponseEntity.ok()
-	            .contentType(MediaType.APPLICATION_JSON)
-	            .body(service.getHomeDashboard());
+	public ResponseEntity<Mono<DashboardDtoWrapper>> getHome() throws IOException{
+		return ResponseEntity.ok()
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(service.getHomeDashboard());
 	}
-	
+
 	@PreAuthorize("hasAuthority('DASHBOARD_EDIT')")
 	@PostMapping("/db")
-	public DashboardSaveResponse saveDashboard(@RequestBody DashboardSaveRequest dto, HttpServletRequest request) {
+	public Mono<DashboardSaveResponse> saveDashboard(@RequestBody DashboardSaveRequest dto, HttpServletRequest request) {
 		DashboardDtoWrapper saved = this.service.saveDashboard(dto);
 		return toSaveResponse(saved);
 	}
@@ -62,41 +64,41 @@ public class DashboardsApi {
 	public Boolean setCurrentVersionForId(@PathVariable("id") String id, @PathVariable("version") Long version) {
 		return this.service.setCurrentVersionForId(id, version);
 	}
-	
+
 	// Should we add this??
 	//@PreAuthorize("hasAuthority('DASHBOARD_READ')")
 	@GetMapping({"/uid/{uid}"})
-	public DashboardDtoWrapper getDashboard(@PathVariable("uid") String uid) {
+	public Mono<DashboardDtoWrapper> getDashboard(@PathVariable("uid") String uid) {
 		DashboardDtoWrapper saved = this.service.getByUid(uid);
 		setMetaDashboardUrl(saved);
-		return saved;
+		return Mono.just(saved);
 	}
 
 	@PreAuthorize("hasAuthority('DASHBOARD_DELETE')")
 	@DeleteMapping({"/uid/{uid}"})
-	public DashboardDtoWrapper deleteDashboard(@PathVariable("uid") String uid) {
+	public Mono<DashboardDtoWrapper> deleteDashboard(@PathVariable("uid") String uid) {
 		DashboardDtoWrapper existing = this.service.getByUid(uid);
 		DashboardSaveRequest request = new DashboardSaveRequest().setDashboard(existing.getDashboard().setDeleted(true));
 		DashboardDtoWrapper saved = this.service.saveDashboard(request);
 		setMetaDashboardUrl(saved);
-		return saved;
+		return Mono.just(saved);
 	}
-	
+
 	private void setMetaDashboardUrl(DashboardDtoWrapper dto) {
 
 		dto.getMeta().setUrl(servletContext.getContextPath() + "/api/dashboards/uid/" + dto.getDashboard().getUid());
 	}
-	
 
-	private DashboardSaveResponse toSaveResponse(DashboardDtoWrapper saved) {
+
+	private Mono<DashboardSaveResponse> toSaveResponse(DashboardDtoWrapper saved) {
 		String slug = createSlug(saved);
-		return new DashboardSaveResponse()
-			.setId(saved.getDashboard().getId())
-			.setSlug(slug)
-			.setStatus("success")
-			.setUid(saved.getDashboard().getUid())
-			.setUrl(servletContext.getContextPath() + "/d/" + saved.getDashboard().getUid() + "/" + slug)
-			.setVersion(saved.getDashboard().getVersion());
+		return Mono.just(new DashboardSaveResponse()
+				.setId(saved.getDashboard().getId())
+				.setSlug(slug)
+				.setStatus("success")
+				.setUid(saved.getDashboard().getUid())
+				.setUrl(servletContext.getContextPath() + "/d/" + saved.getDashboard().getUid() + "/" + slug)
+				.setVersion(saved.getDashboard().getVersion()));
 	}
 
 	private String createSlug(DashboardDtoWrapper dto) {

@@ -28,6 +28,8 @@ import net.savantly.sprout.core.module.web.plugin.PluginMeta;
 import net.savantly.sprout.domain.plugin.PluginConfigurationDto;
 import net.savantly.sprout.model.AdminUserInterfaceModel;
 import net.savantly.sprout.module.PluginService;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
 @RestController
@@ -41,18 +43,18 @@ public class PluginsApi {
 	private final PluginService pluginService;
 	
 	@GetMapping("")
-	public List<PluginMeta> getAllPlugins(){
-		return this.pluginService.getAllPlugins();
+	public Flux<PluginMeta> getAllPlugins(){
+		return Flux.fromIterable(this.pluginService.getAllPlugins());
 	}
 	
 	@GetMapping("/app")
-	public List<PluginMeta> getAppPlugins() {
-		return this.pluginService.getAppPlugins();
+	public Flux<PluginMeta> getAppPlugins() {
+		return Flux.fromIterable(this.pluginService.getAppPlugins());
 	}
 
 	@GetMapping("/panel")
-	public List<PluginMeta> getPanelPlugins() {
-		return this.pluginService.getPanelPlugins();
+	public Flux<PluginMeta> getPanelPlugins() {
+		return Flux.fromIterable(this.pluginService.getPanelPlugins());
 	}
 
 	public HashMap<String, Object> getSproutModules(){
@@ -86,30 +88,29 @@ public class PluginsApi {
 			return String.format("<h1>%s</h1>", id);
 		}
 	}
-	
+
 	@GetMapping("/{id}/settings")
-	public PluginMeta getSproutModuleSettings(@PathVariable String id){
-		return this.pluginService.getPluginMetaByPluginId(id);
+	public Mono<PluginMeta> getSproutModuleSettings(@PathVariable String id){
+		return Mono.just(this.pluginService.getPluginMetaByPluginId(id));
 	}
 
 	@PostMapping("/{id}/settings")
-	public PluginConfigurationDto getSproutModuleSettings(@PathVariable String id, @RequestBody PluginConfigurationDto updates) throws JsonProcessingException{
-		return this.pluginService.updatePluginConfiguration(id, updates);
+	public Mono<PluginConfigurationDto> getSproutModuleSettings(@PathVariable String id, @RequestBody PluginConfigurationDto updates) throws JsonProcessingException{
+		return Mono.just(this.pluginService.updatePluginConfiguration(id, updates));
 	}
 
 	@GetMapping("/{id}/markdown/{markdownType}")
 	public String getSproutModuleMarkdown(@PathVariable String id, @PathVariable String markdownType){
 		return this.pluginService.getPluginMarkdownByPluginId(id, markdownType);
 	}
-	
+
 	private List<String> getScriptResources(){
 		return sproutModules.stream()
 				.filter(m -> SproutWebModule.class.isAssignableFrom(m.getClass()))
 				.flatMap(m -> ((SproutWebModule)m).getScriptResources().stream()).collect(Collectors.toList());
 	}
-	
+
 	private SproutModule getModuleById(String id) {
 		return sproutModules.stream().filter(m->m.getId().contentEquals(id)).findFirst().orElseThrow(()->new UnknownSproutModule("SproutModule not found: " + id));
 	}
-
 }

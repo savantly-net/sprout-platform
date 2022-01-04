@@ -16,6 +16,7 @@ import org.springframework.web.servlet.HandlerMapping;
 
 import lombok.RequiredArgsConstructor;
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
+import reactor.core.publisher.Mono;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 
@@ -27,22 +28,22 @@ public class S3FileProviderApi {
 	private final SproutConfigurationProperties props;
 
 	@GetMapping("/download/**")
-	public ResponseEntity<URL> getDownloadUrl(HttpServletRequest request) {
-		
+	public ResponseEntity<Mono<URL>> getDownloadUrl(HttpServletRequest request) {
+
 		String pathPrefix = "/download";
 		String requestedUri = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
 		int beginIndex = requestedUri.indexOf(pathPrefix) + pathPrefix.length();
 		int endIndex = requestedUri.length();
 		String path = requestedUri.substring(beginIndex, endIndex);
-		
+
 		S3Presigner presigner = S3Presigner.builder().build();
 		URL url = presigner.presignGetObject(GetObjectPresignRequest.builder().getObjectRequest(req -> {
-			req.bucket(props.getFiles().getS3().getBucketName());
-			req.key(path);
-			req.responseExpires(Instant.now().plus(1, ChronoUnit.HOURS));
-		})
-			.signatureDuration(Duration.ofHours(1))
-			.build()).url();
+					req.bucket(props.getFiles().getS3().getBucketName());
+					req.key(path);
+					req.responseExpires(Instant.now().plus(1, ChronoUnit.HOURS));
+				})
+				.signatureDuration(Duration.ofHours(1))
+				.build()).url();
 		return ResponseEntity.status(HttpStatus.FOUND).header("location", url.toString()).build();
 	}
 }

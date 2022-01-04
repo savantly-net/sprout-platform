@@ -15,7 +15,7 @@ public class DefaultCoreDBMigrator implements CoreDBMigrator {
 
 	@PostConstruct
     public void migrate() {
-		DataSource source = (DataSource) dataSource;
+	/*	DataSource source = (DataSource) dataSource;
         Flyway flyway = Flyway.configure()
         		.dataSource(source)
         		.locations(String.format("classpath:/META-INF/db/%s", getDbType(dataSource)))
@@ -25,7 +25,7 @@ public class DefaultCoreDBMigrator implements CoreDBMigrator {
         		.baselineOnMigrate(true)
         		.baselineVersion("0")
         		.load();
-        flyway.migrate();
+        flyway.migrate();*/
     }
 
 	//TODO: detect correct db type

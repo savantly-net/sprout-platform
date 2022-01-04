@@ -10,7 +10,7 @@ import net.savantly.sprout.module.ModuleConfiguration;
 import net.savantly.sprout.starter.JpaConfiguration;
 import net.savantly.sprout.starter.SproutAuditConfiguration;
 import net.savantly.sprout.starter.jms.JmsConfiguration;
-import net.savantly.sprout.starter.tenancy.TenancyConfiguration;
+
 
 
 @Configuration
@@ -19,7 +19,6 @@ import net.savantly.sprout.starter.tenancy.TenancyConfiguration;
 	JmsConfiguration.class,
 	JpaConfiguration.class,
 	SproutAuditConfiguration.class,
-	TenancyConfiguration.class,
 	ModuleConfiguration.class
 })
 @EnableAspectJAutoProxy

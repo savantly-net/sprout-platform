@@ -14,13 +14,13 @@ import net.savantly.sprout.core.configuration.SproutConfiguration;
 import net.savantly.sprout.core.domain.PersistedDomainObject;
 
 @Getter @Setter
-@Entity(name="APP_PRIVILEGE")
-@Table(name="APP_PRIVILEGE", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "tenant_id"})})
+@Entity
+@Table(name="APP_PRIVILEGE", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
 @Accessors(chain = true)
 public class Privilege extends PersistedDomainObject implements GrantedAuthority{
 
 	private static final long serialVersionUID = SproutConfiguration.serialVersionUID;
-	
+
 	private String name;
 
 	@Override

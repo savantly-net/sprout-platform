@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import net.savantly.sprout.core.domain.user.SproutUserEntity;
 import net.savantly.sprout.core.domain.user.repository.UserRepository;
+import reactor.core.publisher.Flux;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/users")
@@ -20,17 +21,17 @@ public class UserSearchApi {
 	private final UserRepository userRepo;
 
 	@GetMapping
-	public ResponseEntity<List<UserSearchResponseItem>> getUsers() {
-		final List<UserSearchResponseItem> users = convert(userRepo.findAll());
-		return ResponseEntity.ok(users);
+	public ResponseEntity<Flux<UserSearchResponseItem>> getUsers() {
+		final List<UserSearchResponseItem> users = convert((List<SproutUserEntity>) userRepo.findAll());
+		return ResponseEntity.ok(Flux.fromIterable(users));
 	}
 
 	private List<UserSearchResponseItem> convert(List<SproutUserEntity> items) {
 		return items.stream().map(item -> new UserSearchResponseItem()
-				.setDisplayName(item.getDisplayName())
-				.setItemId(item.getItemId())
-				.setUserName(item.getUsername()))
-			.collect(Collectors.toList());
+						.setDisplayName(item.getDisplayName())
+						.setItemId(item.getId())
+						.setUserName(item.getUsername()))
+				.collect(Collectors.toList());
 	}
-	
+
 }

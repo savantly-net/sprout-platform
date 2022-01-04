@@ -14,19 +14,21 @@ import org.springframework.security.access.prepost.PreFilter;
 
 import net.savantly.sprout.core.domain.menu.Menu;
 import net.savantly.sprout.core.domain.menu.MenuRepository;
+import reactor.core.publisher.Flux;
 
 public class MenuService {
 
 	private static final Logger log = LoggerFactory.getLogger(MenuFixture.class);
 	private final MenuRepository repository;
 	private final List<MenuContributor> menuContributors;
-	
+
+
 	public MenuService(MenuRepository repository, List<MenuContributor> menuContributors) {
 		this.repository = repository;
-		 menuContributors.sort(Comparator.comparing(MenuContributor::getPriority));
-		 this.menuContributors = menuContributors;
+		menuContributors.sort(Comparator.comparing(MenuContributor::getPriority));
+		this.menuContributors = menuContributors;
 	}
-	
+
 	/**
 	 * Gets the root menus with any contributions from plugins
 	 * @return
@@ -34,21 +36,30 @@ public class MenuService {
 	@PostFilter("hasPermission(filterObject, 'READ') or hasAuthority('ADMIN')")
 	public List<MenuDto> getRootMenus() {
 		List<MenuDto> dtos = toDto(this.repository.findRootMenus());
+
 		menuContributors.forEach(contributor -> contributor.contribute(dtos));
+
+		//System.out.println(menuContributors.forEach(contributor -> contributor.contribute(dtos)));
+
+		Flux<MenuDto> menuDtoFlux = Flux.defer(() -> Flux.fromIterable(dtos));
+		System.out.println("menuDtoFlux" + menuDtoFlux);
+
 		return dtos;
 	}
+
 
 	/**
 	 * Gets the root menus with optional contributions from plugins
 	 * @param withContributions Should plugin contributions be included?
 	 * @return
 	 */
+
 	@PostFilter("hasPermission(filterObject, 'READ') or hasAuthority('ADMIN')")
 	public List<MenuDto> getRootMenus(boolean withContributions) {
 		if(withContributions) {
 			return getRootMenus();
 		} else {
-			return toDto(this.repository.findRootMenus());
+			return  toDto(this.repository.findRootMenus());
 		}
 	}
 
@@ -87,7 +98,7 @@ public class MenuService {
 	public void deleteMenuById(String id) {
 		repository.deleteById(id);
 	}
-	
+
 	private List<MenuDto> toDto(List<Menu> menus) {
 		final List<MenuDto> dtos = new ArrayList<>();
 		menus.forEach(m -> {
@@ -95,7 +106,7 @@ public class MenuService {
 		});
 		return dtos;
 	}
-	
+
 	private MenuDto toDto(Menu menu) {
 		return new MenuDto().setChildren(getChildren(menu))
 				.setDisplayText(menu.getDisplayText())
@@ -117,7 +128,7 @@ public class MenuService {
 		});
 		return dtos;
 	}
-	
+
 	// Recursive function to add nested menus
 	private void addIfMissing(MenuDto m, MenuDto parent, List<Menu> menuEntities) {
 		final List<Menu> existing = this.repository.findByName(m.getName());
@@ -129,15 +140,15 @@ public class MenuService {
 			menu = existing.get(0);
 		}
 		menu.set_public(true)
-		.setDisplayText(m.getDisplayText())
-		.setUrl(m.getUrl())
-		.setName(m.getName())
-		.setIcon(m.getIcon())
-		.setWeight(m.getWeight())
-		.setAuthorities(m.getAuthorities().stream().collect(Collectors.toSet()))
-		.setRenderMode(m.getRenderMode());
+				.setDisplayText(m.getDisplayText())
+				.setUrl(m.getUrl())
+				.setName(m.getName())
+				.setIcon(m.getIcon())
+				.setWeight(m.getWeight())
+				.setAuthorities(m.getAuthorities().stream().collect(Collectors.toSet()))
+				.setRenderMode(m.getRenderMode());
 		//menuEntities.add(menu);
-	
+
 		if (Objects.nonNull(parent)) {
 			menu.setParentName(parent.getName());
 		}

@@ -5,13 +5,14 @@ import javax.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.savantly.sprout.core.tenancy.TenantKeyedEntity;
+import net.savantly.sprout.core.domain.PersistedDomainObject;
 
 @Entity
 @Accessors(chain = true)
 @Getter @Setter
-public class Folder extends TenantKeyedEntity {
-	
+public class Folder extends PersistedDomainObject {
+
+
 	private String name;
 	private String parent;
 	private String icon;

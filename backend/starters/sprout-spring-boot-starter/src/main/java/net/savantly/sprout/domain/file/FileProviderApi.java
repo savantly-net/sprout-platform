@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.HandlerMapping;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/files")
@@ -30,13 +31,13 @@ public class FileProviderApi {
 
 	@PreAuthorize("hasAuthority('FILES_READ')")
 	@GetMapping(path = { "/list", "/list/**" })
-	public ResponseEntity<FileDataResponse> listFiles(HttpServletRequest request) {
+	public ResponseEntity<Mono<FileDataResponse>> listFiles(HttpServletRequest request) {
 		String pathPrefix = "/list";
 		String requestedUri = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
 		int beginIndex = requestedUri.indexOf(pathPrefix) + pathPrefix.length();
 		int endIndex = requestedUri.length();
 		String path = requestedUri.substring(beginIndex, endIndex);
-		return ResponseEntity.ok(this.provider.getFilesByFolder(path));
+		return ResponseEntity.ok(Mono.just(this.provider.getFilesByFolder(path)));
 	}
 
 	@PreAuthorize("hasAuthority('FILES_DELETE')")
@@ -52,16 +53,16 @@ public class FileProviderApi {
 
 	@PreAuthorize("hasAuthority('FILES_CREATE')")
 	@PostMapping(path = { "/create" })
-	public ResponseEntity<FileData> createFile(@RequestBody FileDataRequest request) {
-		return ResponseEntity.ok(this.provider.createFile(request));
+	public ResponseEntity<Mono<FileData>> createFile(@RequestBody FileDataRequest request) {
+		return ResponseEntity.ok(Mono.just(this.provider.createFile(request)));
 	}
 
 	@PreAuthorize("hasAuthority('FILES_CREATE')")
 	@PostMapping(path = { "/upload" }, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<FileData> uploadFile(@NotNull @RequestPart("file") MultipartFile file,
-			@RequestPart("metaData") FileDataRequest request) throws IOException {
+	public ResponseEntity<Mono<FileData>> uploadFile(@NotNull @RequestPart("file") MultipartFile file,
+													 @RequestPart("metaData") FileDataRequest request) throws IOException {
 		FileData response = this.provider.storeFile(request, file);
-		return ResponseEntity.ok(response);
+		return ResponseEntity.ok(Mono.just(response));
 	}
 	
 }

@@ -6,18 +6,18 @@ import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import net.savantly.sprout.core.domain.PersistedDomainObject;
 import net.savantly.sprout.core.domain.privilege.Privilege;
-import net.savantly.sprout.core.tenancy.TenantedPersistedDomainObject;
 
 @Data
 @Entity
 @Table(name="UI_PROPERTIES")
 @Accessors(chain = true)
-public class UIProperty extends TenantedPersistedDomainObject {
+public class UIProperty extends PersistedDomainObject {
 
 	private String name;
 	private String value;
-	
+
 	@OneToOne(optional = true)
 	private Privilege requiredPrivilege;
 

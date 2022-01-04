@@ -20,10 +20,8 @@ import net.savantly.sprout.autoconfigure.properties.SproutConfigurationPropertie
 import net.savantly.sprout.controllers.DefaultMvcController;
 import net.savantly.sprout.controllers.LoginController;
 import net.savantly.sprout.controllers.PluginsApi;
-import net.savantly.sprout.controllers.argument.TenantIdArgumentResolver;
 import net.savantly.sprout.converter.spring.DateToZonedDateTimeConverter;
 import net.savantly.sprout.converter.spring.ZonedDateTimeToDateConverter;
-import net.savantly.sprout.core.domain.tenant.TenantRepository;
 import net.savantly.sprout.core.module.registration.SproutModuleRegistrationRepository;
 import net.savantly.sprout.module.PluginService;
 
@@ -34,7 +32,6 @@ public class SproutWebMvcConfigurer implements WebMvcConfigurer {
 
 	private static final Logger log = LoggerFactory.getLogger(SproutWebMvcConfigurer.class);
 
-	private final TenantRepository tenantRepo;
 
 	private final SproutConfigurationProperties sproutConfiguration;
 
@@ -49,8 +46,6 @@ public class SproutWebMvcConfigurer implements WebMvcConfigurer {
 
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
-		log.info("adding TenantIdArgumentResolver to the FormatterRegistry");
-		registry.addConverter(new TenantIdArgumentResolver(tenantRepo));
 		registry.addConverter(new DateToZonedDateTimeConverter());
 		registry.addConverter(new ZonedDateTimeToDateConverter());
 	}

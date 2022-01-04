@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
 @RestController
 public class MenuApi {
@@ -18,14 +19,17 @@ public class MenuApi {
 	MenuService menus;
 
 	@GetMapping("/api/public/menu")
-	public List<MenuDto> getPublicMenus() {
-		return this.menus.getRootMenus();
+	public Flux<MenuDto> getPublicMenus() {
+		Flux<MenuDto> folderDtoFlux =  Flux.defer(() -> Flux.fromIterable(this.menus.getRootMenus()));
+		return folderDtoFlux;
 	}
 
 	@GetMapping("/api/menu")
-	public List<MenuDto> getRootMenus() {
-		return this.menus.getRootMenus(false);
+	public Flux<MenuDto> getRootMenus() {
+		Flux<MenuDto> folderDtoFlux =  Flux.defer(() -> Flux.fromIterable(this.menus.getRootMenus(false)));
+		return folderDtoFlux;
 	}
+
 
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@PostMapping("/api/menu")

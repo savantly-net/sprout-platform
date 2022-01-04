@@ -7,19 +7,23 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import net.savantly.sprout.core.domain.feed.FeedContributor;
 import net.savantly.sprout.core.domain.feed.item.FeedItem;
+import reactor.core.publisher.Flux;
 
 @RequiredArgsConstructor
 public class FeedService {
-	
+
 	private final List<FeedContributor> contributors;
 
-	public List<FeedItem> findItemsBeforeDate(ZonedDateTime beforeDate, int maxItems) {
+	public Flux<FeedItem> findItemsBeforeDate(ZonedDateTime beforeDate, int maxItems) {
 		LinkedList<FeedItem> result = new LinkedList<>();
 		contributors.stream().forEach(c -> {
 			result.addAll(c.findBeforeDate(beforeDate, maxItems));
 		});
-		result.sort((x, y) -> y.getCreatedDate().compareTo(x.getCreatedDate()));
-		return result;
-	}
 
+		Flux<FeedItem> feedItemFlux = Flux.defer(() -> Flux.fromIterable(result));
+		feedItemFlux.sort((x, y) -> y.getCreatedDate().compareTo(x.getCreatedDate()));
+		return feedItemFlux;
+
+
+	}
 }

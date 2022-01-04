@@ -30,6 +30,7 @@ import net.savantly.sprout.core.domain.user.repository.UserRepository;
 import net.savantly.sprout.domain.authentication.oauth.ImplicitFlowDto;
 import net.savantly.sprout.model.user.UserDto;
 import net.savantly.sprout.model.user.UsernameAndPassword;
+import reactor.core.publisher.Mono;
 
 @RestController
 public class LoginApi {
@@ -71,8 +72,8 @@ public class LoginApi {
 	}
 
 	@PostMapping(value = "/api/login")
-	public ResponseEntity<UserDto> login(HttpServletRequest request, HttpServletResponse response,
-			@RequestBody UsernameAndPassword authRequest) throws ServletException {
+	public ResponseEntity<Mono<UserDto>> login(HttpServletRequest request, HttpServletResponse response,
+											   @RequestBody UsernameAndPassword authRequest) throws ServletException {
 
 		cache.saveRequest(request, response);
 
@@ -85,7 +86,7 @@ public class LoginApi {
 
 		this.securityContextRepository.saveContext(securityContext, holder.getRequest(), holder.getResponse());
 
-		return ResponseEntity.ok(toDto(result));
+		return ResponseEntity.ok(Mono.just(toDto(result)));
 	}
 
 	@GetMapping("/api/logout")

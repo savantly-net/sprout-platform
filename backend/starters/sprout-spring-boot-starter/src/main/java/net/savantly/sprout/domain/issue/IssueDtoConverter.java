@@ -2,9 +2,6 @@ package net.savantly.sprout.domain.issue;
 
 import com.fasterxml.jackson.databind.util.StdConverter;
 
-import net.savantly.sprout.core.tenancy.TenantContext;
-import net.savantly.sprout.core.tenancy.TenantedPrimaryKey;
-
 public class IssueDtoConverter extends StdConverter<IssueDto, Issue> {
 
 	@Override
@@ -16,10 +13,10 @@ public class IssueDtoConverter extends StdConverter<IssueDto, Issue> {
 				.setTags(value.getTags())
 				.setTitle(value.getTitle());
 		
-		TenantedPrimaryKey id = new TenantedPrimaryKey();
-		id.setItemId(value.getItemId());
-		id.setTenantId(TenantContext.getCurrentTenant());
-		issue.setId(id);
+//		TenantedPrimaryKey id = new TenantedPrimaryKey();
+//		id.setItemId(value.getItemId());
+//		id.setTenantId(TenantContext.getCurrentTenant());
+//		issue.setId(id);
 		
 		return issue;
 	}

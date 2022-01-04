@@ -57,6 +57,8 @@ configurations {
 
 dependencies {
 	implementation project(':sprout-spring-boot-starter')
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '2.6.1'
+
 	//implementation 'com.h2database:h2'
 	
 	//runtimeOnly project(':sprout-admin')
