@@ -1,12 +1,12 @@
 import React, { useMemo, useState } from 'react';
-import { Heading, Divider, Stack, Table, Thead, Tr, Tbody, Td, Th, Tag } from '@chakra-ui/react';
+import { Stack, Table, Tr, Tbody, Td, Tag } from '@chakra-ui/react';
 import { sproutApiSvc } from '../../core/services/sproutApiSvc';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../core/reducers/authentication';
 import { OAuthClientConfig } from '../../types';
 import { Icon } from '@savantly/sprout-ui';
 import { css, cx } from 'emotion';
-import { Card, CardBody, CardHeader, CardTitle, CardText, ListGroup, ListGroupItem } from 'reactstrap';
+import { Card, CardBody, CardHeader } from 'reactstrap';
 
 const IndexPage = () => {
     const dispatch = useDispatch();
