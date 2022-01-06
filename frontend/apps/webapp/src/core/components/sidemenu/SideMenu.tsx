@@ -10,7 +10,7 @@ export const SideMenu = () => {
   return (
     <div className="sidemenu1">
       <TopSection key="topsection" collapsed={collapsed} setCollapsed={setCollapsed} />
-      <BottomSection key="bottomsection" />
+      <BottomSection key="bottomsection" collapsed={collapsed} setCollapsed={setCollapsed} />
     </div>
   );
 };

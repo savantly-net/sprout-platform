@@ -18,7 +18,7 @@ import PluginListPage from '../features/plugins/PluginListPage';
 import PluginPage from '../features/plugins/PluginPage';
 import { RemoteContentViewer } from '../features/remoteContentViewer';
 import { DashboardRouteInfo, StoreState } from '../types';
-
+import Profile from '../features/profile/Profile';
 type OwnProps = {
   history: any;
 };
@@ -59,6 +59,7 @@ const AppRoutes = ({ history }: AllProps) => {
         <Route path="/files/*" element={<FileBrowserRoutes />} />
         <Route path="/issues/*" element={<IssueManager />} />
         <Route path="/user/*" element={<UserManagement />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Suspense>
