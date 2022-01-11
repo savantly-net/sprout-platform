@@ -1,8 +1,9 @@
 import React, { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
-import { Button, VerticalGroup } from '@savantly/sprout-ui';
-
+import { Button, VerticalGroup } from '@sprout-platform/ui';
+// import { Button, VerticalGroup } from '@savantly/sprout-ui';
+// import { Button } from '@chakra-ui/react';
 import { Layout } from '@savantly/sprout-ui';
 import { PanelEditorTabId } from './types';
 import { getLocationSrv } from '@savantly/sprout-runtime';

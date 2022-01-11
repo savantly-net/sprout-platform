@@ -1,4 +1,8 @@
-import { Button, Field, Form, HorizontalGroup, Input } from '@savantly/sprout-ui';
+// import { Button, Field, Form, HorizontalGroup, Input } from '@savantly/sprout-ui';
+import {  Form } from '@savantly/sprout-ui';
+import {FormField, HorizontalGroup } from '@sprout-platform/ui';
+import { Button } from '@chakra-ui/react';
+
 import React, { FC } from 'react';
 
 export type OnRowOptionsUpdate = (title: string | null) => void;
@@ -21,9 +25,10 @@ export const RowOptionsForm: FC<Props> = ({ repeat, title, onUpdate, onCancel })
     >
       {({ register }) => (
         <>
-          <Field label="Title">
+          {/* <Field label="Title">
             <Input css={null} name="title" ref={register} type="text" />
-          </Field>
+          </Field> */}
+          <FormField label="Title" css={null} name="title" ref={register} type="text" />
           <HorizontalGroup>
             <Button type="submit">Update</Button>
             <Button variant="secondary" onClick={onCancel}>

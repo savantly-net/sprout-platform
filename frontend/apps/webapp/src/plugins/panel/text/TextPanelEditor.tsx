@@ -1,5 +1,6 @@
 import { GrafanaTheme, StandardEditorProps } from '@savantly/sprout-api';
-import { stylesFactory, useTheme } from '@savantly/sprout-ui';
+import { stylesFactory, useTheme } from '@sprout-platform/ui';
+// import { stylesFactory, useTheme } from '@savantly/sprout-ui';
 import { MarkdownEditor } from '@sprout-platform/ui';
 import { css, cx } from 'emotion';
 import React, { FC } from 'react';

@@ -1,5 +1,7 @@
 import React from 'react';
-import { Button, HorizontalGroup, Modal, VerticalGroup } from '@savantly/sprout-ui';
+// import { Button } from '@chakra-ui/react';
+// import { Button, HorizontalGroup, Modal, VerticalGroup } from '@savantly/sprout-ui';
+import { HorizontalGroup, Button,Modal, VerticalGroup } from '@sprout-platform/ui';
 import { SaveDashboardButton } from './SaveDashboardButton';
 import { DashboardModel } from '../../state';
 import { css } from 'emotion';

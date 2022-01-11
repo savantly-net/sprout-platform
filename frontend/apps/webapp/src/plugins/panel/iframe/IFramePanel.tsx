@@ -1,6 +1,7 @@
 // Libraries
 import { PanelProps } from '@savantly/sprout-api';
-import { CustomScrollbar, stylesFactory } from '@savantly/sprout-ui';
+import { CustomScrollbar, stylesFactory } from '@sprout-platform/ui';
+// import { CustomScrollbar, stylesFactory } from '@savantly/sprout-ui';
 import { css, cx } from 'emotion';
 import React from 'react';
 // Types

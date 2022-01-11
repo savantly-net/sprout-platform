@@ -5,7 +5,8 @@ import {
   StandardEditorContext
 } from '@savantly/sprout-api';
 import { get as lodashGet, set as lodashSet } from 'lodash';
-import { Field, Label } from '@savantly/sprout-ui';
+import { Field, Label } from '@sprout-platform/ui';
+// import { Field, Label } from '@savantly/sprout-ui';
 import groupBy from 'lodash/groupBy';
 import { OptionsGroup } from './OptionsGroup';
 

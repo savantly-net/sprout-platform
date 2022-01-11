@@ -4,7 +4,8 @@ import React, { PureComponent } from 'react';
 // Types
 import { DashboardModel } from '../../state/DashboardModel';
 import { BackButton } from '../../../../core/components/BackButton/BackButton';
-import { CustomScrollbar } from '@savantly/sprout-ui';
+import { CustomScrollbar } from '@sprout-platform/ui';
+// import { CustomScrollbar } from '@savantly/sprout-ui';
 import { LocationUpdateService } from '../../../../core/services/locationSvc';
 
 export interface Props {

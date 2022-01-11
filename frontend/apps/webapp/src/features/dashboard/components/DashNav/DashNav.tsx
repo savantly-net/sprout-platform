@@ -1,7 +1,10 @@
 // Libaries
 import { textUtil } from '@savantly/sprout-api';
-import { Icon, ModalsController } from '@savantly/sprout-ui';
+import { ModalsController } from '@savantly/sprout-ui';
+import { Icon } from '@sprout-platform/ui';
+// import {  ModalsController, Icon } from '@sprout-platform/ui';
 import { css } from 'emotion';
+import { exit } from 'process';
 import React, { FC, ReactNode } from 'react';
 import { useSearchParams } from 'react-router-dom';
 // Utils & Services
@@ -174,7 +177,7 @@ const DashNav = (props: OwnProps) => {
           icon="panel-add"
           onClick={onAddPanel}
           iconType="mono"
-          iconSize="xl"
+          iconSize="3x"
           key="button-panel-add"
         />
       );
@@ -182,10 +185,11 @@ const DashNav = (props: OwnProps) => {
         <ModalsController key="button-save">
           {({ showModal, hideModal }: { showModal: Function; hideModal: Function }) => (
             <DashNavButton
-              tooltip="Save dashboard"
+              tooltip="Save dashboard!"
               classSuffix="save"
               icon="save"
               onClick={() => {
+                console.log("CAAALLL");
                 showModal(SaveDashboardModalProxy, {
                   dashboard,
                   onDismiss: hideModal
@@ -236,7 +240,7 @@ const DashNav = (props: OwnProps) => {
         <div className="navbar-buttons navbar-buttons--actions">{renderRightActionsButton()}</div>
 
         <div className="navbar-buttons navbar-buttons--tv">
-          <DashNavButton tooltip="Cycle view mode" classSuffix="tv" icon="monitor" onClick={onToggleTVMode} />
+          <DashNavButton tooltip="Cycle view mode" classSuffix="tv" icon="desktop" onClick={onToggleTVMode} />
         </div>
       </div>
     </PrivateComponent>

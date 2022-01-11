@@ -2,7 +2,9 @@
 import React, { useMemo } from 'react';
 import _ from 'lodash';
 import { LocationUpdate, getLocationSrv } from '@savantly/sprout-runtime';
-import { Button, HorizontalGroup, IconButton, stylesFactory, useTheme } from '@savantly/sprout-ui';
+// import { Button } from '@chakra-ui/react';
+// import { HorizontalGroup, IconButton, stylesFactory, useTheme } from '@savantly/sprout-ui';
+import { HorizontalGroup ,Button, IconButton,stylesFactory ,useTheme} from '@sprout-platform/ui';
 import { selectors } from '@grafana/e2e-selectors';
 import { connect, MapDispatchToProps } from 'react-redux';
 // Utils
@@ -150,7 +152,7 @@ const AddPanelWidgetHandle: React.FC<AddPanelWidgetHandleProps> = ({ onCancel })
   const styles = getAddPanelWigetHandleStyles(theme);
   return (
     <div className={cx(styles.handle, 'grid-drag-handle')}>
-      <IconButton name="times" onClick={(e:any) => onCancel(e as any)} surface="header" className="add-panel-widget__close" />
+      <IconButton size="sm" name="times" onClick={(e:any) => onCancel(e as any)} surface="header" className="add-panel-widget__close" />
     </div>
   );
 };
@@ -167,7 +169,7 @@ const AddPanelWidgetCreate: React.FC<AddPanelWidgetCreateProps> = ({ onCreate, o
   return (
     <div className={styles.wrapper}>
       <HorizontalGroup>
-        <Button icon="plus" size="md" onClick={onCreate} aria-label={selectors.pages.AddDashboard.addNewPanel}>
+        <Button icon="plus" variant="primary" size="xs" onClick={onCreate} aria-label={selectors.pages.AddDashboard.addNewPanel}>
           Add new panel
         </Button>
         {copiedPanelPlugins.length === 1 && (

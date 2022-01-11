@@ -1,9 +1,9 @@
 import { selectors } from '@grafana/e2e-selectors';
-import { Button, Form, HorizontalGroup, TextArea } from '@savantly/sprout-ui';
+import { Form  } from '@savantly/sprout-ui';
+import { HorizontalGroup ,TextArea ,Button} from '@sprout-platform/ui';
+// import { Button } from '@chakra-ui/react';
 import React from 'react';
 import { SaveDashboardFormProps } from '../types';
-
-
 
 interface SaveDashboardFormDTO {
   message: string;
@@ -12,7 +12,6 @@ interface SaveDashboardFormDTO {
 }
 
 export const SaveDashboardForm: React.FC<SaveDashboardFormProps> = ({ dashboard, onCancel, onSuccess, onSubmit }) => {
-
   return (
     <Form
       onSubmit={async (data: SaveDashboardFormDTO) => {
@@ -29,14 +28,20 @@ export const SaveDashboardForm: React.FC<SaveDashboardFormProps> = ({ dashboard,
       {({ register, errors }) => (
         <>
           <div className="gf-form-group">
-            <TextArea css={null} name="message" ref={register} placeholder="Add a note to describe your changes..." autoFocus />
+            <TextArea
+              css={null}
+              name="message"
+              ref={register}
+              placeholder="Add a note to describe your changes..."
+              autoFocus
+            />
           </div>
 
           <HorizontalGroup>
             <Button type="submit" aria-label={selectors.pages.SaveDashboardModal.save}>
               Save
             </Button>
-            <Button variant="secondary" onClick={onCancel}>
+            <Button variant="link" onClick={onCancel}>
               Cancel
             </Button>
           </HorizontalGroup>

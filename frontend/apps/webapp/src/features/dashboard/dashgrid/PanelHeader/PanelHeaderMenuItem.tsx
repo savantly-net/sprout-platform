@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 import { css } from 'emotion';
 import { PanelMenuItem } from '@savantly/sprout-api';
-import { Icon, IconName, useTheme } from '@savantly/sprout-ui';
+import { Icon, IconName, useTheme } from '@sprout-platform/ui';
+// import { Icon, IconName, useTheme } from '@savantly/sprout-ui';
 import { selectors } from '@grafana/e2e-selectors';
 
 interface Props {
