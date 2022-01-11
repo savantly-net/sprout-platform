@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-// import { Modal, stylesFactory } from '@savantly/sprout-ui';
 import { Modal, stylesFactory } from '@sprout-platform/ui';
 import { css } from 'emotion';
 

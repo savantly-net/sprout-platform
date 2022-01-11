@@ -1,5 +1,4 @@
 import { IconName, stylesFactory, Tab, TabContent, TabsBar } from '@sprout-platform/ui';
-// import { IconName, stylesFactory, Tab, TabContent, TabsBar } from '@savantly/sprout-ui';
 import { css } from 'emotion';
 import React from 'react';
 import config from '../../../../core/config';

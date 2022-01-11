@@ -1,5 +1,4 @@
 import { PopoverContent, Tooltip } from '@sprout-platform/ui';
-// import { PopoverContent, Tooltip } from '@savantly/sprout-ui';
 import { getLocationSrv } from '@savantly/sprout-runtime';
 import React, { Component } from 'react';
 import { PanelModel } from '../../state/PanelModel';

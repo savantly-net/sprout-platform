@@ -1,6 +1,4 @@
-import { Icon } from '@savantly/sprout-ui';
-import { Field, Input, stylesFactory, useTheme } from '@sprout-platform/ui';
-// import { Field ,Input, stylesFactory, useTheme} from '@savantly/sprout-ui';
+import { Field, Icon,Input, stylesFactory, useTheme } from '@sprout-platform/ui';
 import { GrafanaTheme, PanelPlugin, PanelPluginMeta } from '@savantly/sprout-api';
 import { css } from 'emotion';
 import React, { useCallback, useState } from 'react';

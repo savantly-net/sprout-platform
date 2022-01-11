@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import { isEqual } from 'lodash';
 import { LoadingState, PanelData, PanelMenuItem } from '@savantly/sprout-api';
 import { ClickOutsideWrapper, Icon, Tooltip } from '@sprout-platform/ui';
-// import { ClickOutsideWrapper, Icon, Tooltip } from '@savantly/sprout-ui';
 import { selectors } from '@grafana/e2e-selectors';
 
 import PanelHeaderCorner from './PanelHeaderCorner';

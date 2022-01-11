@@ -1,6 +1,6 @@
 import { PanelPlugin } from '@savantly/sprout-api';
-import { Field, Input, Switch, TextArea } from '@savantly/sprout-ui';
-// import { Field, Input, Switch, TextArea } from '@sprout-platform/ui';
+// import { Field, Input, Switch, TextArea } from '@savantly/sprout-ui';
+import { Field, Input, Switch, TextArea } from '@sprout-platform/ui';
 import React, { FC, useRef } from 'react';
 import { DashboardModel, PanelModel } from '../../state';
 import { OptionsGroup } from './OptionsGroup';

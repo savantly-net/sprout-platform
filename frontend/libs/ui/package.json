@@ -38,6 +38,8 @@
     "@fortawesome/free-brands-svg-icons": "~5.15.1",
     "@fortawesome/free-regular-svg-icons": "~5.15.1",
     "@fortawesome/react-fontawesome": "~0.1.13",
+    "@torkelo/react-select": "3.0.8",
+    "@types/react-select": "3.0.8",
     "@reduxjs/toolkit": "^1.4.0",
     "@savantly/sprout-api": "2.0.0-39",
     "@savantly/sprout-tsconfig": "^1.0.0",

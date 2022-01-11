@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { css } from 'emotion';
 import { Modal } from '@sprout-platform/ui';
-// import { Modal } from '@savantly/sprout-ui';
 import { SaveDashboardAsForm } from './forms/SaveDashboardAsForm';
 import { SaveDashboardErrorProxy } from './SaveDashboardErrorProxy';
 import { useDashboardSave } from './useDashboardSave';

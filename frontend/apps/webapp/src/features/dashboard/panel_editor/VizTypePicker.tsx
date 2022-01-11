@@ -3,7 +3,6 @@ import React, { useCallback, useMemo } from 'react';
 import config from '../../../core/config';
 import VizTypePickerPlugin from './VizTypePickerPlugin';
 import { EmptySearchResult, stylesFactory, useTheme } from '@sprout-platform/ui';
-// import { EmptySearchResult, stylesFactory, useTheme } from '@savantly/sprout-ui';
 import { GrafanaTheme, PanelPluginMeta, PluginState } from '@savantly/sprout-api';
 import { css } from 'emotion';
 

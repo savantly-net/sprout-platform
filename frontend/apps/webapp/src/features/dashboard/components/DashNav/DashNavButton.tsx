@@ -2,7 +2,6 @@
 import React, { FunctionComponent } from 'react';
 import { css } from 'emotion';
 // Components
-// import { IconType, IconName,IconSize, IconButton } from '@savantly/sprout-ui';
 import { Tooltip, useTheme, Icon, stylesFactory,IconType, IconName,IconSize, IconButton } from '@sprout-platform/ui';
 
 import { selectors } from '@grafana/e2e-selectors';

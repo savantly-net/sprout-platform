@@ -2,8 +2,6 @@
 import React, { useMemo } from 'react';
 import _ from 'lodash';
 import { LocationUpdate, getLocationSrv } from '@savantly/sprout-runtime';
-// import { Button } from '@chakra-ui/react';
-// import { HorizontalGroup, IconButton, stylesFactory, useTheme } from '@savantly/sprout-ui';
 import { HorizontalGroup ,Button, IconButton,stylesFactory ,useTheme} from '@sprout-platform/ui';
 import { selectors } from '@grafana/e2e-selectors';
 import { connect, MapDispatchToProps } from 'react-redux';

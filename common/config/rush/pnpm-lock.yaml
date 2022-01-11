@@ -30894,6 +30894,7 @@ packages:
       '@storybook/addon-knobs': 5.3.21_15199c67d2c4d2f537ff94cbd86aca8f
       '@storybook/addon-links': 6.1.11_react-dom@16.14.0+react@16.14.0
       '@storybook/react': 6.1.11_327564d2c0a16d652443a8aec7bf3d2f
+      '@torkelo/react-select': 3.0.8_react-dom@16.14.0+react@16.14.0
       '@types/classnames': 2.2.10
       '@types/common-tags': 1.8.0
       '@types/hoist-non-react-statics': 3.3.1
@@ -30905,6 +30906,7 @@ packages:
       '@types/react-custom-scrollbars': 4.0.5
       '@types/react-dom': 16.9.8
       '@types/react-redux': 7.1.9
+      '@types/react-select': 3.0.8
       '@types/react-transition-group': 4.4.0
       '@types/reactstrap': 8.5.2
       '@types/slate': 0.47.7
@@ -30966,7 +30968,7 @@ packages:
       ts-node: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-OQXQI96ulug09TBg+EecKcXTjCkq8AB2Mq+EPcHvgoeBnFDqdodLU5a8fqiJfrgMpNUZ3ENDmBUf3YpWF5AV+A==
+      integrity: sha512-qWKgJHmWygldONkY85QTRGa2AZzCqUEXLIkwQASiNdg4hqIHtUvvw/eYVW3C6uEx0U5GL7vHXrGWTjIkt+n++g==
       tarball: 'file:projects/ui.tgz'
     version: 0.0.0
   'file:projects/webapp.tgz_@babel+core@7.12.3':
@@ -31092,7 +31094,7 @@ packages:
     peerDependencies:
       '@babel/core': '*'
     resolution:
-      integrity: sha512-S3uESnbT+CsRlkMw3TOT/SvqQ6OHMwfIiiMRR/Iozd2XgYHDy3UHSIhEIJVrVR56HaUIu2GC+8YhXEKT9cW5WA==
+      integrity: sha512-MfdzYq9ZSOje4tVZd1vYVtRtfwwovnP4mla4jMz5x9dbhOWCnKCfs5V7qUa1WiXKoSXcS31U2DslTKXmLbYIHg==
       tarball: 'file:projects/webapp.tgz'
     version: 0.0.0
 registry: ''

@@ -2,7 +2,6 @@
 import { createErrorNotification, UrlQueryValue } from '@savantly/sprout-api';
 import { getLocationSrv } from '@savantly/sprout-runtime';
 import { CustomScrollbar } from '@sprout-platform/ui';
-// import { CustomScrollbar } from '@savantly/sprout-ui';
 // @ts-ignore
 import $ from 'jquery';
 import React, { Component, MouseEvent } from 'react';
@@ -164,7 +163,7 @@ export class DashboardPage extends Component<AllProps, OwnState> {
       this.props.dashboard!.render();
     } catch (err) {
       console.error(err);
-      this.props.notifyApp(createErrorNotification(`Panel rendering error`, err));
+      this.props.notifyApp(createErrorNotification('Panel rendering error', JSON.stringify(err)));
     }
   }
 

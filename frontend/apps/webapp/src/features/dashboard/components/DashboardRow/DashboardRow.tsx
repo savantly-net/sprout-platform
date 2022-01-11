@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Icon } from '@sprout-platform/ui';
-// import { Icon } from '@savantly/sprout-ui';
 import { PanelModel } from '../../state/PanelModel';
 import { DashboardModel } from '../../state/DashboardModel';
 import appEvents from '../../../../core/app_events';

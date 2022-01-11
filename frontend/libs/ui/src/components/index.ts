@@ -16,6 +16,7 @@ export * from './Markdown/MarkdownEditor';
 export * from './Markdown/MarkdownViewer';
 export * from './OAuthLogin/OAuthLogin';
 export * from './PageHeader/PageHeader';
+export { Icon } from './Icon/Icon';
 export * from './Button';
 export { RadioButtonGroup } from './Forms/RadioButtonGroup/RadioButtonGroup';
 export { CustomScrollbar } from './CustomScrollbar/CustomScrollbar';
@@ -43,6 +44,7 @@ export { Tab } from './Tabs/Tab';
 export { TabContent } from './Tabs/TabContent';
 export { Counter } from './Tabs/Counter';
 export { TextArea } from './TextArea/TextArea';
+export * from './Select/Select';
 
 // Panel editors
 export { FullWidthButtonContainer } from './Button/FullWidthButtonContainer';

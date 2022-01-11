@@ -1,5 +1,4 @@
-// import { Button, HorizontalGroup, Icon, VerticalGroup } from '@savantly/sprout-ui';
-import { Button,HorizontalGroup, Icon, VerticalGroup } from '@sprout-platform/ui';
+import { Button, HorizontalGroup, Icon, VerticalGroup } from '@sprout-platform/ui';
 // import { Button } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
@@ -68,8 +67,7 @@ const DashboardProvider = ({ routeInfo, initDashboard, initError, initPhase, isI
               <Icon name="fa fa-spinner" className="fa-spin" /> {initPhase}
             </HorizontalGroup>{' '}
             <HorizontalGroup align="center" justify="center">
-              {/* <Button variant="secondary" size="md" icon="repeat" onClick={cancelVariables}> */}
-              <Button size="md" icon="repeat" onClick={cancelVariables}>
+              <Button variant="secondary" size="md" icon="repeat" onClick={cancelVariables}>
                 Cancel loading dashboard
               </Button>
             </HorizontalGroup>

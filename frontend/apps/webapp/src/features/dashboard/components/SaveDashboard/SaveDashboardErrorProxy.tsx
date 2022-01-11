@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 // import { Button } from '@chakra-ui/react';
 import { Button, HorizontalGroup, Modal, stylesFactory, useTheme } from '@sprout-platform/ui';
-import {  ConfirmModal  } from '@savantly/sprout-ui';
-// import { Button, ConfirmModal, HorizontalGroup, Modal, stylesFactory, useTheme } from '@savantly/sprout-ui';
+import { ConfirmModal } from '@savantly/sprout-ui';
 import { GrafanaTheme } from '@savantly/sprout-api';
 import { css } from 'emotion';
 import { DashboardModel } from '../../state';

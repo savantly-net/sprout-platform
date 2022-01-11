@@ -1,6 +1,5 @@
 import { DynamicConfigValue, FieldConfigOptionsRegistry, GrafanaTheme } from '@savantly/sprout-api';
 import React from 'react';
-// import { Counter, Field, HorizontalGroup, IconButton, Label, stylesFactory, useTheme } from '@savantly/sprout-ui';
 import { Counter, FormField, Field, HorizontalGroup, IconButton, Label, stylesFactory, useTheme } from '@sprout-platform/ui';
 import { css, cx } from 'emotion';
 import { OptionsGroup } from './OptionsGroup';
