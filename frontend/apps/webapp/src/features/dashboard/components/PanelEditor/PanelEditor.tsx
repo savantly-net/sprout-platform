@@ -1,6 +1,5 @@
 import { selectors } from '@grafana/e2e-selectors';
 import { GrafanaTheme, PanelPlugin } from '@savantly/sprout-api';
-// import { Button, getTheme, HorizontalGroup, Icon, RadioButtonGroup, stylesFactory } from '@savantly/sprout-ui';
 import { getTheme,Button, HorizontalGroup, Icon, RadioButtonGroup, stylesFactory } from '@sprout-platform/ui';
 import { css, cx } from 'emotion';
 // import { Button } from '@chakra-ui/react';

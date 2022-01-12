@@ -1,6 +1,6 @@
 // Libraries
 import { AppEvents, AppPlugin, AppPluginMeta, KeyValue, NavModel, PluginType, urlUtil } from '@savantly/sprout-api';
-import { Alert } from '@savantly/sprout-ui';
+import { Alert } from '@sprout-platform/ui';
 import React, { FC, ReactElement, useMemo, useState } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';

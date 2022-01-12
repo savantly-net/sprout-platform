@@ -18,6 +18,7 @@ export * from './OAuthLogin/OAuthLogin';
 export * from './PageHeader/PageHeader';
 export { Icon } from './Icon/Icon';
 export * from './Button';
+export { LoadingPlaceholder } from './LoadingPlaceholder/LoadingPlaceholder';
 export { RadioButtonGroup } from './Forms/RadioButtonGroup/RadioButtonGroup';
 export { CustomScrollbar } from './CustomScrollbar/CustomScrollbar';
 export { ClickOutsideWrapper } from './ClickOutsideWrapper/ClickOutsideWrapper';
@@ -44,7 +45,10 @@ export { Tab } from './Tabs/Tab';
 export { TabContent } from './Tabs/TabContent';
 export { Counter } from './Tabs/Counter';
 export { TextArea } from './TextArea/TextArea';
+export { Alert, AlertVariant } from './Alert/Alert';
 export * from './Select/Select';
+export { Badge, BadgeColor, BadgeProps } from './Badge/Badge';
+export { Spinner } from './Spinner/Spinner';
 
 // Panel editors
 export { FullWidthButtonContainer } from './Button/FullWidthButtonContainer';
@@ -53,3 +57,4 @@ export { ErrorWithStack } from './ErrorBoundary/ErrorWithStack';
 
 export { EmptySearchResult } from './EmptySearchResult/EmptySearchResult';
 export { HorizontalGroup, VerticalGroup, Container, Layout, ContainerProps, LayoutProps } from './Layout/Layout';
+

@@ -1,6 +1,4 @@
 // Libraries
-// import { Button } from '@chakra-ui/react';
-// import { Button } from '@savantly/sprout-ui';
 import { Button } from '@sprout-platform/ui';
 import { AppPlugin, AppRootProps, KeyValue, PluginMeta } from '@savantly/sprout-api';
 import { css } from 'emotion';

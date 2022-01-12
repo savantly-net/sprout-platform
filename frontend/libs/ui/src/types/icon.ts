@@ -11,6 +11,7 @@ export type IconName = faIconNames | MonoIcons | string;
 
 export const allFaLigatures = (): IconName[] => [
   '500px',
+  'document-info',
   'accessible-icon',
   'accusoft',
   'acquisitions-incorporated',
@@ -2319,6 +2320,7 @@ export const allFaLigatures = (): IconName[] => [
   'wrench',
   'x-ray',
   'yen-sign',
+  'comments-alt',
   'yin-yang',
   'yin-yang'
 ];
@@ -2329,6 +2331,7 @@ export const getAvailableIcons = (): IconName[] => [
   'fa fa-spinner',
   'grafana',
   'question-circle',
+  'document-info',
   'angle-up',
   'history',
   'angle-down',
@@ -2411,7 +2414,6 @@ export const getAvailableIcons = (): IconName[] => [
   'book',
   'bolt',
   'comments-alt',
-  'document-info',
   'info-circle',
   'bug',
   'cube',

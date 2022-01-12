@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { PluginDashboard } from '../../types';
-import { Icon } from '@savantly/sprout-ui';
+import { Icon } from '@sprout-platform/ui';
 
 export interface Props {
   dashboards: PluginDashboard[];

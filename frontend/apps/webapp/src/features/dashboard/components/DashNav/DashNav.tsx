@@ -1,8 +1,8 @@
 // Libaries
 import { textUtil } from '@savantly/sprout-api';
-import { ModalsController } from '@savantly/sprout-ui';
+// import { ModalsController } from '@savantly/sprout-ui';
 import { Icon } from '@sprout-platform/ui';
-// import {  ModalsController, Icon } from '@sprout-platform/ui';
+import {  ModalsController } from '@sprout-platform/ui';
 import { css } from 'emotion';
 import { exit } from 'process';
 import React, { FC, ReactNode } from 'react';

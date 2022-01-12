@@ -1,6 +1,6 @@
 // Libraries
 import { NavModel } from '@savantly/sprout-api';
-import { CustomScrollbar } from '@savantly/sprout-ui';
+import { CustomScrollbar } from '@sprout-platform/ui';
 // Components
 import { PageHeader } from '@sprout-platform/ui';
 import { isEqual } from 'lodash';

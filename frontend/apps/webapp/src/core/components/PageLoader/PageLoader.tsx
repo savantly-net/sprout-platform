@@ -1,4 +1,4 @@
-import { LoadingPlaceholder } from '@savantly/sprout-ui';
+import { LoadingPlaceholder } from '@sprout-platform/ui';
 import React, { FC } from 'react';
 
 interface Props {

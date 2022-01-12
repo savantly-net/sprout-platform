@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import config from '../../config';
-import { Icon, IconName } from '@savantly/sprout-ui';
+import { Icon, IconName } from '@sprout-platform/ui';
 
 export interface FooterLink {
   text: string;
@@ -13,22 +13,23 @@ export let getFooterLinks = (): FooterLink[] => {
   return [
     {
       text: 'Documentation',
-      icon: 'document-info',
+      icon: 'file-alt',
       url: 'https://github.com/savantly-net/sprout-platform/',
-      target: '_blank',
+      target: '_blank'
     },
     {
       text: 'Support',
       icon: 'question-circle',
       url: 'https://savantly.net',
-      target: '_blank',
+      target: '_blank'
     },
     {
       text: 'Community',
-      icon: 'comments-alt',
+      // icon: 'comments-alt',
+      icon: 'comment-alt',
       url: 'https://github.com/savantly-net/sprout-platform/issues',
-      target: '_blank',
-    },
+      target: '_blank'
+    }
   ];
 };
 
@@ -50,7 +51,7 @@ export let getVersionLinks = (): FooterLink[] => {
       text: `New version available!`,
       icon: 'download-alt',
       url: 'https://github.com/savantly-net/sprout-platform/releases',
-      target: '_blank',
+      target: '_blank'
     });
   }
 
@@ -72,10 +73,17 @@ export const Footer: FC = React.memo(() => {
     <footer className="footer">
       <div className="text-center">
         <ul>
-          {links.map(link => (
+          {links.map((link) => (
             <li key={link.text}>
               <a href={link.url} target={link.target} rel="noopener">
-                <Icon name={link.icon as IconName} /> {link.text}
+                {/* <Icon name={link.icon as IconName} /> {link.text} */}
+                {link.icon !== undefined ? (
+                  <>
+                    <Icon name={link.icon as IconName} /> {link.text}
+                  </>
+                ) : (
+                  (link.text != undefined) ? link.text : ''
+                )}
               </a>
             </li>
           ))}

@@ -1,4 +1,5 @@
-import { ErrorBoundaryAlert } from '@savantly/sprout-ui';
+import { ErrorBoundaryAlert } from '@sprout-platform/ui';
+// import { ErrorBoundaryAlert } from '@savantly/sprout-ui';
 import React, { createRef, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';

@@ -1,7 +1,5 @@
 import React from 'react';
-// import { Button } from '@chakra-ui/react';
-// import { Button, HorizontalGroup, Modal, VerticalGroup } from '@savantly/sprout-ui';
-import { HorizontalGroup, Button,Modal, VerticalGroup } from '@sprout-platform/ui';
+import { Button, HorizontalGroup, Modal, VerticalGroup } from '@sprout-platform/ui';
 import { SaveDashboardButton } from './SaveDashboardButton';
 import { DashboardModel } from '../../state';
 import { css } from 'emotion';
@@ -17,7 +15,7 @@ export const UnsavedChangesModal: React.FC<UnsavedChangesModalProps> = ({
   dashboard,
   onSaveSuccess,
   onDiscard,
-  onDismiss,
+  onDismiss
 }) => {
   return (
     <Modal
