@@ -107,7 +107,7 @@ const PermissionsTable = ({
                   <div className="card-body" >
                     <ul className={cx('ul.card-body', css`list-style: none`)}>
                       {
-                        rolePrivileges.privileges && rolePrivileges.privileges.length > 0 ?
+                        rolePrivileges.privileges ?
                           <Form
                             showCancelButton={false}
                             submitText="Update"
