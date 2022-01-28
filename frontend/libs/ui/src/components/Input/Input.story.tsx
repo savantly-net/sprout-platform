@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { boolean, text, select, number } from '@storybook/addon-knobs';
-import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
+import { withCenteredStory } from '../../util/storybook/withCenteredStory';
 import mdx from './Input.mdx';
 import { getAvailableIcons, IconName } from '../../types';
 import { KeyValue } from '@savantly/sprout-api';

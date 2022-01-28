@@ -1,6 +1,7 @@
 import { AppEvents, eventBus, standardEditorsRegistry, UrlQueryValue, UserContext } from '@savantly/sprout-api';
 import { config, setLocationSrv, setUserContextService } from '@savantly/sprout-runtime';
-import { getStandardOptionEditors } from '@savantly/sprout-ui';
+import { getStandardOptionEditors } from '@sprout-platform/ui';
+// import { getStandardOptionEditors } from '@savantly/sprout-ui';
 import { setChonkyDefaults } from 'chonky';
 import { ChonkyIconFA } from 'chonky-icon-fontawesome';
 import $ from 'jquery';

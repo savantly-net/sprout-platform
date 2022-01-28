@@ -30903,6 +30903,7 @@ packages:
       '@types/node': 12.19.1
       '@types/react': 16.9.53
       '@types/react-bootstrap-table-next': 4.0.10
+      '@types/react-color': 3.0.1
       '@types/react-custom-scrollbars': 4.0.5
       '@types/react-dom': 16.9.8
       '@types/react-redux': 7.1.9
@@ -30919,6 +30920,7 @@ packages:
       chromatic: 5.2.0_@babel+core@7.12.3
       classnames: 2.2.6
       common-tags: 1.8.0
+      csstype: 2.6.7
       emotion: 10.0.27
       esrever: 0.2.0
       formik: 2.2.1_react@16.14.0
@@ -30929,9 +30931,12 @@ packages:
       memoize-one: 5.1.1
       popper.js: 1.16.1
       pretty-format: 25.1.0
+      rc-time-picker: 3.7.3
       react: 16.14.0
       react-ace: 9.2.1_react-dom@16.14.0+react@16.14.0
       react-bootstrap-table-next: 4.0.3_react-dom@16.14.0+react@16.14.0
+      react-calendar: 2.19.2_react-dom@16.14.0+react@16.14.0
+      react-color: 2.18.0_react@16.14.0
       react-custom-scrollbars: 4.2.1_react-dom@16.14.0+react@16.14.0
       react-datetime: 3.0.4_moment@2.29.1+react@16.14.0
       react-docgen-typescript-loader: 3.7.1_typescript@3.9.7+webpack@4.42.0
@@ -30945,6 +30950,7 @@ packages:
       react-select: 5.2.1_95dbe1986b15e1177d1e1a0df654854e
       react-test-renderer: 16.13.1_react@16.14.0
       react-transition-group: 4.4.1_react-dom@16.14.0+react@16.14.0
+      react-use: 15.3.4_react-dom@16.14.0+react@16.14.0
       reactstrap: 8.6.0_react-dom@16.14.0+react@16.14.0
       rimraf: 3.0.2
       slate: 0.47.8_immutable@3.8.2
@@ -30968,7 +30974,7 @@ packages:
       ts-node: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-qWKgJHmWygldONkY85QTRGa2AZzCqUEXLIkwQASiNdg4hqIHtUvvw/eYVW3C6uEx0U5GL7vHXrGWTjIkt+n++g==
+      integrity: sha512-Lgxq+TRcNfqCzBPoH3irL5xMH8Qs7+sJ13cFFGSt9HJsO+PRQ6auwZ3vOgvU/T419gtd6bl+fO4FuRYZ64niYA==
       tarball: 'file:projects/ui.tgz'
     version: 0.0.0
   'file:projects/webapp.tgz_@babel+core@7.12.3':

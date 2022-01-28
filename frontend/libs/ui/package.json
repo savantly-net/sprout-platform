@@ -42,6 +42,7 @@
     "@types/react-select": "3.0.8",
     "@reduxjs/toolkit": "^1.4.0",
     "@savantly/sprout-api": "2.0.0-39",
+    "@savantly/sprout-ui": "2.0.0-39",
     "@savantly/sprout-tsconfig": "^1.0.0",
     "@types/hoist-non-react-statics": "^3.3.1",
     "@types/slate-react": "0.22.5",
@@ -50,6 +51,7 @@
     "axios": "~0.21.1",
     "bootstrap": "~4.5.3",
     "classnames": "^2.2.6",
+    "csstype": "2.6.7",
     "emotion": "^10.0.27",
     "esrever": "0.2.0",
     "lodash": "^4.17.20",
@@ -67,10 +69,13 @@
     "hoist-non-react-statics": "^3.3.2",
     "memoize-one": "^5.1.1",
     "ts-bus": "~2.3.1",
+    "react-color": "2.18.0",
+    "react-calendar": "2.19.2",
     "common-tags": "^1.8.0",
     "tinycolor2": "^1.4.2",
     "popper.js": "1.16.1",
     "react-popper": "1.3.3",
+    "react-use": "^15.3.4",
     "slate": "0.47.8",
     "react-custom-scrollbars": "4.2.1",
     "react-select": "~5.2.1"
@@ -85,6 +90,7 @@
     "@storybook/addon-docs": "5.3.21",
     "@storybook/addon-essentials": "^6.1.11",
     "@storybook/addon-links": "^6.1.11",
+    "@types/react-color": "3.0.1",
     "@storybook/react": "^6.1.11",
     "@types/classnames": "^2.2.10",
     "@types/jest": "^24.0.0",
@@ -112,7 +118,7 @@
     "ts-jest": "^26",
     "ts-loader": "6.2.1",
     "tslib": "2.0.1",
-    
+    "rc-time-picker": "^3.7.3",
     "typescript": "~3.9.7"
   },
   "peerDependencies": {

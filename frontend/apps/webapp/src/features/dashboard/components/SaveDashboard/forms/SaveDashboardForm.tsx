@@ -1,7 +1,6 @@
 import { selectors } from '@grafana/e2e-selectors';
 import { Form  } from '@savantly/sprout-ui';
 import { HorizontalGroup ,TextArea ,Button} from '@sprout-platform/ui';
-// import { Button } from '@chakra-ui/react';
 import React from 'react';
 import { SaveDashboardFormProps } from '../types';
 

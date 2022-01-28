@@ -1,7 +1,6 @@
 // Libraries
 import { KeyValue, PanelProps } from '@savantly/sprout-api';
 import { CustomScrollbar, stylesFactory } from '@sprout-platform/ui';
-// import { CustomScrollbar, stylesFactory } from '@savantly/sprout-ui';
 import { HandlebarsViewer, LoadingIcon, MarkdownViewer } from '@sprout-platform/ui';
 import axios from 'axios';
 import { css, cx } from 'emotion';

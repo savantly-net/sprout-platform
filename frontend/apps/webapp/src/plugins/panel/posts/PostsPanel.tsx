@@ -1,7 +1,6 @@
 // Libraries
 import { PanelProps, publishErrorNotification } from '@savantly/sprout-api';
 import { CustomScrollbar } from '@sprout-platform/ui';
-// import { CustomScrollbar } from '@savantly/sprout-ui';
 import { LoadingIcon, MarkdownViewer } from '@sprout-platform/ui';
 import { css, cx } from 'emotion';
 import { Field, Form, Formik, FormikProps } from 'formik';

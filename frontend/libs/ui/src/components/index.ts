@@ -18,6 +18,7 @@ export * from './OAuthLogin/OAuthLogin';
 export * from './PageHeader/PageHeader';
 export { Icon } from './Icon/Icon';
 export * from './Button';
+
 export { LoadingPlaceholder } from './LoadingPlaceholder/LoadingPlaceholder';
 export { RadioButtonGroup } from './Forms/RadioButtonGroup/RadioButtonGroup';
 export { CustomScrollbar } from './CustomScrollbar/CustomScrollbar';
@@ -26,6 +27,17 @@ export { IconButton } from './IconButton/IconButton';
 export { Button } from './Button/Button';
 export { Switch } from './Switch/Switch';
 // export { Icon } from './Icon/Icon';
+
+// TODO: namespace!!
+export { StringValueEditor } from './OptionsUI/string';
+export { StringArrayEditor } from './OptionsUI/strings';
+export { NumberValueEditor } from './OptionsUI/number';
+export { SelectValueEditor } from './OptionsUI/select';
+
+
+export { TimeRangePicker } from './TimePicker/TimeRangePicker';
+export { TimeOfDayPicker } from './TimePicker/TimeOfDayPicker';
+export { TimeZonePicker } from './TimePicker/TimeZonePicker';
 
 // TODO: namespace
 export { Modal } from './Modal/Modal';

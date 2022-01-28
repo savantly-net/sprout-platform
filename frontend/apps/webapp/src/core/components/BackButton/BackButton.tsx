@@ -1,6 +1,5 @@
 import React, { ButtonHTMLAttributes } from 'react';
 import { IconButton } from '@sprout-platform/ui';
-// import { IconButton } from '@savantly/sprout-ui';
 import { selectors } from '@grafana/e2e-selectors';
 
 export interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
