@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React from 'react';
+/* eslint-enable */
 
 interface IErrorBoundaryProps {
   readonly children: JSX.Element | JSX.Element[];

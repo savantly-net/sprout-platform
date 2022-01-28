@@ -4,7 +4,9 @@ import { getLocationSrv } from '@savantly/sprout-runtime';
 import { CustomScrollbar } from '@savantly/sprout-ui';
 // @ts-ignore
 import $ from 'jquery';
+/* eslint-disable */
 import React, { Component, MouseEvent } from 'react';
+/* eslint-enable */
 import { connect } from 'react-redux';
 import { notifyApp } from '../../../core/actions';
 import { Branding } from '../../../core/components/Branding/Branding';

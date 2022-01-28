@@ -1,7 +1,9 @@
 import { ItemEditorProps } from '@sprout-platform/ui';
 import { css } from 'emotion';
 import { Field, Form, Formik, FormikProps } from 'formik';
+/* eslint-disable */
 import React, { Fragment, useState } from 'react';
+/* eslint-enable */
 import { Prompt, useNavigate } from 'react-router-dom';
 import { Alert, Button } from 'reactstrap';
 import FormikSelect from '../../../core/components/FormikSelect';

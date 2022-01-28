@@ -1,6 +1,8 @@
 import { selectors } from '@grafana/e2e-selectors';
 import { Button, Form, HorizontalGroup, TextArea } from '@savantly/sprout-ui';
+/* eslint-disable */
 import React from 'react';
+/* eslint-enable */
 import { SaveDashboardFormProps } from '../types';
 
 

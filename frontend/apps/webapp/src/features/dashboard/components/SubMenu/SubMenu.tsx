@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { PureComponent } from 'react';
+/* eslint-enable */
 import { connect, MapStateToProps } from 'react-redux';
 import { StoreState } from '../../../../types';
 import { DashboardModel } from '../../state';

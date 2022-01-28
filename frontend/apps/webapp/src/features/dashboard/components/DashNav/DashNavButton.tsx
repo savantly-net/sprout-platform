@@ -1,5 +1,7 @@
 // Libraries
+/* eslint-disable */
 import React, { FunctionComponent } from 'react';
+/* eslint-enable */
 import { css } from 'emotion';
 // Components
 import { Tooltip, Icon, IconName, IconType, IconSize, IconButton, useTheme, stylesFactory } from '@savantly/sprout-ui';

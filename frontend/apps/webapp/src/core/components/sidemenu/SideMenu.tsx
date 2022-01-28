@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { useState } from 'react';
+/* eslint-enable */
 import useDevice from '../../hooks/useDevice';
 import BottomSection from './BottomSection';
 import TopSection from './TopSection';

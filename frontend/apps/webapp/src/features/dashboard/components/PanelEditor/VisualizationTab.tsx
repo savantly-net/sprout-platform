@@ -2,7 +2,9 @@ import { Icon, Input, stylesFactory, useTheme } from '@savantly/sprout-ui';
 import { Field } from '@savantly/sprout-ui';
 import { GrafanaTheme, PanelPlugin, PanelPluginMeta } from '@savantly/sprout-api';
 import { css } from 'emotion';
+/* eslint-disable */
 import React, { useCallback, useState } from 'react';
+/* eslint-enable */
 import { connect, MapDispatchToProps, MapStateToProps } from 'react-redux';
 import { StoreState } from '../../../../types';
 import { filterPluginList, getAllPanelPluginMeta, VizTypePicker } from '../../panel_editor/VizTypePicker';

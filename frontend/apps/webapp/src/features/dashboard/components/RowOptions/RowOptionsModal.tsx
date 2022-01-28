@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { FC } from 'react';
+/* eslint-enable */
 import { Modal, stylesFactory } from '@savantly/sprout-ui';
 import { css } from 'emotion';
 

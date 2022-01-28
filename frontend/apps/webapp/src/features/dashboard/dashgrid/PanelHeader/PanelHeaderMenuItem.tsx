@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { FC } from 'react';
+/* eslint-enable */
 import { css } from 'emotion';
 import { PanelMenuItem } from '@savantly/sprout-api';
 import { Icon, IconName, useTheme } from '@savantly/sprout-ui';

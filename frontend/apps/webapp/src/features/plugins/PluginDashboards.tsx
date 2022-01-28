@@ -1,6 +1,8 @@
 import { AppEvents, PluginMeta } from '@savantly/sprout-api';
 import extend from 'lodash/extend';
+/* eslint-disable */
 import React, { PureComponent } from 'react';
+/* eslint-enable */
 import { appEvents } from '../../core/app_events';
 import { sproutApiSvc } from '../../core/services/sproutApiSvc';
 import { PluginDashboard } from '../../types';

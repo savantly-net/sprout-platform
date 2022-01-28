@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { FC } from 'react';
+/* eslint-enable */
 import { css, cx } from 'emotion';
 
 export interface BrandComponentProps {

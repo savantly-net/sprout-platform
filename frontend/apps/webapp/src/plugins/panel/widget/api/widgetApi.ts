@@ -58,7 +58,7 @@ export const useWidgetDataById = (dataSourceId?: string, dataId?: string) => {
           setFetching(false);
         });
     }
-  }, [dataSourceId, dataId]);
+  }, [dataSourceId, dataId,fetching,state]);
 
   return state;
 };

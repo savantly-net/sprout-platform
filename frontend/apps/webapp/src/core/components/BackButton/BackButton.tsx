@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { ButtonHTMLAttributes } from 'react';
+/* eslint-enable */
 import { IconButton } from '@savantly/sprout-ui';
 import { selectors } from '@grafana/e2e-selectors';
 

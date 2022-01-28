@@ -3,7 +3,9 @@ import { PanelProps } from '@savantly/sprout-api';
 import { CustomScrollbar, stylesFactory } from '@savantly/sprout-ui';
 import { MarkdownViewer } from '@sprout-platform/ui';
 import { css, cx } from 'emotion';
+/* eslint-disable */
 import React, { FC } from 'react';
+/* eslint-enable */
 // Types
 import { TextOptions } from './types';
 

@@ -1,5 +1,7 @@
 import { EntityManager, EntityPageName, ColumnDescription } from '@sprout-platform/ui';
+/* eslint-disable */
 import React from 'react';
+/* eslint-enable */
 import { StoreState } from '../../types';
 import {
   IssueEntity as EntityClass,

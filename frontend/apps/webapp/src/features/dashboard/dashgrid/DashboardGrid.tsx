@@ -1,5 +1,7 @@
 // Libaries
+/* eslint-disable */
 import React, { Component } from 'react';
+/* eslint-enable */
 import ReactGridLayout, { ItemCallback } from 'react-grid-layout';
 import classNames from 'classnames';
 // @ts-ignore

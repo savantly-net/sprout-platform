@@ -1,6 +1,8 @@
 import { NavModelItem } from '@savantly/sprout-api';
 import { Icon } from '@sprout-platform/ui';
+/* eslint-disable */
 import React, { FC } from 'react';
+/* eslint-enable */
 import { MenuItem, SubMenu } from 'react-pro-sidebar';
 import { NavLink } from 'react-router-dom';
 import useDevice from '../../../hooks/useDevice';

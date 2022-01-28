@@ -1,5 +1,7 @@
 import { NavModelItem } from '@savantly/sprout-api';
+/* eslint-disable */
 import React from 'react';
+/* eslint-enable */
 import { useSelector } from 'react-redux';
 import { StoreState } from '../../../types';
 import BottomNavLinks from './BottomNavLinks';

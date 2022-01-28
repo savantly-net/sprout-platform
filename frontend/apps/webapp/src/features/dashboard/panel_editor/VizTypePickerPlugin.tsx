@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React from 'react';
+/* eslint-enable */
 import { GrafanaTheme, PanelPluginMeta, PluginState } from '@savantly/sprout-api';
 import { Badge, BadgeProps, styleMixins, stylesFactory, useTheme } from '@savantly/sprout-ui';
 import { css, cx } from 'emotion';

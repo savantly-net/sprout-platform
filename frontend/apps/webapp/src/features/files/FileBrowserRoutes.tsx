@@ -1,6 +1,8 @@
 import { NavModel, NavModelItem } from '@savantly/sprout-api';
 import { PageHeader } from '@sprout-platform/ui';
+/* eslint-disable */
 import React, { FC } from 'react';
+/* eslint-enable */
 import { Outlet, Route, Routes } from 'react-router-dom';
 import FilesIndexPage from './FilesIndexPage';
 

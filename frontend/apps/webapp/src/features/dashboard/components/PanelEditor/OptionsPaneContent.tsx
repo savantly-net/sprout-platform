@@ -2,7 +2,9 @@ import { selectors } from '@grafana/e2e-selectors';
 import { CustomScrollbar, Icon, Input, Select, stylesFactory, Tab, TabContent, TabsBar, useTheme } from '@savantly/sprout-ui';
 import { GrafanaTheme, PanelPlugin, SelectableValue } from '@savantly/sprout-api';
 import { css } from 'emotion';
+/* eslint-disable */
 import React, { CSSProperties, useState } from 'react';
+/* eslint-enable */
 import Transition from 'react-transition-group/Transition';
 import { DashboardModel, PanelModel } from '../../state';
 import { DashNavButton } from '../DashNav/DashNavButton';

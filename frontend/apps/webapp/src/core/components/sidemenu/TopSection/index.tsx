@@ -1,6 +1,8 @@
 import { HamburgerIcon } from '@chakra-ui/icons';
 import { filter } from 'lodash';
+/* eslint-disable */
 import React, { FC, useEffect, useState } from 'react';
+/* eslint-enable */
 import { Menu, ProSidebar, SidebarContent, SidebarHeader } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useSelector } from 'react-redux';

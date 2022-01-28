@@ -2,7 +2,9 @@ import { ModalRoot, ModalsProvider, Spinner } from '@savantly/sprout-ui';
 import { confirm } from '@sprout-platform/ui';
 import { ChakraProvider } from '@chakra-ui/react';
 import { uniqueId } from 'lodash';
+/* eslint-disable */
 import React from 'react';
+/* eslint-enable */
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { Button } from 'reactstrap';

@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { FC } from 'react';
+/* eslint-enable */
 import { css } from 'emotion';
 import { GrafanaTheme } from '@savantly/sprout-api';
 import { stylesFactory, useTheme } from '@savantly/sprout-ui';

@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { FC, memo, ReactNode, useCallback, useEffect, useState } from 'react';
+/* eslint-enable */
 import { css, cx } from 'emotion';
 import _ from 'lodash';
 import { GrafanaTheme } from '@savantly/sprout-api';

@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React from 'react';
+/* eslint-enable */
 import cx from 'classnames';
 import { MenuDto } from '../../menuAdminService';
 import { Draggable } from 'react-beautiful-dnd';

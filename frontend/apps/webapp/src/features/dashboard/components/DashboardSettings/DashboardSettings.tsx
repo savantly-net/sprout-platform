@@ -1,6 +1,7 @@
 // Libaries
+/* eslint-disable */
 import React, { PureComponent } from 'react';
-
+/* eslint-enable */
 // Types
 import { DashboardModel } from '../../state/DashboardModel';
 import { BackButton } from '../../../../core/components/BackButton/BackButton';

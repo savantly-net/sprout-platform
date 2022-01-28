@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React from 'react';
+/* eslint-enable */
 import { SaveDashboardAsModal } from './SaveDashboardAsModal';
 import { SaveDashboardModalProps } from './types';
 import { SaveDashboardModal } from './SaveDashboardModal';

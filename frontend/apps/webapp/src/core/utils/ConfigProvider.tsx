@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React from 'react';
+/* eslint-enable */
 import { config, SproutBootConfig } from '@savantly/sprout-runtime';
 import { ThemeContext, getTheme } from '@savantly/sprout-ui';
 import { GrafanaThemeType } from '@savantly/sprout-api';

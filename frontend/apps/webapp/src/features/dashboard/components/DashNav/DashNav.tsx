@@ -2,7 +2,9 @@
 import { textUtil } from '@savantly/sprout-api';
 import { Icon, ModalsController } from '@savantly/sprout-ui';
 import { css } from 'emotion';
+/* eslint-disable */
 import React, { FC, ReactNode } from 'react';
+/* eslint-enable */
 import { useSearchParams } from 'react-router-dom';
 // Utils & Services
 import { appEvents } from '../../../../core/app_events';
@@ -39,6 +41,7 @@ export function addCustomRightAction(content: DashNavButtonModel) {
 }
 
 const DashNav = (props: OwnProps) => {
+  // eslint-disable-next-line
   const [searchParams, setSearchParams] = useSearchParams();
 
   // TODO: goto search?
@@ -70,7 +73,7 @@ const DashNav = (props: OwnProps) => {
   };
 
   const addCustomContent = (actions: DashNavButtonModel[], buttons: ReactNode[]) => {
-    actions.map((action, index) => {
+    return actions.map((action, index) => {
       const Component = action.component;
       const element = <Component {...props} key={`button-custom-${index}`} />;
       typeof action.index === 'number' ? buttons.splice(action.index, 0, element) : buttons.push(element);
@@ -137,12 +140,12 @@ const DashNav = (props: OwnProps) => {
             {!isFullscreen && <Icon name="apps" size="lg" className={mainIconClassName} />}
             {haveFolder && (
               <>
-                <a className="navbar-page-btn__folder" onClick={onFolderNameClick}>
+                <a className="navbar-page-btn__folder" href='jvascript:;' onClick={onFolderNameClick}>
                   {folderTitle} <span className={folderSymbol}>/</span>
                 </a>
               </>
             )}
-            <a onClick={onDashboardNameClick}>{dashboard.title}</a>
+            <a href='jvascript:;' onClick={onDashboardNameClick}>{dashboard.title}</a>
           </div>
         </div>
         <div className="navbar-buttons navbar-buttons--actions">{renderLeftActionsButton()}</div>

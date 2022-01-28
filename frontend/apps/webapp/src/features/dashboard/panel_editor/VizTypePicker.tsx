@@ -1,5 +1,6 @@
+/* eslint-disable */
 import React, { useCallback, useMemo } from 'react';
-
+/* eslint-enable */
 import config from '../../../core/config';
 import VizTypePickerPlugin from './VizTypePickerPlugin';
 import { EmptySearchResult, stylesFactory, useTheme } from '@savantly/sprout-ui';

@@ -1,5 +1,7 @@
 // Libraries
+/* eslint-disable */
 import React, { Component } from 'react';
+/* eslint-enable */
 
 // Components
 import PageLoader from '../PageLoader/PageLoader';

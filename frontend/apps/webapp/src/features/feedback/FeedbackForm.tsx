@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React from 'react';
+/* eslint-enable */
 import { Field } from 'formik';
 import { issueEntityService } from './entity';
 import { createSuccessNotification, eventBus, eventNotification } from '@savantly/sprout-api';

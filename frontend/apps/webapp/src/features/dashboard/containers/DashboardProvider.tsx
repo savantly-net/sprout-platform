@@ -1,5 +1,7 @@
 import { Button, HorizontalGroup, Icon, VerticalGroup } from '@savantly/sprout-ui';
+/* eslint-disable */
 import React, { useEffect } from 'react';
+/* eslint-enable */
 import { connect } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Toast } from 'reactstrap';

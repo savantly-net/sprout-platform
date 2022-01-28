@@ -1,7 +1,9 @@
 import { publishErrorNotification, publishSuccessNotification } from '@savantly/sprout-api';
 import { CodeEditor, Form } from '@sprout-platform/ui';
 import { useField } from 'formik';
+/* eslint-disable */
 import React, { Fragment, useMemo, useState } from 'react';
+/* eslint-enable */
 import { useSelector } from 'react-redux';
 import { Alert } from 'reactstrap';
 import Page from '../../core/components/Page/Page';

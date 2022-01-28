@@ -1,5 +1,7 @@
 import { NavModel, PluginMeta } from '@savantly/sprout-api';
+/* eslint-disable */
 import React, { PureComponent } from 'react';
+/* eslint-enable */
 import { connect } from 'react-redux';
 import Page from '../../core/components/Page/Page';
 import { getNavModel } from '../../core/selectors/navModel';

@@ -1,5 +1,7 @@
 import { renderMarkdown } from '@savantly/sprout-api';
+/* eslint-disable */
 import React, { PureComponent } from 'react';
+/* eslint-enable */
 import { sproutApiSvc } from '../../services/sproutApiSvc';
 
 interface Props {

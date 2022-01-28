@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React from 'react';
+/* eslint-enable */
 import cx from 'classnames';
 import { isEmpty } from 'lodash';
 import { Droppable } from 'react-beautiful-dnd';

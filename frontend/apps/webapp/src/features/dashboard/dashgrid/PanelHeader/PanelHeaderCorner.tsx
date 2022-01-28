@@ -1,10 +1,10 @@
 import { PopoverContent, Tooltip } from '@savantly/sprout-ui';
 import { getLocationSrv } from '@savantly/sprout-runtime';
+/* eslint-disable */
 import React, { Component } from 'react';
+/* eslint-enable */
 import { PanelModel } from '../../state/PanelModel';
-
-
-
+// eslint-disable-next-line
 enum InfoMode {
   Error = 'Error',
   Info = 'Info',

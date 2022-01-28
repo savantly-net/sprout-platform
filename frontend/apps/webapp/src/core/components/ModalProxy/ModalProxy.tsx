@@ -1,5 +1,7 @@
 import { ConfirmModal, Modal } from '@savantly/sprout-ui';
+/* eslint-disable */
 import React, { createRef, ReactElement, Ref } from 'react';
+/* eslint-enable */
 import { CoreEvents } from '../../../types';
 import appEvents from '../../app_events';
 import { ThemeProvider } from '../../utils/ConfigProvider';

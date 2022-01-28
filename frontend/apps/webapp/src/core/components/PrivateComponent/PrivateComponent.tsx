@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { ReactNode, useMemo } from 'react';
+/* eslint-enable */
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { StoreState } from '../../../types';

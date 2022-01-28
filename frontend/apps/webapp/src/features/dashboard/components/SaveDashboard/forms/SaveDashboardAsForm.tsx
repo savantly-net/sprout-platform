@@ -1,5 +1,7 @@
 import { Form, FormField } from '@sprout-platform/ui';
+/* eslint-disable */
 import React from 'react';
+/* eslint-enable */
 import { DashboardModel } from '../../../state';
 import { SaveDashboardFormProps } from '../types';
 

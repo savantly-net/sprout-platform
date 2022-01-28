@@ -1,5 +1,7 @@
 import { Icon } from '@savantly/sprout-ui';
+/* eslint-disable */
 import React from 'react';
+/* eslint-enable */
 import { getForcedLoginUrl } from './utils';
 
 export const SignIn = () => {

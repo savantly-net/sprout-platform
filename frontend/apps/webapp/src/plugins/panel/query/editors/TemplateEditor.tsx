@@ -1,6 +1,8 @@
 import { StandardEditorProps } from '@savantly/sprout-api';
 import { CodeEditor } from '@sprout-platform/ui';
+/* eslint-disable */
 import React from 'react';
+/* eslint-enable */
 import { QueryPanelOptions } from '../types';
 
 export interface CodeTemplateEditorConfiguration {

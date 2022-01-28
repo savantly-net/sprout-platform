@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { useState } from 'react';
+/* eslint-enable */
 import {
   Popover,
   PopoverTrigger,

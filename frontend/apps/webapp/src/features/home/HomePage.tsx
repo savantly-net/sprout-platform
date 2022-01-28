@@ -1,6 +1,8 @@
 import { MarkdownViewer } from '@sprout-platform/ui';
 import { css } from 'emotion';
+/* eslint-disable */
 import React, { useEffect, useState } from 'react';
+/* eslint-enable */
 import Spinner from '../../core/components/Spinner/Spinner';
 import { HomePageDTO, homePageService } from './homePageService';
 

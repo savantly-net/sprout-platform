@@ -45,7 +45,7 @@ export const useDashboardSave = (dashboard: DashboardModel) => {
         });
       }
     }
-  }, [state,dashboard,locationService]);
+  }, [state,dashboard,locationService,location]);
 
   return { state, onDashboardSave };
 };

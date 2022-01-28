@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { FC, Fragment, useEffect, useMemo, useState } from 'react';
+/* eslint-enable */
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { StoreState } from '../../../types';

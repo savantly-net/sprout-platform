@@ -2,7 +2,9 @@ import { DeleteIcon, TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
 import { Button, IconButton } from '@chakra-ui/react';
 import cx from 'classnames';
 import { Field, Form, Formik } from 'formik';
+/* eslint-disable */
 import React, { useState } from 'react';
+/* eslint-enable */
 import { MenuDto } from '../../../menuAdminService';
 import './styles.scss';
 
