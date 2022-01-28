@@ -1,8 +1,8 @@
 import { ColorPickerPopover } from './ColorPickerPopover';
 
-import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
+import { withCenteredStory } from '../../util/storybook/withCenteredStory';
 import { SeriesColorPickerPopover } from './SeriesColorPickerPopover';
-import { renderComponentWithTheme } from '../../utils/storybook/withTheme';
+import { renderComponentWithTheme } from '../../util/storybook/withTheme';
 
 export default {
   title: 'Pickers and Editors/ColorPicker/Popovers',

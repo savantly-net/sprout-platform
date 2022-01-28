@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 
 import { GrafanaTheme } from '@savantly/sprout-api';
-import { renderGeneratedFileBanner } from '../utils/generatedFileBanner';
+import { renderGeneratedFileBanner } from '../util/generatedFileBanner';
 import { styleMixins } from '.';
 
 export const darkThemeVarsTemplate = (theme: GrafanaTheme) =>

@@ -1,6 +1,6 @@
 import React from 'react';
-import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
-import { UseState } from '../../utils/storybook/UseState';
+import { withCenteredStory } from '../../util/storybook/withCenteredStory';
+import { UseState } from '../../util/storybook/UseState';
 import { TabsBar, Tab, TabContent } from '@savantly/sprout-ui';
 
 export default {

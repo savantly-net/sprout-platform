@@ -2,8 +2,8 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 
 import { TimeZonePicker } from '@savantly/sprout-ui';
-import { UseState } from '../../utils/storybook/UseState';
-import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
+import { UseState } from '../../util/storybook/UseState';
+import { withCenteredStory } from '../../util/storybook/withCenteredStory';
 
 export default {
   title: 'Pickers and Editors/TimePickers/TimeZonePicker',

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
-import { withStoryContainer } from '../../utils/storybook/withStoryContainer';
+import { withCenteredStory } from '../../util/storybook/withCenteredStory';
+import { withStoryContainer } from '../../util/storybook/withStoryContainer';
 import mdx from './Form.mdx';
 import { ValidateResult } from 'react-hook-form';
 import { boolean } from '@storybook/addon-knobs';
@@ -197,7 +197,7 @@ export const asyncValidation = () => {
 
 const validateAsync = (shouldPass: boolean) => async () => {
   try {
-    await new Promise<ValidateResult>((resolve, reject) => {
+    await new Promise<ValidateResult | void>((resolve, reject) => {
       setTimeout(() => {
         if (shouldPass) {
           resolve();

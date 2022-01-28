@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 
 import { GrafanaThemeCommons } from '@savantly/sprout-api';
-import { renderGeneratedFileBanner } from '../utils/generatedFileBanner';
+import { renderGeneratedFileBanner } from '../util/generatedFileBanner';
 
 export const commonThemeVarsTemplate = (theme: GrafanaThemeCommons) =>
   `${renderGeneratedFileBanner('grafana-ui/src/themes/default.ts', 'grafana-ui/src/themes/_variables.scss.tmpl.ts')}

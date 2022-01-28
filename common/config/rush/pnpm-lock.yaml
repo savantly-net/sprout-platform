@@ -32,7 +32,7 @@ dependencies:
   '@rush-temp/sprout-toolkit': 'file:projects/sprout-toolkit.tgz'
   '@rush-temp/sprout-tsconfig': 'file:projects/sprout-tsconfig.tgz'
   '@rush-temp/sprout-ui': 'file:projects/sprout-ui.tgz_ef70b55bdecafcca78ac60b4015d2861'
-  '@rush-temp/ui': 'file:projects/ui.tgz_f9f34f2e8c845b7b28d36172a02fed0b'
+  '@rush-temp/ui': 'file:projects/ui.tgz_ff52aab248c6201fd6535c5dc370b84e'
   '@rush-temp/webapp': 'file:projects/webapp.tgz_@babel+core@7.12.3'
   '@storybook/addon-docs': 5.3.21_31b8d74ec71ac1892d1b15a3abbc91d5
   '@storybook/addon-essentials': 6.1.11_42503dada95de6a3c9cf71e57bfdc5bd
@@ -30872,7 +30872,7 @@ packages:
       integrity: sha512-JNSqUkIJkyz/Q9zL7WtMid4iXMJiVg28/mWrM9R5tF5nq+bWFahIwQoG4wF5hIYAXRp+9Dy4E76icG6e7LfZeA==
       tarball: 'file:projects/sprout-ui.tgz'
     version: 0.0.0
-  'file:projects/ui.tgz_f9f34f2e8c845b7b28d36172a02fed0b':
+  'file:projects/ui.tgz_ff52aab248c6201fd6535c5dc370b84e':
     dependencies:
       '@babel/core': 7.12.3
       '@babel/plugin-transform-react-jsx': 7.12.7_@babel+core@7.12.3
@@ -30954,6 +30954,7 @@ packages:
       reactstrap: 8.6.0_react-dom@16.14.0+react@16.14.0
       rimraf: 3.0.2
       slate: 0.47.8_immutable@3.8.2
+      storybook-dark-mode: 0.6.1_@storybook+theming@5.3.21
       tinycolor2: 1.4.2
       ts-bus: 2.3.1_react@16.14.0
       ts-jest: 26.4.2_jest@26.6.1+typescript@3.9.7
@@ -30964,6 +30965,7 @@ packages:
     id: 'file:projects/ui.tgz'
     name: '@rush-temp/ui'
     peerDependencies:
+      '@storybook/theming': '*'
       '@types/webpack': '*'
       history: '*'
       immutable: '*'
@@ -30974,7 +30976,7 @@ packages:
       ts-node: '*'
       webpack: '*'
     resolution:
-      integrity: sha512-Lgxq+TRcNfqCzBPoH3irL5xMH8Qs7+sJ13cFFGSt9HJsO+PRQ6auwZ3vOgvU/T419gtd6bl+fO4FuRYZ64niYA==
+      integrity: sha512-mzPCmu8sj+Rqg/1KXAY/BElwGXYW0FjA9HdOMcvMYm/fNrt3AbWtV0NDIuHi0NJ1Xr2J9Fhfx0CzPBg9BHXRNA==
       tarball: 'file:projects/ui.tgz'
     version: 0.0.0
   'file:projects/webapp.tgz_@babel+core@7.12.3':

@@ -2,7 +2,7 @@ import React from 'react';
 import { select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { Alert, AlertVariant } from './Alert';
-import { withCenteredStory, withHorizontallyCenteredStory } from '../../utils/storybook/withCenteredStory';
+import { withCenteredStory, withHorizontallyCenteredStory } from '../../util/storybook/withCenteredStory';
 import mdx from '../Alert/Alert.mdx';
 
 export default {

@@ -2,8 +2,8 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 
 import { TimeRangePicker } from '@savantly/sprout-ui';
-import { UseState } from '../../utils/storybook/UseState';
-import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
+import { UseState } from '../../util/storybook/UseState';
+import { withCenteredStory } from '../../util/storybook/withCenteredStory';
 import { TimeFragment, dateTime } from '@savantly/sprout-api';
 
 export default {

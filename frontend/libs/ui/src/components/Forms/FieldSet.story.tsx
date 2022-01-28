@@ -1,5 +1,5 @@
 import React from 'react';
-import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
+import { withCenteredStory } from '../../util/storybook/withCenteredStory';
 import { Input, Form, FieldSet, Field } from '@savantly/sprout-ui';
 import mdx from './FieldSet.mdx';
 import { Button } from '../Button';

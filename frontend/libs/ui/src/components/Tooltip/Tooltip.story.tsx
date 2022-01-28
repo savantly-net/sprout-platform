@@ -1,7 +1,7 @@
 import React from 'react';
 import { select } from '@storybook/addon-knobs';
 import { Tooltip } from './Tooltip';
-import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
+import { withCenteredStory } from '../../util/storybook/withCenteredStory';
 import { Button } from '../Button';
 import mdx from '../Tooltip/Tooltip.mdx';
 

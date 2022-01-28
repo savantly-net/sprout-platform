@@ -2,9 +2,9 @@ import React from 'react';
 import { boolean } from '@storybook/addon-knobs';
 import { SeriesColorPicker, ColorPicker } from '@savantly/sprout-ui';
 import { action } from '@storybook/addon-actions';
-import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
-import { UseState } from '../../utils/storybook/UseState';
-import { renderComponentWithTheme } from '../../utils/storybook/withTheme';
+import { withCenteredStory } from '../../util/storybook/withCenteredStory';
+import { UseState } from '../../util/storybook/UseState';
+import { renderComponentWithTheme } from '../../util/storybook/withTheme';
 import mdx from './ColorPicker.mdx';
 
 const getColorPickerKnobs = () => {

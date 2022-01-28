@@ -2,9 +2,9 @@ import React from 'react';
 import { NamedColorsPalette } from './NamedColorsPalette';
 import { getColorName, getColorDefinitionByName } from '@savantly/sprout-api';
 import { select } from '@storybook/addon-knobs';
-import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
-import { renderComponentWithTheme } from '../../utils/storybook/withTheme';
-import { UseState } from '../../utils/storybook/UseState';
+import { withCenteredStory } from '../../util/storybook/withCenteredStory';
+import { renderComponentWithTheme } from '../../util/storybook/withTheme';
+import { UseState } from '../../util/storybook/UseState';
 import mdx from './ColorPicker.mdx';
 
 const BasicGreen = getColorDefinitionByName('green');

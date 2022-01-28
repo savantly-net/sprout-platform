@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextArea } from '@savantly/sprout-ui';
-import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
+import { withCenteredStory } from '../../util/storybook/withCenteredStory';
 import { boolean, number, text } from '@storybook/addon-knobs';
 import mdx from './TextArea.mdx';
 

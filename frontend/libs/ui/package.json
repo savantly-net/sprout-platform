@@ -119,6 +119,7 @@
     "ts-loader": "6.2.1",
     "tslib": "2.0.1",
     "rc-time-picker": "^3.7.3",
+    "storybook-dark-mode": "0.6.1",
     "typescript": "~3.9.7"
   },
   "peerDependencies": {

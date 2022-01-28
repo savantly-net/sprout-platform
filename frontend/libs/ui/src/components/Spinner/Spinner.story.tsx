@@ -1,6 +1,6 @@
 import React from 'react';
 import { number, color } from '@storybook/addon-knobs';
-import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
+import { withCenteredStory } from '../../util/storybook/withCenteredStory';
 import { Spinner } from '@savantly/sprout-ui';
 import mdx from './Spinner.mdx';
 

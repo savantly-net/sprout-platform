@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from 'emotion';
 import { IconButton } from '@savantly/sprout-ui';
-import { withCenteredStory } from '../../utils/storybook/withCenteredStory';
+import { withCenteredStory } from '../../util/storybook/withCenteredStory';
 import { useTheme } from '../../themes/ThemeContext';
 import { GrafanaTheme } from '@savantly/sprout-api';
 import { IconSize, IconName } from '../../types';
@@ -23,11 +23,11 @@ export const simple = () => {
       {renderScenario(
         'dashboard',
         theme,
-        ['sm', 'md', 'lg', 'xl', 'xxl'],
+        ['xs' ,'sm' , 'md' , 'lg'],
         ['search', 'trash-alt', 'arrow-left', 'times']
       )}
-      {renderScenario('panel', theme, ['sm', 'md', 'lg', 'xl', 'xxl'], ['search', 'trash-alt', 'arrow-left', 'times'])}
-      {renderScenario('header', theme, ['sm', 'md', 'lg', 'xl', 'xxl'], ['search', 'trash-alt', 'arrow-left', 'times'])}
+      {renderScenario('panel', theme, ['xs' ,'sm' , 'md' , 'lg'], ['search', 'trash-alt', 'arrow-left', 'times'])}
+      {renderScenario('header', theme, ['xs' ,'sm' , 'md' , 'lg'], ['search', 'trash-alt', 'arrow-left', 'times'])}
     </div>
   );
 };
