@@ -18,6 +18,9 @@ import { SaveDashboardModalProxy } from '../SaveDashboard/SaveDashboardModalProx
 // Components
 import { DashNavButton } from './DashNavButton';
 
+import { Modal, ModalBody, ModalHeader } from 'reactstrap';
+
+
 export interface OwnProps {
   dashboard: DashboardModel;
   isFullscreen: boolean;
@@ -189,7 +192,7 @@ const DashNav = (props: OwnProps) => {
               classSuffix="save"
               icon="save"
               onClick={() => {
-                console.log("CAAALLL");
+                // toggle();
                 showModal(SaveDashboardModalProxy, {
                   dashboard,
                   onDismiss: hideModal
@@ -231,6 +234,10 @@ const DashNav = (props: OwnProps) => {
 
   const { isFullscreen } = props;
 
+  const [modal, setModal] = React.useState(false);
+
+  const toggle = () => setModal(!modal);
+
   return (
     <PrivateComponent hasAnyAuthority={['ADMIN', 'DASHBOARD_EDIT']}>
       <div className="navbar">
@@ -243,6 +250,13 @@ const DashNav = (props: OwnProps) => {
           <DashNavButton tooltip="Cycle view mode" classSuffix="tv" icon="desktop" onClick={onToggleTVMode} />
         </div>
       </div>
+      <Modal isOpen={modal} toggle={toggle}>
+            <ModalHeader>Create One</ModalHeader>
+            <ModalBody>
+               {/* <SaveDashboardModalProxy  {hideModal} /> */}
+            </ModalBody>
+          </Modal>
+
     </PrivateComponent>
   );
 };

@@ -26,8 +26,7 @@ export { ClickOutsideWrapper } from './ClickOutsideWrapper/ClickOutsideWrapper';
 export { IconButton } from './IconButton/IconButton';
 export { Button } from './Button/Button';
 export { Switch } from './Switch/Switch';
-// export { Icon } from './Icon/Icon';
-
+ 
 // TODO: namespace!!
 export { StringValueEditor } from './OptionsUI/string';
 export { StringArrayEditor } from './OptionsUI/strings';
