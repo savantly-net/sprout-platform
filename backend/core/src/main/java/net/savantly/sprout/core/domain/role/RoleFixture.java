@@ -4,12 +4,12 @@ import java.util.List;
 
 import net.savantly.spring.fixture.AbstractBaseFixture;
 import net.savantly.spring.fixture.Fixture;
-import net.savantly.sprout.core.domain.privilege.Privilege;
+import net.savantly.sprout.core.domain.privilege.PrivilegeEntity;
 import net.savantly.sprout.core.domain.privilege.PrivilegeFixture;
 import net.savantly.sprout.core.domain.privilege.PrivilegeRepository;
 import net.savantly.sprout.core.tenancy.TenantContext;
 
-public class RoleFixture extends AbstractBaseFixture<Role, RoleRepository>{
+public class RoleFixture extends AbstractBaseFixture<RoleEntity, RoleRepository>{
 
 	public static final String USER_ROLE = "USER";
 	public static final String ADMIN_ROLE = "ADMIN";
@@ -27,26 +27,26 @@ public class RoleFixture extends AbstractBaseFixture<Role, RoleRepository>{
     }
 
     @Override
-    public void addEntities(List<Role> entityList) {
+    public void addEntities(List<RoleEntity> entityList) {
     	
         if(repository.findByNameAndTenantId(USER_ROLE, TenantContext.getCurrentTenant()).size() == 0){
-        	Role role = new Role().setName(USER_ROLE);
+        	RoleEntity role = new RoleEntity().setName(USER_ROLE);
         	role.getPrivileges().add(getPrivilege(PrivilegeFixture.READ));
             entityList.add(role);
         }
         if(repository.findByNameAndTenantId(ADMIN_ROLE, TenantContext.getCurrentTenant()).size() == 0){
-        	Role role = new Role().setName(ADMIN_ROLE);
+        	RoleEntity role = new RoleEntity().setName(ADMIN_ROLE);
         	role.getPrivileges().add(getPrivilege(PrivilegeFixture.ADMIN));
             entityList.add(role);
         }
         if(repository.findByNameAndTenantId(ANONYMOUS_ROLE, TenantContext.getCurrentTenant()).size() == 0){
-        	Role role = new Role().setName(ANONYMOUS_ROLE);
+        	RoleEntity role = new RoleEntity().setName(ANONYMOUS_ROLE);
         	role.getPrivileges().add(getPrivilege(PrivilegeFixture.READ));
             entityList.add(role);
         }
     }
     
-    private Privilege getPrivilege(String id) {
+    private PrivilegeEntity getPrivilege(String id) {
     	return this.privilegeRepository.findById(id).orElseThrow(()-> new RuntimeException("didn't find privilege: " + id));
     }
 

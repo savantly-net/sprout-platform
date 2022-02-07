@@ -32,6 +32,7 @@ const AddMenuItem = ({ onSave }: Props) => {
     children: [],
     authorities: []
   });
+  
   const toast = useToast();
   const onSubmit = (menu: MenuDto) => {
     onSave(menu);
@@ -45,7 +46,7 @@ const AddMenuItem = ({ onSave }: Props) => {
     });
     onClose();
   };
-
+  
   return (
     <>
       <Popover
@@ -57,7 +58,7 @@ const AddMenuItem = ({ onSave }: Props) => {
         closeOnBlur={false}
       >
         <PopoverTrigger>
-          <Button size="sm">Add Menu Item</Button>
+          <Button size="sm" variant='outline'>Add Menu Item</Button>
         </PopoverTrigger>
         <PopoverContent p={8}>
           <FocusLock returnFocus persistentFocus={false}>

@@ -10,6 +10,7 @@ import { getNavModel } from '../../core/selectors/navModel';
 import { StoreState } from '../../types';
 import { permissionService, Privilege, Role } from './permissionService';
 import { css, cx } from 'emotion';
+import { publishSuccessNotification,publishErrorNotification } from '@savantly/sprout-api';
 
 const customLabel = css`
   position:relative;
@@ -108,7 +109,7 @@ const PermissionsTable = ({
                   <div className="card-body" >
                     <ul className={cx('ul.card-body', css`list-style: none`)}>
                       {
-                        rolePrivileges.privileges && rolePrivileges.privileges.length > 0 ?
+                        rolePrivileges.privileges ?
                           <Form
                             showCancelButton={false}
                             submitText="Update"
@@ -199,9 +200,11 @@ export const PermissionsPage = () => {
                   .then((response) => {
                     console.log('updated permissions:', role, privileges);
                     helpers.setSubmitting(false);
-                    getRoleMethod()
+                    getRoleMethod();
+                    publishSuccessNotification('Saved', 'Permissions updated successfully');
                   })
                   .catch((err) => {
+                    publishErrorNotification('Failed to save permissions ', err);
                     console.error('failed to update permissions:', err);
                   });
               }}

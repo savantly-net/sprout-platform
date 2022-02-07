@@ -15,6 +15,24 @@ interface ServerMenuItem {
   renderMode: NavModelItemRenderMode;
 }
 
+function convertServerMenuItemToNavModel(menuItem: ServerMenuItem): NavModelItem {
+  return {
+    id: menuItem.name,
+    text: menuItem.displayText,
+    icon: menuItem.icon || 'cube',
+    url: menuItem.url,
+    children: menuItem.children.map((m) => {
+      return convertServerMenuItemToNavModel(m);
+    }),
+    position: menuItem.position,
+    renderMode: menuItem.renderMode
+  };
+}
+
+function mapServerMenuItemsToNavModelItems(menuItems: ServerMenuItem[]): NavModelItem[] {
+  return menuItems.map(m => convertServerMenuItemToNavModel(m));
+}
+
 function navModelItemFromWritableDraft(draft: WritableDraft<NavModelItem>): NavModelItem {
   return {
     text: draft.text,
@@ -61,11 +79,11 @@ const navTreeSlice = createSlice({
   reducers: {
     addRootNav: (state: WritableDraft<NavTreeState>, action: PayloadAction<NavModelItem>): NavTreeState => ({
       ...state,
-      items: state.items.map(d => navModelItemFromWritableDraft(d))
+      items: state.items.map(d => navModelItemFromWritableDraft(d)).concat(action.payload)
     }),
     addRootNavs: (state, action: PayloadAction<NavModelItem[]>): NavTreeState => ({
       ...state,
-      items: state.items.map(d => navModelItemFromWritableDraft(d))
+      items: state.items.map(d => navModelItemFromWritableDraft(d)).concat(action.payload)
     }),
     updateNavTree: (state, action: PayloadAction<NavModelItem[]>): NavTreeState => ({
       ...state,
@@ -83,7 +101,7 @@ const navTreeSlice = createSlice({
     });
     builder.addCase(loadNavTreeState.fulfilled, (state, action): NavTreeState => {
       return {
-        items: state.items.map(d => navModelItemFromWritableDraft(d)),
+        items: state.items.map(d => navModelItemFromWritableDraft(d)).concat(mapServerMenuItemsToNavModelItems(action.payload.data)),
         fetched: true,
         fetching: false,
         error: ''

@@ -1,12 +1,17 @@
-.DroppableMenuList {
-    width: 125px;
-    margin: 0 0 6px 80px;
-    position: relative;
+.DragAndDropMenuBuilder{
+  text-align: left;
+}
 
+.DroppableMenuList {
+    padding: 0 0 0px 16px;
+    margin-left: 16px;
+    position: relative;
+    border-left: 1px solid #ccc;
+    max-width: 600px;
     &__droppable {
       min-height: 10px;
+      padding: 10px  0px 10px 0px;
     }
-
     &__placeholder {
       position: absolute;
       border-radius: 3px;
@@ -14,3 +19,38 @@
       background-color: var(--chakra-colors-gray-200);
     }
   }
+
+  .DraggableMenuItem{
+    &.active{
+      & > .MenuItem{
+        .MenuItem__header{
+          background: #1d1d1d;
+          color: #fff;
+          .MenuItem__header__actions{
+            button{
+              &:hover{
+                background: unset;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .chakra-popover__popper{
+    .chakra-popover__content{
+      .MenuItem {
+        .MenuItem__body__content__form__item{
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .saveBtn{
+    margin-left: 12px;
+  }
+  section#popover-content-4 {
+    width: 400px;
+}

@@ -2,7 +2,7 @@ version: "3"
 services:
 
   server:
-    image: savantly/sprout-server:edge
+    image: savantly/sprout-server:latest
     container_name: example_sprout_server
     environment: 
       - PORT=9090
@@ -17,7 +17,7 @@ services:
     - sprout_db
 
   webapp:
-    image: savantly/sprout-webapp:edge
+    image: savantly/sprout-webapp:latest
     container_name: example_sprout_webapp
     ports:
       - 3000:4000

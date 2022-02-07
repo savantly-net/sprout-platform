@@ -19,14 +19,14 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import net.savantly.spring.fixture.AbstractBaseFixture;
 import net.savantly.spring.fixture.Fixture;
 import net.savantly.sprout.autoconfigure.properties.SproutConfigurationProperties;
-import net.savantly.sprout.core.domain.privilege.Privilege;
+import net.savantly.sprout.core.domain.privilege.PrivilegeEntity;
 import net.savantly.sprout.core.domain.privilege.PrivilegeRepository;
-import net.savantly.sprout.core.domain.role.Role;
+import net.savantly.sprout.core.domain.role.RoleEntity;
 import net.savantly.sprout.core.domain.role.RoleRepository;
 import net.savantly.sprout.core.tenancy.TenantContext;
 
 @Transactional
-public class PermissionsFixture extends AbstractBaseFixture<Role, RoleRepository> {
+public class PermissionsFixture extends AbstractBaseFixture<RoleEntity, RoleRepository> {
 	private static final Logger log = LoggerFactory.getLogger(PermissionsFixture.class);
 	
 	@Value("classpath:/META-INF/config/permissions.yml")
@@ -43,7 +43,7 @@ public class PermissionsFixture extends AbstractBaseFixture<Role, RoleRepository
 	}
 
 	@Override
-	public void addEntities(List<Role> entityList) {
+	public void addEntities(List<RoleEntity> entityList) {
 		if (configProps.getSecurity().getAuthorization().isApplyDefaultPermissions()) {
 			final ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
 			try {
@@ -66,27 +66,27 @@ public class PermissionsFixture extends AbstractBaseFixture<Role, RoleRepository
 
 	private void addIfMissing(BootstrapPermission a) {
 		log.info("ensuring role: {} exists with permissions: {}", a.getRole(), a.getPrivileges());
-		Role role = addRoleIfMissing(a.getRole());
-		Set<Privilege> privileges = a.getPrivileges().stream().map(p -> addPrivilegeIfMissing(p)).collect(Collectors.toSet());
+		RoleEntity role = addRoleIfMissing(a.getRole());
+		Set<PrivilegeEntity> privileges = a.getPrivileges().stream().map(p -> addPrivilegeIfMissing(p)).collect(Collectors.toSet());
 		role.getPrivileges().addAll(privileges);
 		roleRepo.save(role);
 	}
 	
-	private Privilege addPrivilegeIfMissing(String name) {
-		Optional<Privilege> maybe = privilegeRepo.findByNameAndTenantId(name, TenantContext.getCurrentTenant()).stream().findFirst();
+	private PrivilegeEntity addPrivilegeIfMissing(String name) {
+		Optional<PrivilegeEntity> maybe = privilegeRepo.findByNameAndTenantId(name, TenantContext.getCurrentTenant()).stream().findFirst();
 		if (maybe.isPresent()) {
 			return maybe.get();
 		} else {
-			return privilegeRepo.save(new Privilege().setName(name));
+			return privilegeRepo.save(new PrivilegeEntity().setName(name));
 		}
 	}
 	
-	private Role addRoleIfMissing(String name) {
-		Optional<Role> maybe = roleRepo.findByName(name).stream().findFirst();
+	private RoleEntity addRoleIfMissing(String name) {
+		Optional<RoleEntity> maybe = roleRepo.findByName(name).stream().findFirst();
 		if (maybe.isPresent()) {
 			return maybe.get();
 		} else {
-			return roleRepo.save(new Role().setName(name));
+			return roleRepo.save(new RoleEntity().setName(name));
 		}
 	}
 

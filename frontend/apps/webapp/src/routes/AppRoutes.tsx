@@ -9,6 +9,7 @@ import PageNotFound from '../core/components/error/page-not-found';
 import Spinner from '../core/components/Spinner/Spinner';
 import DashboardProvider from '../features/dashboard/containers/DashboardProvider';
 import IssueManager from '../features/feedback/IssueManager';
+import UserManagement from '../features/user-management/UserManagement';
 import FileBrowserRoutes from '../features/files/FileBrowserRoutes';
 import { HomePage } from '../features/home/HomePage';
 import { ManageDashboardsPage } from '../features/manage-dashboards/ManageDashboardsPage';
@@ -59,6 +60,7 @@ const AppRoutes = ({ history }: AllProps) => {
         <Route path="/plugins/:pluginId/*" element={<PluginPage />} />
         <Route path="/files/*" element={<FileBrowserRoutes />} />
         <Route path="/issues/*" element={<IssueManager />} />
+        <Route path="/user/*" element={<UserManagement />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Suspense>

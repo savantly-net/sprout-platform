@@ -1,4 +1,4 @@
-name: CI
+name: Backend
 
 # Suppress Spinner because it appears as warnings
 env:
@@ -8,9 +8,12 @@ env:
 on:
   push:
     branches:
-      - 'master'
-    tags:
-      - 'v*.*.*'
+      - 'master' 
+    paths:
+      - '*'
+      - '.github/workflows/backend.yml'
+      - 'common/**'
+      - 'backend/**'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -28,10 +31,10 @@ jobs:
       # Get repo metadata so we can use it in the build scripts
       - name: Repo metadata
         id: repo
-        uses: actions/github-script@v3
+        uses: actions/github-script@v5
         with:
           script: |
-            const repo = await github.repos.get(context.repo)
+            const repo = await github.rest.repos.get({owner: context.repo.owner, repo: context.repo.repo})
             return repo.data
 
       # Caching
@@ -73,13 +76,14 @@ jobs:
 
       # Setup Environments
       - name: Setup Java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2.5.0
         with:
+          distribution: 'temurin'
           java-version: '11' # The JDK version to make available on the path.
           java-package: jdk # (jre, jdk, or jdk+fx) - defaults to jdk
           architecture: x64 # (x64 or x86) - defaults to x64
       - name: Setup Node
-        uses: actions/setup-node@v2.4.1
+        uses: actions/setup-node@v2.5.1
         with:
           node-version: '12'
       - id: install-secret-key
@@ -168,7 +172,7 @@ jobs:
           elif [[ $GITHUB_REF == refs/heads/* ]]; then
             VERSION=$(echo ${GITHUB_REF#refs/heads/} | sed -r 's#/+#-#g')
             if [ "${{ github.event.repository.default_branch }}" = "$VERSION" ]; then
-              VERSION=edge
+              VERSION=latest
             fi
           elif [[ $GITHUB_REF == refs/pull/* ]]; then
             VERSION=pr-${{ github.event.number }}
@@ -205,3 +209,13 @@ jobs:
             org.opencontainers.image.licenses=${{ fromJson(steps.repo.outputs.result).license.spdx_id }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
+
+      - name: Login to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ""
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          justlogin: true
+      - name: Deploy to Heroku
+        run: ./scripts/deployHeroku.sh

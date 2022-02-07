@@ -1,4 +1,4 @@
-name: CI
+name: Development Branch
 
 # Suppress Spinner because it appears as warnings
 env:
@@ -22,15 +22,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0 # Required to retrieve git history
-      
-      # Get repo metadata so we can use it in the build scripts
-      - name: Repo metadata
-        id: repo
-        uses: actions/github-script@v3
-        with:
-          script: |
-            const repo = await github.repos.get(context.repo)
-            return repo.data
 
       # Caching
       - name: Cache Gradle deps
@@ -80,13 +71,14 @@ jobs:
 
       # Setup Environments
       - name: Setup Java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2.5.0
         with:
+          distribution: 'temurin'
           java-version: '11' # The JDK version to make available on the path.
           java-package: jdk # (jre, jdk, or jdk+fx) - defaults to jdk
           architecture: x64 # (x64 or x86) - defaults to x64
       - name: Setup Node
-        uses: actions/setup-node@v2.4.1
+        uses: actions/setup-node@v2.5.1
         with:
           node-version: '12'
 

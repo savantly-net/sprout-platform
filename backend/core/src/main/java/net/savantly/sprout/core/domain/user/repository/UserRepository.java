@@ -18,6 +18,7 @@ public interface UserRepository extends TenantedJpaRepository<SproutUserEntity, 
 	ProfileProjection findProfileFirstByUsername(String username);
 	ProfileProjection findProfileById(String id);
 	SproutUserEntity findOneByUsername(String username);
+	SproutUserEntity findOneById_ItemId(String itemId);
 	SproutUser findByEmailAddresses_EmailAddress(String emailAddress);
 	
 	@Query("SELECT u FROM SproutUserEntity u where u.id = :id")

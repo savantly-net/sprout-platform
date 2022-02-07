@@ -17,11 +17,12 @@ const FormikSelect: React.FC<FieldProps & Props> = ({ label, options, field, for
     <FormLabel className="FormikSelect__label">{label || field.name}</FormLabel>
     <Select
       name={field.name}
-      value={options ? options.find((option) => option.value === field.value) : ''}
-      onChange={(option: any) => form.setFieldValue(field.name, option.value)}
+      value={field.value}
+      // value={options ? options.find((option) => option.value === field.value) : ''}
+      onChange={(option: any) => form.setFieldValue(field.name, option.target.value)}
+      // onChange={(option: any) => form.setFieldValue(field.name, option.value)}
       onBlur={field.onBlur}
-      width="max-content"
-    >
+      width="max-content" >
       {options.map(({ value }) => (
         <option value={value} key={value}>
           {value}

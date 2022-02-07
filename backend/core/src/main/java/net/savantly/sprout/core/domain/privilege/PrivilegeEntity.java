@@ -17,7 +17,7 @@ import net.savantly.sprout.core.tenancy.TenantedPersistedDomainObject;
 @Entity(name="APP_PRIVILEGE")
 @Table(name="APP_PRIVILEGE", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "tenant_id"})})
 @Accessors(chain = true)
-public class Privilege extends TenantedPersistedDomainObject implements GrantedAuthority{
+public class PrivilegeEntity extends TenantedPersistedDomainObject implements GrantedAuthority{
 
 	private static final long serialVersionUID = SproutConfiguration.serialVersionUID;
 	

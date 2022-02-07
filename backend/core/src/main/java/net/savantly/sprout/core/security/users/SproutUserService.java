@@ -7,13 +7,16 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import net.savantly.sprout.core.domain.user.SproutUser;
 import net.savantly.sprout.core.domain.user.UserUpdateDto;
+import net.savantly.sprout.core.security.exception.UserIdNotFoundException;
 
 public interface SproutUserService extends UserDetailsService {
 
 	boolean usernameExists(String username);
     SproutUser loadByEmailAddress(String emailAddress);
     SproutUser loadUserByUsername(String username) throws UsernameNotFoundException;
+    SproutUser loadUserByUserId(String userId) throws UserIdNotFoundException;
     SproutUser createUser(String username, String password, String emailAddress, Collection<String> roles);
+    SproutUser createUser(String username, String password, String emailAddress, String firstName, String lastName, Collection<String> roles);
     SproutUser updateUser(UserUpdateDto user);
     boolean emailAddressExists(String email);
     void updatePassword(SproutUser user, String clearText);

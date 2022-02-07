@@ -75,6 +75,13 @@ export const defaultNavTree: NavModelItem[] = [
         id: 'issue-manager',
         text: 'Issues',
         url: '/issues'
+      },
+      {
+        subTitle: 'User Management',
+        icon: 'user-circle',
+        id: 'userManagement',
+        text: 'User Management',
+        url: '/user'
       }
     ]
   }

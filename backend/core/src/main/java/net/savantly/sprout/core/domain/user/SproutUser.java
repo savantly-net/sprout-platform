@@ -15,6 +15,8 @@ import net.savantly.sprout.core.domain.role.Role;
 
 public interface SproutUser extends UserDetails {
 
+	String getUuid();
+
 	String getDisplayName();
 
 	Set<EmailAddress> getEmailAddresses();
@@ -35,10 +37,15 @@ public interface SproutUser extends UserDetails {
 
 	String getPhoneNumber();
 
-	Set<Role> getRoles();
+	Set<? extends Role> getRoles();
 	
 	static SproutUser anonymousUser() {
 		return new SproutUser() {
+
+			@Override
+			public String getUuid() {
+				return "";
+			}
 			
 			@Override
 			public boolean isEnabled() {

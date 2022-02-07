@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
 
-import net.savantly.sprout.core.domain.privilege.Privilege;
+import net.savantly.sprout.core.domain.privilege.PrivilegeEntity;
 import net.savantly.sprout.core.domain.privilege.PrivilegeRepository;
-import net.savantly.sprout.core.domain.role.Role;
+import net.savantly.sprout.core.domain.role.RoleEntity;
 import net.savantly.sprout.core.domain.role.RoleRepository;
 import net.savantly.sprout.core.tenancy.TenantContext;
 
@@ -39,64 +39,64 @@ public class PermissionsApi {
 	}
 
 	@GetMapping("/role")
-	public ResponseEntity<List<Role>> getRoles() {
+	public ResponseEntity<List<RoleEntity>> getRoles() {
 		return ResponseEntity.ok(roleRepo.findAll());
 	}
 
 	@PutMapping("/role")
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public ResponseEntity<Role> updateRole(@RequestBody PermissionUpdateDto dto) {
-		Role role = roleOrThrow(dto.getRole());
-		Set<Privilege> privileges = dto.getPrivileges().stream().map(s -> privilegeOrThrow(s)).collect(Collectors.toSet());
+	public ResponseEntity<RoleEntity> updateRole(@RequestBody PermissionUpdateDto dto) {
+		RoleEntity role = roleOrThrow(dto.getRole());
+		Set<PrivilegeEntity> privileges = dto.getPrivileges().stream().map(s -> privilegeOrThrow(s)).collect(Collectors.toSet());
 		role.setPrivileges(privileges);
 		return ResponseEntity.ok(roleRepo.save(role));
 	}
 	
 	@GetMapping("/privilege")
-	public ResponseEntity<Iterable<Privilege>> getPrivileges() {
+	public ResponseEntity<Iterable<PrivilegeEntity>> getPrivileges() {
 		return ResponseEntity.ok(privilegeRepo.findAll());
 	}
 
 	@PostMapping("/role/{name}")
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public ResponseEntity<Role> createRole(@PathVariable("name") String name) {
-		return ResponseEntity.ok(roleRepo.save(new Role().setName(name)));
+	public ResponseEntity<RoleEntity> createRole(@PathVariable("name") String name) {
+		return ResponseEntity.ok(roleRepo.save(new RoleEntity().setName(name)));
 	}
 
 	@DeleteMapping("/role/{name}")
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<Void> deleteRole(@PathVariable("name") String name) {
-		Role role = roleOrThrow(name);
+		RoleEntity role = roleOrThrow(name);
 		roleRepo.delete(role);
 		return ResponseEntity.ok().build();
 	}
 
 	@PostMapping("/role/{name}/{privilege}")
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public ResponseEntity<Role> addPrivilegeToRole(@PathVariable("name") String name,
+	public ResponseEntity<RoleEntity> addPrivilegeToRole(@PathVariable("name") String name,
 			@PathVariable("privilege") String privilege) {
-		Role role = roleOrThrow(name);
-		Privilege privilegeEntity = privilegeOrThrow(privilege);
+		RoleEntity role = roleOrThrow(name);
+		PrivilegeEntity privilegeEntity = privilegeOrThrow(privilege);
 		role.getPrivileges().add(privilegeEntity);
 		return ResponseEntity.ok(role);
 	}
 
 	@DeleteMapping("/role/{name}/{privilege}")
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public ResponseEntity<Role> removePrivilegeFromRole(@PathVariable("name") String name,
+	public ResponseEntity<RoleEntity> removePrivilegeFromRole(@PathVariable("name") String name,
 			@PathVariable("privilege") String privilege) {
-		Role role = roleOrThrow(name);
-		Privilege privilegeEntity = privilegeOrThrow(privilege);
+		RoleEntity role = roleOrThrow(name);
+		PrivilegeEntity privilegeEntity = privilegeOrThrow(privilege);
 		role.getPrivileges().remove(privilegeEntity);
 		return ResponseEntity.ok(role);
 	}
 	
-	private Role roleOrThrow(String name) {
+	private RoleEntity roleOrThrow(String name) {
 		return roleRepo.findByName(name).stream().findFirst().orElseThrow(
 				() -> Problem.builder().withDetail("role not found").withStatus(Status.BAD_REQUEST).build());
 	}
 
-	private Privilege privilegeOrThrow(String name) {
+	private PrivilegeEntity privilegeOrThrow(String name) {
 		return privilegeRepo.findByNameAndTenantId(name, TenantContext.getCurrentTenant()).stream().findFirst().orElseThrow(
 				() -> Problem.builder().withDetail("privilege not found").withStatus(Status.BAD_REQUEST).build());
 	}
