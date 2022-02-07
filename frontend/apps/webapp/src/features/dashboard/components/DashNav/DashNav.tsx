@@ -64,10 +64,6 @@ const DashNav = (props: OwnProps) => {
     appEvents.emit(CoreEvents.toggleKioskMode);
   };
 
-  // const onOpenSettings = () => {
-  //   setSearchParams({ editview: 'settings' });
-  // };
-
   const onDashboardNameClick = () => {
     setSearchParams({ open: 'true' });
   };
@@ -266,14 +262,12 @@ const DashNav = (props: OwnProps) => {
               title: props?.dashboard?.title ? props?.dashboard?.title : null
             }}
             onSubmit={async (values: any, { resetForm }) => {
-              // props.dashboard.title = values.title;
               dahsboardData.dashboard.title = values.title;
 
               dashboardService
                 .UpdateDashboards({
                   dashboard: dahsboardData.dashboard,
                   meta: dahsboardData.meta,
-                  // dashboard: values,
                   message: '',
                   overwrite: true,
                   folderId: null
