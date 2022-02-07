@@ -1,7 +1,7 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 
-import { TimeRangePicker } from '@savantly/sprout-ui';
+import { TimeRangePicker } from '@sprout-platform/ui';
 import { UseState } from '../../util/storybook/UseState';
 import { withCenteredStory } from '../../util/storybook/withCenteredStory';
 import { TimeFragment, dateTime } from '@savantly/sprout-api';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { boolean, text, select } from '@storybook/addon-knobs';
-import { Badge, BadgeColor } from '@savantly/sprout-ui';
+import { Badge, BadgeColor } from '@sprout-platform/ui';
 
 export default {
   title: 'Data Display/Badge',

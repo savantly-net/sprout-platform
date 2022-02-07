@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { boolean, number, text } from '@storybook/addon-knobs';
-import { Field, Input, Switch } from '@savantly/sprout-ui';
+import { Field, Input, Switch } from '@sprout-platform/ui';
 import mdx from './Field.mdx';
 
 export default {

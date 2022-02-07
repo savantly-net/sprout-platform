@@ -1,6 +1,6 @@
 import React from 'react';
 import { boolean } from '@storybook/addon-knobs';
-import { SeriesColorPicker, ColorPicker } from '@savantly/sprout-ui';
+import { SeriesColorPicker, ColorPicker } from '@sprout-platform/ui';
 import { action } from '@storybook/addon-actions';
 import { withCenteredStory } from '../../util/storybook/withCenteredStory';
 import { UseState } from '../../util/storybook/UseState';

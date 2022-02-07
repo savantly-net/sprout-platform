@@ -1,7 +1,7 @@
 import React from 'react';
 import { withCenteredStory, withHorizontallyCenteredStory } from '../../util/storybook/withCenteredStory';
 import { Layout } from './Layout';
-import { Button, VerticalGroup, HorizontalGroup } from '@savantly/sprout-ui';
+import { Button, VerticalGroup, HorizontalGroup } from '@sprout-platform/ui';
 import { withStoryContainer } from '../../util/storybook/withStoryContainer';
 import { select } from '@storybook/addon-knobs';
 import mdx from './Layout.mdx';

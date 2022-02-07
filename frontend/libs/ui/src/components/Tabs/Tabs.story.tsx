@@ -1,7 +1,7 @@
 import React from 'react';
 import { withCenteredStory } from '../../util/storybook/withCenteredStory';
 import { UseState } from '../../util/storybook/UseState';
-import { TabsBar, Tab, TabContent } from '@savantly/sprout-ui';
+import { TabsBar, Tab, TabContent } from '@sprout-platform/ui';
 
 export default {
   title: 'Layout/Tabs',

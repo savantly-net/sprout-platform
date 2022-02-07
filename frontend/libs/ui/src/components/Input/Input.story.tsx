@@ -4,7 +4,7 @@ import { withCenteredStory } from '../../util/storybook/withCenteredStory';
 import mdx from './Input.mdx';
 import { getAvailableIcons, IconName } from '../../types';
 import { KeyValue } from '@savantly/sprout-api';
-import { Field, Icon, Button, Input } from '@savantly/sprout-ui';
+import { Field, Icon, Button, Input } from '@sprout-platform/ui';
 
 export default {
   title: 'Forms/Input',

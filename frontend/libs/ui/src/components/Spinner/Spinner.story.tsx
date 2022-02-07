@@ -1,7 +1,7 @@
 import React from 'react';
 import { number, color } from '@storybook/addon-knobs';
 import { withCenteredStory } from '../../util/storybook/withCenteredStory';
-import { Spinner } from '@savantly/sprout-ui';
+import { Spinner } from '@sprout-platform/ui';
 import mdx from './Spinner.mdx';
 
 export default {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 
-import { TimeZonePicker } from '@savantly/sprout-ui';
+import { TimeZonePicker } from '@sprout-platform/ui';
 import { UseState } from '../../util/storybook/UseState';
 import { withCenteredStory } from '../../util/storybook/withCenteredStory';
 

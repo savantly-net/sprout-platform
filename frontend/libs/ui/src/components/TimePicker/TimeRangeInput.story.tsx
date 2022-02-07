@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 import { dateTime, TimeFragment } from '@savantly/sprout-api';
 import { withCenteredStory } from '../../util/storybook/withCenteredStory';
 import { UseState } from '../../util/storybook/UseState';
-import { TimeRangeInput } from '@savantly/sprout-ui';
+import { TimeRangeInput } from '@sprout-platform/ui';
 import mdx from './TimeRangeInput.mdx';
 
 export default {
