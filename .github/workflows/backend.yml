@@ -31,7 +31,7 @@ jobs:
       # Get repo metadata so we can use it in the build scripts
       - name: Repo metadata
         id: repo
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             const repo = await github.rest.repos.get({owner: context.repo.owner, repo: context.repo.repo})
