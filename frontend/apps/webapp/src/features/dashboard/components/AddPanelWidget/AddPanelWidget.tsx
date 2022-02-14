@@ -1,5 +1,7 @@
 // Libraries
+/* eslint-disable */
 import React, { useMemo } from 'react';
+/* eslint-enable */
 import _ from 'lodash';
 import { LocationUpdate, getLocationSrv } from '@savantly/sprout-runtime';
 import { Button, HorizontalGroup, IconButton, stylesFactory, useTheme } from '@savantly/sprout-ui';

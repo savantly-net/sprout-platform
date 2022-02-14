@@ -1,7 +1,9 @@
 import { NavModelItem } from '@savantly/sprout-api';
 import { Icon } from '@savantly/sprout-ui';
 import { css } from 'emotion';
+/* eslint-disable */
 import React, { PureComponent } from 'react';
+/* eslint-enable */
 import { CoreEvents } from '../../../types';
 import appEvents from '../../app_events';
 import { getFooterLinks } from '../Footer/Footer';

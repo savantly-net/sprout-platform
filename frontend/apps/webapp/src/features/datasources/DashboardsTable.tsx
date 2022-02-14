@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { FC } from 'react';
+/* eslint-enable */
 import { PluginDashboard } from '../../types';
 import { Icon } from '@savantly/sprout-ui';
 

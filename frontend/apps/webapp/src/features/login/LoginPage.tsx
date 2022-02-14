@@ -1,7 +1,9 @@
 import { Container } from '@savantly/sprout-ui';
 import { Form, FormField, OAuth2Login } from '@sprout-platform/ui';
 import { css, cx } from 'emotion';
+/* eslint-disable */
 import React, { Fragment, useMemo, useState } from 'react';
+/* eslint-enable */
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert, Row } from 'reactstrap';
 import { login, logout } from '../../core/reducers/authentication';
@@ -10,7 +12,6 @@ import { OAuthClientConfig, StoreState } from '../../types';
 
 export const LoginPage = ({ redirectUrl }: { redirectUrl?: string }) => {
   const redirectTo = redirectUrl || '/';
-  const once = true;
   const dispatch = useDispatch();
   const authentication = useSelector((store: StoreState) => store.authentication);
   const [oauthClients, setOauthClients] = useState(new Array<OAuthClientConfig>());
@@ -28,7 +29,7 @@ export const LoginPage = ({ redirectUrl }: { redirectUrl?: string }) => {
           setError(failed.message);
           dispatch(logout());
         }),
-    [once,dispatch]
+    [dispatch]
   );
 
   console.log(oauthClients);

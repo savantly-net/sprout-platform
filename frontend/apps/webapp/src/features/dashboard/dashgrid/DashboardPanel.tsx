@@ -1,7 +1,9 @@
 // Libraries
 import { PanelPlugin } from '@savantly/sprout-api';
 import classNames from 'classnames';
+/* eslint-disable */
 import React, { FC, useMemo } from 'react';
+/* eslint-enable */
 import { useDispatch, useSelector } from 'react-redux';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { LocationUpdateService } from '../../../core/services/locationSvc';

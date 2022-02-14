@@ -1,5 +1,7 @@
 import { ErrorBoundaryAlert } from '@savantly/sprout-ui';
+/* eslint-disable */
 import React, { createRef, useMemo } from 'react';
+/* eslint-enable */
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import App from './App';

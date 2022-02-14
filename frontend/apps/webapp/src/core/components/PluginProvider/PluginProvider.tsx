@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { useMemo } from 'react';
+/* eslint-enable */
 import { useDispatch, useSelector } from 'react-redux';
 import { loadPlugins } from '../../../features/plugins/state/actions';
 import { StoreState } from '../../../types';

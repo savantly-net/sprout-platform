@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { Component } from 'react'
+/* eslint-enable */
 
 export class Spinner extends Component {
   render() {

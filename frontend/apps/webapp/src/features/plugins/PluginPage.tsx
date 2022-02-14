@@ -18,7 +18,9 @@ import { Tooltip } from '@savantly/sprout-ui';
 import { Icon } from '@sprout-platform/ui';
 import { css } from 'emotion';
 import find from 'lodash/find';
+/* eslint-disable */
 import React, { ComponentProps, Fragment, useMemo, useState } from 'react';
+/* eslint-enable */
 import { connect } from 'react-redux';
 import { NavLink, Route, Routes, useParams, useSearchParams } from 'react-router-dom';
 import { Alert } from 'reactstrap';
@@ -103,7 +105,7 @@ const PluginPage = () => {
       setNav(nav);
       setLoading(false);
     }
-  }, [plugin, fetchingPlugin, q, setFetchingPlugin, setDefaultPage, setNav, setLoading]);
+  }, [plugin, fetchingPlugin, q,pluginId, setFetchingPlugin, setDefaultPage, setNav, setLoading,getQuery]);
 
   useMemo(() => {
     if (!!plugin) {
@@ -118,7 +120,7 @@ const PluginPage = () => {
         });
       }
     }
-  }, [plugin, q, nav, defaultPage, setNav]);
+  }, [plugin, q, nav, defaultPage, setNav,qPage]);
 
   const renderBody = () => {
     const query = getQuery();

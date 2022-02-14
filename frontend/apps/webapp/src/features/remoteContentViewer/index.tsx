@@ -5,7 +5,9 @@ import axios from 'axios';
 import { css } from 'emotion';
 import _ from 'lodash';
 import queryString from 'query-string';
+/* eslint-disable */
 import React, { useEffect, useState } from 'react';
+/* eslint-enable */
 import { useLocation, useParams } from 'react-router-dom';
 import { SERVER_API_URL } from '../../config/constants';
 

@@ -1,5 +1,7 @@
 import { StandardEditorProps } from '@savantly/sprout-api';
+/* eslint-disable */
 import React, { Fragment } from 'react';
+/* eslint-enable */
 import { Input } from 'reactstrap';
 import { useWidgetData } from '../api/widgetApi';
 import { WidgetPanelOptions } from '../types';

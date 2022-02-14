@@ -1,7 +1,9 @@
 import { PanelData, PanelPlugin } from "@savantly/sprout-api";
 import { config } from "@savantly/sprout-runtime";
 import classNames from "classnames";
+/* eslint-disable */
 import React from "react";
+/* eslint-enable */
 import { PANEL_BORDER } from "../../../core/constants";
 import { PanelModel } from "../state";
 

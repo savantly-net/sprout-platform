@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { FC } from 'react';
+/* eslint-enable */
 import { Icon, ModalsController } from '@savantly/sprout-ui';
 
 import { RowOptionsModal } from './RowOptionsModal';

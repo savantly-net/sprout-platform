@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { useState } from 'react';
+/* eslint-enable */
 import { internalMenuItemsStateType } from '../MenuAdminPage';
 import { MenuDto } from '../menuAdminService';
 import { DragDropContext } from 'react-beautiful-dnd';

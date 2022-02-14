@@ -2,7 +2,9 @@ import { StandardEditorProps } from '@savantly/sprout-api';
 import { Form, FormField, Icon } from '@sprout-platform/ui';
 import { css, cx } from 'emotion';
 import { Field, FieldArray } from 'formik';
+/* eslint-disable */
 import React, { Fragment, useState } from 'react';
+/* eslint-enable */
 import { Button, Col, Row } from 'reactstrap';
 import { QueryPanelOptions } from '../types';
 

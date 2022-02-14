@@ -1,6 +1,8 @@
 import { PanelPlugin } from '@savantly/sprout-api';
 import { Field, Input, Switch, TextArea } from '@savantly/sprout-ui';
+/* eslint-disable */
 import React, { FC, useRef } from 'react';
+/* eslint-enable */
 import { DashboardModel, PanelModel } from '../../state';
 import { OptionsGroup } from './OptionsGroup';
 import { PanelOptionsEditor } from './PanelOptionsEditor';

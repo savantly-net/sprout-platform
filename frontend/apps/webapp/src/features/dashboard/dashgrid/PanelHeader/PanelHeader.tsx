@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+/* eslint-disable */
 import classNames from 'classnames';
+/* eslint-enable */import React, { Component } from 'react';
 import { isEqual } from 'lodash';
 import { LoadingState, PanelData, PanelMenuItem } from '@savantly/sprout-api';
 import { ClickOutsideWrapper, Icon, Tooltip } from '@savantly/sprout-ui';

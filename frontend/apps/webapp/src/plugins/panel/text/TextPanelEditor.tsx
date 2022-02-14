@@ -2,7 +2,9 @@ import { GrafanaTheme, StandardEditorProps } from '@savantly/sprout-api';
 import { stylesFactory, useTheme } from '@savantly/sprout-ui';
 import { MarkdownEditor } from '@sprout-platform/ui';
 import { css, cx } from 'emotion';
+/* eslint-disable */
 import React, { FC } from 'react';
+/* eslint-enable */
 import { TextOptions } from './types';
 
 export const TextPanelEditor: FC<StandardEditorProps<string, any, TextOptions>> = ({ value, onChange, context }) => {

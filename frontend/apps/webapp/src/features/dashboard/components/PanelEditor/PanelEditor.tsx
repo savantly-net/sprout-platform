@@ -2,7 +2,9 @@ import { selectors } from '@grafana/e2e-selectors';
 import { GrafanaTheme, PanelPlugin } from '@savantly/sprout-api';
 import { Button, getTheme, HorizontalGroup, Icon, RadioButtonGroup, stylesFactory } from '@savantly/sprout-ui';
 import { css, cx } from 'emotion';
+/* eslint-disable */
 import React, { PureComponent } from 'react';
+/* eslint-enable */
 import { connect, MapDispatchToProps, MapStateToProps } from 'react-redux';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { BackButton } from '../../../../core/components/BackButton/BackButton';
@@ -23,7 +25,7 @@ import { calculatePanelSize } from './utils';
 
 const splitPane = require('react-split-pane');
 const SplitPane = splitPane.default;
-
+// eslint-disable-next-line
 enum Pane {
   Right,
   Top,

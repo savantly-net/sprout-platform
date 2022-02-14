@@ -1,6 +1,7 @@
 import { LoadingPlaceholder } from '@savantly/sprout-ui';
+/* eslint-disable */
 import React, { FC } from 'react';
-
+/* eslint-enable */
 interface Props {
   pageName?: string;
 }

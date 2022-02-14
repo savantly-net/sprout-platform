@@ -3,7 +3,9 @@ import { DeleteIcon, AddIcon, ChevronDownIcon, SettingsIcon, ChevronRightIcon, M
 import { Button, IconButton } from '@chakra-ui/react';
 import cx from 'classnames';
 import { Field, Form, Formik } from 'formik';
+/* eslint-disable */
 import React, { useState, useMemo } from 'react';
+/* eslint-enable */
 import { MenuDto } from '../../../menuAdminService';
 import { permissionService } from '../../../../permissions/permissionService';
 import './styles.scss';

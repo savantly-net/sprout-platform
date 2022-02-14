@@ -1,6 +1,8 @@
 import { Form } from '@sprout-platform/ui';
 import { Field, FormikHelpers } from 'formik';
+/* eslint-disable */
 import React, { useMemo, useState, useEffect } from 'react';
+/* eslint-enable */
 import { useSelector } from 'react-redux';
 import { Alert } from 'reactstrap';
 import Page from '../../core/components/Page/Page';

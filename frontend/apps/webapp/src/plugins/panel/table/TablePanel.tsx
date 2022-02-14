@@ -6,7 +6,9 @@ import axios from 'axios';
 import { css, cx } from 'emotion';
 import { Field, Formik, useField, useFormikContext } from 'formik';
 import { JSONPath } from 'jsonpath-plus';
+/* eslint-disable */
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
+/* eslint-enable */
 import BootstrapTable, { ColumnDescription } from 'react-bootstrap-table-next';
 import ToolkitProvider, { CSVExport } from 'react-bootstrap-table2-toolkit';
 import Datetime from 'react-datetime';

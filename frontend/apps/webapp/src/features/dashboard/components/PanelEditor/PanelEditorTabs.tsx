@@ -1,6 +1,8 @@
 import { IconName, stylesFactory, Tab, TabContent, TabsBar } from '@savantly/sprout-ui';
 import { css } from 'emotion';
+/* eslint-disable */
 import React from 'react';
+/* eslint-enable */
 import config from '../../../../core/config';
 import { DashboardModel } from '../../state';
 import { PanelModel } from '../../state/PanelModel';

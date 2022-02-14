@@ -1,7 +1,9 @@
 // Libraries
 // Types
 import { PanelPlugin, PanelPluginMeta, PanelProps, PluginType } from '@savantly/sprout-api';
+/* eslint-disable */
 import React, { PureComponent, ReactNode } from 'react';
+/* eslint-enable */
 import Alert from 'reactstrap/lib/Alert';
 
 interface Props {
@@ -10,9 +12,9 @@ interface Props {
 }
 
 class PanelPluginError extends PureComponent<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
+  // constructor(props: Props) {
+  //   super(props);
+  // }
 
   render() {
     const style = {

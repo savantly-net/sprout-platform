@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+/* eslint-disable */
+import React,{useState} from 'react';
+/* eslint-enable */
 import cx from 'classnames';
 import { isEmpty } from 'lodash';
 import { Droppable } from 'react-beautiful-dnd';

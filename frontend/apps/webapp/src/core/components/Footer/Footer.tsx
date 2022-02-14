@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { FC } from 'react';
+/* eslint-enable */
 import config from '../../config';
 import { Icon, IconName } from '@savantly/sprout-ui';
 

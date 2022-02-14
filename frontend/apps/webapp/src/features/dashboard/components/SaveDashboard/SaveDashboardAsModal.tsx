@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { useState } from 'react';
+/* eslint-enable */
 import { css } from 'emotion';
 import { Modal } from '@savantly/sprout-ui';
 import { SaveDashboardAsForm } from './forms/SaveDashboardAsForm';

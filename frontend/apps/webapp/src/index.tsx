@@ -4,7 +4,9 @@ import { getStandardOptionEditors } from '@savantly/sprout-ui';
 import { setChonkyDefaults } from 'chonky';
 import { ChonkyIconFA } from 'chonky-icon-fontawesome';
 import $ from 'jquery';
+/* eslint-disable */
 import React from 'react';
+/* eslint-enable */
 import 'react-datetime/css/react-datetime.css';
 import ReactDOM from 'react-dom';
 import 'react-mde/lib/styles/css/react-mde-all.css';

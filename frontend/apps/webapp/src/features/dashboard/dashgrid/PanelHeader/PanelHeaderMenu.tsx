@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { PureComponent } from 'react';
+/* eslint-enable */
 import { PanelHeaderMenuItem } from './PanelHeaderMenuItem';
 import { PanelMenuItem } from '@savantly/sprout-api';
 

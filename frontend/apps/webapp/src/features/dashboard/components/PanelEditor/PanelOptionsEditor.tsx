@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { useMemo } from 'react';
+/* eslint-enable */
 import {
   PanelOptionsEditorItem,
   PanelPlugin,

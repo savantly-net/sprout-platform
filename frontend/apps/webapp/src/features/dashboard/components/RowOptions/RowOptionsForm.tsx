@@ -1,5 +1,7 @@
 import { Button, Field, Form, HorizontalGroup, Input } from '@savantly/sprout-ui';
+/* eslint-disable */
 import React, { FC } from 'react';
+/* eslint-enable */
 
 export type OnRowOptionsUpdate = (title: string | null) => void;
 

@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { FC } from 'react';
+/* eslint-enable */
 import PluginListItem from './PluginListItem';
 import { PluginMeta } from '@savantly/sprout-api';
 

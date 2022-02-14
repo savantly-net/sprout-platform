@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React, { useEffect } from 'react';
+/* eslint-enable */
 import { Button, ConfirmModal, HorizontalGroup, Modal, stylesFactory, useTheme } from '@savantly/sprout-ui';
 import { GrafanaTheme } from '@savantly/sprout-api';
 import { css } from 'emotion';

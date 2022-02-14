@@ -3,7 +3,9 @@ import { PanelProps } from '@savantly/sprout-api';
 import { CustomScrollbar, stylesFactory } from '@savantly/sprout-ui';
 import { LoadingIcon, MarkdownViewer } from '@sprout-platform/ui';
 import { css, cx } from 'emotion';
+/* eslint-disable */
 import React from 'react';
+/* eslint-enable */
 import { useWidgetDataById } from './api/widgetApi';
 import { WidgetDataType, WidgetPanelOptions } from './types';
 

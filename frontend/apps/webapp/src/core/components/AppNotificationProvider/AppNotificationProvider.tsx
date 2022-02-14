@@ -1,7 +1,9 @@
 import { AppNotification, AppNotificationSeverity, eventNotification } from '@savantly/sprout-api';
 import { Icon, ThemeColor } from '@sprout-platform/ui';
 import { css, cx } from 'emotion';
+/* eslint-disable */
 import React, { FC, Fragment, useEffect, useMemo } from 'react';
+/* eslint-enable */
 import { useDispatch, useSelector } from 'react-redux';
 import { UncontrolledAlert } from 'reactstrap';
 import { useBus } from 'ts-bus/react';

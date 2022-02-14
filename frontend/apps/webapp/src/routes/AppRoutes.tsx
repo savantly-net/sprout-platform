@@ -1,5 +1,7 @@
 //import { LoginCallback } from '@okta/okta-react';
+/* eslint-disable */
 import React, { Suspense } from 'react';
+/* eslint-enable */
 import { connect, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import ErrorBoundary from '../core/components/error/error-boundary';

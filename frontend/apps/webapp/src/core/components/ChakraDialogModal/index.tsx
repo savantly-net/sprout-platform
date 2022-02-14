@@ -2,7 +2,9 @@
 // https://github.com/algm/reactstrap-confirm/blob/master/src/components/ConfirmModal.js
 
 import { Formik, FormikHelpers, FormikProps } from 'formik';
+/* eslint-disable */
 import React, { FunctionComponent, ComponentType, ReactElement, useState } from 'react';
+/* eslint-enable */
 import { render, unmountComponentAtNode } from 'react-dom';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import { Button, ChakraProvider } from '@chakra-ui/react';

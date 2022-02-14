@@ -1,5 +1,7 @@
 import { FieldProps } from 'formik';
+/* eslint-disable */
 import React from 'react';
+/* eslint-enable */
 import { Select } from '@chakra-ui/react';
 import { FormControl, FormLabel } from '@chakra-ui/react';
 

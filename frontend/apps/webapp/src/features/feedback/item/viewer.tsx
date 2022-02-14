@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React from 'react';
+/* eslint-enable */
 import { Card, CardBody } from 'reactstrap';
 import { Heading, Divider, Stack, Table, Thead, Tr, Tbody, Td, Th, Tag } from '@chakra-ui/react';
 import { IssueEntity as EntityClass } from '../entity';

@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React from 'react';
+/* eslint-enable */
 import { Button, ButtonVariant, ModalsController, FullWidthButtonContainer } from '@savantly/sprout-ui';
 import { DashboardModel } from '../../state';
 import { SaveDashboardAsModal } from './SaveDashboardAsModal';

@@ -4,7 +4,9 @@ import { CustomScrollbar } from '@savantly/sprout-ui';
 // Components
 import { PageHeader } from '@sprout-platform/ui';
 import { isEqual } from 'lodash';
+/* eslint-disable */
 import React, { Component } from 'react';
+/* eslint-enable */
 import { getTitleFromNavModel } from '../../selectors/navModel';
 import { Branding } from '../Branding/Branding';
 import ErrorBoundary from '../error/error-boundary';

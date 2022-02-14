@@ -3,7 +3,9 @@ import { selectors } from '@grafana/e2e-selectors';
 import { LoadingState, PanelData, PanelEvents, PanelPlugin, PanelPluginMeta } from '@savantly/sprout-api';
 import { ErrorBoundary } from '@savantly/sprout-ui';
 import classNames from 'classnames';
+/* eslint-disable */
 import React, { PureComponent } from 'react';
+/* eslint-enable */
 import { PrivateComponent } from '../../../core/components/PrivateComponent/PrivateComponent';
 import { LocationUpdateService } from '../../../core/services/locationSvc';
 // Types
