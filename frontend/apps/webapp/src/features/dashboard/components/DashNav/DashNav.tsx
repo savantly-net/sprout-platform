@@ -1,9 +1,9 @@
 // Libaries
 import { textUtil } from '@savantly/sprout-api';
-import { Icon, ModalsController } from '@savantly/sprout-ui';
+import { ModalsController } from '@savantly/sprout-ui';
 import { css } from 'emotion';
 /* eslint-disable */
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode, useState, useMemo } from 'react';
 /* eslint-enable */
 import { useSearchParams } from 'react-router-dom';
 // Utils & Services
@@ -16,6 +16,9 @@ import { DashboardModel } from '../../state';
 import { SaveDashboardModalProxy } from '../SaveDashboard/SaveDashboardModalProxy';
 // Components
 import { DashNavButton } from './DashNavButton';
+import { Modal, ModalBody, ModalHeader } from 'reactstrap';
+import { Form, Icon, FormField } from '@sprout-platform/ui';
+import { dashboardService } from '../../../../features/dashboard/services/dashboardService';
 
 export interface OwnProps {
   dashboard: DashboardModel;
@@ -62,10 +65,6 @@ const DashNav = (props: OwnProps) => {
 
   const onToggleTVMode = () => {
     appEvents.emit(CoreEvents.toggleKioskMode);
-  };
-
-  const onOpenSettings = () => {
-    setSearchParams({ editview: 'settings' });
   };
 
   const onDashboardNameClick = () => {
@@ -161,6 +160,20 @@ const DashNav = (props: OwnProps) => {
       </div>
     );
   };
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
+  const [dahsboardData, setDahsboardData] = useState<any>();
+
+  useMemo(() => {
+    dashboardService
+      .getDashboardByUid(props.dashboard.uid)
+      .then((response) => {
+        setDahsboardData(response?.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [dashboardService]);
 
   const renderRightActionsButton = () => {
     const { dashboard, onAddPanel } = props;
@@ -218,7 +231,9 @@ const DashNav = (props: OwnProps) => {
           tooltip="Dashboard settings"
           classSuffix="settings"
           icon="cog"
-          onClick={onOpenSettings}
+          onClick={() => {
+            toggle();
+          }}
           key="button-settings"
         />
       );
@@ -227,22 +242,61 @@ const DashNav = (props: OwnProps) => {
     addCustomContent(customRightActions, buttons);
     return buttons;
   };
-
   const { isFullscreen } = props;
 
   return (
-    <PrivateComponent hasAnyAuthority={['ADMIN', 'DASHBOARD_EDIT']}>
-      <div className="navbar">
-        {isFullscreen && renderBackButton()}
-        {renderDashboardTitleSearchButton()}
+    <>
+      <PrivateComponent hasAnyAuthority={['ADMIN', 'DASHBOARD_EDIT']}>
+        <div className="navbar">
+          {isFullscreen && renderBackButton()}
+          {renderDashboardTitleSearchButton()}
 
-        <div className="navbar-buttons navbar-buttons--actions">{renderRightActionsButton()}</div>
+          <div className="navbar-buttons navbar-buttons--actions">{renderRightActionsButton()}</div>
 
-        <div className="navbar-buttons navbar-buttons--tv">
-          <DashNavButton tooltip="Cycle view mode" classSuffix="tv" icon="monitor" onClick={onToggleTVMode} />
+          <div className="navbar-buttons navbar-buttons--tv">
+            <DashNavButton tooltip="Cycle view mode" classSuffix="tv" icon="monitor" onClick={onToggleTVMode} />
+          </div>
         </div>
-      </div>
-    </PrivateComponent>
+        <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader>{'Update Dashboard Name'}</ModalHeader>
+        <ModalBody>
+          <Form
+            initialValues={{
+              title: props?.dashboard?.title ? props?.dashboard?.title : null
+            }}
+            onSubmit={async (values: any, { resetForm }) => {
+              dahsboardData.dashboard.title = values.title;
+
+              dashboardService
+                .UpdateDashboards({
+                  dashboard: dahsboardData.dashboard,
+                  meta: dahsboardData.meta,
+                  message: '',
+                  overwrite: true,
+                  folderId: null
+                })
+                .then((response) => {
+                  console.log(response, 'responseresponse');
+                  resetForm();
+                  toggle();
+                  setModal(false);
+                });
+            }}
+            onCancel={toggle}
+          >
+            {({ values: any }) => (
+              <>
+                <FormField name="title" type="text" label="Title" />
+              </>
+            )}
+          </Form>
+        </ModalBody>
+      </Modal>
+      
+      </PrivateComponent>
+
+    
+    </>
   );
 };
 
