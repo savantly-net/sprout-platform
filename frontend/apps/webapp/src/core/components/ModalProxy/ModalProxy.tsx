@@ -1,4 +1,4 @@
-import { ConfirmModal, Modal } from '@savantly/sprout-ui';
+import { ConfirmModal ,ConfirmModals, Modal } from '@sprout-platform/ui';
 import React, { createRef, ReactElement, Ref } from 'react';
 import { CoreEvents } from '../../../types';
 import appEvents from '../../app_events';
@@ -74,7 +74,7 @@ export class ModalProxy extends React.Component<OwnProps, OwnState> {
       }
     };
     this.setState({
-      component: <ConfirmModal {...confirmModalProps} />
+      component: <ConfirmModals {...confirmModalProps} />
     });
   }
 

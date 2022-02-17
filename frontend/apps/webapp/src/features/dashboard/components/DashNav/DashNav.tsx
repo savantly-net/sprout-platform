@@ -1,8 +1,8 @@
 // Libaries
 import { textUtil } from '@savantly/sprout-api';
-import { ModalsController } from '@savantly/sprout-ui';
+// import { ModalsController } from '@savantly/sprout-ui';
 import { Icon } from '@sprout-platform/ui';
-// import {  ModalsController } from '@sprout-platform/ui';
+import {  ModalsController } from '@sprout-platform/ui';
 import { css } from 'emotion';
 import { exit } from 'process';
 import React, { FC, ReactNode } from 'react';
@@ -192,7 +192,8 @@ const DashNav = (props: OwnProps) => {
               classSuffix="save"
               icon="save"
               onClick={() => {
-                // toggle();
+                console.log(showModal, " showModalshowModal")
+                console.log(hideModal, " hideModalhideModal")
                 showModal(SaveDashboardModalProxy, {
                   dashboard,
                   onDismiss: hideModal
@@ -250,13 +251,6 @@ const DashNav = (props: OwnProps) => {
           <DashNavButton tooltip="Cycle view mode" classSuffix="tv" icon="desktop" onClick={onToggleTVMode} />
         </div>
       </div>
-      <Modal isOpen={modal} toggle={toggle}>
-            <ModalHeader>Create One</ModalHeader>
-            <ModalBody>
-               {/* <SaveDashboardModalProxy  {hideModal} /> */}
-            </ModalBody>
-          </Modal>
-
     </PrivateComponent>
   );
 };

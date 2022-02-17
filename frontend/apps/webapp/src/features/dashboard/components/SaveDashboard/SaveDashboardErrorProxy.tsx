@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Button, HorizontalGroup, Modal, stylesFactory, useTheme } from '@sprout-platform/ui';
-import { ConfirmModal } from '@savantly/sprout-ui';
+import { ConfirmModal ,ConfirmModals} from '@sprout-platform/ui';
 import { GrafanaTheme } from '@savantly/sprout-api';
 import { css } from 'emotion';
 import { DashboardModel } from '../../state';
@@ -34,7 +34,7 @@ export const SaveDashboardErrorProxy: React.FC<SaveDashboardErrorProxyProps> = (
   return (
     <>
       {error.data && error.data.status === 'version-mismatch' && (
-        <ConfirmModal
+        <ConfirmModals
           isOpen={true}
           title="Conflict"
           body={
@@ -51,7 +51,7 @@ export const SaveDashboardErrorProxy: React.FC<SaveDashboardErrorProxyProps> = (
         />
       )}
       {error.data && error.data.status === 'name-exists' && (
-        <ConfirmModal
+        <ConfirmModals
           isOpen={true}
           title="Conflict"
           body={

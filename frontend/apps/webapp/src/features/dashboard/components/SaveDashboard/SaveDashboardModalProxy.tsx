@@ -12,7 +12,6 @@ export const SaveDashboardModalProxy: React.FC<SaveDashboardModalProps> = ({ das
     onDismiss,
     onSaveSuccess,
   };
- console.log("Call popup open")
   return (
     <>
       {isChanged && !isProvisioned && <SaveDashboardModal {...modalProps} />}

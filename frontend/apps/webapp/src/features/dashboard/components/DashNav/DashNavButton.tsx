@@ -60,6 +60,7 @@ export const DashNavButton: FunctionComponent<Props> = ({
   return (
     <Tooltip content={tooltip} placement="bottom">
       {onClick ? (
+        <>
         <button
           className={`btn navbar-button navbar-button--${classSuffix}`}
           onClick={onClick}
@@ -68,6 +69,7 @@ export const DashNavButton: FunctionComponent<Props> = ({
           {icon && <Icon name={icon} type={iconType} size={'sm'} />}
           {children}
         </button>
+        </>
       ) : (
         <a className={`btn navbar-button navbar-button--${classSuffix}`} href={href}>
           {icon && <Icon name={icon} type={iconType} size="sm" />}
