@@ -60,6 +60,8 @@ export const LoginPage = ({ redirectUrl }: { redirectUrl?: string }) => {
       >
         <div className="card">
           <div className="card-header">Login</div>
+          {error && <Alert className={cx(css`margin: 10px 6px 0px 6px;`)} color="danger">{error}</Alert>}
+
           <div className="card-body">
             <Row
               className={cx(
@@ -74,6 +76,16 @@ export const LoginPage = ({ redirectUrl }: { redirectUrl?: string }) => {
                 initialValues={{
                   username: '',
                   password: ''
+                }}
+                validate={(values: any) => {
+                  const errors: any = {};
+                  if (!values.username) {
+                    errors.username = 'Username cannot be blank!';
+                  }  
+                  if (!values.password ) {
+                    errors.password = 'Password cannot be blank!';
+                  }
+                  return errors;
                 }}
                 onSubmit={(values, actions) => {
                   submitLogin(values).then(() => {
@@ -90,7 +102,6 @@ export const LoginPage = ({ redirectUrl }: { redirectUrl?: string }) => {
                   <FormField label="Password" name="password" type={'password'} />
                 </Fragment>
               </Form>
-              {error && <Alert color="danger">{error}</Alert>}
             </Row>
             <div
               className={cx(
