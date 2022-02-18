@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from 'emotion';
-import { IconButton } from '@savantly/sprout-ui';
+import { IconButton } from '@sprout-platform/ui';
 import { withCenteredStory } from '../../util/storybook/withCenteredStory';
 import { useTheme } from '../../themes/ThemeContext';
 import { GrafanaTheme } from '@savantly/sprout-api';

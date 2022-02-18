@@ -5,19 +5,20 @@ import { withStoryContainer } from '../../util/storybook/withStoryContainer';
 import mdx from './Form.mdx';
 import { ValidateResult } from 'react-hook-form';
 import { boolean } from '@storybook/addon-knobs';
+
 import {
+  Button,
+  Select,
   Field,
   Legend,
   Input,
-  Button,
-  Form,
+  Forms,
   Switch,
   Checkbox,
-  Select,
   InputControl,
   TextArea,
   RadioButtonGroup,
-} from '@savantly/sprout-ui';
+} from '@sprout-platform/ui';
 
 export default {
   title: 'Forms/Example forms',
@@ -59,7 +60,7 @@ interface FormDTO {
 }
 
 const renderForm = (defaultValues?: Partial<FormDTO>) => (
-  <Form
+  <Forms
     defaultValues={defaultValues}
     onSubmit={(data: FormDTO) => {
       console.log(data);
@@ -117,7 +118,7 @@ const renderForm = (defaultValues?: Partial<FormDTO>) => (
         </>
       )
     }
-  </Form>
+  </Forms>
 );
 
 export const basic = () => {
@@ -166,7 +167,7 @@ export const asyncValidation = () => {
   const passAsyncValidation = boolean('Pass username validation', true);
   return (
     <>
-      <Form
+      <Forms
         onSubmit={(data: FormDTO) => {
           alert('Submitted successfully!');
         }}
@@ -190,7 +191,7 @@ export const asyncValidation = () => {
             </>
           )
         }
-      </Form>
+      </Forms>
     </>
   );
 };

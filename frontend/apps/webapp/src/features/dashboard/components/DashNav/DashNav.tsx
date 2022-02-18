@@ -1,6 +1,5 @@
 // Libaries
 import { textUtil } from '@savantly/sprout-api';
-// import { ModalsController } from '@savantly/sprout-ui';
 import { Icon } from '@sprout-platform/ui';
 import {  ModalsController } from '@sprout-platform/ui';
 import { css } from 'emotion';
@@ -192,8 +191,6 @@ const DashNav = (props: OwnProps) => {
               classSuffix="save"
               icon="save"
               onClick={() => {
-                console.log(showModal, " showModalshowModal")
-                console.log(hideModal, " hideModalhideModal")
                 showModal(SaveDashboardModalProxy, {
                   dashboard,
                   onDismiss: hideModal

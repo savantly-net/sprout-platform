@@ -86,6 +86,8 @@ export { Legend } from './Forms/Legend';
 export { FadeTransition } from './transitions/FadeTransition';
 export { SlideOutTransition } from './transitions/SlideOutTransition';
 export { ConfirmModals } from './ConfirmModals/ConfirmModals';
+export { Forms } from './Forms/Form';
 
+export { InputControl } from './InputControl';
 
 

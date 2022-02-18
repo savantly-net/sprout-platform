@@ -10,7 +10,7 @@ Form component provides a way to build simple forms at Grafana. It is built on t
 ## Usage
 
 ```jsx
-import { Forms } from '@savantly/sprout-ui';
+import { Forms } from '@sprout-platform/ui';
 
 interface UserDTO {
   name: string;
@@ -81,10 +81,10 @@ There are some components like `RadioButton` or `Select` that are controlled-onl
 them work with the form, you need to render those using `InputControl` component:
 
 ```jsx
-import { Form, Field, InputControl } from '@savantly/sprout-ui';
+import { Forms, Field, InputControl } from '@sprout-platform/ui';
 
 // render function
-<Form ...>{({register, errors, control}) => (
+<Forms ...>{({register, errors, control}) => (
   <>
     <Field label="RadioButtonExample">
       <InputControl
@@ -109,7 +109,7 @@ import { Form, Field, InputControl } from '@savantly/sprout-ui';
     </Field>
   </>
 )}
-</Form>
+</Forms>
 ```
 
 Note that when using `InputControl`, it expects the name of the prop that handles input change to be called `onChange`.

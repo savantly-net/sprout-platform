@@ -1,6 +1,6 @@
 import React from 'react';
 import { withCenteredStory } from '../../util/storybook/withCenteredStory';
-import { Input, Form, FieldSet, Field } from '@savantly/sprout-ui';
+import { Input, Forms, FieldSet, Field } from '@sprout-platform/ui';
 import mdx from './FieldSet.mdx';
 import { Button } from '../Button';
 
@@ -17,7 +17,7 @@ export default {
 
 export const basic = () => {
   return (
-    <Form onSubmit={() => console.log('Submit')}>
+    <Forms onSubmit={() => console.log('Submit')}>
       {() => (
         <>
           <FieldSet label="Details">
@@ -40,6 +40,6 @@ export const basic = () => {
           <Button variant="primary">Save</Button>
         </>
       )}
-    </Form>
+    </Forms>
   );
 };

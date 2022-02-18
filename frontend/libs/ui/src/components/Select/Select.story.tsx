@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { withCenteredStory, withHorizontallyCenteredStory } from '../../util/storybook/withCenteredStory';
 import { SelectableValue } from '@savantly/sprout-api';
-import { Icon, Button, ButtonSelect, Select, AsyncSelect, MultiSelect, AsyncMultiSelect } from '@savantly/sprout-ui';
+import { Icon, Button, ButtonSelect, Select, AsyncSelect, MultiSelect, AsyncMultiSelect } from '@sprout-platform/ui';
 import { getAvailableIcons, IconName } from '../../types';
 import { select, boolean, number } from '@storybook/addon-knobs';
 import { getIconKnob } from '../../util/storybook/knobs';

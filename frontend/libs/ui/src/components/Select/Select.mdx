@@ -67,7 +67,7 @@ Like regular Select, but handles fetching options asynchronously. Use the `loadO
 
 ```jsx
 
-import { AsyncSelect } from '@savantly/sprout-ui';
+import { AsyncSelect } from '@sprout-platform/ui';
 
 const basicSelectAsync = () => {
   const [value, setValue] = useState<SelectableValue<string>>();
@@ -103,7 +103,7 @@ const loadAsyncOptions = () => {
 Possible to Select multiple values at the same time.
 
 ```tsx
-import { MultiSelect } from "@savantly/sprout-ui";
+import { MultiSelect } from "@sprout-platform/ui";
 
 const multiSelect = () => {
   const [value, setValue] = useState<Array<SelectableValue<string>>>([]);

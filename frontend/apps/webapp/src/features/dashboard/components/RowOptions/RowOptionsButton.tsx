@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ModalsController } from '@savantly/sprout-ui';
+import { ModalsController } from '@sprout-platform/ui';
 import { Icon } from '@sprout-platform/ui';
 import { RowOptionsModal } from './RowOptionsModal';
 import { OnRowOptionsUpdate } from './RowOptionsForm';

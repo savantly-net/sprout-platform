@@ -1,6 +1,5 @@
-import {  Form } from '@savantly/sprout-ui';
-// import { Form, FormField, HorizontalGroup } from '@sprout-platform/ui';
-import {  FormField, HorizontalGroup } from '@sprout-platform/ui';
+// import {  Form } from '@savantly/sprout-ui';
+import { Forms, FormField, HorizontalGroup } from '@sprout-platform/ui';
 import { Button } from '@chakra-ui/react';
 import React, { FC, Fragment } from 'react';
 
@@ -36,7 +35,7 @@ export const RowOptionsForm: FC<Props> = ({ repeat, title, onUpdate, onCancel })
         </Fragment>
       </Form> */}
 
-      <Form
+      <Forms
        defaultValues={{ title }}
        onSubmit={(formData: { title: string | null }) => {
          onUpdate(formData.title);
@@ -53,7 +52,7 @@ export const RowOptionsForm: FC<Props> = ({ repeat, title, onUpdate, onCancel })
            </HorizontalGroup>
          </>
        )}
-    </Form>
+    </Forms>
     </>
   );
 };

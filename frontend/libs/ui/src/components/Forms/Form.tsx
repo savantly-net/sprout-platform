@@ -14,7 +14,7 @@ interface FormProps<T> extends Omit<HTMLProps<HTMLFormElement>, 'onSubmit'> {
   maxWidth?: number;
 }
 
-export function Form<T>({
+export function Forms<T>({
   defaultValues,
   onSubmit,
   validateOnMount = false,

@@ -4,7 +4,6 @@ import { text, boolean } from '@storybook/addon-knobs';
 import { withCenteredStory } from '../../util/storybook/withCenteredStory';
 import { UseState } from '../../util/storybook/UseState';
 import { Modal, Icon, TabContent, ModalTabsHeader } from '@sprout-platform/ui';
-// import { Modal, Icon, TabContent, ModalTabsHeader } from '@savantly/sprout-ui';
 import mdx from './Modal.mdx';
 
 const getKnobs = () => {
