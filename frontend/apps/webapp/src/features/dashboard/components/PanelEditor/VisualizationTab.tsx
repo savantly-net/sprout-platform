@@ -1,5 +1,4 @@
-import { Icon, Input, stylesFactory, useTheme } from '@savantly/sprout-ui';
-import { Field } from '@savantly/sprout-ui';
+import { Field, Icon,Input, stylesFactory, useTheme } from '@sprout-platform/ui';
 import { GrafanaTheme, PanelPlugin, PanelPluginMeta } from '@savantly/sprout-api';
 import { css } from 'emotion';
 import React, { useCallback, useState } from 'react';
@@ -52,7 +51,7 @@ export const VisualizationTabUnconnected = React.forwardRef<HTMLInputElement, Pr
           }
         }
       },
-      [onPluginTypeChange,plugin]
+      [onPluginTypeChange, plugin]
     );
 
     const suffix =
@@ -66,9 +65,10 @@ export const VisualizationTabUnconnected = React.forwardRef<HTMLInputElement, Pr
     return (
       <div className={styles.wrapper}>
         <Field>
-          <Input css={null}
+          <Input
+            css={null}
             value={searchQuery}
-            onChange={e => setSearchQuery(e.currentTarget.value)}
+            onChange={(e) => setSearchQuery(e.currentTarget.value)}
             onKeyPress={onKeyPress}
             prefix={<Icon name="filter" className={styles.icon} />}
             suffix={suffix}
@@ -99,13 +99,13 @@ const getStyles = stylesFactory((theme: GrafanaTheme) => {
     searchClear: css`
       color: ${theme.palette.gray60};
       cursor: pointer;
-    `,
+    `
   };
 });
 
 const mapStateToProps: MapStateToProps<ConnectedProps, OwnProps, StoreState> = (state, props) => {
   return {
-    plugin: state.plugins.panels[props.panel.type],
+    plugin: state.plugins.panels[props.panel.type]
   };
 };
 

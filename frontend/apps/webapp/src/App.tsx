@@ -1,5 +1,4 @@
-import { ModalRoot, ModalsProvider, Spinner } from '@savantly/sprout-ui';
-import { confirm } from '@sprout-platform/ui';
+import { confirm, Spinner ,ModalRoot, ModalsProvider} from '@sprout-platform/ui';
 import { ChakraProvider } from '@chakra-ui/react';
 import { uniqueId } from 'lodash';
 import React from 'react';

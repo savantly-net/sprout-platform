@@ -1,5 +1,5 @@
 import { NavModelItem } from '@savantly/sprout-api';
-import { Icon } from '@savantly/sprout-ui';
+import { Icon } from '@sprout-platform/ui';
 import { css } from 'emotion';
 import React, { PureComponent } from 'react';
 import { CoreEvents } from '../../../types';
@@ -19,7 +19,7 @@ export default class BottomNavLinks extends PureComponent<Props> {
 
   getIcon = (icon: any, className?: string) => {
     if (typeof icon == 'string') {
-      return <Icon name={icon || ('cube' as any)} size="xl" className={className} />;
+      return <Icon name={icon || ('cube' as any)} size="1x" className={className} />;
     } else {
       return icon || ('cube' as any);
     }

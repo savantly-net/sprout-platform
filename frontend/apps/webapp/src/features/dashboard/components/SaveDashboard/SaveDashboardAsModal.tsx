@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { css } from 'emotion';
-import { Modal } from '@savantly/sprout-ui';
+import { Modal } from '@sprout-platform/ui';
 import { SaveDashboardAsForm } from './forms/SaveDashboardAsForm';
 import { SaveDashboardErrorProxy } from './SaveDashboardErrorProxy';
 import { useDashboardSave } from './useDashboardSave';
@@ -24,7 +24,7 @@ export const SaveDashboardAsModal: React.FC<SaveDashboardModalProps & {
       {!state.error && (
         <Modal
           isOpen={true}
-          title="Save dashboard as..."
+          title="Save dashboard as"
           icon="copy"
           onDismiss={onDismiss}
           className={css`

@@ -2,7 +2,8 @@
 import React, { FunctionComponent } from 'react';
 import { css } from 'emotion';
 // Components
-import { Tooltip, Icon, IconName, IconType, IconSize, IconButton, useTheme, stylesFactory } from '@savantly/sprout-ui';
+import { Tooltip, useTheme, Icon, stylesFactory,IconType, IconName,IconSize, IconButton } from '@sprout-platform/ui';
+
 import { selectors } from '@grafana/e2e-selectors';
 import { GrafanaTheme } from '@savantly/sprout-api';
 
@@ -22,7 +23,7 @@ const getStyles = stylesFactory((theme: GrafanaTheme) => ({
   noBorderContainer: css`
     padding: 0 ${theme.spacing.xs};
     display: flex;
-  `,
+  `
 }));
 
 export const DashNavButton: FunctionComponent<Props> = ({
@@ -34,7 +35,7 @@ export const DashNavButton: FunctionComponent<Props> = ({
   onClick,
   href,
   children,
-  noBorder,
+  noBorder
 }) => {
   const theme = useTheme();
   const styles = getStyles(theme);
@@ -59,17 +60,19 @@ export const DashNavButton: FunctionComponent<Props> = ({
   return (
     <Tooltip content={tooltip} placement="bottom">
       {onClick ? (
+        <>
         <button
           className={`btn navbar-button navbar-button--${classSuffix}`}
           onClick={onClick}
           aria-label={selectors.pages.Dashboard.Toolbar.toolbarItems(tooltip)}
         >
-          {icon && <Icon name={icon} type={iconType} size={iconSize || 'lg'} />}
+          {icon && <Icon name={icon} type={iconType} size={'sm'} />}
           {children}
         </button>
+        </>
       ) : (
         <a className={`btn navbar-button navbar-button--${classSuffix}`} href={href}>
-          {icon && <Icon name={icon} type={iconType} size="lg" />}
+          {icon && <Icon name={icon} type={iconType} size="sm" />}
           {children}
         </a>
       )}

@@ -1,5 +1,8 @@
 import React from 'react';
-import { Button, ButtonVariant, ModalsController, FullWidthButtonContainer } from '@savantly/sprout-ui';
+import { FullWidthButtonContainer } from '@sprout-platform/ui';
+import {  Button,ButtonVariant, ModalsController } from '@sprout-platform/ui';
+// import { Button } from '@chakra-ui/react';
+
 import { DashboardModel } from '../../state';
 import { SaveDashboardAsModal } from './SaveDashboardAsModal';
 import { SaveDashboardModalProxy } from './SaveDashboardModalProxy';

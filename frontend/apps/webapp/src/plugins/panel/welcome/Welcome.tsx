@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { css } from 'emotion';
 import { GrafanaTheme } from '@savantly/sprout-api';
-import { stylesFactory, useTheme } from '@savantly/sprout-ui';
+import { stylesFactory, useTheme } from '@sprout-platform/ui';
 import lightBackground from './img/background_light.svg';
 
 const helpOptions = [

@@ -1,4 +1,4 @@
-import { IconName, stylesFactory, Tab, TabContent, TabsBar } from '@savantly/sprout-ui';
+import { IconName, stylesFactory, Tab, TabContent, TabsBar } from '@sprout-platform/ui';
 import { css } from 'emotion';
 import React from 'react';
 import config from '../../../../core/config';
@@ -15,7 +15,6 @@ interface PanelEditorTabsProps {
 
 export const PanelEditorTabs: React.FC<PanelEditorTabsProps> = ({ panel, dashboard, tabs, onChangeTab }) => {
   const styles = getPanelEditorTabsStyles();
-
   if (tabs.length === 0) {
     return null;
   }

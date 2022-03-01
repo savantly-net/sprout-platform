@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge, BadgeProps } from '@savantly/sprout-ui';
+import { Badge, BadgeProps } from '@sprout-platform/ui';
 import { PluginSignatureStatus } from '@savantly/sprout-api';
 
 interface Props {

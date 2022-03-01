@@ -14,7 +14,7 @@ import {
   SproutPlugin,
   UrlQueryMap
 } from '@savantly/sprout-api';
-import { Tooltip } from '@savantly/sprout-ui';
+import { Tooltip } from '@sprout-platform/ui';
 import { Icon } from '@sprout-platform/ui';
 import { css } from 'emotion';
 import find from 'lodash/find';

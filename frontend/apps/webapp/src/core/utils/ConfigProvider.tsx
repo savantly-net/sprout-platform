@@ -1,6 +1,6 @@
 import React from 'react';
 import { config, SproutBootConfig } from '@savantly/sprout-runtime';
-import { ThemeContext, getTheme } from '@savantly/sprout-ui';
+import { ThemeContext, getTheme } from '@sprout-platform/ui';
 import { GrafanaThemeType } from '@savantly/sprout-api';
 
 export const ConfigContext = React.createContext<SproutBootConfig>(config);

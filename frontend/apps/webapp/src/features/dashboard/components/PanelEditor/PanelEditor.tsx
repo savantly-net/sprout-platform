@@ -1,7 +1,8 @@
 import { selectors } from '@grafana/e2e-selectors';
 import { GrafanaTheme, PanelPlugin } from '@savantly/sprout-api';
-import { Button, getTheme, HorizontalGroup, Icon, RadioButtonGroup, stylesFactory } from '@savantly/sprout-ui';
+import { getTheme,Button, HorizontalGroup, Icon, RadioButtonGroup, stylesFactory } from '@sprout-platform/ui';
 import { css, cx } from 'emotion';
+// import { Button } from '@chakra-ui/react';
 import React, { PureComponent } from 'react';
 import { connect, MapDispatchToProps, MapStateToProps } from 'react-redux';
 import AutoSizer from 'react-virtualized-auto-sizer';
@@ -240,10 +241,14 @@ export class PanelEditorUnconnected extends PureComponent<Props> {
                 variant="secondary"
                 title="Open dashboard settings"
               />
-              <Button onClick={this.onDiscard} variant="secondary" title="Undo all changes">
+              <Button onClick={this.onDiscard} 
+              variant="secondary" 
+              title="Undo all changes">
                 Discard
               </Button>
-              <Button onClick={this.onSaveDashboard} variant="secondary" title="Apply changes and save dashboard">
+              <Button onClick={this.onSaveDashboard} 
+              variant="secondary"
+               title="Apply changes and save dashboard">
                 Save
               </Button>
               <Button onClick={this.onPanelExit} title="Apply changes and go back to dashboard">

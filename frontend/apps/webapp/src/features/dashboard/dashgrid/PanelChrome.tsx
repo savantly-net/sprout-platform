@@ -1,7 +1,7 @@
 // Libraries
 import { selectors } from '@grafana/e2e-selectors';
 import { LoadingState, PanelData, PanelEvents, PanelPlugin, PanelPluginMeta } from '@savantly/sprout-api';
-import { ErrorBoundary } from '@savantly/sprout-ui';
+import { ErrorBoundary } from '@sprout-platform/ui';
 import classNames from 'classnames';
 import React, { PureComponent } from 'react';
 import { PrivateComponent } from '../../../core/components/PrivateComponent/PrivateComponent';

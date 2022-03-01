@@ -1,8 +1,10 @@
 // Libaries
 import { textUtil } from '@savantly/sprout-api';
-import { ModalsController } from '@savantly/sprout-ui';
+import { exit } from 'process';
+// import { ModalsController } from '@savantly/sprout-ui';
 import { css } from 'emotion';
 import React, { FC, ReactNode, useState, useMemo } from 'react';
+
 import { useSearchParams } from 'react-router-dom';
 // Utils & Services
 import { appEvents } from '../../../../core/app_events';
@@ -15,7 +17,7 @@ import { SaveDashboardModalProxy } from '../SaveDashboard/SaveDashboardModalProx
 // Components
 import { DashNavButton } from './DashNavButton';
 import { Modal, ModalBody, ModalHeader } from 'reactstrap';
-import { Form, Icon, FormField } from '@sprout-platform/ui';
+import { Form, Icon, ModalsController, FormField } from '@sprout-platform/ui';
 import { dashboardService } from '../../../../features/dashboard/services/dashboardService';
 
 export interface OwnProps {
@@ -187,7 +189,7 @@ const DashNav = (props: OwnProps) => {
           icon="panel-add"
           onClick={onAddPanel}
           iconType="mono"
-          iconSize="xl"
+          iconSize="3x"
           key="button-panel-add"
         />
       );
@@ -195,7 +197,7 @@ const DashNav = (props: OwnProps) => {
         <ModalsController key="button-save">
           {({ showModal, hideModal }: { showModal: Function; hideModal: Function }) => (
             <DashNavButton
-              tooltip="Save dashboard"
+              tooltip="Save dashboard!"
               classSuffix="save"
               icon="save"
               onClick={() => {
@@ -240,7 +242,7 @@ const DashNav = (props: OwnProps) => {
     return buttons;
   };
   const { isFullscreen } = props;
-
+ 
   return (
     <>
       <PrivateComponent hasAnyAuthority={['ADMIN', 'DASHBOARD_EDIT']}>
@@ -251,48 +253,48 @@ const DashNav = (props: OwnProps) => {
           <div className="navbar-buttons navbar-buttons--actions">{renderRightActionsButton()}</div>
 
           <div className="navbar-buttons navbar-buttons--tv">
-            <DashNavButton tooltip="Cycle view mode" classSuffix="tv" icon="monitor" onClick={onToggleTVMode} />
+            <DashNavButton tooltip="Cycle view mode" classSuffix="tv" icon="desktop" onClick={onToggleTVMode} />
+            <div className="navbar-buttons navbar-buttons--tv">
+              <DashNavButton tooltip="Cycle view mode" classSuffix="tv" icon="monitor" onClick={onToggleTVMode} />
+            </div>
           </div>
+          <Modal isOpen={modal} toggle={toggle}>
+            <ModalHeader>{'Update Dashboard Name'}</ModalHeader>
+            <ModalBody>
+              <Form
+                initialValues={{
+                  title: props?.dashboard?.title ? props?.dashboard?.title : null
+                }}
+                onSubmit={async (values: any, { resetForm }) => {
+                  dahsboardData.dashboard.title = values.title;
+
+                  dashboardService
+                    .UpdateDashboards({
+                      dashboard: dahsboardData.dashboard,
+                      meta: dahsboardData.meta,
+                      message: '',
+                      overwrite: true,
+                      folderId: null
+                    })
+                    .then((response) => {
+                      console.log(response, 'responseresponse');
+                      resetForm();
+                      toggle();
+                      setModal(false);
+                    });
+                }}
+                onCancel={toggle}
+              >
+                {({ values: any }) => (
+                  <>
+                    <FormField name="title" type="text" />
+                  </>
+                )}
+              </Form>
+            </ModalBody>
+          </Modal>
         </div>
-        <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader>{'Update Dashboard Name'}</ModalHeader>
-        <ModalBody>
-          <Form
-            initialValues={{
-              title: props?.dashboard?.title ? props?.dashboard?.title : null
-            }}
-            onSubmit={async (values: any, { resetForm }) => {
-              dahsboardData.dashboard.title = values.title;
-
-              dashboardService
-                .UpdateDashboards({
-                  dashboard: dahsboardData.dashboard,
-                  meta: dahsboardData.meta,
-                  message: '',
-                  overwrite: true,
-                  folderId: null
-                })
-                .then((response) => {
-                  console.log(response, 'responseresponse');
-                  resetForm();
-                  toggle();
-                  setModal(false);
-                });
-            }}
-            onCancel={toggle}
-          >
-            {({ values: any }) => (
-              <>
-                <FormField name="title" type="text" label="Title" />
-              </>
-            )}
-          </Form>
-        </ModalBody>
-      </Modal>
-      
       </PrivateComponent>
-
-    
     </>
   );
 };

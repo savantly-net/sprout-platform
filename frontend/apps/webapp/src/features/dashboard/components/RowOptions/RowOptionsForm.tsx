@@ -1,5 +1,7 @@
-import { Button, Field, Form, HorizontalGroup, Input } from '@savantly/sprout-ui';
-import React, { FC } from 'react';
+// import {  Form } from '@savantly/sprout-ui';
+import { Forms, FormField, HorizontalGroup } from '@sprout-platform/ui';
+import { Button } from '@chakra-ui/react';
+import React, { FC, Fragment } from 'react';
 
 export type OnRowOptionsUpdate = (title: string | null) => void;
 
@@ -11,27 +13,46 @@ export interface Props {
 }
 
 export const RowOptionsForm: FC<Props> = ({ repeat, title, onUpdate, onCancel }) => {
-
   return (
-    <Form
-      defaultValues={{ title }}
-      onSubmit={(formData: { title: string | null }) => {
-        onUpdate(formData.title);
-      }}
-    >
-      {({ register }) => (
-        <>
-          <Field label="Title">
-            <Input css={null} name="title" ref={register} type="text" />
-          </Field>
-          <HorizontalGroup>
-            <Button type="submit">Update</Button>
-            <Button variant="secondary" onClick={onCancel}>
-              Cancel
-            </Button>
-          </HorizontalGroup>
-        </>
-      )}
-    </Form>
+    <>
+      {/* <Form
+        cancelText="Cancel"
+        initialValues={{
+          title: '',
+          repeat: '',
+        }}
+        onCancel={onCancel}
+        onSubmit={(formData: { title: string | null }) => {
+          onUpdate(formData.title);
+        }}
+        showButtonsOnTop={false}
+        showCancelButton={false}
+        showSubmitButton
+        submitText="Save"
+      >
+        <Fragment>
+          <FormField label="Title" css={null} name="title" type="text" />
+        </Fragment>
+      </Form> */}
+
+      <Forms
+       defaultValues={{ title }}
+       onSubmit={(formData: { title: string | null }) => {
+         onUpdate(formData.title);
+       }}
+     >
+       {({ register }) => (
+         <>
+           <FormField label="Title" css={null} name="title" ref={register} type="text" />
+           <HorizontalGroup>
+             <Button type="submit">Update</Button>
+             <Button variant="secondary" onClick={onCancel}>
+               Cancel
+             </Button>
+           </HorizontalGroup>
+         </>
+       )}
+    </Forms>
+    </>
   );
 };

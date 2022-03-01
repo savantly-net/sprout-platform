@@ -4,3 +4,6 @@ export * from './entity';
 export * from './icon';
 export * from './size';
 export * from './storybook';
+export * from './theme';
+export * from './forms';
+export * from './completion';

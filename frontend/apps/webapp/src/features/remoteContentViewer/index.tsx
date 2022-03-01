@@ -1,6 +1,5 @@
 import { publishErrorNotification } from '@savantly/sprout-api';
-import { Alert } from '@savantly/sprout-ui';
-import { LoadingIcon, MarkdownViewer } from '@sprout-platform/ui';
+import { LoadingIcon, MarkdownViewer ,Alert} from '@sprout-platform/ui';
 import axios from 'axios';
 import { css } from 'emotion';
 import _ from 'lodash';

@@ -1,5 +1,5 @@
 import { selectors } from '@grafana/e2e-selectors';
-import { CustomScrollbar, Icon, Input, Select, stylesFactory, Tab, TabContent, TabsBar, useTheme } from '@savantly/sprout-ui';
+import { Select,CustomScrollbar, Icon, Input, stylesFactory, Tab, TabsBar, useTheme, TabContent } from '@sprout-platform/ui';
 import { GrafanaTheme, PanelPlugin, SelectableValue } from '@savantly/sprout-api';
 import { css } from 'emotion';
 import React, { CSSProperties, useState } from 'react';
@@ -25,7 +25,7 @@ export const OptionsPaneContent: React.FC<Props> = ({
   onPanelOptionsChanged,
   onPanelConfigChange,
   onClose,
-  dashboard,
+  dashboard
 }: Props) => {
   const theme = useTheme();
   const styles = getStyles(theme);
@@ -82,21 +82,20 @@ export const TabsBarContent: React.FC<{
   setActiveTab: (tab: string) => void;
   panel: PanelModel;
 }> = ({ width, plugin, isSearching, activeTab, onClose, setSearchMode, setActiveTab, styles, panel }) => {
-
   if (isSearching) {
     const defaultStyles = {
       transition: 'width 50ms ease-in-out',
       width: '50%',
-      display: 'flex',
+      display: 'flex'
     };
 
     const transitionStyles: { [str: string]: CSSProperties } = {
-      entered: { width: '100%' },
+      entered: { width: '100%' }
     };
 
     return (
       <Transition in={true} timeout={0} appear={true}>
-        {state => {
+        {(state) => {
           return (
             <div className={styles.searchWrapper}>
               <div style={{ ...defaultStyles, ...transitionStyles[state] }}>
@@ -105,7 +104,7 @@ export const TabsBarContent: React.FC<{
                   className={styles.searchInput}
                   type="text"
                   prefix={<Icon name="search" />}
-                  ref={elem => elem && elem.focus()}
+                  ref={(elem) => elem && elem.focus()}
                   placeholder="Search all options"
                   suffix={
                     <Icon name="times" onClick={() => setSearchMode(false)} className={styles.searchRemoveIcon} />
@@ -121,7 +120,7 @@ export const TabsBarContent: React.FC<{
 
   // Show the appropriate tabs
   let tabs = tabSelections;
-  let active = tabs.find(v => v.value === activeTab)!;
+  let active = tabs.find((v) => v.value === activeTab)!;
 
   active = tabSelections[0];
   tabs = [active];
@@ -133,14 +132,14 @@ export const TabsBarContent: React.FC<{
           <Select
             options={tabs}
             value={active}
-            onChange={v => {
+            onChange={(v) => {
               setActiveTab(v.value!);
             }}
           />
         </div>
       ) : (
         <>
-          {tabs.map(item => (
+          {tabs.map((item) => (
             <Tab
               css={null}
               key={item.value}
@@ -171,18 +170,18 @@ const tabSelections: Array<SelectableValue<string>> = [
   {
     label: 'Panel',
     value: 'options',
-    tooltip: 'Configure panel display options',
+    tooltip: 'Configure panel display options'
   },
   {
     label: 'Field',
     value: 'defaults',
-    tooltip: 'Configure field options',
+    tooltip: 'Configure field options'
   },
   {
     label: 'Overrides',
     value: 'overrides',
-    tooltip: 'Configure field option overrides',
-  },
+    tooltip: 'Configure field option overrides'
+  }
 ];
 
 const getStyles = stylesFactory((theme: GrafanaTheme) => {
@@ -243,8 +242,6 @@ const getStyles = stylesFactory((theme: GrafanaTheme) => {
           margin-top: 0;
         }
       }
-    `,
+    `
   };
 });
-
-
