@@ -9,4 +9,4 @@ cd $DIR/..
 
 cd ./backend/server
 
-docker build -t $REPO_URL .
+docker buildx build --platform linux/arm64,linux/amd64  -t $REPO_URL .

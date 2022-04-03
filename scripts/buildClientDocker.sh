@@ -6,4 +6,4 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd $DIR/../frontend/
 
-docker build -t $REPO_URL .
+docker buildx build --platform linux/arm64,linux/amd64 -t $REPO_URL .
