@@ -91,7 +91,7 @@ public class S3FileProvider implements FileProvider {
 	}
 
 	private ListObjectsV2Response listObjectsByPath(String path) {
-		log.info("listing s3 objects by path");
+		log.info("listing s3 objects by path: {}", path);
 		return s3.listObjectsV2(ListObjectsV2Request.builder().bucket(props.getFiles().getS3().getBucketName())
 				.prefix(path).delimiter("/").build());
 	}
@@ -108,7 +108,7 @@ public class S3FileProvider implements FileProvider {
 				}
 			}
 
-			log.info("creating key from request data");
+			log.debug("creating key from request data");
 			String key = createKeyFromRequest(request.getParent(), name, request.isDir());
 			log.info("s3 key created from request data. key: {}", key);
 			
