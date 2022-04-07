@@ -7,6 +7,8 @@ import java.util.Objects;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,6 +34,7 @@ import software.amazon.awssdk.services.s3.model.S3Object;
 @RequiredArgsConstructor
 public class S3FileProvider implements FileProvider {
 
+	private final static Logger log = LoggerFactory.getLogger(S3FileProvider.class);
 	private final SproutConfigurationProperties props;
 	private final S3Client s3;
 
@@ -88,6 +91,7 @@ public class S3FileProvider implements FileProvider {
 	}
 
 	private ListObjectsV2Response listObjectsByPath(String path) {
+		log.info("listing s3 objects by path");
 		return s3.listObjectsV2(ListObjectsV2Request.builder().bucket(props.getFiles().getS3().getBucketName())
 				.prefix(path).delimiter("/").build());
 	}
@@ -103,7 +107,10 @@ public class S3FileProvider implements FileProvider {
 					name = String.format("%s.%s", request.getName(), ext);
 				}
 			}
+
+			log.info("creating key from request data");
 			String key = createKeyFromRequest(request.getParent(), name, request.isDir());
+			log.info("s3 key created from request data. key: {}", key);
 			
 			try {
 				s3.putObject(s3Request -> {
@@ -124,6 +131,7 @@ public class S3FileProvider implements FileProvider {
 	public FileData createFile(FileDataRequest request) {
 		try {
 			String key = createKeyFromRequest(request.getParent(), request.getName(), request.isDir());
+			log.info("s3 key created from request data. key: {}", key);
 			s3.putObject(s3Request -> {
 				s3Request.bucket(props.getFiles().getS3().getBucketName());
 				s3Request.key(key);
@@ -150,6 +158,7 @@ public class S3FileProvider implements FileProvider {
 
 	private void deleteObject(String key) {
 		try {
+			log.info("s3 deleting object. key: {}", key);
 			s3.deleteObject(s3Request -> {
 				s3Request.bucket(props.getFiles().getS3().getBucketName());
 				s3Request.key(key);
@@ -161,6 +170,7 @@ public class S3FileProvider implements FileProvider {
 
 	private void deleteFolder(String key) {
 		try {
+			log.info("s3 deleting folder. key: {}", key);
 			listObjectsByPath(key).contents().forEach(o -> {
 				deleteObject(o.key());
 			});
