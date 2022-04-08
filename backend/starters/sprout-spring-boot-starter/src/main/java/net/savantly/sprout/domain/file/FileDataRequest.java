@@ -18,4 +18,8 @@ public class FileDataRequest {
 	private String color;
 	private String icon = "file";
 	private String parent;
+
+
+	private String downloadUrl;
+	private String contentType;
 }

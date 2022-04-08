@@ -27,9 +27,9 @@ import software.amazon.awssdk.awscore.exception.AwsServiceException;
 import software.amazon.awssdk.core.exception.SdkClientException;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.HeadObjectResponse;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
-import software.amazon.awssdk.services.s3.model.S3Object;
 
 @RequiredArgsConstructor
 public class S3FileProvider implements FileProvider {
@@ -53,34 +53,38 @@ public class S3FileProvider implements FileProvider {
 		final String currentPath = path;
 		final ListObjectsV2Response result = listObjectsByPath(currentPath);
 		String name = lastSegment(result.prefix());
-		if(name.isEmpty()) {
-			name ="/";
+		if (name.isEmpty()) {
+			name = "/";
 		}
-		final FileDataResponse response = new FileDataResponse().setDir(true).setId(result.prefix())
-				.setName(name);
+		final FileDataResponse response = new FileDataResponse().setDir(true).setId(result.prefix()).setName(name);
 
 		// add common prefixes as directories
 		result.commonPrefixes().forEach(f -> {
 			FileDataDto folder = new FileDataDto().setDir(true).setId(f.prefix()).setName(lastSegment(f.prefix()));
 			ListObjectsV2Response folderObjects = listObjectsByPath(f.prefix());
-			folder.setChildrenCount(folderObjects.contents().size()-1l);
+			folder.setChildrenCount(folderObjects.contents().size() - 1l);
 			response.getChildren().add(folder);
 		});
 
 		// Add objects as children
 		result.contents().forEach(f -> {
-			if(!f.key().contentEquals(currentPath)) {
-				response.getChildren().add(convert(f));
+			S3ObjectLike s3Object = mapS3HeadObject(f.key(), s3.headObject(hRequest -> {
+				hRequest.key(f.key());
+			}));
+			if (!f.key().contentEquals(currentPath)) {
+				response.getChildren().add(convert(s3Object));
 			}
 		});
-		final SortedSet<FolderChainItem> chain = createFolderChainFromDirPath(currentPath, new TreeSet<FolderChainItem>(), 0);
+		final SortedSet<FolderChainItem> chain = createFolderChainFromDirPath(currentPath,
+				new TreeSet<FolderChainItem>(), 0);
 		response.setFolderChain(chain);
 		return response;
 	}
 
-	private SortedSet<FolderChainItem> createFolderChainFromDirPath(String path, TreeSet<FolderChainItem> chain, int position) {
+	private SortedSet<FolderChainItem> createFolderChainFromDirPath(String path, TreeSet<FolderChainItem> chain,
+			int position) {
 		String name = lastSegment(path);
-		if(!name.isEmpty()) {
+		if (!name.isEmpty()) {
 			chain.add(new SimpleFolderChainItem().setDir(true).setId(path).setName(name).setPosition(position));
 			String parentPath = allButLastSegment(path);
 			createFolderChainFromDirPath(parentPath, chain, --position);
@@ -102,23 +106,25 @@ public class S3FileProvider implements FileProvider {
 			String name = file.getOriginalFilename();
 			if (Objects.nonNull(request.getName()) && !request.getName().isEmpty()) {
 				name = request.getName();
-				if(!hasExtension(request.getName())) {
+				if (!hasExtension(request.getName())) {
 					String ext = extractExtension(file.getOriginalFilename());
 					name = String.format("%s.%s", request.getName(), ext);
 				}
 			}
 
 			log.debug("creating key from request data");
-			String key = createKeyFromRequest(request.getParent(), name, request.isDir());
-			log.info("s3 key created from request data. key: {}", key);
-			
+
+			S3ObjectLike s3Object = convertRequestToS3ObjectLike(request);
+
+			log.info("s3 key created from request data. key: {}", s3Object.getKey());
+
 			try {
 				s3.putObject(s3Request -> {
 					s3Request.bucket(props.getFiles().getS3().getBucketName());
-					s3Request.key(key);
+					s3Request.key(s3Object.getKey());
 				}, RequestBody.fromBytes(file.getBytes()));
 
-				return new FileDataDto().setId(key).setDir(false).setName(request.getName()).setParent(request.getParent());
+				return convert(s3Object);
 			} catch (AwsServiceException | SdkClientException | IOException e) {
 				throw new FileUploadException(e.getLocalizedMessage());
 			}
@@ -129,15 +135,15 @@ public class S3FileProvider implements FileProvider {
 
 	@Override
 	public FileData createFile(FileDataRequest request) {
+		S3ObjectLike s3Object = convertRequestToS3ObjectLike(request);
 		try {
-			String key = createKeyFromRequest(request.getParent(), request.getName(), request.isDir());
-			log.info("s3 key created from request data. key: {}", key);
+			log.info("s3 key created from request data. key: {}", s3Object.getKey());
 			s3.putObject(s3Request -> {
 				s3Request.bucket(props.getFiles().getS3().getBucketName());
-				s3Request.key(key);
+				s3Request.key(s3Object.getKey());
 			}, RequestBody.empty());
 
-			return new FileDataDto().setId(key).setDir(request.isDir()).setName(request.getName()).setParent(allButLastSegment(key));
+			return convert(s3Object);
 		} catch (AwsServiceException | SdkClientException e) {
 			throw new FileUploadException(e.getLocalizedMessage());
 		}
@@ -180,25 +186,12 @@ public class S3FileProvider implements FileProvider {
 		}
 	}
 
-	private FileDataDto convert(S3Object f) {
-		return new FileDataDto()
-			.setId(f.key())
-			.setName(lastSegment(f))
-			.setParent(allButLastSegment(f.key()))
-			.setDownloadUrl(createDownloadUrlFromKey(f.key()))
-			.setModDate(ZonedDateTime.ofInstant(f.lastModified(), ZoneId.systemDefault()));
-	}
-
 	private String createDownloadUrlFromKey(String key) {
 		String path = key;
 		if (!StringUtils.startsWithIgnoreCase(path, "/")) {
 			path = "/" + path;
 		}
 		return String.format("/api/files/s3/download%s", path);
-	}
-
-	private String lastSegment(S3Object f) {
-		return lastSegment(f.key());
 	}
 
 	private String lastSegment(String key) {
@@ -234,12 +227,12 @@ public class S3FileProvider implements FileProvider {
 		}
 		return String.format("%s%s%s", parent, itemName, postfix);
 	}
-	
+
 	private String extractExtension(String originalFilename) {
 		if (Objects.nonNull(originalFilename)) {
 			String[] parts = originalFilename.split("\\.");
 			if (parts.length > 1) {
-				return parts[parts.length-1];
+				return parts[parts.length - 1];
 			}
 		}
 		return "";
@@ -247,6 +240,53 @@ public class S3FileProvider implements FileProvider {
 
 	private boolean hasExtension(String name) {
 		return (Objects.nonNull(name) && name.contains("."));
+	}
+
+	private FileDataDto convert(S3ObjectLike f) {
+		return new FileDataDto().setId(f.getKey()).setName(lastSegment(f.getKey()))
+				.setParent(allButLastSegment(f.getKey())).setDownloadUrl(createDownloadUrlFromKey(f.getKey()))
+				.setContentType(f.getContentType()).setModDate(f.getLastModifiedDate());
+	}
+
+	private S3ObjectLike convertRequestToS3ObjectLike(FileDataRequest request) {
+		return new S3ObjectLike() {
+
+			@Override
+			public String getKey() {
+				return createKeyFromRequest(request.getParent(), request.getName(), request.isDir());
+			}
+
+			@Override
+			public ZonedDateTime getLastModifiedDate() {
+				return ZonedDateTime.now();
+			}
+
+			@Override
+			public String getContentType() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		};
+	}
+
+	private S3ObjectLike mapS3HeadObject(String s3Key, HeadObjectResponse headObject) {
+		return new S3ObjectLike() {
+
+			@Override
+			public ZonedDateTime getLastModifiedDate() {
+				return ZonedDateTime.ofInstant(headObject.lastModified(), ZoneId.of("Z"));
+			}
+
+			@Override
+			public String getKey() {
+				return s3Key;
+			}
+
+			@Override
+			public String getContentType() {
+				return headObject.contentType();
+			}
+		};
 	}
 
 }
