@@ -20,6 +20,7 @@ import net.savantly.sprout.domain.file.s3.S3FileProvider;
 import net.savantly.sprout.test.MinioContainer;
 import software.amazon.awssdk.auth.credentials.AwsCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.Bucket;
 import software.amazon.awssdk.services.s3.model.CreateBucketResponse;
@@ -65,6 +66,7 @@ public class S3FileProviderTest {
 
 	private S3Client getClient(MinioContainer container) throws URISyntaxException {
 		return S3Client.builder().endpointOverride(new URI("http://" + container.getHostAddress()))
+				.region(Region.US_EAST_2)
 				.credentialsProvider(StaticCredentialsProvider.create(new AwsCredentials() {
 
 					@Override
