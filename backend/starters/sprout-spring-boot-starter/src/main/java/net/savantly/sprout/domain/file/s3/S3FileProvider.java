@@ -70,6 +70,7 @@ public class S3FileProvider implements FileProvider {
 		result.contents().forEach(f -> {
 			S3ObjectLike s3Object = mapS3HeadObject(f.key(), s3.headObject(hRequest -> {
 				hRequest.key(f.key());
+				hRequest.bucket(props.getFiles().getS3().getBucketName());
 			}));
 			if (!f.key().contentEquals(currentPath)) {
 				response.getChildren().add(convert(s3Object));
@@ -96,7 +97,8 @@ public class S3FileProvider implements FileProvider {
 
 	private ListObjectsV2Response listObjectsByPath(String path) {
 		log.info("listing s3 objects by path: {}", path);
-		return s3.listObjectsV2(ListObjectsV2Request.builder().bucket(props.getFiles().getS3().getBucketName())
+		return s3.listObjectsV2(ListObjectsV2Request.builder()
+				.bucket(props.getFiles().getS3().getBucketName())
 				.prefix(path).delimiter("/").build());
 	}
 
