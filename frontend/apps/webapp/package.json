@@ -120,7 +120,11 @@
     "focus-visible": "~5.2.0",
     "@emotion/core": "^10.0.27",
     "react-focus-lock": "~2.5.2",
-    "query-string": "~7.0.1"
+    "query-string": "~7.0.1",
+    "@sentry/react": "~6.19.6",
+    "@sentry/tracing": "~6.19.6",
+    "@sentry/cli": "~2.0.2",
+    "@sentry/browser": "~6.19.6"
   },
   "resolutions": {
     "**/@typescript-eslint/eslint-plugin": "^4.1.1",

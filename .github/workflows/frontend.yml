@@ -82,6 +82,14 @@ jobs:
         run: node common/scripts/install-run-rush.js build -T webapp --verbose
         env:
           CI: false
+
+      # Release to Sentry.io
+      - name: Rush Client Projects
+        run: cd ./frontend/apps/webapp && node ./scripts/sentry.js
+        env:
+          CI: false
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          REACT_APP_SENTRY_RELEASE: ${GITHUB_SHA::8}
       
       # Build and deploy the UI components Storybook
       - name: Build Storybook

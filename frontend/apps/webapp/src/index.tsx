@@ -1,5 +1,7 @@
 import { AppEvents, eventBus, standardEditorsRegistry, UrlQueryValue, UserContext } from '@savantly/sprout-api';
 import { config, setLocationSrv, setUserContextService } from '@savantly/sprout-runtime';
+import * as Sentry from '@sentry/react';
+import { BrowserTracing } from '@sentry/tracing';
 import { getStandardOptionEditors } from '@sprout-platform/ui';
 import { setChonkyDefaults } from 'chonky';
 import { ChonkyIconFA } from 'chonky-icon-fontawesome';
@@ -22,6 +24,16 @@ import * as serviceWorker from './serviceWorker';
 import { configureStore, history } from './store/configureStore';
 import { CoreEvents, KioskUrlValue } from './types';
 
+Sentry.init({
+  dsn: 'https://2d8dd62d4b734cfb80248f3728d08c53@o1204832.ingest.sentry.io/6333142',
+  release: process.env.REACT_APP_SENTRY_RELEASE,
+  integrations: [new BrowserTracing()],
+
+  // We recommend adjusting this value in production, or using tracesSampler
+  // for finer control
+  tracesSampleRate: 1.0
+});
+
 setChonkyDefaults({ iconComponent: ChonkyIconFA });
 
 const store = configureStore();
@@ -34,7 +46,7 @@ setUserContextService({
   getUserContext: (): UserContext => {
     return store.getState().authentication;
   }
-})
+});
 /*** END runtime services ***/
 
 const location = window.location;
