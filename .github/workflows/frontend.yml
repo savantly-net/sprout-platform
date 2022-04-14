@@ -84,7 +84,7 @@ jobs:
           CI: false
 
       # Release to Sentry.io
-      - name: Rush Client Projects
+      - name: Release to Sentry.io
         run: cd ./frontend/apps/webapp && node ./scripts/sentry.js
         env:
           CI: false
