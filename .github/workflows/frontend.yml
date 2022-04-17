@@ -82,14 +82,6 @@ jobs:
         run: node common/scripts/install-run-rush.js build -T webapp --verbose
         env:
           CI: false
-
-      # Release to Sentry.io
-      - name: Release to Sentry.io
-        run: cd ./frontend/apps/webapp && node ./scripts/sentry.js
-        env:
-          CI: false
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          REACT_APP_SENTRY_RELEASE: ${GITHUB_SHA::8}
       
       # Build and deploy the UI components Storybook
       - name: Build Storybook
@@ -151,6 +143,15 @@ jobs:
       - name: Build Webapp
         id: build_web_app
         run: cd ./frontend/apps/webapp && yarn build || echo 0
+        env:
+          CI: false
+
+      # Release to Sentry.io
+      - name: Release to Sentry.io
+        run: cd ./frontend/apps/webapp && node ./scripts/sentry.js
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          REACT_APP_SENTRY_RELEASE: ${GITHUB_SHA::8}
       
       # Build and push web docker image
       - name: Build and push Webapp Image
