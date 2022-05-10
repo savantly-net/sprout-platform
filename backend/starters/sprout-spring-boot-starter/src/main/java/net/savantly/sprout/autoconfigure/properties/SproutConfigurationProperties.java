@@ -143,6 +143,7 @@ public class SproutConfigurationProperties {
 		private String tokenUrl;
 		private String userInfoUrl;
 		private String jwksUrl;
+		private String logoutUrl;
 		private boolean autoLogin;
 		private OAuthFlowType flowType;
 	}
