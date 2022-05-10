@@ -155,6 +155,7 @@ public class SproutConfigurationProperties {
 		private OAuth oauth = new OAuth();
 		private Basic basic = new Basic();
 		private Anonymous anonymous = new Anonymous();
+		private String logoutUrl = "/api/logout";
 	}
 	
 	@Getter

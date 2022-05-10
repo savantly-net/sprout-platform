@@ -44,8 +44,8 @@ public class DomainConfiguration {
 
 
 	@Bean
-	public AccountApi defaultAccountApi() {
-		return new AccountApi();
+	public AccountApi defaultAccountApi(SproutConfigurationProperties props) {
+		return new AccountApi(props.getSecurity().getAuthentication().getLogoutUrl());
 	}
 
 	@Bean
