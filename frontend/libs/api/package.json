@@ -67,8 +67,5 @@
   "peerDependencies": {
     "react": "^16.13.1"
   },
-  "engines": {
-    "node": ">=12 <13"
-  },
   "gitHead": "30ec9712e7dba721a10f4e2239c836ef68fbce9a"
 }

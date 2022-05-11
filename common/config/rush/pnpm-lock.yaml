@@ -33,7 +33,7 @@ dependencies:
   '@rush-temp/sprout-tsconfig': 'file:projects/sprout-tsconfig.tgz'
   '@rush-temp/sprout-ui': 'file:projects/sprout-ui.tgz_ef70b55bdecafcca78ac60b4015d2861'
   '@rush-temp/ui': 'file:projects/ui.tgz_ff52aab248c6201fd6535c5dc370b84e'
-  '@rush-temp/webapp': 'file:projects/webapp.tgz_@babel+core@7.12.3'
+  '@rush-temp/webapp': 'file:projects/webapp.tgz_445a66cdb3400d10aa7aa094014ad239'
   '@sentry/browser': 6.19.6
   '@sentry/cli': 2.0.2
   '@sentry/react': 6.19.6_react@16.14.0
@@ -236,7 +236,7 @@ dependencies:
   react-redux: 7.2.1_bbabd8c34ea235719dc50e75b43f85a4
   react-router: 5.2.0_react@16.14.0
   react-router-dom: 6.0.0-beta.0_3a8d3a2ec439ed05f71d417ec8c7ed2c
-  react-scripts: 3.4.3_node-sass@4.14.1
+  react-scripts: 3.4.3_node-sass@4.14.1+sass@1.51.0
   react-select: 5.2.1_95dbe1986b15e1177d1e1a0df654854e
   react-sizeme: 2.6.12_react-dom@16.14.0+react@16.14.0
   react-split-pane: 2.0.3
@@ -267,6 +267,7 @@ dependencies:
   rollup-plugin-terser: 7.0.2_rollup@2.35.1
   rollup-plugin-typescript2: 0.26.0_rollup@2.35.1
   rollup-plugin-visualizer: 3.3.1_rollup@2.35.1
+  sass: 1.51.0
   sass-loader: 7.1.0_webpack@4.42.0
   semver: 7.3.2
   simple-git: 1.132.0
@@ -17002,6 +17003,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-wkOZUUVbs5kT2vKBN28VMOEErfM=
+  /immutable/4.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-zIE9hX70qew5qTUjSS7wi1iwj/l7+m54KWU247nhM3v806UdGj1yDndXj+IOYxxtW9zyLI+xqFNZjTuDaLUqFw==
   /import-cwd/2.1.0:
     dependencies:
       import-from: 2.1.0
@@ -24015,7 +24020,7 @@ packages:
       integrity: sha512-OfBnObtnGgLGfweORmdZbyEz+3dgVePQBb3zipiaDsMHV1NpWm0rDFYIVXFV/AK+x4VIIfWHhrdMIeoTLyRr2g==
   /react-app-rewired/2.1.6_react-scripts@3.4.3:
     dependencies:
-      react-scripts: 3.4.3_node-sass@4.14.1
+      react-scripts: 3.4.3_node-sass@4.14.1+sass@1.51.0
       semver: 5.7.1
     dev: false
     hasBin: true
@@ -24851,7 +24856,7 @@ packages:
       react: '>=16.8'
     resolution:
       integrity: sha512-VgMdfpVcmFQki/LZuLh8E/MNACekDetz4xqft+a6fBZvvJnVqKbLqebF7hyoawGrV1HcO5tVaUang2Og4W2j1Q==
-  /react-scripts/3.4.3_5bef26289a0d9b265b919ddb2259fc0d:
+  /react-scripts/3.4.3_157ccecdaab01041ea23429129ad5e5b:
     dependencies:
       '@babel/core': 7.9.0
       '@svgr/webpack': 4.3.3
@@ -24895,7 +24900,7 @@ packages:
       react-dev-utils: 10.2.1
       resolve: 1.15.0
       resolve-url-loader: 3.1.1
-      sass-loader: 8.0.2_node-sass@4.14.1+webpack@4.42.0
+      sass-loader: 8.0.2_29cb0226a660ed33509959446256e8be
       semver: 6.3.0
       style-loader: 0.23.1
       terser-webpack-plugin: 2.3.8_webpack@4.42.0
@@ -24914,13 +24919,14 @@ packages:
       fsevents: 2.1.2
     peerDependencies:
       node-sass: '*'
+      sass: '*'
       typescript: ^3.2.1
     peerDependenciesMeta:
       typescript:
         optional: true
     resolution:
       integrity: sha512-oSnoWmii/iKdeQiwaO6map1lUaZLmG0xIUyb/HwCVFLT7gNbj8JZ9RmpvMCZ4fB98ZUMRfNmp/ft8uy/xD1RLA==
-  /react-scripts/3.4.3_node-sass@4.14.1:
+  /react-scripts/3.4.3_node-sass@4.14.1+sass@1.51.0:
     dependencies:
       '@babel/core': 7.9.0
       '@svgr/webpack': 4.3.3
@@ -24965,7 +24971,8 @@ packages:
       react-dev-utils: 10.2.1
       resolve: 1.15.0
       resolve-url-loader: 3.1.1
-      sass-loader: 8.0.2_node-sass@4.14.1+webpack@4.42.0
+      sass: 1.51.0
+      sass-loader: 8.0.2_29cb0226a660ed33509959446256e8be
       semver: 6.3.0
       style-loader: 0.23.1
       terser-webpack-plugin: 2.3.8_webpack@4.42.0
@@ -24983,6 +24990,7 @@ packages:
       fsevents: 2.1.2
     peerDependencies:
       node-sass: '*'
+      sass: '*'
       typescript: ^3.2.1
     peerDependenciesMeta:
       typescript:
@@ -26394,12 +26402,13 @@ packages:
       webpack: ^3.0.0 || ^4.0.0
     resolution:
       integrity: sha512-+G+BKGglmZM2GUSfT9TLuEp6tzehHPjAMoRRItOojWIqIGPloVCMhNIQuG639eJ+y033PaGTSjLaTHts8Kw79w==
-  /sass-loader/8.0.2_node-sass@4.14.1+webpack@4.42.0:
+  /sass-loader/8.0.2_29cb0226a660ed33509959446256e8be:
     dependencies:
       clone-deep: 4.0.1
       loader-utils: 1.4.0
       neo-async: 2.6.2
       node-sass: 4.14.1
+      sass: 1.51.0
       schema-utils: 2.7.1
       semver: 6.3.0
       webpack: 4.42.0_webpack@4.42.0
@@ -26420,6 +26429,17 @@ packages:
         optional: true
     resolution:
       integrity: sha512-7o4dbSK8/Ol2KflEmSco4jTjQoV988bM82P9CZdmo9hR3RLnvNc0ufMNdMrB0caq38JQ/FgF4/7RcbcfKzxoFQ==
+  /sass/1.51.0:
+    dependencies:
+      chokidar: 3.4.3
+      immutable: 4.0.0
+      source-map-js: 1.0.2
+    dev: false
+    engines:
+      node: '>=12.0.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-haGdpTgywJTvHC2b91GSq+clTKGbtkkZmVAb82jZQN/wTy6qs8DdFm2lhEQbEwrY0QDRgSQ3xDurqM977C3noA==
   /sax/1.2.4:
     dev: false
     resolution:
@@ -26977,6 +26997,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-qnQ7gVMxGNxsiL4lEuJwe/To8UnK7fAnmbGEEH8RpLouuKbeEm0lhbQVFIrNSuB+G7tVrAlVsZgETT5nljf+Iw==
+  /source-map-js/1.0.2:
+    dev: false
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==
   /source-map-resolve/0.5.3:
     dependencies:
       atob: 2.1.2
@@ -27753,10 +27779,6 @@ packages:
       node: '>= 0.12'
     resolution:
       integrity: sha512-2CW5SU4/Ki1cYOOHcL2cXK4rxSg5hCU1TwZ7X4euKhV9VnfqKslh7T6/UyKkubA8cq2tOmsOv7m3ZUmQslBRuw==
-  /systemjs-plugin-babel/0.0.25:
-    dev: false
-    resolution:
-      integrity: sha512-RMKSizWWlw4+IpDB385ugxn7Owd9W+HEtjYDQ6yO1FpsnER/vk6FbXRweUF+mvRi6EHgk8vDdUdtui7ReDwX3w==
   /systemjs-plugin-css/0.1.37:
     dev: false
     resolution:
@@ -30720,7 +30742,7 @@ packages:
       integrity: sha512-mzPCmu8sj+Rqg/1KXAY/BElwGXYW0FjA9HdOMcvMYm/fNrt3AbWtV0NDIuHi0NJ1Xr2J9Fhfx0CzPBg9BHXRNA==
       tarball: 'file:projects/ui.tgz'
     version: 0.0.0
-  'file:projects/webapp.tgz_@babel+core@7.12.3':
+  'file:projects/webapp.tgz_445a66cdb3400d10aa7aa094014ad239':
     dependencies:
       '@chakra-ui/icons': 1.0.14_7c23df579046bc0aeb469f4b21b65129
       '@chakra-ui/react': 1.7.1_c40e377fa2387f292a60c9d41ed9a5c6
@@ -30796,7 +30818,6 @@ packages:
       memoize-one: 5.1.1
       moment: 2.29.1
       moxios: 0.4.0_axios@0.21.1
-      node-sass: 4.14.1
       query-string: 7.0.1
       react: 16.14.0
       react-app-rewired: 2.1.6_react-scripts@3.4.3
@@ -30815,7 +30836,7 @@ packages:
       react-redux: 7.2.1_bbabd8c34ea235719dc50e75b43f85a4
       react-router: 5.2.0_react@16.14.0
       react-router-dom: 6.0.0-beta.0_3a8d3a2ec439ed05f71d417ec8c7ed2c
-      react-scripts: 3.4.3_5bef26289a0d9b265b919ddb2259fc0d
+      react-scripts: 3.4.3_157ccecdaab01041ea23429129ad5e5b
       react-sizeme: 2.6.12_react-dom@16.14.0+react@16.14.0
       react-split-pane: 2.0.3
       react-test-renderer: 16.13.1_react@16.14.0
@@ -30834,8 +30855,8 @@ packages:
       redux-promise-middleware: 6.1.2_redux@4.0.5
       redux-thunk: 2.3.0
       rxjs: 6.6.3
+      sass: 1.51.0
       sinon: 8.1.1
-      systemjs-plugin-babel: 0.0.25
       tether-drop: 1.4.2
       tinycolor2: 1.4.2
       ts-bus: 2.3.1_react@16.14.0
@@ -30846,8 +30867,9 @@ packages:
     name: '@rush-temp/webapp'
     peerDependencies:
       '@babel/core': '*'
+      node-sass: '*'
     resolution:
-      integrity: sha512-ERuqSQsQ8u3cZsCRjpcniP6/PVXOUtzBWSqkLVtzd4KZNqLj4PReWzJasFZcwIxyD6LdsXLABqBzHKNjYCm3cA==
+      integrity: sha512-vFR1zzS2D9EksCA4gTA1YDZlLPaElBr9AI3RMX+Iz0fGcumUMOdHZxJHzPBFHWKyaZ5fCRTUc0+XRGBAgzHLXw==
       tarball: 'file:projects/webapp.tgz'
     version: 0.0.0
 registry: ''
@@ -31120,6 +31142,7 @@ specifiers:
   rollup-plugin-terser: ^7.0.2
   rollup-plugin-typescript2: 0.26.0
   rollup-plugin-visualizer: 3.3.1
+  sass: ^1.51.0
   sass-loader: 7.1.0
   semver: ^7.1.3
   simple-git: ^1.132.0

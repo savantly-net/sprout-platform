@@ -1,5 +1,8 @@
-import { confirm, Spinner ,ModalRoot, ModalsProvider} from '@sprout-platform/ui';
 import { ChakraProvider } from '@chakra-ui/react';
+import { css, Global } from '@emotion/core';
+import { ModalRoot, ModalsProvider, Spinner } from '@savantly/sprout-ui';
+import { confirm } from '@sprout-platform/ui';
+import 'focus-visible/dist/focus-visible';
 import { uniqueId } from 'lodash';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,8 +19,6 @@ import { LoginPage } from './features/login/LoginPage';
 import AppRoutes from './routes/AppRoutes';
 import { history } from './store/configureStore';
 import { StoreState } from './types';
-import { Global, css } from '@emotion/core';
-import 'focus-visible/dist/focus-visible';
 
 const GlobalStyles = css`
   /*

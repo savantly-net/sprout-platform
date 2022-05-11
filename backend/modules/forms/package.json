@@ -33,9 +33,6 @@
     "prettier-eslint": "^11.0.0",
     "prettier-eslint-cli": "^5.0.0"
   },
-  "engines": {
-    "node": ">=12 <13"
-  },
   "dependencies": {
     "formik": "~2.2.0",
     "history": "^5",

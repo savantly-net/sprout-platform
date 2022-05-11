@@ -85,7 +85,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2.5.1
         with:
-          node-version: '12'
+          node-version: '14'
       - id: install-secret-key
         name: Install gpg secret key
         run: |
