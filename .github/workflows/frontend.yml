@@ -39,7 +39,7 @@ jobs:
 
       # Caching
       - name: Cache Rush temp files
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             common/temp
@@ -48,7 +48,7 @@ jobs:
             ${{ runner.os }}-rush-
 
       - name: Cache NPM
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -59,7 +59,7 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache Yarn
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -103,7 +103,7 @@ jobs:
       
       # Cache Docker layers
       - name: Cache Docker layers
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ github.sha }}
