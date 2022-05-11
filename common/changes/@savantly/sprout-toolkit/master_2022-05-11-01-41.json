@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@savantly/sprout-toolkit",
+      "comment": "update to node 14",
+      "type": "none"
+    }
+  ],
+  "packageName": "@savantly/sprout-toolkit",
+  "email": "jeremy@savantly.net"
+}

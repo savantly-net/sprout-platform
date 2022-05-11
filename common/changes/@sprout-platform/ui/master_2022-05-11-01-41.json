@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@sprout-platform/ui",
+      "comment": "update to node 14",
+      "type": "none"
+    }
+  ],
+  "packageName": "@sprout-platform/ui",
+  "email": "jeremy@savantly.net"
+}

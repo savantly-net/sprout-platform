@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "webapp",
+      "comment": "update to node 14",
+      "type": "none"
+    }
+  ],
+  "packageName": "webapp",
+  "email": "jeremy@savantly.net"
+}

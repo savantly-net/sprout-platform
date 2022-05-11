@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@savantly/sprout-runtime",
+      "comment": "update to node 14",
+      "type": "none"
+    }
+  ],
+  "packageName": "@savantly/sprout-runtime",
+  "email": "jeremy@savantly.net"
+}
