@@ -1630,7 +1630,7 @@
 "@savantly/sprout-api@2.0.0-41":
   version "2.0.0-41"
   resolved "https://registry.yarnpkg.com/@savantly/sprout-api/-/sprout-api-2.0.0-41.tgz#6684b7da732d1c397051973074f9080bacf60118"
-  integrity sha512-R8jBzEacINk431RbvIDQcLuGPJtIcnFpHfpiKJbTMQ7vBpyQlepztVPTJXLsvMbxBcW/y9NClta3aGvJ3HbuOA==
+  integrity sha512-ZmZ2YHaeoCF4XqDmYCvrXy/1fN6bDXppNdMRsF0e7d7PaSJgJocxkx2gKVW809mJsxFVMtc790uuhbWFYIvRiA==
   dependencies:
     "@braintree/sanitize-url" "4.0.0"
     "@reduxjs/toolkit" "^1.4.0"
@@ -1638,7 +1638,7 @@
     "@types/tinycolor2" "^1.4.2"
     "@types/uuid" "^8.3.0"
     apache-arrow "0.16.0"
-    axios "~0.20.0"
+    axios "~0.21.1"
     lodash "^4.17.20"
     marked "^1.1.1"
     rxjs "~6.6.3"
@@ -1650,18 +1650,16 @@
 "@savantly/sprout-runtime@2.0.0-41":
   version "2.0.0-41"
   resolved "https://registry.yarnpkg.com/@savantly/sprout-runtime/-/sprout-runtime-2.0.0-41.tgz#bf495fb6a73ed3cc983c598d8e6d43a30cb5b7e8"
-  integrity sha512-7vPQ6ZqoCA3EhDxMbIYQJMWgZC+aRfaX5tt92hqY4Cei/i3/Y93/GbVGQkJjWk1VxSCq8tZTJEPQavP7cuaocQ==
+  integrity sha512-Cw8vNq+0PkFeoHGe1d9WM1nZDhPUu2HRk896cVB7KQrj70kgClDU05fwB6qQea2Ci+lW1ltDu2jJs2pohoOijw==
   dependencies:
-    "@savantly/sprout-api" "2.0.0-41"
-    "@savantly/sprout-ui" "2.0.0-41"
-    axios "~0.20.0"
-    systemjs "0.20.19"
+    axios "~0.21.1"
+    systemjs "^0.21.5"
     systemjs-plugin-css "0.1.37"
 
 "@savantly/sprout-toolkit@2.0.0-41":
   version "2.0.0-41"
   resolved "https://registry.yarnpkg.com/@savantly/sprout-toolkit/-/sprout-toolkit-2.0.0-41.tgz#b8b3dc8bc94c5d8885628d3823138b01167c1d1c"
-  integrity sha512-fpkI4633Buy+OijWoKxF8Y6EpT3igvj/6Xhb+LXD3D8M/v79A/ET6csVKRBcwstbCM2rmJsCLliPhPwgi4Y7nw==
+  integrity sha512-DBebECQnIT/K4ceJKj3n/G27Tb8urgR1J92Y/nVz07x5ap5zYRdkyuGo+EjPXylTouoqYS/QgxhnU0vCSD1YUw==
   dependencies:
     "@babel/core" "^7.12.3"
     "@babel/preset-env" "^7.12.1"
@@ -1686,7 +1684,7 @@
     "@types/webpack" "^4.41.7"
     "@typescript-eslint/eslint-plugin" "^4.1.1"
     "@typescript-eslint/parser" "^4.1.1"
-    axios "~0.20.0"
+    axios "~0.21.1"
     babel-jest "^24.8"
     babel-loader "^8.1.0"
     babel-plugin-angularjs-annotate "0.10.0"
@@ -1754,7 +1752,7 @@
 "@savantly/sprout-ui@2.0.0-41":
   version "2.0.0-41"
   resolved "https://registry.yarnpkg.com/@savantly/sprout-ui/-/sprout-ui-2.0.0-41.tgz#9ec34ade2939d7d4b8ba164da254a3fdfa6898e2"
-  integrity sha512-A/VsvDcrup5ibLfYn9NxLIhumByF99qGVrGTCDgGOOVpuSl7iggDQz9yKyBWqPzqbutzZD/Wx0YquZ7ZgFRbmw==
+  integrity sha512-GYt12YJzY0Z9b/kQKl/EMe+/GI2fsNpbPnD/NlISFOt5zIaw4sces2EcPx4MA8SLcvzDdBpeG9kt7ueIOT5M0w==
   dependencies:
     "@emotion/core" "^10.0.27"
     "@grafana/e2e-selectors" "^7.2.0"
@@ -1835,7 +1833,7 @@
 "@sprout-platform/ui@2.0.0-41":
   version "2.0.0-41"
   resolved "https://registry.yarnpkg.com/@sprout-platform/ui/-/ui-2.0.0-41.tgz#8e919924c8a135d9b58e4f5072ed680b8e787c8d"
-  integrity sha512-CahgmuN5uk6Dp1wowhGwfQsAH7tgUQGGiHYF7VhWHMBL/khggK/rU50pXPwbHLxaytaWbT3zwENZW+dmuC+BQQ==
+  integrity sha512-0Hgw428O7ulktI8khR2kXv+9L0V7I3HvzelvQK/tROg/jWGx18I4LZO3eL3in+o7tW+wO51DtsGvWBXULv9OCQ==
   dependencies:
     "@emotion/core" "^10.0.27"
     "@fortawesome/fontawesome-svg-core" "~1.2.32"
@@ -1843,26 +1841,48 @@
     "@fortawesome/free-regular-svg-icons" "~5.15.1"
     "@fortawesome/free-solid-svg-icons" "~5.15.1"
     "@fortawesome/react-fontawesome" "~0.1.13"
+    "@grafana/e2e-selectors" "^7.2.0"
+    "@grafana/slate-react" "0.22.9-grafana"
     "@reduxjs/toolkit" "^1.4.0"
     "@savantly/sprout-api" "2.0.0-41"
     "@savantly/sprout-tsconfig" "^1.0.0"
-    axios "~0.20.0"
+    "@savantly/sprout-ui" "2.0.0-41"
+    "@torkelo/react-select" "3.0.8"
+    "@types/hoist-non-react-statics" "^3.3.1"
+    "@types/react-select" "3.0.8"
+    "@types/slate-react" "0.22.5"
+    axios "~0.21.1"
     bootstrap "~4.5.3"
     classnames "^2.2.6"
+    common-tags "^1.8.0"
+    csstype "2.6.7"
     emotion "^10.0.27"
     esrever "0.2.0"
     formik "~2.2.0"
     handlebars "~4.7.6"
+    hoist-non-react-statics "^3.3.2"
     lodash "^4.17.20"
+    memoize-one "^5.1.1"
+    popper.js "1.16.1"
     react "^16.13.1"
     react-ace "~9.2.1"
     react-bootstrap-table-next "^4.0.3"
+    react-calendar "2.19.2"
+    react-color "2.18.0"
+    react-custom-scrollbars "4.2.1"
     react-datetime "~3.0.4"
     react-dom "^16.13.1"
+    react-hook-form "5.1.3"
     react-markdown "~5.0.3"
     react-mde "~11.0.0"
+    react-popper "1.3.3"
     react-router-dom "6.0.0-beta.0"
+    react-select "~5.2.1"
+    react-transition-group "^4.4.1"
+    react-use "^15.3.4"
     reactstrap "~8.6.0"
+    slate "0.47.8"
+    tinycolor2 "^1.4.2"
     ts-bus "~2.3.1"
 
 "@torkelo/react-select@3.0.8":
