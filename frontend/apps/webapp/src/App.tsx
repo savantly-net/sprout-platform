@@ -1,7 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { css, Global } from '@emotion/core';
-import { ModalRoot, ModalsProvider, Spinner } from '@savantly/sprout-ui';
-import { confirm } from '@sprout-platform/ui';
+import { confirm, ModalRoot, ModalsProvider, Spinner } from '@sprout-platform/ui';
 import 'focus-visible/dist/focus-visible';
 import { uniqueId } from 'lodash';
 import React from 'react';
