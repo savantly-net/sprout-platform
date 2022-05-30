@@ -28,17 +28,6 @@ Sentry.init({
   dsn: 'https://2d8dd62d4b734cfb80248f3728d08c53@o1204832.ingest.sentry.io/6333142',
   release: process.env.REACT_APP_SENTRY_RELEASE,
   integrations: [new BrowserTracing()],
-  beforeBreadcrumb: (breadcrumb, hint) => {
-    if (breadcrumb.category === 'xhr') {
-      const data = {
-        requestBody: hint?.xhr?.__sentry_xhr__?.body,
-        response: hint?.xhr?.response,
-        responseUrl: hint?.xhr?.responseURL
-      }
-      return { ...breadcrumb, data }
-    }
-    return breadcrumb
-   },
 
   // We recommend adjusting this value in production, or using tracesSampler
   // for finer control
