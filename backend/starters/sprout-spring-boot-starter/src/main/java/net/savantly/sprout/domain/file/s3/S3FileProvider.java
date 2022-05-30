@@ -105,15 +105,6 @@ public class S3FileProvider implements FileProvider {
 	@Override
 	public FileData storeFile(FileDataRequest request, MultipartFile file) {
 		if (Objects.nonNull(file)) {
-			String name = file.getOriginalFilename();
-			if (Objects.nonNull(request.getName()) && !request.getName().isEmpty()) {
-				name = request.getName();
-				if (!hasExtension(request.getName())) {
-					String ext = extractExtension(file.getOriginalFilename());
-					name = String.format("%s.%s", request.getName(), ext);
-				}
-			}
-
 			log.debug("creating key from request data");
 
 			S3ObjectLike s3Object = convertRequestToS3ObjectLike(request);
