@@ -11,10 +11,15 @@ plugins {
 
 archivesBaseName = name
 description = "Provides dynamic content management for the Sprout Platform"
-sourceCompatibility = '1.8'
 
 //apply from: '../../../gradle/sonar.gradle'
 apply from: '../../../gradle/sonatype.gradle'
+
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(11))
+  }
+}
 
 repositories {
 	mavenCentral()

@@ -11,10 +11,15 @@ plugins {
 
 archivesBaseName = name
 description = "Test library for a Sprout Module"
-sourceCompatibility = '1.8'
 
 //apply from: "${rootProject.projectDir}/gradle/sonar.gradle"
 apply from: "${rootProject.projectDir}/gradle/sonatype.gradle"
+
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(11))
+  }
+}
 
 repositories {
 	mavenCentral()

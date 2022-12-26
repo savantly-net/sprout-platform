@@ -10,7 +10,6 @@ plugins {
 
 archivesBaseName = name
 description = "The core of the Sprout Platform"
-sourceCompatibility = '1.8'
 
 ext {
 	sonarProjectKey = "savantly-net_sprout-platform_core"
@@ -18,6 +17,12 @@ ext {
 
 apply from: '../../gradle/sonar.gradle'
 apply from: '../../gradle/sonatype.gradle'
+
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(11))
+  }
+}
 
 repositories {
 	mavenCentral()

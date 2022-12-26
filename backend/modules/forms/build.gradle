@@ -11,7 +11,6 @@ plugins {
 
 archivesBaseName = name
 description = "Provides Form integration APIs and UI components for the Sprout Platform"
-sourceCompatibility = '1.8'
 
 ext {
 	sonarProjectKey = "savantly-net_sprout-platform_forms"
@@ -19,6 +18,12 @@ ext {
 
 apply from: '../../../gradle/sonar.gradle'
 apply from: '../../../gradle/sonatype.gradle'
+
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(11))
+  }
+}
 
 repositories {
 	mavenCentral()
