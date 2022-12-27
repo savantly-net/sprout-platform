@@ -81,6 +81,10 @@ jobs:
         uses: actions/setup-node@v2.5.1
         with:
           node-version: '14'
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 5.0.x
 
       # Analyze
       - name: Analyze sprout-core
