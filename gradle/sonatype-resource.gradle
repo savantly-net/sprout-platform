@@ -2,7 +2,7 @@ ext.ossrhUsername = System.getenv('OSSRH_USER') ? System.getenv('OSSRH_USER') : 
 ext.ossrhPassword = System.getenv('OSSRH_USER_TOKEN') ? System.getenv('OSSRH_USER_TOKEN') : (project.hasProperty('ossrhPassword') ? project.ossrhPassword : '')
 
 ext.versionPostfix = project.hasProperty('versionPostfix') ? project.versionPostfix : 'SNAPSHOT'
-project.version = '2.0.1-' + versionPostfix
+project.version = '2.1.0-' + versionPostfix
 
 ext.isReleaseVersion = !version.toString().endsWith("-SNAPSHOT")
 

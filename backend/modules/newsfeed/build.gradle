@@ -6,16 +6,21 @@ plugins {
 	id 'signing'
  	id 'jacoco'
  	id 'org.sonarqube'
-	id "org.owasp.dependencycheck" version "5.3.1"
+	id "org.owasp.dependencycheck" version "7.4.1"
 	id "com.github.node-gradle.node" version "2.2.0"
 }
 
 archivesBaseName = name
 description = "Provides newsfeed APIs and UI components for the Sprout Platform"
-sourceCompatibility = '1.8'
 
 //apply from: '../../../gradle/sonar.gradle'
 apply from: '../../../gradle/sonatype.gradle'
+
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(11))
+  }
+}
 
 repositories {
 	mavenCentral()

@@ -5,13 +5,12 @@ plugins {
 	id 'java-library'
  	id 'jacoco'
  	id 'org.sonarqube'
-	id "org.owasp.dependencycheck" version "6.2.2"
+	id "org.owasp.dependencycheck" version "7.4.1"
 	id 'org.asciidoctor.convert' version '1.5.6'
 }
 
 archivesBaseName = name
 description = "A Spring Boot starter for Sprout Projects"
-sourceCompatibility = '1.8'
 
 ext {
 	sonarProjectKey = "savantly-net_sprout-platform_starter"
@@ -19,6 +18,12 @@ ext {
 
 apply from: "${rootProject.projectDir}/gradle/sonar.gradle"
 apply from: "${rootProject.projectDir}/gradle/sonatype.gradle"
+
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(11))
+  }
+}
 
 sourceSets {
     dev {
