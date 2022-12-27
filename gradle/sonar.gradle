@@ -37,6 +37,7 @@ task testReport(type: TestReport) {
 dependencyCheck {
     formats=['JSON', 'HTML']
     autoUpdate = true
+    assemblyAnalyzerEnabled = false
 }
 
 check.dependsOn dependencyCheckAnalyze
